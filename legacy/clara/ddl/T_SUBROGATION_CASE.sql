@@ -1,0 +1,56 @@
+-- --------------------------------------------------------------------
+-- CLR.T_SUBROGATION_CASE
+-- Subrogation cases
+-- Area: RECOVER    Copybook: SUBCAS01
+-- --------------------------------------------------------------------
+CREATE TABLE CLR.T_SUBROGATION_CASE
+  ( SUBRO_CASE_ID               CHAR(10)      NOT NULL
+  , CLAIM_ID                    CHAR(12)      NOT NULL
+  , TP_INSURER_NAME             VARCHAR(80)   NOT NULL
+  , TP_REF                      CHAR(20)
+  , DEMAND_AMT                  DECIMAL(13,2) NOT NULL
+  , DEMAND_DT                   DATE          NOT NULL
+  , SOLICITOR_VENDOR_CD         CHAR(8)
+  , LIMITATION_DT               DATE          NOT NULL
+  , CASE_STATUS                 CHAR(2)       NOT NULL
+  , SUBTRAK_REF                 CHAR(12)
+  , LAST_UPD_TS                 TIMESTAMP     NOT NULL WITH DEFAULT
+  , LAST_UPD_PGM                CHAR(8)       NOT NULL
+  , LAST_UPD_USER               CHAR(8)       NOT NULL
+  , CONSTRAINT PK_T_SUBROGATION_CASE PRIMARY KEY (SUBRO_CASE_ID)
+  )
+  CCSID EBCDIC;
+
+CREATE UNIQUE INDEX CLR.XSUBROGATION_CA_PK
+    ON CLR.T_SUBROGATION_CASE (SUBRO_CASE_ID);
+CREATE INDEX CLR.XSUBROGATION_C_CLM
+    ON CLR.T_SUBROGATION_CASE (CLAIM_ID);
+
+COMMENT ON TABLE CLR.T_SUBROGATION_CASE IS
+  'Subrogation cases';
+COMMENT ON COLUMN CLR.T_SUBROGATION_CASE.SUBRO_CASE_ID IS
+  'Case identifier';
+COMMENT ON COLUMN CLR.T_SUBROGATION_CASE.CLAIM_ID IS
+  'Claim reference';
+COMMENT ON COLUMN CLR.T_SUBROGATION_CASE.TP_INSURER_NAME IS
+  'Third-party insurer name';
+COMMENT ON COLUMN CLR.T_SUBROGATION_CASE.TP_REF IS
+  'Third-party reference';
+COMMENT ON COLUMN CLR.T_SUBROGATION_CASE.DEMAND_AMT IS
+  'Demand amount';
+COMMENT ON COLUMN CLR.T_SUBROGATION_CASE.DEMAND_DT IS
+  'Demand date';
+COMMENT ON COLUMN CLR.T_SUBROGATION_CASE.SOLICITOR_VENDOR_CD IS
+  'Solicitor (e.g. QUARRYHL)';
+COMMENT ON COLUMN CLR.T_SUBROGATION_CASE.LIMITATION_DT IS
+  'Limitation date';
+COMMENT ON COLUMN CLR.T_SUBROGATION_CASE.CASE_STATUS IS
+  'OP, LT litigation, ST settled, WO written off';
+COMMENT ON COLUMN CLR.T_SUBROGATION_CASE.SUBTRAK_REF IS
+  'Subrogation Tracker reference';
+COMMENT ON COLUMN CLR.T_SUBROGATION_CASE.LAST_UPD_TS IS
+  'Timestamp of last update';
+COMMENT ON COLUMN CLR.T_SUBROGATION_CASE.LAST_UPD_PGM IS
+  'Program that last updated the row';
+COMMENT ON COLUMN CLR.T_SUBROGATION_CASE.LAST_UPD_USER IS
+  'User or batch id that last updated the row';

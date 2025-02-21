@@ -1,0 +1,435 @@
+000100* ===============================================================*
+000200* PROGRAM    : CLRRP060                                          *
+000300* TITLE      : FRAUD REFERRAL MI (NISA-FR1 SUPPORT)              *
+000400* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION     *
+000500* AREA       : REPORT                                            *
+000600* TYPE       : BATCH / DB2                                       *
+000700* JOB / STEP : CLRQRP01 / STEP030                                *
+000800* ---------------------------------------------------------------*
+000900* PURPOSE                                                        *
+001000*   NIGHTLY/PERIODIC BATCH STEP: FRAUD REFERRAL MI (NISA-FR1     *
+001100*     SUPPORT).                                                  *
+001200*   EXECUTED BY JOB CLRQRP01, STEP030.                           *
+001300*   DB2 COMMIT AFTER EVERY 100 UPDATES.                          *
+001400*   CONDITION CODES: 00 NORMAL / 04 WARNING / 16 FAILURE.        *
+001500* ---------------------------------------------------------------*
+001600* DB2 TABLES                                                     *
+001700*   CLR.T_FRAUD_REFERRAL        READ                             *
+001800*   CLR.T_REPORT_RUN            INSERT                           *
+001900* COPYBOOKS  : FRDREF01 RPTRUN01 CLRERR01 CLRDATE1               *
+002000* CALLS      : CLRCM010                                          *
+002100* FILE       : RPTOUT   OUT CONTROL REPORT                       *
+002200* ---------------------------------------------------------------*
+002300* MAINTENANCE HISTORY                                            *
+002400* DATE       BY       REF        DESCRIPTION                     *
+002500* ---------- -------- ---------- ------------------------------- *
+002600* 1998-12-01 KBARR01             INITIAL VERSION                 *
+002700* 1999-01-29 KBARR01             Y2K: 4-DIGIT YEARS IN DATE WORK *
+002800*                                AREAS                           *
+002900* 2024-10-27 DO                  REPORT HEADINGS REALIGNED       *
+003000* ===============================================================*
+003100 IDENTIFICATION DIVISION.
+003200 PROGRAM-ID.    CLRRP060.
+003300 AUTHOR.        K. BARRACLOUGH.
+003400 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
+003500 DATE-WRITTEN.  1998-12-01.
+003600 DATE-COMPILED.
+003700 ENVIRONMENT DIVISION.
+003800 CONFIGURATION SECTION.
+003900 SOURCE-COMPUTER.  IBM-Z.
+004000 OBJECT-COMPUTER.  IBM-Z.
+004100 INPUT-OUTPUT SECTION.
+004200 FILE-CONTROL.
+004300     SELECT REPORT-FILE ASSIGN TO RPTOUT
+004400         ORGANIZATION IS SEQUENTIAL
+004500         FILE STATUS IS WS-RPTOUT-STATUS.
+004600 DATA DIVISION.
+004700 FILE SECTION.
+004800 FD  REPORT-FILE
+004900         RECORDING MODE IS F
+005000         BLOCK CONTAINS 0 RECORDS.
+005100 01  REPORT-RECORD               PIC X(133).
+005200 WORKING-STORAGE SECTION.
+005300*
+005400 01  WS-PROGRAM-INFO.
+005500     05  WS-PGM-ID               PIC X(8)   VALUE 'CLRRP060'.
+005600     05  WS-RUN-DATE             PIC X(10)  VALUE SPACES.
+005700     05  WS-RUN-TS               PIC X(26)  VALUE SPACES.
+005800     05  WS-USER-ID              PIC X(8)   VALUE SPACES.
+005900     05  WS-LAST-RUN-TS          PIC X(26)  VALUE SPACES.
+006000     05  WS-RUN-ID               PIC S9(9)  COMP VALUE ZERO.
+006100*
+006200 01  WS-SWITCHES.
+006300     05  WS-EOF-SW               PIC X      VALUE 'N'.
+006400         88  WS-END-OF-DATA                     VALUE 'Y'.
+006500     05  WS-ERROR-SW             PIC X      VALUE 'N'.
+006600         88  WS-ERROR-FOUND                     VALUE 'Y'.
+006700         88  WS-NO-ERROR                        VALUE 'N'.
+006800     05  WS-FOUND-SW             PIC X      VALUE 'N'.
+006900         88  WS-ROW-FOUND                       VALUE 'Y'.
+007000         88  WS-ROW-NOT-FOUND                   VALUE 'N'.
+007100     05  WS-RPTOUT-STATUS        PIC X(2)   VALUE SPACES.
+007200*
+007300 01  WS-COUNTERS.
+007400     05  WS-FRAUD-REFERRAL-READ  PIC S9(9)  COMP-3 VALUE ZERO.
+007500     05  WS-REPORT-RUN-WRITTEN   PIC S9(9)  COMP-3 VALUE ZERO.
+007600     05  WS-REJECT-CNT           PIC S9(9)  COMP-3 VALUE ZERO.
+007700     05  WS-SINCE-COMMIT         PIC S9(9)  COMP-3 VALUE ZERO.
+007800     05  WS-COMMIT-FREQ          PIC S9(9)  COMP-3 VALUE +100.
+007900*
+008000 01  WS-SQL-WORK.
+008100     05  WS-SQLCODE-DSP          PIC -9(9).
+008200     05  WS-ROWS-AFFECTED        PIC S9(9)  COMP VALUE ZERO.
+008300     05  WS-IND-1                PIC S9(4)  COMP VALUE ZERO.
+008400     05  WS-IND-2                PIC S9(4)  COMP VALUE ZERO.
+008500     05  WS-NEW-ID               PIC S9(18) COMP VALUE ZERO.
+008600*
+008700     EXEC SQL INCLUDE SQLCA END-EXEC.
+008800*
+008900* COPYBOOKS (HOST STRUCTURES AND WORK AREAS)
+009000 COPY FRDREF01.
+009100 COPY RPTRUN01.
+009200 COPY CLRERR01.
+009300 COPY CLRDATE1.
+009400*
+009500* DRIVING CURSOR ON CLR.T_FRAUD_REFERRAL
+009600     EXEC SQL
+009700         DECLARE C-FRAU-REFE CURSOR WITH HOLD FOR
+009800         SELECT REF_ID, CLAIM_ID, REF_TS, REF_SCORE
+009900                , REF_THRESHOLD_APPLIED, REF_SOURCE_CD
+010000           FROM CLR.T_FRAUD_REFERRAL
+010100          WHERE LAST_UPD_TS >= :WS-LAST-RUN-TS
+010200          ORDER BY REF_ID
+010300          FOR FETCH ONLY
+010400     END-EXEC.
+010500*
+010600* CONTROL REPORT LINES
+010700 01  WS-RPT-HEAD-1.
+010800     05  FILLER                  PIC X(1)   VALUE '1'.
+010900     05  FILLER                  PIC X(10)  VALUE 'CLRRP060'.
+011000     05  FILLER                  PIC X(40)  VALUE
+011100             'FRAUD REFERRAL MI (NISA-FR1 SUPPORT)'.
+011200     05  FILLER                  PIC X(10)  VALUE 'RUN DATE: '.
+011300     05  RH1-RUN-DATE            PIC X(10).
+011400     05  FILLER                  PIC X(62)  VALUE SPACES.
+011500 01  WS-RPT-DETAIL.
+011600     05  FILLER                  PIC X(1)   VALUE SPACE.
+011700     05  RD-LABEL                PIC X(40).
+011800     05  RD-VALUE                PIC X(60).
+011900     05  FILLER                  PIC X(32)  VALUE SPACES.
+012000 01  WS-RPT-TOTAL.
+012100     05  FILLER                  PIC X(1)   VALUE SPACE.
+012200     05  RT-LABEL                PIC X(40).
+012300     05  RT-COUNT                PIC ZZZ,ZZZ,ZZ9.
+012400     05  FILLER                  PIC X(81)  VALUE SPACES.
+012500 PROCEDURE DIVISION.
+012600* ---------------------------------------------------------------*
+012700* 0000-MAINLINE                                                  *
+012800* PROGRAM CONTROL                                                *
+012900* ---------------------------------------------------------------*
+013000 0000-MAINLINE.
+013100     PERFORM 1000-INITIALISE
+013200     PERFORM 2000-PROCESS
+013300     PERFORM 9000-TERMINATE
+013400     GOBACK.
+013500* ---------------------------------------------------------------*
+013600* 1000-INITIALISE                                                *
+013700* INITIALISATION                                                 *
+013800* ---------------------------------------------------------------*
+013900 1000-INITIALISE.
+014000     MOVE FUNCTION CURRENT-DATE(1:8) TO WS-RUN-TS
+014100     STRING WS-RUN-TS(1:4) '-' WS-RUN-TS(5:2) '-' WS-RUN-TS(7:2)
+014200         DELIMITED BY SIZE INTO WS-RUN-DATE
+014300     MOVE 'CLRBATCH' TO WS-USER-ID
+014400     OPEN OUTPUT REPORT-FILE
+014500     IF WS-RPTOUT-STATUS NOT = '00'
+014600         DISPLAY 'CLRRP060 OPEN FAILED RPTOUT ' WS-RPTOUT-STATUS
+014700         MOVE 16 TO RETURN-CODE
+014800         GOBACK
+014900     END-IF
+015000     MOVE WS-RUN-DATE TO RH1-RUN-DATE
+015100     WRITE REPORT-RECORD FROM WS-RPT-HEAD-1
+015200     PERFORM 1400-GET-BUSINESS-DATE
+015300     .
+015400* ---------------------------------------------------------------*
+015500* 1400-GET-BUSINESS-DATE                                         *
+015600* DETERMINE PROCESSING DATE                                      *
+015700* ---------------------------------------------------------------*
+015800 1400-GET-BUSINESS-DATE.
+015900     MOVE WS-RUN-DATE TO DW-IN-DATE
+016000     MOVE 'UK' TO DW-CALENDAR
+016100     MOVE ZERO TO DW-BUS-DAYS
+016200     CALL 'CLRCM010' USING CLR-DATE-WORK
+016300                      CLR-ERROR-BLOCK
+016400     IF ERR-SQLCODE NOT = ZERO
+016500         MOVE 'CALL CLRCM010' TO ERR-PARA
+016600         PERFORM 8000-SQL-ERROR
+016700     END-IF
+016800     .
+016900* ---------------------------------------------------------------*
+017000* 2000-PROCESS                                                   *
+017100* MAIN PROCESSING LOOP                                           *
+017200* ---------------------------------------------------------------*
+017300 2000-PROCESS.
+017400     EXEC SQL
+017500         OPEN C-FRAU-REFE
+017600     END-EXEC
+017700     EVALUATE SQLCODE
+017800         WHEN 0
+017900             CONTINUE
+018000         WHEN OTHER
+018100             MOVE '2000-OPEN-C-FRAU-REFE' TO ERR-PARA
+018200             PERFORM 8000-SQL-ERROR
+018300     END-EVALUATE
+018400     PERFORM 2100-FETCH-NEXT
+018500     PERFORM UNTIL WS-END-OF-DATA
+018600         PERFORM 2200-PROCESS-ROW
+018700         PERFORM 2100-FETCH-NEXT
+018800     END-PERFORM
+018900     EXEC SQL
+019000         CLOSE C-FRAU-REFE
+019100     END-EXEC
+019200     .
+019300* ---------------------------------------------------------------*
+019400* 2100-FETCH-NEXT                                                *
+019500* FETCH THE NEXT DRIVING ROW                                     *
+019600* ---------------------------------------------------------------*
+019700 2100-FETCH-NEXT.
+019800     EXEC SQL
+019900         FETCH C-FRAU-REFE
+020000          INTO :FRDR-REF-ID, :FRDR-CLAIM-ID, :FRDR-REF-TS
+020100               , :FRDR-REF-SCORE, :FRDR-REF-THRESHOLD-APPLIED
+020200               , :FRDR-REF-SOURCE-CD
+020300     END-EXEC
+020400     EVALUATE SQLCODE
+020500         WHEN 0
+020600             ADD 1 TO WS-FRAUD-REFERRAL-READ
+020700         WHEN +100
+020800             SET WS-END-OF-DATA TO TRUE
+020900         WHEN OTHER
+021000             MOVE '2100-FETCH-NEXT' TO ERR-PARA
+021100             PERFORM 8000-SQL-ERROR
+021200     END-EVALUATE
+021300     .
+021400* ---------------------------------------------------------------*
+021500* 2200-PROCESS-ROW                                               *
+021600* PROCESS ONE ROW                                                *
+021700* ---------------------------------------------------------------*
+021800 2200-PROCESS-ROW.
+021900     SET WS-NO-ERROR TO TRUE
+022000     PERFORM 2500-EDIT-FRAU-REFE
+022100     PERFORM 2510-EDIT-REPORT-RUN
+022200     PERFORM 2520-EDIT-FRAU-REFE-2
+022300     PERFORM 2530-EDIT-REPORT-RUN-2
+022400     PERFORM 4100-INSERT-REPORT-RUN
+022500     PERFORM 6000-COMMIT-CHECK
+022600     .
+022700* ---------------------------------------------------------------*
+022800* 2500-EDIT-FRAU-REFE                                            *
+022900* VALIDATE CLR.T_FRAUD_REFERRAL                                  *
+023000* ---------------------------------------------------------------*
+023100 2500-EDIT-FRAU-REFE.
+023200     IF FRDR-CLAIM-ID = SPACES OR LOW-VALUES
+023300         ADD 1 TO WS-REJECT-CNT
+023400         MOVE 'CLAIM_ID MISSING' TO ERR-TEXT
+023500     END-IF
+023600     IF FRDR-REF-SCORE NOT NUMERIC
+023700         MOVE ZERO TO FRDR-REF-SCORE
+023800         ADD 1 TO WS-REJECT-CNT
+023900     END-IF
+024000     IF FRDR-REF-THRESHOLD-APPLIED NOT NUMERIC
+024100         MOVE ZERO TO FRDR-REF-THRESHOLD-APPLIED
+024200         ADD 1 TO WS-REJECT-CNT
+024300     END-IF
+024400     IF FRDR-REF-SOURCE-CD NOT = 'ON' AND FRDR-REF-SOURCE-CD NOT =
+024500         'BS' AND FRDR-REF-SOURCE-CD NOT = 'MN'
+024600         ADD 1 TO WS-REJECT-CNT
+024700         MOVE 'REF_SOURCE_CD INVALID' TO ERR-TEXT
+024800     END-IF
+024900     IF FRDR-REF-REASON-CD = SPACES OR LOW-VALUES
+025000         ADD 1 TO WS-REJECT-CNT
+025100         MOVE 'REF_REASON_CD MISSING' TO ERR-TEXT
+025200     END-IF
+025300     IF FRDR-RULE-ID = SPACES OR LOW-VALUES
+025400         ADD 1 TO WS-REJECT-CNT
+025500         MOVE 'RULE_ID MISSING' TO ERR-TEXT
+025600     END-IF
+025700     .
+025800* ---------------------------------------------------------------*
+025900* 2510-EDIT-REPORT-RUN                                           *
+026000* CHECK MANDATORY FIELDS IN CLR.T_REPORT_RUN                     *
+026100* ---------------------------------------------------------------*
+026200 2510-EDIT-REPORT-RUN.
+026300     IF RPTR-RUN-ID NOT NUMERIC
+026400         MOVE ZERO TO RPTR-RUN-ID
+026500         ADD 1 TO WS-REJECT-CNT
+026600     END-IF
+026700     IF RPTR-REPORT-CD = SPACES OR LOW-VALUES
+026800         ADD 1 TO WS-REJECT-CNT
+026900         MOVE 'REPORT_CD MISSING' TO ERR-TEXT
+027000     END-IF
+027100     .
+027200* ---------------------------------------------------------------*
+027300* 2520-EDIT-FRAU-REFE-2                                          *
+027400* CHECK MANDATORY FIELDS IN CLR.T_FRAUD_REFERRAL                 *
+027500* ---------------------------------------------------------------*
+027600 2520-EDIT-FRAU-REFE-2.
+027700     IF FRDR-TIER-CD = SPACES OR LOW-VALUES
+027800         ADD 1 TO WS-REJECT-CNT
+027900         MOVE 'TIER_CD MISSING' TO ERR-TEXT
+028000     END-IF
+028100     IF FRDR-REF-STATUS NOT = 'OP' AND FRDR-REF-STATUS NOT = 'IN'
+028200         AND FRDR-REF-STATUS NOT = 'CL'
+028300         ADD 1 TO WS-REJECT-CNT
+028400         MOVE 'REF_STATUS INVALID' TO ERR-TEXT
+028500     END-IF
+028600     IF FRDR-CUSTOMER-NOTICE-DUE-DT NOT = SPACES AND
+028700         FRDR-CUSTOMER-NOTICE-DUE-DT(5:1) NOT = '-'
+028800         MOVE 'CUSTOMER_NOTICE_DU BAD DATE' TO ERR-TEXT
+028900         ADD 1 TO WS-REJECT-CNT
+029000     END-IF
+029100     IF FRDR-CUSTOMER-NOTICE-DEFER-FLAG NOT = 'Y' AND
+029200         FRDR-CUSTOMER-NOTICE-DEFER-FLAG NOT = 'N'
+029300         ADD 1 TO WS-REJECT-CNT
+029400         MOVE 'CUSTOMER_NOTICE_DE INVALID' TO ERR-TEXT
+029500     END-IF
+029600     IF FRDR-OUTCOME-CD NOT = 'NF' AND FRDR-OUTCOME-CD NOT = 'CF'
+029700         AND FRDR-OUTCOME-CD NOT = 'WD'
+029800         ADD 1 TO WS-REJECT-CNT
+029900         MOVE 'OUTCOME_CD INVALID' TO ERR-TEXT
+030000     END-IF
+030100     IF FRDR-OUTCOME-DT NOT = SPACES AND FRDR-OUTCOME-DT(5:1) NOT
+030200         = '-'
+030300         MOVE 'OUTCOME_DT BAD DATE' TO ERR-TEXT
+030400         ADD 1 TO WS-REJECT-CNT
+030500     END-IF
+030600     .
+030700* ---------------------------------------------------------------*
+030800* 2530-EDIT-REPORT-RUN-2                                         *
+030900* VALIDATE CLR.T_REPORT_RUN                                      *
+031000* ---------------------------------------------------------------*
+031100 2530-EDIT-REPORT-RUN-2.
+031200     IF RPTR-ROW-COUNT NOT NUMERIC
+031300         MOVE ZERO TO RPTR-ROW-COUNT
+031400         ADD 1 TO WS-REJECT-CNT
+031500     END-IF
+031600     IF RPTR-RUN-STATUS = SPACES OR LOW-VALUES
+031700         ADD 1 TO WS-REJECT-CNT
+031800         MOVE 'RUN_STATUS MISSING' TO ERR-TEXT
+031900     END-IF
+032000     .
+032100* ---------------------------------------------------------------*
+032200* 4100-INSERT-REPORT-RUN                                         *
+032300* INSERT CLR.T_REPORT_RUN                                        *
+032400* ---------------------------------------------------------------*
+032500 4100-INSERT-REPORT-RUN.
+032600     EXEC SQL
+032700         INSERT INTO CLR.T_REPORT_RUN
+032800              ( RUN_ID, REPORT_CD, RUN_TS, ROW_COUNT
+032900              , RUN_STATUS, LAST_UPD_TS, LAST_UPD_PGM
+033000              , LAST_UPD_USER )
+033100         VALUES
+033200              ( :RPTR-RUN-ID, :RPTR-REPORT-CD
+033300              , CURRENT TIMESTAMP, :RPTR-ROW-COUNT
+033400              , :RPTR-RUN-STATUS, CURRENT TIMESTAMP, :WS-PGM-ID
+033500              , :WS-USER-ID )
+033600     END-EXEC
+033700     EVALUATE SQLCODE
+033800         WHEN 0
+033900             ADD 1 TO WS-REPORT-RUN-WRITTEN
+034000         WHEN +100
+034100             SET WS-ROW-NOT-FOUND TO TRUE
+034200         WHEN OTHER
+034300             MOVE 'INSERT CLR.T_REPORT_RUN' TO ERR-PARA
+034400             PERFORM 8000-SQL-ERROR
+034500     END-EVALUATE
+034600     .
+034700* ---------------------------------------------------------------*
+034800* 6000-COMMIT-CHECK                                              *
+034900* PERIODIC COMMIT                                                *
+035000* ---------------------------------------------------------------*
+035100 6000-COMMIT-CHECK.
+035200     ADD 1 TO WS-SINCE-COMMIT
+035300     IF WS-SINCE-COMMIT >= WS-COMMIT-FREQ
+035400         EXEC SQL
+035500             COMMIT
+035600         END-EXEC
+035700         MOVE ZERO TO WS-SINCE-COMMIT
+035800     END-IF
+035900     .
+036000* ---------------------------------------------------------------*
+036100* 9000-TERMINATE                                                 *
+036200* CLOSE DOWN                                                     *
+036300* ---------------------------------------------------------------*
+036400 9000-TERMINATE.
+036500     PERFORM 7010-LIST-FRAU-REFE
+036600     PERFORM 7030-LIST-REPORT-RUN
+036700     EXEC SQL
+036800         COMMIT
+036900     END-EXEC
+037000     MOVE 'CLR.T_FRAUD_REFERRAL ROWS READ' TO RT-LABEL
+037100     MOVE WS-FRAUD-REFERRAL-READ TO RT-COUNT
+037200     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+037300     MOVE 'CLR.T_REPORT_RUN ROWS WRITTEN' TO RT-LABEL
+037400     MOVE WS-REPORT-RUN-WRITTEN TO RT-COUNT
+037500     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+037600     CLOSE REPORT-FILE
+037700     IF WS-REJECT-CNT > ZERO
+037800         MOVE 4 TO RETURN-CODE
+037900     END-IF
+038000     .
+038100* ---------------------------------------------------------------*
+038200* 7010-LIST-FRAU-REFE                                            *
+038300* LIST CLR.T_FRAUD_REFERRAL FIELDS ON THE REPORT                 *
+038400* ---------------------------------------------------------------*
+038500 7010-LIST-FRAU-REFE.
+038600     MOVE 'LAST CLR.T_FRAUD_REFERRAL ROW' TO RD-LABEL
+038700     MOVE SPACES TO RD-VALUE
+038800     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+038900     MOVE '  CLAIM_ID' TO RD-LABEL
+039000     MOVE FRDR-CLAIM-ID TO RD-VALUE
+039100     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+039200     MOVE '  REF_TS' TO RD-LABEL
+039300     MOVE FRDR-REF-TS TO RD-VALUE
+039400     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+039500     MOVE '  REF_SOURCE_CD' TO RD-LABEL
+039600     MOVE FRDR-REF-SOURCE-CD TO RD-VALUE
+039700     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+039800     MOVE '  REF_REASON_CD' TO RD-LABEL
+039900     MOVE FRDR-REF-REASON-CD TO RD-VALUE
+040000     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+040100     .
+040200* ---------------------------------------------------------------*
+040300* 7030-LIST-REPORT-RUN                                           *
+040400* LIST CLR.T_REPORT_RUN FIELDS ON THE REPORT                     *
+040500* ---------------------------------------------------------------*
+040600 7030-LIST-REPORT-RUN.
+040700     MOVE 'LAST CLR.T_REPORT_RUN ROW' TO RD-LABEL
+040800     MOVE SPACES TO RD-VALUE
+040900     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+041000     MOVE '  REPORT_CD' TO RD-LABEL
+041100     MOVE RPTR-REPORT-CD TO RD-VALUE
+041200     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+041300     MOVE '  RUN_TS' TO RD-LABEL
+041400     MOVE RPTR-RUN-TS TO RD-VALUE
+041500     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+041600     MOVE '  RUN_STATUS' TO RD-LABEL
+041700     MOVE RPTR-RUN-STATUS TO RD-VALUE
+041800     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+041900     .
+042000* ---------------------------------------------------------------*
+042100* 8000-SQL-ERROR                                                 *
+042200* DB2 ERROR HANDLING                                             *
+042300* ---------------------------------------------------------------*
+042400 8000-SQL-ERROR.
+042500     MOVE SQLCODE TO ERR-SQLCODE WS-SQLCODE-DSP
+042600     MOVE WS-PGM-ID TO ERR-PGM
+042700     STRING 'SQLCODE ' WS-SQLCODE-DSP DELIMITED BY SIZE INTO
+042800         ERR-TEXT
+042900     DISPLAY WS-PGM-ID ' ' ERR-PARA ' ' ERR-TEXT
+043000     EXEC SQL
+043100         ROLLBACK
+043200     END-EXEC
+043300     MOVE 16 TO RETURN-CODE
+043400     CLOSE REPORT-FILE
+043500     GOBACK.

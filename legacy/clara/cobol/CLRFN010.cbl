@@ -1,0 +1,452 @@
+000100* ================================================================
+000200* PROGRAM    : CLRFN010
+000300* TITLE      : FNOL CAPTURE - MAIN ENTRY FOR TELEPHONE AND
+000400*              PORTAL HAND-OFF
+000500* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION
+000600* AREA       : FNOL
+000700* TYPE       : CICS ONLINE / DB2
+000800* TRANSACTION: FN01
+000900* MAP        : CLRM010 (MAPSET CLRMS01)
+001000* ----------------------------------------------------------------
+001100* PURPOSE
+001200*   ONLINE PROGRAM: FNOL CAPTURE - MAIN ENTRY FOR TELEPHONE AND
+001300*     PORTAL HAND-OFF.
+001400*   COMMAREA LAYOUT: CLRCOMM1.
+001500* ----------------------------------------------------------------
+001600* DB2 TABLES
+001700*   CLR.T_CLAIMANT              READ
+001800*   CLR.T_POLICY_SNAPSHOT       READ
+001900*   CLR.T_FNOL_EVENT            INSERT
+002000* COPYBOOKS  : CLRCLT01 CLRFNL01 CLRPOL01 CLRERR01 CLRCOMM1
+002100* CALLS      : CLRFN015 CLRFN060 CLRFN030 CLRCM050 CLRCM020
+002200*              CLRCM070
+002300* ----------------------------------------------------------------
+002400* MAINTENANCE HISTORY
+002500* DATE       BY       REF        DESCRIPTION
+002600* ---------- -------- ---------- -------------------------------
+002700* 1994-10-03 CLRPROJ             INITIAL VERSION - CLARA GO-LIVE
+002800* 1999-03-30 KBARR01             Y2K: 4-DIGIT YEARS IN DATE WORK
+002900*                                AREAS
+003000* 2016-09-17 PASHW01             COMMIT FREQUENCY TUNED FOR
+003100*                                BATCH WINDOW
+003200* 2019-08-25 PASHW01             PERFORMANCE: CURSOR WITH HOLD,
+003300*                                FEWER COMMITS
+003400* 2023-12-10 PASHW01             SQL WARNINGS LOGGED, NOT
+003500*                                TREATED AS ERRORS
+003600* ================================================================
+003700 IDENTIFICATION DIVISION.
+003800 PROGRAM-ID.    CLRFN010.
+003900 AUTHOR.        CLARA PROJECT TEAM.
+004000 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
+004100 DATE-WRITTEN.  1994-10-03.
+004200 DATE-COMPILED.
+004300 ENVIRONMENT DIVISION.
+004400 CONFIGURATION SECTION.
+004500 SOURCE-COMPUTER.  IBM-Z.
+004600 OBJECT-COMPUTER.  IBM-Z.
+004700 DATA DIVISION.
+004800 WORKING-STORAGE SECTION.
+004900*
+005000 01  WS-PROGRAM-INFO.
+005100     05  WS-PGM-ID               PIC X(8)   VALUE 'CLRFN010'.
+005200     05  WS-RUN-DATE             PIC X(10)  VALUE SPACES.
+005300     05  WS-RUN-TS               PIC X(26)  VALUE SPACES.
+005400     05  WS-USER-ID              PIC X(8)   VALUE SPACES.
+005500*
+005600 01  WS-SWITCHES.
+005700     05  WS-EOF-SW               PIC X      VALUE 'N'.
+005800        88  WS-END-OF-DATA                     VALUE 'Y'.
+005900     05  WS-ERROR-SW             PIC X      VALUE 'N'.
+006000        88  WS-ERROR-FOUND                     VALUE 'Y'.
+006100        88  WS-NO-ERROR                        VALUE 'N'.
+006200     05  WS-FOUND-SW             PIC X      VALUE 'N'.
+006300        88  WS-ROW-FOUND                       VALUE 'Y'.
+006400        88  WS-ROW-NOT-FOUND                   VALUE 'N'.
+006500*
+006600 01  WS-COUNTERS.
+006700     05  WS-CLAIMANT-READ        PIC S9(9)  COMP-3 VALUE ZERO.
+006800     05  WS-POLICY-SNAPSHOT-READ PIC S9(9)  COMP-3 VALUE ZERO.
+006900     05  WS-FNOL-EVENT-WRITTEN   PIC S9(9)  COMP-3 VALUE ZERO.
+007000     05  WS-REJECT-CNT           PIC S9(9)  COMP-3 VALUE ZERO.
+007100*
+007200 01  WS-SQL-WORK.
+007300     05  WS-SQLCODE-DSP          PIC -9(9).
+007400     05  WS-ROWS-AFFECTED        PIC S9(9)  COMP VALUE ZERO.
+007500     05  WS-IND-1                PIC S9(4)  COMP VALUE ZERO.
+007600     05  WS-IND-2                PIC S9(4)  COMP VALUE ZERO.
+007700     05  WS-NEW-ID               PIC S9(18) COMP VALUE ZERO.
+007800*
+007900     EXEC SQL INCLUDE SQLCA END-EXEC.
+008000*
+008100* CLARA RECORD LAYOUTS
+008200 COPY CLRCLT01.
+008300 COPY CLRFNL01.
+008400 COPY CLRPOL01.
+008500 COPY CLRERR01.
+008600 COPY CLRCOMM1.
+008700*
+008800* CALL INTERFACES
+008900 01  WS-AUDIT-PARMS.
+009000     05  WS-AUD-TABLE            PIC X(18).
+009100     05  WS-AUD-KEY              PIC X(30).
+009200     05  WS-AUD-ACTION           PIC X(1).
+009300     05  WS-AUD-USER             PIC X(8).
+009400     05  WS-AUD-PGM              PIC X(8).
+009500 01  WS-AUTH-PARMS.
+009600     05  WS-AUTH-USER            PIC X(8).
+009700     05  WS-AUTH-FUNCTION        PIC X(8).
+009800     05  WS-AUTH-ALLOWED         PIC X(1).
+009900*
+010000* SYMBOLIC MAP CLRM010 (MAPSET CLRMS01) - KEEP IN STEP WITH
+010100* BMS SOURCE legacy/clara/bms/CLRMS01.bms
+010200 01  CLRM010I.
+010300     02  FILLER                  PIC X(12).
+010400     02  POLINOL                 PIC S9(4) COMP.
+010500     02  POLINOF                 PIC X.
+010600     02  FILLER REDEFINES POLINOF.
+010700        03  POLINOA             PIC X.
+010800     02  POLINOI                 PIC X(10).
+010900     02  LOSDATL                 PIC S9(4) COMP.
+011000     02  LOSDATF                 PIC X.
+011100     02  FILLER REDEFINES LOSDATF.
+011200        03  LOSDATA             PIC X.
+011300     02  LOSDATI                 PIC X(10).
+011400     02  PERILL                  PIC S9(4) COMP.
+011500     02  PERILF                  PIC X.
+011600     02  FILLER REDEFINES PERILF.
+011700        03  PERILA              PIC X.
+011800     02  PERILI                  PIC X(30).
+011900     02  CHANNELL                PIC S9(4) COMP.
+012000     02  CHANNELF                PIC X.
+012100     02  FILLER REDEFINES CHANNELF.
+012200        03  CHANNELA            PIC X.
+012300     02  CHANNELI                PIC X(30).
+012400     02  LOSDESL                 PIC S9(4) COMP.
+012500     02  LOSDESF                 PIC X.
+012600     02  FILLER REDEFINES LOSDESF.
+012700        03  LOSDESA             PIC X.
+012800     02  LOSDESI                 PIC X(30).
+012900     02  CALPHOL                 PIC S9(4) COMP.
+013000     02  CALPHOF                 PIC X.
+013100     02  FILLER REDEFINES CALPHOF.
+013200        03  CALPHOA             PIC X.
+013300     02  CALPHOI                 PIC X(10).
+013400     02  MSGL                    PIC S9(4) COMP.
+013500     02  MSGF                    PIC X.
+013600     02  FILLER REDEFINES MSGF.
+013700        03  MSGA                PIC X.
+013800     02  MSGI                    PIC X(79).
+013900 01  CLRM010O REDEFINES CLRM010I.
+014000     02  FILLER                  PIC X(12).
+014100     02  FILLER                  PIC X(3).
+014200     02  POLINOO                 PIC X(10).
+014300     02  FILLER                  PIC X(3).
+014400     02  LOSDATO                 PIC X(10).
+014500     02  FILLER                  PIC X(3).
+014600     02  PERILO                  PIC X(30).
+014700     02  FILLER                  PIC X(3).
+014800     02  CHANNELO                PIC X(30).
+014900     02  FILLER                  PIC X(3).
+015000     02  LOSDESO                 PIC X(30).
+015100     02  FILLER                  PIC X(3).
+015200     02  CALPHOO                 PIC X(10).
+015300     02  FILLER                  PIC X(3).
+015400     02  MSGO                    PIC X(79).
+015500*
+015600 01  WS-AID-VALUES.
+015700     05  AID-ENTER               PIC X      VALUE X'7D'.
+015800     05  AID-CLEAR               PIC X      VALUE X'6D'.
+015900     05  AID-PF3                 PIC X      VALUE X'F3'.
+016000     05  AID-PF7                 PIC X      VALUE X'F7'.
+016100     05  AID-PF8                 PIC X      VALUE X'F8'.
+016200     05  AID-PF12                PIC X      VALUE X'7C'.
+016300     05  WS-RESP                 PIC S9(8)  COMP VALUE ZERO.
+016400*
+016500 01  WS-MESSAGES.
+016600     05  WS-MSG-01               PIC X(40)  VALUE
+016700           'POLICY-NO IS REQUIRED'.
+016800 LINKAGE SECTION.
+016900 01  DFHCOMMAREA                 PIC X(105).
+017000 PROCEDURE DIVISION.
+017100* ---------------------------------------------------------------*
+017200* 0000-MAIN                                                      *
+017300* PSEUDO-CONVERSATIONAL CONTROL                                  *
+017400* ---------------------------------------------------------------*
+017500 0000-MAIN.
+017600     EXEC CICS ASSIGN USERID(WS-USER-ID) END-EXEC
+017700     IF EIBCALEN = ZERO
+017800        INITIALIZE CLR-COMMAREA
+017900        MOVE 'FN01' TO CA-TRANID
+018000        PERFORM 1000-FIRST-TIME THRU 1000-FIRST-TIME-EXIT
+018100     ELSE
+018200        MOVE DFHCOMMAREA TO CLR-COMMAREA
+018300        PERFORM 2000-PROCESS-INPUT THRU 2000-PROCESS-INPUT-EXIT
+018400     END-IF
+018500     PERFORM 9000-RETURN THRU 9000-RETURN-EXIT
+018600     GOBACK.
+018700 0000-MAIN-EXIT.
+018800     EXIT.
+018900* ---------------------------------------------------------------*
+019000* 1000-FIRST-TIME                                                *
+019100* SEND THE EMPTY SCREEN                                          *
+019200* ---------------------------------------------------------------*
+019300 1000-FIRST-TIME.
+019400     MOVE LOW-VALUES TO CLRM010O
+019500     EXEC CICS SEND MAP('CLRM010') MAPSET('CLRMS01')
+019600        ERASE FREEKB RESP(WS-RESP) END-EXEC
+019700     .
+019800 1000-FIRST-TIME-EXIT.
+019900     EXIT.
+020000* ---------------------------------------------------------------*
+020100* 2000-PROCESS-INPUT                                             *
+020200* INPUT PROCESSING                                               *
+020300* ---------------------------------------------------------------*
+020400 2000-PROCESS-INPUT.
+020500     EXEC CICS RECEIVE MAP('CLRM010') MAPSET('CLRMS01')
+020600        INTO(CLRM010I) RESP(WS-RESP) END-EXEC
+020700     EVALUATE TRUE
+020800        WHEN EIBAID = AID-PF3
+020900        WHEN EIBAID = AID-CLEAR
+021000           MOVE ZERO TO CA-RETURN-CD
+021100           EXEC CICS RETURN END-EXEC
+021200        WHEN EIBAID = AID-PF12
+021300           PERFORM 1000-FIRST-TIME THRU 1000-FIRST-TIME-EXIT
+021400        WHEN EIBAID = AID-ENTER
+021500           PERFORM 2100-EDIT-INPUT THRU 2100-EDIT-INPUT-EXIT
+021600           IF WS-NO-ERROR
+021700              PERFORM 2200-APPLY THRU 2200-APPLY-EXIT
+021800           END-IF
+021900        WHEN OTHER
+022000           MOVE 'INVALID KEY PRESSED' TO MSGO
+022100     END-EVALUATE
+022200     EXEC CICS SEND MAP('CLRM010') MAPSET('CLRMS01')
+022300        DATAONLY FREEKB CURSOR RESP(WS-RESP) END-EXEC
+022400     .
+022500 2000-PROCESS-INPUT-EXIT.
+022600     EXIT.
+022700* ---------------------------------------------------------------*
+022800* 2100-EDIT-INPUT                                                *
+022900* VALIDATE THE REQUEST                                           *
+023000* ---------------------------------------------------------------*
+023100 2100-EDIT-INPUT.
+023200     SET WS-NO-ERROR TO TRUE
+023300     IF POLINOL = ZERO OR POLINOI = SPACES
+023400        SET WS-ERROR-FOUND TO TRUE
+023500        MOVE WS-MSG-01 TO MSGO
+023600        MOVE -1 TO POLINOL
+023700     ELSE
+023800        CONTINUE
+023900     END-IF
+024000     PERFORM 1500-CHECK-AUTHORITY THRU 1500-CHECK-AUTHORITY-EXIT
+024100     .
+024200 2100-EDIT-INPUT-EXIT.
+024300     EXIT.
+024400* ---------------------------------------------------------------*
+024500* 1500-CHECK-AUTHORITY                                           *
+024600* CONFIRM THE USER MAY RUN THIS FUNCTION                         *
+024700* ---------------------------------------------------------------*
+024800 1500-CHECK-AUTHORITY.
+024900     MOVE WS-USER-ID TO WS-AUTH-USER
+025000     MOVE 'CLRFN010' TO WS-AUTH-FUNCTION
+025100     CALL 'CLRCM070' USING WS-AUTH-PARMS
+025200                      CLR-ERROR-BLOCK
+025300     IF ERR-SQLCODE NOT = ZERO
+025400        MOVE 'CALL CLRCM070' TO ERR-PARA
+025500        PERFORM 8000-SQL-ERROR
+025600     END-IF
+025700     IF WS-AUTH-ALLOWED NOT = 'Y'
+025800        SET WS-ERROR-FOUND TO TRUE
+025900        MOVE 8 TO CA-RETURN-CD
+026000        MOVE 'NOT AUTHORISED FOR THIS FUNCTION' TO CA-MSG
+026100     END-IF
+026200     .
+026300 1500-CHECK-AUTHORITY-EXIT.
+026400     EXIT.
+026500* ---------------------------------------------------------------*
+026600* 2200-APPLY                                                     *
+026700* APPLY THE CHANGE                                               *
+026800* ---------------------------------------------------------------*
+026900 2200-APPLY.
+027000     PERFORM 2300-READ-CLAIMANT THRU 2300-READ-CLAIMANT-EXIT
+027100     PERFORM 2320-READ-POLI-SNAP THRU 2320-READ-POLI-SNAP-EXIT
+027200     PERFORM 3100-POLICY-LOOKUP THRU 3100-POLICY-LOOKUP-EXIT
+027300     PERFORM 3120-DUPLICATE-CHECK THRU 3120-DUPLICATE-CHECK-EXIT
+027400     PERFORM 3140-CREATE-CLAIM THRU 3140-CREATE-CLAIM-EXIT
+027500     PERFORM 4100-INSERT-FNOL-EVENT THRU
+027600         4100-INSERT-FNOL-EVENT-EXIT
+027700     PERFORM 4900-WRITE-AUDIT THRU 4900-WRITE-AUDIT-EXIT
+027800     IF WS-NO-ERROR
+027900        EXEC CICS SYNCPOINT END-EXEC
+028000        MOVE ZERO TO CA-RETURN-CD
+028100     END-IF
+028200     .
+028300 2200-APPLY-EXIT.
+028400     EXIT.
+028500* ---------------------------------------------------------------*
+028600* 2300-READ-CLAIMANT                                             *
+028700* LOOK UP CLR.T_CLAIMANT                                         *
+028800* ---------------------------------------------------------------*
+028900 2300-READ-CLAIMANT.
+029000     SET WS-ROW-FOUND TO TRUE
+029100     EXEC SQL
+029200         SELECT CLAIMANT_ID, FAMILY_NAME, GIVEN_NAME, DOB
+029300           INTO :CLT-CLAIMANT-ID, :CLT-FAMILY-NAME
+029400                , :CLT-GIVEN-NAME, :CLT-DOB
+029500           FROM CLR.T_CLAIMANT
+029600          WHERE CLAIMANT_ID = :CLT-CLAIMANT-ID
+029700     END-EXEC
+029800     EVALUATE SQLCODE
+029900        WHEN 0
+030000           ADD 1 TO WS-CLAIMANT-READ
+030100        WHEN +100
+030200           SET WS-ROW-NOT-FOUND TO TRUE
+030300        WHEN OTHER
+030400           MOVE 'READ CLR.T_CLAIMANT' TO ERR-PARA
+030500           PERFORM 8000-SQL-ERROR
+030600     END-EVALUATE
+030700     .
+030800 2300-READ-CLAIMANT-EXIT.
+030900     EXIT.
+031000* ---------------------------------------------------------------*
+031100* 2320-READ-POLI-SNAP                                            *
+031200* READ CLR.T_POLICY_SNAPSHOT                                     *
+031300* ---------------------------------------------------------------*
+031400 2320-READ-POLI-SNAP.
+031500     SET WS-ROW-FOUND TO TRUE
+031600     EXEC SQL
+031700         SELECT POLICY_NO, SNAPSHOT_DT, PRODUCT_CD
+031800                , COVER_START_DT
+031900           INTO :POL-POLICY-NO, :POL-SNAPSHOT-DT
+032000                , :POL-PRODUCT-CD, :POL-COVER-START-DT
+032100           FROM CLR.T_POLICY_SNAPSHOT
+032200          WHERE POLICY_NO = :POL-POLICY-NO
+032300            AND SNAPSHOT_DT = :POL-SNAPSHOT-DT
+032400     END-EXEC
+032500     EVALUATE SQLCODE
+032600        WHEN 0
+032700           ADD 1 TO WS-POLICY-SNAPSHOT-READ
+032800        WHEN +100
+032900           SET WS-ROW-NOT-FOUND TO TRUE
+033000        WHEN OTHER
+033100           MOVE 'READ CLR.T_POLICY_SNAPSHOT' TO ERR-PARA
+033200           PERFORM 8000-SQL-ERROR
+033300     END-EVALUATE
+033400     .
+033500 2320-READ-POLI-SNAP-EXIT.
+033600     EXIT.
+033700* ---------------------------------------------------------------*
+033800* 3100-POLICY-LOOKUP                                             *
+033900* CALL CLRFN015                                                  *
+034000* ---------------------------------------------------------------*
+034100 3100-POLICY-LOOKUP.
+034200     CALL 'CLRFN015' USING DFHEIBLK
+034300                      DFHCOMMAREA
+034400     MOVE DFHCOMMAREA TO CLR-COMMAREA
+034500     IF CA-RETURN-CD > 4
+034600        SET WS-ERROR-FOUND TO TRUE
+034700     END-IF
+034800     .
+034900 3100-POLICY-LOOKUP-EXIT.
+035000     EXIT.
+035100* ---------------------------------------------------------------*
+035200* 3120-DUPLICATE-CHECK                                           *
+035300* CALL CLRFN060                                                  *
+035400* ---------------------------------------------------------------*
+035500 3120-DUPLICATE-CHECK.
+035600     CALL 'CLRFN060' USING DFHEIBLK
+035700                      DFHCOMMAREA
+035800     MOVE DFHCOMMAREA TO CLR-COMMAREA
+035900     IF CA-RETURN-CD > 4
+036000        SET WS-ERROR-FOUND TO TRUE
+036100     END-IF
+036200     .
+036300 3120-DUPLICATE-CHECK-EXIT.
+036400     EXIT.
+036500* ---------------------------------------------------------------*
+036600* 3140-CREATE-CLAIM                                              *
+036700* CALL CLRFN030                                                  *
+036800* ---------------------------------------------------------------*
+036900 3140-CREATE-CLAIM.
+037000     CALL 'CLRFN030' USING DFHEIBLK
+037100                      DFHCOMMAREA
+037200     MOVE DFHCOMMAREA TO CLR-COMMAREA
+037300     IF CA-RETURN-CD > 4
+037400        SET WS-ERROR-FOUND TO TRUE
+037500     END-IF
+037600     .
+037700 3140-CREATE-CLAIM-EXIT.
+037800     EXIT.
+037900* ---------------------------------------------------------------*
+038000* 4100-INSERT-FNOL-EVENT                                         *
+038100* INSERT CLR.T_FNOL_EVENT                                        *
+038200* ---------------------------------------------------------------*
+038300 4100-INSERT-FNOL-EVENT.
+038400     MOVE CA-CLAIM-ID TO FNL-CLAIM-ID
+038500     EXEC SQL
+038600         INSERT INTO CLR.T_FNOL_EVENT
+038700              ( CLAIM_ID, CHANNEL_CD, RECEIVED_TS, PAYLOAD_REF
+038800              , CALLER_PHONE, ACK_SENT_TS, LAST_UPD_TS
+038900              , LAST_UPD_PGM, LAST_UPD_USER )
+039000         VALUES
+039100              ( :FNL-CLAIM-ID, :FNL-CHANNEL-CD
+039200              , CURRENT TIMESTAMP, :FNL-PAYLOAD-REF
+039300              , :FNL-CALLER-PHONE, :FNL-ACK-SENT-TS
+039400              , CURRENT TIMESTAMP, :WS-PGM-ID, :WS-USER-ID )
+039500     END-EXEC
+039600     EVALUATE SQLCODE
+039700        WHEN 0
+039800           ADD 1 TO WS-FNOL-EVENT-WRITTEN
+039900        WHEN +100
+040000           SET WS-ROW-NOT-FOUND TO TRUE
+040100        WHEN OTHER
+040200           MOVE 'INSERT CLR.T_FNOL_EVENT' TO ERR-PARA
+040300           PERFORM 8000-SQL-ERROR
+040400     END-EVALUATE
+040500     .
+040600 4100-INSERT-FNOL-EVENT-EXIT.
+040700     EXIT.
+040800* ---------------------------------------------------------------*
+040900* 4900-WRITE-AUDIT                                               *
+041000* AUDIT TRAIL VIA CLRCM020                                       *
+041100* ---------------------------------------------------------------*
+041200 4900-WRITE-AUDIT.
+041300     MOVE 'CLR.T_FNOL_EVENT' TO WS-AUD-TABLE
+041400     MOVE CA-CLAIM-ID TO WS-AUD-KEY
+041500     MOVE 'U' TO WS-AUD-ACTION
+041600     MOVE WS-USER-ID TO WS-AUD-USER
+041700     MOVE WS-PGM-ID TO WS-AUD-PGM
+041800     CALL 'CLRCM020' USING WS-AUDIT-PARMS
+041900                      CLR-ERROR-BLOCK
+042000     IF ERR-SQLCODE NOT = ZERO
+042100        ADD 1 TO WS-REJECT-CNT
+042200     END-IF
+042300     .
+042400 4900-WRITE-AUDIT-EXIT.
+042500     EXIT.
+042600* ---------------------------------------------------------------*
+042700* 9000-RETURN                                                    *
+042800* RETURN TO CICS                                                 *
+042900* ---------------------------------------------------------------*
+043000 9000-RETURN.
+043100     EXEC CICS RETURN TRANSID('FN01') COMMAREA(CLR-COMMAREA)
+043200        LENGTH(LENGTH OF CLR-COMMAREA) END-EXEC
+043300     .
+043400 9000-RETURN-EXIT.
+043500     EXIT.
+043600* ---------------------------------------------------------------*
+043700* 8000-SQL-ERROR                                                 *
+043800* UNEXPECTED SQLCODE                                             *
+043900* ---------------------------------------------------------------*
+044000 8000-SQL-ERROR.
+044100     MOVE SQLCODE TO ERR-SQLCODE WS-SQLCODE-DSP
+044200     MOVE WS-PGM-ID TO ERR-PGM
+044300     STRING 'SQLCODE ' WS-SQLCODE-DSP DELIMITED BY SIZE INTO
+044400         ERR-TEXT
+044500     CALL 'CLRCM050' USING CLR-ERROR-BLOCK
+044600     EXEC CICS SYNCPOINT ROLLBACK END-EXEC
+044700     MOVE 16 TO CA-RETURN-CD
+044800     MOVE ERR-TEXT TO CA-MSG
+044900     PERFORM 9000-RETURN THRU 9000-RETURN-EXIT
+045000     .
+045100 8000-SQL-ERROR-EXIT.
+045200     EXIT.

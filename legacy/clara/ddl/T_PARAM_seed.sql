@@ -1,0 +1,33 @@
+-- --------------------------------------------------------------------
+-- CLR.T_PARAM seed rows (business parameters with validity dates)
+-- Read at run time through CLRCM040; programs never hard-code these values.
+-- Rows are never updated in place: a change end-dates the current row
+-- (VALID_TO) and inserts a new row with the change ticket.
+-- --------------------------------------------------------------------
+
+
+-- FRD_REFER_THRESH
+INSERT INTO CLR.T_PARAM (PARAM_KEY, VALID_FROM, VALID_TO, PARAM_VALUE, PARAM_DESC, CHANGE_TICKET, CHANGED_BY)
+  VALUES ('FRD_REFER_THRESH', '2019-01-01', '2023-03-31', '75', 'Fraud referral threshold (pre-2026) (BR-FRD-012 v1)', NULL, 'CLRDBA');
+INSERT INTO CLR.T_PARAM (PARAM_KEY, VALID_FROM, VALID_TO, PARAM_VALUE, PARAM_DESC, CHANGE_TICKET, CHANGED_BY)
+  VALUES ('FRD_REFER_THRESH', '2023-04-01', NULL, '70', 'Fraud referral threshold (pre-2026) (BR-FRD-012 v2)', NULL, 'CLRDBA');
+
+-- FRD_AUTODECL_THRESH
+INSERT INTO CLR.T_PARAM (PARAM_KEY, VALID_FROM, VALID_TO, PARAM_VALUE, PARAM_DESC, CHANGE_TICKET, CHANGED_BY)
+  VALUES ('FRD_AUTODECL_THRESH', '2023-01-01', NULL, '90', 'Automatic decline on very high fraud score (BR-FRD-019 v2)', NULL, 'CLRDBA');
+
+-- RSV_T3_REVIEW_DAYS
+INSERT INTO CLR.T_PARAM (PARAM_KEY, VALID_FROM, VALID_TO, PARAM_VALUE, PARAM_DESC, CHANGE_TICKET, CHANGED_BY)
+  VALUES ('RSV_T3_REVIEW_DAYS', '2015-01-01', '2023-12-31', '30', 'Tier-3 reserve review cadence (BR-RSV-007 v1)', NULL, 'CLRDBA');
+INSERT INTO CLR.T_PARAM (PARAM_KEY, VALID_FROM, VALID_TO, PARAM_VALUE, PARAM_DESC, CHANGE_TICKET, CHANGED_BY)
+  VALUES ('RSV_T3_REVIEW_DAYS', '2024-01-01', NULL, '21', 'Tier-3 reserve review cadence (BR-RSV-007 v2)', NULL, 'CLRDBA');
+
+-- RSV_LLNT_GBP
+INSERT INTO CLR.T_PARAM (PARAM_KEY, VALID_FROM, VALID_TO, PARAM_VALUE, PARAM_DESC, CHANGE_TICKET, CHANGED_BY)
+  VALUES ('RSV_LLNT_GBP', '2024-01-01', NULL, '250000', 'Large loss notification to Reinsurance (BR-RSV-011 v2)', NULL, 'CLRDBA');
+
+-- TRI_T3_MIN_GBP
+INSERT INTO CLR.T_PARAM (PARAM_KEY, VALID_FROM, VALID_TO, PARAM_VALUE, PARAM_DESC, CHANGE_TICKET, CHANGED_BY)
+  VALUES ('TRI_T3_MIN_GBP', '2025-01-01', NULL, '50000', 'Claim tier classification (Tier-1 / Tier-2 / Tier-3) (BR-TRI-003 v3)', NULL, 'CLRDBA');
+
+COMMIT;

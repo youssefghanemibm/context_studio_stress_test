@@ -1,0 +1,21 @@
+000100* ================================================================
+000200* COPYBOOK   : RCVREC01
+000300* DB2 TABLE  : CLR.T_RECOVERY
+000400* CONTENT    : RECOVERIES (SUBROGATION RECEIPTS, SALVAGE
+000500*              PROCEEDS)
+000600* LAYOUT     : ONE FIELD PER COLUMN, IN TABLE ORDER
+000700* ================================================================
+000800 01  RCVREC01-REC.
+000900     05  RCVR-RCV-ID                   PIC S9(18) COMP.
+001000     05  RCVR-CLAIM-ID                 PIC X(12).
+001100     05  RCVR-SUBRO-CASE-ID            PIC X(10).
+001200     05  RCVR-RCV-TYPE-CD              PIC X(2).
+001300     05  RCVR-RCV-EXPECTED-AMT         PIC S9(11)V99 COMP-3.
+001400     05  RCVR-RCV-RECEIVED-AMT         PIC S9(11)V99 COMP-3.
+001500     05  RCVR-RCV-WRITE-OFF-AMT        PIC S9(11)V99 COMP-3.
+001600     05  RCVR-WRITE-OFF-APPROVED-BY    PIC X(8).
+001700     05  RCVR-RCV-STATUS               PIC X(2).
+001800     05  RCVR-CURRENCY-CD              PIC X(3).
+001900     05  RCVR-LAST-UPD-TS              PIC X(26).
+002000     05  RCVR-LAST-UPD-PGM             PIC X(8).
+002100     05  RCVR-LAST-UPD-USER            PIC X(8).

@@ -1,0 +1,78 @@
+-- --------------------------------------------------------------------
+-- CLR.T_FRAUD_REFERRAL
+-- Fraud referrals to SIU
+-- Area: FRAUD    Copybook: FRDREF01
+-- --------------------------------------------------------------------
+CREATE TABLE CLR.T_FRAUD_REFERRAL
+  ( REF_ID                      BIGINT        NOT NULL GENERATED ALWAYS AS IDENTITY
+  , CLAIM_ID                    CHAR(12)      NOT NULL
+  , REF_TS                      TIMESTAMP     NOT NULL
+  , REF_SCORE                   SMALLINT      NOT NULL
+  , REF_THRESHOLD_APPLIED       SMALLINT      NOT NULL
+  , REF_SOURCE_CD               CHAR(2)       NOT NULL
+  , REF_REASON_CD               CHAR(4)       NOT NULL
+  , RULE_ID                     CHAR(10)      NOT NULL
+  , TIER_CD                     CHAR(1)       NOT NULL
+  , SIU_CASE_ID                 CHAR(10)
+  , REF_STATUS                  CHAR(2)       NOT NULL
+  , CUSTOMER_NOTICE_DUE_DT      DATE
+  , CUSTOMER_NOTICE_DEFER_FLAG  CHAR(1)       NOT NULL
+  , DEFER_APPROVED_BY           CHAR(8)
+  , OUTCOME_CD                  CHAR(2)
+  , OUTCOME_DT                  DATE
+  , LAST_UPD_TS                 TIMESTAMP     NOT NULL WITH DEFAULT
+  , LAST_UPD_PGM                CHAR(8)       NOT NULL
+  , LAST_UPD_USER               CHAR(8)       NOT NULL
+  , CONSTRAINT PK_T_FRAUD_REFERRAL PRIMARY KEY (REF_ID)
+  )
+  CCSID EBCDIC;
+
+CREATE UNIQUE INDEX CLR.XFRAUD_REFERRAL_PK
+    ON CLR.T_FRAUD_REFERRAL (REF_ID);
+CREATE INDEX CLR.XFRAUD_REFERRA_CLM
+    ON CLR.T_FRAUD_REFERRAL (CLAIM_ID);
+
+ALTER TABLE CLR.T_FRAUD_REFERRAL
+  ADD CONSTRAINT FK_FRAUD_REFERR_1 FOREIGN KEY (CLAIM_ID)
+      REFERENCES CLR.T_CLAIM (CLAIM_ID) ON DELETE RESTRICT;
+
+COMMENT ON TABLE CLR.T_FRAUD_REFERRAL IS
+  'Fraud referrals to SIU';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.REF_ID IS
+  'Referral identifier';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.CLAIM_ID IS
+  'Claim reference';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.REF_TS IS
+  'Referral timestamp';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.REF_SCORE IS
+  'Sentinel score at referral (0-100)';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.REF_THRESHOLD_APPLIED IS
+  'Threshold applied at referral (read from CLR.T_PARAM, except CLRFR040)';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.REF_SOURCE_CD IS
+  'ON online (CLRFR030), BS batch sweep (CLRFR040), MN manual';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.REF_REASON_CD IS
+  'Referral reason code';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.RULE_ID IS
+  'Business rule applied (e.g. BR-FRD-031)';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.TIER_CD IS
+  'Claim tier at referral';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.SIU_CASE_ID IS
+  'SIU Case Manager case id';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.REF_STATUS IS
+  'OP open, IN investigating, CL closed';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.CUSTOMER_NOTICE_DUE_DT IS
+  'Customer notice due date (referral date + 10 business days, BR-FRD-032)';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.CUSTOMER_NOTICE_DEFER_FLAG IS
+  'Y when notice deferred for tipping-off risk (BR-FRD-036)';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.DEFER_APPROVED_BY IS
+  'Approver of deferral';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.OUTCOME_CD IS
+  'NF no fraud, CF confirmed fraud, WD withdrawn';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.OUTCOME_DT IS
+  'Outcome date';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.LAST_UPD_TS IS
+  'Timestamp of last update';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.LAST_UPD_PGM IS
+  'Program that last updated the row';
+COMMENT ON COLUMN CLR.T_FRAUD_REFERRAL.LAST_UPD_USER IS
+  'User or batch id that last updated the row';

@@ -1,0 +1,51 @@
+************************************************************************
+* MAPSET   : CLRMS05                                                   *
+* MAP      : CLRM410  FRAUD REFERRAL              FR03 / CLRFR030      *
+* GENERATE THE SYMBOLIC MAP WITH SYSPARM=DSECT; KEEP THE COPY IN THE   *
+* PROGRAMS (INLINE SYMBOLIC MAP) IN STEP WITH THIS SOURCE.             *
+************************************************************************
+CLRMS05  DFHMSD TYPE=&SYSPARM,MODE=INOUT,LANG=COBOL,STORAGE=AUTO,      X
+               CTRL=(FREEKB,FRSET),TIOAPFX=YES,TERM=3270-2
+*
+* MAP CLRM410 - FRAUD REFERRAL
+* TRANSACTION FR03, PROGRAM CLRFR030
+*
+CLRM410  DFHMDI SIZE=(24,80),LINE=1,COLUMN=1
+         DFHMDF POS=(1,1),LENGTH=7,ATTRB=(ASKIP,BRT),INITIAL='CLRM410'
+         DFHMDF POS=(1,30),LENGTH=14,ATTRB=(ASKIP,BRT),                X
+               INITIAL='FRAUD REFERRAL'
+*        CLAIM-ID
+         DFHMDF POS=(4,1),LENGTH=17,ATTRB=ASKIP,                       X
+               INITIAL='CLAIM ID ........'
+CLAIMID  DFHMDF POS=(4,20),LENGTH=12,ATTRB=PROT
+         DFHMDF POS=(4,32),LENGTH=1,ATTRB=ASKIP
+*        SCORE
+         DFHMDF POS=(6,1),LENGTH=17,ATTRB=ASKIP,                       X
+               INITIAL='SCORE ...........'
+SCORE    DFHMDF POS=(6,20),LENGTH=10,ATTRB=(UNPROT,IC)
+         DFHMDF POS=(6,30),LENGTH=1,ATTRB=ASKIP
+*        THRESHOLD
+         DFHMDF POS=(8,1),LENGTH=17,ATTRB=ASKIP,                       X
+               INITIAL='THRESHOLD .......'
+THRE     DFHMDF POS=(8,20),LENGTH=8,ATTRB=UNPROT
+         DFHMDF POS=(8,28),LENGTH=1,ATTRB=ASKIP
+*        TIER
+         DFHMDF POS=(10,1),LENGTH=17,ATTRB=ASKIP,                      X
+               INITIAL='TIER ............'
+TIER     DFHMDF POS=(10,20),LENGTH=20,ATTRB=(UNPROT,NUM)
+         DFHMDF POS=(10,40),LENGTH=1,ATTRB=ASKIP
+*        REASON
+         DFHMDF POS=(12,1),LENGTH=17,ATTRB=ASKIP,                      X
+               INITIAL='REASON ..........'
+REASON   DFHMDF POS=(12,20),LENGTH=16,ATTRB=PROT
+         DFHMDF POS=(12,36),LENGTH=1,ATTRB=ASKIP
+*        NOTICE-DUE
+         DFHMDF POS=(14,1),LENGTH=17,ATTRB=ASKIP,                      X
+               INITIAL='NOTICE DUE ......'
+NOTIDUE  DFHMDF POS=(14,20),LENGTH=8,ATTRB=UNPROT
+         DFHMDF POS=(14,28),LENGTH=1,ATTRB=ASKIP
+MSG      DFHMDF POS=(23,1),LENGTH=79,ATTRB=(ASKIP,BRT)
+         DFHMDF POS=(24,1),LENGTH=44,ATTRB=ASKIP,                      X
+               INITIAL='PF3=EXIT  PF7=BACK  PF8=FORWARD  PF12=CANCEL'
+         DFHMSD TYPE=FINAL
+         END

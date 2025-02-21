@@ -1,0 +1,507 @@
+000100* ===============================================================*
+000200* PROGRAM    : CLRST060                                          *
+000300* TITLE      : PAYEE MAINTENANCE                                 *
+000400* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION     *
+000500* AREA       : SETTLE                                            *
+000600* TYPE       : CICS ONLINE / DB2                                 *
+000700* TRANSACTION: ST06                                              *
+000800* ---------------------------------------------------------------*
+000900* PURPOSE                                                        *
+001000*   ONLINE TRANSACTION: PAYEE MAINTENANCE.                       *
+001100*   STATE BETWEEN TASKS IS HELD IN THE COMMON COMMAREA.          *
+001200*   INVOKED WITH A COMMAREA; RESULTS RETURNED IN                 *
+001300*     CA-RETURN-CD/CA-MSG.                                       *
+001400* ---------------------------------------------------------------*
+001500* DB2 TABLES                                                     *
+001600*   CLR.T_PAYMENT_BATCH         READ                             *
+001700*   CLR.T_SETTLEMENT            READ                             *
+001800*   CLR.T_VENDOR_INVOICE        READ                             *
+001900*   CLR.T_PAYEE                 UPDATE                           *
+002000* COPYBOOKS  : PAYEE01 PAYBAT01 STLREC01 VENINV01 CLRERR01       *
+002100*              CLRCOMM1 CLRDATE1                                 *
+002200* CALLS      : CLRCM050 CLRCM070 CLRCM010                        *
+002300* ---------------------------------------------------------------*
+002400* MAINTENANCE HISTORY                                            *
+002500* DATE       BY       REF        DESCRIPTION                     *
+002600* ---------- -------- ---------- ------------------------------- *
+002700* 1994-10-03 CLRPROJ             INITIAL VERSION - CLARA GO-LIVE *
+002800* 2010-05-22 KBARR01             DB2 VERSION MIGRATION - REBIND, *
+002900*                                NO LOGIC CHANGE                 *
+003000* 2021-07-19 PASHW01             REMOVED DEAD CODE AFTER REVIEW  *
+003100* ===============================================================*
+003200 IDENTIFICATION DIVISION.
+003300 PROGRAM-ID.    CLRST060.
+003400 AUTHOR.        CLARA PROJECT TEAM.
+003500 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
+003600 DATE-WRITTEN.  1994-10-03.
+003700 DATE-COMPILED.
+003800 ENVIRONMENT DIVISION.
+003900 CONFIGURATION SECTION.
+004000 SOURCE-COMPUTER.  IBM-Z.
+004100 OBJECT-COMPUTER.  IBM-Z.
+004200 DATA DIVISION.
+004300 WORKING-STORAGE SECTION.
+004400*
+004500 01  WS-PROGRAM-INFO.
+004600     05  WS-PGM-ID               PIC X(8)   VALUE 'CLRST060'.
+004700     05  WS-RUN-DATE             PIC X(10)  VALUE SPACES.
+004800     05  WS-RUN-TS               PIC X(26)  VALUE SPACES.
+004900     05  WS-USER-ID              PIC X(8)   VALUE SPACES.
+005000*
+005100 01  WS-SWITCHES.
+005200     05  WS-EOF-SW               PIC X      VALUE 'N'.
+005300         88  WS-END-OF-DATA                     VALUE 'Y'.
+005400     05  WS-ERROR-SW             PIC X      VALUE 'N'.
+005500         88  WS-ERROR-FOUND                     VALUE 'Y'.
+005600         88  WS-NO-ERROR                        VALUE 'N'.
+005700     05  WS-FOUND-SW             PIC X      VALUE 'N'.
+005800         88  WS-ROW-FOUND                       VALUE 'Y'.
+005900         88  WS-ROW-NOT-FOUND                   VALUE 'N'.
+006000*
+006100 01  WS-COUNTERS.
+006200     05  WS-PAYMENT-BATCH-READ   PIC S9(9)  COMP-3 VALUE ZERO.
+006300     05  WS-SETTLEMENT-READ      PIC S9(9)  COMP-3 VALUE ZERO.
+006400     05  WS-VENDOR-INVOICE-READ  PIC S9(9)  COMP-3 VALUE ZERO.
+006500     05  WS-PAYEE-WRITTEN        PIC S9(9)  COMP-3 VALUE ZERO.
+006600     05  WS-REJECT-CNT           PIC S9(9)  COMP-3 VALUE ZERO.
+006700*
+006800 01  WS-SQL-WORK.
+006900     05  WS-SQLCODE-DSP          PIC -9(9).
+007000     05  WS-ROWS-AFFECTED        PIC S9(9)  COMP VALUE ZERO.
+007100     05  WS-IND-1                PIC S9(4)  COMP VALUE ZERO.
+007200     05  WS-IND-2                PIC S9(4)  COMP VALUE ZERO.
+007300     05  WS-NEW-ID               PIC S9(18) COMP VALUE ZERO.
+007400*
+007500     EXEC SQL INCLUDE SQLCA END-EXEC.
+007600*
+007700* APPLICATION COPYBOOKS
+007800 COPY PAYEE01.
+007900 COPY PAYBAT01.
+008000 COPY STLREC01.
+008100 COPY VENINV01.
+008200 COPY CLRERR01.
+008300 COPY CLRCOMM1.
+008400 COPY CLRDATE1.
+008500*
+008600* PARAMETER AREAS FOR CALLED MODULES
+008700 01  WS-AUTH-PARMS.
+008800     05  WS-AUTH-USER            PIC X(8).
+008900     05  WS-AUTH-FUNCTION        PIC X(8).
+009000     05  WS-AUTH-ALLOWED         PIC X(1).
+009100*
+009200 01  WS-AID-VALUES.
+009300     05  AID-ENTER               PIC X      VALUE X'7D'.
+009400     05  AID-CLEAR               PIC X      VALUE X'6D'.
+009500     05  AID-PF3                 PIC X      VALUE X'F3'.
+009600     05  AID-PF7                 PIC X      VALUE X'F7'.
+009700     05  AID-PF8                 PIC X      VALUE X'F8'.
+009800     05  AID-PF12                PIC X      VALUE X'7C'.
+009900     05  WS-RESP                 PIC S9(8)  COMP VALUE ZERO.
+010000 LINKAGE SECTION.
+010100 01  DFHCOMMAREA                 PIC X(105).
+010200 PROCEDURE DIVISION.
+010300* ---------------------------------------------------------------*
+010400* 0000-MAIN                                                      *
+010500* PSEUDO-CONVERSATIONAL CONTROL                                  *
+010600* ---------------------------------------------------------------*
+010700 0000-MAIN.
+010800     EXEC CICS ASSIGN USERID(WS-USER-ID) END-EXEC
+010900     IF EIBCALEN = ZERO
+011000         INITIALIZE CLR-COMMAREA
+011100         MOVE 'ST06' TO CA-TRANID
+011200         MOVE 12 TO CA-RETURN-CD
+011300         MOVE 'NO COMMAREA SUPPLIED' TO CA-MSG
+011400         PERFORM 9000-RETURN THRU 9000-RETURN-EXIT
+011500     ELSE
+011600         MOVE DFHCOMMAREA TO CLR-COMMAREA
+011700         PERFORM 2000-PROCESS-INPUT THRU 2000-PROCESS-INPUT-EXIT
+011800     END-IF
+011900     PERFORM 9000-RETURN THRU 9000-RETURN-EXIT
+012000     GOBACK.
+012100 0000-MAIN-EXIT.
+012200     EXIT.
+012300* ---------------------------------------------------------------*
+012400* 2000-PROCESS-INPUT                                             *
+012500* PROCESS THE REQUEST                                            *
+012600* ---------------------------------------------------------------*
+012700 2000-PROCESS-INPUT.
+012800     PERFORM 2100-EDIT-INPUT THRU 2100-EDIT-INPUT-EXIT
+012900     IF WS-NO-ERROR
+013000         PERFORM 2200-APPLY THRU 2200-APPLY-EXIT
+013100     END-IF
+013200     .
+013300 2000-PROCESS-INPUT-EXIT.
+013400     EXIT.
+013500* ---------------------------------------------------------------*
+013600* 2100-EDIT-INPUT                                                *
+013700* VALIDATE THE REQUEST                                           *
+013800* ---------------------------------------------------------------*
+013900 2100-EDIT-INPUT.
+014000     SET WS-NO-ERROR TO TRUE
+014100     IF CA-CLAIM-ID = SPACES OR LOW-VALUES
+014200         SET WS-ERROR-FOUND TO TRUE
+014300         MOVE 8 TO CA-RETURN-CD
+014400         MOVE 'CLAIM ID IS REQUIRED' TO CA-MSG
+014500     END-IF
+014600     PERFORM 1400-GET-BUSINESS-DATE THRU
+014700         1400-GET-BUSINESS-DATE-EXIT
+014800     PERFORM 1500-CHECK-AUTHORITY THRU 1500-CHECK-AUTHORITY-EXIT
+014900     .
+015000 2100-EDIT-INPUT-EXIT.
+015100     EXIT.
+015200* ---------------------------------------------------------------*
+015300* 1400-GET-BUSINESS-DATE                                         *
+015400* DETERMINE PROCESSING DATE                                      *
+015500* ---------------------------------------------------------------*
+015600 1400-GET-BUSINESS-DATE.
+015700     MOVE WS-RUN-DATE TO DW-IN-DATE
+015800     MOVE 'UK' TO DW-CALENDAR
+015900     MOVE ZERO TO DW-BUS-DAYS
+016000     CALL 'CLRCM010' USING CLR-DATE-WORK
+016100                      CLR-ERROR-BLOCK
+016200     IF ERR-SQLCODE NOT = ZERO
+016300         MOVE 'CALL CLRCM010' TO ERR-PARA
+016400         PERFORM 8000-SQL-ERROR
+016500     END-IF
+016600     .
+016700 1400-GET-BUSINESS-DATE-EXIT.
+016800     EXIT.
+016900* ---------------------------------------------------------------*
+017000* 1500-CHECK-AUTHORITY                                           *
+017100* CONFIRM THE USER MAY RUN THIS FUNCTION                         *
+017200* ---------------------------------------------------------------*
+017300 1500-CHECK-AUTHORITY.
+017400     MOVE WS-USER-ID TO WS-AUTH-USER
+017500     MOVE 'CLRST060' TO WS-AUTH-FUNCTION
+017600     CALL 'CLRCM070' USING WS-AUTH-PARMS
+017700                      CLR-ERROR-BLOCK
+017800     IF ERR-SQLCODE NOT = ZERO
+017900         MOVE 'CALL CLRCM070' TO ERR-PARA
+018000         PERFORM 8000-SQL-ERROR
+018100     END-IF
+018200     IF WS-AUTH-ALLOWED NOT = 'Y'
+018300         SET WS-ERROR-FOUND TO TRUE
+018400         MOVE 8 TO CA-RETURN-CD
+018500         MOVE 'NOT AUTHORISED FOR THIS FUNCTION' TO CA-MSG
+018600     END-IF
+018700     .
+018800 1500-CHECK-AUTHORITY-EXIT.
+018900     EXIT.
+019000* ---------------------------------------------------------------*
+019100* 2200-APPLY                                                     *
+019200* CARRY OUT THE REQUEST                                          *
+019300* ---------------------------------------------------------------*
+019400 2200-APPLY.
+019500     PERFORM 2300-READ-PAYMENT-BATCH THRU
+019600         2300-READ-PAYMENT-BATCH-EXIT
+019700     PERFORM 2320-READ-SETTLEMENT THRU 2320-READ-SETTLEMENT-EXIT
+019800     PERFORM 2340-READ-VEND-INVO THRU 2340-READ-VEND-INVO-EXIT
+019900     PERFORM 2500-EDIT-PAYMENT-BATCH THRU
+020000         2500-EDIT-PAYMENT-BATCH-EXIT
+020100     PERFORM 2510-EDIT-SETTLEMENT THRU 2510-EDIT-SETTLEMENT-EXIT
+020200     PERFORM 2520-EDIT-VEND-INVO THRU 2520-EDIT-VEND-INVO-EXIT
+020300     PERFORM 2530-EDIT-PAYEE THRU 2530-EDIT-PAYEE-EXIT
+020400     PERFORM 2540-EDIT-PAYMENT-BATCH-2 THRU
+020500         2540-EDIT-PAYMENT-BATCH-2-EXIT
+020600     PERFORM 2550-EDIT-SETTLEMENT-2 THRU
+020700         2550-EDIT-SETTLEMENT-2-EXIT
+020800     PERFORM 2560-EDIT-VEND-INVO-2 THRU 2560-EDIT-VEND-INVO-2-EXIT
+020900     PERFORM 2570-EDIT-PAYEE-2 THRU 2570-EDIT-PAYEE-2-EXIT
+021000     PERFORM 2580-EDIT-PAYEE-3 THRU 2580-EDIT-PAYEE-3-EXIT
+021100     PERFORM 4100-UPDATE-PAYEE THRU 4100-UPDATE-PAYEE-EXIT
+021200     IF WS-NO-ERROR
+021300         EXEC CICS SYNCPOINT END-EXEC
+021400         MOVE ZERO TO CA-RETURN-CD
+021500     END-IF
+021600     .
+021700 2200-APPLY-EXIT.
+021800     EXIT.
+021900* ---------------------------------------------------------------*
+022000* 2300-READ-PAYMENT-BATCH                                        *
+022100* LOOK UP CLR.T_PAYMENT_BATCH                                    *
+022200* ---------------------------------------------------------------*
+022300 2300-READ-PAYMENT-BATCH.
+022400     SET WS-ROW-FOUND TO TRUE
+022500     EXEC SQL
+022600         SELECT BATCH_ID, BATCH_DT, PAY_COUNT
+022700           INTO :PAYB-BATCH-ID, :PAYB-BATCH-DT
+022800                , :PAYB-PAY-COUNT
+022900           FROM CLR.T_PAYMENT_BATCH
+023000          WHERE BATCH_ID = :PAYB-BATCH-ID
+023100     END-EXEC
+023200     EVALUATE SQLCODE
+023300         WHEN 0
+023400             ADD 1 TO WS-PAYMENT-BATCH-READ
+023500         WHEN +100
+023600             SET WS-ROW-NOT-FOUND TO TRUE
+023700         WHEN OTHER
+023800             MOVE 'READ CLR.T_PAYMENT_BATCH' TO ERR-PARA
+023900             PERFORM 8000-SQL-ERROR
+024000     END-EVALUATE
+024100     .
+024200 2300-READ-PAYMENT-BATCH-EXIT.
+024300     EXIT.
+024400* ---------------------------------------------------------------*
+024500* 2320-READ-SETTLEMENT                                           *
+024600* FETCH CLR.T_SETTLEMENT                                         *
+024700* ---------------------------------------------------------------*
+024800 2320-READ-SETTLEMENT.
+024900     SET WS-ROW-FOUND TO TRUE
+025000     EXEC SQL
+025100         SELECT SETTLE_ID, CLAIM_ID, OFFER_AMT
+025200           INTO :STLR-SETTLE-ID, :STLR-CLAIM-ID
+025300                , :STLR-OFFER-AMT
+025400           FROM CLR.T_SETTLEMENT
+025500          WHERE SETTLE_ID = :STLR-SETTLE-ID
+025600     END-EXEC
+025700     EVALUATE SQLCODE
+025800         WHEN 0
+025900             ADD 1 TO WS-SETTLEMENT-READ
+026000         WHEN +100
+026100             SET WS-ROW-NOT-FOUND TO TRUE
+026200         WHEN OTHER
+026300             MOVE 'READ CLR.T_SETTLEMENT' TO ERR-PARA
+026400             PERFORM 8000-SQL-ERROR
+026500     END-EVALUATE
+026600     .
+026700 2320-READ-SETTLEMENT-EXIT.
+026800     EXIT.
+026900* ---------------------------------------------------------------*
+027000* 2340-READ-VEND-INVO                                            *
+027100* READ CLR.T_VENDOR_INVOICE                                      *
+027200* ---------------------------------------------------------------*
+027300 2340-READ-VEND-INVO.
+027400     SET WS-ROW-FOUND TO TRUE
+027500     EXEC SQL
+027600         SELECT INVOICE_ID, VENDOR_CD, CLAIM_ID
+027700           INTO :VENI-INVOICE-ID, :VENI-VENDOR-CD
+027800                , :VENI-CLAIM-ID
+027900           FROM CLR.T_VENDOR_INVOICE
+028000          WHERE INVOICE_ID = :VENI-INVOICE-ID
+028100     END-EXEC
+028200     EVALUATE SQLCODE
+028300         WHEN 0
+028400             ADD 1 TO WS-VENDOR-INVOICE-READ
+028500         WHEN +100
+028600             SET WS-ROW-NOT-FOUND TO TRUE
+028700         WHEN OTHER
+028800             MOVE 'READ CLR.T_VENDOR_INVOICE' TO ERR-PARA
+028900             PERFORM 8000-SQL-ERROR
+029000     END-EVALUATE
+029100     .
+029200 2340-READ-VEND-INVO-EXIT.
+029300     EXIT.
+029400* ---------------------------------------------------------------*
+029500* 2500-EDIT-PAYMENT-BATCH                                        *
+029600* CHECK MANDATORY FIELDS IN CLR.T_PAYMENT_BATCH                  *
+029700* ---------------------------------------------------------------*
+029800 2500-EDIT-PAYMENT-BATCH.
+029900     IF PAYB-BATCH-ID NOT NUMERIC
+030000         MOVE ZERO TO PAYB-BATCH-ID
+030100         ADD 1 TO WS-REJECT-CNT
+030200     END-IF
+030300     IF PAYB-BATCH-DT NOT = SPACES AND PAYB-BATCH-DT(5:1) NOT =
+030400         '-'
+030500         MOVE 'BATCH_DT BAD DATE' TO ERR-TEXT
+030600         ADD 1 TO WS-REJECT-CNT
+030700     END-IF
+030800     IF PAYB-PAY-COUNT NOT NUMERIC
+030900         MOVE ZERO TO PAYB-PAY-COUNT
+031000         ADD 1 TO WS-REJECT-CNT
+031100     END-IF
+031200     .
+031300 2500-EDIT-PAYMENT-BATCH-EXIT.
+031400     EXIT.
+031500* ---------------------------------------------------------------*
+031600* 2510-EDIT-SETTLEMENT                                           *
+031700* CHECK MANDATORY FIELDS IN CLR.T_SETTLEMENT                     *
+031800* ---------------------------------------------------------------*
+031900 2510-EDIT-SETTLEMENT.
+032000     IF STLR-CLAIM-ID = SPACES OR LOW-VALUES
+032100         ADD 1 TO WS-REJECT-CNT
+032200         MOVE 'CLAIM_ID MISSING' TO ERR-TEXT
+032300     END-IF
+032400     IF STLR-OFFER-AMT NOT NUMERIC
+032500         MOVE ZERO TO STLR-OFFER-AMT
+032600         ADD 1 TO WS-REJECT-CNT
+032700     END-IF
+032800     IF STLR-OFFER-DT NOT = SPACES AND STLR-OFFER-DT(5:1) NOT =
+032900         '-'
+033000         MOVE 'OFFER_DT BAD DATE' TO ERR-TEXT
+033100         ADD 1 TO WS-REJECT-CNT
+033200     END-IF
+033300     IF STLR-ACCEPTED-DT NOT = SPACES AND STLR-ACCEPTED-DT(5:1)
+033400         NOT = '-'
+033500         MOVE 'ACCEPTED_DT BAD DATE' TO ERR-TEXT
+033600         ADD 1 TO WS-REJECT-CNT
+033700     END-IF
+033800     .
+033900 2510-EDIT-SETTLEMENT-EXIT.
+034000     EXIT.
+034100* ---------------------------------------------------------------*
+034200* 2520-EDIT-VEND-INVO                                            *
+034300* CHECK MANDATORY FIELDS IN CLR.T_VENDOR_INVOICE                 *
+034400* ---------------------------------------------------------------*
+034500 2520-EDIT-VEND-INVO.
+034600     IF VENI-VENDOR-CD = SPACES OR LOW-VALUES
+034700         ADD 1 TO WS-REJECT-CNT
+034800         MOVE 'VENDOR_CD MISSING' TO ERR-TEXT
+034900     END-IF
+035000     IF VENI-CLAIM-ID = SPACES OR LOW-VALUES
+035100         ADD 1 TO WS-REJECT-CNT
+035200         MOVE 'CLAIM_ID MISSING' TO ERR-TEXT
+035300     END-IF
+035400     .
+035500 2520-EDIT-VEND-INVO-EXIT.
+035600     EXIT.
+035700* ---------------------------------------------------------------*
+035800* 2530-EDIT-PAYEE                                                *
+035900* CHECK MANDATORY FIELDS IN CLR.T_PAYEE                          *
+036000* ---------------------------------------------------------------*
+036100 2530-EDIT-PAYEE.
+036200     IF PAYE-PAYEE-ID = SPACES OR LOW-VALUES
+036300         ADD 1 TO WS-REJECT-CNT
+036400         MOVE 'PAYEE_ID MISSING' TO ERR-TEXT
+036500     END-IF
+036600     IF PAYE-PAYEE-NAME = SPACES OR LOW-VALUES
+036700         ADD 1 TO WS-REJECT-CNT
+036800         MOVE 'PAYEE_NAME MISSING' TO ERR-TEXT
+036900     END-IF
+037000     IF PAYE-IBAN = SPACES OR LOW-VALUES
+037100         ADD 1 TO WS-REJECT-CNT
+037200         MOVE 'IBAN MISSING' TO ERR-TEXT
+037300     END-IF
+037400     .
+037500 2530-EDIT-PAYEE-EXIT.
+037600     EXIT.
+037700* ---------------------------------------------------------------*
+037800* 2540-EDIT-PAYMENT-BATCH-2                                      *
+037900* VALIDATE CLR.T_PAYMENT_BATCH                                   *
+038000* ---------------------------------------------------------------*
+038100 2540-EDIT-PAYMENT-BATCH-2.
+038200     IF PAYB-TOTAL-AMT NOT NUMERIC
+038300         MOVE ZERO TO PAYB-TOTAL-AMT
+038400         ADD 1 TO WS-REJECT-CNT
+038500     END-IF
+038600     IF PAYB-CPG-FILE-NAME = SPACES OR LOW-VALUES
+038700         ADD 1 TO WS-REJECT-CNT
+038800         MOVE 'CPG_FILE_NAME MISSING' TO ERR-TEXT
+038900     END-IF
+039000     .
+039100 2540-EDIT-PAYMENT-BATCH-2-EXIT.
+039200     EXIT.
+039300* ---------------------------------------------------------------*
+039400* 2550-EDIT-SETTLEMENT-2                                         *
+039500* FIELD EDITS FOR CLR.T_SETTLEMENT                               *
+039600* ---------------------------------------------------------------*
+039700 2550-EDIT-SETTLEMENT-2.
+039800     IF STLR-FINAL-FLAG = SPACES OR LOW-VALUES
+039900         ADD 1 TO WS-REJECT-CNT
+040000         MOVE 'FINAL_FLAG MISSING' TO ERR-TEXT
+040100     END-IF
+040200     IF STLR-EXCESS-APPLIED-AMT NOT NUMERIC
+040300         MOVE ZERO TO STLR-EXCESS-APPLIED-AMT
+040400         ADD 1 TO WS-REJECT-CNT
+040500     END-IF
+040600     IF STLR-ARCHIVE-FLAG NOT = 'Y' AND STLR-ARCHIVE-FLAG NOT =
+040700         'N'
+040800         ADD 1 TO WS-REJECT-CNT
+040900         MOVE 'ARCHIVE_FLAG INVALID' TO ERR-TEXT
+041000     END-IF
+041100     .
+041200 2550-EDIT-SETTLEMENT-2-EXIT.
+041300     EXIT.
+041400* ---------------------------------------------------------------*
+041500* 2560-EDIT-VEND-INVO-2                                          *
+041600* CHECK MANDATORY FIELDS IN CLR.T_VENDOR_INVOICE                 *
+041700* ---------------------------------------------------------------*
+041800 2560-EDIT-VEND-INVO-2.
+041900     IF VENI-INVOICE-AMT NOT NUMERIC
+042000         MOVE ZERO TO VENI-INVOICE-AMT
+042100         ADD 1 TO WS-REJECT-CNT
+042200     END-IF
+042300     IF VENI-FEE-TYPE-CD NOT = 'DK' AND VENI-FEE-TYPE-CD NOT =
+042400         'SV' AND VENI-FEE-TYPE-CD NOT = 'HR'
+042500         ADD 1 TO WS-REJECT-CNT
+042600         MOVE 'FEE_TYPE_CD INVALID' TO ERR-TEXT
+042700     END-IF
+042800     IF VENI-MATCHED-FLAG = SPACES OR LOW-VALUES
+042900         ADD 1 TO WS-REJECT-CNT
+043000         MOVE 'MATCHED_FLAG MISSING' TO ERR-TEXT
+043100     END-IF
+043200     .
+043300 2560-EDIT-VEND-INVO-2-EXIT.
+043400     EXIT.
+043500* ---------------------------------------------------------------*
+043600* 2570-EDIT-PAYEE-2                                              *
+043700* CHECK MANDATORY FIELDS IN CLR.T_PAYEE                          *
+043800* ---------------------------------------------------------------*
+043900 2570-EDIT-PAYEE-2.
+044000     IF PAYE-PAYEE-TYPE-CD = SPACES OR LOW-VALUES
+044100         ADD 1 TO WS-REJECT-CNT
+044200         MOVE 'PAYEE_TYPE_CD MISSING' TO ERR-TEXT
+044300     END-IF
+044400     .
+044500 2570-EDIT-PAYEE-2-EXIT.
+044600     EXIT.
+044700* ---------------------------------------------------------------*
+044800* 2580-EDIT-PAYEE-3                                              *
+044900* CHECK MANDATORY FIELDS IN CLR.T_PAYEE                          *
+045000* ---------------------------------------------------------------*
+045100 2580-EDIT-PAYEE-3.
+045200 2580-EDIT-PAYEE-3-EXIT.
+045300     EXIT.
+045400* ---------------------------------------------------------------*
+045500* 4100-UPDATE-PAYEE                                              *
+045600* UPDATE CLR.T_PAYEE                                             *
+045700* ---------------------------------------------------------------*
+045800 4100-UPDATE-PAYEE.
+045900     EXEC SQL
+046000         UPDATE CLR.T_PAYEE
+046100            SET PAYEE_NAME = :PAYE-PAYEE-NAME
+046200              , IBAN = :PAYE-IBAN
+046300              , SORT_CODE = :PAYE-SORT-CODE
+046400              , LAST_UPD_TS = CURRENT TIMESTAMP
+046500              , LAST_UPD_PGM = :WS-PGM-ID
+046600              , LAST_UPD_USER = :WS-USER-ID
+046700          WHERE PAYEE_ID = :PAYE-PAYEE-ID
+046800     END-EXEC
+046900     EVALUATE SQLCODE
+047000         WHEN 0
+047100             ADD 1 TO WS-PAYEE-WRITTEN
+047200         WHEN +100
+047300             SET WS-ROW-NOT-FOUND TO TRUE
+047400         WHEN OTHER
+047500             MOVE 'UPDATE CLR.T_PAYEE' TO ERR-PARA
+047600             PERFORM 8000-SQL-ERROR
+047700     END-EVALUATE
+047800     .
+047900 4100-UPDATE-PAYEE-EXIT.
+048000     EXIT.
+048100* ---------------------------------------------------------------*
+048200* 9000-RETURN                                                    *
+048300* RETURN TO CICS                                                 *
+048400* ---------------------------------------------------------------*
+048500 9000-RETURN.
+048600     MOVE CLR-COMMAREA TO DFHCOMMAREA
+048700     EXEC CICS RETURN END-EXEC
+048800     .
+048900 9000-RETURN-EXIT.
+049000     EXIT.
+049100* ---------------------------------------------------------------*
+049200* 8000-SQL-ERROR                                                 *
+049300* UNEXPECTED SQLCODE                                             *
+049400* ---------------------------------------------------------------*
+049500 8000-SQL-ERROR.
+049600     MOVE SQLCODE TO ERR-SQLCODE WS-SQLCODE-DSP
+049700     MOVE WS-PGM-ID TO ERR-PGM
+049800     STRING 'SQLCODE ' WS-SQLCODE-DSP DELIMITED BY SIZE INTO
+049900         ERR-TEXT
+050000     CALL 'CLRCM050' USING CLR-ERROR-BLOCK
+050100     EXEC CICS SYNCPOINT ROLLBACK END-EXEC
+050200     MOVE 16 TO CA-RETURN-CD
+050300     MOVE ERR-TEXT TO CA-MSG
+050400     PERFORM 9000-RETURN THRU 9000-RETURN-EXIT
+050500     .
+050600 8000-SQL-ERROR-EXIT.
+050700     EXIT.

@@ -1,0 +1,435 @@
+000100* ===============================================================*
+000200* PROGRAM    : CLRAS070                                          *
+000300* TITLE      : VENDOR INVOICE MATCHING (ASSESSOR FEES,           *
+000400*              CLX-IF-016)                                       *
+000500* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION     *
+000600* AREA       : ASSESS                                            *
+000700* TYPE       : BATCH / DB2                                       *
+000800* JOB / STEP : CLRNAS02 / STEP010                                *
+000900* ---------------------------------------------------------------*
+001000* PURPOSE                                                        *
+001100*   NIGHTLY/PERIODIC BATCH STEP: VENDOR INVOICE MATCHING         *
+001200*     (ASSESSOR FEES, CLX-IF-016).                               *
+001300*   EXECUTED BY JOB CLRNAS02, STEP010.                           *
+001400*   DB2 COMMIT AFTER EVERY 200 UPDATES.                          *
+001500*   RETURN CODES: 0 OK, 4 WARNINGS, 16 SEVERE (SEE SYSOUT).      *
+001600* ---------------------------------------------------------------*
+001700* DB2 TABLES                                                     *
+001800*   CLR.T_ESTIMATE              READ                             *
+001900*   CLR.T_VENDOR_INVOICE        INSERT                           *
+002000* COPYBOOKS  : CLREST01 VENINV01 CLRERR01                        *
+002100* CALLS      : NONE                                              *
+002200* FILE       : RPTOUT   OUT CONTROL REPORT                       *
+002300* ---------------------------------------------------------------*
+002400* MAINTENANCE HISTORY                                            *
+002500* DATE       BY       REF        DESCRIPTION                     *
+002600* ---------- -------- ---------- ------------------------------- *
+002700* 1994-10-03 CLRPROJ             INITIAL VERSION - CLARA GO-LIVE *
+002800* 1998-09-16 KBARR01             Y2K REMEDIATION - DATE          *
+002900*                                WINDOWING REMOVED               *
+003000* 2003-07-31 KBARR01             SQLCODE HANDLING ROUTED THROUGH *
+003100*                                CLRERR01                        *
+003200* 2012-01-03 PASHW01             COMMIT FREQUENCY TUNED FOR      *
+003300*                                BATCH WINDOW                    *
+003400* 2014-04-16 DO                  DB2 VERSION MIGRATION - REBIND, *
+003500*                                NO LOGIC CHANGE                 *
+003600* ===============================================================*
+003700 IDENTIFICATION DIVISION.
+003800 PROGRAM-ID.    CLRAS070.
+003900 AUTHOR.        CLARA PROJECT TEAM.
+004000 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
+004100 DATE-WRITTEN.  1994-10-03.
+004200 DATE-COMPILED.
+004300 ENVIRONMENT DIVISION.
+004400 CONFIGURATION SECTION.
+004500 SOURCE-COMPUTER.  IBM-Z.
+004600 OBJECT-COMPUTER.  IBM-Z.
+004700 INPUT-OUTPUT SECTION.
+004800 FILE-CONTROL.
+004900     SELECT REPORT-FILE ASSIGN TO RPTOUT
+005000        ORGANIZATION IS SEQUENTIAL
+005100        FILE STATUS IS WS-RPTOUT-STATUS.
+005200 DATA DIVISION.
+005300 FILE SECTION.
+005400 FD  REPORT-FILE
+005500        RECORDING MODE IS F
+005600        BLOCK CONTAINS 0 RECORDS.
+005700 01  REPORT-RECORD               PIC X(133).
+005800 WORKING-STORAGE SECTION.
+005900*
+006000 01  WS-PROGRAM-INFO.
+006100     05  WS-PGM-ID               PIC X(8)   VALUE 'CLRAS070'.
+006200     05  WS-RUN-DATE             PIC X(10)  VALUE SPACES.
+006300     05  WS-RUN-TS               PIC X(26)  VALUE SPACES.
+006400     05  WS-USER-ID              PIC X(8)   VALUE SPACES.
+006500     05  WS-LAST-RUN-TS          PIC X(26)  VALUE SPACES.
+006600     05  WS-RUN-ID               PIC S9(9)  COMP VALUE ZERO.
+006700*
+006800 01  WS-SWITCHES.
+006900     05  WS-EOF-SW               PIC X      VALUE 'N'.
+007000        88  WS-END-OF-DATA                     VALUE 'Y'.
+007100     05  WS-ERROR-SW             PIC X      VALUE 'N'.
+007200        88  WS-ERROR-FOUND                     VALUE 'Y'.
+007300        88  WS-NO-ERROR                        VALUE 'N'.
+007400     05  WS-FOUND-SW             PIC X      VALUE 'N'.
+007500        88  WS-ROW-FOUND                       VALUE 'Y'.
+007600        88  WS-ROW-NOT-FOUND                   VALUE 'N'.
+007700     05  WS-RPTOUT-STATUS        PIC X(2)   VALUE SPACES.
+007800*
+007900 01  WS-COUNTERS.
+008000     05  WS-ESTIMATE-READ        PIC S9(9)  COMP-3 VALUE ZERO.
+008100     05  WS-VENDOR-INVOICE-WRITTEN PIC S9(9) COMP-3 VALUE ZERO.
+008200     05  WS-REJECT-CNT           PIC S9(9)  COMP-3 VALUE ZERO.
+008300     05  WS-SINCE-COMMIT         PIC S9(9)  COMP-3 VALUE ZERO.
+008400     05  WS-COMMIT-FREQ          PIC S9(9)  COMP-3 VALUE +200.
+008500*
+008600 01  WS-SQL-WORK.
+008700     05  WS-SQLCODE-DSP          PIC -9(9).
+008800     05  WS-ROWS-AFFECTED        PIC S9(9)  COMP VALUE ZERO.
+008900     05  WS-IND-1                PIC S9(4)  COMP VALUE ZERO.
+009000     05  WS-IND-2                PIC S9(4)  COMP VALUE ZERO.
+009100     05  WS-NEW-ID               PIC S9(18) COMP VALUE ZERO.
+009200*
+009300     EXEC SQL INCLUDE SQLCA END-EXEC.
+009400*
+009500* CLARA RECORD LAYOUTS
+009600 COPY CLREST01.
+009700 COPY VENINV01.
+009800 COPY CLRERR01.
+009900*
+010000* DRIVING CURSOR ON CLR.T_ESTIMATE
+010100     EXEC SQL
+010200         DECLARE C-ESTIMATE CURSOR WITH HOLD FOR
+010300         SELECT EST_ID, CLAIM_ID, EST_LINE_NO, EST_ITEM_DESC
+010400                , EST_AMT, REPAIRER_CD
+010500           FROM CLR.T_ESTIMATE
+010600          WHERE LAST_UPD_TS >= :WS-LAST-RUN-TS
+010700          ORDER BY EST_ID
+010800          FOR FETCH ONLY
+010900     END-EXEC.
+011000*
+011100* CONTROL REPORT LINES
+011200 01  WS-RPT-HEAD-1.
+011300     05  FILLER                  PIC X(1)   VALUE '1'.
+011400     05  FILLER                  PIC X(10)  VALUE 'CLRAS070'.
+011500     05  FILLER                  PIC X(40)  VALUE
+011600           'VENDOR INVOICE MATCHING (ASSESSOR FEES,'.
+011700     05  FILLER                  PIC X(10)  VALUE 'RUN DATE: '.
+011800     05  RH1-RUN-DATE            PIC X(10).
+011900     05  FILLER                  PIC X(62)  VALUE SPACES.
+012000 01  WS-RPT-DETAIL.
+012100     05  FILLER                  PIC X(1)   VALUE SPACE.
+012200     05  RD-LABEL                PIC X(40).
+012300     05  RD-VALUE                PIC X(60).
+012400     05  FILLER                  PIC X(32)  VALUE SPACES.
+012500 01  WS-RPT-TOTAL.
+012600     05  FILLER                  PIC X(1)   VALUE SPACE.
+012700     05  RT-LABEL                PIC X(40).
+012800     05  RT-COUNT                PIC ZZZ,ZZZ,ZZ9.
+012900     05  FILLER                  PIC X(81)  VALUE SPACES.
+013000 PROCEDURE DIVISION.
+013100* ---------------------------------------------------------------*
+013200* 0000-MAINLINE                                                  *
+013300* MAIN CONTROL                                                   *
+013400* ---------------------------------------------------------------*
+013500 0000-MAINLINE.
+013600     PERFORM 1000-INITIALISE THRU 1000-INITIALISE-EXIT
+013700     PERFORM 2000-PROCESS THRU 2000-PROCESS-EXIT
+013800     PERFORM 9000-TERMINATE THRU 9000-TERMINATE-EXIT
+013900     GOBACK.
+014000 0000-MAINLINE-EXIT.
+014100     EXIT.
+014200* ---------------------------------------------------------------*
+014300* 1000-INITIALISE                                                *
+014400* OPEN FILES AND SET UP THE RUN                                  *
+014500* ---------------------------------------------------------------*
+014600 1000-INITIALISE.
+014700     MOVE FUNCTION CURRENT-DATE(1:8) TO WS-RUN-TS
+014800     STRING WS-RUN-TS(1:4) '-' WS-RUN-TS(5:2) '-' WS-RUN-TS(7:2)
+014900        DELIMITED BY SIZE INTO WS-RUN-DATE
+015000     MOVE 'CLRBATCH' TO WS-USER-ID
+015100     OPEN OUTPUT REPORT-FILE
+015200     IF WS-RPTOUT-STATUS NOT = '00'
+015300        DISPLAY 'CLRAS070 OPEN FAILED RPTOUT ' WS-RPTOUT-STATUS
+015400        MOVE 16 TO RETURN-CODE
+015500        GOBACK
+015600     END-IF
+015700     MOVE WS-RUN-DATE TO RH1-RUN-DATE
+015800     WRITE REPORT-RECORD FROM WS-RPT-HEAD-1
+015900     .
+016000 1000-INITIALISE-EXIT.
+016100     EXIT.
+016200* ---------------------------------------------------------------*
+016300* 2000-PROCESS                                                   *
+016400* PROCESS LOOP                                                   *
+016500* ---------------------------------------------------------------*
+016600 2000-PROCESS.
+016700     EXEC SQL
+016800         OPEN C-ESTIMATE
+016900     END-EXEC
+017000     EVALUATE SQLCODE
+017100        WHEN 0
+017200           CONTINUE
+017300        WHEN OTHER
+017400           MOVE '2000-OPEN-C-ESTIMATE' TO ERR-PARA
+017500           PERFORM 8000-SQL-ERROR
+017600     END-EVALUATE
+017700     PERFORM 2100-FETCH-NEXT THRU 2100-FETCH-NEXT-EXIT
+017800     PERFORM 2200-PROCESS-ROW THRU 2200-PROCESS-ROW-EXIT
+017900        UNTIL WS-END-OF-DATA
+018000     EXEC SQL
+018100         CLOSE C-ESTIMATE
+018200     END-EXEC
+018300     .
+018400 2000-PROCESS-EXIT.
+018500     EXIT.
+018600* ---------------------------------------------------------------*
+018700* 2100-FETCH-NEXT                                                *
+018800* FETCH THE NEXT DRIVING ROW                                     *
+018900* ---------------------------------------------------------------*
+019000 2100-FETCH-NEXT.
+019100     EXEC SQL
+019200         FETCH C-ESTIMATE
+019300          INTO :EST-EST-ID, :EST-CLAIM-ID, :EST-EST-LINE-NO
+019400               , :EST-EST-ITEM-DESC, :EST-EST-AMT
+019500               , :EST-REPAIRER-CD
+019600     END-EXEC
+019700     EVALUATE SQLCODE
+019800        WHEN 0
+019900           ADD 1 TO WS-ESTIMATE-READ
+020000        WHEN +100
+020100           SET WS-END-OF-DATA TO TRUE
+020200        WHEN OTHER
+020300           MOVE '2100-FETCH-NEXT' TO ERR-PARA
+020400           PERFORM 8000-SQL-ERROR
+020500     END-EVALUATE
+020600     .
+020700 2100-FETCH-NEXT-EXIT.
+020800     EXIT.
+020900* ---------------------------------------------------------------*
+021000* 2200-PROCESS-ROW                                               *
+021100* PER-RECORD PROCESSING                                          *
+021200* ---------------------------------------------------------------*
+021300 2200-PROCESS-ROW.
+021400     IF WS-END-OF-DATA
+021500        GO TO 2200-PROCESS-ROW-EXIT
+021600     END-IF
+021700     SET WS-NO-ERROR TO TRUE
+021800     PERFORM 2500-EDIT-ESTIMATE THRU 2500-EDIT-ESTIMATE-EXIT
+021900     PERFORM 2510-EDIT-VEND-INVO THRU 2510-EDIT-VEND-INVO-EXIT
+022000     PERFORM 2520-EDIT-ESTIMATE-2 THRU 2520-EDIT-ESTIMATE-2-EXIT
+022100     PERFORM 2530-EDIT-VEND-INVO-2 THRU 2530-EDIT-VEND-INVO-2-EXIT
+022200     PERFORM 2540-EDIT-ESTIMATE-3 THRU 2540-EDIT-ESTIMATE-3-EXIT
+022300     PERFORM 4100-INSERT-VEND-INVO THRU 4100-INSERT-VEND-INVO-EXIT
+022400     PERFORM 6000-COMMIT-CHECK THRU 6000-COMMIT-CHECK-EXIT
+022500     .
+022600 2200-PROCESS-ROW-EXIT.
+022700     EXIT.
+022800* ---------------------------------------------------------------*
+022900* 2500-EDIT-ESTIMATE                                             *
+023000* VALIDATE CLR.T_ESTIMATE                                        *
+023100* ---------------------------------------------------------------*
+023200 2500-EDIT-ESTIMATE.
+023300     IF EST-CLAIM-ID = SPACES OR LOW-VALUES
+023400        ADD 1 TO WS-REJECT-CNT
+023500        MOVE 'CLAIM_ID MISSING' TO ERR-TEXT
+023600     END-IF
+023700     IF EST-EST-LINE-NO NOT NUMERIC
+023800        MOVE ZERO TO EST-EST-LINE-NO
+023900        ADD 1 TO WS-REJECT-CNT
+024000     END-IF
+024100     .
+024200 2500-EDIT-ESTIMATE-EXIT.
+024300     EXIT.
+024400* ---------------------------------------------------------------*
+024500* 2510-EDIT-VEND-INVO                                            *
+024600* VALIDATE CLR.T_VENDOR_INVOICE                                  *
+024700* ---------------------------------------------------------------*
+024800 2510-EDIT-VEND-INVO.
+024900     IF VENI-VENDOR-CD = SPACES OR LOW-VALUES
+025000        ADD 1 TO WS-REJECT-CNT
+025100        MOVE 'VENDOR_CD MISSING' TO ERR-TEXT
+025200     END-IF
+025300     IF VENI-CLAIM-ID = SPACES OR LOW-VALUES
+025400        ADD 1 TO WS-REJECT-CNT
+025500        MOVE 'CLAIM_ID MISSING' TO ERR-TEXT
+025600     END-IF
+025700     .
+025800 2510-EDIT-VEND-INVO-EXIT.
+025900     EXIT.
+026000* ---------------------------------------------------------------*
+026100* 2520-EDIT-ESTIMATE-2                                           *
+026200* VALIDATE CLR.T_ESTIMATE                                        *
+026300* ---------------------------------------------------------------*
+026400 2520-EDIT-ESTIMATE-2.
+026500     IF EST-EST-ITEM-DESC = SPACES OR LOW-VALUES
+026600        ADD 1 TO WS-REJECT-CNT
+026700        MOVE 'EST_ITEM_DESC MISSING' TO ERR-TEXT
+026800     END-IF
+026900     IF EST-EST-AMT NOT NUMERIC
+027000        MOVE ZERO TO EST-EST-AMT
+027100        ADD 1 TO WS-REJECT-CNT
+027200     END-IF
+027300     .
+027400 2520-EDIT-ESTIMATE-2-EXIT.
+027500     EXIT.
+027600* ---------------------------------------------------------------*
+027700* 2530-EDIT-VEND-INVO-2                                          *
+027800* CHECK MANDATORY FIELDS IN CLR.T_VENDOR_INVOICE                 *
+027900* ---------------------------------------------------------------*
+028000 2530-EDIT-VEND-INVO-2.
+028100     IF VENI-INVOICE-AMT NOT NUMERIC
+028200        MOVE ZERO TO VENI-INVOICE-AMT
+028300        ADD 1 TO WS-REJECT-CNT
+028400     END-IF
+028500     IF VENI-FEE-TYPE-CD NOT = 'DK' AND VENI-FEE-TYPE-CD NOT =
+028600         'SV' AND VENI-FEE-TYPE-CD NOT = 'HR'
+028700        ADD 1 TO WS-REJECT-CNT
+028800        MOVE 'FEE_TYPE_CD INVALID' TO ERR-TEXT
+028900     END-IF
+029000     IF VENI-MATCHED-FLAG = SPACES OR LOW-VALUES
+029100        ADD 1 TO WS-REJECT-CNT
+029200        MOVE 'MATCHED_FLAG MISSING' TO ERR-TEXT
+029300     END-IF
+029400     .
+029500 2530-EDIT-VEND-INVO-2-EXIT.
+029600     EXIT.
+029700* ---------------------------------------------------------------*
+029800* 2540-EDIT-ESTIMATE-3                                           *
+029900* FIELD EDITS FOR CLR.T_ESTIMATE                                 *
+030000* ---------------------------------------------------------------*
+030100 2540-EDIT-ESTIMATE-3.
+030200 2540-EDIT-ESTIMATE-3-EXIT.
+030300     EXIT.
+030400* ---------------------------------------------------------------*
+030500* 4100-INSERT-VEND-INVO                                          *
+030600* INSERT CLR.T_VENDOR_INVOICE                                    *
+030700* ---------------------------------------------------------------*
+030800 4100-INSERT-VEND-INVO.
+030900     MOVE EST-CLAIM-ID TO VENI-CLAIM-ID
+031000     MOVE 'DK' TO VENI-FEE-TYPE-CD
+031100     EXEC SQL
+031200         INSERT INTO CLR.T_VENDOR_INVOICE
+031300              ( VENDOR_CD, CLAIM_ID, INVOICE_AMT, FEE_TYPE_CD
+031400              , MATCHED_FLAG, LAST_UPD_TS, LAST_UPD_PGM
+031500              , LAST_UPD_USER )
+031600         VALUES
+031700              ( :VENI-VENDOR-CD, :VENI-CLAIM-ID
+031800              , :VENI-INVOICE-AMT, :VENI-FEE-TYPE-CD
+031900              , :VENI-MATCHED-FLAG, CURRENT TIMESTAMP
+032000              , :WS-PGM-ID, :WS-USER-ID )
+032100     END-EXEC
+032200     EVALUATE SQLCODE
+032300        WHEN 0
+032400           ADD 1 TO WS-VENDOR-INVOICE-WRITTEN
+032500        WHEN +100
+032600           SET WS-ROW-NOT-FOUND TO TRUE
+032700        WHEN OTHER
+032800           MOVE 'INSERT CLR.T_VENDOR_INVOICE' TO ERR-PARA
+032900           PERFORM 8000-SQL-ERROR
+033000     END-EVALUATE
+033100     .
+033200 4100-INSERT-VEND-INVO-EXIT.
+033300     EXIT.
+033400* ---------------------------------------------------------------*
+033500* 6000-COMMIT-CHECK                                              *
+033600* PERIODIC COMMIT                                                *
+033700* ---------------------------------------------------------------*
+033800 6000-COMMIT-CHECK.
+033900     ADD 1 TO WS-SINCE-COMMIT
+034000     IF WS-SINCE-COMMIT >= WS-COMMIT-FREQ
+034100        EXEC SQL
+034200            COMMIT
+034300        END-EXEC
+034400        MOVE ZERO TO WS-SINCE-COMMIT
+034500     END-IF
+034600     .
+034700 6000-COMMIT-CHECK-EXIT.
+034800     EXIT.
+034900* ---------------------------------------------------------------*
+035000* 9000-TERMINATE                                                 *
+035100* CLOSE DOWN                                                     *
+035200* ---------------------------------------------------------------*
+035300 9000-TERMINATE.
+035400     PERFORM 7010-LIST-ESTIMATE THRU 7010-LIST-ESTIMATE-EXIT
+035500     PERFORM 7030-LIST-VEND-INVO THRU 7030-LIST-VEND-INVO-EXIT
+035600     EXEC SQL
+035700         COMMIT
+035800     END-EXEC
+035900     MOVE 'CLR.T_ESTIMATE ROWS READ' TO RT-LABEL
+036000     MOVE WS-ESTIMATE-READ TO RT-COUNT
+036100     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+036200     MOVE 'CLR.T_VENDOR_INVOICE ROWS WRITTEN' TO RT-LABEL
+036300     MOVE WS-VENDOR-INVOICE-WRITTEN TO RT-COUNT
+036400     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+036500     CLOSE REPORT-FILE
+036600     IF WS-REJECT-CNT > ZERO
+036700        MOVE 4 TO RETURN-CODE
+036800     END-IF
+036900     .
+037000 9000-TERMINATE-EXIT.
+037100     EXIT.
+037200* ---------------------------------------------------------------*
+037300* 7010-LIST-ESTIMATE                                             *
+037400* LIST CLR.T_ESTIMATE FIELDS ON THE REPORT                       *
+037500* ---------------------------------------------------------------*
+037600 7010-LIST-ESTIMATE.
+037700     MOVE 'LAST CLR.T_ESTIMATE ROW' TO RD-LABEL
+037800     MOVE SPACES TO RD-VALUE
+037900     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+038000     MOVE '  CLAIM_ID' TO RD-LABEL
+038100     MOVE EST-CLAIM-ID TO RD-VALUE
+038200     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+038300     MOVE '  EST_ITEM_DESC' TO RD-LABEL
+038400     MOVE EST-EST-ITEM-DESC TO RD-VALUE
+038500     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+038600     MOVE '  REPAIRER_CD' TO RD-LABEL
+038700     MOVE EST-REPAIRER-CD TO RD-VALUE
+038800     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+038900     MOVE '  EXT_REF' TO RD-LABEL
+039000     MOVE EST-EXT-REF TO RD-VALUE
+039100     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+039200     .
+039300 7010-LIST-ESTIMATE-EXIT.
+039400     EXIT.
+039500* ---------------------------------------------------------------*
+039600* 7030-LIST-VEND-INVO                                            *
+039700* LIST CLR.T_VENDOR_INVOICE FIELDS ON THE REPORT                 *
+039800* ---------------------------------------------------------------*
+039900 7030-LIST-VEND-INVO.
+040000     MOVE 'LAST CLR.T_VENDOR_INVOICE ROW' TO RD-LABEL
+040100     MOVE SPACES TO RD-VALUE
+040200     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+040300     MOVE '  VENDOR_CD' TO RD-LABEL
+040400     MOVE VENI-VENDOR-CD TO RD-VALUE
+040500     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+040600     MOVE '  CLAIM_ID' TO RD-LABEL
+040700     MOVE VENI-CLAIM-ID TO RD-VALUE
+040800     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+040900     MOVE '  FEE_TYPE_CD' TO RD-LABEL
+041000     MOVE VENI-FEE-TYPE-CD TO RD-VALUE
+041100     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+041200     MOVE '  MATCHED_FLAG' TO RD-LABEL
+041300     MOVE VENI-MATCHED-FLAG TO RD-VALUE
+041400     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+041500     .
+041600 7030-LIST-VEND-INVO-EXIT.
+041700     EXIT.
+041800* ---------------------------------------------------------------*
+041900* 8000-SQL-ERROR                                                 *
+042000* UNEXPECTED SQLCODE                                             *
+042100* ---------------------------------------------------------------*
+042200 8000-SQL-ERROR.
+042300     MOVE SQLCODE TO ERR-SQLCODE WS-SQLCODE-DSP
+042400     MOVE WS-PGM-ID TO ERR-PGM
+042500     STRING 'SQLCODE ' WS-SQLCODE-DSP DELIMITED BY SIZE INTO
+042600         ERR-TEXT
+042700     DISPLAY WS-PGM-ID ' ' ERR-PARA ' ' ERR-TEXT
+042800     EXEC SQL
+042900         ROLLBACK
+043000     END-EXEC
+043100     MOVE 16 TO RETURN-CODE
+043200     CLOSE REPORT-FILE
+043300     GOBACK.
+043400 8000-SQL-ERROR-EXIT.
+043500     EXIT.

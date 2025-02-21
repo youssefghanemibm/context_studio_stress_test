@@ -1,0 +1,157 @@
+000100* ================================================================
+000200* PROGRAM    : CLRCM050
+000300* TITLE      : ERROR HANDLER AND ABEND FORMATTER
+000400* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION
+000500* AREA       : COMMON
+000600* TYPE       : CALLED SUBPROGRAM (STATIC CALL, NO CICS COMMANDS)
+000700* ----------------------------------------------------------------
+000800* PURPOSE
+000900*   UTILITY MODULE: ERROR HANDLER AND ABEND FORMATTER.
+001000*   SAFE FOR BOTH BATCH AND CICS CALLERS.
+001100*   NON-ZERO ERR-SQLCODE MEANS THE REQUEST FAILED.
+001200* ----------------------------------------------------------------
+001300* DB2 TABLES
+001400*   CLR.T_USER                  READ
+001500* COPYBOOKS  : USRREC01 CLRERR01
+001600* CALLS      : NONE
+001700* ----------------------------------------------------------------
+001800* MAINTENANCE HISTORY
+001900* DATE       BY       REF        DESCRIPTION
+002000* ---------- -------- ---------- -------------------------------
+002100* 1994-10-03 CLRPROJ             INITIAL VERSION - CLARA GO-LIVE
+002200* 2011-02-12 DO                  DB2 VERSION MIGRATION - REBIND,
+002300*                                NO LOGIC CHANGE
+002400* ================================================================
+002500 IDENTIFICATION DIVISION.
+002600 PROGRAM-ID.    CLRCM050.
+002700 AUTHOR.        CLARA PROJECT TEAM.
+002800 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
+002900 DATE-WRITTEN.  1994-10-03.
+003000 DATE-COMPILED.
+003100 ENVIRONMENT DIVISION.
+003200 CONFIGURATION SECTION.
+003300 SOURCE-COMPUTER.  IBM-Z.
+003400 OBJECT-COMPUTER.  IBM-Z.
+003500 DATA DIVISION.
+003600 WORKING-STORAGE SECTION.
+003700*
+003800 01  WS-PROGRAM-INFO.
+003900     05  WS-PGM-ID               PIC X(8)   VALUE 'CLRCM050'.
+004000     05  WS-RUN-DATE             PIC X(10)  VALUE SPACES.
+004100     05  WS-RUN-TS               PIC X(26)  VALUE SPACES.
+004200     05  WS-USER-ID              PIC X(8)   VALUE SPACES.
+004300*
+004400 01  WS-SWITCHES.
+004500     05  WS-EOF-SW               PIC X      VALUE 'N'.
+004600        88  WS-END-OF-DATA                     VALUE 'Y'.
+004700     05  WS-ERROR-SW             PIC X      VALUE 'N'.
+004800        88  WS-ERROR-FOUND                     VALUE 'Y'.
+004900        88  WS-NO-ERROR                        VALUE 'N'.
+005000     05  WS-FOUND-SW             PIC X      VALUE 'N'.
+005100        88  WS-ROW-FOUND                       VALUE 'Y'.
+005200        88  WS-ROW-NOT-FOUND                   VALUE 'N'.
+005300*
+005400 01  WS-COUNTERS.
+005500     05  WS-USER-READ            PIC S9(9)  COMP-3 VALUE ZERO.
+005600     05  WS-REJECT-CNT           PIC S9(9)  COMP-3 VALUE ZERO.
+005700*
+005800 01  WS-SQL-WORK.
+005900     05  WS-SQLCODE-DSP          PIC -9(9).
+006000     05  WS-ROWS-AFFECTED        PIC S9(9)  COMP VALUE ZERO.
+006100     05  WS-IND-1                PIC S9(4)  COMP VALUE ZERO.
+006200     05  WS-IND-2                PIC S9(4)  COMP VALUE ZERO.
+006300     05  WS-NEW-ID               PIC S9(18) COMP VALUE ZERO.
+006400*
+006500     EXEC SQL INCLUDE SQLCA END-EXEC.
+006600*
+006700* APPLICATION COPYBOOKS
+006800 COPY USRREC01.
+006900 COPY CLRERR01.
+007000 LINKAGE SECTION.
+007100 01  LS-ERROR-BLOCK              PIC X(162).
+007200 PROCEDURE DIVISION USING LS-ERROR-BLOCK.
+007300* ---------------------------------------------------------------*
+007400* 0000-MAIN                                                      *
+007500* ENTRY                                                          *
+007600* ---------------------------------------------------------------*
+007700 0000-MAIN.
+007800     INITIALIZE CLR-ERROR-BLOCK
+007900     MOVE 'CLRCM050' TO ERR-PGM
+008000     MOVE LS-ERROR-BLOCK TO CLR-ERROR-BLOCK
+008100     DISPLAY 'CLARA ERROR ' ERR-PGM ' ' ERR-PARA ' ' ERR-SQLCODE
+008200     PERFORM 2300-READ-USER THRU 2300-READ-USER-EXIT
+008300     PERFORM 2500-EDIT-USER THRU 2500-EDIT-USER-EXIT
+008400     PERFORM 9000-RETURN THRU 9000-RETURN-EXIT
+008500     .
+008600 0000-MAIN-EXIT.
+008700     EXIT.
+008800* ---------------------------------------------------------------*
+008900* 2300-READ-USER                                                 *
+009000* READ CLR.T_USER                                                *
+009100* ---------------------------------------------------------------*
+009200 2300-READ-USER.
+009300     MOVE WS-USER-ID TO USRR-USER-ID
+009400     SET WS-ROW-FOUND TO TRUE
+009500     EXEC SQL
+009600         SELECT USER_ID, USER_NAME, TEAM_CD, RSV_AUTH_LEVEL
+009700                , PAY_AUTH_LEVEL, ACTIVE_FLAG
+009800           INTO :USRR-USER-ID, :USRR-USER-NAME, :USRR-TEAM-CD
+009900                , :USRR-RSV-AUTH-LEVEL, :USRR-PAY-AUTH-LEVEL
+010000                , :USRR-ACTIVE-FLAG
+010100           FROM CLR.T_USER
+010200          WHERE USER_ID = :USRR-USER-ID
+010300     END-EXEC
+010400     EVALUATE SQLCODE
+010500        WHEN 0
+010600           ADD 1 TO WS-USER-READ
+010700        WHEN +100
+010800           SET WS-ROW-NOT-FOUND TO TRUE
+010900        WHEN OTHER
+011000           MOVE 'READ CLR.T_USER' TO ERR-PARA
+011100           PERFORM 8000-SQL-ERROR
+011200     END-EVALUATE
+011300     .
+011400 2300-READ-USER-EXIT.
+011500     EXIT.
+011600* ---------------------------------------------------------------*
+011700* 2500-EDIT-USER                                                 *
+011800* FIELD EDITS FOR CLR.T_USER                                     *
+011900* ---------------------------------------------------------------*
+012000 2500-EDIT-USER.
+012100     IF USRR-USER-ID = SPACES OR LOW-VALUES
+012200        ADD 1 TO WS-REJECT-CNT
+012300        MOVE 'USER_ID MISSING' TO ERR-TEXT
+012400     END-IF
+012500     IF USRR-USER-NAME = SPACES OR LOW-VALUES
+012600        ADD 1 TO WS-REJECT-CNT
+012700        MOVE 'USER_NAME MISSING' TO ERR-TEXT
+012800     END-IF
+012900     IF USRR-TEAM-CD = SPACES OR LOW-VALUES
+013000        ADD 1 TO WS-REJECT-CNT
+013100        MOVE 'TEAM_CD MISSING' TO ERR-TEXT
+013200     END-IF
+013300     .
+013400 2500-EDIT-USER-EXIT.
+013500     EXIT.
+013600* ---------------------------------------------------------------*
+013700* 9000-RETURN                                                    *
+013800* COPY RESULTS BACK TO THE CALLER                                *
+013900* ---------------------------------------------------------------*
+014000 9000-RETURN.
+014100     MOVE CLR-ERROR-BLOCK TO LS-ERROR-BLOCK
+014200     GOBACK.
+014300 9000-RETURN-EXIT.
+014400     EXIT.
+014500* ---------------------------------------------------------------*
+014600* 8000-SQL-ERROR                                                 *
+014700* UNEXPECTED SQLCODE                                             *
+014800* ---------------------------------------------------------------*
+014900 8000-SQL-ERROR.
+015000     MOVE SQLCODE TO ERR-SQLCODE WS-SQLCODE-DSP
+015100     MOVE WS-PGM-ID TO ERR-PGM
+015200     STRING 'SQLCODE ' WS-SQLCODE-DSP DELIMITED BY SIZE INTO
+015300         ERR-TEXT
+015400     DISPLAY WS-PGM-ID ' ' ERR-PARA ' ' ERR-TEXT
+015500     GO TO 9000-RETURN.
+015600 8000-SQL-ERROR-EXIT.
+015700     EXIT.

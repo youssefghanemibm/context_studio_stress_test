@@ -1,0 +1,504 @@
+000100* ================================================================
+000200* PROGRAM    : CLRRS030
+000300* TITLE      : RESERVE ENQUIRY AND HISTORY
+000400* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION
+000500* AREA       : RESERVE
+000600* TYPE       : CICS ONLINE / DB2
+000700* TRANSACTION: RS03
+000800* MAP        : CLRM330 (MAPSET CLRMS04)
+000900* ----------------------------------------------------------------
+001000* PURPOSE
+001100*   ONLINE PROGRAM: RESERVE ENQUIRY AND HISTORY.
+001200*   COMMAREA LAYOUT: CLRCOMM1.
+001300* ----------------------------------------------------------------
+001400* DB2 TABLES
+001500*   CLR.T_RESERVE               READ
+001600*   CLR.T_RESERVE_HISTORY       READ
+001700*   CLR.T_RESERVE_MOVEMENT      READ
+001800* COPYBOOKS  : RSVREC RSVHIS01 RSVMVT01 CLRERR01 CLRCOMM1
+001900* CALLS      : CLRCM050 CLRCM070
+002000* ----------------------------------------------------------------
+002100* MAINTENANCE HISTORY
+002200* DATE       BY       REF        DESCRIPTION
+002300* ---------- -------- ---------- -------------------------------
+002400* 2012-08-01 KBARR01             INITIAL VERSION
+002500* 2014-07-13 KBARR01             CURSOR POSITIONING ON
+002600*                                VALIDATION ERRORS
+002700* ================================================================
+002800 IDENTIFICATION DIVISION.
+002900 PROGRAM-ID.    CLRRS030.
+003000 AUTHOR.        K. BARRACLOUGH.
+003100 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
+003200 DATE-WRITTEN.  2012-08-01.
+003300 DATE-COMPILED.
+003400 ENVIRONMENT DIVISION.
+003500 CONFIGURATION SECTION.
+003600 SOURCE-COMPUTER.  IBM-Z.
+003700 OBJECT-COMPUTER.  IBM-Z.
+003800 DATA DIVISION.
+003900 WORKING-STORAGE SECTION.
+004000*
+004100 01  WS-PROGRAM-INFO.
+004200     05  WS-PGM-ID               PIC X(8)   VALUE 'CLRRS030'.
+004300     05  WS-RUN-DATE             PIC X(10)  VALUE SPACES.
+004400     05  WS-RUN-TS               PIC X(26)  VALUE SPACES.
+004500     05  WS-USER-ID              PIC X(8)   VALUE SPACES.
+004600*
+004700 01  WS-SWITCHES.
+004800     05  WS-EOF-SW               PIC X      VALUE 'N'.
+004900         88  WS-END-OF-DATA                     VALUE 'Y'.
+005000     05  WS-ERROR-SW             PIC X      VALUE 'N'.
+005100         88  WS-ERROR-FOUND                     VALUE 'Y'.
+005200         88  WS-NO-ERROR                        VALUE 'N'.
+005300     05  WS-FOUND-SW             PIC X      VALUE 'N'.
+005400         88  WS-ROW-FOUND                       VALUE 'Y'.
+005500         88  WS-ROW-NOT-FOUND                   VALUE 'N'.
+005600*
+005700 01  WS-COUNTERS.
+005800     05  WS-RESERVE-READ         PIC S9(9)  COMP-3 VALUE ZERO.
+005900     05  WS-RESERVE-HISTORY-READ PIC S9(9)  COMP-3 VALUE ZERO.
+006000     05  WS-RESERVE-MOVEMENT-READPIC S9(9)  COMP-3 VALUE ZERO.
+006100     05  WS-REJECT-CNT           PIC S9(9)  COMP-3 VALUE ZERO.
+006200*
+006300 01  WS-SQL-WORK.
+006400     05  WS-SQLCODE-DSP          PIC -9(9).
+006500     05  WS-ROWS-AFFECTED        PIC S9(9)  COMP VALUE ZERO.
+006600     05  WS-IND-1                PIC S9(4)  COMP VALUE ZERO.
+006700     05  WS-IND-2                PIC S9(4)  COMP VALUE ZERO.
+006800     05  WS-NEW-ID               PIC S9(18) COMP VALUE ZERO.
+006900*
+007000     EXEC SQL INCLUDE SQLCA END-EXEC.
+007100*
+007200* CLARA RECORD LAYOUTS
+007300 COPY RSVREC.
+007400 COPY RSVHIS01.
+007500 COPY RSVMVT01.
+007600 COPY CLRERR01.
+007700 COPY CLRCOMM1.
+007800*
+007900* SUBPROGRAM PARAMETERS
+008000 01  WS-AUTH-PARMS.
+008100     05  WS-AUTH-USER            PIC X(8).
+008200     05  WS-AUTH-FUNCTION        PIC X(8).
+008300     05  WS-AUTH-ALLOWED         PIC X(1).
+008400*
+008500* SYMBOLIC MAP CLRM330 (MAPSET CLRMS04) - KEEP IN STEP WITH
+008600* BMS SOURCE legacy/clara/bms/CLRMS04.bms
+008700 01  CLRM330I.
+008800     02  FILLER                  PIC X(12).
+008900     02  CLAIMIDL                PIC S9(4) COMP.
+009000     02  CLAIMIDF                PIC X.
+009100     02  FILLER REDEFINES CLAIMIDF.
+009200         03  CLAIMIDA            PIC X.
+009300     02  CLAIMIDI                PIC X(16).
+009400     02  RSVIDL                  PIC S9(4) COMP.
+009500     02  RSVIDF                  PIC X.
+009600     02  FILLER REDEFINES RSVIDF.
+009700         03  RSVIDA              PIC X.
+009800     02  RSVIDI                  PIC X(16).
+009900     02  OUTSL                   PIC S9(4) COMP.
+010000     02  OUTSF                   PIC X.
+010100     02  FILLER REDEFINES OUTSF.
+010200         03  OUTSA               PIC X.
+010300     02  OUTSI                   PIC X(10).
+010400     02  PAIDTDL                 PIC S9(4) COMP.
+010500     02  PAIDTDF                 PIC X.
+010600     02  FILLER REDEFINES PAIDTDF.
+010700         03  PAIDTDA             PIC X.
+010800     02  PAIDTDI                 PIC X(16).
+010900     02  GBPEQUIL                PIC S9(4) COMP.
+011000     02  GBPEQUIF                PIC X.
+011100     02  FILLER REDEFINES GBPEQUIF.
+011200         03  GBPEQUIA            PIC X.
+011300     02  GBPEQUII                PIC X(20).
+011400     02  MSGL                    PIC S9(4) COMP.
+011500     02  MSGF                    PIC X.
+011600     02  FILLER REDEFINES MSGF.
+011700         03  MSGA                PIC X.
+011800     02  MSGI                    PIC X(79).
+011900 01  CLRM330O REDEFINES CLRM330I.
+012000     02  FILLER                  PIC X(12).
+012100     02  FILLER                  PIC X(3).
+012200     02  CLAIMIDO                PIC X(16).
+012300     02  FILLER                  PIC X(3).
+012400     02  RSVIDO                  PIC X(16).
+012500     02  FILLER                  PIC X(3).
+012600     02  OUTSO                   PIC X(10).
+012700     02  FILLER                  PIC X(3).
+012800     02  PAIDTDO                 PIC X(16).
+012900     02  FILLER                  PIC X(3).
+013000     02  GBPEQUIO                PIC X(20).
+013100     02  FILLER                  PIC X(3).
+013200     02  MSGO                    PIC X(79).
+013300*
+013400 01  WS-AID-VALUES.
+013500     05  AID-ENTER               PIC X      VALUE X'7D'.
+013600     05  AID-CLEAR               PIC X      VALUE X'6D'.
+013700     05  AID-PF3                 PIC X      VALUE X'F3'.
+013800     05  AID-PF7                 PIC X      VALUE X'F7'.
+013900     05  AID-PF8                 PIC X      VALUE X'F8'.
+014000     05  AID-PF12                PIC X      VALUE X'7C'.
+014100     05  WS-RESP                 PIC S9(8)  COMP VALUE ZERO.
+014200*
+014300 01  WS-MESSAGES.
+014400     05  WS-MSG-01               PIC X(40)  VALUE
+014500             'CLAIM-ID IS REQUIRED'.
+014600 LINKAGE SECTION.
+014700 01  DFHCOMMAREA                 PIC X(105).
+014800 PROCEDURE DIVISION.
+014900* ---------------------------------------------------------------*
+015000* 0000-MAIN                                                      *
+015100* PSEUDO-CONVERSATIONAL CONTROL                                  *
+015200* ---------------------------------------------------------------*
+015300 0000-MAIN.
+015400     EXEC CICS ASSIGN USERID(WS-USER-ID) END-EXEC
+015500     IF EIBCALEN = ZERO
+015600         INITIALIZE CLR-COMMAREA
+015700         MOVE 'RS03' TO CA-TRANID
+015800         PERFORM 1000-FIRST-TIME
+015900     ELSE
+016000         MOVE DFHCOMMAREA TO CLR-COMMAREA
+016100         PERFORM 2000-PROCESS-INPUT
+016200     END-IF
+016300     PERFORM 9000-RETURN
+016400     GOBACK.
+016500* ---------------------------------------------------------------*
+016600* 1000-FIRST-TIME                                                *
+016700* SEND THE EMPTY SCREEN                                          *
+016800* ---------------------------------------------------------------*
+016900 1000-FIRST-TIME.
+017000     MOVE LOW-VALUES TO CLRM330O
+017100     EXEC CICS SEND MAP('CLRM330') MAPSET('CLRMS04')
+017200         ERASE FREEKB RESP(WS-RESP) END-EXEC
+017300     .
+017400* ---------------------------------------------------------------*
+017500* 2000-PROCESS-INPUT                                             *
+017600* INPUT PROCESSING                                               *
+017700* ---------------------------------------------------------------*
+017800 2000-PROCESS-INPUT.
+017900     EXEC CICS RECEIVE MAP('CLRM330') MAPSET('CLRMS04')
+018000         INTO(CLRM330I) RESP(WS-RESP) END-EXEC
+018100     EVALUATE TRUE
+018200         WHEN EIBAID = AID-PF3
+018300         WHEN EIBAID = AID-CLEAR
+018400             MOVE ZERO TO CA-RETURN-CD
+018500             EXEC CICS RETURN END-EXEC
+018600         WHEN EIBAID = AID-PF12
+018700             PERFORM 1000-FIRST-TIME
+018800         WHEN EIBAID = AID-ENTER
+018900             PERFORM 2100-EDIT-INPUT
+019000             IF WS-NO-ERROR
+019100                 PERFORM 2200-APPLY
+019200             END-IF
+019300         WHEN OTHER
+019400             MOVE 'INVALID KEY PRESSED' TO MSGO
+019500     END-EVALUATE
+019600     EXEC CICS SEND MAP('CLRM330') MAPSET('CLRMS04')
+019700         DATAONLY FREEKB CURSOR RESP(WS-RESP) END-EXEC
+019800     .
+019900* ---------------------------------------------------------------*
+020000* 2100-EDIT-INPUT                                                *
+020100* VALIDATE THE REQUEST                                           *
+020200* ---------------------------------------------------------------*
+020300 2100-EDIT-INPUT.
+020400     SET WS-NO-ERROR TO TRUE
+020500     IF CLAIMIDL = ZERO OR CLAIMIDI = SPACES
+020600         SET WS-ERROR-FOUND TO TRUE
+020700         MOVE WS-MSG-01 TO MSGO
+020800         MOVE -1 TO CLAIMIDL
+020900     ELSE
+021000         MOVE CLAIMIDI TO CA-CLAIM-ID
+021100     END-IF
+021200     PERFORM 1500-CHECK-AUTHORITY
+021300     .
+021400* ---------------------------------------------------------------*
+021500* 1500-CHECK-AUTHORITY                                           *
+021600* CONFIRM THE USER MAY RUN THIS FUNCTION                         *
+021700* ---------------------------------------------------------------*
+021800 1500-CHECK-AUTHORITY.
+021900     MOVE WS-USER-ID TO WS-AUTH-USER
+022000     MOVE 'CLRRS030' TO WS-AUTH-FUNCTION
+022100     CALL 'CLRCM070' USING WS-AUTH-PARMS
+022200                      CLR-ERROR-BLOCK
+022300     IF ERR-SQLCODE NOT = ZERO
+022400         MOVE 'CALL CLRCM070' TO ERR-PARA
+022500         PERFORM 8000-SQL-ERROR
+022600     END-IF
+022700     IF WS-AUTH-ALLOWED NOT = 'Y'
+022800         SET WS-ERROR-FOUND TO TRUE
+022900         MOVE 8 TO CA-RETURN-CD
+023000         MOVE 'NOT AUTHORISED FOR THIS FUNCTION' TO CA-MSG
+023100     END-IF
+023200     .
+023300* ---------------------------------------------------------------*
+023400* 2200-APPLY                                                     *
+023500* BUSINESS PROCESSING                                            *
+023600* ---------------------------------------------------------------*
+023700 2200-APPLY.
+023800     PERFORM 2300-READ-RESERVE
+023900     PERFORM 2320-READ-RESE-HIST
+024000     PERFORM 2340-READ-RESE-MOVE
+024100     PERFORM 2500-EDIT-RESERVE
+024200     PERFORM 2510-EDIT-RESE-HIST
+024300     PERFORM 2520-EDIT-RESE-MOVE
+024400     PERFORM 2530-EDIT-RESERVE-2
+024500     PERFORM 2540-EDIT-RESE-HIST-2
+024600     PERFORM 2550-EDIT-RESE-MOVE-2
+024700     PERFORM 2560-EDIT-RESERVE-3
+024800     PERFORM 2570-EDIT-RESE-HIST-3
+024900     IF WS-NO-ERROR
+025000         MOVE ZERO TO CA-RETURN-CD
+025100     END-IF
+025200     .
+025300* ---------------------------------------------------------------*
+025400* 2300-READ-RESERVE                                              *
+025500* FETCH CLR.T_RESERVE                                            *
+025600* ---------------------------------------------------------------*
+025700 2300-READ-RESERVE.
+025800     SET WS-ROW-FOUND TO TRUE
+025900     EXEC SQL
+026000         SELECT RSV_ID, CLAIM_ID, RSV_TYPE_CD, CURRENCY_CD
+026100                , RSV_INITIAL_AMT, RSV_OUTSTANDING_AMT
+026200           INTO :RSV-RSV-ID, :RSV-CLAIM-ID, :RSV-RSV-TYPE-CD
+026300                , :RSV-CURRENCY-CD, :RSV-RSV-INITIAL-AMT
+026400                , :RSV-RSV-OUTSTANDING-AMT
+026500           FROM CLR.T_RESERVE
+026600          WHERE RSV_ID = :RSV-RSV-ID
+026700     END-EXEC
+026800     EVALUATE SQLCODE
+026900         WHEN 0
+027000             ADD 1 TO WS-RESERVE-READ
+027100         WHEN +100
+027200             SET WS-ROW-NOT-FOUND TO TRUE
+027300         WHEN OTHER
+027400             MOVE 'READ CLR.T_RESERVE' TO ERR-PARA
+027500             PERFORM 8000-SQL-ERROR
+027600     END-EVALUATE
+027700     .
+027800* ---------------------------------------------------------------*
+027900* 2320-READ-RESE-HIST                                            *
+028000* READ CLR.T_RESERVE_HISTORY                                     *
+028100* ---------------------------------------------------------------*
+028200 2320-READ-RESE-HIST.
+028300     SET WS-ROW-FOUND TO TRUE
+028400     EXEC SQL
+028500         SELECT RSV_ID, SNAPSHOT_DT, RSV_OUTSTANDING_AMT
+028600                , RSV_GBP_EQUIV_AMT
+028700           INTO :RSVH-RSV-ID, :RSVH-SNAPSHOT-DT
+028800                , :RSVH-RSV-OUTSTANDING-AMT
+028900                , :RSVH-RSV-GBP-EQUIV-AMT
+029000           FROM CLR.T_RESERVE_HISTORY
+029100          WHERE RSV_ID = :RSVH-RSV-ID
+029200            AND SNAPSHOT_DT = :RSVH-SNAPSHOT-DT
+029300     END-EXEC
+029400     EVALUATE SQLCODE
+029500         WHEN 0
+029600             ADD 1 TO WS-RESERVE-HISTORY-READ
+029700         WHEN +100
+029800             SET WS-ROW-NOT-FOUND TO TRUE
+029900         WHEN OTHER
+030000             MOVE 'READ CLR.T_RESERVE_HISTORY' TO ERR-PARA
+030100             PERFORM 8000-SQL-ERROR
+030200     END-EVALUATE
+030300     .
+030400* ---------------------------------------------------------------*
+030500* 2340-READ-RESE-MOVE                                            *
+030600* FETCH CLR.T_RESERVE_MOVEMENT                                   *
+030700* ---------------------------------------------------------------*
+030800 2340-READ-RESE-MOVE.
+030900     SET WS-ROW-FOUND TO TRUE
+031000     EXEC SQL
+031100         SELECT MOVE_ID, RSV_ID, CLAIM_ID, MOVE_TS
+031200                , MOVE_TYPE_CD
+031300           INTO :RSVM-MOVE-ID, :RSVM-RSV-ID, :RSVM-CLAIM-ID
+031400                , :RSVM-MOVE-TS, :RSVM-MOVE-TYPE-CD
+031500           FROM CLR.T_RESERVE_MOVEMENT
+031600          WHERE MOVE_ID = :RSVM-MOVE-ID
+031700     END-EXEC
+031800     EVALUATE SQLCODE
+031900         WHEN 0
+032000             ADD 1 TO WS-RESERVE-MOVEMENT-READ
+032100         WHEN +100
+032200             SET WS-ROW-NOT-FOUND TO TRUE
+032300         WHEN OTHER
+032400             MOVE 'READ CLR.T_RESERVE_MOVEMENT' TO ERR-PARA
+032500             PERFORM 8000-SQL-ERROR
+032600     END-EVALUATE
+032700     .
+032800* ---------------------------------------------------------------*
+032900* 2500-EDIT-RESERVE                                              *
+033000* FIELD EDITS FOR CLR.T_RESERVE                                  *
+033100* ---------------------------------------------------------------*
+033200 2500-EDIT-RESERVE.
+033300     IF RSV-CLAIM-ID = SPACES OR LOW-VALUES
+033400         ADD 1 TO WS-REJECT-CNT
+033500         MOVE 'CLAIM_ID MISSING' TO ERR-TEXT
+033600     END-IF
+033700     IF RSV-RSV-TYPE-CD NOT = 'ID' AND RSV-RSV-TYPE-CD NOT = 'EX'
+033800         AND RSV-RSV-TYPE-CD NOT = 'LG'
+033900         ADD 1 TO WS-REJECT-CNT
+034000         MOVE 'RSV_TYPE_CD INVALID' TO ERR-TEXT
+034100     END-IF
+034200     IF RSV-CURRENCY-CD = SPACES OR LOW-VALUES
+034300         ADD 1 TO WS-REJECT-CNT
+034400         MOVE 'CURRENCY_CD MISSING' TO ERR-TEXT
+034500     END-IF
+034600     IF RSV-RSV-INITIAL-AMT NOT NUMERIC
+034700         MOVE ZERO TO RSV-RSV-INITIAL-AMT
+034800         ADD 1 TO WS-REJECT-CNT
+034900     END-IF
+035000     IF RSV-RSV-OUTSTANDING-AMT NOT NUMERIC
+035100         MOVE ZERO TO RSV-RSV-OUTSTANDING-AMT
+035200         ADD 1 TO WS-REJECT-CNT
+035300     END-IF
+035400     IF RSV-RSV-PAID-TO-DATE-AMT NOT NUMERIC
+035500         MOVE ZERO TO RSV-RSV-PAID-TO-DATE-AMT
+035600         ADD 1 TO WS-REJECT-CNT
+035700     END-IF
+035800     .
+035900* ---------------------------------------------------------------*
+036000* 2510-EDIT-RESE-HIST                                            *
+036100* VALIDATE CLR.T_RESERVE_HISTORY                                 *
+036200* ---------------------------------------------------------------*
+036300 2510-EDIT-RESE-HIST.
+036400     IF RSVH-SNAPSHOT-DT NOT = SPACES AND RSVH-SNAPSHOT-DT(5:1)
+036500         NOT = '-'
+036600         MOVE 'SNAPSHOT_DT BAD DATE' TO ERR-TEXT
+036700         ADD 1 TO WS-REJECT-CNT
+036800     END-IF
+036900     IF RSVH-RSV-OUTSTANDING-AMT NOT NUMERIC
+037000         MOVE ZERO TO RSVH-RSV-OUTSTANDING-AMT
+037100         ADD 1 TO WS-REJECT-CNT
+037200     END-IF
+037300     .
+037400* ---------------------------------------------------------------*
+037500* 2520-EDIT-RESE-MOVE                                            *
+037600* FIELD EDITS FOR CLR.T_RESERVE_MOVEMENT                         *
+037700* ---------------------------------------------------------------*
+037800 2520-EDIT-RESE-MOVE.
+037900     IF RSVM-CLAIM-ID = SPACES OR LOW-VALUES
+038000         ADD 1 TO WS-REJECT-CNT
+038100         MOVE 'CLAIM_ID MISSING' TO ERR-TEXT
+038200     END-IF
+038300     IF RSVM-MOVE-TYPE-CD NOT = 'IN' AND RSVM-MOVE-TYPE-CD NOT =
+038400         'AD' AND RSVM-MOVE-TYPE-CD NOT = 'IX' AND
+038500         RSVM-MOVE-TYPE-CD NOT = 'RV' AND RSVM-MOVE-TYPE-CD NOT =
+038600         'ST' AND RSVM-MOVE-TYPE-CD NOT = 'RC'
+038700         ADD 1 TO WS-REJECT-CNT
+038800         MOVE 'MOVE_TYPE_CD INVALID' TO ERR-TEXT
+038900     END-IF
+039000     IF RSVM-MOVE-AMT NOT NUMERIC
+039100         MOVE ZERO TO RSVM-MOVE-AMT
+039200         ADD 1 TO WS-REJECT-CNT
+039300     END-IF
+039400     .
+039500* ---------------------------------------------------------------*
+039600* 2530-EDIT-RESERVE-2                                            *
+039700* FIELD EDITS FOR CLR.T_RESERVE                                  *
+039800* ---------------------------------------------------------------*
+039900 2530-EDIT-RESERVE-2.
+040000     IF RSV-RSV-GBP-EQUIV-AMT NOT NUMERIC
+040100         MOVE ZERO TO RSV-RSV-GBP-EQUIV-AMT
+040200         ADD 1 TO WS-REJECT-CNT
+040300     END-IF
+040400     IF RSV-RSV-STATUS NOT = 'O' AND RSV-RSV-STATUS NOT = 'C'
+040500         ADD 1 TO WS-REJECT-CNT
+040600         MOVE 'RSV_STATUS INVALID' TO ERR-TEXT
+040700     END-IF
+040800     IF RSV-RSV-AUTH-LEVEL NOT = 'CH' AND RSV-RSV-AUTH-LEVEL NOT =
+040900         'TL' AND RSV-RSV-AUTH-LEVEL NOT = 'CM' AND
+041000         RSV-RSV-AUTH-LEVEL NOT = 'CD' AND RSV-RSV-AUTH-LEVEL NOT
+041100         = 'RC'
+041200         ADD 1 TO WS-REJECT-CNT
+041300         MOVE 'RSV_AUTH_LEVEL INVALID' TO ERR-TEXT
+041400     END-IF
+041500     IF RSV-RSV-SET-BY-USER = SPACES OR LOW-VALUES
+041600         ADD 1 TO WS-REJECT-CNT
+041700         MOVE 'RSV_SET_BY_USER MISSING' TO ERR-TEXT
+041800     END-IF
+041900     IF RSV-RSV-NEXT-REVIEW-DT NOT = SPACES AND
+042000         RSV-RSV-NEXT-REVIEW-DT(5:1) NOT = '-'
+042100         MOVE 'RSV_NEXT_REVIEW_DT BAD DATE' TO ERR-TEXT
+042200         ADD 1 TO WS-REJECT-CNT
+042300     END-IF
+042400     .
+042500* ---------------------------------------------------------------*
+042600* 2540-EDIT-RESE-HIST-2                                          *
+042700* VALIDATE CLR.T_RESERVE_HISTORY                                 *
+042800* ---------------------------------------------------------------*
+042900 2540-EDIT-RESE-HIST-2.
+043000     IF RSVH-RSV-GBP-EQUIV-AMT NOT NUMERIC
+043100         MOVE ZERO TO RSVH-RSV-GBP-EQUIV-AMT
+043200         ADD 1 TO WS-REJECT-CNT
+043300     END-IF
+043400     IF RSVH-TIER-CD = SPACES OR LOW-VALUES
+043500         ADD 1 TO WS-REJECT-CNT
+043600         MOVE 'TIER_CD MISSING' TO ERR-TEXT
+043700     END-IF
+043800     .
+043900* ---------------------------------------------------------------*
+044000* 2550-EDIT-RESE-MOVE-2                                          *
+044100* FIELD EDITS FOR CLR.T_RESERVE_MOVEMENT                         *
+044200* ---------------------------------------------------------------*
+044300 2550-EDIT-RESE-MOVE-2.
+044400     IF RSVM-MOVE-GBP-AMT NOT NUMERIC
+044500         MOVE ZERO TO RSVM-MOVE-GBP-AMT
+044600         ADD 1 TO WS-REJECT-CNT
+044700     END-IF
+044800     IF RSVM-REASON-CD = SPACES OR LOW-VALUES
+044900         ADD 1 TO WS-REJECT-CNT
+045000         MOVE 'REASON_CD MISSING' TO ERR-TEXT
+045100     END-IF
+045200     IF RSVM-USER-ID = SPACES OR LOW-VALUES
+045300         ADD 1 TO WS-REJECT-CNT
+045400         MOVE 'USER_ID MISSING' TO ERR-TEXT
+045500     END-IF
+045600     IF RSVM-PGM-ID = SPACES OR LOW-VALUES
+045700         ADD 1 TO WS-REJECT-CNT
+045800         MOVE 'PGM_ID MISSING' TO ERR-TEXT
+045900     END-IF
+046000     IF RSVM-EXTRACTED-FLAG NOT = 'Y' AND RSVM-EXTRACTED-FLAG NOT
+046100         = 'N'
+046200         ADD 1 TO WS-REJECT-CNT
+046300         MOVE 'EXTRACTED_FLAG INVALID' TO ERR-TEXT
+046400     END-IF
+046500     .
+046600* ---------------------------------------------------------------*
+046700* 2560-EDIT-RESERVE-3                                            *
+046800* CHECK MANDATORY FIELDS IN CLR.T_RESERVE                        *
+046900* ---------------------------------------------------------------*
+047000 2560-EDIT-RESERVE-3.
+047100     IF RSV-RSV-LAST-REVAL-DT NOT = SPACES AND
+047200         RSV-RSV-LAST-REVAL-DT(5:1) NOT = '-'
+047300         MOVE 'RSV_LAST_REVAL_DT BAD DATE' TO ERR-TEXT
+047400         ADD 1 TO WS-REJECT-CNT
+047500     END-IF
+047600     .
+047700* ---------------------------------------------------------------*
+047800* 2570-EDIT-RESE-HIST-3                                          *
+047900* VALIDATE CLR.T_RESERVE_HISTORY                                 *
+048000* ---------------------------------------------------------------*
+048100 2570-EDIT-RESE-HIST-3.
+048200* ---------------------------------------------------------------*
+048300* 9000-RETURN                                                    *
+048400* RETURN TO CICS                                                 *
+048500* ---------------------------------------------------------------*
+048600 9000-RETURN.
+048700     EXEC CICS RETURN TRANSID('RS03') COMMAREA(CLR-COMMAREA)
+048800         LENGTH(LENGTH OF CLR-COMMAREA) END-EXEC
+048900     .
+049000* ---------------------------------------------------------------*
+049100* 8000-SQL-ERROR                                                 *
+049200* UNEXPECTED SQLCODE                                             *
+049300* ---------------------------------------------------------------*
+049400 8000-SQL-ERROR.
+049500     MOVE SQLCODE TO ERR-SQLCODE WS-SQLCODE-DSP
+049600     MOVE WS-PGM-ID TO ERR-PGM
+049700     STRING 'SQLCODE ' WS-SQLCODE-DSP DELIMITED BY SIZE INTO
+049800         ERR-TEXT
+049900     CALL 'CLRCM050' USING CLR-ERROR-BLOCK
+050000     EXEC CICS SYNCPOINT ROLLBACK END-EXEC
+050100     MOVE 16 TO CA-RETURN-CD
+050200     MOVE ERR-TEXT TO CA-MSG
+050300     PERFORM 9000-RETURN
+050400     .

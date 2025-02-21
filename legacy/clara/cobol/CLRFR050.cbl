@@ -1,0 +1,588 @@
+000100* ===============================================================*
+000200* PROGRAM    : CLRFR050                                          *
+000300* TITLE      : SIU OUTCOME UPDATE                                *
+000400* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION     *
+000500* AREA       : FRAUD                                             *
+000600* TYPE       : CICS ONLINE / DB2                                 *
+000700* TRANSACTION: FR05                                              *
+000800* ---------------------------------------------------------------*
+000900* PURPOSE                                                        *
+001000*   ONLINE TRANSACTION: SIU OUTCOME UPDATE.                      *
+001100*   PSEUDO-CONVERSATIONAL; STATE IS KEPT IN CLRCOMM1.            *
+001200*   NO SCREEN OF ITS OWN - DRIVEN THROUGH THE COMMAREA.          *
+001300* ---------------------------------------------------------------*
+001400* DB2 TABLES                                                     *
+001500*   CLR.T_CLAIM                 READ                             *
+001600*   CLR.T_CLAIM_LINK            READ                             *
+001700*   CLR.T_FRAUD_SCORE           READ                             *
+001800*   CLR.T_FRAUD_REFERRAL        UPDATE                           *
+001900*   CLR.T_SIU_CASE              INSERT                           *
+002000* COPYBOOKS  : CLRCLM01 FRDLNK01 FRDREF01 FRDSCR01 FRDSIU01      *
+002100*              CLRERR01 CLRCOMM1                                 *
+002200* CALLS      : CLRCM050 CLRCM020                                 *
+002300* ---------------------------------------------------------------*
+002400* MAINTENANCE HISTORY                                            *
+002500* DATE       BY       REF        DESCRIPTION                     *
+002600* ---------- -------- ---------- ------------------------------- *
+002700* 2013-03-01 PASHW01             INITIAL VERSION                 *
+002800* ===============================================================*
+002900 IDENTIFICATION DIVISION.
+003000 PROGRAM-ID.    CLRFR050.
+003100 AUTHOR.        P. ASHWORTH.
+003200 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
+003300 DATE-WRITTEN.  2013-03-01.
+003400 DATE-COMPILED.
+003500 ENVIRONMENT DIVISION.
+003600 CONFIGURATION SECTION.
+003700 SOURCE-COMPUTER.  IBM-Z.
+003800 OBJECT-COMPUTER.  IBM-Z.
+003900 DATA DIVISION.
+004000 WORKING-STORAGE SECTION.
+004100*
+004200 01  WS-PROGRAM-INFO.
+004300     05  WS-PGM-ID               PIC X(8)   VALUE 'CLRFR050'.
+004400     05  WS-RUN-DATE             PIC X(10)  VALUE SPACES.
+004500     05  WS-RUN-TS               PIC X(26)  VALUE SPACES.
+004600     05  WS-USER-ID              PIC X(8)   VALUE SPACES.
+004700*
+004800 01  WS-SWITCHES.
+004900     05  WS-EOF-SW               PIC X      VALUE 'N'.
+005000         88  WS-END-OF-DATA                     VALUE 'Y'.
+005100     05  WS-ERROR-SW             PIC X      VALUE 'N'.
+005200         88  WS-ERROR-FOUND                     VALUE 'Y'.
+005300         88  WS-NO-ERROR                        VALUE 'N'.
+005400     05  WS-FOUND-SW             PIC X      VALUE 'N'.
+005500         88  WS-ROW-FOUND                       VALUE 'Y'.
+005600         88  WS-ROW-NOT-FOUND                   VALUE 'N'.
+005700*
+005800 01  WS-COUNTERS.
+005900     05  WS-CLAIM-READ           PIC S9(9)  COMP-3 VALUE ZERO.
+006000     05  WS-CLAIM-LINK-READ      PIC S9(9)  COMP-3 VALUE ZERO.
+006100     05  WS-FRAUD-SCORE-READ     PIC S9(9)  COMP-3 VALUE ZERO.
+006200     05  WS-FRAUD-REFERRAL-WRITTEN PIC S9(9) COMP-3 VALUE ZERO.
+006300     05  WS-SIU-CASE-WRITTEN     PIC S9(9)  COMP-3 VALUE ZERO.
+006400     05  WS-REJECT-CNT           PIC S9(9)  COMP-3 VALUE ZERO.
+006500*
+006600 01  WS-SQL-WORK.
+006700     05  WS-SQLCODE-DSP          PIC -9(9).
+006800     05  WS-ROWS-AFFECTED        PIC S9(9)  COMP VALUE ZERO.
+006900     05  WS-IND-1                PIC S9(4)  COMP VALUE ZERO.
+007000     05  WS-IND-2                PIC S9(4)  COMP VALUE ZERO.
+007100     05  WS-NEW-ID               PIC S9(18) COMP VALUE ZERO.
+007200*
+007300     EXEC SQL INCLUDE SQLCA END-EXEC.
+007400*
+007500* APPLICATION COPYBOOKS
+007600 COPY CLRCLM01.
+007700 COPY FRDLNK01.
+007800 COPY FRDREF01.
+007900 COPY FRDSCR01.
+008000 COPY FRDSIU01.
+008100 COPY CLRERR01.
+008200 COPY CLRCOMM1.
+008300*
+008400* SUBPROGRAM PARAMETERS
+008500 01  WS-AUDIT-PARMS.
+008600     05  WS-AUD-TABLE            PIC X(18).
+008700     05  WS-AUD-KEY              PIC X(30).
+008800     05  WS-AUD-ACTION           PIC X(1).
+008900     05  WS-AUD-USER             PIC X(8).
+009000     05  WS-AUD-PGM              PIC X(8).
+009100*
+009200 01  WS-AID-VALUES.
+009300     05  AID-ENTER               PIC X      VALUE X'7D'.
+009400     05  AID-CLEAR               PIC X      VALUE X'6D'.
+009500     05  AID-PF3                 PIC X      VALUE X'F3'.
+009600     05  AID-PF7                 PIC X      VALUE X'F7'.
+009700     05  AID-PF8                 PIC X      VALUE X'F8'.
+009800     05  AID-PF12                PIC X      VALUE X'7C'.
+009900     05  WS-RESP                 PIC S9(8)  COMP VALUE ZERO.
+010000 LINKAGE SECTION.
+010100 01  DFHCOMMAREA                 PIC X(105).
+010200 PROCEDURE DIVISION.
+010300* ---------------------------------------------------------------*
+010400* 0000-MAIN                                                      *
+010500* PSEUDO-CONVERSATIONAL CONTROL                                  *
+010600* ---------------------------------------------------------------*
+010700 0000-MAIN.
+010800     EXEC CICS ASSIGN USERID(WS-USER-ID) END-EXEC
+010900     IF EIBCALEN = ZERO
+011000         INITIALIZE CLR-COMMAREA
+011100         MOVE 'FR05' TO CA-TRANID
+011200         MOVE 12 TO CA-RETURN-CD
+011300         MOVE 'NO COMMAREA SUPPLIED' TO CA-MSG
+011400         PERFORM 9000-RETURN
+011500     ELSE
+011600         MOVE DFHCOMMAREA TO CLR-COMMAREA
+011700         PERFORM 2000-PROCESS-INPUT
+011800     END-IF
+011900     PERFORM 9000-RETURN
+012000     GOBACK.
+012100* ---------------------------------------------------------------*
+012200* 2000-PROCESS-INPUT                                             *
+012300* HANDLE THE TERMINAL INPUT                                      *
+012400* ---------------------------------------------------------------*
+012500 2000-PROCESS-INPUT.
+012600     PERFORM 2100-EDIT-INPUT
+012700     IF WS-NO-ERROR
+012800         PERFORM 2200-APPLY
+012900     END-IF
+013000     .
+013100* ---------------------------------------------------------------*
+013200* 2100-EDIT-INPUT                                                *
+013300* VALIDATE THE REQUEST                                           *
+013400* ---------------------------------------------------------------*
+013500 2100-EDIT-INPUT.
+013600     SET WS-NO-ERROR TO TRUE
+013700     IF CA-CLAIM-ID = SPACES OR LOW-VALUES
+013800         SET WS-ERROR-FOUND TO TRUE
+013900         MOVE 8 TO CA-RETURN-CD
+014000         MOVE 'CLAIM ID IS REQUIRED' TO CA-MSG
+014100     END-IF
+014200     .
+014300* ---------------------------------------------------------------*
+014400* 2200-APPLY                                                     *
+014500* BUSINESS PROCESSING                                            *
+014600* ---------------------------------------------------------------*
+014700 2200-APPLY.
+014800     PERFORM 2300-READ-CLAIM
+014900     PERFORM 2320-READ-CLAIM-LINK
+015000     PERFORM 2340-READ-FRAUD-SCORE
+015100     PERFORM 2500-EDIT-CLAIM
+015200     PERFORM 2510-EDIT-CLAIM-LINK
+015300     PERFORM 2520-EDIT-FRAUD-SCORE
+015400     PERFORM 2530-EDIT-FRAU-REFE
+015500     PERFORM 2540-EDIT-SIU-CASE
+015600     PERFORM 2550-EDIT-CLAIM-2
+015700     PERFORM 2560-EDIT-CLAIM-LINK-2
+015800     PERFORM 2570-EDIT-FRAUD-SCORE-2
+015900     PERFORM 2580-EDIT-FRAU-REFE-2
+016000     PERFORM 2590-EDIT-SIU-CASE-2
+016100     PERFORM 2600-EDIT-CLAIM-3
+016200     PERFORM 4100-UPDATE-FRAU-REFE
+016300     PERFORM 4120-INSERT-SIU-CASE
+016400     PERFORM 4900-WRITE-AUDIT
+016500     IF WS-NO-ERROR
+016600         EXEC CICS SYNCPOINT END-EXEC
+016700         MOVE ZERO TO CA-RETURN-CD
+016800     END-IF
+016900     .
+017000* ---------------------------------------------------------------*
+017100* 2300-READ-CLAIM                                                *
+017200* FETCH CLR.T_CLAIM                                              *
+017300* ---------------------------------------------------------------*
+017400 2300-READ-CLAIM.
+017500     MOVE CA-CLAIM-ID TO CLM-CLAIM-ID
+017600     SET WS-ROW-FOUND TO TRUE
+017700     EXEC SQL
+017800         SELECT CLAIM_ID, POLICY_NO, PRODUCT_CD
+017900           INTO :CLM-CLAIM-ID, :CLM-POLICY-NO
+018000                , :CLM-PRODUCT-CD
+018100           FROM CLR.T_CLAIM
+018200          WHERE CLAIM_ID = :CLM-CLAIM-ID
+018300     END-EXEC
+018400     EVALUATE SQLCODE
+018500         WHEN 0
+018600             ADD 1 TO WS-CLAIM-READ
+018700         WHEN +100
+018800             SET WS-ROW-NOT-FOUND TO TRUE
+018900         WHEN OTHER
+019000             MOVE 'READ CLR.T_CLAIM' TO ERR-PARA
+019100             PERFORM 8000-SQL-ERROR
+019200     END-EVALUATE
+019300     .
+019400* ---------------------------------------------------------------*
+019500* 2320-READ-CLAIM-LINK                                           *
+019600* FETCH CLR.T_CLAIM_LINK                                         *
+019700* ---------------------------------------------------------------*
+019800 2320-READ-CLAIM-LINK.
+019900     SET WS-ROW-FOUND TO TRUE
+020000     EXEC SQL
+020100         SELECT LINK_ID, CLAIM_ID_A, CLAIM_ID_B, LINK_TYPE_CD
+020200           INTO :FRDL-LINK-ID, :FRDL-CLAIM-ID-A
+020300                , :FRDL-CLAIM-ID-B, :FRDL-LINK-TYPE-CD
+020400           FROM CLR.T_CLAIM_LINK
+020500          WHERE LINK_ID = :FRDL-LINK-ID
+020600     END-EXEC
+020700     EVALUATE SQLCODE
+020800         WHEN 0
+020900             ADD 1 TO WS-CLAIM-LINK-READ
+021000         WHEN +100
+021100             SET WS-ROW-NOT-FOUND TO TRUE
+021200         WHEN OTHER
+021300             MOVE 'READ CLR.T_CLAIM_LINK' TO ERR-PARA
+021400             PERFORM 8000-SQL-ERROR
+021500     END-EVALUATE
+021600     .
+021700* ---------------------------------------------------------------*
+021800* 2340-READ-FRAUD-SCORE                                          *
+021900* READ CLR.T_FRAUD_SCORE                                         *
+022000* ---------------------------------------------------------------*
+022100 2340-READ-FRAUD-SCORE.
+022200     MOVE CA-CLAIM-ID TO FRDS-CLAIM-ID
+022300     SET WS-ROW-FOUND TO TRUE
+022400     EXEC SQL
+022500         SELECT CLAIM_ID, SCORE_TS, SCORE, MODEL_VERSION
+022600                , TOP_REASON_1
+022700           INTO :FRDS-CLAIM-ID, :FRDS-SCORE-TS, :FRDS-SCORE
+022800                , :FRDS-MODEL-VERSION, :FRDS-TOP-REASON-1
+022900           FROM CLR.T_FRAUD_SCORE
+023000          WHERE CLAIM_ID = :FRDS-CLAIM-ID
+023100            AND SCORE_TS = :FRDS-SCORE-TS
+023200     END-EXEC
+023300     EVALUATE SQLCODE
+023400         WHEN 0
+023500             ADD 1 TO WS-FRAUD-SCORE-READ
+023600         WHEN +100
+023700             SET WS-ROW-NOT-FOUND TO TRUE
+023800         WHEN OTHER
+023900             MOVE 'READ CLR.T_FRAUD_SCORE' TO ERR-PARA
+024000             PERFORM 8000-SQL-ERROR
+024100     END-EVALUATE
+024200     .
+024300* ---------------------------------------------------------------*
+024400* 2500-EDIT-CLAIM                                                *
+024500* CHECK MANDATORY FIELDS IN CLR.T_CLAIM                          *
+024600* ---------------------------------------------------------------*
+024700 2500-EDIT-CLAIM.
+024800     IF CLM-CLAIM-ID = SPACES OR LOW-VALUES
+024900         ADD 1 TO WS-REJECT-CNT
+025000         MOVE 'CLAIM_ID MISSING' TO ERR-TEXT
+025100     END-IF
+025200     IF CLM-POLICY-NO = SPACES OR LOW-VALUES
+025300         ADD 1 TO WS-REJECT-CNT
+025400         MOVE 'POLICY_NO MISSING' TO ERR-TEXT
+025500     END-IF
+025600     IF CLM-PRODUCT-CD = SPACES OR LOW-VALUES
+025700         ADD 1 TO WS-REJECT-CNT
+025800         MOVE 'PRODUCT_CD MISSING' TO ERR-TEXT
+025900     END-IF
+026000     IF CLM-PERIL-CD = SPACES OR LOW-VALUES
+026100         ADD 1 TO WS-REJECT-CNT
+026200         MOVE 'PERIL_CD MISSING' TO ERR-TEXT
+026300     END-IF
+026400     IF CLM-LOSS-DT NOT = SPACES AND CLM-LOSS-DT(5:1) NOT = '-'
+026500         MOVE 'LOSS_DT BAD DATE' TO ERR-TEXT
+026600         ADD 1 TO WS-REJECT-CNT
+026700     END-IF
+026800     IF CLM-CHANNEL-CD NOT = 'PH' AND CLM-CHANNEL-CD NOT = 'WB'
+026900         AND CLM-CHANNEL-CD NOT = 'AP' AND CLM-CHANNEL-CD NOT =
+027000         'BR' AND CLM-CHANNEL-CD NOT = 'TL'
+027100         ADD 1 TO WS-REJECT-CNT
+027200         MOVE 'CHANNEL_CD INVALID' TO ERR-TEXT
+027300     END-IF
+027400     IF CLM-CLAIM-STATUS NOT = 'OP' AND CLM-CLAIM-STATUS NOT =
+027500         'CS' AND CLM-CLAIM-STATUS NOT = 'CN' AND CLM-CLAIM-STATUS
+027600         NOT = 'RO' AND CLM-CLAIM-STATUS NOT = 'RC'
+027700         ADD 1 TO WS-REJECT-CNT
+027800         MOVE 'CLAIM_STATUS INVALID' TO ERR-TEXT
+027900     END-IF
+028000     IF CLM-TIER-CD NOT = '1' AND CLM-TIER-CD NOT = '2' AND
+028100         CLM-TIER-CD NOT = '3'
+028200         ADD 1 TO WS-REJECT-CNT
+028300         MOVE 'TIER_CD INVALID' TO ERR-TEXT
+028400     END-IF
+028500     .
+028600* ---------------------------------------------------------------*
+028700* 2510-EDIT-CLAIM-LINK                                           *
+028800* CHECK MANDATORY FIELDS IN CLR.T_CLAIM_LINK                     *
+028900* ---------------------------------------------------------------*
+029000 2510-EDIT-CLAIM-LINK.
+029100     IF FRDL-CLAIM-ID-A = SPACES OR LOW-VALUES
+029200         ADD 1 TO WS-REJECT-CNT
+029300         MOVE 'CLAIM_ID_A MISSING' TO ERR-TEXT
+029400     END-IF
+029500     IF FRDL-CLAIM-ID-B = SPACES OR LOW-VALUES
+029600         ADD 1 TO WS-REJECT-CNT
+029700         MOVE 'CLAIM_ID_B MISSING' TO ERR-TEXT
+029800     END-IF
+029900     IF FRDL-LINK-TYPE-CD NOT = 'PH' AND FRDL-LINK-TYPE-CD NOT =
+030000         'BA' AND FRDL-LINK-TYPE-CD NOT = 'VH' AND
+030100         FRDL-LINK-TYPE-CD NOT = 'AD'
+030200         ADD 1 TO WS-REJECT-CNT
+030300         MOVE 'LINK_TYPE_CD INVALID' TO ERR-TEXT
+030400     END-IF
+030500     .
+030600* ---------------------------------------------------------------*
+030700* 2520-EDIT-FRAUD-SCORE                                          *
+030800* FIELD EDITS FOR CLR.T_FRAUD_SCORE                              *
+030900* ---------------------------------------------------------------*
+031000 2520-EDIT-FRAUD-SCORE.
+031100     IF FRDS-CLAIM-ID = SPACES OR LOW-VALUES
+031200         ADD 1 TO WS-REJECT-CNT
+031300         MOVE 'CLAIM_ID MISSING' TO ERR-TEXT
+031400     END-IF
+031500     IF FRDS-SCORE NOT NUMERIC
+031600         MOVE ZERO TO FRDS-SCORE
+031700         ADD 1 TO WS-REJECT-CNT
+031800     END-IF
+031900     .
+032000* ---------------------------------------------------------------*
+032100* 2530-EDIT-FRAU-REFE                                            *
+032200* CHECK MANDATORY FIELDS IN CLR.T_FRAUD_REFERRAL                 *
+032300* ---------------------------------------------------------------*
+032400 2530-EDIT-FRAU-REFE.
+032500     IF FRDR-CLAIM-ID = SPACES OR LOW-VALUES
+032600         ADD 1 TO WS-REJECT-CNT
+032700         MOVE 'CLAIM_ID MISSING' TO ERR-TEXT
+032800     END-IF
+032900     IF FRDR-REF-SCORE NOT NUMERIC
+033000         MOVE ZERO TO FRDR-REF-SCORE
+033100         ADD 1 TO WS-REJECT-CNT
+033200     END-IF
+033300     IF FRDR-REF-THRESHOLD-APPLIED NOT NUMERIC
+033400         MOVE ZERO TO FRDR-REF-THRESHOLD-APPLIED
+033500         ADD 1 TO WS-REJECT-CNT
+033600     END-IF
+033700     IF FRDR-REF-SOURCE-CD NOT = 'ON' AND FRDR-REF-SOURCE-CD NOT =
+033800         'BS' AND FRDR-REF-SOURCE-CD NOT = 'MN'
+033900         ADD 1 TO WS-REJECT-CNT
+034000         MOVE 'REF_SOURCE_CD INVALID' TO ERR-TEXT
+034100     END-IF
+034200     IF FRDR-REF-REASON-CD = SPACES OR LOW-VALUES
+034300         ADD 1 TO WS-REJECT-CNT
+034400         MOVE 'REF_REASON_CD MISSING' TO ERR-TEXT
+034500     END-IF
+034600     IF FRDR-RULE-ID = SPACES OR LOW-VALUES
+034700         ADD 1 TO WS-REJECT-CNT
+034800         MOVE 'RULE_ID MISSING' TO ERR-TEXT
+034900     END-IF
+035000     .
+035100* ---------------------------------------------------------------*
+035200* 2540-EDIT-SIU-CASE                                             *
+035300* VALIDATE CLR.T_SIU_CASE                                        *
+035400* ---------------------------------------------------------------*
+035500 2540-EDIT-SIU-CASE.
+035600     IF FRDS-SIU-CASE-ID = SPACES OR LOW-VALUES
+035700         ADD 1 TO WS-REJECT-CNT
+035800         MOVE 'SIU_CASE_ID MISSING' TO ERR-TEXT
+035900     END-IF
+036000     IF FRDS-INVESTIGATOR-USER = SPACES OR LOW-VALUES
+036100         ADD 1 TO WS-REJECT-CNT
+036200         MOVE 'INVESTIGATOR_USER MISSING' TO ERR-TEXT
+036300     END-IF
+036400     IF FRDS-OPENED-DT NOT = SPACES AND FRDS-OPENED-DT(5:1) NOT =
+036500         '-'
+036600         MOVE 'OPENED_DT BAD DATE' TO ERR-TEXT
+036700         ADD 1 TO WS-REJECT-CNT
+036800     END-IF
+036900     .
+037000* ---------------------------------------------------------------*
+037100* 2550-EDIT-CLAIM-2                                              *
+037200* CHECK MANDATORY FIELDS IN CLR.T_CLAIM                          *
+037300* ---------------------------------------------------------------*
+037400 2550-EDIT-CLAIM-2.
+037500     IF CLM-REGION-CD NOT = 'UK' AND CLM-REGION-CD NOT = 'NO' AND
+037600         CLM-REGION-CD NOT = 'SE' AND CLM-REGION-CD NOT = 'DK'
+037700         ADD 1 TO WS-REJECT-CNT
+037800         MOVE 'REGION_CD INVALID' TO ERR-TEXT
+037900     END-IF
+038000     IF CLM-CURRENCY-CD NOT = 'GBP' AND CLM-CURRENCY-CD NOT =
+038100         'NOK' AND CLM-CURRENCY-CD NOT = 'SEK' AND CLM-CURRENCY-CD
+038200         NOT = 'DKK'
+038300         ADD 1 TO WS-REJECT-CNT
+038400         MOVE 'CURRENCY_CD INVALID' TO ERR-TEXT
+038500     END-IF
+038600     IF CLM-CLAIMANT-ID = SPACES OR LOW-VALUES
+038700         ADD 1 TO WS-REJECT-CNT
+038800         MOVE 'CLAIMANT_ID MISSING' TO ERR-TEXT
+038900     END-IF
+039000     IF CLM-HANDLER-USER-ID = SPACES OR LOW-VALUES
+039100         ADD 1 TO WS-REJECT-CNT
+039200         MOVE 'HANDLER_USER_ID MISSING' TO ERR-TEXT
+039300     END-IF
+039400     IF CLM-FRAUD-FLAG NOT = 'Y' AND CLM-FRAUD-FLAG NOT = 'N'
+039500         ADD 1 TO WS-REJECT-CNT
+039600         MOVE 'FRAUD_FLAG INVALID' TO ERR-TEXT
+039700     END-IF
+039800     IF CLM-RECOVERY-FLAG NOT = 'Y' AND CLM-RECOVERY-FLAG NOT =
+039900         'N'
+040000         ADD 1 TO WS-REJECT-CNT
+040100         MOVE 'RECOVERY_FLAG INVALID' TO ERR-TEXT
+040200     END-IF
+040300     IF CLM-LOSS-DESC = SPACES OR LOW-VALUES
+040400         ADD 1 TO WS-REJECT-CNT
+040500         MOVE 'LOSS_DESC MISSING' TO ERR-TEXT
+040600     END-IF
+040700     .
+040800* ---------------------------------------------------------------*
+040900* 2560-EDIT-CLAIM-LINK-2                                         *
+041000* CHECK MANDATORY FIELDS IN CLR.T_CLAIM_LINK                     *
+041100* ---------------------------------------------------------------*
+041200 2560-EDIT-CLAIM-LINK-2.
+041300     IF FRDL-DETECTED-DT NOT = SPACES AND FRDL-DETECTED-DT(5:1)
+041400         NOT = '-'
+041500         MOVE 'DETECTED_DT BAD DATE' TO ERR-TEXT
+041600         ADD 1 TO WS-REJECT-CNT
+041700     END-IF
+041800     IF FRDL-VERSION-NO NOT NUMERIC
+041900         MOVE ZERO TO FRDL-VERSION-NO
+042000         ADD 1 TO WS-REJECT-CNT
+042100     END-IF
+042200     .
+042300* ---------------------------------------------------------------*
+042400* 2570-EDIT-FRAUD-SCORE-2                                        *
+042500* VALIDATE CLR.T_FRAUD_SCORE                                     *
+042600* ---------------------------------------------------------------*
+042700 2570-EDIT-FRAUD-SCORE-2.
+042800     IF FRDS-MODEL-VERSION = SPACES OR LOW-VALUES
+042900         ADD 1 TO WS-REJECT-CNT
+043000         MOVE 'MODEL_VERSION MISSING' TO ERR-TEXT
+043100     END-IF
+043200     IF FRDS-TOP-REASON-1 = SPACES OR LOW-VALUES
+043300         ADD 1 TO WS-REJECT-CNT
+043400         MOVE 'TOP_REASON_1 MISSING' TO ERR-TEXT
+043500     END-IF
+043600     .
+043700* ---------------------------------------------------------------*
+043800* 2580-EDIT-FRAU-REFE-2                                          *
+043900* CHECK MANDATORY FIELDS IN CLR.T_FRAUD_REFERRAL                 *
+044000* ---------------------------------------------------------------*
+044100 2580-EDIT-FRAU-REFE-2.
+044200     IF FRDR-TIER-CD = SPACES OR LOW-VALUES
+044300         ADD 1 TO WS-REJECT-CNT
+044400         MOVE 'TIER_CD MISSING' TO ERR-TEXT
+044500     END-IF
+044600     IF FRDR-REF-STATUS NOT = 'OP' AND FRDR-REF-STATUS NOT = 'IN'
+044700         AND FRDR-REF-STATUS NOT = 'CL'
+044800         ADD 1 TO WS-REJECT-CNT
+044900         MOVE 'REF_STATUS INVALID' TO ERR-TEXT
+045000     END-IF
+045100     IF FRDR-CUSTOMER-NOTICE-DUE-DT NOT = SPACES AND
+045200         FRDR-CUSTOMER-NOTICE-DUE-DT(5:1) NOT = '-'
+045300         MOVE 'CUSTOMER_NOTICE_DU BAD DATE' TO ERR-TEXT
+045400         ADD 1 TO WS-REJECT-CNT
+045500     END-IF
+045600     IF FRDR-CUSTOMER-NOTICE-DEFER-FLAG NOT = 'Y' AND
+045700         FRDR-CUSTOMER-NOTICE-DEFER-FLAG NOT = 'N'
+045800         ADD 1 TO WS-REJECT-CNT
+045900         MOVE 'CUSTOMER_NOTICE_DE INVALID' TO ERR-TEXT
+046000     END-IF
+046100     IF FRDR-OUTCOME-CD NOT = 'NF' AND FRDR-OUTCOME-CD NOT = 'CF'
+046200         AND FRDR-OUTCOME-CD NOT = 'WD'
+046300         ADD 1 TO WS-REJECT-CNT
+046400         MOVE 'OUTCOME_CD INVALID' TO ERR-TEXT
+046500     END-IF
+046600     IF FRDR-OUTCOME-DT NOT = SPACES AND FRDR-OUTCOME-DT(5:1) NOT
+046700         = '-'
+046800         MOVE 'OUTCOME_DT BAD DATE' TO ERR-TEXT
+046900         ADD 1 TO WS-REJECT-CNT
+047000     END-IF
+047100     .
+047200* ---------------------------------------------------------------*
+047300* 2590-EDIT-SIU-CASE-2                                           *
+047400* CHECK MANDATORY FIELDS IN CLR.T_SIU_CASE                       *
+047500* ---------------------------------------------------------------*
+047600 2590-EDIT-SIU-CASE-2.
+047700     IF FRDS-CASE-STATUS = SPACES OR LOW-VALUES
+047800         ADD 1 TO WS-REJECT-CNT
+047900         MOVE 'CASE_STATUS MISSING' TO ERR-TEXT
+048000     END-IF
+048100     IF FRDS-VERSION-NO NOT NUMERIC
+048200         MOVE ZERO TO FRDS-VERSION-NO
+048300         ADD 1 TO WS-REJECT-CNT
+048400     END-IF
+048500     .
+048600* ---------------------------------------------------------------*
+048700* 2600-EDIT-CLAIM-3                                              *
+048800* FIELD EDITS FOR CLR.T_CLAIM                                    *
+048900* ---------------------------------------------------------------*
+049000 2600-EDIT-CLAIM-3.
+049100     IF CLM-CLOSED-DT NOT = SPACES AND CLM-CLOSED-DT(5:1) NOT =
+049200         '-'
+049300         MOVE 'CLOSED_DT BAD DATE' TO ERR-TEXT
+049400         ADD 1 TO WS-REJECT-CNT
+049500     END-IF
+049600     .
+049700* ---------------------------------------------------------------*
+049800* 4100-UPDATE-FRAU-REFE                                          *
+049900* UPDATE CLR.T_FRAUD_REFERRAL                                    *
+050000* ---------------------------------------------------------------*
+050100 4100-UPDATE-FRAU-REFE.
+050200     EXEC SQL
+050300         UPDATE CLR.T_FRAUD_REFERRAL
+050400            SET OUTCOME_CD = :FRDR-OUTCOME-CD
+050500              , OUTCOME_DT = CURRENT DATE
+050600              , REF_STATUS = 'CL'
+050700              , LAST_UPD_TS = CURRENT TIMESTAMP
+050800              , LAST_UPD_PGM = :WS-PGM-ID
+050900              , LAST_UPD_USER = :WS-USER-ID
+051000          WHERE REF_ID = :FRDR-REF-ID
+051100     END-EXEC
+051200     EVALUATE SQLCODE
+051300         WHEN 0
+051400             ADD 1 TO WS-FRAUD-REFERRAL-WRITTEN
+051500         WHEN +100
+051600             SET WS-ROW-NOT-FOUND TO TRUE
+051700         WHEN OTHER
+051800             MOVE 'UPDATE CLR.T_FRAUD_REFERRAL' TO ERR-PARA
+051900             PERFORM 8000-SQL-ERROR
+052000     END-EVALUATE
+052100     .
+052200* ---------------------------------------------------------------*
+052300* 4120-INSERT-SIU-CASE                                           *
+052400* INSERT CLR.T_SIU_CASE                                          *
+052500* ---------------------------------------------------------------*
+052600 4120-INSERT-SIU-CASE.
+052700     EXEC SQL
+052800         INSERT INTO CLR.T_SIU_CASE
+052900              ( SIU_CASE_ID, REF_ID, INVESTIGATOR_USER
+053000              , OPENED_DT, CASE_STATUS, PARTNER_VENDOR_CD
+053100              , BRANCH_CD, VERSION_NO, LAST_UPD_TS
+053200              , LAST_UPD_PGM, LAST_UPD_USER )
+053300         VALUES
+053400              ( :FRDS-SIU-CASE-ID, :FRDS-REF-ID
+053500              , :FRDS-INVESTIGATOR-USER, :FRDS-OPENED-DT
+053600              , :FRDS-CASE-STATUS, :FRDS-PARTNER-VENDOR-CD
+053700              , :FRDS-BRANCH-CD, :FRDS-VERSION-NO
+053800              , CURRENT TIMESTAMP, :WS-PGM-ID, :WS-USER-ID )
+053900     END-EXEC
+054000     EVALUATE SQLCODE
+054100         WHEN 0
+054200             ADD 1 TO WS-SIU-CASE-WRITTEN
+054300         WHEN +100
+054400             SET WS-ROW-NOT-FOUND TO TRUE
+054500         WHEN OTHER
+054600             MOVE 'INSERT CLR.T_SIU_CASE' TO ERR-PARA
+054700             PERFORM 8000-SQL-ERROR
+054800     END-EVALUATE
+054900     .
+055000* ---------------------------------------------------------------*
+055100* 4900-WRITE-AUDIT                                               *
+055200* AUDIT TRAIL VIA CLRCM020                                       *
+055300* ---------------------------------------------------------------*
+055400 4900-WRITE-AUDIT.
+055500     MOVE 'CLR.T_FRAUD_REFERRAL' TO WS-AUD-TABLE
+055600     MOVE CA-CLAIM-ID TO WS-AUD-KEY
+055700     MOVE 'I' TO WS-AUD-ACTION
+055800     MOVE WS-USER-ID TO WS-AUD-USER
+055900     MOVE WS-PGM-ID TO WS-AUD-PGM
+056000     CALL 'CLRCM020' USING WS-AUDIT-PARMS
+056100                      CLR-ERROR-BLOCK
+056200     IF ERR-SQLCODE NOT = ZERO
+056300         ADD 1 TO WS-REJECT-CNT
+056400     END-IF
+056500     .
+056600* ---------------------------------------------------------------*
+056700* 9000-RETURN                                                    *
+056800* RETURN TO CICS                                                 *
+056900* ---------------------------------------------------------------*
+057000 9000-RETURN.
+057100     MOVE CLR-COMMAREA TO DFHCOMMAREA
+057200     EXEC CICS RETURN END-EXEC
+057300     .
+057400* ---------------------------------------------------------------*
+057500* 8000-SQL-ERROR                                                 *
+057600* DB2 ERROR HANDLING                                             *
+057700* ---------------------------------------------------------------*
+057800 8000-SQL-ERROR.
+057900     MOVE SQLCODE TO ERR-SQLCODE WS-SQLCODE-DSP
+058000     MOVE WS-PGM-ID TO ERR-PGM
+058100     STRING 'SQLCODE ' WS-SQLCODE-DSP DELIMITED BY SIZE INTO
+058200         ERR-TEXT
+058300     CALL 'CLRCM050' USING CLR-ERROR-BLOCK
+058400     EXEC CICS SYNCPOINT ROLLBACK END-EXEC
+058500     MOVE 16 TO CA-RETURN-CD
+058600     MOVE ERR-TEXT TO CA-MSG
+058700     PERFORM 9000-RETURN
+058800     .

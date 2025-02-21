@@ -1,0 +1,337 @@
+000100* ================================================================
+000200* PROGRAM    : CLRST110
+000300* TITLE      : VENDOR INVOICE PAYMENT RUN
+000400* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION
+000500* AREA       : SETTLE
+000600* TYPE       : BATCH / DB2
+000700* JOB / STEP : CLRWPAY1 / STEP010
+000800* ----------------------------------------------------------------
+000900* PURPOSE
+001000*   BATCH DB2 PROGRAM - VENDOR INVOICE PAYMENT RUN.
+001100*   SCHEDULED UNDER JOB CLRWPAY1 (STEP010).
+001200*   DB2 COMMIT AFTER EVERY 250 UPDATES.
+001300*   RC 0 = NORMAL, RC 4 = REJECTS REPORTED, RC 16 = ABORTED.
+001400* ----------------------------------------------------------------
+001500* DB2 TABLES
+001600*   CLR.T_PAYMENT_BATCH         READ
+001700*   CLR.T_PAYMENT               INSERT
+001800*   CLR.T_VENDOR_INVOICE        UPDATE
+001900* COPYBOOKS  : PAYREC01 PAYBAT01 VENINV01 CLRERR01
+002000* CALLS      : CLRCM020
+002100* FILE       : RPTOUT   OUT CONTROL REPORT
+002200* ----------------------------------------------------------------
+002300* MAINTENANCE HISTORY
+002400* DATE       BY       REF        DESCRIPTION
+002500* ---------- -------- ---------- -------------------------------
+002600* 2009-02-01 PASHW01             INITIAL VERSION
+002700* 2013-08-23 PASHW01             COMMIT FREQUENCY TUNED FOR
+002800*                                BATCH WINDOW
+002900* 2020-11-08 PASHW01             RECOMPILED UNDER ENTERPRISE
+003000*                                COBOL V6
+003100* ================================================================
+003200 IDENTIFICATION DIVISION.
+003300 PROGRAM-ID.    CLRST110.
+003400 AUTHOR.        P. ASHWORTH.
+003500 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
+003600 DATE-WRITTEN.  2009-02-01.
+003700 DATE-COMPILED.
+003800 ENVIRONMENT DIVISION.
+003900 CONFIGURATION SECTION.
+004000 SOURCE-COMPUTER.  IBM-Z.
+004100 OBJECT-COMPUTER.  IBM-Z.
+004200 INPUT-OUTPUT SECTION.
+004300 FILE-CONTROL.
+004400     SELECT REPORT-FILE ASSIGN TO RPTOUT
+004500         ORGANIZATION IS SEQUENTIAL
+004600         FILE STATUS IS WS-RPTOUT-STATUS.
+004700 DATA DIVISION.
+004800 FILE SECTION.
+004900 FD  REPORT-FILE
+005000         RECORDING MODE IS F
+005100         BLOCK CONTAINS 0 RECORDS.
+005200 01  REPORT-RECORD               PIC X(133).
+005300 WORKING-STORAGE SECTION.
+005400*
+005500 01  WS-PROGRAM-INFO.
+005600     05  WS-PGM-ID               PIC X(8)   VALUE 'CLRST110'.
+005700     05  WS-RUN-DATE             PIC X(10)  VALUE SPACES.
+005800     05  WS-RUN-TS               PIC X(26)  VALUE SPACES.
+005900     05  WS-USER-ID              PIC X(8)   VALUE SPACES.
+006000     05  WS-LAST-RUN-TS          PIC X(26)  VALUE SPACES.
+006100     05  WS-RUN-ID               PIC S9(9)  COMP VALUE ZERO.
+006200*
+006300 01  WS-SWITCHES.
+006400     05  WS-EOF-SW               PIC X      VALUE 'N'.
+006500         88  WS-END-OF-DATA                     VALUE 'Y'.
+006600     05  WS-ERROR-SW             PIC X      VALUE 'N'.
+006700         88  WS-ERROR-FOUND                     VALUE 'Y'.
+006800         88  WS-NO-ERROR                        VALUE 'N'.
+006900     05  WS-FOUND-SW             PIC X      VALUE 'N'.
+007000         88  WS-ROW-FOUND                       VALUE 'Y'.
+007100         88  WS-ROW-NOT-FOUND                   VALUE 'N'.
+007200     05  WS-RPTOUT-STATUS        PIC X(2)   VALUE SPACES.
+007300*
+007400 01  WS-COUNTERS.
+007500     05  WS-PAYMENT-BATCH-READ   PIC S9(9)  COMP-3 VALUE ZERO.
+007600     05  WS-PAYMENT-WRITTEN      PIC S9(9)  COMP-3 VALUE ZERO.
+007700     05  WS-VENDOR-INVOICE-WRITTEN PIC S9(9) COMP-3 VALUE ZERO.
+007800     05  WS-REJECT-CNT           PIC S9(9)  COMP-3 VALUE ZERO.
+007900     05  WS-SINCE-COMMIT         PIC S9(9)  COMP-3 VALUE ZERO.
+008000     05  WS-COMMIT-FREQ          PIC S9(9)  COMP-3 VALUE +250.
+008100*
+008200 01  WS-SQL-WORK.
+008300     05  WS-SQLCODE-DSP          PIC -9(9).
+008400     05  WS-ROWS-AFFECTED        PIC S9(9)  COMP VALUE ZERO.
+008500     05  WS-IND-1                PIC S9(4)  COMP VALUE ZERO.
+008600     05  WS-IND-2                PIC S9(4)  COMP VALUE ZERO.
+008700     05  WS-NEW-ID               PIC S9(18) COMP VALUE ZERO.
+008800*
+008900     EXEC SQL INCLUDE SQLCA END-EXEC.
+009000*
+009100* CLARA RECORD LAYOUTS
+009200 COPY PAYREC01.
+009300 COPY PAYBAT01.
+009400 COPY VENINV01.
+009500 COPY CLRERR01.
+009600*
+009700* PARAMETER AREAS FOR CALLED MODULES
+009800 01  WS-AUDIT-PARMS.
+009900     05  WS-AUD-TABLE            PIC X(18).
+010000     05  WS-AUD-KEY              PIC X(30).
+010100     05  WS-AUD-ACTION           PIC X(1).
+010200     05  WS-AUD-USER             PIC X(8).
+010300     05  WS-AUD-PGM              PIC X(8).
+010400*
+010500* DRIVING CURSOR ON CLR.T_PAYMENT_BATCH
+010600     EXEC SQL
+010700         DECLARE C-PAYMENT-BATCH CURSOR WITH HOLD FOR
+010800         SELECT BATCH_ID, BATCH_DT, PAY_COUNT, TOTAL_AMT
+010900                , CPG_FILE_NAME, CPG_ACK_TS
+011000           FROM CLR.T_PAYMENT_BATCH
+011100          WHERE LAST_UPD_TS >= :WS-LAST-RUN-TS
+011200          ORDER BY BATCH_ID
+011300          FOR FETCH ONLY
+011400     END-EXEC.
+011500*
+011600* CONTROL REPORT LINES
+011700 01  WS-RPT-HEAD-1.
+011800     05  FILLER                  PIC X(1)   VALUE '1'.
+011900     05  FILLER                  PIC X(10)  VALUE 'CLRST110'.
+012000     05  FILLER                  PIC X(40)  VALUE
+012100             'VENDOR INVOICE PAYMENT RUN'.
+012200     05  FILLER                  PIC X(10)  VALUE 'RUN DATE: '.
+012300     05  RH1-RUN-DATE            PIC X(10).
+012400     05  FILLER                  PIC X(62)  VALUE SPACES.
+012500 01  WS-RPT-DETAIL.
+012600     05  FILLER                  PIC X(1)   VALUE SPACE.
+012700     05  RD-LABEL                PIC X(40).
+012800     05  RD-VALUE                PIC X(60).
+012900     05  FILLER                  PIC X(32)  VALUE SPACES.
+013000 01  WS-RPT-TOTAL.
+013100     05  FILLER                  PIC X(1)   VALUE SPACE.
+013200     05  RT-LABEL                PIC X(40).
+013300     05  RT-COUNT                PIC ZZZ,ZZZ,ZZ9.
+013400     05  FILLER                  PIC X(81)  VALUE SPACES.
+013500 PROCEDURE DIVISION.
+013600* ---------------------------------------------------------------*
+013700* 0000-MAINLINE                                                  *
+013800* PROGRAM CONTROL                                                *
+013900* ---------------------------------------------------------------*
+014000 0000-MAINLINE.
+014100     PERFORM 1000-INITIALISE
+014200     PERFORM 2000-PROCESS
+014300     PERFORM 9000-TERMINATE
+014400     GOBACK.
+014500* ---------------------------------------------------------------*
+014600* 1000-INITIALISE                                                *
+014700* START OF RUN                                                   *
+014800* ---------------------------------------------------------------*
+014900 1000-INITIALISE.
+015000     MOVE FUNCTION CURRENT-DATE(1:8) TO WS-RUN-TS
+015100     STRING WS-RUN-TS(1:4) '-' WS-RUN-TS(5:2) '-' WS-RUN-TS(7:2)
+015200         DELIMITED BY SIZE INTO WS-RUN-DATE
+015300     MOVE 'CLRBATCH' TO WS-USER-ID
+015400     OPEN OUTPUT REPORT-FILE
+015500     IF WS-RPTOUT-STATUS NOT = '00'
+015600         DISPLAY 'CLRST110 OPEN FAILED RPTOUT ' WS-RPTOUT-STATUS
+015700         MOVE 16 TO RETURN-CODE
+015800         GOBACK
+015900     END-IF
+016000     MOVE WS-RUN-DATE TO RH1-RUN-DATE
+016100     WRITE REPORT-RECORD FROM WS-RPT-HEAD-1
+016200     .
+016300* ---------------------------------------------------------------*
+016400* 2000-PROCESS                                                   *
+016500* PROCESS LOOP                                                   *
+016600* ---------------------------------------------------------------*
+016700 2000-PROCESS.
+016800     EXEC SQL
+016900         OPEN C-PAYMENT-BATCH
+017000     END-EXEC
+017100     EVALUATE SQLCODE
+017200         WHEN 0
+017300             CONTINUE
+017400         WHEN OTHER
+017500             MOVE '2000-OPEN-C-PAYMENT-BATCH' TO ERR-PARA
+017600             PERFORM 8000-SQL-ERROR
+017700     END-EVALUATE
+017800     PERFORM 2100-FETCH-NEXT
+017900     PERFORM UNTIL WS-END-OF-DATA
+018000         PERFORM 2200-PROCESS-ROW
+018100         PERFORM 2100-FETCH-NEXT
+018200     END-PERFORM
+018300     EXEC SQL
+018400         CLOSE C-PAYMENT-BATCH
+018500     END-EXEC
+018600     .
+018700* ---------------------------------------------------------------*
+018800* 2100-FETCH-NEXT                                                *
+018900* FETCH THE NEXT DRIVING ROW                                     *
+019000* ---------------------------------------------------------------*
+019100 2100-FETCH-NEXT.
+019200     EXEC SQL
+019300         FETCH C-PAYMENT-BATCH
+019400          INTO :PAYB-BATCH-ID, :PAYB-BATCH-DT
+019500               , :PAYB-PAY-COUNT, :PAYB-TOTAL-AMT
+019600               , :PAYB-CPG-FILE-NAME, :PAYB-CPG-ACK-TS
+019700     END-EXEC
+019800     EVALUATE SQLCODE
+019900         WHEN 0
+020000             ADD 1 TO WS-PAYMENT-BATCH-READ
+020100         WHEN +100
+020200             SET WS-END-OF-DATA TO TRUE
+020300         WHEN OTHER
+020400             MOVE '2100-FETCH-NEXT' TO ERR-PARA
+020500             PERFORM 8000-SQL-ERROR
+020600     END-EVALUATE
+020700     .
+020800* ---------------------------------------------------------------*
+020900* 2200-PROCESS-ROW                                               *
+021000* PER-RECORD PROCESSING                                          *
+021100* ---------------------------------------------------------------*
+021200 2200-PROCESS-ROW.
+021300     SET WS-NO-ERROR TO TRUE
+021400     PERFORM 4100-INSERT-PAYMENT
+021500     PERFORM 4120-UPDATE-VEND-INVO
+021600     PERFORM 4900-WRITE-AUDIT
+021700     PERFORM 6000-COMMIT-CHECK
+021800     .
+021900* ---------------------------------------------------------------*
+022000* 4100-INSERT-PAYMENT                                            *
+022100* INSERT CLR.T_PAYMENT                                           *
+022200* ---------------------------------------------------------------*
+022300 4100-INSERT-PAYMENT.
+022400     MOVE 'RQ' TO PAYR-PAY-STATUS
+022500     EXEC SQL
+022600         INSERT INTO CLR.T_PAYMENT
+022700              ( CLAIM_ID, PAYEE_ID, PAY_AMT, CURRENCY_CD
+022800              , PAY_STATUS, AUTH_USER, SANCTIONS_RESULT
+022900              , COMMENT_TXT, LAST_UPD_TS, LAST_UPD_PGM
+023000              , LAST_UPD_USER )
+023100         VALUES
+023200              ( :PAYR-CLAIM-ID, :PAYR-PAYEE-ID, :PAYR-PAY-AMT
+023300              , :PAYR-CURRENCY-CD, :PAYR-PAY-STATUS
+023400              , :PAYR-AUTH-USER, :PAYR-SANCTIONS-RESULT
+023500              , :PAYR-COMMENT-TXT, CURRENT TIMESTAMP
+023600              , :WS-PGM-ID, :WS-USER-ID )
+023700     END-EXEC
+023800     EVALUATE SQLCODE
+023900         WHEN 0
+024000             ADD 1 TO WS-PAYMENT-WRITTEN
+024100         WHEN +100
+024200             SET WS-ROW-NOT-FOUND TO TRUE
+024300         WHEN OTHER
+024400             MOVE 'INSERT CLR.T_PAYMENT' TO ERR-PARA
+024500             PERFORM 8000-SQL-ERROR
+024600     END-EVALUATE
+024700     .
+024800* ---------------------------------------------------------------*
+024900* 4120-UPDATE-VEND-INVO                                          *
+025000* UPDATE CLR.T_VENDOR_INVOICE                                    *
+025100* ---------------------------------------------------------------*
+025200 4120-UPDATE-VEND-INVO.
+025300     EXEC SQL
+025400         UPDATE CLR.T_VENDOR_INVOICE
+025500            SET MATCHED_FLAG = 'Y'
+025600              , LAST_UPD_TS = CURRENT TIMESTAMP
+025700              , LAST_UPD_PGM = :WS-PGM-ID
+025800              , LAST_UPD_USER = :WS-USER-ID
+025900          WHERE INVOICE_ID = :VENI-INVOICE-ID
+026000     END-EXEC
+026100     EVALUATE SQLCODE
+026200         WHEN 0
+026300             ADD 1 TO WS-VENDOR-INVOICE-WRITTEN
+026400         WHEN +100
+026500             SET WS-ROW-NOT-FOUND TO TRUE
+026600         WHEN OTHER
+026700             MOVE 'UPDATE CLR.T_VENDOR_INVOICE' TO ERR-PARA
+026800             PERFORM 8000-SQL-ERROR
+026900     END-EVALUATE
+027000     .
+027100* ---------------------------------------------------------------*
+027200* 4900-WRITE-AUDIT                                               *
+027300* AUDIT TRAIL VIA CLRCM020                                       *
+027400* ---------------------------------------------------------------*
+027500 4900-WRITE-AUDIT.
+027600     MOVE 'CLR.T_PAYMENT' TO WS-AUD-TABLE
+027700     MOVE PAYR-CLAIM-ID TO WS-AUD-KEY
+027800     MOVE 'U' TO WS-AUD-ACTION
+027900     MOVE WS-USER-ID TO WS-AUD-USER
+028000     MOVE WS-PGM-ID TO WS-AUD-PGM
+028100     CALL 'CLRCM020' USING WS-AUDIT-PARMS
+028200                      CLR-ERROR-BLOCK
+028300     IF ERR-SQLCODE NOT = ZERO
+028400         ADD 1 TO WS-REJECT-CNT
+028500     END-IF
+028600     .
+028700* ---------------------------------------------------------------*
+028800* 6000-COMMIT-CHECK                                              *
+028900* PERIODIC COMMIT                                                *
+029000* ---------------------------------------------------------------*
+029100 6000-COMMIT-CHECK.
+029200     ADD 1 TO WS-SINCE-COMMIT
+029300     IF WS-SINCE-COMMIT >= WS-COMMIT-FREQ
+029400         EXEC SQL
+029500             COMMIT
+029600         END-EXEC
+029700         MOVE ZERO TO WS-SINCE-COMMIT
+029800     END-IF
+029900     .
+030000* ---------------------------------------------------------------*
+030100* 9000-TERMINATE                                                 *
+030200* CLOSE DOWN                                                     *
+030300* ---------------------------------------------------------------*
+030400 9000-TERMINATE.
+030500     EXEC SQL
+030600         COMMIT
+030700     END-EXEC
+030800     MOVE 'CLR.T_PAYMENT_BATCH ROWS READ' TO RT-LABEL
+030900     MOVE WS-PAYMENT-BATCH-READ TO RT-COUNT
+031000     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+031100     MOVE 'CLR.T_PAYMENT ROWS WRITTEN' TO RT-LABEL
+031200     MOVE WS-PAYMENT-WRITTEN TO RT-COUNT
+031300     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+031400     MOVE 'CLR.T_VENDOR_INVOICE ROWS WRITTEN' TO RT-LABEL
+031500     MOVE WS-VENDOR-INVOICE-WRITTEN TO RT-COUNT
+031600     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+031700     CLOSE REPORT-FILE
+031800     IF WS-REJECT-CNT > ZERO
+031900         MOVE 4 TO RETURN-CODE
+032000     END-IF
+032100     .
+032200* ---------------------------------------------------------------*
+032300* 8000-SQL-ERROR                                                 *
+032400* SEVERE ERROR - REPORT AND STOP                                 *
+032500* ---------------------------------------------------------------*
+032600 8000-SQL-ERROR.
+032700     MOVE SQLCODE TO ERR-SQLCODE WS-SQLCODE-DSP
+032800     MOVE WS-PGM-ID TO ERR-PGM
+032900     STRING 'SQLCODE ' WS-SQLCODE-DSP DELIMITED BY SIZE INTO
+033000         ERR-TEXT
+033100     DISPLAY WS-PGM-ID ' ' ERR-PARA ' ' ERR-TEXT
+033200     EXEC SQL
+033300         ROLLBACK
+033400     END-EXEC
+033500     MOVE 16 TO RETURN-CODE
+033600     CLOSE REPORT-FILE
+033700     GOBACK.

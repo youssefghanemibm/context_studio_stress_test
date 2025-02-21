@@ -1,0 +1,341 @@
+000100* ================================================================
+000200* PROGRAM    : CLRTR070
+000300* TITLE      : TRIAGE NOTES AND DIARY
+000400* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION
+000500* AREA       : TRIAGE
+000600* TYPE       : CICS ONLINE / DB2
+000700* TRANSACTION: TR07
+000800* ----------------------------------------------------------------
+000900* PURPOSE
+001000*   CICS PSEUDO-CONVERSATIONAL PROGRAM - TRIAGE NOTES AND DIARY.
+001100*   COMMAREA LAYOUT: CLRCOMM1.
+001200*   INVOKED WITH A COMMAREA; RESULTS RETURNED IN
+001300*     CA-RETURN-CD/CA-MSG.
+001400* ----------------------------------------------------------------
+001500* DB2 TABLES
+001600*   CLR.T_CLAIM                 READ
+001700* COPYBOOKS  : CLRCLM01 CLRERR01 CLRCOMM1
+001800* CALLS      : CLRCM080 CLRCM090 CLRCM050 CLRCM070
+001900* ----------------------------------------------------------------
+002000* MAINTENANCE HISTORY
+002100* DATE       BY       REF        DESCRIPTION
+002200* ---------- -------- ---------- -------------------------------
+002300* 1994-10-03 CLRPROJ             INITIAL VERSION - CLARA GO-LIVE
+002400* 2009-02-13 KBARR01             DATE ARITHMETIC MOVED TO
+002500*                                CLRCM010
+002600* 2021-09-11 KBARR01             REMOVED DEAD CODE AFTER REVIEW
+002700* 2024-10-25 KBARR01             NORDIC CURRENCY CODES VALIDATED
+002800* ================================================================
+002900 IDENTIFICATION DIVISION.
+003000 PROGRAM-ID.    CLRTR070.
+003100 AUTHOR.        CLARA PROJECT TEAM.
+003200 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
+003300 DATE-WRITTEN.  1994-10-03.
+003400 DATE-COMPILED.
+003500 ENVIRONMENT DIVISION.
+003600 CONFIGURATION SECTION.
+003700 SOURCE-COMPUTER.  IBM-Z.
+003800 OBJECT-COMPUTER.  IBM-Z.
+003900 DATA DIVISION.
+004000 WORKING-STORAGE SECTION.
+004100*
+004200 01  WS-PROGRAM-INFO.
+004300     05  WS-PGM-ID               PIC X(8)   VALUE 'CLRTR070'.
+004400     05  WS-RUN-DATE             PIC X(10)  VALUE SPACES.
+004500     05  WS-RUN-TS               PIC X(26)  VALUE SPACES.
+004600     05  WS-USER-ID              PIC X(8)   VALUE SPACES.
+004700*
+004800 01  WS-SWITCHES.
+004900     05  WS-EOF-SW               PIC X      VALUE 'N'.
+005000        88  WS-END-OF-DATA                     VALUE 'Y'.
+005100     05  WS-ERROR-SW             PIC X      VALUE 'N'.
+005200        88  WS-ERROR-FOUND                     VALUE 'Y'.
+005300        88  WS-NO-ERROR                        VALUE 'N'.
+005400     05  WS-FOUND-SW             PIC X      VALUE 'N'.
+005500        88  WS-ROW-FOUND                       VALUE 'Y'.
+005600        88  WS-ROW-NOT-FOUND                   VALUE 'N'.
+005700*
+005800 01  WS-COUNTERS.
+005900     05  WS-CLAIM-READ           PIC S9(9)  COMP-3 VALUE ZERO.
+006000     05  WS-REJECT-CNT           PIC S9(9)  COMP-3 VALUE ZERO.
+006100*
+006200 01  WS-SQL-WORK.
+006300     05  WS-SQLCODE-DSP          PIC -9(9).
+006400     05  WS-ROWS-AFFECTED        PIC S9(9)  COMP VALUE ZERO.
+006500     05  WS-IND-1                PIC S9(4)  COMP VALUE ZERO.
+006600     05  WS-IND-2                PIC S9(4)  COMP VALUE ZERO.
+006700     05  WS-NEW-ID               PIC S9(18) COMP VALUE ZERO.
+006800*
+006900     EXEC SQL INCLUDE SQLCA END-EXEC.
+007000*
+007100* APPLICATION COPYBOOKS
+007200 COPY CLRCLM01.
+007300 COPY CLRERR01.
+007400 COPY CLRCOMM1.
+007500*
+007600* SUBPROGRAM PARAMETERS
+007700 01  WS-AUTH-PARMS.
+007800     05  WS-AUTH-USER            PIC X(8).
+007900     05  WS-AUTH-FUNCTION        PIC X(8).
+008000     05  WS-AUTH-ALLOWED         PIC X(1).
+008100 01  WS-NOTE-PARMS.
+008200     05  WS-NOTE-CLAIM-ID        PIC X(12).
+008300     05  WS-NOTE-TYPE            PIC X(2).
+008400     05  WS-NOTE-TEXT            PIC X(200).
+008500 01  WS-DIARY-PARMS.
+008600     05  WS-DIA-CLAIM-ID         PIC X(12).
+008700     05  WS-DIA-TYPE             PIC X(4).
+008800     05  WS-DIA-DUE-DT           PIC X(10).
+008900     05  WS-DIA-OWNER            PIC X(8).
+009000*
+009100 01  WS-AID-VALUES.
+009200     05  AID-ENTER               PIC X      VALUE X'7D'.
+009300     05  AID-CLEAR               PIC X      VALUE X'6D'.
+009400     05  AID-PF3                 PIC X      VALUE X'F3'.
+009500     05  AID-PF7                 PIC X      VALUE X'F7'.
+009600     05  AID-PF8                 PIC X      VALUE X'F8'.
+009700     05  AID-PF12                PIC X      VALUE X'7C'.
+009800     05  WS-RESP                 PIC S9(8)  COMP VALUE ZERO.
+009900 LINKAGE SECTION.
+010000 01  DFHCOMMAREA                 PIC X(105).
+010100 PROCEDURE DIVISION.
+010200* ---------------------------------------------------------------*
+010300* 0000-MAIN                                                      *
+010400* PSEUDO-CONVERSATIONAL CONTROL                                  *
+010500* ---------------------------------------------------------------*
+010600 0000-MAIN.
+010700     EXEC CICS ASSIGN USERID(WS-USER-ID) END-EXEC
+010800     IF EIBCALEN = ZERO
+010900        INITIALIZE CLR-COMMAREA
+011000        MOVE 'TR07' TO CA-TRANID
+011100        MOVE 12 TO CA-RETURN-CD
+011200        MOVE 'NO COMMAREA SUPPLIED' TO CA-MSG
+011300        PERFORM 9000-RETURN
+011400     ELSE
+011500        MOVE DFHCOMMAREA TO CLR-COMMAREA
+011600        PERFORM 2000-PROCESS-INPUT
+011700     END-IF
+011800     PERFORM 9000-RETURN
+011900     GOBACK.
+012000* ---------------------------------------------------------------*
+012100* 2000-PROCESS-INPUT                                             *
+012200* INPUT PROCESSING                                               *
+012300* ---------------------------------------------------------------*
+012400 2000-PROCESS-INPUT.
+012500     PERFORM 2100-EDIT-INPUT
+012600     IF WS-NO-ERROR
+012700        PERFORM 2200-APPLY
+012800     END-IF
+012900     .
+013000* ---------------------------------------------------------------*
+013100* 2100-EDIT-INPUT                                                *
+013200* VALIDATE THE REQUEST                                           *
+013300* ---------------------------------------------------------------*
+013400 2100-EDIT-INPUT.
+013500     SET WS-NO-ERROR TO TRUE
+013600     IF CA-CLAIM-ID = SPACES OR LOW-VALUES
+013700        SET WS-ERROR-FOUND TO TRUE
+013800        MOVE 8 TO CA-RETURN-CD
+013900        MOVE 'CLAIM ID IS REQUIRED' TO CA-MSG
+014000     END-IF
+014100     PERFORM 1500-CHECK-AUTHORITY
+014200     .
+014300* ---------------------------------------------------------------*
+014400* 1500-CHECK-AUTHORITY                                           *
+014500* CONFIRM THE USER MAY RUN THIS FUNCTION                         *
+014600* ---------------------------------------------------------------*
+014700 1500-CHECK-AUTHORITY.
+014800     MOVE WS-USER-ID TO WS-AUTH-USER
+014900     MOVE 'CLRTR070' TO WS-AUTH-FUNCTION
+015000     CALL 'CLRCM070' USING WS-AUTH-PARMS
+015100                      CLR-ERROR-BLOCK
+015200     IF ERR-SQLCODE NOT = ZERO
+015300        MOVE 'CALL CLRCM070' TO ERR-PARA
+015400        PERFORM 8000-SQL-ERROR
+015500     END-IF
+015600     IF WS-AUTH-ALLOWED NOT = 'Y'
+015700        SET WS-ERROR-FOUND TO TRUE
+015800        MOVE 8 TO CA-RETURN-CD
+015900        MOVE 'NOT AUTHORISED FOR THIS FUNCTION' TO CA-MSG
+016000     END-IF
+016100     .
+016200* ---------------------------------------------------------------*
+016300* 2200-APPLY                                                     *
+016400* BUSINESS PROCESSING                                            *
+016500* ---------------------------------------------------------------*
+016600 2200-APPLY.
+016700     PERFORM 2300-READ-CLAIM
+016800     PERFORM 2500-EDIT-CLAIM
+016900     PERFORM 2510-EDIT-CLAIM-2
+017000     PERFORM 2520-EDIT-CLAIM-3
+017100     PERFORM 3100-WRITE-NOTE
+017200     PERFORM 3120-WRITE-DIARY
+017300     IF WS-NO-ERROR
+017400        MOVE ZERO TO CA-RETURN-CD
+017500     END-IF
+017600     .
+017700* ---------------------------------------------------------------*
+017800* 2300-READ-CLAIM                                                *
+017900* READ CLR.T_CLAIM                                               *
+018000* ---------------------------------------------------------------*
+018100 2300-READ-CLAIM.
+018200     MOVE CA-CLAIM-ID TO CLM-CLAIM-ID
+018300     SET WS-ROW-FOUND TO TRUE
+018400     EXEC SQL
+018500         SELECT CLAIM_ID, POLICY_NO, PRODUCT_CD
+018600           INTO :CLM-CLAIM-ID, :CLM-POLICY-NO
+018700                , :CLM-PRODUCT-CD
+018800           FROM CLR.T_CLAIM
+018900          WHERE CLAIM_ID = :CLM-CLAIM-ID
+019000     END-EXEC
+019100     EVALUATE SQLCODE
+019200        WHEN 0
+019300           ADD 1 TO WS-CLAIM-READ
+019400        WHEN +100
+019500           SET WS-ROW-NOT-FOUND TO TRUE
+019600        WHEN OTHER
+019700           MOVE 'READ CLR.T_CLAIM' TO ERR-PARA
+019800           PERFORM 8000-SQL-ERROR
+019900     END-EVALUATE
+020000     .
+020100* ---------------------------------------------------------------*
+020200* 2500-EDIT-CLAIM                                                *
+020300* VALIDATE CLR.T_CLAIM                                           *
+020400* ---------------------------------------------------------------*
+020500 2500-EDIT-CLAIM.
+020600     IF CLM-CLAIM-ID = SPACES OR LOW-VALUES
+020700        ADD 1 TO WS-REJECT-CNT
+020800        MOVE 'CLAIM_ID MISSING' TO ERR-TEXT
+020900     END-IF
+021000     IF CLM-POLICY-NO = SPACES OR LOW-VALUES
+021100        ADD 1 TO WS-REJECT-CNT
+021200        MOVE 'POLICY_NO MISSING' TO ERR-TEXT
+021300     END-IF
+021400     IF CLM-PRODUCT-CD = SPACES OR LOW-VALUES
+021500        ADD 1 TO WS-REJECT-CNT
+021600        MOVE 'PRODUCT_CD MISSING' TO ERR-TEXT
+021700     END-IF
+021800     IF CLM-PERIL-CD = SPACES OR LOW-VALUES
+021900        ADD 1 TO WS-REJECT-CNT
+022000        MOVE 'PERIL_CD MISSING' TO ERR-TEXT
+022100     END-IF
+022200     IF CLM-LOSS-DT NOT = SPACES AND CLM-LOSS-DT(5:1) NOT = '-'
+022300        MOVE 'LOSS_DT BAD DATE' TO ERR-TEXT
+022400        ADD 1 TO WS-REJECT-CNT
+022500     END-IF
+022600     IF CLM-CHANNEL-CD NOT = 'PH' AND CLM-CHANNEL-CD NOT = 'WB'
+022700         AND CLM-CHANNEL-CD NOT = 'AP' AND CLM-CHANNEL-CD NOT =
+022800         'BR' AND CLM-CHANNEL-CD NOT = 'TL'
+022900        ADD 1 TO WS-REJECT-CNT
+023000        MOVE 'CHANNEL_CD INVALID' TO ERR-TEXT
+023100     END-IF
+023200     IF CLM-CLAIM-STATUS NOT = 'OP' AND CLM-CLAIM-STATUS NOT =
+023300         'CS' AND CLM-CLAIM-STATUS NOT = 'CN' AND CLM-CLAIM-STATUS
+023400         NOT = 'RO' AND CLM-CLAIM-STATUS NOT = 'RC'
+023500        ADD 1 TO WS-REJECT-CNT
+023600        MOVE 'CLAIM_STATUS INVALID' TO ERR-TEXT
+023700     END-IF
+023800     IF CLM-TIER-CD NOT = '1' AND CLM-TIER-CD NOT = '2' AND
+023900         CLM-TIER-CD NOT = '3'
+024000        ADD 1 TO WS-REJECT-CNT
+024100        MOVE 'TIER_CD INVALID' TO ERR-TEXT
+024200     END-IF
+024300     .
+024400* ---------------------------------------------------------------*
+024500* 2510-EDIT-CLAIM-2                                              *
+024600* CHECK MANDATORY FIELDS IN CLR.T_CLAIM                          *
+024700* ---------------------------------------------------------------*
+024800 2510-EDIT-CLAIM-2.
+024900     IF CLM-REGION-CD NOT = 'UK' AND CLM-REGION-CD NOT = 'NO' AND
+025000         CLM-REGION-CD NOT = 'SE' AND CLM-REGION-CD NOT = 'DK'
+025100        ADD 1 TO WS-REJECT-CNT
+025200        MOVE 'REGION_CD INVALID' TO ERR-TEXT
+025300     END-IF
+025400     IF CLM-CURRENCY-CD NOT = 'GBP' AND CLM-CURRENCY-CD NOT =
+025500         'NOK' AND CLM-CURRENCY-CD NOT = 'SEK' AND CLM-CURRENCY-CD
+025600         NOT = 'DKK'
+025700        ADD 1 TO WS-REJECT-CNT
+025800        MOVE 'CURRENCY_CD INVALID' TO ERR-TEXT
+025900     END-IF
+026000     IF CLM-CLAIMANT-ID = SPACES OR LOW-VALUES
+026100        ADD 1 TO WS-REJECT-CNT
+026200        MOVE 'CLAIMANT_ID MISSING' TO ERR-TEXT
+026300     END-IF
+026400     IF CLM-HANDLER-USER-ID = SPACES OR LOW-VALUES
+026500        ADD 1 TO WS-REJECT-CNT
+026600        MOVE 'HANDLER_USER_ID MISSING' TO ERR-TEXT
+026700     END-IF
+026800     IF CLM-FRAUD-FLAG NOT = 'Y' AND CLM-FRAUD-FLAG NOT = 'N'
+026900        ADD 1 TO WS-REJECT-CNT
+027000        MOVE 'FRAUD_FLAG INVALID' TO ERR-TEXT
+027100     END-IF
+027200     IF CLM-RECOVERY-FLAG NOT = 'Y' AND CLM-RECOVERY-FLAG NOT =
+027300         'N'
+027400        ADD 1 TO WS-REJECT-CNT
+027500        MOVE 'RECOVERY_FLAG INVALID' TO ERR-TEXT
+027600     END-IF
+027700     IF CLM-LOSS-DESC = SPACES OR LOW-VALUES
+027800        ADD 1 TO WS-REJECT-CNT
+027900        MOVE 'LOSS_DESC MISSING' TO ERR-TEXT
+028000     END-IF
+028100     .
+028200* ---------------------------------------------------------------*
+028300* 2520-EDIT-CLAIM-3                                              *
+028400* FIELD EDITS FOR CLR.T_CLAIM                                    *
+028500* ---------------------------------------------------------------*
+028600 2520-EDIT-CLAIM-3.
+028700     IF CLM-CLOSED-DT NOT = SPACES AND CLM-CLOSED-DT(5:1) NOT =
+028800         '-'
+028900        MOVE 'CLOSED_DT BAD DATE' TO ERR-TEXT
+029000        ADD 1 TO WS-REJECT-CNT
+029100     END-IF
+029200     .
+029300* ---------------------------------------------------------------*
+029400* 3100-WRITE-NOTE                                                *
+029500* CLAIM NOTE                                                     *
+029600* ---------------------------------------------------------------*
+029700 3100-WRITE-NOTE.
+029800     MOVE CA-CLAIM-ID TO WS-NOTE-CLAIM-ID
+029900     CALL 'CLRCM080' USING WS-NOTE-PARMS
+030000                      CLR-ERROR-BLOCK
+030100     IF ERR-SQLCODE NOT = ZERO
+030200        MOVE 'CALL CLRCM080' TO ERR-PARA
+030300        PERFORM 8000-SQL-ERROR
+030400     END-IF
+030500     .
+030600* ---------------------------------------------------------------*
+030700* 3120-WRITE-DIARY                                               *
+030800* DIARY ENTRY                                                    *
+030900* ---------------------------------------------------------------*
+031000 3120-WRITE-DIARY.
+031100     MOVE CA-CLAIM-ID TO WS-DIA-CLAIM-ID
+031200     CALL 'CLRCM090' USING WS-DIARY-PARMS
+031300                      CLR-ERROR-BLOCK
+031400     IF ERR-SQLCODE NOT = ZERO
+031500        MOVE 'CALL CLRCM090' TO ERR-PARA
+031600        PERFORM 8000-SQL-ERROR
+031700     END-IF
+031800     .
+031900* ---------------------------------------------------------------*
+032000* 9000-RETURN                                                    *
+032100* RETURN TO CICS                                                 *
+032200* ---------------------------------------------------------------*
+032300 9000-RETURN.
+032400     MOVE CLR-COMMAREA TO DFHCOMMAREA
+032500     EXEC CICS RETURN END-EXEC
+032600     .
+032700* ---------------------------------------------------------------*
+032800* 8000-SQL-ERROR                                                 *
+032900* DB2 ERROR HANDLING                                             *
+033000* ---------------------------------------------------------------*
+033100 8000-SQL-ERROR.
+033200     MOVE SQLCODE TO ERR-SQLCODE WS-SQLCODE-DSP
+033300     MOVE WS-PGM-ID TO ERR-PGM
+033400     STRING 'SQLCODE ' WS-SQLCODE-DSP DELIMITED BY SIZE INTO
+033500         ERR-TEXT
+033600     CALL 'CLRCM050' USING CLR-ERROR-BLOCK
+033700     EXEC CICS SYNCPOINT ROLLBACK END-EXEC
+033800     MOVE 16 TO CA-RETURN-CD
+033900     MOVE ERR-TEXT TO CA-MSG
+034000     PERFORM 9000-RETURN
+034100     .

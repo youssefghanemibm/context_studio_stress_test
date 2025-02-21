@@ -1,0 +1,321 @@
+000100* ===============================================================*
+000200* PROGRAM    : CLRRC100                                          *
+000300* TITLE      : RECOVERY MI MONTHLY                               *
+000400* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION     *
+000500* AREA       : RECOVER                                           *
+000600* TYPE       : BATCH / DB2                                       *
+000700* JOB / STEP : CLRWMI01 / STEP030                                *
+000800* ---------------------------------------------------------------*
+000900* PURPOSE                                                        *
+001000*   NIGHTLY/PERIODIC BATCH STEP: RECOVERY MI MONTHLY.            *
+001100*   EXECUTED BY JOB CLRWMI01, STEP030.                           *
+001200*   RETURN CODES: 0 OK, 4 WARNINGS, 16 SEVERE (SEE SYSOUT).      *
+001300* ---------------------------------------------------------------*
+001400* DB2 TABLES                                                     *
+001500*   CLR.T_LITIGATION            READ                             *
+001600* COPYBOOKS  : LITREC01 CLRERR01                                 *
+001700* CALLS      : NONE                                              *
+001800* FILE       : RPTOUT   OUT CONTROL REPORT                       *
+001900* ---------------------------------------------------------------*
+002000* MAINTENANCE HISTORY                                            *
+002100* DATE       BY       REF        DESCRIPTION                     *
+002200* ---------- -------- ---------- ------------------------------- *
+002300* 1994-10-03 CLRPROJ             INITIAL VERSION - CLARA GO-LIVE *
+002400* 2008-03-24 KBARR01             RECOMPILED - COBOL FOR Z/OS     *
+002500*                                UPGRADE                         *
+002600* 2010-02-12 KBARR01             DB2 VERSION MIGRATION - REBIND, *
+002700*                                NO LOGIC CHANGE                 *
+002800* 2013-08-05 PASHW01             COMMIT FREQUENCY TUNED FOR      *
+002900*                                BATCH WINDOW                    *
+003000* 2015-09-29 KBARR01             PERFORMANCE: CURSOR WITH HOLD,  *
+003100*                                FEWER COMMITS                   *
+003200* 2018-10-24 KBARR01             RECOMPILED UNDER ENTERPRISE     *
+003300*                                COBOL V6                        *
+003400* ===============================================================*
+003500 IDENTIFICATION DIVISION.
+003600 PROGRAM-ID.    CLRRC100.
+003700 AUTHOR.        CLARA PROJECT TEAM.
+003800 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
+003900 DATE-WRITTEN.  1994-10-03.
+004000 DATE-COMPILED.
+004100 ENVIRONMENT DIVISION.
+004200 CONFIGURATION SECTION.
+004300 SOURCE-COMPUTER.  IBM-Z.
+004400 OBJECT-COMPUTER.  IBM-Z.
+004500 INPUT-OUTPUT SECTION.
+004600 FILE-CONTROL.
+004700     SELECT REPORT-FILE ASSIGN TO RPTOUT
+004800         ORGANIZATION IS SEQUENTIAL
+004900         FILE STATUS IS WS-RPTOUT-STATUS.
+005000 DATA DIVISION.
+005100 FILE SECTION.
+005200 FD  REPORT-FILE
+005300         RECORDING MODE IS F
+005400         BLOCK CONTAINS 0 RECORDS.
+005500 01  REPORT-RECORD               PIC X(133).
+005600 WORKING-STORAGE SECTION.
+005700*
+005800 01  WS-PROGRAM-INFO.
+005900     05  WS-PGM-ID               PIC X(8)   VALUE 'CLRRC100'.
+006000     05  WS-RUN-DATE             PIC X(10)  VALUE SPACES.
+006100     05  WS-RUN-TS               PIC X(26)  VALUE SPACES.
+006200     05  WS-USER-ID              PIC X(8)   VALUE SPACES.
+006300     05  WS-LAST-RUN-TS          PIC X(26)  VALUE SPACES.
+006400     05  WS-RUN-ID               PIC S9(9)  COMP VALUE ZERO.
+006500*
+006600 01  WS-SWITCHES.
+006700     05  WS-EOF-SW               PIC X      VALUE 'N'.
+006800         88  WS-END-OF-DATA                     VALUE 'Y'.
+006900     05  WS-ERROR-SW             PIC X      VALUE 'N'.
+007000         88  WS-ERROR-FOUND                     VALUE 'Y'.
+007100         88  WS-NO-ERROR                        VALUE 'N'.
+007200     05  WS-FOUND-SW             PIC X      VALUE 'N'.
+007300         88  WS-ROW-FOUND                       VALUE 'Y'.
+007400         88  WS-ROW-NOT-FOUND                   VALUE 'N'.
+007500     05  WS-RPTOUT-STATUS        PIC X(2)   VALUE SPACES.
+007600*
+007700 01  WS-COUNTERS.
+007800     05  WS-LITIGATION-READ      PIC S9(9)  COMP-3 VALUE ZERO.
+007900     05  WS-REJECT-CNT           PIC S9(9)  COMP-3 VALUE ZERO.
+008000*
+008100 01  WS-SQL-WORK.
+008200     05  WS-SQLCODE-DSP          PIC -9(9).
+008300     05  WS-ROWS-AFFECTED        PIC S9(9)  COMP VALUE ZERO.
+008400     05  WS-IND-1                PIC S9(4)  COMP VALUE ZERO.
+008500     05  WS-IND-2                PIC S9(4)  COMP VALUE ZERO.
+008600     05  WS-NEW-ID               PIC S9(18) COMP VALUE ZERO.
+008700*
+008800     EXEC SQL INCLUDE SQLCA END-EXEC.
+008900*
+009000* COPYBOOKS (HOST STRUCTURES AND WORK AREAS)
+009100 COPY LITREC01.
+009200 COPY CLRERR01.
+009300*
+009400* DRIVING CURSOR ON CLR.T_LITIGATION
+009500     EXEC SQL
+009600         DECLARE C-LITIGATION CURSOR WITH HOLD FOR
+009700         SELECT LIT_ID, CLAIM_ID, SOLICITOR_VENDOR_CD
+009800                , INSTRUCTED_DT, COURT_REF, LIT_STATUS
+009900                , BRANCH_CD
+010000           FROM CLR.T_LITIGATION
+010100          WHERE LAST_UPD_TS >= :WS-LAST-RUN-TS
+010200          ORDER BY LIT_ID
+010300          FOR FETCH ONLY
+010400     END-EXEC.
+010500*
+010600* CONTROL REPORT LINES
+010700 01  WS-RPT-HEAD-1.
+010800     05  FILLER                  PIC X(1)   VALUE '1'.
+010900     05  FILLER                  PIC X(10)  VALUE 'CLRRC100'.
+011000     05  FILLER                  PIC X(40)  VALUE
+011100             'RECOVERY MI MONTHLY'.
+011200     05  FILLER                  PIC X(10)  VALUE 'RUN DATE: '.
+011300     05  RH1-RUN-DATE            PIC X(10).
+011400     05  FILLER                  PIC X(62)  VALUE SPACES.
+011500 01  WS-RPT-DETAIL.
+011600     05  FILLER                  PIC X(1)   VALUE SPACE.
+011700     05  RD-LABEL                PIC X(40).
+011800     05  RD-VALUE                PIC X(60).
+011900     05  FILLER                  PIC X(32)  VALUE SPACES.
+012000 01  WS-RPT-TOTAL.
+012100     05  FILLER                  PIC X(1)   VALUE SPACE.
+012200     05  RT-LABEL                PIC X(40).
+012300     05  RT-COUNT                PIC ZZZ,ZZZ,ZZ9.
+012400     05  FILLER                  PIC X(81)  VALUE SPACES.
+012500 PROCEDURE DIVISION.
+012600* ---------------------------------------------------------------*
+012700* 0000-MAINLINE                                                  *
+012800* PROGRAM CONTROL                                                *
+012900* ---------------------------------------------------------------*
+013000 0000-MAINLINE.
+013100     PERFORM 1000-INITIALISE THRU 1000-INITIALISE-EXIT
+013200     PERFORM 2000-PROCESS THRU 2000-PROCESS-EXIT
+013300     PERFORM 9000-TERMINATE THRU 9000-TERMINATE-EXIT
+013400     GOBACK.
+013500 0000-MAINLINE-EXIT.
+013600     EXIT.
+013700* ---------------------------------------------------------------*
+013800* 1000-INITIALISE                                                *
+013900* START OF RUN                                                   *
+014000* ---------------------------------------------------------------*
+014100 1000-INITIALISE.
+014200     MOVE FUNCTION CURRENT-DATE(1:8) TO WS-RUN-TS
+014300     STRING WS-RUN-TS(1:4) '-' WS-RUN-TS(5:2) '-' WS-RUN-TS(7:2)
+014400         DELIMITED BY SIZE INTO WS-RUN-DATE
+014500     MOVE 'CLRBATCH' TO WS-USER-ID
+014600     OPEN OUTPUT REPORT-FILE
+014700     IF WS-RPTOUT-STATUS NOT = '00'
+014800         DISPLAY 'CLRRC100 OPEN FAILED RPTOUT ' WS-RPTOUT-STATUS
+014900         MOVE 16 TO RETURN-CODE
+015000         GOBACK
+015100     END-IF
+015200     MOVE WS-RUN-DATE TO RH1-RUN-DATE
+015300     WRITE REPORT-RECORD FROM WS-RPT-HEAD-1
+015400     .
+015500 1000-INITIALISE-EXIT.
+015600     EXIT.
+015700* ---------------------------------------------------------------*
+015800* 2000-PROCESS                                                   *
+015900* READ AND PROCESS ALL INPUT                                     *
+016000* ---------------------------------------------------------------*
+016100 2000-PROCESS.
+016200     EXEC SQL
+016300         OPEN C-LITIGATION
+016400     END-EXEC
+016500     EVALUATE SQLCODE
+016600         WHEN 0
+016700             CONTINUE
+016800         WHEN OTHER
+016900             MOVE '2000-OPEN-C-LITIGATION' TO ERR-PARA
+017000             PERFORM 8000-SQL-ERROR
+017100     END-EVALUATE
+017200     PERFORM 2100-FETCH-NEXT THRU 2100-FETCH-NEXT-EXIT
+017300     PERFORM 2200-PROCESS-ROW THRU 2200-PROCESS-ROW-EXIT
+017400         UNTIL WS-END-OF-DATA
+017500     EXEC SQL
+017600         CLOSE C-LITIGATION
+017700     END-EXEC
+017800     .
+017900 2000-PROCESS-EXIT.
+018000     EXIT.
+018100* ---------------------------------------------------------------*
+018200* 2100-FETCH-NEXT                                                *
+018300* FETCH THE NEXT DRIVING ROW                                     *
+018400* ---------------------------------------------------------------*
+018500 2100-FETCH-NEXT.
+018600     EXEC SQL
+018700         FETCH C-LITIGATION
+018800          INTO :LITR-LIT-ID, :LITR-CLAIM-ID
+018900               , :LITR-SOLICITOR-VENDOR-CD
+019000               , :LITR-INSTRUCTED-DT, :LITR-COURT-REF
+019100               , :LITR-LIT-STATUS, :LITR-BRANCH-CD
+019200     END-EXEC
+019300     EVALUATE SQLCODE
+019400         WHEN 0
+019500             ADD 1 TO WS-LITIGATION-READ
+019600         WHEN +100
+019700             SET WS-END-OF-DATA TO TRUE
+019800         WHEN OTHER
+019900             MOVE '2100-FETCH-NEXT' TO ERR-PARA
+020000             PERFORM 8000-SQL-ERROR
+020100     END-EVALUATE
+020200     .
+020300 2100-FETCH-NEXT-EXIT.
+020400     EXIT.
+020500* ---------------------------------------------------------------*
+020600* 2200-PROCESS-ROW                                               *
+020700* ONE UNIT OF WORK                                               *
+020800* ---------------------------------------------------------------*
+020900 2200-PROCESS-ROW.
+021000     IF WS-END-OF-DATA
+021100         GO TO 2200-PROCESS-ROW-EXIT
+021200     END-IF
+021300     SET WS-NO-ERROR TO TRUE
+021400     PERFORM 2500-EDIT-LITIGATION THRU 2500-EDIT-LITIGATION-EXIT
+021500     PERFORM 2510-EDIT-LITIGATION-2 THRU
+021600         2510-EDIT-LITIGATION-2-EXIT
+021700     PERFORM 2520-EDIT-LITIGATION-3 THRU
+021800         2520-EDIT-LITIGATION-3-EXIT
+021900     .
+022000 2200-PROCESS-ROW-EXIT.
+022100     EXIT.
+022200* ---------------------------------------------------------------*
+022300* 2500-EDIT-LITIGATION                                           *
+022400* FIELD EDITS FOR CLR.T_LITIGATION                               *
+022500* ---------------------------------------------------------------*
+022600 2500-EDIT-LITIGATION.
+022700     IF LITR-CLAIM-ID = SPACES OR LOW-VALUES
+022800         ADD 1 TO WS-REJECT-CNT
+022900         MOVE 'CLAIM_ID MISSING' TO ERR-TEXT
+023000     END-IF
+023100     IF LITR-SOLICITOR-VENDOR-CD = SPACES OR LOW-VALUES
+023200         ADD 1 TO WS-REJECT-CNT
+023300         MOVE 'SOLICITOR_VENDOR_C MISSING' TO ERR-TEXT
+023400     END-IF
+023500     IF LITR-INSTRUCTED-DT NOT = SPACES AND
+023600         LITR-INSTRUCTED-DT(5:1) NOT = '-'
+023700         MOVE 'INSTRUCTED_DT BAD DATE' TO ERR-TEXT
+023800         ADD 1 TO WS-REJECT-CNT
+023900     END-IF
+024000     .
+024100 2500-EDIT-LITIGATION-EXIT.
+024200     EXIT.
+024300* ---------------------------------------------------------------*
+024400* 2510-EDIT-LITIGATION-2                                         *
+024500* CHECK MANDATORY FIELDS IN CLR.T_LITIGATION                     *
+024600* ---------------------------------------------------------------*
+024700 2510-EDIT-LITIGATION-2.
+024800     IF LITR-LIT-STATUS = SPACES OR LOW-VALUES
+024900         ADD 1 TO WS-REJECT-CNT
+025000         MOVE 'LIT_STATUS MISSING' TO ERR-TEXT
+025100     END-IF
+025200     .
+025300 2510-EDIT-LITIGATION-2-EXIT.
+025400     EXIT.
+025500* ---------------------------------------------------------------*
+025600* 2520-EDIT-LITIGATION-3                                         *
+025700* FIELD EDITS FOR CLR.T_LITIGATION                               *
+025800* ---------------------------------------------------------------*
+025900 2520-EDIT-LITIGATION-3.
+026000 2520-EDIT-LITIGATION-3-EXIT.
+026100     EXIT.
+026200* ---------------------------------------------------------------*
+026300* 9000-TERMINATE                                                 *
+026400* END OF RUN                                                     *
+026500* ---------------------------------------------------------------*
+026600 9000-TERMINATE.
+026700     PERFORM 7010-LIST-LITIGATION THRU 7010-LIST-LITIGATION-EXIT
+026800     MOVE 'CLR.T_LITIGATION ROWS READ' TO RT-LABEL
+026900     MOVE WS-LITIGATION-READ TO RT-COUNT
+027000     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+027100     CLOSE REPORT-FILE
+027200     IF WS-REJECT-CNT > ZERO
+027300         MOVE 4 TO RETURN-CODE
+027400     END-IF
+027500     .
+027600 9000-TERMINATE-EXIT.
+027700     EXIT.
+027800* ---------------------------------------------------------------*
+027900* 7010-LIST-LITIGATION                                           *
+028000* LIST CLR.T_LITIGATION FIELDS ON THE REPORT                     *
+028100* ---------------------------------------------------------------*
+028200 7010-LIST-LITIGATION.
+028300     MOVE 'LAST CLR.T_LITIGATION ROW' TO RD-LABEL
+028400     MOVE SPACES TO RD-VALUE
+028500     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+028600     MOVE '  CLAIM_ID' TO RD-LABEL
+028700     MOVE LITR-CLAIM-ID TO RD-VALUE
+028800     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+028900     MOVE '  SOLICITOR_VENDOR_CD' TO RD-LABEL
+029000     MOVE LITR-SOLICITOR-VENDOR-CD TO RD-VALUE
+029100     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+029200     MOVE '  INSTRUCTED_DT' TO RD-LABEL
+029300     MOVE LITR-INSTRUCTED-DT TO RD-VALUE
+029400     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+029500     MOVE '  COURT_REF' TO RD-LABEL
+029600     MOVE LITR-COURT-REF TO RD-VALUE
+029700     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+029800     MOVE '  LIT_STATUS' TO RD-LABEL
+029900     MOVE LITR-LIT-STATUS TO RD-VALUE
+030000     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+030100     MOVE '  BRANCH_CD' TO RD-LABEL
+030200     MOVE LITR-BRANCH-CD TO RD-VALUE
+030300     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+030400     .
+030500 7010-LIST-LITIGATION-EXIT.
+030600     EXIT.
+030700* ---------------------------------------------------------------*
+030800* 8000-SQL-ERROR                                                 *
+030900* UNEXPECTED SQLCODE                                             *
+031000* ---------------------------------------------------------------*
+031100 8000-SQL-ERROR.
+031200     MOVE SQLCODE TO ERR-SQLCODE WS-SQLCODE-DSP
+031300     MOVE WS-PGM-ID TO ERR-PGM
+031400     STRING 'SQLCODE ' WS-SQLCODE-DSP DELIMITED BY SIZE INTO
+031500         ERR-TEXT
+031600     DISPLAY WS-PGM-ID ' ' ERR-PARA ' ' ERR-TEXT
+031700     MOVE 16 TO RETURN-CODE
+031800     CLOSE REPORT-FILE
+031900     GOBACK.
+032000 8000-SQL-ERROR-EXIT.
+032100     EXIT.

@@ -1,0 +1,33 @@
+//CLRWRC01 JOB (CLR,BATCH),'SUBROGATION DEMAND L',CLASS=C,MSGCLASS=X,
+//             MSGLEVEL=(1,1),REGION=0M,NOTIFY=&SYSUID
+//* ------------------------------------------------------------------*
+//* JOB       : CLRWRC01                                              *
+//* FUNCTION  : SUBROGATION DEMAND LETTERS                            *
+//* SCHEDULE  : TUE,THU 05:00 (BATCH SCHEDULER)                       *
+//* SUPPORT   : MAINFRAME BATCH OPERATIONS                            *
+//* STEPS     : STEP010 CLRRC030 SUBROGATION DEMAND LETTER EXTRACT    *
+//*                              TO NOTIFY (CLX-IF-026)               *
+//* ------------------------------------------------------------------*
+//* SITE SYMBOLS (HLQS, DB2 SUBSYSTEM AND PLAN) COME FROM THE INCLUDE
+//         INCLUDE MEMBER=CLRSYMS
+//JOBLIB   DD DSN=&CLRHLQ..LOADLIB,DISP=SHR
+//         DD DSN=&DB2HLQ..SDSNLOAD,DISP=SHR
+//*
+//* STEP010 - SUBROGATION DEMAND LETTER EXTRACT TO NOTIFY (CLX-IF-026)
+//*
+//STEP010  EXEC PGM=IKJEFT01,DYNAMNBR=20
+//SYSTSPRT DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=D
+//RPTOUT   DD SYSOUT=*
+//EXTOUT   DD DSN=&CLRHLQ..CLRRC030.EXTOUT(+1),
+//            DISP=(NEW,CATLG,DELETE),UNIT=SYSDA,
+//            SPACE=(CYL,(5,5),RLSE),DCB=(RECFM=FB,LRECL=400,BLKSIZE=0)
+//SYSTSIN  DD *,SYMBOLS=JCLONLY
+  DSN SYSTEM(&DB2SSID)
+  RUN PROGRAM(CLRRC030) PLAN(&DB2PLAN) -
+      LIB('&CLRHLQ..LOADLIB')
+  END
+/*
+//

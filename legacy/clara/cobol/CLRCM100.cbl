@@ -1,0 +1,242 @@
+000100* ================================================================
+000200* PROGRAM    : CLRCM100
+000300* TITLE      : DOCUMENT REFERENCE WRITER (DOCSTOR / EVIDENCE
+000400*              VAULT)
+000500* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION
+000600* AREA       : COMMON
+000700* TYPE       : CALLED SUBPROGRAM (STATIC CALL, NO CICS COMMANDS)
+000800* ----------------------------------------------------------------
+000900* PURPOSE
+001000*   UTILITY MODULE: DOCUMENT REFERENCE WRITER (DOCSTOR /
+001100*     EVIDENCE VAULT).
+001200*   STATIC CALL; CALLER OWNS THE UNIT OF WORK.
+001300*   ERRORS ARE RETURNED IN CLR-ERROR-BLOCK.
+001400* ----------------------------------------------------------------
+001500* DB2 TABLES
+001600*   CLR.T_CODE_LOOKUP           READ
+001700*   CLR.T_USER                  READ
+001800*   CLR.T_DOCUMENT_REF          INSERT
+001900* COPYBOOKS  : CODELKP1 DOCREF01 USRREC01 CLRERR01
+002000* CALLS      : NONE
+002100* ----------------------------------------------------------------
+002200* MAINTENANCE HISTORY
+002300* DATE       BY       REF        DESCRIPTION
+002400* ---------- -------- ---------- -------------------------------
+002500* 1994-10-03 CLRPROJ             INITIAL VERSION - CLARA GO-LIVE
+002600* 2005-04-23 DO                  RECOMPILED - COBOL FOR Z/OS
+002700*                                UPGRADE
+002800* 2020-06-23 DO                  REMOVED DEAD CODE AFTER REVIEW
+002900* ================================================================
+003000 IDENTIFICATION DIVISION.
+003100 PROGRAM-ID.    CLRCM100.
+003200 AUTHOR.        CLARA PROJECT TEAM.
+003300 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
+003400 DATE-WRITTEN.  1994-10-03.
+003500 DATE-COMPILED.
+003600 ENVIRONMENT DIVISION.
+003700 CONFIGURATION SECTION.
+003800 SOURCE-COMPUTER.  IBM-Z.
+003900 OBJECT-COMPUTER.  IBM-Z.
+004000 DATA DIVISION.
+004100 WORKING-STORAGE SECTION.
+004200*
+004300 01  WS-PROGRAM-INFO.
+004400     05  WS-PGM-ID               PIC X(8)   VALUE 'CLRCM100'.
+004500     05  WS-RUN-DATE             PIC X(10)  VALUE SPACES.
+004600     05  WS-RUN-TS               PIC X(26)  VALUE SPACES.
+004700     05  WS-USER-ID              PIC X(8)   VALUE SPACES.
+004800*
+004900 01  WS-SWITCHES.
+005000     05  WS-EOF-SW               PIC X      VALUE 'N'.
+005100         88  WS-END-OF-DATA                     VALUE 'Y'.
+005200     05  WS-ERROR-SW             PIC X      VALUE 'N'.
+005300         88  WS-ERROR-FOUND                     VALUE 'Y'.
+005400         88  WS-NO-ERROR                        VALUE 'N'.
+005500     05  WS-FOUND-SW             PIC X      VALUE 'N'.
+005600         88  WS-ROW-FOUND                       VALUE 'Y'.
+005700         88  WS-ROW-NOT-FOUND                   VALUE 'N'.
+005800*
+005900 01  WS-COUNTERS.
+006000     05  WS-CODE-LOOKUP-READ     PIC S9(9)  COMP-3 VALUE ZERO.
+006100     05  WS-USER-READ            PIC S9(9)  COMP-3 VALUE ZERO.
+006200     05  WS-DOCUMENT-REF-WRITTEN PIC S9(9)  COMP-3 VALUE ZERO.
+006300     05  WS-REJECT-CNT           PIC S9(9)  COMP-3 VALUE ZERO.
+006400*
+006500 01  WS-SQL-WORK.
+006600     05  WS-SQLCODE-DSP          PIC -9(9).
+006700     05  WS-ROWS-AFFECTED        PIC S9(9)  COMP VALUE ZERO.
+006800     05  WS-IND-1                PIC S9(4)  COMP VALUE ZERO.
+006900     05  WS-IND-2                PIC S9(4)  COMP VALUE ZERO.
+007000     05  WS-NEW-ID               PIC S9(18) COMP VALUE ZERO.
+007100*
+007200     EXEC SQL INCLUDE SQLCA END-EXEC.
+007300*
+007400* COPYBOOKS (HOST STRUCTURES AND WORK AREAS)
+007500 COPY CODELKP1.
+007600 COPY DOCREF01.
+007700 COPY USRREC01.
+007800 COPY CLRERR01.
+007900 LINKAGE SECTION.
+008000 01  LS-DOC-PARMS.
+008100     05  LS-DOC-CLAIM-ID         PIC X(12).
+008200     05  LS-DOC-OBJECT-ID        PIC X(36).
+008300     05  LS-DOC-TYPE             PIC X(4).
+008400 01  LS-ERROR-BLOCK              PIC X(162).
+008500 PROCEDURE DIVISION USING LS-DOC-PARMS LS-ERROR-BLOCK.
+008600* ---------------------------------------------------------------*
+008700* 0000-MAIN                                                      *
+008800* ENTRY                                                          *
+008900* ---------------------------------------------------------------*
+009000 0000-MAIN.
+009100     INITIALIZE CLR-ERROR-BLOCK
+009200     MOVE 'CLRCM100' TO ERR-PGM
+009300     PERFORM 2300-READ-CODE-LOOKUP
+009400     PERFORM 2320-READ-USER
+009500     PERFORM 2500-EDIT-CODE-LOOKUP
+009600     PERFORM 2510-EDIT-USER
+009700     PERFORM 2520-EDIT-DOCUMENT-REF
+009800     PERFORM 4100-INSERT-DOCUMENT-REF
+009900     PERFORM 9000-RETURN
+010000     .
+010100* ---------------------------------------------------------------*
+010200* 2300-READ-CODE-LOOKUP                                          *
+010300* LOOK UP CLR.T_CODE_LOOKUP                                      *
+010400* ---------------------------------------------------------------*
+010500 2300-READ-CODE-LOOKUP.
+010600     SET WS-ROW-FOUND TO TRUE
+010700     EXEC SQL
+010800         SELECT CODE_TYPE, CODE_VALUE, CODE_DESC_EN
+010900                , CODE_DESC_LOCAL, ACTIVE_FLAG
+011000           INTO :CODE-CODE-TYPE, :CODE-CODE-VALUE
+011100                , :CODE-CODE-DESC-EN, :CODE-CODE-DESC-LOCAL
+011200                , :CODE-ACTIVE-FLAG
+011300           FROM CLR.T_CODE_LOOKUP
+011400          WHERE CODE_TYPE = :CODE-CODE-TYPE
+011500            AND CODE_VALUE = :CODE-CODE-VALUE
+011600     END-EXEC
+011700     EVALUATE SQLCODE
+011800         WHEN 0
+011900             ADD 1 TO WS-CODE-LOOKUP-READ
+012000         WHEN +100
+012100             SET WS-ROW-NOT-FOUND TO TRUE
+012200         WHEN OTHER
+012300             MOVE 'READ CLR.T_CODE_LOOKUP' TO ERR-PARA
+012400             PERFORM 8000-SQL-ERROR
+012500     END-EVALUATE
+012600     .
+012700* ---------------------------------------------------------------*
+012800* 2320-READ-USER                                                 *
+012900* FETCH CLR.T_USER                                               *
+013000* ---------------------------------------------------------------*
+013100 2320-READ-USER.
+013200     MOVE WS-USER-ID TO USRR-USER-ID
+013300     SET WS-ROW-FOUND TO TRUE
+013400     EXEC SQL
+013500         SELECT USER_ID, USER_NAME, TEAM_CD
+013600           INTO :USRR-USER-ID, :USRR-USER-NAME, :USRR-TEAM-CD
+013700           FROM CLR.T_USER
+013800          WHERE USER_ID = :USRR-USER-ID
+013900     END-EXEC
+014000     EVALUATE SQLCODE
+014100         WHEN 0
+014200             ADD 1 TO WS-USER-READ
+014300         WHEN +100
+014400             SET WS-ROW-NOT-FOUND TO TRUE
+014500         WHEN OTHER
+014600             MOVE 'READ CLR.T_USER' TO ERR-PARA
+014700             PERFORM 8000-SQL-ERROR
+014800     END-EVALUATE
+014900     .
+015000* ---------------------------------------------------------------*
+015100* 2500-EDIT-CODE-LOOKUP                                          *
+015200* VALIDATE CLR.T_CODE_LOOKUP                                     *
+015300* ---------------------------------------------------------------*
+015400 2500-EDIT-CODE-LOOKUP.
+015500     IF CODE-CODE-TYPE = SPACES OR LOW-VALUES
+015600         ADD 1 TO WS-REJECT-CNT
+015700         MOVE 'CODE_TYPE MISSING' TO ERR-TEXT
+015800     END-IF
+015900     IF CODE-CODE-VALUE = SPACES OR LOW-VALUES
+016000         ADD 1 TO WS-REJECT-CNT
+016100         MOVE 'CODE_VALUE MISSING' TO ERR-TEXT
+016200     END-IF
+016300     IF CODE-CODE-DESC-EN = SPACES OR LOW-VALUES
+016400         ADD 1 TO WS-REJECT-CNT
+016500         MOVE 'CODE_DESC_EN MISSING' TO ERR-TEXT
+016600     END-IF
+016700     .
+016800* ---------------------------------------------------------------*
+016900* 2510-EDIT-USER                                                 *
+017000* CHECK MANDATORY FIELDS IN CLR.T_USER                           *
+017100* ---------------------------------------------------------------*
+017200 2510-EDIT-USER.
+017300     IF USRR-USER-ID = SPACES OR LOW-VALUES
+017400         ADD 1 TO WS-REJECT-CNT
+017500         MOVE 'USER_ID MISSING' TO ERR-TEXT
+017600     END-IF
+017700     IF USRR-USER-NAME = SPACES OR LOW-VALUES
+017800         ADD 1 TO WS-REJECT-CNT
+017900         MOVE 'USER_NAME MISSING' TO ERR-TEXT
+018000     END-IF
+018100     IF USRR-TEAM-CD = SPACES OR LOW-VALUES
+018200         ADD 1 TO WS-REJECT-CNT
+018300         MOVE 'TEAM_CD MISSING' TO ERR-TEXT
+018400     END-IF
+018500     .
+018600* ---------------------------------------------------------------*
+018700* 2520-EDIT-DOCUMENT-REF                                         *
+018800* CHECK MANDATORY FIELDS IN CLR.T_DOCUMENT_REF                   *
+018900* ---------------------------------------------------------------*
+019000 2520-EDIT-DOCUMENT-REF.
+019100     IF DOCR-CLAIM-ID = SPACES OR LOW-VALUES
+019200         ADD 1 TO WS-REJECT-CNT
+019300         MOVE 'CLAIM_ID MISSING' TO ERR-TEXT
+019400     END-IF
+019500     IF DOCR-VAULT-OBJECT-ID = SPACES OR LOW-VALUES
+019600         ADD 1 TO WS-REJECT-CNT
+019700         MOVE 'VAULT_OBJECT_ID MISSING' TO ERR-TEXT
+019800     END-IF
+019900     .
+020000* ---------------------------------------------------------------*
+020100* 4100-INSERT-DOCUMENT-REF                                       *
+020200* INSERT CLR.T_DOCUMENT_REF                                      *
+020300* ---------------------------------------------------------------*
+020400 4100-INSERT-DOCUMENT-REF.
+020500     EXEC SQL
+020600         INSERT INTO CLR.T_DOCUMENT_REF
+020700              ( CLAIM_ID, VAULT_OBJECT_ID, DOC_TYPE_CD
+020800              , RECEIVED_TS, LAST_UPD_TS, LAST_UPD_PGM
+020900              , LAST_UPD_USER )
+021000         VALUES
+021100              ( :DOCR-CLAIM-ID, :DOCR-VAULT-OBJECT-ID
+021200              , :DOCR-DOC-TYPE-CD, CURRENT TIMESTAMP
+021300              , CURRENT TIMESTAMP, :WS-PGM-ID, :WS-USER-ID )
+021400     END-EXEC
+021500     EVALUATE SQLCODE
+021600         WHEN 0
+021700             ADD 1 TO WS-DOCUMENT-REF-WRITTEN
+021800         WHEN +100
+021900             SET WS-ROW-NOT-FOUND TO TRUE
+022000         WHEN OTHER
+022100             MOVE 'INSERT CLR.T_DOCUMENT_REF' TO ERR-PARA
+022200             PERFORM 8000-SQL-ERROR
+022300     END-EVALUATE
+022400     .
+022500* ---------------------------------------------------------------*
+022600* 9000-RETURN                                                    *
+022700* COPY RESULTS BACK TO THE CALLER                                *
+022800* ---------------------------------------------------------------*
+022900 9000-RETURN.
+023000     MOVE CLR-ERROR-BLOCK TO LS-ERROR-BLOCK
+023100     GOBACK.
+023200* ---------------------------------------------------------------*
+023300* 8000-SQL-ERROR                                                 *
+023400* DB2 ERROR HANDLING                                             *
+023500* ---------------------------------------------------------------*
+023600 8000-SQL-ERROR.
+023700     MOVE SQLCODE TO ERR-SQLCODE WS-SQLCODE-DSP
+023800     MOVE WS-PGM-ID TO ERR-PGM
+023900     STRING 'SQLCODE ' WS-SQLCODE-DSP DELIMITED BY SIZE INTO
+024000         ERR-TEXT
+024100     DISPLAY WS-PGM-ID ' ' ERR-PARA ' ' ERR-TEXT
+024200     GO TO 9000-RETURN.

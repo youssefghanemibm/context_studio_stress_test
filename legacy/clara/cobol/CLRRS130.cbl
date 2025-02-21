@@ -1,0 +1,423 @@
+000100* ===============================================================*
+000200* PROGRAM    : CLRRS130                                          *
+000300* TITLE      : MONTHLY RESERVE INDEXATION FOR BODILY-INJURY      *
+000400*              CLAIMS (BR-RSV-009)                               *
+000500* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION     *
+000600* AREA       : RESERVE                                           *
+000700* TYPE       : BATCH / DB2                                       *
+000800* JOB / STEP : CLRMRSV1 / STEP010                                *
+000900* ---------------------------------------------------------------*
+001000* PURPOSE                                                        *
+001100*   NIGHTLY/PERIODIC BATCH STEP: MONTHLY RESERVE INDEXATION FOR  *
+001200*     BODILY-INJURY CLAIMS (BR-RSV-009).                         *
+001300*   EXECUTED BY JOB CLRMRSV1, STEP010.                           *
+001400*   DB2 COMMIT AFTER EVERY 250 UPDATES.                          *
+001500*   RC 0 = NORMAL, RC 4 = REJECTS REPORTED, RC 16 = ABORTED.     *
+001600* ---------------------------------------------------------------*
+001700* DB2 TABLES                                                     *
+001800*   CLR.T_CLAIM                 READ                             *
+001900*   CLR.T_PARAM                 READ                             *
+002000*   CLR.T_RESERVE               UPDATE                           *
+002100*   CLR.T_RESERVE_MOVEMENT      INSERT                           *
+002200* COPYBOOKS  : CLRCLM01 PARMREC1 RSVREC RSVMVT01 CLRERR01        *
+002300*              CLRDATE1                                          *
+002400* CALLS      : CLRCM040 CLRCM020 CLRCM010                        *
+002500* FILE       : RPTOUT   OUT CONTROL REPORT                       *
+002600* ---------------------------------------------------------------*
+002700* MAINTENANCE HISTORY                                            *
+002800* DATE       BY       REF        DESCRIPTION                     *
+002900* ---------- -------- ---------- ------------------------------- *
+003000* 1994-10-03 CLRPROJ             INITIAL VERSION - CLARA GO-LIVE *
+003100* 1999-10-15 KBARR01             Y2K REMEDIATION - DATE          *
+003200*                                WINDOWING REMOVED               *
+003300* 2005-04-30 KBARR01             RECOMPILED - COBOL FOR Z/OS     *
+003400*                                UPGRADE                         *
+003500* 2016-01-06 KBARR01             ERROR MESSAGES STANDARDISED     *
+003600* 2019-11-22 KBARR01             PERFORMANCE: CURSOR WITH HOLD,  *
+003700*                                FEWER COMMITS                   *
+003800* 2024-05-23 KBARR01             REPORT HEADINGS REALIGNED       *
+003900* ===============================================================*
+004000 IDENTIFICATION DIVISION.
+004100 PROGRAM-ID.    CLRRS130.
+004200 AUTHOR.        CLARA PROJECT TEAM.
+004300 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
+004400 DATE-WRITTEN.  1994-10-03.
+004500 DATE-COMPILED.
+004600 ENVIRONMENT DIVISION.
+004700 CONFIGURATION SECTION.
+004800 SOURCE-COMPUTER.  IBM-Z.
+004900 OBJECT-COMPUTER.  IBM-Z.
+005000 INPUT-OUTPUT SECTION.
+005100 FILE-CONTROL.
+005200     SELECT REPORT-FILE ASSIGN TO RPTOUT
+005300         ORGANIZATION IS SEQUENTIAL
+005400         FILE STATUS IS WS-RPTOUT-STATUS.
+005500 DATA DIVISION.
+005600 FILE SECTION.
+005700 FD  REPORT-FILE
+005800         RECORDING MODE IS F
+005900         BLOCK CONTAINS 0 RECORDS.
+006000 01  REPORT-RECORD               PIC X(133).
+006100 WORKING-STORAGE SECTION.
+006200*
+006300 01  WS-PROGRAM-INFO.
+006400     05  WS-PGM-ID               PIC X(8)   VALUE 'CLRRS130'.
+006500     05  WS-RUN-DATE             PIC X(10)  VALUE SPACES.
+006600     05  WS-RUN-TS               PIC X(26)  VALUE SPACES.
+006700     05  WS-USER-ID              PIC X(8)   VALUE SPACES.
+006800     05  WS-LAST-RUN-TS          PIC X(26)  VALUE SPACES.
+006900     05  WS-RUN-ID               PIC S9(9)  COMP VALUE ZERO.
+007000*
+007100 01  WS-SWITCHES.
+007200     05  WS-EOF-SW               PIC X      VALUE 'N'.
+007300         88  WS-END-OF-DATA                     VALUE 'Y'.
+007400     05  WS-ERROR-SW             PIC X      VALUE 'N'.
+007500         88  WS-ERROR-FOUND                     VALUE 'Y'.
+007600         88  WS-NO-ERROR                        VALUE 'N'.
+007700     05  WS-FOUND-SW             PIC X      VALUE 'N'.
+007800         88  WS-ROW-FOUND                       VALUE 'Y'.
+007900         88  WS-ROW-NOT-FOUND                   VALUE 'N'.
+008000     05  WS-RPTOUT-STATUS        PIC X(2)   VALUE SPACES.
+008100*
+008200 01  WS-COUNTERS.
+008300     05  WS-CLAIM-READ           PIC S9(9)  COMP-3 VALUE ZERO.
+008400     05  WS-PARAM-READ           PIC S9(9)  COMP-3 VALUE ZERO.
+008500     05  WS-RESERVE-WRITTEN      PIC S9(9)  COMP-3 VALUE ZERO.
+008600     05  WS-RESERVE-MOVEMENT-WRITTEN PIC S9(9) COMP-3 VALUE ZERO.
+008700     05  WS-REJECT-CNT           PIC S9(9)  COMP-3 VALUE ZERO.
+008800     05  WS-SINCE-COMMIT         PIC S9(9)  COMP-3 VALUE ZERO.
+008900     05  WS-COMMIT-FREQ          PIC S9(9)  COMP-3 VALUE +250.
+009000*
+009100 01  WS-SQL-WORK.
+009200     05  WS-SQLCODE-DSP          PIC -9(9).
+009300     05  WS-ROWS-AFFECTED        PIC S9(9)  COMP VALUE ZERO.
+009400     05  WS-IND-1                PIC S9(4)  COMP VALUE ZERO.
+009500     05  WS-IND-2                PIC S9(4)  COMP VALUE ZERO.
+009600     05  WS-NEW-ID               PIC S9(18) COMP VALUE ZERO.
+009700     05 WS-INDEX-PCT PIC S9(3)V9(4) COMP-3 VALUE ZERO.
+009800     05 WS-MONTH-FACTOR PIC S9(2)V9(7) COMP-3 VALUE ZERO.
+009900     05  WS-OLD-OUTSTANDING       PIC S9(11)V99 COMP-3 VALUE ZERO.
+010000     05  WS-IX-DELTA              PIC S9(11)V99 COMP-3 VALUE ZERO.
+010100     05  WS-PARM-ROWS            PIC S9(9)  COMP VALUE ZERO.
+010200*
+010300     EXEC SQL INCLUDE SQLCA END-EXEC.
+010400*
+010500* CLARA RECORD LAYOUTS
+010600 COPY CLRCLM01.
+010700 COPY PARMREC1.
+010800 COPY RSVREC.
+010900 COPY RSVMVT01.
+011000 COPY CLRERR01.
+011100 COPY CLRDATE1.
+011200*
+011300* PARAMETER AREAS FOR CALLED MODULES
+011400 01  WS-AUDIT-PARMS.
+011500     05  WS-AUD-TABLE            PIC X(18).
+011600     05  WS-AUD-KEY              PIC X(30).
+011700     05  WS-AUD-ACTION           PIC X(1).
+011800     05  WS-AUD-USER             PIC X(8).
+011900     05  WS-AUD-PGM              PIC X(8).
+012000*
+012100* DRIVING CURSOR ON CLR.T_CLAIM
+012200     EXEC SQL
+012300         DECLARE C-CLAIM CURSOR WITH HOLD FOR
+012400         SELECT CLAIM_ID, POLICY_NO, PRODUCT_CD, PERIL_CD
+012500                , LOSS_DT, NOTIFIED_TS, CHANNEL_CD
+012600           FROM CLR.T_CLAIM
+012700          WHERE PERIL_CD = 'BIJ'
+012800            AND CLAIM_STATUS IN ('OP', 'RO')
+012900          ORDER BY CLAIM_ID
+013000          FOR FETCH ONLY
+013100     END-EXEC.
+013200*
+013300* CONTROL REPORT LINES
+013400 01  WS-RPT-HEAD-1.
+013500     05  FILLER                  PIC X(1)   VALUE '1'.
+013600     05  FILLER                  PIC X(10)  VALUE 'CLRRS130'.
+013700     05  FILLER                  PIC X(40)  VALUE
+013800             'MONTHLY RESERVE INDEXATION FOR'.
+013900     05  FILLER                  PIC X(10)  VALUE 'RUN DATE: '.
+014000     05  RH1-RUN-DATE            PIC X(10).
+014100     05  FILLER                  PIC X(62)  VALUE SPACES.
+014200 01  WS-RPT-DETAIL.
+014300     05  FILLER                  PIC X(1)   VALUE SPACE.
+014400     05  RD-LABEL                PIC X(40).
+014500     05  RD-VALUE                PIC X(60).
+014600     05  FILLER                  PIC X(32)  VALUE SPACES.
+014700 01  WS-RPT-TOTAL.
+014800     05  FILLER                  PIC X(1)   VALUE SPACE.
+014900     05  RT-LABEL                PIC X(40).
+015000     05  RT-COUNT                PIC ZZZ,ZZZ,ZZ9.
+015100     05  FILLER                  PIC X(81)  VALUE SPACES.
+015200 PROCEDURE DIVISION.
+015300* ---------------------------------------------------------------*
+015400* 0000-MAINLINE                                                  *
+015500* PROGRAM CONTROL                                                *
+015600* ---------------------------------------------------------------*
+015700 0000-MAINLINE.
+015800     PERFORM 1000-INITIALISE
+015900     PERFORM 2000-PROCESS
+016000     PERFORM 9000-TERMINATE
+016100     GOBACK.
+016200* ---------------------------------------------------------------*
+016300* 1000-INITIALISE                                                *
+016400* OPEN FILES AND SET UP THE RUN                                  *
+016500* ---------------------------------------------------------------*
+016600 1000-INITIALISE.
+016700     MOVE FUNCTION CURRENT-DATE(1:8) TO WS-RUN-TS
+016800     STRING WS-RUN-TS(1:4) '-' WS-RUN-TS(5:2) '-' WS-RUN-TS(7:2)
+016900         DELIMITED BY SIZE INTO WS-RUN-DATE
+017000     MOVE 'CLRBATCH' TO WS-USER-ID
+017100     OPEN OUTPUT REPORT-FILE
+017200     IF WS-RPTOUT-STATUS NOT = '00'
+017300         DISPLAY 'CLRRS130 OPEN FAILED RPTOUT ' WS-RPTOUT-STATUS
+017400         MOVE 16 TO RETURN-CODE
+017500         GOBACK
+017600     END-IF
+017700     MOVE WS-RUN-DATE TO RH1-RUN-DATE
+017800     WRITE REPORT-RECORD FROM WS-RPT-HEAD-1
+017900     PERFORM 1200-CHECK-PARAMETERS
+018000     PERFORM 1400-GET-BUSINESS-DATE
+018100     PERFORM 1300-MONTHLY-FACTOR
+018200     .
+018300* ---------------------------------------------------------------*
+018400* 1200-CHECK-PARAMETERS                                          *
+018500* PARAMETER TABLE SANITY CHECK                                   *
+018600* ---------------------------------------------------------------*
+018700 1200-CHECK-PARAMETERS.
+018800     EXEC SQL
+018900         SELECT COUNT(*)
+019000           INTO :WS-PARM-ROWS
+019100           FROM CLR.T_PARAM
+019200          WHERE PARAM_KEY LIKE 'RSV_%'
+019300            AND VALID_FROM <= CURRENT DATE
+019400            AND (VALID_TO IS NULL OR VALID_TO >= CURRENT DATE)
+019500     END-EXEC
+019600     EVALUATE SQLCODE
+019700         WHEN 0
+019800             CONTINUE
+019900         WHEN OTHER
+020000             MOVE '1200-CHECK-PARAMETERS' TO ERR-PARA
+020100             PERFORM 8000-SQL-ERROR
+020200     END-EVALUATE
+020300     IF WS-PARM-ROWS = ZERO
+020400         DISPLAY WS-PGM-ID ' NO CURRENT PARAMETERS FOUND'
+020500         SET WS-ERROR-FOUND TO TRUE
+020600     END-IF
+020700     .
+020800* ---------------------------------------------------------------*
+020900* 1400-GET-BUSINESS-DATE                                         *
+021000* DETERMINE PROCESSING DATE                                      *
+021100* ---------------------------------------------------------------*
+021200 1400-GET-BUSINESS-DATE.
+021300     MOVE WS-RUN-DATE TO DW-IN-DATE
+021400     MOVE CLM-REGION-CD TO DW-CALENDAR
+021500     MOVE ZERO TO DW-BUS-DAYS
+021600     CALL 'CLRCM010' USING CLR-DATE-WORK
+021700                      CLR-ERROR-BLOCK
+021800     IF ERR-SQLCODE NOT = ZERO
+021900         MOVE 'CALL CLRCM010' TO ERR-PARA
+022000         PERFORM 8000-SQL-ERROR
+022100     END-IF
+022200     .
+022300* ---------------------------------------------------------------*
+022400* 1300-MONTHLY-FACTOR                                            *
+022500* MONTHLY INDEXATION FACTOR                                      *
+022600* ---------------------------------------------------------------*
+022700 1300-MONTHLY-FACTOR.
+022800* ANNUAL BI INDEXATION RATE (BR-RSV-009) COMES FROM CLR.T_PARAM;
+022900* IT IS CONVERTED TO A MONTHLY COMPOUNDING FACTOR.
+023000     MOVE 'RSV_BI_INDEX_PCT' TO PARM-PARAM-KEY
+023100     CALL 'CLRCM040' USING PARMREC1-REC
+023200                      CLR-ERROR-BLOCK
+023300     IF ERR-SQLCODE NOT = ZERO
+023400         MOVE 'CALL CLRCM040' TO ERR-PARA
+023500         PERFORM 8000-SQL-ERROR
+023600     END-IF
+023700     MOVE FUNCTION NUMVAL(PARM-PARAM-VALUE) TO WS-INDEX-PCT
+023800     COMPUTE WS-MONTH-FACTOR ROUNDED =
+023900         (1 + WS-INDEX-PCT / 100) ** (1 / 12)
+024000     .
+024100* ---------------------------------------------------------------*
+024200* 2000-PROCESS                                                   *
+024300* PROCESS LOOP                                                   *
+024400* ---------------------------------------------------------------*
+024500 2000-PROCESS.
+024600     EXEC SQL
+024700         OPEN C-CLAIM
+024800     END-EXEC
+024900     EVALUATE SQLCODE
+025000         WHEN 0
+025100             CONTINUE
+025200         WHEN OTHER
+025300             MOVE '2000-OPEN-C-CLAIM' TO ERR-PARA
+025400             PERFORM 8000-SQL-ERROR
+025500     END-EVALUATE
+025600     PERFORM 2100-FETCH-NEXT
+025700     PERFORM UNTIL WS-END-OF-DATA
+025800         PERFORM 2200-PROCESS-ROW
+025900         PERFORM 2100-FETCH-NEXT
+026000     END-PERFORM
+026100     EXEC SQL
+026200         CLOSE C-CLAIM
+026300     END-EXEC
+026400     .
+026500* ---------------------------------------------------------------*
+026600* 2100-FETCH-NEXT                                                *
+026700* FETCH THE NEXT DRIVING ROW                                     *
+026800* ---------------------------------------------------------------*
+026900 2100-FETCH-NEXT.
+027000     EXEC SQL
+027100         FETCH C-CLAIM
+027200          INTO :CLM-CLAIM-ID, :CLM-POLICY-NO, :CLM-PRODUCT-CD
+027300               , :CLM-PERIL-CD, :CLM-LOSS-DT
+027400               , :CLM-NOTIFIED-TS, :CLM-CHANNEL-CD
+027500     END-EXEC
+027600     EVALUATE SQLCODE
+027700         WHEN 0
+027800             ADD 1 TO WS-CLAIM-READ
+027900         WHEN +100
+028000             SET WS-END-OF-DATA TO TRUE
+028100         WHEN OTHER
+028200             MOVE '2100-FETCH-NEXT' TO ERR-PARA
+028300             PERFORM 8000-SQL-ERROR
+028400     END-EVALUATE
+028500     .
+028600* ---------------------------------------------------------------*
+028700* 2200-PROCESS-ROW                                               *
+028800* PROCESS ONE ROW                                                *
+028900* ---------------------------------------------------------------*
+029000 2200-PROCESS-ROW.
+029100     SET WS-NO-ERROR TO TRUE
+029200     PERFORM 3000-INDEX
+029300     PERFORM 6000-COMMIT-CHECK
+029400     .
+029500* ---------------------------------------------------------------*
+029600* 3000-INDEX                                                     *
+029700* INDEX ONE BODILY-INJURY RESERVE                                *
+029800* ---------------------------------------------------------------*
+029900 3000-INDEX.
+030000     EXEC SQL
+030100         SELECT RSV_ID, RSV_OUTSTANDING_AMT
+030200           INTO :RSV-RSV-ID, :WS-OLD-OUTSTANDING
+030300           FROM OLD TABLE (
+030400         UPDATE CLR.T_RESERVE
+030500            SET RSV_OUTSTANDING_AMT =
+030600                RSV_OUTSTANDING_AMT * :WS-MONTH-FACTOR
+030700              , RSV_INDEX_FACTOR =
+030800                COALESCE(RSV_INDEX_FACTOR, 1) * :WS-MONTH-FACTOR
+030900              , LAST_UPD_TS = CURRENT TIMESTAMP
+031000              , LAST_UPD_PGM = :WS-PGM-ID
+031100          WHERE CLAIM_ID = :CLM-CLAIM-ID
+031200            AND RSV_TYPE_CD = 'ID'
+031300            AND RSV_STATUS = 'O' )
+031400     END-EXEC
+031500     EVALUATE SQLCODE
+031600         WHEN 0
+031700             ADD 1 TO WS-RESERVE-WRITTEN
+031800         WHEN +100
+031900             SET WS-ROW-NOT-FOUND TO TRUE
+032000         WHEN OTHER
+032100             MOVE '3000-INDEX' TO ERR-PARA
+032200             PERFORM 8000-SQL-ERROR
+032300     END-EVALUATE
+032400     IF WS-ROW-FOUND
+032500         COMPUTE WS-IX-DELTA ROUNDED =
+032600             WS-OLD-OUTSTANDING * (WS-MONTH-FACTOR - 1)
+032700         MOVE CLM-CLAIM-ID TO RSVM-CLAIM-ID
+032800         MOVE ZERO TO RSVM-MOVE-GBP-AMT
+032900     END-IF
+033000     MOVE RSV-RSV-ID TO RSVM-RSV-ID
+033100     MOVE CLM-CLAIM-ID TO RSVM-CLAIM-ID
+033200     MOVE 'IX' TO RSVM-MOVE-TYPE-CD
+033300     MOVE WS-IX-DELTA TO RSVM-MOVE-AMT
+033400     MOVE 'BIIX' TO RSVM-REASON-CD
+033500     MOVE 'N' TO RSVM-EXTRACTED-FLAG
+033600     MOVE WS-USER-ID TO RSVM-USER-ID
+033700     MOVE WS-PGM-ID TO RSVM-PGM-ID
+033800     EXEC SQL
+033900         INSERT INTO CLR.T_RESERVE_MOVEMENT
+034000              ( RSV_ID, CLAIM_ID, MOVE_TS, MOVE_TYPE_CD
+034100              , MOVE_AMT, MOVE_GBP_AMT, REASON_CD, USER_ID
+034200              , PGM_ID, EXTRACTED_FLAG )
+034300         VALUES
+034400              ( :RSVM-RSV-ID, :RSVM-CLAIM-ID, CURRENT TIMESTAMP
+034500              , :RSVM-MOVE-TYPE-CD, :RSVM-MOVE-AMT
+034600              , :RSVM-MOVE-GBP-AMT, :RSVM-REASON-CD
+034700              , :RSVM-USER-ID, :RSVM-PGM-ID
+034800              , :RSVM-EXTRACTED-FLAG )
+034900     END-EXEC
+035000     EVALUATE SQLCODE
+035100         WHEN 0
+035200             ADD 1 TO WS-RESERVE-MOVEMENT-WRITTEN
+035300         WHEN +100
+035400             SET WS-ROW-NOT-FOUND TO TRUE
+035500         WHEN OTHER
+035600             MOVE 'INSERT MOVEMENT IX' TO ERR-PARA
+035700             PERFORM 8000-SQL-ERROR
+035800     END-EVALUATE
+035900     MOVE 'CLR.T_RESERVE' TO WS-AUD-TABLE
+036000     MOVE CLM-CLAIM-ID TO WS-AUD-KEY
+036100     MOVE 'I' TO WS-AUD-ACTION
+036200     MOVE WS-USER-ID TO WS-AUD-USER
+036300     MOVE WS-PGM-ID TO WS-AUD-PGM
+036400     CALL 'CLRCM020' USING WS-AUDIT-PARMS
+036500                      CLR-ERROR-BLOCK
+036600     IF ERR-SQLCODE NOT = ZERO
+036700         ADD 1 TO WS-REJECT-CNT
+036800     END-IF
+036900     .
+037000* ---------------------------------------------------------------*
+037100* 6000-COMMIT-CHECK                                              *
+037200* PERIODIC COMMIT                                                *
+037300* ---------------------------------------------------------------*
+037400 6000-COMMIT-CHECK.
+037500     ADD 1 TO WS-SINCE-COMMIT
+037600     IF WS-SINCE-COMMIT >= WS-COMMIT-FREQ
+037700         EXEC SQL
+037800             COMMIT
+037900         END-EXEC
+038000         MOVE ZERO TO WS-SINCE-COMMIT
+038100     END-IF
+038200     .
+038300* ---------------------------------------------------------------*
+038400* 9000-TERMINATE                                                 *
+038500* CLOSE DOWN                                                     *
+038600* ---------------------------------------------------------------*
+038700 9000-TERMINATE.
+038800     EXEC SQL
+038900         COMMIT
+039000     END-EXEC
+039100     MOVE 'CLR.T_CLAIM ROWS READ' TO RT-LABEL
+039200     MOVE WS-CLAIM-READ TO RT-COUNT
+039300     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+039400     MOVE 'CLR.T_PARAM ROWS READ' TO RT-LABEL
+039500     MOVE WS-PARAM-READ TO RT-COUNT
+039600     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+039700     MOVE 'CLR.T_RESERVE ROWS WRITTEN' TO RT-LABEL
+039800     MOVE WS-RESERVE-WRITTEN TO RT-COUNT
+039900     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+040000     MOVE 'CLR.T_RESERVE_MOVEMENT ROWS WRITTEN' TO RT-LABEL
+040100     MOVE WS-RESERVE-MOVEMENT-WRITTEN TO RT-COUNT
+040200     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+040300     CLOSE REPORT-FILE
+040400     IF WS-REJECT-CNT > ZERO
+040500         MOVE 4 TO RETURN-CODE
+040600     END-IF
+040700     .
+040800* ---------------------------------------------------------------*
+040900* 8000-SQL-ERROR                                                 *
+041000* DB2 ERROR HANDLING                                             *
+041100* ---------------------------------------------------------------*
+041200 8000-SQL-ERROR.
+041300     MOVE SQLCODE TO ERR-SQLCODE WS-SQLCODE-DSP
+041400     MOVE WS-PGM-ID TO ERR-PGM
+041500     STRING 'SQLCODE ' WS-SQLCODE-DSP DELIMITED BY SIZE INTO
+041600         ERR-TEXT
+041700     DISPLAY WS-PGM-ID ' ' ERR-PARA ' ' ERR-TEXT
+041800     EXEC SQL
+041900         ROLLBACK
+042000     END-EXEC
+042100     MOVE 16 TO RETURN-CODE
+042200     CLOSE REPORT-FILE
+042300     GOBACK.

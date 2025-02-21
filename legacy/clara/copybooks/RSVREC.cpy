@@ -1,0 +1,26 @@
+000100* ================================================================
+000200* COPYBOOK   : RSVREC
+000300* DB2 TABLE  : CLR.T_RESERVE
+000400* CONTENT    : CASE RESERVES - ONE ROW PER CLAIM PER RESERVE
+000500*              TYPE
+000600* LAYOUT     : ONE FIELD PER COLUMN, IN TABLE ORDER
+000700* ================================================================
+000800 01  RSVREC-REC.
+000900     05  RSV-RSV-ID                    PIC S9(18) COMP.
+001000     05  RSV-CLAIM-ID                  PIC X(12).
+001100     05  RSV-RSV-TYPE-CD               PIC X(2).
+001200     05  RSV-CURRENCY-CD               PIC X(3).
+001300     05  RSV-RSV-INITIAL-AMT           PIC S9(11)V99 COMP-3.
+001400     05  RSV-RSV-OUTSTANDING-AMT       PIC S9(11)V99 COMP-3.
+001500     05  RSV-RSV-PAID-TO-DATE-AMT      PIC S9(11)V99 COMP-3.
+001600     05  RSV-RSV-RECOVERY-EST-AMT      PIC S9(11)V99 COMP-3.
+001700     05  RSV-RSV-GBP-EQUIV-AMT         PIC S9(11)V99 COMP-3.
+001800     05  RSV-RSV-STATUS                PIC X(1).
+001900     05  RSV-RSV-AUTH-LEVEL            PIC X(2).
+002000     05  RSV-RSV-SET-BY-USER           PIC X(8).
+002100     05  RSV-RSV-NEXT-REVIEW-DT        PIC X(10).
+002200     05  RSV-RSV-INDEX-FACTOR          PIC S9(2)V9(5) COMP-3.
+002300     05  RSV-RSV-LAST-REVAL-DT         PIC X(10).
+002400     05  RSV-LAST-UPD-TS               PIC X(26).
+002500     05  RSV-LAST-UPD-PGM              PIC X(8).
+002600     05  RSV-LAST-UPD-USER             PIC X(8).

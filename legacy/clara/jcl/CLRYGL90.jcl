@@ -1,0 +1,35 @@
+//CLRYGL90 JOB (CLRB,0001),'YEAR-END RESERVE CUR',CLASS=B,MSGCLASS=X,
+//             MSGLEVEL=(1,1),REGION=0M,NOTIFY=&SYSUID
+//* ------------------------------------------------------------------*
+//* JOB       : CLRYGL90                                              *
+//* FUNCTION  : YEAR-END RESERVE CURRENCY REVALUATION                 *
+//* SCHEDULE  : ANNUALLY 31 DEC 23:30 (AND ON RESERVING REQUEST)      *
+//*             (BATCH SCHEDULER)                                     *
+//* SUPPORT   : MAINFRAME BATCH OPERATIONS                            *
+//* STEPS     : STEP010 CLRGL090 YEAR-END RESERVE CURRENCY            *
+//*                              REVALUATION (NORDIC RESERVES TO      *
+//*                              GBP)                                 *
+//* RESTART   : RERUN ALLOWED (REVALUATION IS IDEMPOTENT FOR THE      *
+//*             SAME RATE DATE).                                      *
+//* ------------------------------------------------------------------*
+//* SITE SYMBOLS (HLQS, DB2 SUBSYSTEM AND PLAN) COME FROM THE INCLUDE
+//         INCLUDE MEMBER=CLRSYMS
+//JOBLIB   DD DSN=&CLRHLQ..LOADLIB,DISP=SHR
+//         DD DSN=&DB2HLQ..SDSNLOAD,DISP=SHR
+//*
+//* STEP010 - YEAR-END RESERVE CURRENCY REVALUATION (NORDIC RESERVES
+//* TO GBP)
+//*
+//STEP010  EXEC PGM=IKJEFT01,DYNAMNBR=20
+//SYSTSPRT DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=D
+//RPTOUT   DD SYSOUT=*
+//SYSTSIN  DD *,SYMBOLS=JCLONLY
+  DSN SYSTEM(&DB2SSID)
+  RUN PROGRAM(CLRGL090) PLAN(&DB2PLAN) -
+      LIB('&CLRHLQ..LOADLIB')
+  END
+/*
+//

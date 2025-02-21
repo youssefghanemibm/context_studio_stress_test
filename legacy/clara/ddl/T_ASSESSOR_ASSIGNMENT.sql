@@ -1,0 +1,47 @@
+-- --------------------------------------------------------------------
+-- CLR.T_ASSESSOR_ASSIGNMENT
+-- Claims Assessor appointments (internal and vendor)
+-- Area: ASSESS    Copybook: CLRASG01
+-- --------------------------------------------------------------------
+CREATE TABLE CLR.T_ASSESSOR_ASSIGNMENT
+  ( ASSIGN_ID                   BIGINT        NOT NULL GENERATED ALWAYS AS IDENTITY
+  , CLAIM_ID                    CHAR(12)      NOT NULL
+  , ASSESSOR_ID                 CHAR(8)       NOT NULL
+  , VENDOR_CD                   CHAR(8)
+  , APPOINTED_TS                TIMESTAMP     NOT NULL
+  , SLA_DUE_DT                  DATE          NOT NULL
+  , VERSION_NO                  SMALLINT      NOT NULL
+  , LAST_UPD_TS                 TIMESTAMP     NOT NULL WITH DEFAULT
+  , LAST_UPD_PGM                CHAR(8)       NOT NULL
+  , LAST_UPD_USER               CHAR(8)       NOT NULL
+  , CONSTRAINT PK_T_ASSESSOR_ASSIGNMENT PRIMARY KEY (ASSIGN_ID)
+  )
+  CCSID EBCDIC;
+
+CREATE UNIQUE INDEX CLR.XASSESSOR_ASSIG_PK
+    ON CLR.T_ASSESSOR_ASSIGNMENT (ASSIGN_ID);
+CREATE INDEX CLR.XASSESSOR_ASSI_CLM
+    ON CLR.T_ASSESSOR_ASSIGNMENT (CLAIM_ID);
+
+COMMENT ON TABLE CLR.T_ASSESSOR_ASSIGNMENT IS
+  'Claims Assessor appointments (internal and vendor)';
+COMMENT ON COLUMN CLR.T_ASSESSOR_ASSIGNMENT.ASSIGN_ID IS
+  'Assignment id';
+COMMENT ON COLUMN CLR.T_ASSESSOR_ASSIGNMENT.CLAIM_ID IS
+  'Claim reference';
+COMMENT ON COLUMN CLR.T_ASSESSOR_ASSIGNMENT.ASSESSOR_ID IS
+  'Internal user or vendor code';
+COMMENT ON COLUMN CLR.T_ASSESSOR_ASSIGNMENT.VENDOR_CD IS
+  'Vendor (BRACKFLD, NORRVIK, FELLGATE)';
+COMMENT ON COLUMN CLR.T_ASSESSOR_ASSIGNMENT.APPOINTED_TS IS
+  'Appointed';
+COMMENT ON COLUMN CLR.T_ASSESSOR_ASSIGNMENT.SLA_DUE_DT IS
+  'SLA due date';
+COMMENT ON COLUMN CLR.T_ASSESSOR_ASSIGNMENT.VERSION_NO IS
+  'Optimistic locking version';
+COMMENT ON COLUMN CLR.T_ASSESSOR_ASSIGNMENT.LAST_UPD_TS IS
+  'Timestamp of last update';
+COMMENT ON COLUMN CLR.T_ASSESSOR_ASSIGNMENT.LAST_UPD_PGM IS
+  'Program that last updated the row';
+COMMENT ON COLUMN CLR.T_ASSESSOR_ASSIGNMENT.LAST_UPD_USER IS
+  'User or batch id that last updated the row';

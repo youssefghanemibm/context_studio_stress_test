@@ -1,0 +1,44 @@
+-- --------------------------------------------------------------------
+-- CLR.T_VENDOR_INVOICE
+-- Vendor invoices
+-- Area: SETTLE    Copybook: VENINV01
+-- --------------------------------------------------------------------
+CREATE TABLE CLR.T_VENDOR_INVOICE
+  ( INVOICE_ID                  BIGINT        NOT NULL GENERATED ALWAYS AS IDENTITY
+  , VENDOR_CD                   CHAR(8)       NOT NULL
+  , CLAIM_ID                    CHAR(12)      NOT NULL
+  , INVOICE_AMT                 DECIMAL(11,2) NOT NULL
+  , FEE_TYPE_CD                 CHAR(2)       NOT NULL
+  , MATCHED_FLAG                CHAR(1)       NOT NULL
+  , LAST_UPD_TS                 TIMESTAMP     NOT NULL WITH DEFAULT
+  , LAST_UPD_PGM                CHAR(8)       NOT NULL
+  , LAST_UPD_USER               CHAR(8)       NOT NULL
+  , CONSTRAINT PK_T_VENDOR_INVOICE PRIMARY KEY (INVOICE_ID)
+  )
+  CCSID EBCDIC;
+
+CREATE UNIQUE INDEX CLR.XVENDOR_INVOICE_PK
+    ON CLR.T_VENDOR_INVOICE (INVOICE_ID);
+CREATE INDEX CLR.XVENDOR_INVOIC_CLM
+    ON CLR.T_VENDOR_INVOICE (CLAIM_ID);
+
+COMMENT ON TABLE CLR.T_VENDOR_INVOICE IS
+  'Vendor invoices';
+COMMENT ON COLUMN CLR.T_VENDOR_INVOICE.INVOICE_ID IS
+  'Invoice id';
+COMMENT ON COLUMN CLR.T_VENDOR_INVOICE.VENDOR_CD IS
+  'Vendor';
+COMMENT ON COLUMN CLR.T_VENDOR_INVOICE.CLAIM_ID IS
+  'Claim reference';
+COMMENT ON COLUMN CLR.T_VENDOR_INVOICE.INVOICE_AMT IS
+  'Amount';
+COMMENT ON COLUMN CLR.T_VENDOR_INVOICE.FEE_TYPE_CD IS
+  'DK desk, SV site visit, HR hourly';
+COMMENT ON COLUMN CLR.T_VENDOR_INVOICE.MATCHED_FLAG IS
+  'Matched';
+COMMENT ON COLUMN CLR.T_VENDOR_INVOICE.LAST_UPD_TS IS
+  'Timestamp of last update';
+COMMENT ON COLUMN CLR.T_VENDOR_INVOICE.LAST_UPD_PGM IS
+  'Program that last updated the row';
+COMMENT ON COLUMN CLR.T_VENDOR_INVOICE.LAST_UPD_USER IS
+  'User or batch id that last updated the row';
