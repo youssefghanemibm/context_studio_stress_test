@@ -1,5 +1,5 @@
 000100* ===============================================================*
-000200* PROGRAM    : FNETREF1                                          *
+000200* PROGRAM    : CLRFR030                                          *
 000300* TITLE : FRAUD REFERRAL CREATION - ONLINE (THRESHOLD READ FROM  *
 000400*   CLR.T_PARAM)                                                 *
 000500* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION     *
@@ -34,9 +34,11 @@
 003400*                                BATCH WINDOW                    *
 003500* 2014-01-24 PASHW01             DB2 VERSION MIGRATION - REBIND, *
 003600*                                NO LOGIC CHANGE                 *
+003630* 2025-03-01 PASHW01             RENAMED FROM FNETREF1 (FRAUDNET *
+003660*                                RENAMED SENTINEL)               *
 003700* ===============================================================*
 003800 IDENTIFICATION DIVISION.
-003900 PROGRAM-ID.    FNETREF1.
+003900 PROGRAM-ID.    CLRFR030.
 004000 AUTHOR.        K. BARRACLOUGH.
 004100 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
 004200 DATE-WRITTEN.  1998-05-01.
