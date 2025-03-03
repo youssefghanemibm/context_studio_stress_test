@@ -30,6 +30,9 @@
 003000* 2020-05-10 PASHW01             REMOVED DEAD CODE AFTER REVIEW
 003010* 2025-03-01 PASHW01             RENAMED FROM FNETCAL1 (FRAUDNET
 003020*                                RENAMED SENTINEL)
+003030* 2025-03-03 PASHW01  CHUB-119   SCORE HOST SWITCHED TO
+003040*                                SENTINEL.CORVANE.INTERNAL
+003050*                                (INC-2025-0233)
 003100* ================================================================
 003200 IDENTIFICATION DIVISION.
 003300 PROGRAM-ID.    CLRFR020.
@@ -75,7 +78,7 @@
 007300     05  WS-WEB-STATUS            PIC S9(8)  COMP VALUE ZERO.
 007400     05  WS-WEB-LEN               PIC S9(8)  COMP VALUE ZERO.
 007500     05  WS-SCORE-HOST            PIC X(40)  VALUE
-007600             'fraudnet.corvane.internal'.
+007600             'sentinel.corvane.internal'.                         CHUB119
 007700*
 007800     EXEC SQL INCLUDE SQLCA END-EXEC.
 007900*
