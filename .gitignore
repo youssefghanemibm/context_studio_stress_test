@@ -1,0 +1,27 @@
+# Build output
+target/
+build/
+*.class
+*.jar
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.example.tfvars
+
+# Python tooling
+__pycache__/
+*.pyc
+.venv/
+
+# Local environment files (never commit credentials)
+.env
+*.local.yaml
