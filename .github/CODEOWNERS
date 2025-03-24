@@ -1,0 +1,28 @@
+# CODEOWNERS for the Claims Hub / CLARA monorepo.
+# Each line is a path pattern followed by its owners; owners are requested as reviewers
+# automatically and one owner approval is required to merge.
+
+# CLARA mainframe sources
+/legacy/clara/                   @corvane/clara-platform @kbarraclough
+
+# Claims Hub services
+/services/fnol-intake-svc/       @corvane/hub-squad-intake-triage
+/services/triage-svc/            @corvane/hub-squad-intake-triage
+/services/assessment-svc/        @corvane/hub-squad-intake-triage
+/services/claim-core-svc/        @corvane/hub-squad-intake-triage
+/services/notification-svc/      @corvane/hub-squad-intake-triage
+/services/document-svc/          @corvane/hub-squad-intake-triage
+/services/reserve-svc/           @corvane/hub-squad-reserve-finance
+/services/gl-posting-svc/        @corvane/hub-squad-reserve-finance
+/services/reporting-feed-svc/    @corvane/hub-squad-reserve-finance
+/services/fraud-referral-svc/    @corvane/hub-squad-fraud-settlement
+/services/settlement-svc/        @corvane/hub-squad-fraud-settlement
+/services/payment-orchestrator/  @corvane/hub-squad-fraud-settlement
+/services/recovery-svc/          @corvane/hub-squad-fraud-settlement
+
+# Platform: infrastructure and deployment
+/infra/                          @corvane/tech-delivery
+/deploy/                         @corvane/tech-delivery
+
+# Architecture decision records
+/docs/adr/                       @corvane/architecture
