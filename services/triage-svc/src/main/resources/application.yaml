@@ -1,0 +1,46 @@
+# triage-svc - Claims Hub service configuration (profile-independent defaults).
+# Secrets are injected at deploy time from the platform secret store; never commit values.
+spring:
+  application:
+    name: triage-svc
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/chub_triage
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    consumer:
+      group-id: triage-svc
+      auto-offset-reset: earliest
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+chub:
+  kafka:
+    cluster: esp-prd
+    consumes:
+      - fnol.received.v1
+    produces:
+      - triage.completed.v1
+      - fraud.score.received.v1
+  postgres-tables:
+    - triage.triage_decision
+
+sentinel:
+  base-url: https://sentinel.corvane.internal
+  # synchronous REST scoring; on timeout fall back to batch scoring
+  timeout-ms: 800
+
+triage:
+  tier-rule: BR-TRI-003

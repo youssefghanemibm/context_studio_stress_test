@@ -1,0 +1,42 @@
+# document-svc - Claims Hub service configuration (profile-independent defaults).
+# Secrets are injected at deploy time from the platform secret store; never commit values.
+spring:
+  application:
+    name: document-svc
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/chub_document
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    consumer:
+      group-id: document-svc
+      auto-offset-reset: earliest
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+chub:
+  kafka:
+    cluster: esp-prd
+    consumes:
+      - eig.evidence.received.v1
+    produces:
+      - document.stored.v1
+  postgres-tables:
+    - document.document
+
+docstor:
+  # DOCSTOR document store, ADR-009: binaries never stored in this database
+  base-url: ${DOCSTOR_BASE_URL}
+  upload: multipart

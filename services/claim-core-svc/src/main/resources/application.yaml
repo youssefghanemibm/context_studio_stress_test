@@ -1,0 +1,44 @@
+# claim-core-svc - Claims Hub service configuration (profile-independent defaults).
+# Secrets are injected at deploy time from the platform secret store; never commit values.
+spring:
+  application:
+    name: claim-core-svc
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/chub_claim_core
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    consumer:
+      group-id: claim-core-svc
+      auto-offset-reset: earliest
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+chub:
+  kafka:
+    cluster: esp-prd
+    consumes:
+      - fnol.received.v1
+      - notification.sent.v1
+    produces:
+      - claim.created.v1
+      - claim.updated.v1
+  postgres-tables:
+    - claim_core.claim
+    - claim_core.party
+
+policy-api:
+  # CLX-IF-054: PALM policy API
+  base-url: ${PALM_POLICY_API_URL}
