@@ -1,0 +1,43 @@
+# gl-posting-svc - Claims Hub service configuration (profile-independent defaults).
+# Secrets are injected at deploy time from the platform secret store; never commit values.
+spring:
+  application:
+    name: gl-posting-svc
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/chub_gl
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    consumer:
+      group-id: gl-posting-svc
+      auto-offset-reset: earliest
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+chub:
+  kafka:
+    cluster: esp-prd
+    consumes:
+      - reserve.changed.v1
+      - payment.confirmed.v1
+      - recovery.receipt.v1
+    produces: []
+  postgres-tables:
+    - gl.journal_line
+
+group-ledger:
+  base-url: ${GROUP_LEDGER_BASE_URL}
+  # CLX-IF-050: journals posted hourly
+  posting-schedule: hourly

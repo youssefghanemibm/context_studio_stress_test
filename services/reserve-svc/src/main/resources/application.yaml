@@ -1,0 +1,44 @@
+# reserve-engine - Claims Hub service configuration (profile-independent defaults).
+# Secrets are injected at deploy time from the platform secret store; never commit values.
+spring:
+  application:
+    name: reserve-svc
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/chub_reserve
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    consumer:
+      group-id: reserve-svc
+      auto-offset-reset: earliest
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+chub:
+  kafka:
+    cluster: esp-prd
+    consumes:
+      - triage.completed.v1
+    produces:
+      - reserve.changed.v1
+  postgres-tables:
+    - reserve.reserve
+    - reserve.reserve_movement
+    - reserve.review_schedule
+
+reserve:
+  # BR-RSV-007 v2
+  tier3-review-days: 21
+  large-loss-threshold-gbp: 250000
