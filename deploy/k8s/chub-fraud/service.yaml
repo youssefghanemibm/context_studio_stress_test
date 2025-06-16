@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fraud-referral-svc
+  namespace: chub-fraud
+  labels:
+    app.kubernetes.io/name: fraud-referral-svc
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: fraud-referral-svc
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

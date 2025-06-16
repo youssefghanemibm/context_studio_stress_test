@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gl-posting-svc
+  namespace: chub-finance
+  labels:
+    app.kubernetes.io/name: gl-posting-svc
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: gl-posting-svc
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reporting-feed-svc
+  namespace: chub-finance
+  labels:
+    app.kubernetes.io/name: reporting-feed-svc
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: reporting-feed-svc
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

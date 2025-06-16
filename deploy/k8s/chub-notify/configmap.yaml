@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notification-svc-config
+  namespace: chub-notify
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  DB_HOST: notification-svc-db.chub-notify.svc
+  DB_NAME: chub_notification
+  KAFKA_CLUSTER: esp-prd
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75"

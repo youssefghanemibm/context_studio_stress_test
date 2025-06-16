@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: settlement-svc
+  namespace: chub-settle
+  labels:
+    app.kubernetes.io/name: settlement-svc
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: settlement-svc
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-orchestrator
+  namespace: chub-settle
+  labels:
+    app.kubernetes.io/name: payment-orchestrator
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: payment-orchestrator
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

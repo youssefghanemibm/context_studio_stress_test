@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fnol-intake-svc-config
+  namespace: chub-intake
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  DB_HOST: fnol-intake-svc-db.chub-intake.svc
+  DB_NAME: chub_fnol
+  KAFKA_CLUSTER: esp-prd
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: triage-svc-config
+  namespace: chub-intake
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  DB_HOST: triage-svc-db.chub-intake.svc
+  DB_NAME: chub_triage
+  KAFKA_CLUSTER: esp-prd
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75"

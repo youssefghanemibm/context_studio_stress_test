@@ -1,0 +1,47 @@
+# Deployments in namespace chub-core. Image tags are substituted by the release pipeline.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: claim-core-svc
+  namespace: chub-core
+  labels:
+    app.kubernetes.io/name: claim-core-svc
+    app.kubernetes.io/part-of: claims-hub
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: claim-core-svc
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: claim-core-svc
+        app.kubernetes.io/part-of: claims-hub
+    spec:
+      serviceAccountName: claim-core-svc
+      containers:
+        - name: claim-core-svc
+          image: registry.corvane.internal/chub/claim-core-svc:__IMAGE_TAG__
+          ports:
+            - name: http
+              containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: claim-core-svc-config
+            - configMapRef:
+                name: esp-prd-client
+            - secretRef:
+                name: claim-core-svc-db
+          resources:
+            requests:
+              cpu: 250m
+            limits:
+              memory: 1Gi
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: http

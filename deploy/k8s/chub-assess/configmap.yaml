@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: assessment-svc-config
+  namespace: chub-assess
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  DB_HOST: assessment-svc-db.chub-assess.svc
+  DB_NAME: chub_assessment
+  KAFKA_CLUSTER: esp-prd
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75"

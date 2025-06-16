@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: claim-core-svc-config
+  namespace: chub-core
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  DB_HOST: claim-core-svc-db.chub-core.svc
+  DB_NAME: chub_claim_core
+  KAFKA_CLUSTER: esp-prd
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75"

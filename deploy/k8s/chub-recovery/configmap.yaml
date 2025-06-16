@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: recovery-svc-config
+  namespace: chub-recovery
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  DB_HOST: recovery-svc-db.chub-recovery.svc
+  DB_NAME: chub_recovery
+  KAFKA_CLUSTER: esp-prd
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75"

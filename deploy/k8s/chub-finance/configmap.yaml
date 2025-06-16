@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gl-posting-svc-config
+  namespace: chub-finance
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  DB_HOST: gl-posting-svc-db.chub-finance.svc
+  DB_NAME: chub_gl
+  KAFKA_CLUSTER: esp-prd
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reporting-feed-svc-config
+  namespace: chub-finance
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  DB_HOST: reporting-feed-svc-db.chub-finance.svc
+  DB_NAME: chub_reporting
+  KAFKA_CLUSTER: esp-prd
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75"

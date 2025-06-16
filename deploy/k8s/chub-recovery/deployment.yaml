@@ -1,0 +1,47 @@
+# Deployments in namespace chub-recovery. Image tags are substituted by the release pipeline.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recovery-svc
+  namespace: chub-recovery
+  labels:
+    app.kubernetes.io/name: recovery-svc
+    app.kubernetes.io/part-of: claims-hub
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: recovery-svc
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: recovery-svc
+        app.kubernetes.io/part-of: claims-hub
+    spec:
+      serviceAccountName: recovery-svc
+      containers:
+        - name: recovery-svc
+          image: registry.corvane.internal/chub/recovery-svc:__IMAGE_TAG__
+          ports:
+            - name: http
+              containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: recovery-svc-config
+            - configMapRef:
+                name: esp-prd-client
+            - secretRef:
+                name: recovery-svc-db
+          resources:
+            requests:
+              cpu: 250m
+            limits:
+              memory: 1Gi
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: http

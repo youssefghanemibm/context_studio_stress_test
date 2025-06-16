@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: document-svc-config
+  namespace: chub-docs
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  DB_HOST: document-svc-db.chub-docs.svc
+  DB_NAME: chub_document
+  KAFKA_CLUSTER: esp-prd
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75"

@@ -1,0 +1,47 @@
+# Deployments in namespace chub-notify. Image tags are substituted by the release pipeline.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-svc
+  namespace: chub-notify
+  labels:
+    app.kubernetes.io/name: notification-svc
+    app.kubernetes.io/part-of: claims-hub
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: notification-svc
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: notification-svc
+        app.kubernetes.io/part-of: claims-hub
+    spec:
+      serviceAccountName: notification-svc
+      containers:
+        - name: notification-svc
+          image: registry.corvane.internal/chub/notification-svc:__IMAGE_TAG__
+          ports:
+            - name: http
+              containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: notification-svc-config
+            - configMapRef:
+                name: esp-prd-client
+            - secretRef:
+                name: notification-svc-db
+          resources:
+            requests:
+              cpu: 250m
+            limits:
+              memory: 1Gi
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: http

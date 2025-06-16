@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: settlement-svc-config
+  namespace: chub-settle
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  DB_HOST: settlement-svc-db.chub-settle.svc
+  DB_NAME: chub_settlement
+  KAFKA_CLUSTER: esp-prd
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payment-orchestrator-config
+  namespace: chub-settle
+data:
+  SPRING_PROFILES_ACTIVE: prod
+  DB_HOST: payment-orchestrator-db.chub-settle.svc
+  DB_NAME: chub_payment
+  KAFKA_CLUSTER: esp-prd
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75"
