@@ -1,0 +1,201 @@
+openapi: 3.0.3
+info:
+  title: "Claims Hub - fraud referral, settlement, payments and recoveries"
+  version: "1.0"
+  description: >-
+    REST APIs of Claims Hub services. Workforce and partner callers authenticate with
+    OIDC tokens issued by Corvane Identity Service (ADR-008, CLX-IF-040).
+servers:
+  - url: /
+tags:
+  - name: fraud-referral-svc
+    description: "Fraud referral decisions, SIU hand-off and customer-notice deadlines (NISA Circular 2026/04)"
+  - name: settlement-svc
+    description: "Settlement offers, fast-track settlement, closure and reserve close-down instructions"
+  - name: payment-orchestrator
+    description: "Payment authorisation (BR-STL-002), sanctions screening and CPG instructions"
+  - name: recovery-svc
+    description: "Subrogation cases, salvage and recovery receipts; replaces SUBTRAK"
+paths:
+  /referrals:
+    post:
+      tags: [fraud-referral-svc]
+      operationId: postReferrals
+      summary: "Create a fraud referral"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: OK
+  /referrals/{referralId}:
+    get:
+      tags: [fraud-referral-svc]
+      operationId: getReferralsByReferralId
+      summary: "Get a referral"
+      parameters:
+        - name: referralId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /referrals/{referralId}/customer-notice:
+    post:
+      tags: [fraud-referral-svc]
+      operationId: postReferralsCustomerNoticeByReferralId
+      summary: "Record or defer the customer notice (deadline = referral date + 10 business days)"
+      parameters:
+        - name: referralId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /settlements:
+    post:
+      tags: [settlement-svc]
+      operationId: postSettlements
+      summary: "Create a settlement offer"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: OK
+  /settlements/{settlementId}/finalise:
+    post:
+      tags: [settlement-svc]
+      operationId: postSettlementsFinaliseBySettlementId
+      summary: "Finalise and close"
+      parameters:
+        - name: settlementId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /payments:
+    post:
+      tags: [payment-orchestrator]
+      operationId: postPayments
+      summary: "Request a payment"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: OK
+  /payments/{paymentId}/cancel:
+    post:
+      tags: [payment-orchestrator]
+      operationId: postPaymentsCancelByPaymentId
+      summary: "Cancel a payment"
+      parameters:
+        - name: paymentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /recoveries:
+    post:
+      tags: [recovery-svc]
+      operationId: postRecoveries
+      summary: "Open a recovery / subrogation case"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: OK
+  /recoveries/{caseId}/receipts:
+    post:
+      tags: [recovery-svc]
+      operationId: postRecoveriesReceiptsByCaseId
+      summary: "Record a receipt"
+      parameters:
+        - name: caseId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /recoveries/{caseId}/write-off:
+    post:
+      tags: [recovery-svc]
+      operationId: postRecoveriesWriteOffByCaseId
+      summary: "Write off (approval above £10,000 by Head of Recoveries & Subrogation)"
+      parameters:
+        - name: caseId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found

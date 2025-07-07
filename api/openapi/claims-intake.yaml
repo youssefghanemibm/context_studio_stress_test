@@ -1,0 +1,237 @@
+openapi: 3.0.3
+info:
+  title: "Claims Hub - intake, claims and documents"
+  version: "1.0"
+  description: >-
+    REST APIs of Claims Hub services. Workforce and partner callers authenticate with
+    OIDC tokens issued by Corvane Identity Service (ADR-008, CLX-IF-040).
+servers:
+  - url: /
+tags:
+  - name: claim-core-svc
+    description: "Claim aggregate (claim header, parties, status); system of record for migrated claims"
+  - name: fnol-intake-svc
+    description: "First Notice of Loss intake from portal, app, contact centre, brokers and telematics"
+  - name: triage-svc
+    description: "Tier classification (BR-TRI-003), Sentinel pre-screen and routing"
+  - name: assessment-svc
+    description: "Claims Assessor appointment, inspections, estimates and coverage decisions"
+  - name: notification-svc
+    description: "Customer communications via Notify (acknowledgements, fraud-referral notices, recovery letters)"
+  - name: document-svc
+    description: "Document metadata; stores binaries in Evidence Vault (formerly DOCSTOR)"
+paths:
+  /claims/{claimId}:
+    get:
+      tags: [claim-core-svc]
+      operationId: getClaimsByClaimId
+      summary: "Get a claim by reference (CLM-<region>-<yyyy>-<6 digits>)"
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+    patch:
+      tags: [claim-core-svc]
+      operationId: patchClaimsByClaimId
+      summary: "Update claim status or attributes"
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /claims:
+    post:
+      tags: [claim-core-svc]
+      operationId: postClaims
+      summary: "Create a claim from an FNOL"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: OK
+  /fnol:
+    post:
+      tags: [fnol-intake-svc]
+      operationId: postFnol
+      summary: "Submit a first notice of loss"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: OK
+  /fnol/{fnolId}:
+    get:
+      tags: [fnol-intake-svc]
+      operationId: getFnolByFnolId
+      summary: "Get FNOL status"
+      parameters:
+        - name: fnolId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /triage/{claimId}:
+    post:
+      tags: [triage-svc]
+      operationId: postTriageByClaimId
+      summary: "Run triage for a claim"
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+    get:
+      tags: [triage-svc]
+      operationId: getTriageByClaimId
+      summary: "Get triage decision"
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /assessments:
+    post:
+      tags: [assessment-svc]
+      operationId: postAssessments
+      summary: "Appoint a Claims Assessor"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: OK
+  /assessments/{assessmentId}:
+    get:
+      tags: [assessment-svc]
+      operationId: getAssessmentsByAssessmentId
+      summary: "Get assessment"
+      parameters:
+        - name: assessmentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /assessments/{assessmentId}/report:
+    post:
+      tags: [assessment-svc]
+      operationId: postAssessmentsReportByAssessmentId
+      summary: "Attach an assessor report"
+      parameters:
+        - name: assessmentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /notifications:
+    post:
+      tags: [notification-svc]
+      operationId: postNotifications
+      summary: "Send a notification"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: OK
+  /documents:
+    post:
+      tags: [document-svc]
+      operationId: postDocuments
+      summary: "Store a document"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: OK
+  /documents/{documentId}:
+    get:
+      tags: [document-svc]
+      operationId: getDocumentsByDocumentId
+      summary: "Get document metadata"
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found

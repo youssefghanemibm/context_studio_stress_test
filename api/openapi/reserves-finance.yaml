@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: "Claims Hub - reserves and finance"
+  version: "1.0"
+  description: >-
+    REST APIs of Claims Hub services. Workforce and partner callers authenticate with
+    OIDC tokens issued by Corvane Identity Service (ADR-008, CLX-IF-040).
+servers:
+  - url: /
+tags:
+  - name: reserve-svc
+    description: "Case reserves, reserve movements, Tier-3 review scheduling, indexation and currency revaluation"
+  - name: gl-posting-svc
+    description: "Journals to Group Ledger from reserve and payment events"
+  - name: reporting-feed-svc
+    description: "Regulatory extracts to NISA Reporting Hub (replaces CLARA NISA extracts from 2027)"
+paths:
+  /reserves/{claimId}:
+    get:
+      tags: [reserve-svc]
+      operationId: getReservesByClaimId
+      summary: "Get current reserves for a claim"
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /reserves/{claimId}/movements:
+    post:
+      tags: [reserve-svc]
+      operationId: postReservesMovementsByClaimId
+      summary: "Post a reserve movement (authority checked against BR-RSV-003)"
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /reserves/{claimId}/history:
+    get:
+      tags: [reserve-svc]
+      operationId: getReservesHistoryByClaimId
+      summary: "Reserve movement history"
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /journals/{period}:
+    get:
+      tags: [gl-posting-svc]
+      operationId: getJournalsByPeriod
+      summary: "List journals for a GL period"
+      parameters:
+        - name: period
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /returns/{returnCode}/{period}/extract:
+    post:
+      tags: [reporting-feed-svc]
+      operationId: postReturnsExtractByReturnCodeByPeriod
+      summary: "Build a return extract (TP2, FR1, CT1)"
+      parameters:
+        - name: returnCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: period
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
