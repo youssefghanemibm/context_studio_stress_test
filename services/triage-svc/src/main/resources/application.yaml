@@ -39,7 +39,7 @@ chub:
 
 sentinel:
   base-url: https://sentinel.corvane.internal
-  # synchronous REST scoring; on timeout fall back to batch scoring
+  # ADR-013: synchronous REST scoring; on timeout fall back to batch scoring
   timeout-ms: 800
 
 triage:
