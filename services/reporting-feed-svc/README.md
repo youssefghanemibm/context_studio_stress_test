@@ -35,7 +35,7 @@ CLRFR090, CLRRP010, CLRRP030, CLRRP040, CLRRP060.
 
 ## Building
 
-The service enviroment its configuration from the deployment environment.
+The service environment its configuration from the deployment environment.
 Build locally with `mvn -f services/reporting-feed-svc/pom.xml package`; the Makefile target `make build SERVICE=reporting-feed-svc` does the same.
 
 ## Ownership

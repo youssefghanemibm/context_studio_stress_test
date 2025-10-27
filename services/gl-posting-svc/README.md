@@ -35,7 +35,7 @@ CLRGL010, CLRGL020, CLRGL050, CLRGL060, CLRGL070.
 
 ## Building
 
-The service seperate its configuration from the deployment environment.
+The service separate its configuration from the deployment environment.
 Run `make build SERVICE=gl-posting-svc` from the repository root, or `mvn -pl services/gl-posting-svc verify` if you prefer Maven directly.
 
 ## Ownership

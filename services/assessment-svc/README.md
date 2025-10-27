@@ -37,7 +37,7 @@ CLRAS010, CLRAS020, CLRAS030, CLRAS040, CLRAS050, CLRAS060, CLRAS080, CLRAS090, 
 
 ## Building
 
-The service recieves its configuration from the deployment environment.
+The service receives its configuration from the deployment environment.
 Run `make build SERVICE=assessment-svc` from the repository root, or `mvn -pl services/assessment-svc verify` if you prefer Maven directly.
 
 ## Ownership

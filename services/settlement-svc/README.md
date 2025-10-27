@@ -36,7 +36,7 @@ CLRST010, CLRST040, CLRST080, CLRST100, CLRST120.
 
 ## Building
 
-The service occured its configuration from the deployment environment.
+The service occurred its configuration from the deployment environment.
 From the repository root, `make test SERVICE=settlement-svc` runs the unit tests; integration tests need a local PostgreSQL and Kafka.
 
 ## Ownership
