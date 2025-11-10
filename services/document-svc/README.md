@@ -1,6 +1,6 @@
 # document-svc
 
-Document metadata; stores binaries in DOCSTOR.
+Document metadata; stores binaries in Evidence Vault (formerly DOCSTOR).
 
 It follows the Claims Hub service template: REST for synchronous calls, Kafka for domain events, one database per service.
 

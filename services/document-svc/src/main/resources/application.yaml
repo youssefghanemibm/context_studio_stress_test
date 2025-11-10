@@ -36,7 +36,7 @@ chub:
   postgres-tables:
     - document.document
 
-docstor:
-  # DOCSTOR document store, ADR-009: binaries never stored in this database
-  base-url: ${DOCSTOR_BASE_URL}
+evidence-vault:
+  # Evidence Vault (formerly DOCSTOR), ADR-009: binaries never stored in this database
+  base-url: ${EVIDENCE_VAULT_BASE_URL}
   upload: multipart
