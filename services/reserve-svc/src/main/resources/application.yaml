@@ -30,6 +30,7 @@ chub:
   kafka:
     cluster: esp-prd
     consumes:
+      - claims.reserve.movement.v1
       - triage.completed.v1
     produces:
       - reserve.changed.v1

@@ -25,7 +25,7 @@ It follows the Claims Hub service template: REST for synchronous calls, Kafka fo
 
 Produces: `reserve.changed.v1`.
 
-Consumes: `triage.completed.v1`.
+Consumes: `claims.reserve.movement.v1`, `triage.completed.v1`.
 
 ## Data
 
