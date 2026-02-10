@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: reserve-svc
+  name: reserve-engine
   namespace: chub-reserve
   labels:
-    app.kubernetes.io/name: reserve-svc
+    app.kubernetes.io/name: reserve-engine
 spec:
   type: ClusterIP
   selector:
-    app.kubernetes.io/name: reserve-svc
+    app.kubernetes.io/name: reserve-engine
   ports:
     - name: http
       port: 80

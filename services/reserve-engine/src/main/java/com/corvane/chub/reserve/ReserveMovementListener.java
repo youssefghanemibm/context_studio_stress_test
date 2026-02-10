@@ -17,7 +17,7 @@ public class ReserveMovementListener {
         this.movements = movements;
     }
 
-    @KafkaListener(topics = "claims.reserve.movement.v1", groupId = "reserve-svc-sync")
+    @KafkaListener(topics = "claims.reserve.movement.v1", groupId = "reserve-engine-sync")
     public void onClaraMovement(ClaraReserveMovement movement) {
         movements.applyFromClara(movement);
     }

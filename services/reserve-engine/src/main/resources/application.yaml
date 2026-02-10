@@ -2,7 +2,7 @@
 # Secrets are injected at deploy time from the platform secret store; never commit values.
 spring:
   application:
-    name: reserve-svc
+    name: reserve-engine
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:5432/chub_reserve
     username: ${DB_USER}
@@ -14,7 +14,7 @@ spring:
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     consumer:
-      group-id: reserve-svc
+      group-id: reserve-engine
       auto-offset-reset: earliest
 
 server:
@@ -33,7 +33,7 @@ chub:
       - claims.reserve.movement.v1
       - triage.completed.v1
     produces:
-      - reserve.changed.v1
+      - reserve.changed.v2
   postgres-tables:
     - reserve.reserve
     - reserve.reserve_movement

@@ -30,7 +30,7 @@ chub:
   kafka:
     cluster: esp-prd
     consumes:
-      - reserve.changed.v1
+      - reserve.changed.v2
       - fraud.referral.created.v1
     produces: []
   postgres-tables:

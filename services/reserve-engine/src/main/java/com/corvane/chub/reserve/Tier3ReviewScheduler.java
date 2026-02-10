@@ -25,7 +25,7 @@ public class Tier3ReviewScheduler {
         this.cadenceDays = cadenceDays;
     }
 
-    @KafkaListener(topics = "triage.completed.v1", groupId = "reserve-svc-review")
+    @KafkaListener(topics = "triage.completed.v1", groupId = "reserve-engine-review")
     public void onTriage(TriageCompleted event) {
         if (event.tier() == 3) {
             LocalDate next = LocalDate.now(clock).plusDays(cadenceDays);

@@ -5,7 +5,7 @@ SERVICES := claim-core-svc \
             fnol-intake-svc \
             triage-svc \
             assessment-svc \
-            reserve-svc \
+            reserve-engine \
             fraud-referral-svc \
             settlement-svc \
             payment-orchestrator \

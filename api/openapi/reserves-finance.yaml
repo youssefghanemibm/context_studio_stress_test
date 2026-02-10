@@ -8,7 +8,7 @@ info:
 servers:
   - url: /
 tags:
-  - name: reserve-svc
+  - name: reserve-engine
     description: "Case reserves, reserve movements, Tier-3 review scheduling, indexation and currency revaluation"
   - name: gl-posting-svc
     description: "Journals to Group Ledger from reserve and payment events"
@@ -17,7 +17,7 @@ tags:
 paths:
   /reserves/{claimId}:
     get:
-      tags: [reserve-svc]
+      tags: [reserve-engine]
       operationId: getReservesByClaimId
       summary: "Get current reserves for a claim"
       parameters:
@@ -33,7 +33,7 @@ paths:
           description: Not found
   /reserves/{claimId}/movements:
     post:
-      tags: [reserve-svc]
+      tags: [reserve-engine]
       operationId: postReservesMovementsByClaimId
       summary: "Post a reserve movement (authority checked against BR-RSV-003)"
       parameters:
@@ -55,7 +55,7 @@ paths:
           description: Not found
   /reserves/{claimId}/history:
     get:
-      tags: [reserve-svc]
+      tags: [reserve-engine]
       operationId: getReservesHistoryByClaimId
       summary: "Reserve movement history"
       parameters:

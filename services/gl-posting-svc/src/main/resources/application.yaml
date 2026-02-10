@@ -30,7 +30,7 @@ chub:
   kafka:
     cluster: esp-prd
     consumes:
-      - reserve.changed.v1
+      - reserve.changed.v2
       - payment.confirmed.v1
       - recovery.receipt.v1
     produces: []

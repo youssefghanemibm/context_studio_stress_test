@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 /**
- * JPA mapping of reserve.reserve in database chub_reserve (owned by reserve-svc, ADR-003).
+ * JPA mapping of reserve.reserve in database chub_reserve (owned by reserve-engine, ADR-003).
  */
 @Entity
 @Table(schema = "reserve", name = "reserve")

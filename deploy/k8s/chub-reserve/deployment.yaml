@@ -2,36 +2,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reserve-svc
+  name: reserve-engine
   namespace: chub-reserve
   labels:
-    app.kubernetes.io/name: reserve-svc
+    app.kubernetes.io/name: reserve-engine
     app.kubernetes.io/part-of: claims-hub
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app.kubernetes.io/name: reserve-svc
+      app.kubernetes.io/name: reserve-engine
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: reserve-svc
+        app.kubernetes.io/name: reserve-engine
         app.kubernetes.io/part-of: claims-hub
     spec:
-      serviceAccountName: reserve-svc
+      serviceAccountName: reserve-engine
       containers:
-        - name: reserve-svc
-          image: registry.corvane.internal/chub/reserve-svc:__IMAGE_TAG__
+        - name: reserve-engine
+          image: registry.corvane.internal/chub/reserve-engine:__IMAGE_TAG__
           ports:
             - name: http
               containerPort: 8080
           envFrom:
             - configMapRef:
-                name: reserve-svc-config
+                name: reserve-engine-config
             - configMapRef:
                 name: esp-prd-client
             - secretRef:
-                name: reserve-svc-db
+                name: reserve-engine-db
           resources:
             requests:
               cpu: 500m

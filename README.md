@@ -21,7 +21,7 @@ being retired and the Claims Hub services that replace them (ADR-001, strangler-
 | `fnol-intake-svc` | `chub-intake` | live | 2025-11-03 |
 | `triage-svc` | `chub-intake` | live | 2025-11-03 |
 | `assessment-svc` | `chub-assess` | live | 2026-09-14 |
-| `reserve-svc` | `chub-reserve` | live | 2026-09-14 |
+| `reserve-engine` | `chub-reserve` | live | 2026-09-14 |
 | `fraud-referral-svc` | `chub-fraud` | live | 2026-04-01 |
 | `settlement-svc` | `chub-settle` | live | 2026-09-14 |
 | `payment-orchestrator` | `chub-settle` | live | 2026-09-14 |

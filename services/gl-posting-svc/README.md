@@ -23,7 +23,7 @@ It follows the Claims Hub service template: REST for synchronous calls, Kafka fo
 
 Produces: none.
 
-Consumes: `reserve.changed.v1`, `payment.confirmed.v1`, `recovery.receipt.v1`.
+Consumes: `reserve.changed.v2`, `payment.confirmed.v1`, `recovery.receipt.v1`.
 
 ## Data
 

@@ -1,4 +1,4 @@
-# reserve-svc
+# reserve-engine
 
 Case reserves, reserve movements, Tier-3 review scheduling, indexation and currency revaluation.
 
@@ -10,8 +10,8 @@ It follows the Claims Hub service template: REST for synchronous calls, Kafka fo
 - Go-live: 2026-09-14
 - Kubernetes namespace: `chub-reserve`
 - Replicas (prod): 4
-- Image: `registry.corvane.internal/chub/reserve-svc`
-- Terraform module: `infra/terraform/modules/reserve-svc`
+- Image: `registry.corvane.internal/chub/reserve-engine`
+- Terraform module: `infra/terraform/modules/reserve-engine`
 
 ## API
 
@@ -23,7 +23,7 @@ It follows the Claims Hub service template: REST for synchronous calls, Kafka fo
 
 ## Events
 
-Produces: `reserve.changed.v1`.
+Produces: `reserve.changed.v2`.
 
 Consumes: `claims.reserve.movement.v1`, `triage.completed.v1`.
 
@@ -37,7 +37,7 @@ CLRFN030, CLRGL090, CLRRS010, CLRRS015, CLRRS020, CLRRS030, CLRRS040, CLRRS110, 
 
 ## Building
 
-Run `make build SERVICE=reserve-svc` from the repository root, or `mvn -pl services/reserve-svc verify` if you prefer Maven directly.
+Run `make build SERVICE=reserve-engine` from the repository root, or `mvn -pl services/reserve-engine verify` if you prefer Maven directly.
 
 ## Ownership
 

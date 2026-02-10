@@ -121,8 +121,8 @@ module "assessment-svc" {
   namespace       = kubernetes_namespace_v1.chub_assess.metadata[0].name
   backup_schedule = var.backup_schedule
 }
-module "reserve-svc" {
-  source          = "../../modules/reserve-svc"
+module "reserve-engine" {
+  source          = "../../modules/reserve-engine"
   namespace       = kubernetes_namespace_v1.chub_reserve.metadata[0].name
   backup_schedule = var.backup_schedule
 }

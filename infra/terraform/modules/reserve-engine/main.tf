@@ -1,9 +1,9 @@
-# reserve-svc - platform resources for one Claims Hub service (ADR-007: one module per service).
+# reserve-engine - platform resources for one Claims Hub service (ADR-007: one module per service).
 # The workload itself is deployed from deploy/k8s/chub-reserve/; this module owns the service
 # account, the service's own PostgreSQL database (ADR-003) and its Kafka topic access.
 
 locals {
-  service = "reserve-svc"
+  service = "reserve-engine"
   labels = {
     "app.kubernetes.io/name"    = local.service
     "app.kubernetes.io/part-of" = "claims-hub"
@@ -56,7 +56,7 @@ resource "kubernetes_manifest" "topic_access" {
         "triage.completed.v1",
       ]
       produce   = [
-        "reserve.changed.v1",
+        "reserve.changed.v2",
       ]
     }
   }

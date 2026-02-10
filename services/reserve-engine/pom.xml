@@ -12,9 +12,9 @@
     </parent>
 
     <groupId>com.corvane.chub</groupId>
-    <artifactId>reserve-svc</artifactId>
+    <artifactId>reserve-engine</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>reserve-svc</name>
+    <name>reserve-engine</name>
     <description>Case reserves, reserve movements, Tier-3 review scheduling, indexation and currency revaluation</description>
 
     <properties>
