@@ -38,3 +38,20 @@ chub:
   postgres-tables:
     - fraud.referral
     - fraud.customer_notice
+
+referral:
+  # ADR-020: effective-dated thresholds for BR-FRD-031 (Sentinel score 0-100)
+  threshold.default: 65
+  siu:
+    # BR-FRD-035 v2
+    triage-business-days: 3
+
+notice:
+  # BR-FRD-032 v2 (NISA Circular 2026/04): written notice within 10 business days of referral
+  business-days: 10
+  # BR-FRD-036: deferral where SIU certifies a tipping-off risk
+  max-deferral-days: 60
+
+auto-decline:
+  # BR-FRD-033: no decline on the score alone
+  enabled: false
