@@ -69,6 +69,20 @@ paths:
           description: OK
         "404":
           description: Not found
+  /revaluation-runs:
+    post:
+      tags: [reserve-engine]
+      operationId: postRevaluationRuns
+      summary: "Trigger a currency revaluation run (replaces CLRGL090)"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: OK
   /journals/{period}:
     get:
       tags: [gl-posting-svc]

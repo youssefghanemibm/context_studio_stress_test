@@ -20,6 +20,7 @@ It follows the Claims Hub service template: REST for synchronous calls, Kafka fo
 | GET | `/reserves/{claimId}` | Get current reserves for a claim |
 | POST | `/reserves/{claimId}/movements` | Post a reserve movement (authority checked against BR-RSV-003) |
 | GET | `/reserves/{claimId}/history` | Reserve movement history |
+| POST | `/revaluation-runs` | Trigger a currency revaluation run (replaces CLRGL090) |
 
 ## Events
 

@@ -43,3 +43,7 @@ reserve:
   # BR-RSV-007 v2
   tier3-review-days: 21
   large-loss-threshold-gbp: 250000
+  # ADR-028 / DEC-005: revaluations are posted as RV reserve movements
+  revaluation:
+    movement-type: RV
+    rate-source: GROUP_LEDGER_MONTH_END
