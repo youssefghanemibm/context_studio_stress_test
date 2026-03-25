@@ -23,7 +23,7 @@ It follows the Claims Hub service template: REST for synchronous calls, Kafka fo
 
 Produces: `notification.sent.v1`.
 
-Consumes: `fnol.received.v1`.
+Consumes: `fnol.received.v1`, `fraud.referral.notice-due.v1`.
 
 ## Data
 

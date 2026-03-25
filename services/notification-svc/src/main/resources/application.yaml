@@ -31,7 +31,19 @@ chub:
     cluster: esp-prd
     consumes:
       - fnol.received.v1
+      - fraud.referral.notice-due.v1
     produces:
       - notification.sent.v1
   postgres-tables:
     - notification.message
+
+notify:
+  base-url: ${NOTIFY_BASE_URL}
+  # ADR-014: fraud-referral notices use Notify templates
+  templates:
+    fraud-notice-letter: FRN01
+    fraud-notice-sms: FRN02
+
+notice:
+  business-days: 10
+  holiday-calendars: [UK, NO, SE, DK]
