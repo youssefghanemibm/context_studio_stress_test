@@ -1,6 +1,7 @@
 ************************************************************************
 * MAPSET   : CLRMS05                                                   *
 * MAP      : CLRM410  FRAUD REFERRAL              FR03 / CLRFR030      *
+* MAP      : CLRM420  CUSTOMER-NOTICE DEFERRAL    FR12 / CLRFR120      *
 * GENERATE THE SYMBOLIC MAP WITH SYSPARM=DSECT; KEEP THE COPY IN THE   *
 * PROGRAMS (INLINE SYMBOLIC MAP) IN STEP WITH THIS SOURCE.             *
 ************************************************************************
@@ -44,6 +45,37 @@ REASON   DFHMDF POS=(12,20),LENGTH=16,ATTRB=PROT
                INITIAL='NOTICE DUE ......'
 NOTIDUE  DFHMDF POS=(14,20),LENGTH=8,ATTRB=UNPROT
          DFHMDF POS=(14,28),LENGTH=1,ATTRB=ASKIP
+MSG      DFHMDF POS=(23,1),LENGTH=79,ATTRB=(ASKIP,BRT)
+         DFHMDF POS=(24,1),LENGTH=44,ATTRB=ASKIP,                      X
+               INITIAL='PF3=EXIT  PF7=BACK  PF8=FORWARD  PF12=CANCEL'
+*
+* MAP CLRM420 - CUSTOMER-NOTICE DEFERRAL
+* TRANSACTION FR12, PROGRAM CLRFR120
+*
+CLRM420  DFHMDI SIZE=(24,80),LINE=1,COLUMN=1
+         DFHMDF POS=(1,1),LENGTH=7,ATTRB=(ASKIP,BRT),INITIAL='CLRM420'
+         DFHMDF POS=(1,30),LENGTH=24,ATTRB=(ASKIP,BRT),                X
+               INITIAL='CUSTOMER-NOTICE DEFERRAL'
+*        REF-ID
+         DFHMDF POS=(4,1),LENGTH=17,ATTRB=ASKIP,                       X
+               INITIAL='REF ID ..........'
+REFID    DFHMDF POS=(4,20),LENGTH=8,ATTRB=PROT
+         DFHMDF POS=(4,28),LENGTH=1,ATTRB=ASKIP
+*        DEFER-UNTIL
+         DFHMDF POS=(6,1),LENGTH=17,ATTRB=ASKIP,                       X
+               INITIAL='DEFER UNTIL .....'
+DEFUNT   DFHMDF POS=(6,20),LENGTH=20,ATTRB=(UNPROT,IC)
+         DFHMDF POS=(6,40),LENGTH=1,ATTRB=ASKIP
+*        APPROVER
+         DFHMDF POS=(8,1),LENGTH=17,ATTRB=ASKIP,                       X
+               INITIAL='APPROVER ........'
+APPR     DFHMDF POS=(8,20),LENGTH=30,ATTRB=UNPROT
+         DFHMDF POS=(8,50),LENGTH=1,ATTRB=ASKIP
+*        REASON
+         DFHMDF POS=(10,1),LENGTH=17,ATTRB=ASKIP,                      X
+               INITIAL='REASON ..........'
+REASON   DFHMDF POS=(10,20),LENGTH=10,ATTRB=(UNPROT,NUM)
+         DFHMDF POS=(10,30),LENGTH=1,ATTRB=ASKIP
 MSG      DFHMDF POS=(23,1),LENGTH=79,ATTRB=(ASKIP,BRT)
          DFHMDF POS=(24,1),LENGTH=44,ATTRB=ASKIP,                      X
                INITIAL='PF3=EXIT  PF7=BACK  PF8=FORWARD  PF12=CANCEL'

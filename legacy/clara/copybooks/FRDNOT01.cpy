@@ -1,0 +1,20 @@
+000100* ================================================================
+000200* COPYBOOK   : FRDNOT01
+000300* DB2 TABLE  : CLR.T_FRAUD_NOTIFICATION
+000400* CONTENT    : CUSTOMER NOTICES OF FRAUD REFERRAL (NISA
+000500*              CIRCULAR 2026/04); CREATED 2026-03-27
+000600* LAYOUT     : ONE FIELD PER COLUMN, IN TABLE ORDER
+000700* ================================================================
+000800 01  FRDNOT01-REC.
+000900     05  FRDN-NOTICE-ID                PIC S9(18) COMP.
+001000     05  FRDN-REF-ID                   PIC S9(18) COMP.
+001100     05  FRDN-CLAIM-ID                 PIC X(12).
+001200     05  FRDN-NOTICE-CHANNEL-CD        PIC X(2).
+001300     05  FRDN-NOTICE-DUE-DT            PIC X(10).
+001400     05  FRDN-NOTICE-SENT-TS           PIC X(26).
+001500     05  FRDN-DEFERRED-UNTIL-DT        PIC X(10).
+001600     05  FRDN-TEMPLATE-CD              PIC X(8).
+001700     05  FRDN-NOTIFY-MSG-ID            PIC X(36).
+001800     05  FRDN-LAST-UPD-TS              PIC X(26).
+001900     05  FRDN-LAST-UPD-PGM             PIC X(8).
+002000     05  FRDN-LAST-UPD-USER            PIC X(8).
