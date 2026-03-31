@@ -2,17 +2,21 @@
 //             MSGLEVEL=(1,1),REGION=0M,NOTIFY=&SYSUID
 //* ------------------------------------------------------------------*
 //* JOB       : CLRNFR99                                              *
-//* FUNCTION  : AUTO-DECLINE SWEEP                                    *
-//* SCHEDULE  : DAILY 00:45 (BATCH SCHEDULER)                         *
+//* FUNCTION  : AUTO-DECLINE SWEEP (DISABLED 2026-04-01)              *
+//* SCHEDULE  : REMOVED FROM SCHEDULE 2026-04-01 (WAS DAILY 00:45)    *
+//* STATUS    : DISABLED - CHUB-207, BR-FRD-019 WITHDRAWN             *
 //* SUPPORT   : MAINFRAME BATCH OPERATIONS                            *
-//* STEPS     : STEP010 CLRFR140 AUTO-DECLINE SWEEP (SCORE >= 90)     *
+//* STEPS     : STEP010 CLRFR140 AUTO-DECLINE SWEEP (SCORE >= 90) -   *
+//*                              DISABLED 2026-04-01 (BR-FRD-019      *
+//*                              WITHDRAWN)                           *
 //* ------------------------------------------------------------------*
 //* SITE SYMBOLS (HLQS, DB2 SUBSYSTEM AND PLAN) COME FROM THE INCLUDE
 //         INCLUDE MEMBER=CLRSYMS
 //JOBLIB   DD DSN=&CLRHLQ..LOADLIB,DISP=SHR
 //         DD DSN=&DB2HLQ..SDSNLOAD,DISP=SHR
 //*
-//* STEP010 - AUTO-DECLINE SWEEP (SCORE >= 90)
+//* STEP010 - AUTO-DECLINE SWEEP (SCORE >= 90) - DISABLED 2026-04-01
+//* (BR-FRD-019 WITHDRAWN)
 //*
 //STEP010  EXEC PGM=IKJEFT01,DYNAMNBR=20
 //SYSTSPRT DD SYSOUT=*

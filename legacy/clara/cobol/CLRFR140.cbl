@@ -1,6 +1,8 @@
 000100* ================================================================
 000200* PROGRAM    : CLRFR140
 000300* TITLE      : AUTO-DECLINE SWEEP (SCORE >= 90)
+000330* STATUS     : DISABLED 2026-04-01 (BR-FRD-019 WITHDRAWN,
+000360*              CHUB-207)
 000400* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION
 000500* AREA       : FRAUD
 000600* TYPE       : BATCH / DB2
@@ -34,6 +36,9 @@
 003200*                                COBOL V6
 003210* 2026-03-27 KBARR01  CHUB-206   READS CLR.T_FRAUD_NOTIFICATION
 003220*                                (NISA CIRCULAR 2026/04)
+003230* 2026-03-31 PASHW01  CHUB-207   DISABLED - BR-FRD-019
+003240*                                WITHDRAWN; JOB CLRNFR99 OFF
+003250*                                THE SCHEDULE
 003300* ================================================================
 003400 IDENTIFICATION DIVISION.
 003500 PROGRAM-ID.    CLRFR140.
