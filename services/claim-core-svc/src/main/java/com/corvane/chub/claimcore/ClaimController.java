@@ -19,8 +19,7 @@ public class ClaimController {
 
     private final ClaimService claims;
 
-    public ClaimController(ClaimService claims)
-    {
+    public ClaimController(ClaimService claims) {
         this.claims = claims;
     }
 
