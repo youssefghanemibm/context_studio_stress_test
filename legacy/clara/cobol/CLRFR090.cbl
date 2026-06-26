@@ -1,0 +1,446 @@
+000100* ===============================================================*
+000200* PROGRAM    : CLRFR090                                          *
+000300* TITLE      : NISA-FR1 QUARTERLY FRAUD REFERRAL RETURN EXTRACT  *
+000400*              (CLX-IF-033)                                      *
+000500* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION     *
+000600* AREA       : FRAUD                                             *
+000700* TYPE       : BATCH / DB2                                       *
+000800* JOB / STEP : CLRQFR01 / STEP010                                *
+000900* ---------------------------------------------------------------*
+001000* PURPOSE                                                        *
+001100*   NIGHTLY/PERIODIC BATCH STEP: NISA-FR1 QUARTERLY FRAUD        *
+001200*     REFERRAL RETURN EXTRACT (CLX-IF-033).                      *
+001300*   RUNS AS STEP010 OF JOB CLRQFR01.                             *
+001400*   COMMITS EVERY 250 UNITS OF WORK.                             *
+001500*   RC 0 = NORMAL, RC 4 = REJECTS REPORTED, RC 16 = ABORTED.     *
+001600* ---------------------------------------------------------------*
+001700* DB2 TABLES                                                     *
+001800*   CLR.T_CLAIM_LINK            READ                             *
+001900*   CLR.T_NISA_RETURN           INSERT                           *
+002000* COPYBOOKS  : FRDLNK01 NISARET1 CLRERR01                        *
+002100* CALLS      : NONE                                              *
+002200* FILE       : RPTOUT   OUT CONTROL REPORT                       *
+002300* FILE       : EXTOUT   OUT OUTBOUND EXTRACT FILE                *
+002400* ---------------------------------------------------------------*
+002500* MAINTENANCE HISTORY                                            *
+002600* DATE       BY       REF        DESCRIPTION                     *
+002700* ---------- -------- ---------- ------------------------------- *
+002800* 2026-06-26 PASHW01  CHUB-208   INITIAL VERSION                 *
+002900* ===============================================================*
+003000 IDENTIFICATION DIVISION.
+003100 PROGRAM-ID.    CLRFR090.
+003200 AUTHOR.        P. ASHWORTH.
+003300 INSTALLATION.  CORVANE MUTUAL - CLAIMS SYSTEMS.
+003400 DATE-WRITTEN.  2026-06-26.
+003500 DATE-COMPILED.
+003600 ENVIRONMENT DIVISION.
+003700 CONFIGURATION SECTION.
+003800 SOURCE-COMPUTER.  IBM-Z.
+003900 OBJECT-COMPUTER.  IBM-Z.
+004000 INPUT-OUTPUT SECTION.
+004100 FILE-CONTROL.
+004200     SELECT REPORT-FILE ASSIGN TO RPTOUT
+004300         ORGANIZATION IS SEQUENTIAL
+004400         FILE STATUS IS WS-RPTOUT-STATUS.
+004500     SELECT EXTRACT-FILE ASSIGN TO EXTOUT
+004600         ORGANIZATION IS SEQUENTIAL
+004700         FILE STATUS IS WS-EXTOUT-STATUS.
+004800 DATA DIVISION.
+004900 FILE SECTION.
+005000 FD  REPORT-FILE
+005100         RECORDING MODE IS F
+005200         BLOCK CONTAINS 0 RECORDS.
+005300 01  REPORT-RECORD               PIC X(133).
+005400 FD  EXTRACT-FILE
+005500         RECORDING MODE IS F
+005600         BLOCK CONTAINS 0 RECORDS.
+005700 01  EXTRACT-RECORD              PIC X(400).
+005800 WORKING-STORAGE SECTION.
+005900*
+006000 01  WS-PROGRAM-INFO.
+006100     05  WS-PGM-ID               PIC X(8)   VALUE 'CLRFR090'.
+006200     05  WS-RUN-DATE             PIC X(10)  VALUE SPACES.
+006300     05  WS-RUN-TS               PIC X(26)  VALUE SPACES.
+006400     05  WS-USER-ID              PIC X(8)   VALUE SPACES.
+006500     05  WS-LAST-RUN-TS          PIC X(26)  VALUE SPACES.
+006600     05  WS-RUN-ID               PIC S9(9)  COMP VALUE ZERO.
+006700*
+006800 01  WS-SWITCHES.
+006900     05  WS-EOF-SW               PIC X      VALUE 'N'.
+007000         88  WS-END-OF-DATA                     VALUE 'Y'.
+007100     05  WS-ERROR-SW             PIC X      VALUE 'N'.
+007200         88  WS-ERROR-FOUND                     VALUE 'Y'.
+007300         88  WS-NO-ERROR                        VALUE 'N'.
+007400     05  WS-FOUND-SW             PIC X      VALUE 'N'.
+007500         88  WS-ROW-FOUND                       VALUE 'Y'.
+007600         88  WS-ROW-NOT-FOUND                   VALUE 'N'.
+007700     05  WS-RPTOUT-STATUS        PIC X(2)   VALUE SPACES.
+007800     05  WS-EXTOUT-STATUS        PIC X(2)   VALUE SPACES.
+007900*
+008000 01  WS-COUNTERS.
+008100     05  WS-CLAIM-LINK-READ      PIC S9(9)  COMP-3 VALUE ZERO.
+008200     05  WS-NISA-RETURN-WRITTEN  PIC S9(9)  COMP-3 VALUE ZERO.
+008300     05  WS-REJECT-CNT           PIC S9(9)  COMP-3 VALUE ZERO.
+008400     05  WS-SINCE-COMMIT         PIC S9(9)  COMP-3 VALUE ZERO.
+008500     05  WS-COMMIT-FREQ          PIC S9(9)  COMP-3 VALUE +250.
+008600*
+008700 01  WS-SQL-WORK.
+008800     05  WS-SQLCODE-DSP          PIC -9(9).
+008900     05  WS-ROWS-AFFECTED        PIC S9(9)  COMP VALUE ZERO.
+009000     05  WS-IND-1                PIC S9(4)  COMP VALUE ZERO.
+009100     05  WS-IND-2                PIC S9(4)  COMP VALUE ZERO.
+009200     05  WS-NEW-ID               PIC S9(18) COMP VALUE ZERO.
+009300*
+009400     EXEC SQL INCLUDE SQLCA END-EXEC.
+009500*
+009600* COPYBOOKS (HOST STRUCTURES AND WORK AREAS)
+009700 COPY FRDLNK01.
+009800 COPY NISARET1.
+009900 COPY CLRERR01.
+010000*
+010100* DRIVING CURSOR ON CLR.T_CLAIM_LINK
+010200     EXEC SQL
+010300         DECLARE C-CLAIM-LINK CURSOR WITH HOLD FOR
+010400         SELECT LINK_ID, CLAIM_ID_A, CLAIM_ID_B, LINK_TYPE_CD
+010500                , DETECTED_DT
+010600           FROM CLR.T_CLAIM_LINK
+010700          WHERE LAST_UPD_TS >= :WS-LAST-RUN-TS
+010800          ORDER BY LINK_ID
+010900          FOR FETCH ONLY
+011000     END-EXEC.
+011100*
+011200* CONTROL REPORT LINES
+011300 01  WS-RPT-HEAD-1.
+011400     05  FILLER                  PIC X(1)   VALUE '1'.
+011500     05  FILLER                  PIC X(10)  VALUE 'CLRFR090'.
+011600     05  FILLER                  PIC X(40)  VALUE
+011700             'NISA-FR1 QUARTERLY FRAUD REFERRAL'.
+011800     05  FILLER                  PIC X(10)  VALUE 'RUN DATE: '.
+011900     05  RH1-RUN-DATE            PIC X(10).
+012000     05  FILLER                  PIC X(62)  VALUE SPACES.
+012100 01  WS-RPT-DETAIL.
+012200     05  FILLER                  PIC X(1)   VALUE SPACE.
+012300     05  RD-LABEL                PIC X(40).
+012400     05  RD-VALUE                PIC X(60).
+012500     05  FILLER                  PIC X(32)  VALUE SPACES.
+012600 01  WS-RPT-TOTAL.
+012700     05  FILLER                  PIC X(1)   VALUE SPACE.
+012800     05  RT-LABEL                PIC X(40).
+012900     05  RT-COUNT                PIC ZZZ,ZZZ,ZZ9.
+013000     05  FILLER                  PIC X(81)  VALUE SPACES.
+013100 PROCEDURE DIVISION.
+013200* ---------------------------------------------------------------*
+013300* 0000-MAINLINE                                                  *
+013400* CONTROL FLOW                                                   *
+013500* ---------------------------------------------------------------*
+013600 0000-MAINLINE.
+013700     PERFORM 1000-INITIALISE
+013800     PERFORM 2000-PROCESS
+013900     PERFORM 9000-TERMINATE
+014000     GOBACK.
+014100* ---------------------------------------------------------------*
+014200* 1000-INITIALISE                                                *
+014300* INITIALISATION                                                 *
+014400* ---------------------------------------------------------------*
+014500 1000-INITIALISE.
+014600     MOVE FUNCTION CURRENT-DATE(1:8) TO WS-RUN-TS
+014700     STRING WS-RUN-TS(1:4) '-' WS-RUN-TS(5:2) '-' WS-RUN-TS(7:2)
+014800         DELIMITED BY SIZE INTO WS-RUN-DATE
+014900     MOVE 'CLRBATCH' TO WS-USER-ID
+015000     OPEN OUTPUT REPORT-FILE
+015100     IF WS-RPTOUT-STATUS NOT = '00'
+015200         DISPLAY 'CLRFR090 OPEN FAILED RPTOUT ' WS-RPTOUT-STATUS
+015300         MOVE 16 TO RETURN-CODE
+015400         GOBACK
+015500     END-IF
+015600     OPEN OUTPUT EXTRACT-FILE
+015700     IF WS-EXTOUT-STATUS NOT = '00'
+015800         DISPLAY 'CLRFR090 OPEN FAILED EXTOUT ' WS-EXTOUT-STATUS
+015900         MOVE 16 TO RETURN-CODE
+016000         GOBACK
+016100     END-IF
+016200     MOVE WS-RUN-DATE TO RH1-RUN-DATE
+016300     WRITE REPORT-RECORD FROM WS-RPT-HEAD-1
+016400     .
+016500* ---------------------------------------------------------------*
+016600* 2000-PROCESS                                                   *
+016700* PROCESS LOOP                                                   *
+016800* ---------------------------------------------------------------*
+016900 2000-PROCESS.
+017000     EXEC SQL
+017100         OPEN C-CLAIM-LINK
+017200     END-EXEC
+017300     EVALUATE SQLCODE
+017400         WHEN 0
+017500             CONTINUE
+017600         WHEN OTHER
+017700             MOVE '2000-OPEN-C-CLAIM-LINK' TO ERR-PARA
+017800             PERFORM 8000-SQL-ERROR
+017900     END-EVALUATE
+018000     PERFORM 2100-FETCH-NEXT
+018100     PERFORM UNTIL WS-END-OF-DATA
+018200         PERFORM 2200-PROCESS-ROW
+018300         PERFORM 2100-FETCH-NEXT
+018400     END-PERFORM
+018500     EXEC SQL
+018600         CLOSE C-CLAIM-LINK
+018700     END-EXEC
+018800     .
+018900* ---------------------------------------------------------------*
+019000* 2100-FETCH-NEXT                                                *
+019100* FETCH THE NEXT DRIVING ROW                                     *
+019200* ---------------------------------------------------------------*
+019300 2100-FETCH-NEXT.
+019400     EXEC SQL
+019500         FETCH C-CLAIM-LINK
+019600          INTO :FRDL-LINK-ID, :FRDL-CLAIM-ID-A
+019700               , :FRDL-CLAIM-ID-B, :FRDL-LINK-TYPE-CD
+019800               , :FRDL-DETECTED-DT
+019900     END-EXEC
+020000     EVALUATE SQLCODE
+020100         WHEN 0
+020200             ADD 1 TO WS-CLAIM-LINK-READ
+020300         WHEN +100
+020400             SET WS-END-OF-DATA TO TRUE
+020500         WHEN OTHER
+020600             MOVE '2100-FETCH-NEXT' TO ERR-PARA
+020700             PERFORM 8000-SQL-ERROR
+020800     END-EVALUATE
+020900     .
+021000* ---------------------------------------------------------------*
+021100* 2200-PROCESS-ROW                                               *
+021200* PER-RECORD PROCESSING                                          *
+021300* ---------------------------------------------------------------*
+021400 2200-PROCESS-ROW.
+021500     SET WS-NO-ERROR TO TRUE
+021600     PERFORM 2500-EDIT-CLAIM-LINK
+021700     PERFORM 2510-EDIT-NISA-RETURN
+021800     PERFORM 2520-EDIT-CLAIM-LINK-2
+021900     PERFORM 2530-EDIT-NISA-RETURN-2
+022000     PERFORM 2540-EDIT-NISA-RETURN-3
+022100     PERFORM 4100-INSERT-NISA-RETURN
+022200     PERFORM 5000-WRITE-EXTRACT
+022300     PERFORM 6000-COMMIT-CHECK
+022400     .
+022500* ---------------------------------------------------------------*
+022600* 2500-EDIT-CLAIM-LINK                                           *
+022700* VALIDATE CLR.T_CLAIM_LINK                                      *
+022800* ---------------------------------------------------------------*
+022900 2500-EDIT-CLAIM-LINK.
+023000     IF FRDL-CLAIM-ID-A = SPACES OR LOW-VALUES
+023100         ADD 1 TO WS-REJECT-CNT
+023200         MOVE 'CLAIM_ID_A MISSING' TO ERR-TEXT
+023300     END-IF
+023400     IF FRDL-CLAIM-ID-B = SPACES OR LOW-VALUES
+023500         ADD 1 TO WS-REJECT-CNT
+023600         MOVE 'CLAIM_ID_B MISSING' TO ERR-TEXT
+023700     END-IF
+023800     IF FRDL-LINK-TYPE-CD NOT = 'PH' AND FRDL-LINK-TYPE-CD NOT =
+023900         'BA' AND FRDL-LINK-TYPE-CD NOT = 'VH' AND
+024000         FRDL-LINK-TYPE-CD NOT = 'AD'
+024100         ADD 1 TO WS-REJECT-CNT
+024200         MOVE 'LINK_TYPE_CD INVALID' TO ERR-TEXT
+024300     END-IF
+024400     .
+024500* ---------------------------------------------------------------*
+024600* 2510-EDIT-NISA-RETURN                                          *
+024700* VALIDATE CLR.T_NISA_RETURN                                     *
+024800* ---------------------------------------------------------------*
+024900 2510-EDIT-NISA-RETURN.
+025000     IF NISA-RETURN-CD = SPACES OR LOW-VALUES
+025100         ADD 1 TO WS-REJECT-CNT
+025200         MOVE 'RETURN_CD MISSING' TO ERR-TEXT
+025300     END-IF
+025400     IF NISA-PERIOD-CD = SPACES OR LOW-VALUES
+025500         ADD 1 TO WS-REJECT-CNT
+025600         MOVE 'PERIOD_CD MISSING' TO ERR-TEXT
+025700     END-IF
+025800     IF NISA-CELL-REF = SPACES OR LOW-VALUES
+025900         ADD 1 TO WS-REJECT-CNT
+026000         MOVE 'CELL_REF MISSING' TO ERR-TEXT
+026100     END-IF
+026200     .
+026300* ---------------------------------------------------------------*
+026400* 2520-EDIT-CLAIM-LINK-2                                         *
+026500* VALIDATE CLR.T_CLAIM_LINK                                      *
+026600* ---------------------------------------------------------------*
+026700 2520-EDIT-CLAIM-LINK-2.
+026800     IF FRDL-DETECTED-DT NOT = SPACES AND FRDL-DETECTED-DT(5:1)
+026900         NOT = '-'
+027000         MOVE 'DETECTED_DT BAD DATE' TO ERR-TEXT
+027100         ADD 1 TO WS-REJECT-CNT
+027200     END-IF
+027300     IF FRDL-VERSION-NO NOT NUMERIC
+027400         MOVE ZERO TO FRDL-VERSION-NO
+027500         ADD 1 TO WS-REJECT-CNT
+027600     END-IF
+027700     .
+027800* ---------------------------------------------------------------*
+027900* 2530-EDIT-NISA-RETURN-2                                        *
+028000* VALIDATE CLR.T_NISA_RETURN                                     *
+028100* ---------------------------------------------------------------*
+028200 2530-EDIT-NISA-RETURN-2.
+028300     IF NISA-CELL-VALUE NOT NUMERIC
+028400         MOVE ZERO TO NISA-CELL-VALUE
+028500         ADD 1 TO WS-REJECT-CNT
+028600     END-IF
+028700     IF NISA-SUBMITTED-DT NOT = SPACES AND NISA-SUBMITTED-DT(5:1)
+028800         NOT = '-'
+028900         MOVE 'SUBMITTED_DT BAD DATE' TO ERR-TEXT
+029000         ADD 1 TO WS-REJECT-CNT
+029100     END-IF
+029200     IF NISA-ARCHIVE-FLAG NOT = 'Y' AND NISA-ARCHIVE-FLAG NOT =
+029300         'N'
+029400         ADD 1 TO WS-REJECT-CNT
+029500         MOVE 'ARCHIVE_FLAG INVALID' TO ERR-TEXT
+029600     END-IF
+029700     .
+029800* ---------------------------------------------------------------*
+029900* 2540-EDIT-NISA-RETURN-3                                        *
+030000* CHECK MANDATORY FIELDS IN CLR.T_NISA_RETURN                    *
+030100* ---------------------------------------------------------------*
+030200 2540-EDIT-NISA-RETURN-3.
+030300* ---------------------------------------------------------------*
+030400* 4100-INSERT-NISA-RETURN                                        *
+030500* INSERT CLR.T_NISA_RETURN                                       *
+030600* ---------------------------------------------------------------*
+030700 4100-INSERT-NISA-RETURN.
+030800     MOVE 'Y' TO NISA-ARCHIVE-FLAG
+030900     EXEC SQL
+031000         INSERT INTO CLR.T_NISA_RETURN
+031100              ( RETURN_CD, PERIOD_CD, CELL_REF, CELL_VALUE
+031200              , SUBMITTED_DT, ARCHIVE_FLAG, COMMENT_TXT
+031300              , LAST_UPD_TS, LAST_UPD_PGM, LAST_UPD_USER )
+031400         VALUES
+031500              ( :NISA-RETURN-CD, :NISA-PERIOD-CD
+031600              , :NISA-CELL-REF, :NISA-CELL-VALUE
+031700              , :NISA-SUBMITTED-DT, :NISA-ARCHIVE-FLAG
+031800              , :NISA-COMMENT-TXT, CURRENT TIMESTAMP
+031900              , :WS-PGM-ID, :WS-USER-ID )
+032000     END-EXEC
+032100     EVALUATE SQLCODE
+032200         WHEN 0
+032300             ADD 1 TO WS-NISA-RETURN-WRITTEN
+032400         WHEN +100
+032500             SET WS-ROW-NOT-FOUND TO TRUE
+032600         WHEN OTHER
+032700             MOVE 'INSERT CLR.T_NISA_RETURN' TO ERR-PARA
+032800             PERFORM 8000-SQL-ERROR
+032900     END-EVALUATE
+033000     .
+033100* ---------------------------------------------------------------*
+033200* 5000-WRITE-EXTRACT                                             *
+033300* WRITE THE OUTBOUND RECORD                                      *
+033400* ---------------------------------------------------------------*
+033500 5000-WRITE-EXTRACT.
+033600     MOVE SPACES TO EXTRACT-RECORD
+033700     WRITE EXTRACT-RECORD
+033800     IF WS-EXTOUT-STATUS NOT = '00'
+033900         DISPLAY WS-PGM-ID ' WRITE FAILED EXTOUT '
+034000             WS-EXTOUT-STATUS
+034100         ADD 1 TO WS-REJECT-CNT
+034200     END-IF
+034300     .
+034400* ---------------------------------------------------------------*
+034500* 6000-COMMIT-CHECK                                              *
+034600* PERIODIC COMMIT                                                *
+034700* ---------------------------------------------------------------*
+034800 6000-COMMIT-CHECK.
+034900     ADD 1 TO WS-SINCE-COMMIT
+035000     IF WS-SINCE-COMMIT >= WS-COMMIT-FREQ
+035100         EXEC SQL
+035200             COMMIT
+035300         END-EXEC
+035400         MOVE ZERO TO WS-SINCE-COMMIT
+035500     END-IF
+035600     .
+035700* ---------------------------------------------------------------*
+035800* 9000-TERMINATE                                                 *
+035900* TERMINATION AND TOTALS                                         *
+036000* ---------------------------------------------------------------*
+036100 9000-TERMINATE.
+036200     PERFORM 7010-LIST-CLAIM-LINK
+036300     PERFORM 7030-LIST-NISA-RETURN
+036400     EXEC SQL
+036500         COMMIT
+036600     END-EXEC
+036700     MOVE 'CLR.T_CLAIM_LINK ROWS READ' TO RT-LABEL
+036800     MOVE WS-CLAIM-LINK-READ TO RT-COUNT
+036900     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+037000     MOVE 'CLR.T_NISA_RETURN ROWS WRITTEN' TO RT-LABEL
+037100     MOVE WS-NISA-RETURN-WRITTEN TO RT-COUNT
+037200     WRITE REPORT-RECORD FROM WS-RPT-TOTAL
+037300     CLOSE REPORT-FILE
+037400     CLOSE EXTRACT-FILE
+037500     IF WS-REJECT-CNT > ZERO
+037600         MOVE 4 TO RETURN-CODE
+037700     END-IF
+037800     .
+037900* ---------------------------------------------------------------*
+038000* 7010-LIST-CLAIM-LINK                                           *
+038100* LIST CLR.T_CLAIM_LINK FIELDS ON THE REPORT                     *
+038200* ---------------------------------------------------------------*
+038300 7010-LIST-CLAIM-LINK.
+038400     MOVE 'LAST CLR.T_CLAIM_LINK ROW' TO RD-LABEL
+038500     MOVE SPACES TO RD-VALUE
+038600     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+038700     MOVE '  CLAIM_ID_A' TO RD-LABEL
+038800     MOVE FRDL-CLAIM-ID-A TO RD-VALUE
+038900     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+039000     MOVE '  CLAIM_ID_B' TO RD-LABEL
+039100     MOVE FRDL-CLAIM-ID-B TO RD-VALUE
+039200     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+039300     MOVE '  LINK_TYPE_CD' TO RD-LABEL
+039400     MOVE FRDL-LINK-TYPE-CD TO RD-VALUE
+039500     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+039600     MOVE '  DETECTED_DT' TO RD-LABEL
+039700     MOVE FRDL-DETECTED-DT TO RD-VALUE
+039800     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+039900     MOVE '  EXT_REF' TO RD-LABEL
+040000     MOVE FRDL-EXT-REF TO RD-VALUE
+040100     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+040200     .
+040300* ---------------------------------------------------------------*
+040400* 7030-LIST-NISA-RETURN                                          *
+040500* LIST CLR.T_NISA_RETURN FIELDS ON THE REPORT                    *
+040600* ---------------------------------------------------------------*
+040700 7030-LIST-NISA-RETURN.
+040800     MOVE 'LAST CLR.T_NISA_RETURN ROW' TO RD-LABEL
+040900     MOVE SPACES TO RD-VALUE
+041000     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+041100     MOVE '  RETURN_CD' TO RD-LABEL
+041200     MOVE NISA-RETURN-CD TO RD-VALUE
+041300     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+041400     MOVE '  PERIOD_CD' TO RD-LABEL
+041500     MOVE NISA-PERIOD-CD TO RD-VALUE
+041600     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+041700     MOVE '  CELL_REF' TO RD-LABEL
+041800     MOVE NISA-CELL-REF TO RD-VALUE
+041900     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+042000     MOVE '  SUBMITTED_DT' TO RD-LABEL
+042100     MOVE NISA-SUBMITTED-DT TO RD-VALUE
+042200     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+042300     MOVE '  ARCHIVE_FLAG' TO RD-LABEL
+042400     MOVE NISA-ARCHIVE-FLAG TO RD-VALUE
+042500     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+042600     MOVE '  COMMENT_TXT' TO RD-LABEL
+042700     MOVE NISA-COMMENT-TXT TO RD-VALUE
+042800     WRITE REPORT-RECORD FROM WS-RPT-DETAIL
+042900     .
+043000* ---------------------------------------------------------------*
+043100* 8000-SQL-ERROR                                                 *
+043200* UNEXPECTED SQLCODE                                             *
+043300* ---------------------------------------------------------------*
+043400 8000-SQL-ERROR.
+043500     MOVE SQLCODE TO ERR-SQLCODE WS-SQLCODE-DSP
+043600     MOVE WS-PGM-ID TO ERR-PGM
+043700     STRING 'SQLCODE ' WS-SQLCODE-DSP DELIMITED BY SIZE INTO
+043800         ERR-TEXT
+043900     DISPLAY WS-PGM-ID ' ' ERR-PARA ' ' ERR-TEXT
+044000     EXEC SQL
+044100         ROLLBACK
+044200     END-EXEC
+044300     MOVE 16 TO RETURN-CODE
+044400     CLOSE REPORT-FILE
+044500     CLOSE EXTRACT-FILE
+044600     GOBACK.

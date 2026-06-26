@@ -1,0 +1,35 @@
+//CLRQFR01 JOB (CLR,BATCH),'QUARTERLY NISA-FR1 E',CLASS=B,MSGCLASS=X,
+//             MSGLEVEL=(1,1),REGION=0M,NOTIFY=&SYSUID
+//* ------------------------------------------------------------------*
+//* JOB       : CLRQFR01                                              *
+//* FUNCTION  : QUARTERLY NISA-FR1 EXTRACT                            *
+//* SCHEDULE  : QUARTERLY, 5TH BUSINESS DAY AFTER QUARTER END (BATCH  *
+//*             SCHEDULER)                                            *
+//* SUPPORT   : MAINFRAME BATCH OPERATIONS                            *
+//* STEPS     : STEP010 CLRFR090 NISA-FR1 QUARTERLY FRAUD REFERRAL    *
+//*                              RETURN EXTRACT (CLX-IF-033)          *
+//* ------------------------------------------------------------------*
+//* SITE SYMBOLS (HLQS, DB2 SUBSYSTEM AND PLAN) COME FROM THE INCLUDE
+//         INCLUDE MEMBER=CLRSYMS
+//JOBLIB   DD DSN=&CLRHLQ..LOADLIB,DISP=SHR
+//         DD DSN=&DB2HLQ..SDSNLOAD,DISP=SHR
+//*
+//* STEP010 - NISA-FR1 QUARTERLY FRAUD REFERRAL RETURN EXTRACT
+//* (CLX-IF-033)
+//*
+//STEP010  EXEC PGM=IKJEFT01,DYNAMNBR=20
+//SYSTSPRT DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=D
+//RPTOUT   DD SYSOUT=*
+//EXTOUT   DD DSN=&CLRHLQ..CLRFR090.EXTOUT(+1),
+//            DISP=(NEW,CATLG,DELETE),UNIT=SYSDA,
+//            SPACE=(CYL,(5,5),RLSE),DCB=(RECFM=FB,LRECL=400,BLKSIZE=0)
+//SYSTSIN  DD *,SYMBOLS=JCLONLY
+  DSN SYSTEM(&DB2SSID)
+  RUN PROGRAM(CLRFR090) PLAN(&DB2PLAN) -
+      LIB('&CLRHLQ..LOADLIB')
+  END
+/*
+//
