@@ -40,8 +40,8 @@ chub:
     - reserve.review_schedule
 
 reserve:
-  # BR-RSV-007 v2
-  tier3-review-days: 21
+  # BR-RSV-007 v3 (effective 2026-07-01), CHUB-322
+  tier3-review-days: 14
   large-loss-threshold-gbp: 250000
   # ADR-028 / DEC-005: revaluations are posted as RV reserve movements
   revaluation:
