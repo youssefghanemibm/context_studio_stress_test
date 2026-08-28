@@ -3,6 +3,9 @@
 000300* TITLE      : RESERVE PARALLEL-RUN RECONCILIATION AGAINST       *
 000400*              RESERVE-ENGINE                                    *
 000500* PERIOD     : PARALLEL RUN 2026-03-02 TO 2026-08-28             *
+000520* STATUS     : RETIRED - REMOVED FROM SCHEDULE AFTER THE         *
+000540*              PARALLEL                                          *
+000560*              RUN ENDED ON 2026-08-28                           *
 000600* SYSTEM     : CLARA - CLAIMS LEDGER AND RESERVE APPLICATION     *
 000700* AREA       : RESERVE                                           *
 000800* TYPE       : BATCH / DB2                                       *
@@ -28,6 +31,8 @@
 002800* DATE       BY       REF        DESCRIPTION                     *
 002900* ---------- -------- ---------- ------------------------------- *
 003000* 2026-02-27 KBARR01  CHUB-241   INITIAL VERSION                 *
+003030* 2026-08-28 KBARR01  CHUB-241   RETIRED - PARALLEL RUN ENDED    *
+003060*                                2026-08-28                      *
 003100* ===============================================================*
 003200 IDENTIFICATION DIVISION.
 003300 PROGRAM-ID.    CLRRS210.

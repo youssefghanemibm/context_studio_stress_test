@@ -2,9 +2,11 @@
 //             MSGLEVEL=(1,1),REGION=0M,NOTIFY=&SYSUID
 //* ------------------------------------------------------------------*
 //* JOB       : CLRDRSV9                                              *
-//* FUNCTION  : RESERVE PARALLEL-RUN RECONCILIATION                   *
+//* FUNCTION  : RESERVE PARALLEL-RUN RECONCILIATION (RETIRED          *
+//*             2026-08-28)                                           *
 //* SCHEDULE  : DAILY 05:00 FOR THE RESERVE PARALLEL RUN              *
 //*             2026-03-02 TO 2026-08-28                              *
+//* STATUS    : RETIRED 2026-08-28 - PARALLEL RUN ENDED               *
 //* SUPPORT   : MAINFRAME BATCH OPERATIONS                            *
 //* STEPS     : STEP010 CLRRS210 RESERVE PARALLEL-RUN                 *
 //*                              RECONCILIATION AGAINST               *
