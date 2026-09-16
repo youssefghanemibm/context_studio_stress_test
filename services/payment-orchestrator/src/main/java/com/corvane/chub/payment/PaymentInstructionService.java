@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class PaymentInstructionService {
 
+    static final String IDEMPOTENCY_HEADER = "Idempotency-Key";
+
     private final PaymentInstructionRepository instructions;
     private final CpgClient cpg;
 
@@ -21,9 +23,15 @@ public class PaymentInstructionService {
 
     @Transactional
     public PaymentInstruction submit(PaymentInstruction instruction) {
+        instruction.setIdempotencyKey(idempotencyKey(instruction));
         instructions.save(instruction);
-        cpg.send(instruction);
+        // ADR-021: a retry after a CPG timeout re-sends the same key, so CPG drops the duplicate
+        cpg.send(instruction, IDEMPOTENCY_HEADER, instruction.getIdempotencyKey());
         instruction.markSubmitted();
         return instruction;
+    }
+
+    static String idempotencyKey(PaymentInstruction instruction) {
+        return "PAY-" + instruction.getPaymentId();
     }
 }

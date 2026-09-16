@@ -41,3 +41,7 @@ cpg:
   base-url: ${CPG_BASE_URL}
   # CLX-IF-038: ISO 20022 pain.001 JSON mapping
   instruction-format: pain.001
+  # ADR-021 (after INC-2026-0914): every instruction carries an idempotency key
+  idempotency:
+    header: Idempotency-Key
+    key-source: payment_id
