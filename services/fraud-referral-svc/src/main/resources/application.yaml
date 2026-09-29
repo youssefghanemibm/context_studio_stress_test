@@ -42,6 +42,8 @@ chub:
 referral:
   # ADR-020: effective-dated thresholds for BR-FRD-031 (Sentinel score 0-100)
   threshold.default: 65
+  threshold.tier3: 60
+  threshold.tier3.effective-from: 2026-10-01
   siu:
     # BR-FRD-035 v2
     triage-business-days: 3

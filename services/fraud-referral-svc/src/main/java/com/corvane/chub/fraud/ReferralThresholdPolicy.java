@@ -14,13 +14,22 @@ import org.springframework.stereotype.Component;
 public class ReferralThresholdPolicy {
 
     private final int defaultThreshold;
+    private final int tier3Threshold;
+    private final LocalDate tier3EffectiveFrom;
 
-    public ReferralThresholdPolicy(@Value("${referral.threshold.default}") int defaultThreshold) {
+    public ReferralThresholdPolicy(@Value("${referral.threshold.default}") int defaultThreshold,
+                                   @Value("${referral.threshold.tier3}") int tier3Threshold,
+                                   @Value("${referral.threshold.tier3.effective-from}") LocalDate tier3EffectiveFrom) {
         this.defaultThreshold = defaultThreshold;
+        this.tier3Threshold = tier3Threshold;
+        this.tier3EffectiveFrom = tier3EffectiveFrom;
     }
 
     /** Threshold for a claim of the given tier scored on the given date. */
     public int thresholdFor(int tier, LocalDate scoredOn) {
+        if (tier == 3 && !scoredOn.isBefore(tier3EffectiveFrom)) {
+            return tier3Threshold;
+        }
         return defaultThreshold;
     }
 
