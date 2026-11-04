@@ -41,6 +41,6 @@ Maven 3.9 are required; `make help` lists the other targets.
 
 ## Documentation
 
-- Architecture decisions: [docs/adr](docs/adrs/)
-- Diagrams: [docs/diagrams](docs/diagram/)
+- Architecture decisions: [docs/adr](docs/adr/)
+- Diagrams: [docs/diagrams](docs/diagrams/)
 - Code owners: [.github/CODEOWNERS](.github/CODEOWNERS)
