@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-051",
+  "description": "Tier-3 vandalism / malicious damage claim, Commercial Property UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-152234",
+    "legacy_claim_id": "UK2026152234",
+    "policy_no": "POL9982932",
+    "product_code": "PRD-COM-UK",
+    "claim_type": "CT-VAN",
+    "loss_date": "2026-10-17",
+    "notified_at": "2026-10-21T20:44",
+    "status": "OPEN",
+    "tier": 3,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "61173",
+    "estimated_incurred_gbp": "61173.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 82,
+  "expected": {
+    "tier": 3,
+    "threshold_applied": 60,
+    "fraud_referral": true
+  }
+}

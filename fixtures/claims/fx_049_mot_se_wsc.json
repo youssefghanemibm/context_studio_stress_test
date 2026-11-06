@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-049",
+  "description": "Tier-2 windscreen claim, Motor Privat Sverige",
+  "claim": {
+    "claim_id": "CLM-SE-2026-131173",
+    "legacy_claim_id": "SE2026131173",
+    "policy_no": "POL1746621",
+    "product_code": "PRD-MOT-SE",
+    "claim_type": "CT-WSC",
+    "loss_date": "2026-10-04",
+    "notified_at": "2026-10-05T19:13",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "SE",
+    "currency": "SEK"
+  },
+  "triage_input": {
+    "estimated_incurred": "309182",
+    "estimated_incurred_gbp": "22733.97",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 55,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

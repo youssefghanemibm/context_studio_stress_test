@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-095",
+  "description": "Tier-2 flood claim, Home Buildings & Contents UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-280787",
+    "legacy_claim_id": "UK2026280787",
+    "policy_no": "POL4385518",
+    "product_code": "PRD-HOM-UK",
+    "claim_type": "CT-FLD",
+    "loss_date": "2026-10-03",
+    "notified_at": "2026-10-05T20:31",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "31909",
+    "estimated_incurred_gbp": "31909.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 21,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

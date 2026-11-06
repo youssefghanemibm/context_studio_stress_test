@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-021",
+  "description": "Tier-1 flood claim, Commercial Property UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-231810",
+    "legacy_claim_id": "UK2026231810",
+    "policy_no": "POL6702627",
+    "product_code": "PRD-COM-UK",
+    "claim_type": "CT-FLD",
+    "loss_date": "2026-10-01",
+    "notified_at": "2026-10-03T18:33",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "1519",
+    "estimated_incurred_gbp": "1519.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 39,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

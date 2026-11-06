@@ -1,0 +1,6 @@
+# Expected control-report totals for CLRFR040 over the fixtures in ../db2/
+CLR.T_CLAIM ROWS READ                             7
+CLR.T_FRAUD_SCORE ROWS READ                       5
+CLR.T_FRAUD_REFERRAL ROWS WRITTEN                10
+REJECTS                                           0
+RETURN CODE 0

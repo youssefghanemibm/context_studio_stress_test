@@ -1,0 +1,5 @@
+# Expected control-report totals for CLRRS150 over the fixtures in ../db2/
+CLR.T_RESERVE ROWS READ                          12
+CLR.T_RESERVE_MOVEMENT ROWS WRITTEN               5
+REJECTS                                           0
+RETURN CODE 0

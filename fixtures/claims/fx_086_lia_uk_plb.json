@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-086",
+  "description": "Tier-2 public liability claim, SME Liability UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-141222",
+    "legacy_claim_id": "UK2026141222",
+    "policy_no": "POL4092413",
+    "product_code": "PRD-LIA-UK",
+    "claim_type": "CT-PLB",
+    "loss_date": "2026-10-16",
+    "notified_at": "2026-10-18T08:19",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "1312",
+    "estimated_incurred_gbp": "1312.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": true
+  },
+  "sentinel_score": 44,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

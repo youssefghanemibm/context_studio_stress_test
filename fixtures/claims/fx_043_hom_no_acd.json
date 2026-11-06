@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-043",
+  "description": "Tier-3 accidental damage claim, Hjem Norge",
+  "claim": {
+    "claim_id": "CLM-NO-2026-289234",
+    "legacy_claim_id": "NO2026289234",
+    "policy_no": "POL5564991",
+    "product_code": "PRD-HOM-NO",
+    "claim_type": "CT-ACD",
+    "loss_date": "2026-10-28",
+    "notified_at": "2026-10-29T11:40",
+    "status": "OPEN",
+    "tier": 3,
+    "region": "NO",
+    "currency": "NOK"
+  },
+  "triage_input": {
+    "estimated_incurred": "5417360",
+    "estimated_incurred_gbp": "416720.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 39,
+  "expected": {
+    "tier": 3,
+    "threshold_applied": 60,
+    "fraud_referral": false
+  }
+}

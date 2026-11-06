@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-004",
+  "description": "Tier-2 escape of water claim, Hem Sverige",
+  "claim": {
+    "claim_id": "CLM-SE-2026-245184",
+    "legacy_claim_id": "SE2026245184",
+    "policy_no": "POL6121359",
+    "product_code": "PRD-HOM-SE",
+    "claim_type": "CT-EOW",
+    "loss_date": "2026-10-21",
+    "notified_at": "2026-10-22T07:45",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "SE",
+    "currency": "SEK"
+  },
+  "triage_input": {
+    "estimated_incurred": "195296",
+    "estimated_incurred_gbp": "14360.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 5,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

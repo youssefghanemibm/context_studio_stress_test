@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-059",
+  "description": "Tier-3 bodily injury claim, Motor Privat Sverige",
+  "claim": {
+    "claim_id": "CLM-SE-2026-141486",
+    "legacy_claim_id": "SE2026141486",
+    "policy_no": "POL4053609",
+    "product_code": "PRD-MOT-SE",
+    "claim_type": "CT-BIJ",
+    "loss_date": "2026-10-27",
+    "notified_at": "2026-10-27T17:13",
+    "status": "OPEN",
+    "tier": 3,
+    "region": "SE",
+    "currency": "SEK"
+  },
+  "triage_input": {
+    "estimated_incurred": "23188",
+    "estimated_incurred_gbp": "1705.00",
+    "bodily_injury": true,
+    "litigation_at_notification": true,
+    "property_total_loss": false,
+    "third_party_involved": true
+  },
+  "sentinel_score": 43,
+  "expected": {
+    "tier": 3,
+    "threshold_applied": 60,
+    "fraud_referral": false
+  }
+}

@@ -1,0 +1,6 @@
+# Expected control-report totals for CLRFR060 over the fixtures in ../db2/
+CLR.T_PARAM ROWS READ                            14
+CLR.T_FRAUD_NOTIFICATION ROWS WRITTEN            11
+CLR.T_FRAUD_REFERRAL ROWS WRITTEN                13
+REJECTS                                           0
+RETURN CODE 0

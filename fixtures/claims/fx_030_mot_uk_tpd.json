@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-030",
+  "description": "Tier-2 third-party property damage claim, Motor Private UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-139494",
+    "legacy_claim_id": "UK2026139494",
+    "policy_no": "POL8118343",
+    "product_code": "PRD-MOT-UK",
+    "claim_type": "CT-TPD",
+    "loss_date": "2026-10-04",
+    "notified_at": "2026-10-07T08:31",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "5383",
+    "estimated_incurred_gbp": "5383.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": true
+  },
+  "sentinel_score": 5,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

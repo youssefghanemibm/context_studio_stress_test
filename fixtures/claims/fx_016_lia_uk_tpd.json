@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-016",
+  "description": "Tier-2 third-party property damage claim, SME Liability UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-168071",
+    "legacy_claim_id": "UK2026168071",
+    "policy_no": "POL1111789",
+    "product_code": "PRD-LIA-UK",
+    "claim_type": "CT-TPD",
+    "loss_date": "2026-10-08",
+    "notified_at": "2026-10-08T09:55",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "14005",
+    "estimated_incurred_gbp": "14005.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": true
+  },
+  "sentinel_score": 62,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

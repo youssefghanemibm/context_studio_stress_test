@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: legacy-bridge
+clara:
+  db2:
+    url: ${CLARA_DB2_URL}
+    username: ${CLARA_DB2_USER}
+    password: ${CLARA_DB2_PASSWORD}
+bridge:
+  poll-interval: ${BRIDGE_POLL_INTERVAL}
+  interfaces:
+    - CLX-IF-042
+server:
+  port: 8080

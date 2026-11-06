@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-062",
+  "description": "Tier-1 storm claim, Hjem Danmark",
+  "claim": {
+    "claim_id": "CLM-DK-2026-224711",
+    "legacy_claim_id": "DK2026224711",
+    "policy_no": "POL5796641",
+    "product_code": "PRD-HOM-DK",
+    "claim_type": "CT-STM",
+    "loss_date": "2026-10-26",
+    "notified_at": "2026-10-30T10:22",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "DK",
+    "currency": "DKK"
+  },
+  "triage_input": {
+    "estimated_incurred": "37685",
+    "estimated_incurred_gbp": "4381.98",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 47,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-019",
+  "description": "Tier-2 third-party property damage claim, Motor Privat Sverige",
+  "claim": {
+    "claim_id": "CLM-SE-2026-289365",
+    "legacy_claim_id": "SE2026289365",
+    "policy_no": "POL6141835",
+    "product_code": "PRD-MOT-SE",
+    "claim_type": "CT-TPD",
+    "loss_date": "2026-10-20",
+    "notified_at": "2026-10-22T11:16",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "SE",
+    "currency": "SEK"
+  },
+  "triage_input": {
+    "estimated_incurred": "255408",
+    "estimated_incurred_gbp": "18780.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": true
+  },
+  "sentinel_score": 29,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

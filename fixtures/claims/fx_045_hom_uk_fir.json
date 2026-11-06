@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-045",
+  "description": "Tier-3 fire claim, Home Buildings & Contents UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-247992",
+    "legacy_claim_id": "UK2026247992",
+    "policy_no": "POL6597114",
+    "product_code": "PRD-HOM-UK",
+    "claim_type": "CT-FIR",
+    "loss_date": "2026-10-23",
+    "notified_at": "2026-10-23T07:36",
+    "status": "OPEN",
+    "tier": 3,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "243491",
+    "estimated_incurred_gbp": "243491.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": true,
+    "third_party_involved": false
+  },
+  "sentinel_score": 68,
+  "expected": {
+    "tier": 3,
+    "threshold_applied": 60,
+    "fraud_referral": true
+  }
+}

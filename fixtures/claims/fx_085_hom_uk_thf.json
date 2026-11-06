@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-085",
+  "description": "Tier-1 theft claim, Home Buildings & Contents UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-190280",
+    "legacy_claim_id": "UK2026190280",
+    "policy_no": "POL5743984",
+    "product_code": "PRD-HOM-UK",
+    "claim_type": "CT-THF",
+    "loss_date": "2026-10-28",
+    "notified_at": "2026-10-28T11:16",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "1499",
+    "estimated_incurred_gbp": "1499.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 35,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

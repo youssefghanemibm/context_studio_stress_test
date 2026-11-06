@@ -1,0 +1,6 @@
+# Expected control-report totals for CLRGL090 over the fixtures in ../db2/
+CLR.T_CURRENCY_RATE ROWS READ                    12
+CLR.T_GL_PERIOD ROWS READ                        12
+CLR.T_RESERVE ROWS WRITTEN                        9
+REJECTS                                           0
+RETURN CODE 0

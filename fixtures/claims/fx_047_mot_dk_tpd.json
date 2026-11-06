@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-047",
+  "description": "Tier-2 third-party property damage claim, Motor Privat Danmark",
+  "claim": {
+    "claim_id": "CLM-DK-2026-233975",
+    "legacy_claim_id": "DK2026233975",
+    "policy_no": "POL3316901",
+    "product_code": "PRD-MOT-DK",
+    "claim_type": "CT-TPD",
+    "loss_date": "2026-10-20",
+    "notified_at": "2026-10-22T10:18",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "DK",
+    "currency": "DKK"
+  },
+  "triage_input": {
+    "estimated_incurred": "376155",
+    "estimated_incurred_gbp": "43738.95",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": true
+  },
+  "sentinel_score": 46,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

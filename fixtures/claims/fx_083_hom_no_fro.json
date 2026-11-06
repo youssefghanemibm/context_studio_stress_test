@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-083",
+  "description": "Tier-2 frost damage claim, Hjem Norge",
+  "claim": {
+    "claim_id": "CLM-NO-2026-107302",
+    "legacy_claim_id": "NO2026107302",
+    "policy_no": "POL7706870",
+    "product_code": "PRD-HOM-NO",
+    "claim_type": "CT-FRO",
+    "loss_date": "2026-10-04",
+    "notified_at": "2026-10-06T12:02",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "NO",
+    "currency": "NOK"
+  },
+  "triage_input": {
+    "estimated_incurred": "132587",
+    "estimated_incurred_gbp": "10199.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 65,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": true
+  }
+}

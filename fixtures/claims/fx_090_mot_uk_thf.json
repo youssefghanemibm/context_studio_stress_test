@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-090",
+  "description": "Tier-2 theft claim, Motor Private UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-228439",
+    "legacy_claim_id": "UK2026228439",
+    "policy_no": "POL7220731",
+    "product_code": "PRD-MOT-UK",
+    "claim_type": "CT-THF",
+    "loss_date": "2026-10-05",
+    "notified_at": "2026-10-05T12:13",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "22034",
+    "estimated_incurred_gbp": "22034.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 79,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": true
+  }
+}

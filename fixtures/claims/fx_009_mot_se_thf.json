@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-009",
+  "description": "Tier-2 theft claim, Motor Privat Sverige",
+  "claim": {
+    "claim_id": "CLM-SE-2026-262322",
+    "legacy_claim_id": "SE2026262322",
+    "policy_no": "POL8025549",
+    "product_code": "PRD-MOT-SE",
+    "claim_type": "CT-THF",
+    "loss_date": "2026-10-22",
+    "notified_at": "2026-10-25T09:09",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "SE",
+    "currency": "SEK"
+  },
+  "triage_input": {
+    "estimated_incurred": "394550",
+    "estimated_incurred_gbp": "29011.03",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 19,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

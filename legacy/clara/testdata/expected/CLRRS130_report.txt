@@ -1,0 +1,7 @@
+# Expected control-report totals for CLRRS130 over the fixtures in ../db2/
+CLR.T_CLAIM ROWS READ                             7
+CLR.T_PARAM ROWS READ                            10
+CLR.T_RESERVE ROWS WRITTEN                        4
+CLR.T_RESERVE_MOVEMENT ROWS WRITTEN               6
+REJECTS                                           0
+RETURN CODE 0

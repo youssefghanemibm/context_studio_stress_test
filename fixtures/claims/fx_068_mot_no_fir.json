@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-068",
+  "description": "Tier-3 fire claim, Motor Privat Norge",
+  "claim": {
+    "claim_id": "CLM-NO-2026-216302",
+    "legacy_claim_id": "NO2026216302",
+    "policy_no": "POL2491608",
+    "product_code": "PRD-MOT-NO",
+    "claim_type": "CT-FIR",
+    "loss_date": "2026-10-21",
+    "notified_at": "2026-10-24T07:17",
+    "status": "OPEN",
+    "tier": 3,
+    "region": "NO",
+    "currency": "NOK"
+  },
+  "triage_input": {
+    "estimated_incurred": "5354778",
+    "estimated_incurred_gbp": "411906.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": true,
+    "third_party_involved": false
+  },
+  "sentinel_score": 54,
+  "expected": {
+    "tier": 3,
+    "threshold_applied": 60,
+    "fraud_referral": false
+  }
+}

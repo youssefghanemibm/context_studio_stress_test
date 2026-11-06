@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-089",
+  "description": "Tier-2 collision claim, Motor Privat Sverige",
+  "claim": {
+    "claim_id": "CLM-SE-2026-262154",
+    "legacy_claim_id": "SE2026262154",
+    "policy_no": "POL2208839",
+    "product_code": "PRD-MOT-SE",
+    "claim_type": "CT-COL",
+    "loss_date": "2026-10-25",
+    "notified_at": "2026-10-25T11:20",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "SE",
+    "currency": "SEK"
+  },
+  "triage_input": {
+    "estimated_incurred": "537282",
+    "estimated_incurred_gbp": "39506.03",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 14,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

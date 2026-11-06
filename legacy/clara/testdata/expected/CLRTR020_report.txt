@@ -1,0 +1,8 @@
+# Expected control-report totals for CLRTR020 over the fixtures in ../db2/
+CLR.T_ESTIMATE ROWS READ                         10
+CLR.T_PARAM ROWS READ                             9
+CLR.T_RESERVE ROWS READ                          13
+CLR.T_CLAIM_TIER ROWS WRITTEN                     2
+CLR.T_CLAIM ROWS WRITTEN                          8
+REJECTS                                           0
+RETURN CODE 0

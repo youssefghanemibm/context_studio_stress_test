@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-052",
+  "description": "Tier-1 frost damage claim, Hjem Danmark",
+  "claim": {
+    "claim_id": "CLM-DK-2026-101702",
+    "legacy_claim_id": "DK2026101702",
+    "policy_no": "POL6344156",
+    "product_code": "PRD-HOM-DK",
+    "claim_type": "CT-FRO",
+    "loss_date": "2026-10-05",
+    "notified_at": "2026-10-08T09:48",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "DK",
+    "currency": "DKK"
+  },
+  "triage_input": {
+    "estimated_incurred": "35509",
+    "estimated_incurred_gbp": "4128.95",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 7,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

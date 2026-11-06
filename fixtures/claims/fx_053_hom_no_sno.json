@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-053",
+  "description": "Tier-1 snow load claim, Hjem Norge",
+  "claim": {
+    "claim_id": "CLM-NO-2026-283250",
+    "legacy_claim_id": "NO2026283250",
+    "policy_no": "POL3711786",
+    "product_code": "PRD-HOM-NO",
+    "claim_type": "CT-SNO",
+    "loss_date": "2026-10-04",
+    "notified_at": "2026-10-05T09:29",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "NO",
+    "currency": "NOK"
+  },
+  "triage_input": {
+    "estimated_incurred": "30901",
+    "estimated_incurred_gbp": "2377.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 37,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-037",
+  "description": "Tier-3 windscreen claim, Motor Privat Danmark",
+  "claim": {
+    "claim_id": "CLM-DK-2026-256421",
+    "legacy_claim_id": "DK2026256421",
+    "policy_no": "POL9497220",
+    "product_code": "PRD-MOT-DK",
+    "claim_type": "CT-WSC",
+    "loss_date": "2026-10-06",
+    "notified_at": "2026-10-10T08:44",
+    "status": "OPEN",
+    "tier": 3,
+    "region": "DK",
+    "currency": "DKK"
+  },
+  "triage_input": {
+    "estimated_incurred": "2098976",
+    "estimated_incurred_gbp": "244066.98",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 23,
+  "expected": {
+    "tier": 3,
+    "threshold_applied": 60,
+    "fraud_referral": false
+  }
+}

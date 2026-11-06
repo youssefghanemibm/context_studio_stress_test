@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-027",
+  "description": "Tier-3 bodily injury claim, Motor Privat Danmark",
+  "claim": {
+    "claim_id": "CLM-DK-2026-169831",
+    "legacy_claim_id": "DK2026169831",
+    "policy_no": "POL6325393",
+    "product_code": "PRD-MOT-DK",
+    "claim_type": "CT-BIJ",
+    "loss_date": "2026-10-30",
+    "notified_at": "2026-11-01T17:56",
+    "status": "OPEN",
+    "tier": 3,
+    "region": "DK",
+    "currency": "DKK"
+  },
+  "triage_input": {
+    "estimated_incurred": "16443",
+    "estimated_incurred_gbp": "1911.98",
+    "bodily_injury": true,
+    "litigation_at_notification": true,
+    "property_total_loss": false,
+    "third_party_involved": true
+  },
+  "sentinel_score": 60,
+  "expected": {
+    "tier": 3,
+    "threshold_applied": 60,
+    "fraud_referral": true
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-054",
+  "description": "Tier-3 fire claim, Hem Sverige",
+  "claim": {
+    "claim_id": "CLM-SE-2026-225970",
+    "legacy_claim_id": "SE2026225970",
+    "policy_no": "POL2909353",
+    "product_code": "PRD-HOM-SE",
+    "claim_type": "CT-FIR",
+    "loss_date": "2026-10-23",
+    "notified_at": "2026-10-23T07:01",
+    "status": "OPEN",
+    "tier": 3,
+    "region": "SE",
+    "currency": "SEK"
+  },
+  "triage_input": {
+    "estimated_incurred": "5354075",
+    "estimated_incurred_gbp": "393681.99",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": true,
+    "third_party_involved": false
+  },
+  "sentinel_score": 34,
+  "expected": {
+    "tier": 3,
+    "threshold_applied": 60,
+    "fraud_referral": false
+  }
+}

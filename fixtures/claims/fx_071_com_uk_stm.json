@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-071",
+  "description": "Tier-1 storm claim, Commercial Property UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-173548",
+    "legacy_claim_id": "UK2026173548",
+    "policy_no": "POL4757746",
+    "product_code": "PRD-COM-UK",
+    "claim_type": "CT-STM",
+    "loss_date": "2026-10-02",
+    "notified_at": "2026-10-03T14:08",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "1273",
+    "estimated_incurred_gbp": "1273.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 87,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": true
+  }
+}

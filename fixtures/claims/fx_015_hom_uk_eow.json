@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-015",
+  "description": "Tier-2 escape of water claim, Home Buildings & Contents UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-245091",
+    "legacy_claim_id": "UK2026245091",
+    "policy_no": "POL6939345",
+    "product_code": "PRD-HOM-UK",
+    "claim_type": "CT-EOW",
+    "loss_date": "2026-10-25",
+    "notified_at": "2026-10-27T17:19",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "34537",
+    "estimated_incurred_gbp": "34537.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 50,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

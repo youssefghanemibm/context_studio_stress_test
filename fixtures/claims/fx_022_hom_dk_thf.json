@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-022",
+  "description": "Tier-2 theft claim, Hjem Danmark",
+  "claim": {
+    "claim_id": "CLM-DK-2026-154829",
+    "legacy_claim_id": "DK2026154829",
+    "policy_no": "POL1215925",
+    "product_code": "PRD-HOM-DK",
+    "claim_type": "CT-THF",
+    "loss_date": "2026-10-07",
+    "notified_at": "2026-10-10T16:00",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "DK",
+    "currency": "DKK"
+  },
+  "triage_input": {
+    "estimated_incurred": "317245",
+    "estimated_incurred_gbp": "36888.95",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 57,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

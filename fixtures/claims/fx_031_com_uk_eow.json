@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-031",
+  "description": "Tier-1 escape of water claim, Commercial Property UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-265655",
+    "legacy_claim_id": "UK2026265655",
+    "policy_no": "POL6099279",
+    "product_code": "PRD-COM-UK",
+    "claim_type": "CT-EOW",
+    "loss_date": "2026-10-19",
+    "notified_at": "2026-10-19T08:03",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "2698",
+    "estimated_incurred_gbp": "2698.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 55,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

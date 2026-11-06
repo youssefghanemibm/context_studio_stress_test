@@ -1,0 +1,8 @@
+# Expected control-report totals for CLRST040 over the fixtures in ../db2/
+CLR.T_PAYMENT ROWS READ                          14
+CLR.T_SETTLEMENT ROWS WRITTEN                    14
+CLR.T_RESERVE ROWS WRITTEN                        8
+CLR.T_RESERVE_MOVEMENT ROWS WRITTEN              14
+CLR.T_CLAIM ROWS WRITTEN                         11
+REJECTS                                           0
+RETURN CODE 0

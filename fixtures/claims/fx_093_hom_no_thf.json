@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-093",
+  "description": "Tier-1 theft claim, Hjem Norge",
+  "claim": {
+    "claim_id": "CLM-NO-2026-202413",
+    "legacy_claim_id": "NO2026202413",
+    "policy_no": "POL3572391",
+    "product_code": "PRD-HOM-NO",
+    "claim_type": "CT-THF",
+    "loss_date": "2026-10-13",
+    "notified_at": "2026-10-13T14:38",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "NO",
+    "currency": "NOK"
+  },
+  "triage_input": {
+    "estimated_incurred": "53040",
+    "estimated_incurred_gbp": "4080.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 34,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

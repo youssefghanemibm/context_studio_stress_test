@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-060",
+  "description": "Tier-1 vandalism / malicious damage claim, Motor Private UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-270517",
+    "legacy_claim_id": "UK2026270517",
+    "policy_no": "POL2987997",
+    "product_code": "PRD-MOT-UK",
+    "claim_type": "CT-VAN",
+    "loss_date": "2026-10-01",
+    "notified_at": "2026-10-04T20:06",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "4318",
+    "estimated_incurred_gbp": "4318.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 33,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

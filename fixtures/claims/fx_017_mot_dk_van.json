@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-017",
+  "description": "Tier-1 vandalism / malicious damage claim, Motor Privat Danmark",
+  "claim": {
+    "claim_id": "CLM-DK-2026-255467",
+    "legacy_claim_id": "DK2026255467",
+    "policy_no": "POL6784450",
+    "product_code": "PRD-MOT-DK",
+    "claim_type": "CT-VAN",
+    "loss_date": "2026-10-04",
+    "notified_at": "2026-10-04T10:27",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "DK",
+    "currency": "DKK"
+  },
+  "triage_input": {
+    "estimated_incurred": "35914",
+    "estimated_incurred_gbp": "4176.05",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 30,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

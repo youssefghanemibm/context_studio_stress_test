@@ -1,0 +1,7 @@
+# Expected control-report totals for CLRRC050 over the fixtures in ../db2/
+CLR.T_SUBROGATION_CASE ROWS READ                  9
+CLR.T_RECOVERY ROWS WRITTEN                       4
+CLR.T_RESERVE ROWS WRITTEN                        6
+CLR.T_RESERVE_MOVEMENT ROWS WRITTEN              13
+REJECTS                                           0
+RETURN CODE 0

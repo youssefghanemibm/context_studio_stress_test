@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-058",
+  "description": "Tier-3 collision claim, Motor Privat Norge",
+  "claim": {
+    "claim_id": "CLM-NO-2026-192901",
+    "legacy_claim_id": "NO2026192901",
+    "policy_no": "POL3636204",
+    "product_code": "PRD-MOT-NO",
+    "claim_type": "CT-COL",
+    "loss_date": "2026-10-12",
+    "notified_at": "2026-10-13T07:05",
+    "status": "OPEN",
+    "tier": 3,
+    "region": "NO",
+    "currency": "NOK"
+  },
+  "triage_input": {
+    "estimated_incurred": "2196441",
+    "estimated_incurred_gbp": "168957.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 27,
+  "expected": {
+    "tier": 3,
+    "threshold_applied": 60,
+    "fraud_referral": false
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-078",
+  "description": "Tier-1 windscreen claim, Motor Privat Norge",
+  "claim": {
+    "claim_id": "CLM-NO-2026-124878",
+    "legacy_claim_id": "NO2026124878",
+    "policy_no": "POL6369567",
+    "product_code": "PRD-MOT-NO",
+    "claim_type": "CT-WSC",
+    "loss_date": "2026-10-13",
+    "notified_at": "2026-10-16T14:28",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "NO",
+    "currency": "NOK"
+  },
+  "triage_input": {
+    "estimated_incurred": "5837",
+    "estimated_incurred_gbp": "449.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 53,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-018",
+  "description": "Tier-2 theft claim, Motor Privat Norge",
+  "claim": {
+    "claim_id": "CLM-NO-2026-212231",
+    "legacy_claim_id": "NO2026212231",
+    "policy_no": "POL4400418",
+    "product_code": "PRD-MOT-NO",
+    "claim_type": "CT-THF",
+    "loss_date": "2026-10-17",
+    "notified_at": "2026-10-17T08:27",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "NO",
+    "currency": "NOK"
+  },
+  "triage_input": {
+    "estimated_incurred": "489437",
+    "estimated_incurred_gbp": "37649.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 29,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-073",
+  "description": "Tier-1 fire claim, Hjem Norge",
+  "claim": {
+    "claim_id": "CLM-NO-2026-185920",
+    "legacy_claim_id": "NO2026185920",
+    "policy_no": "POL1531753",
+    "product_code": "PRD-HOM-NO",
+    "claim_type": "CT-FIR",
+    "loss_date": "2026-10-23",
+    "notified_at": "2026-10-24T20:47",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "NO",
+    "currency": "NOK"
+  },
+  "triage_input": {
+    "estimated_incurred": "61529",
+    "estimated_incurred_gbp": "4733.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 41,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

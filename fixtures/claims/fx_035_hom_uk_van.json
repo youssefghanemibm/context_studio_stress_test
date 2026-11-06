@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-035",
+  "description": "Tier-2 vandalism / malicious damage claim, Home Buildings & Contents UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-143310",
+    "legacy_claim_id": "UK2026143310",
+    "policy_no": "POL9251413",
+    "product_code": "PRD-HOM-UK",
+    "claim_type": "CT-VAN",
+    "loss_date": "2026-10-22",
+    "notified_at": "2026-10-22T11:26",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "7523",
+    "estimated_incurred_gbp": "7523.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 79,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": true
+  }
+}

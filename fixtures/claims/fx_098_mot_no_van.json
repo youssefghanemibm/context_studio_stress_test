@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-098",
+  "description": "Tier-1 vandalism / malicious damage claim, Motor Privat Norge",
+  "claim": {
+    "claim_id": "CLM-NO-2026-163625",
+    "legacy_claim_id": "NO2026163625",
+    "policy_no": "POL6909865",
+    "product_code": "PRD-MOT-NO",
+    "claim_type": "CT-VAN",
+    "loss_date": "2026-10-15",
+    "notified_at": "2026-10-18T11:27",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "NO",
+    "currency": "NOK"
+  },
+  "triage_input": {
+    "estimated_incurred": "60411",
+    "estimated_incurred_gbp": "4647.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 72,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": true
+  }
+}

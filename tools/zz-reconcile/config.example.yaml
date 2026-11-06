@@ -1,0 +1,20 @@
+# Copy to config.yaml and fill in per environment. Never commit real connection strings.
+clara:
+  source: db2-unload            # or: read-replica
+  unload_dir: /data/clara/unload
+hub:
+  dsn_env: CHUB_RESERVE_DSN     # environment variable holding the reserve database DSN
+target:
+  dsn_env: RECON_DSN
+  table_env: RECON_TARGET_TABLE
+tolerance:
+  per_claim: null               # set from the agreed migration reconciliation standard
+  portfolio: null
+products:
+  - PRD-HOM-UK
+  - PRD-COM-UK
+  - PRD-LIA-UK
+  - PRD-MOT-NO
+  - PRD-HOM-NO
+  - PRD-MOT-SE
+  - PRD-HOM-SE

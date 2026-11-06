@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-010",
+  "description": "Tier-2 windscreen claim, Motor Private UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-108485",
+    "legacy_claim_id": "UK2026108485",
+    "policy_no": "POL4148733",
+    "product_code": "PRD-MOT-UK",
+    "claim_type": "CT-WSC",
+    "loss_date": "2026-10-01",
+    "notified_at": "2026-10-02T14:58",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "16583",
+    "estimated_incurred_gbp": "16583.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 82,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": true
+  }
+}

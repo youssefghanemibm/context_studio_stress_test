@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-072",
+  "description": "Tier-2 escape of water claim, Hjem Danmark",
+  "claim": {
+    "claim_id": "CLM-DK-2026-101980",
+    "legacy_claim_id": "DK2026101980",
+    "policy_no": "POL5093213",
+    "product_code": "PRD-HOM-DK",
+    "claim_type": "CT-EOW",
+    "loss_date": "2026-10-18",
+    "notified_at": "2026-10-20T12:41",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "DK",
+    "currency": "DKK"
+  },
+  "triage_input": {
+    "estimated_incurred": "78011",
+    "estimated_incurred_gbp": "9071.05",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 24,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

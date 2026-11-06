@@ -1,0 +1,12 @@
+[project]
+name = "zz-reconcile"
+version = "0.4.0"
+description = "Wave 2 reserve reconciliation between CLARA and Claims Hub"
+requires-python = ">=3.11"
+dependencies = ["pyyaml>=6", "psycopg[binary]>=3.1"]
+
+[project.scripts]
+zz-reconcile = "zz_reconcile.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

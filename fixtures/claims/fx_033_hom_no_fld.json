@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-033",
+  "description": "Tier-2 flood claim, Hjem Norge",
+  "claim": {
+    "claim_id": "CLM-NO-2026-164736",
+    "legacy_claim_id": "NO2026164736",
+    "policy_no": "POL4874511",
+    "product_code": "PRD-HOM-NO",
+    "claim_type": "CT-FLD",
+    "loss_date": "2026-10-21",
+    "notified_at": "2026-10-24T08:00",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "NO",
+    "currency": "NOK"
+  },
+  "triage_input": {
+    "estimated_incurred": "482612",
+    "estimated_incurred_gbp": "37124.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 15,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

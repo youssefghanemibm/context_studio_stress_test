@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-079",
+  "description": "Tier-2 vandalism / malicious damage claim, Motor Privat Sverige",
+  "claim": {
+    "claim_id": "CLM-SE-2026-165502",
+    "legacy_claim_id": "SE2026165502",
+    "policy_no": "POL3506666",
+    "product_code": "PRD-MOT-SE",
+    "claim_type": "CT-VAN",
+    "loss_date": "2026-10-12",
+    "notified_at": "2026-10-16T09:43",
+    "status": "OPEN",
+    "tier": 2,
+    "region": "SE",
+    "currency": "SEK"
+  },
+  "triage_input": {
+    "estimated_incurred": "508110",
+    "estimated_incurred_gbp": "37361.03",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 8,
+  "expected": {
+    "tier": 2,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

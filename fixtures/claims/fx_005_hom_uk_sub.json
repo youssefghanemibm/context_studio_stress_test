@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-005",
+  "description": "Tier-1 subsidence claim, Home Buildings & Contents UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-294081",
+    "legacy_claim_id": "UK2026294081",
+    "policy_no": "POL8598450",
+    "product_code": "PRD-HOM-UK",
+    "claim_type": "CT-SUB",
+    "loss_date": "2026-10-25",
+    "notified_at": "2026-10-27T12:03",
+    "status": "OPEN",
+    "tier": 1,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "412",
+    "estimated_incurred_gbp": "412.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 53,
+  "expected": {
+    "tier": 1,
+    "threshold_applied": 65,
+    "fraud_referral": false
+  }
+}

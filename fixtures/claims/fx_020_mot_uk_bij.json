@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-020",
+  "description": "Tier-3 bodily injury claim, Motor Private UK",
+  "claim": {
+    "claim_id": "CLM-UK-2026-174210",
+    "legacy_claim_id": "UK2026174210",
+    "policy_no": "POL9593150",
+    "product_code": "PRD-MOT-UK",
+    "claim_type": "CT-BIJ",
+    "loss_date": "2026-10-17",
+    "notified_at": "2026-10-17T09:15",
+    "status": "OPEN",
+    "tier": 3,
+    "region": "UK",
+    "currency": "GBP"
+  },
+  "triage_input": {
+    "estimated_incurred": "287501",
+    "estimated_incurred_gbp": "287501.00",
+    "bodily_injury": true,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": true
+  },
+  "sentinel_score": 39,
+  "expected": {
+    "tier": 3,
+    "threshold_applied": 60,
+    "fraud_referral": false
+  }
+}

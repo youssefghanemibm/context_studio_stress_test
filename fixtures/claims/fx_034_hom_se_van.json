@@ -1,0 +1,31 @@
+{
+  "fixture_id": "fx-034",
+  "description": "Tier-3 vandalism / malicious damage claim, Hem Sverige",
+  "claim": {
+    "claim_id": "CLM-SE-2026-172067",
+    "legacy_claim_id": "SE2026172067",
+    "policy_no": "POL1429144",
+    "product_code": "PRD-HOM-SE",
+    "claim_type": "CT-VAN",
+    "loss_date": "2026-10-05",
+    "notified_at": "2026-10-08T14:33",
+    "status": "OPEN",
+    "tier": 3,
+    "region": "SE",
+    "currency": "SEK"
+  },
+  "triage_input": {
+    "estimated_incurred": "3899868",
+    "estimated_incurred_gbp": "286755.00",
+    "bodily_injury": false,
+    "litigation_at_notification": false,
+    "property_total_loss": false,
+    "third_party_involved": false
+  },
+  "sentinel_score": 12,
+  "expected": {
+    "tier": 3,
+    "threshold_applied": 60,
+    "fraud_referral": false
+  }
+}
