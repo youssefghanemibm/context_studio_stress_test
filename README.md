@@ -36,7 +36,7 @@ follow `<domain>.<event>.v<n>` (ADR-002). Each service owns its PostgreSQL datab
 
 ## Building
 
-Run `make build` from the repository root. Java 21 and
+Run `make build SERVICE=<name>` to build one service, or `make build` for all of them. Java 21 and
 Maven 3.9 are required; `make help` lists the other targets.
 
 ## Documentation
