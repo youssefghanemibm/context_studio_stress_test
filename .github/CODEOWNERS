@@ -11,14 +11,14 @@
 /services/assessment-svc/        @corvane/hub-squad-intake-triage
 /services/claim-core-svc/        @corvane/hub-squad-intake-triage
 /services/notification-svc/      @corvane/hub-squad-intake-triage
-/services/document-svc/          @corvane/hub-squad-intake-triage
+/services/document-svc/          @corvane/hub-squad-recoveries-docs
 /services/reserve-engine/        @corvane/hub-squad-reserve-finance
 /services/gl-posting-svc/        @corvane/hub-squad-reserve-finance
 /services/reporting-feed-svc/    @corvane/hub-squad-reserve-finance
 /services/fraud-referral-svc/    @corvane/hub-squad-fraud-settlement
 /services/settlement-svc/        @corvane/hub-squad-fraud-settlement
 /services/payment-orchestrator/  @corvane/hub-squad-fraud-settlement
-/services/recovery-svc/          @corvane/hub-squad-fraud-settlement
+/services/recovery-svc/          @corvane/hub-squad-recoveries-docs
 
 # Platform: infrastructure and deployment
 /infra/                          @corvane/tech-delivery

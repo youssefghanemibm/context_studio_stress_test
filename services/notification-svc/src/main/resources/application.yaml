@@ -34,6 +34,7 @@ chub:
       - fraud.referral.notice-due.v1
     produces:
       - notification.sent.v1
+      - notification.fraud-notice.sent.v1
   postgres-tables:
     - notification.message
 
@@ -47,3 +48,5 @@ notify:
 notice:
   business-days: 10
   holiday-calendars: [UK, NO, SE, DK]
+  # CHUB-421: event published once a fraud-referral notice has been sent
+  sent-event-topic: notification.fraud-notice.sent.v1
