@@ -1,0 +1,1208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Corvane Mutual - Claims process definition v3.0 - approved -->
+<processDefinition xmlns="urn:corvane:skerry:process:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="CLAIMS-E2E" version="3.0" effectiveFrom="2026-07-01">
+  <documentControl>
+    <documentId>SKR-BPM-PRC-040</documentId>
+    <title>Claims Process Definition (XML)</title>
+    <version>1.0</version>
+    <status>approved</status>
+    <date>2026-07-13</date>
+    <classification>Internal</classification>
+    <owner personId="P011">
+      <name>Rob Tennant</name>
+      <title>Head of Claims Operations (Group)</title>
+    </owner>
+    <reviewers>
+      <reviewer personId="P017" title="Head of Claims Hub Product">Aisha Siddiqui</reviewer>
+      <reviewer personId="P054" title="Business Analyst – Claims">Hannah Lyle</reviewer>
+      <reviewer personId="P008" title="Head of Counter-Fraud &amp; SIU">Niall Brannigan</reviewer>
+      <reviewer personId="P009" title="Head of Reserving">Lena Kristiansen</reviewer>
+      <reviewer personId="P013" title="Head of Recoveries &amp; Subrogation">Freya Lindahl</reviewer>
+    </reviewers>
+    <approvers>
+      <approver personId="P005" title="Claims Director" date="2026-07-13">Ingrid Ashby</approver>
+    </approvers>
+    <changeHistory>
+      <revision version="0.1" date="2026-04-11" author="Rob Tennant">Initial draft for review</revision>
+      <revision version="0.2" date="2026-06-02" author="Rob Tennant">Minor corrections</revision>
+      <revision version="0.3" date="2026-06-04" author="Rob Tennant">Clarified ownership fields</revision>
+      <revision version="0.4" date="2026-06-11" author="Rob Tennant">Updated references</revision>
+      <revision version="0.5" date="2026-06-16" author="Rob Tennant">Aligned names with the system catalogue</revision>
+      <revision version="1.0" date="2026-07-13" author="Rob Tennant">Approved</revision>
+    </changeHistory>
+  </documentControl>
+  <name>Claims handling end to end (FNOL to Recovery)</name>
+  <purpose>Defines the stages, steps, decisions, service levels and RACI of the Corvane claims process, and maps each step to the CLARA programs and Claims Hub services that support it. Superseded versions are retained in the document library for audit purposes.</purpose>
+  <stages>
+    <stage id="S1" code="FNOL" order="1">
+      <name>First Notice of Loss</name>
+      <owner personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</owner>
+      <systems>
+        <system id="SYS12">Harbour CRM</system>
+        <system id="SYS04">MyCorvane Claims</system>
+        <system id="SYS13">Evidence Intake Gateway</system>
+        <system id="SYS01">CLARA</system>
+        <system id="SYS02">Claims Hub</system>
+      </systems>
+      <steps>
+        <step id="PS-FNOL-01" order="1">
+          <name>Receive notification</name>
+          <description>Notification received by telephone, portal, app, broker or telematics alert.</description>
+          <sla value="0" unit="minutes">captured during the call or on submission</sla>
+          <raci>
+            <responsible team="T10">Contact Centre</responsible>
+            <accountable personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</accountable>
+            <consulted team="T27">Hub Squad – Intake &amp; Triage</consulted>
+            <informed team="T02">Claims Operations (Group)</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-FNOL-02"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRFN010">FNOL capture – main entry for telephone and portal hand-off</program>
+            <program id="CLRFN040">Overnight portal FNOL import (MyCorvane Claims, CLX-IF-001 backlog)</program>
+            <program id="CLRFN110">Broker FNOL bulk entry</program>
+            <program id="CLRFN130">Nordic FNOL entry (Norwegian, Swedish and Danish fields)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>fnol-intake-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS12">Harbour CRM</system>
+            <system id="SYS04">MyCorvane Claims</system>
+            <system id="SYS13">Evidence Intake Gateway</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-FNOL-002" version="1">Mandatory FNOL data set</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-FNOL-02" order="2">
+          <name>Validate policy and cover</name>
+          <description>Check the policy snapshot from PALM and the cover dates.</description>
+          <sla value="60" unit="minutes">within 1 hour of notification</sla>
+          <raci>
+            <responsible team="T10">Contact Centre</responsible>
+            <accountable personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</accountable>
+            <informed team="T02">Claims Operations (Group)</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-FNOL-03"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRFN015">FNOL policy lookup against PALM snapshot and Vehicle Data Service</program>
+          </claraPrograms>
+          <hubServices>
+            <service>claim-core-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS08">PALM</system>
+            <system id="SYS01">CLARA</system>
+          </systems>
+        </step>
+        <step id="PS-FNOL-03" order="3">
+          <name>Create claim and default reserve</name>
+          <description>Create the claim number and the FNOL default reserve.</description>
+          <sla value="15" unit="minutes">within 15 minutes of notification</sla>
+          <raci>
+            <responsible team="T10">Contact Centre</responsible>
+            <responsible team="T27">Hub Squad – Intake &amp; Triage</responsible>
+            <accountable personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</accountable>
+            <consulted team="T12">Reserving</consulted>
+          </raci>
+          <next>
+            <stepRef ref="PS-FNOL-04"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRFN030">Create claim record and default reserve (BR-FNOL-005)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>fnol-intake-svc</service>
+            <service>reserve-engine</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-FNOL-005" version="2">Default reserve at FNOL by claim type</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-FNOL-04" order="4">
+          <name>Duplicate and late-notification checks</name>
+          <description>Check for duplicates (±3 days) and late notification (&gt; 30 days).</description>
+          <sla value="1" unit="business_days">same business day</sla>
+          <raci>
+            <responsible team="T02">Claims Operations (Group)</responsible>
+            <accountable personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</accountable>
+          </raci>
+          <next>
+            <stepRef ref="PS-FNOL-05"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRFN060">Duplicate claim check (same policy, date of loss ±3 days)</program>
+            <program id="CLRFN080">Late notification report (&gt; 30 days after loss)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>fnol-intake-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-FNOL-003" version="1">Late notification review</ruleRef>
+            <ruleRef ref="BR-FNOL-004" version="1">Duplicate claim check</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-FNOL-05" order="5">
+          <name>Acknowledge customer</name>
+          <description>Send the acknowledgement via Notify.</description>
+          <sla value="1" unit="business_days">1 business day digital, 2 business days other channels (BR-FNOL-001 v3)</sla>
+          <raci>
+            <responsible team="T10">Contact Centre</responsible>
+            <accountable personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</accountable>
+            <informed team="T18">Compliance</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-TRI-01"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRFN070">FNOL acknowledgement extract to Notify (CLX-IF-006)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>notification-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS25">Notify</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-FNOL-001" version="3">FNOL acknowledgement SLA</ruleRef>
+          </rules>
+        </step>
+      </steps>
+    </stage>
+    <stage id="S2" code="TRIAGE" order="2">
+      <name>Triage</name>
+      <owner personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</owner>
+      <systems>
+        <system id="SYS01">CLARA</system>
+        <system id="SYS02">Claims Hub</system>
+        <system id="SYS03">Sentinel</system>
+      </systems>
+      <steps>
+        <step id="PS-TRI-01" order="6">
+          <name>Sentinel pre-screen</name>
+          <description>Score the claim with Sentinel.</description>
+          <sla value="15" unit="minutes">within 15 minutes of FNOL</sla>
+          <raci>
+            <responsible team="T27">Hub Squad – Intake &amp; Triage</responsible>
+            <accountable personId="P008" title="Head of Counter-Fraud &amp; SIU">Niall Brannigan</accountable>
+            <consulted team="T11">Counter-Fraud &amp; SIU</consulted>
+          </raci>
+          <next>
+            <stepRef ref="PS-TRI-02"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRFR020">Sentinel score request (online, CLX-IF-008)</program>
+            <program id="CLRTR040">Fraud pre-screen request to Sentinel (batch)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>triage-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS03">Sentinel</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-TRI-007" version="1">Sentinel pre-screen at triage</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-TRI-02" order="7">
+          <name>Tier classification</name>
+          <description>Classify the claim as Tier-1, Tier-2 or Tier-3.</description>
+          <sla value="4" unit="hours">within 4 hours of FNOL</sla>
+          <raci>
+            <responsible team="T02">Claims Operations (Group)</responsible>
+            <accountable personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</accountable>
+            <informed team="T09">Major &amp; Complex Loss</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-TRI-03"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRTR020">Tier classification batch – re-tier on estimate change (BR-TRI-003)</program>
+            <program id="CLRTR030">Tier override with reason</program>
+          </claraPrograms>
+          <hubServices>
+            <service>triage-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-TRI-003" version="3">Claim tier classification (Tier-1 / Tier-2 / Tier-3)</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-TRI-03" order="8">
+          <name>Route claim</name>
+          <description>Route by tier and fraud score.</description>
+          <sla value="4" unit="hours">within 4 hours of FNOL</sla>
+          <raci>
+            <responsible team="T02">Claims Operations (Group)</responsible>
+            <accountable personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</accountable>
+            <consulted team="T11">Counter-Fraud &amp; SIU</consulted>
+          </raci>
+          <decision>
+            <question>Which route?</question>
+            <branch condition="sentinel_score &gt;= referral threshold (see PS-FRD-01)" next="PS-FRD-01" rule="BR-FRD-031"/>
+            <branch condition="tier == 'Tier-1' and sentinel_score &lt; 30 and not bodily_injury" next="PS-STL-05" rule="BR-TRI-006"/>
+            <branch condition="tier == 'Tier-3'" next="PS-TRI-04" rule="BR-TRI-004"/>
+            <branch condition="otherwise" next="PS-ASM-01" rule="BR-TRI-004"/>
+          </decision>
+          <next>
+            <stepRef ref="PS-STL-05"/>
+            <stepRef ref="PS-TRI-04"/>
+            <stepRef ref="PS-FRD-01"/>
+            <stepRef ref="PS-ASM-01"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRTR050">Routing to team queue</program>
+            <program id="CLRTR060">Fast-track eligibility sweep (BR-TRI-006)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>triage-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-TRI-004" version="1">Routing by tier</ruleRef>
+            <ruleRef ref="BR-TRI-006" version="3">Fast-track eligibility and cap</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-TRI-04" order="9">
+          <name>Major loss alert</name>
+          <description>Alert Major &amp; Complex Loss for Tier-3 claims.</description>
+          <sla value="4" unit="hours">within 4 hours of tiering</sla>
+          <raci>
+            <responsible team="T02">Claims Operations (Group)</responsible>
+            <accountable personId="P030" title="Major &amp; Complex Loss Manager">Kirsty Mowbray</accountable>
+            <informed team="T17">Reinsurance</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-ASM-01"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRTR090">Major loss alert for Tier-3 claims</program>
+          </claraPrograms>
+          <hubServices>
+            <service>triage-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-TRI-004" version="1">Routing by tier</ruleRef>
+          </rules>
+        </step>
+      </steps>
+    </stage>
+    <stage id="S3" code="ASSESSMENT" order="3">
+      <name>Assessment</name>
+      <owner personId="P033" title="Head of Claims Assessment (UK)">Imran Talwar</owner>
+      <systems>
+        <system id="SYS01">CLARA</system>
+        <system id="SYS02">Claims Hub</system>
+        <system id="SYS17">Assessor Portal</system>
+      </systems>
+      <steps>
+        <step id="PS-ASM-01" order="10">
+          <name>Appoint Claims Assessor</name>
+          <description>Appoint an internal or panel Claims Assessor.</description>
+          <sla value="2" unit="business_days">within 2 business days of triage</sla>
+          <raci>
+            <responsible team="T06">Claims Assessment UK</responsible>
+            <responsible team="T07">Claims Assessment Nordics</responsible>
+            <accountable personId="P033" title="Head of Claims Assessment (UK)">Imran Talwar</accountable>
+            <informed team="T02">Claims Operations (Group)</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-ASM-02"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRAS020">Claims Assessor appointment (internal or vendor)</program>
+            <program id="CLRAS030">Assessor Portal instruction export (CLX-IF-013)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>assessment-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS17">Assessor Portal</system>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-ASM-002" version="1">External Claims Assessor appointment</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-ASM-02" order="11">
+          <name>Inspect or desk-assess</name>
+          <description>Site inspection, video or desk assessment.</description>
+          <sla value="5" unit="business_days">5 business days; Tier-3 within 48 hours (BR-ASM-005 v3)</sla>
+          <raci>
+            <responsible team="T06">Claims Assessment UK</responsible>
+            <responsible team="T07">Claims Assessment Nordics</responsible>
+            <accountable personId="P033" title="Head of Claims Assessment (UK)">Imran Talwar</accountable>
+          </raci>
+          <next>
+            <stepRef ref="PS-ASM-03"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRAS050">Inspection booking</program>
+            <program id="CLRAS090">Desk assessment queue builder (BR-ASM-008)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>assessment-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS17">Assessor Portal</system>
+            <system id="SYS13">Evidence Intake Gateway</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-ASM-005" version="3">Inspection SLA</ruleRef>
+            <ruleRef ref="BR-ASM-008" version="1">Desk assessment for low-value motor claims</ruleRef>
+            <ruleRef ref="BR-ASM-012" version="1">Subsidence structural engineer referral</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-ASM-03" order="12">
+          <name>Coverage decision</name>
+          <description>Decide cover based on the assessor report.</description>
+          <sla value="3" unit="business_days">within 3 business days of the assessor report</sla>
+          <raci>
+            <responsible team="T02">Claims Operations (Group)</responsible>
+            <accountable personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</accountable>
+            <consulted team="T06">Claims Assessment UK</consulted>
+          </raci>
+          <next>
+            <stepRef ref="PS-ASM-04"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRAS080">Coverage decision</program>
+          </claraPrograms>
+          <hubServices>
+            <service>assessment-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-ASM-011" version="1">Gradual-leak evidence threshold</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-ASM-04" order="13">
+          <name>Estimate and recovery potential</name>
+          <description>Record the estimate and flag recovery potential.</description>
+          <sla value="2" unit="business_days">with the coverage decision</sla>
+          <raci>
+            <responsible team="T06">Claims Assessment UK</responsible>
+            <accountable personId="P033" title="Head of Claims Assessment (UK)">Imran Talwar</accountable>
+            <consulted team="T08">Recoveries &amp; Subrogation (Group)</consulted>
+          </raci>
+          <decision>
+            <question>Third party at fault?</question>
+            <branch condition="third_party_at_fault in ('wholly', 'partly')" next="PS-REC-01" rule="BR-REC-001"/>
+            <branch condition="always" next="PS-RSV-01" rule="BR-RSV-001"/>
+          </decision>
+          <next>
+            <stepRef ref="PS-RSV-01"/>
+            <stepRef ref="PS-REC-01"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRAS060">Estimate entry and validation</program>
+            <program id="CLRRC010">Recovery potential assessment</program>
+          </claraPrograms>
+          <hubServices>
+            <service>assessment-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-REC-001" version="1">Recovery potential identification</ruleRef>
+          </rules>
+        </step>
+      </steps>
+    </stage>
+    <stage id="S4" code="RESERVING" order="4">
+      <name>Reserving</name>
+      <owner personId="P009" title="Head of Reserving">Lena Kristiansen</owner>
+      <systems>
+        <system id="SYS01">CLARA</system>
+        <system id="SYS02">Claims Hub</system>
+        <system id="SYS07">ReCede</system>
+      </systems>
+      <steps>
+        <step id="PS-RSV-01" order="14">
+          <name>Set initial reserve</name>
+          <description>Replace the default reserve with a claim-specific reserve.</description>
+          <sla value="2" unit="business_days">within 2 business days of FNOL</sla>
+          <raci>
+            <responsible team="T02">Claims Operations (Group)</responsible>
+            <accountable personId="P009" title="Head of Reserving">Lena Kristiansen</accountable>
+            <consulted team="T06">Claims Assessment UK</consulted>
+          </raci>
+          <next>
+            <stepRef ref="PS-RSV-02"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRRS010">Initial reserve set</program>
+          </claraPrograms>
+          <hubServices>
+            <service>reserve-engine</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-RSV-001" version="1">Initial reserve timing</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-RSV-02" order="15">
+          <name>Authority check and approval</name>
+          <description>Check reserve authority; escalate above limit.</description>
+          <sla value="1" unit="business_days">same business day</sla>
+          <raci>
+            <responsible team="T02">Claims Operations (Group)</responsible>
+            <accountable personId="P009" title="Head of Reserving">Lena Kristiansen</accountable>
+            <consulted team="T12">Reserving</consulted>
+          </raci>
+          <decision>
+            <question>Above authority?</question>
+            <branch condition="amount &gt; holder authority (BR-RSV-003 v3)" next="PS-RSV-02" rule="BR-RSV-003">escalate to the next level</branch>
+            <branch condition="movement_gbp &gt; 250000" next="PS-RSV-04" rule="BR-RSV-011"/>
+            <branch condition="otherwise" next="PS-RSV-03" rule="BR-RSV-003"/>
+          </decision>
+          <next>
+            <stepRef ref="PS-RSV-03"/>
+            <stepRef ref="PS-RSV-04"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRRS015">Reserve authority check (BR-RSV-003) – called subprogram</program>
+            <program id="CLRRS040">Reserve approval queue (above authority)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>reserve-engine</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-RSV-003" version="3">Reserve authority limits</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-RSV-03" order="16">
+          <name>Periodic reserve review</name>
+          <description>Review reserves; Tier-3 every 14 days from 2026-07-01.</description>
+          <sla value="14" unit="days">Tier-3 every 14 days (BR-RSV-007 v3)</sla>
+          <raci>
+            <responsible team="T02">Claims Operations (Group)</responsible>
+            <responsible team="T09">Major &amp; Complex Loss</responsible>
+            <accountable personId="P009" title="Head of Reserving">Lena Kristiansen</accountable>
+            <consulted team="T12">Reserving</consulted>
+            <informed team="T17">Reinsurance</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-STL-01"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRRS110">Tier-3 reserve review scheduler and revaluation (BR-RSV-007)</program>
+            <program id="CLRRS120">Reserve review overdue report</program>
+            <program id="CLRRS130">Monthly reserve indexation for bodily-injury claims (BR-RSV-009)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>reserve-engine</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-RSV-007" version="3">Tier-3 reserve review cadence</ruleRef>
+            <ruleRef ref="BR-RSV-009" version="3">Reserve indexation for bodily-injury claims</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-RSV-04" order="17">
+          <name>Large loss notification</name>
+          <description>Notify Reinsurance of movements above the LLNT.</description>
+          <sla value="24" unit="hours">within 24 hours (BR-RSV-011 v2)</sla>
+          <raci>
+            <responsible team="T09">Major &amp; Complex Loss</responsible>
+            <accountable personId="P038" title="Reinsurance Manager">Per Øverland</accountable>
+            <consulted team="T12">Reserving</consulted>
+            <informed team="T14">Financial Control</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-RSV-03"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRRS160">Large loss notification extract to ReCede (CLX-IF-031, BR-RSV-011)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>reserve-engine</service>
+          </hubServices>
+          <systems>
+            <system id="SYS07">ReCede</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-RSV-011" version="2">Large loss notification to Reinsurance</ruleRef>
+          </rules>
+        </step>
+      </steps>
+    </stage>
+    <stage id="S5" code="FRAUD" order="5">
+      <name>Fraud Referral</name>
+      <owner personId="P008" title="Head of Counter-Fraud &amp; SIU">Niall Brannigan</owner>
+      <systems>
+        <system id="SYS03">Sentinel</system>
+        <system id="SYS01">CLARA</system>
+        <system id="SYS02">Claims Hub</system>
+        <system id="SYS22">SIU Case Manager</system>
+        <system id="SYS25">Notify</system>
+      </systems>
+      <steps>
+        <step id="PS-FRD-01" order="18">
+          <name>Referral decision</name>
+          <description>Decide whether to refer the claim to SIU.</description>
+          <sla value="1" unit="business_days">same business day as scoring</sla>
+          <raci>
+            <responsible team="T11">Counter-Fraud &amp; SIU</responsible>
+            <accountable personId="P008" title="Head of Counter-Fraud &amp; SIU">Niall Brannigan</accountable>
+            <consulted team="T02">Claims Operations (Group)</consulted>
+            <informed team="T18">Compliance</informed>
+          </raci>
+          <decision>
+            <question>Refer to SIU?</question>
+            <branch condition="sentinel_score &gt;= 65" next="PS-FRD-02" rule="BR-FRD-031@v1"/>
+            <branch condition="otherwise" next="PS-ASM-01" rule="BR-FRD-031@v1"/>
+          </decision>
+          <next>
+            <stepRef ref="PS-FRD-02"/>
+            <stepRef ref="PS-ASM-01"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRFR030">Fraud referral creation – online (threshold read from CLR.T_PARAM)</program>
+            <program id="CLRFR040">Fraud referral batch sweep (nightly)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>fraud-referral-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS03">Sentinel</system>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-FRD-031" version="1">Fraud referral threshold (NISA Circular 2026/04)</ruleRef>
+            <ruleRef ref="BR-FRD-005" version="3">Linked-claims indicator</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-FRD-02" order="19">
+          <name>Refer to SIU</name>
+          <description>Create the referral and the SIU case.</description>
+          <sla value="1" unit="business_days">same business day</sla>
+          <raci>
+            <responsible team="T11">Counter-Fraud &amp; SIU</responsible>
+            <accountable personId="P008" title="Head of Counter-Fraud &amp; SIU">Niall Brannigan</accountable>
+            <informed team="T02">Claims Operations (Group)</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-FRD-03"/>
+            <stepRef ref="PS-FRD-04"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRFR030">Fraud referral creation – online (threshold read from CLR.T_PARAM)</program>
+            <program id="CLRFR070">SIU Case Manager export (CLX-IF-011 batch catch-up)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>fraud-referral-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS22">SIU Case Manager</system>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-FRD-031" version="1">Fraud referral threshold (NISA Circular 2026/04)</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-FRD-03" order="20">
+          <name>Notify customer of referral</name>
+          <description>Send the referral notice or record a deferral.</description>
+          <sla value="10" unit="business_days">within 10 business days of referral (BR-FRD-032 v2)</sla>
+          <raci>
+            <responsible team="T02">Claims Operations (Group)</responsible>
+            <responsible team="T11">Counter-Fraud &amp; SIU</responsible>
+            <accountable personId="P008" title="Head of Counter-Fraud &amp; SIU">Niall Brannigan</accountable>
+            <consulted team="T18">Compliance</consulted>
+          </raci>
+          <decision>
+            <question>Tipping-off risk certified?</question>
+            <branch condition="tipping_off_risk_certified" next="PS-FRD-04" rule="BR-FRD-036@v1">defer up to 60 days where SIU certifies a tipping-off risk</branch>
+            <branch condition="otherwise" next="PS-FRD-04" rule="BR-FRD-032">notice within 10 business days</branch>
+          </decision>
+          <next>
+            <stepRef ref="PS-FRD-04"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRFR060">Customer referral notice scheduler (NISA Circular 2026/04)</program>
+            <program id="CLRFR120">Customer-notice deferral approval (tipping-off, BR-FRD-036)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>fraud-referral-svc</service>
+            <service>notification-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS25">Notify</system>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-FRD-032" version="2">Customer notification of fraud referral</ruleRef>
+            <ruleRef ref="BR-FRD-036" version="1">Deferral of customer notice (tipping-off risk)</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-FRD-04" order="21">
+          <name>SIU investigation and outcome</name>
+          <description>Triage and investigate; record NF, CF or WD.</description>
+          <sla value="3" unit="business_days">SIU triage within 3 business days (BR-FRD-035 v2)</sla>
+          <raci>
+            <responsible team="T11">Counter-Fraud &amp; SIU</responsible>
+            <accountable personId="P028" title="SIU Investigations Manager (UK)">Rachel Dunmore</accountable>
+            <consulted team="T18">Compliance</consulted>
+            <informed team="T02">Claims Operations (Group)</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-FRD-05"/>
+            <stepRef ref="PS-STL-01"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRFR050">SIU outcome update</program>
+          </claraPrograms>
+          <hubServices>
+            <service>fraud-referral-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS22">SIU Case Manager</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-FRD-035" version="2">SIU triage of new referrals</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-FRD-05" order="22">
+          <name>Human review of adverse outcome</name>
+          <description>Documented human review before any decline (no auto-decline).</description>
+          <sla value="5" unit="business_days">within 5 business days of SIU outcome</sla>
+          <raci>
+            <responsible team="T11">Counter-Fraud &amp; SIU</responsible>
+            <accountable personId="P008" title="Head of Counter-Fraud &amp; SIU">Niall Brannigan</accountable>
+            <consulted team="T18">Compliance</consulted>
+            <informed team="T02">Claims Operations (Group)</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-STL-01"/>
+          </next>
+          <hubServices>
+            <service>fraud-referral-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS22">SIU Case Manager</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-FRD-033" version="1">No adverse decision on fraud score alone</ruleRef>
+          </rules>
+        </step>
+      </steps>
+    </stage>
+    <stage id="S6" code="SETTLEMENT" order="6">
+      <name>Settlement</name>
+      <owner personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</owner>
+      <systems>
+        <system id="SYS01">CLARA</system>
+        <system id="SYS02">Claims Hub</system>
+        <system id="SYS09">Corvane Payments Gateway</system>
+        <system id="SYS19">WatchScreen</system>
+      </systems>
+      <steps>
+        <step id="PS-STL-01" order="23">
+          <name>Settlement offer</name>
+          <description>Make the settlement offer.</description>
+          <sla value="5" unit="business_days">within 5 business days of the coverage decision</sla>
+          <raci>
+            <responsible team="T02">Claims Operations (Group)</responsible>
+            <accountable personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</accountable>
+          </raci>
+          <next>
+            <stepRef ref="PS-STL-02"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRST010">Settlement offer</program>
+          </claraPrograms>
+          <hubServices>
+            <service>settlement-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-STL-004" version="1">Settlement offer validity</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-STL-02" order="24">
+          <name>Payment authorisation</name>
+          <description>Authorise the payment within authority.</description>
+          <sla value="1" unit="business_days">same business day</sla>
+          <raci>
+            <responsible team="T02">Claims Operations (Group)</responsible>
+            <accountable personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</accountable>
+            <consulted team="T16">Payments Operations</consulted>
+          </raci>
+          <next>
+            <stepRef ref="PS-STL-03"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRST020">Payment request (BR-STL-002 authority)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>payment-orchestrator</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-STL-002" version="3">Payment authority limits</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-STL-03" order="25">
+          <name>Sanctions screening and payment</name>
+          <description>Screen the payee and send the payment.</description>
+          <sla value="1" unit="business_days">next payment run (Mon-Fri 16:30)</sla>
+          <raci>
+            <responsible team="T16">Payments Operations</responsible>
+            <accountable personId="P035" title="Payments Operations Manager">Alun Prothero</accountable>
+            <consulted team="T18">Compliance</consulted>
+            <informed team="T14">Financial Control</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-STL-04"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRST070">Sanctions screening request to WatchScreen (CLX-IF-017)</program>
+            <program id="CLRST030">Payment batch build to CPG (CLX-IF-019)</program>
+            <program id="CLRST140">Nordic payment file NOK/SEK/DKK to CPG (CLX-IF-021)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>payment-orchestrator</service>
+          </hubServices>
+          <systems>
+            <system id="SYS19">WatchScreen</system>
+            <system id="SYS09">Corvane Payments Gateway</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-STL-007" version="1">Sanctions screening before payment</ruleRef>
+            <ruleRef ref="BR-STL-014" version="1">Interest on late payment</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-STL-04" order="26">
+          <name>Close claim and zero reserve</name>
+          <description>Final settlement closes the claim and zeroes the reserve.</description>
+          <sla value="1" unit="business_days">within 1 business day of final payment</sla>
+          <raci>
+            <responsible team="T02">Claims Operations (Group)</responsible>
+            <accountable personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</accountable>
+            <consulted team="T12">Reserving</consulted>
+          </raci>
+          <next>
+            <stepRef ref="PS-REC-01"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRST040">Settlement finalisation and reserve close-down (BR-RSV-014)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>settlement-svc</service>
+            <service>reserve-engine</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-RSV-014" version="1">Reserve close-down at final settlement</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-STL-05" order="27">
+          <name>Fast-track straight-through settlement</name>
+          <description>Straight-through payment for eligible Tier-1 claims.</description>
+          <sla value="1" unit="business_days">next business day</sla>
+          <raci>
+            <responsible team="T02">Claims Operations (Group)</responsible>
+            <accountable personId="P011" title="Head of Claims Operations (Group)">Rob Tennant</accountable>
+            <informed team="T11">Counter-Fraud &amp; SIU</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-STL-04"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRST080">Fast-track straight-through settlement (BR-STL-009)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>settlement-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+            <system id="SYS09">Corvane Payments Gateway</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-TRI-006" version="3">Fast-track eligibility and cap</ruleRef>
+            <ruleRef ref="BR-STL-009" version="1">Straight-through payment for fast-track claims</ruleRef>
+          </rules>
+        </step>
+      </steps>
+    </stage>
+    <stage id="S7" code="RECOVERY" order="7">
+      <name>Recovery &amp; Subrogation</name>
+      <owner personId="P013" title="Head of Recoveries &amp; Subrogation">Freya Lindahl</owner>
+      <systems>
+        <system id="SYS01">CLARA</system>
+        <system id="SYS24">Subrogation Tracker</system>
+        <system id="SYS02">Claims Hub</system>
+      </systems>
+      <steps>
+        <step id="PS-REC-01" order="28">
+          <name>Identify recovery potential</name>
+          <description>Confirm third-party fault and recoverable outlay.</description>
+          <sla value="10" unit="business_days">within 10 business days of the flag</sla>
+          <raci>
+            <responsible team="T08">Recoveries &amp; Subrogation (Group)</responsible>
+            <accountable personId="P013" title="Head of Recoveries &amp; Subrogation">Freya Lindahl</accountable>
+            <consulted team="T06">Claims Assessment UK</consulted>
+          </raci>
+          <next>
+            <stepRef ref="PS-REC-02"/>
+            <stepRef ref="PS-REC-04"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRRC010">Recovery potential assessment</program>
+          </claraPrograms>
+          <hubServices>
+            <service>recovery-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS24">Subrogation Tracker</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-REC-001" version="1">Recovery potential identification</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-REC-02" order="29">
+          <name>Open subrogation case and demand</name>
+          <description>Open the case and send the demand.</description>
+          <sla value="10" unit="business_days">demand within 10 business days</sla>
+          <raci>
+            <responsible team="T08">Recoveries &amp; Subrogation (Group)</responsible>
+            <accountable personId="P013" title="Head of Recoveries &amp; Subrogation">Freya Lindahl</accountable>
+            <informed team="T14">Financial Control</informed>
+          </raci>
+          <decision>
+            <question>Pursue?</question>
+            <branch condition="recoverable_gbp &gt;= 1000" next="PS-REC-05" rule="BR-REC-003@v3"/>
+            <branch condition="recoverable_gbp &gt;= 25000 or liability_defended" next="PS-REC-03" rule="BR-REC-005@v2"/>
+            <branch condition="recoverable_gbp &lt; 1000" next="PS-REC-06" rule="BR-REC-003@v3">not pursued; close or write off</branch>
+          </decision>
+          <next>
+            <stepRef ref="PS-REC-03"/>
+            <stepRef ref="PS-REC-05"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRRC020">Subrogation case open and demand (BR-REC-003)</program>
+            <program id="CLRRC030">Subrogation demand letter extract to Notify (CLX-IF-026)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>recovery-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS24">Subrogation Tracker</system>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-REC-003" version="3">Subrogation pursuit threshold</ruleRef>
+            <ruleRef ref="BR-REC-009" version="1">Limitation diary</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-REC-03" order="30">
+          <name>Solicitor referral</name>
+          <description>Instruct Quarryhill Solicitors.</description>
+          <sla value="5" unit="business_days">within 5 business days of the decision</sla>
+          <raci>
+            <responsible team="T08">Recoveries &amp; Subrogation (Group)</responsible>
+            <accountable personId="P013" title="Head of Recoveries &amp; Subrogation">Freya Lindahl</accountable>
+            <consulted team="T18">Compliance</consulted>
+          </raci>
+          <next>
+            <stepRef ref="PS-REC-05"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRRC060">Solicitor instruction (Quarryhill Solicitors, CLX-IF-025)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>recovery-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS05">Evidence Vault</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-REC-005" version="2">Solicitor referral for recoveries</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-REC-04" order="31">
+          <name>Salvage disposal</name>
+          <description>Release total-loss vehicles to Salvanta.</description>
+          <sla value="5" unit="business_days">within 5 business days of total-loss decision</sla>
+          <raci>
+            <responsible team="T08">Recoveries &amp; Subrogation (Group)</responsible>
+            <accountable personId="P013" title="Head of Recoveries &amp; Subrogation">Freya Lindahl</accountable>
+          </raci>
+          <next>
+            <stepRef ref="PS-REC-05"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRRC070">Salvage disposal import (Salvanta, CLX-IF-024)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>recovery-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS01">CLARA</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-REC-007" version="1">Salvage disposal timing</ruleRef>
+          </rules>
+        </step>
+        <step id="PS-REC-05" order="32">
+          <name>Recovery receipt and reserve adjustment</name>
+          <description>Post the receipt and adjust the reserve.</description>
+          <sla value="2" unit="business_days">within 2 business days of receipt</sla>
+          <raci>
+            <responsible team="T08">Recoveries &amp; Subrogation (Group)</responsible>
+            <accountable personId="P013" title="Head of Recoveries &amp; Subrogation">Freya Lindahl</accountable>
+            <consulted team="T14">Financial Control</consulted>
+            <informed team="T12">Reserving</informed>
+          </raci>
+          <next>
+            <stepRef ref="PS-REC-06"/>
+          </next>
+          <claraPrograms>
+            <program id="CLRRC050">Recovery receipt posting – nets recoveries from the case reserve</program>
+          </claraPrograms>
+          <hubServices>
+            <service>recovery-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS24">Subrogation Tracker</system>
+            <system id="SYS01">CLARA</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+        </step>
+        <step id="PS-REC-06" order="33">
+          <name>Write-off approval</name>
+          <description>Approve write-off of unrecoverable amounts.</description>
+          <sla value="5" unit="business_days">within 5 business days</sla>
+          <raci>
+            <responsible team="T08">Recoveries &amp; Subrogation (Group)</responsible>
+            <accountable personId="P013" title="Head of Recoveries &amp; Subrogation">Freya Lindahl</accountable>
+            <consulted team="T14">Financial Control</consulted>
+          </raci>
+          <decision>
+            <question>Write-off above £10,000?</question>
+            <branch condition="write_off_gbp &gt; 10000" next="end" rule="BR-REC-011@v2">approval by the Head of Recoveries &amp; Subrogation</branch>
+            <branch condition="otherwise" next="end" rule="BR-REC-011@v2">Recoveries Team Leader approves</branch>
+          </decision>
+          <claraPrograms>
+            <program id="CLRRC090">Recovery write-off (BR-REC-011)</program>
+          </claraPrograms>
+          <hubServices>
+            <service>recovery-svc</service>
+          </hubServices>
+          <systems>
+            <system id="SYS24">Subrogation Tracker</system>
+            <system id="SYS02">Claims Hub</system>
+          </systems>
+          <rules>
+            <ruleRef ref="BR-REC-011" version="2">Recovery write-off authority</ruleRef>
+          </rules>
+        </step>
+      </steps>
+    </stage>
+  </stages>
+  <ruleCatalogue asOf="2026-07-13">
+    <rule id="BR-ASM-002" version="1" effectiveFrom="2018-01-01" owner="Imran Talwar">
+      <title>External Claims Assessor appointment</title>
+      <text>Tier-2 property claims above £10,000 require an external Claims Assessor (loss adjuster) from the panel, appointed within 2 business days of triage.</text>
+    </rule>
+    <rule id="BR-ASM-005" version="3" effectiveFrom="2026-07-01" owner="Imran Talwar">
+      <title>Inspection SLA</title>
+      <text>Site inspection within 5 business days of appointment (Tier-3: 48 hours).</text>
+    </rule>
+    <rule id="BR-ASM-008" version="1" effectiveFrom="2023-06-01" owner="Imran Talwar">
+      <title>Desk assessment for low-value motor claims</title>
+      <text>Motor claims with an estimate below £3,000 may be desk-assessed from photos received through the Evidence Intake Gateway (minimum 6 photos).</text>
+    </rule>
+    <rule id="BR-ASM-011" version="1" effectiveFrom="2022-02-01" owner="Imran Talwar">
+      <title>Gradual-leak evidence threshold</title>
+      <text>See the Claims Handling Manual for the wording of this rule.</text>
+    </rule>
+    <rule id="BR-ASM-012" version="1" effectiveFrom="2020-04-01" owner="Imran Talwar">
+      <title>Subsidence structural engineer referral</title>
+      <text>See the Claims Handling Manual for the wording of this rule.</text>
+    </rule>
+    <rule id="BR-FNOL-001" version="3" effectiveFrom="2026-07-01" owner="Rob Tennant">
+      <title>FNOL acknowledgement SLA</title>
+      <text>Acknowledge digital FNOLs (portal, app, telematics) within 1 business day and all other channels (telephone, broker, post) within 2 business days.</text>
+    </rule>
+    <rule id="BR-FNOL-002" version="1" effectiveFrom="2016-01-01" owner="Rob Tennant">
+      <title>Mandatory FNOL data set</title>
+      <text>An FNOL must capture policy number, date of loss, Claim Type (peril), loss location, contact details and a description of loss before a claim number is issued.</text>
+    </rule>
+    <rule id="BR-FNOL-003" version="1" effectiveFrom="2016-01-01" owner="Rob Tennant">
+      <title>Late notification review</title>
+      <text>Claims notified more than 30 days after the date of loss are flagged for late-notification review at triage and the policy notification condition is checked.</text>
+    </rule>
+    <rule id="BR-FNOL-004" version="1" effectiveFrom="2017-04-01" owner="Rob Tennant">
+      <title>Duplicate claim check</title>
+      <text>Before a claim is created, check for an existing claim on the same policy with a date of loss within ±3 days; a match must be confirmed or rejected by the Claims Handler.</text>
+    </rule>
+    <rule id="BR-FNOL-005" version="2" effectiveFrom="2025-01-01" owner="Lena Kristiansen">
+      <title>Default reserve at FNOL by claim type</title>
+      <text>Create a default indemnity reserve at FNOL from the default-reserve table (2025 values).</text>
+    </rule>
+    <rule id="BR-FRD-005" version="3" effectiveFrom="2026-04-01" owner="Niall Brannigan">
+      <title>Linked-claims indicator</title>
+      <text>Flag a linked-claims indicator when the claimant has 2 or more claims in 12 months, or when a bank account or telephone number is shared with another claimant.</text>
+    </rule>
+    <rule id="BR-FRD-031" version="1" effectiveFrom="2026-04-01" owner="Niall Brannigan">
+      <title>Fraud referral threshold (NISA Circular 2026/04)</title>
+      <text>Refer a claim to SIU when the Sentinel score is 65 or more (all tiers).</text>
+    </rule>
+    <rule id="BR-FRD-032" version="2" effectiveFrom="2026-04-01" owner="Niall Brannigan">
+      <title>Customer notification of fraud referral</title>
+      <text>Notify the customer in writing within 10 business days of a fraud referral that the claim is subject to additional checks, unless the notice is deferred under BR-FRD-036.</text>
+    </rule>
+    <rule id="BR-FRD-033" version="1" effectiveFrom="2026-04-01" owner="Niall Brannigan">
+      <title>No adverse decision on fraud score alone</title>
+      <text>No claim may be declined, reduced or repudiated on the basis of an automated fraud score alone; every adverse outcome requires a documented human review by SIU.</text>
+    </rule>
+    <rule id="BR-FRD-035" version="2" effectiveFrom="2026-04-01" owner="Niall Brannigan">
+      <title>SIU triage of new referrals</title>
+      <text>SIU must triage a new referral within 3 business days.</text>
+    </rule>
+    <rule id="BR-FRD-036" version="1" effectiveFrom="2026-04-01" owner="Niall Brannigan">
+      <title>Deferral of customer notice (tipping-off risk)</title>
+      <text>See the Claims Handling Manual for the wording of this rule.</text>
+    </rule>
+    <rule id="BR-REC-001" version="1" effectiveFrom="2016-04-01" owner="Freya Lindahl">
+      <title>Recovery potential identification</title>
+      <text>Where a third party is wholly or partly at fault, the Claims Assessor or Claims Handler flags recovery potential and a subrogation case is opened within 10 business days.</text>
+    </rule>
+    <rule id="BR-REC-003" version="3" effectiveFrom="2025-09-01" owner="Freya Lindahl">
+      <title>Subrogation pursuit threshold</title>
+      <text>Pursue subrogation where the recoverable amount is £1,000 or more (NOK 13,000 / SEK 13,500 / DKK 8,600).</text>
+    </rule>
+    <rule id="BR-REC-005" version="2" effectiveFrom="2025-09-01" owner="Freya Lindahl">
+      <title>Solicitor referral for recoveries</title>
+      <text>Refer a recovery to Quarryhill Solicitors when the recoverable amount is £25,000 or more or liability is defended.</text>
+    </rule>
+    <rule id="BR-REC-007" version="1" effectiveFrom="2018-06-01" owner="Freya Lindahl">
+      <title>Salvage disposal timing</title>
+      <text>Total-loss vehicles are released to Salvanta Salvage within 5 business days of the total-loss decision.</text>
+    </rule>
+    <rule id="BR-REC-009" version="1" effectiveFrom="2017-01-01" owner="Freya Lindahl">
+      <title>Limitation diary</title>
+      <text>Set a limitation diary at 30 months for bodily-injury recoveries and at 66 months for property recoveries.</text>
+    </rule>
+    <rule id="BR-REC-011" version="2" effectiveFrom="2025-09-01" owner="Freya Lindahl">
+      <title>Recovery write-off authority</title>
+      <text>Write-offs of recoveries above £10,000 require approval by the Head of Recoveries &amp; Subrogation.</text>
+    </rule>
+    <rule id="BR-RSV-001" version="1" effectiveFrom="2016-01-01" owner="Lena Kristiansen">
+      <title>Initial reserve timing</title>
+      <text>A claim-specific initial reserve must replace the FNOL default reserve within 2 business days of FNOL.</text>
+    </rule>
+    <rule id="BR-RSV-003" version="3" effectiveFrom="2025-09-01" owner="Lena Kristiansen">
+      <title>Reserve authority limits</title>
+      <text>Reserve authority: Claims Handler £25,000; Team Leader £100,000; Claims Manager £500,000; Claims Director £2,000,000; above that the Reserving Committee. Nordic reserves are tested at the GBP equivalent at the GL month-end rate.</text>
+    </rule>
+    <rule id="BR-RSV-007" version="3" effectiveFrom="2026-07-01" owner="Lena Kristiansen">
+      <title>Tier-3 reserve review cadence</title>
+      <text>Reserves on Tier-3 claims must be reviewed at least every 14 days.</text>
+    </rule>
+    <rule id="BR-RSV-009" version="3" effectiveFrom="2026-01-01" owner="Lena Kristiansen">
+      <title>Reserve indexation for bodily-injury claims</title>
+      <text>See the Claims Handling Manual for the wording of this rule.</text>
+    </rule>
+    <rule id="BR-RSV-011" version="2" effectiveFrom="2024-01-01" owner="Per Øverland">
+      <title>Large loss notification to Reinsurance</title>
+      <text>Notify Reinsurance (ReCede) within 24 hours of any reserve movement exceeding the Large Loss Notification Threshold (LLNT) of £250,000.</text>
+    </rule>
+    <rule id="BR-RSV-014" version="1" effectiveFrom="2016-01-01" owner="Lena Kristiansen">
+      <title>Reserve close-down at final settlement</title>
+      <text>On final settlement the outstanding reserve is reduced to zero within 1 business day and a settlement close movement (type ST) is recorded.</text>
+    </rule>
+    <rule id="BR-STL-002" version="3" effectiveFrom="2025-09-01" owner="Rob Tennant">
+      <title>Payment authority limits</title>
+      <text>Payment authority: Claims Handler £15,000; Team Leader £75,000; Claims Manager £350,000; Claims Director £1,500,000.</text>
+    </rule>
+    <rule id="BR-STL-004" version="1" effectiveFrom="2018-01-01" owner="Rob Tennant">
+      <title>Settlement offer validity</title>
+      <text>A settlement offer remains valid for 30 days from the offer date.</text>
+    </rule>
+    <rule id="BR-STL-007" version="1" effectiveFrom="2017-06-01" owner="Ruth Okafor">
+      <title>Sanctions screening before payment</title>
+      <text>Every payee must pass WatchScreen sanctions screening before any claim payment is released.</text>
+    </rule>
+    <rule id="BR-STL-009" version="1" effectiveFrom="2018-03-01" owner="Rob Tennant">
+      <title>Straight-through payment for fast-track claims</title>
+      <text>Fast-track claims meeting BR-TRI-006 are paid straight through without Claims Handler approval up to the BR-TRI-006 cap.</text>
+    </rule>
+    <rule id="BR-STL-014" version="1" effectiveFrom="2021-01-01" owner="Rob Tennant">
+      <title>Interest on late payment</title>
+      <text>Where payment is made more than 30 days after settlement is agreed, add simple interest at 3.5% per annum from day 31.</text>
+    </rule>
+    <rule id="BR-TRI-003" version="3" effectiveFrom="2025-01-01" owner="Rob Tennant">
+      <title>Claim tier classification (Tier-1 / Tier-2 / Tier-3)</title>
+      <text>A claim is Tier-3 if any of: estimated incurred ≥ £50,000 (NOK 650,000 / SEK 680,000 / DKK 430,000); any bodily injury; solicitor or litigation involvement at notification; property total loss. Tier-2: £5,000–£49,999 or any third-party involvement. Tier-1: below £5,000, no injury, no third party.</text>
+    </rule>
+    <rule id="BR-TRI-004" version="1" effectiveFrom="2019-01-01" owner="Rob Tennant">
+      <title>Routing by tier</title>
+      <text>Tier-3 claims route to Major &amp; Complex Loss within 4 hours; Tier-2 to specialist Claims Handlers; Tier-1 to the fast-track queue when BR-TRI-006 is met.</text>
+    </rule>
+    <rule id="BR-TRI-006" version="3" effectiveFrom="2026-07-01" owner="Rob Tennant">
+      <title>Fast-track eligibility and cap</title>
+      <text>Fast-track if Tier-1, Sentinel score below 30 and no injury; cap £2,000 (NOK 26,000 / SEK 27,000 / DKK 17,000).</text>
+    </rule>
+    <rule id="BR-TRI-007" version="1" effectiveFrom="2019-06-01" owner="Niall Brannigan">
+      <title>Sentinel pre-screen at triage</title>
+      <text>Every new claim is scored by Sentinel (FRAUDNET before 2025-03-01) within 15 minutes of FNOL.</text>
+    </rule>
+  </ruleCatalogue>
+</processDefinition>

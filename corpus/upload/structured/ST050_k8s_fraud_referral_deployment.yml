@@ -1,0 +1,273 @@
+# Corvane Mutual – Kubernetes Deployment – fraud-referral-svc
+# Document SKR-PLT-K8S-050 version 1.0 (approved), 2026-09-29
+# Owner: Linnea Sjöberg, Engineering Lead – Fraud & Settlement Squad
+# Classification: Internal – Programme Skerry
+# Change history:
+#   0.1  2026-06-04  Linnea Sjöberg: Initial draft for review
+#   0.2  2026-06-27  Linnea Sjöberg: Minor corrections
+#   0.3  2026-08-15  Linnea Sjöberg: Second review round
+#   0.4  2026-08-30  Linnea Sjöberg: Formatting and typo fixes
+#   0.5  2026-09-09  Linnea Sjöberg: Added missing entries
+#   1.0  2026-09-29  Linnea Sjöberg: Approved
+# deploy/k8s/chub-fraud/fraud-referral-svc.yml – Deployment, Service, ConfigMap and HPA.
+# CHUB-388: Tier-3 referral threshold 60 from 2026-10-01 (Fraud Rules Workshop 2026-09-17).
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fraud-referral-svc
+  namespace: chub-fraud
+  labels:
+    app.kubernetes.io/name: fraud-referral-svc
+    app.kubernetes.io/part-of: claims-hub
+    corvane.example/squad: hub-squad-fraud-settlement
+  annotations:
+    corvane.example/owner: Linnea Sjöberg
+    corvane.example/repo: services/fraud-referral-svc
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: fraud-referral-svc
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: fraud-referral-svc
+        app.kubernetes.io/part-of: claims-hub
+        corvane.example/squad: hub-squad-fraud-settlement
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '8081'
+        prometheus.io/path: /actuator/prometheus
+    spec:
+      serviceAccountName: fraud-referral-svc
+      containers:
+      - name: fraud-referral-svc
+        image: registry.corvane.internal/chub/fraud-referral-svc:r2026.09.5
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: management
+          containerPort: 8081
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: prod
+        - name: DB_URL
+          value: jdbc:postgresql://chub-fraud-db.chub-fraud.svc:5432/chub_fraud
+        - name: REFERRAL_THRESHOLD_DEFAULT
+          value: '65'
+        - name: REFERRAL_THRESHOLD_TIER3
+          value: '60'
+        - name: REFERRAL_THRESHOLD_TIER3_EFFECTIVE_FROM
+          value: '2026-10-01'
+        - name: NOTICE_BUSINESS_DAYS
+          value: '10'
+        - name: NOTICE_MAX_DEFERRAL_DAYS
+          value: '60'
+        - name: AUTO_DECLINE_ENABLED
+          value: 'false'
+        - name: SIU_CASE_MANAGER_URL
+          value: https://scm.corvane.internal/api/referrals
+        - name: KAFKA_TOPICS_CONSUME
+          value: fraud.score.received.v1,triage.completed.v1
+        - name: KAFKA_TOPICS_PRODUCE
+          value: fraud.referral.created.v1,fraud.referral.notice-due.v1
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: fraud-referral-svc-db
+              key: password
+        envFrom:
+        - configMapRef:
+            name: fraud-referral-svc-config
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            memory: 1Gi
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: management
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: management
+        volumeMounts:
+        - name: app-config
+          mountPath: /config
+          readOnly: true
+        - name: tmp
+          mountPath: /tmp
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        startupProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: management
+          failureThreshold: 30
+          periodSeconds: 5
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - sh
+              - -c
+              - sleep 10
+      volumes:
+      - name: app-config
+        configMap:
+          name: fraud-referral-svc-config
+      - name: tmp
+        emptyDir: {}
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 45
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: fraud-referral-svc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fraud-referral-svc
+  namespace: chub-fraud
+  labels:
+    app.kubernetes.io/name: fraud-referral-svc
+    app.kubernetes.io/part-of: claims-hub
+    corvane.example/squad: hub-squad-fraud-settlement
+spec:
+  selector:
+    app.kubernetes.io/name: fraud-referral-svc
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fraud-referral-svc-config
+  namespace: chub-fraud
+data:
+  application.yaml: |
+    fraud:
+      calendar: UK
+      siu-triage-business-days: 3
+      notice-deferral-head-approval-after-days: 30
+      notice-deferral-notify: Compliance
+      notice-deferral-rules-effective-from: 2026-10-01
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: health,info,prometheus
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: fraud-referral-svc
+  namespace: chub-fraud
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: fraud-referral-svc
+  minReplicas: 3
+  maxReplicas: 6
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fraud-referral-svc
+  namespace: chub-fraud
+  labels:
+    app.kubernetes.io/name: fraud-referral-svc
+    app.kubernetes.io/part-of: claims-hub
+    corvane.example/squad: hub-squad-fraud-settlement
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: fraud-referral-svc
+  namespace: chub-fraud
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: fraud-referral-svc
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: fraud-referral-svc-default
+  namespace: chub-fraud
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: fraud-referral-svc
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: openshift-ingress
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: chub-monitoring
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: esp
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: cis
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: chub-fraud-db
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: fraud-referral-svc
+  namespace: chub-fraud
+  labels:
+    app.kubernetes.io/name: fraud-referral-svc
+    app.kubernetes.io/part-of: claims-hub
+    corvane.example/squad: hub-squad-fraud-settlement
+spec:
+  host: fraud-referral-svc.apps.ocp-prd-lon1.corvane.internal
+  to:
+    kind: Service
+    name: fraud-referral-svc
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

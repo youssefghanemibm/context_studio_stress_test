@@ -1,0 +1,322 @@
+{
+  "export": {
+    "source": "Payments Operations shared mailbox",
+    "exported_by": {
+      "name": "Alun Prothero",
+      "email": "alun.prothero@corvane-mutual.example"
+    },
+    "exported_at": "2026-09-16T18:02:00+01:00",
+    "thread_subject": "Duplicate payment instructions from Claims Hub - Wave 1",
+    "message_count": 8,
+    "classification": "Internal",
+    "related": {
+      "incident": "INC-2026-0914",
+      "ticket": "CHUB-371",
+      "interface": "CLX-IF-038"
+    }
+  },
+  "messages": [
+    {
+      "message_id": "<20260914100512.w1pay.1@corvane-mutual.example>",
+      "in_reply_to": null,
+      "date": "2026-09-14T10:05:12+01:00",
+      "from": {
+        "name": "Alun Prothero",
+        "email": "alun.prothero@corvane-mutual.example"
+      },
+      "to": [
+        {
+          "name": "Linnea Sjöberg",
+          "email": "linnea.sjoberg@corvane-mutual.example"
+        },
+        {
+          "name": "Aisha Siddiqui",
+          "email": "aisha.siddiqui@corvane-mutual.example"
+        }
+      ],
+      "cc": [
+        {
+          "name": "Neil Haworth",
+          "email": "neil.haworth@corvane-mutual.example"
+        },
+        {
+          "name": "Hamish Gilchrist",
+          "email": "hamish.gilchrist@corvane-mutual.example"
+        },
+        {
+          "name": "Arjun Kesavan",
+          "email": "arjun.kesavan@ibm-consulting.example"
+        }
+      ],
+      "subject": "URGENT: Duplicate payment instructions from Claims Hub - Wave 1",
+      "importance": "high",
+      "body": "Linnea, Aisha,\n\nCorvane Payments Gateway has flagged payment instructions for the same claim and the same amount arriving twice this morning, all from Claims Hub (UK motor). The first ones came through shortly after nine.\n\nCan the squad check payment-orchestrator straight away? We are checking with the gateway and the clearing bank which instructions have already been released.\n\nI have asked the service desk to log a Sev 2.\n\nThanks,\nAlun\n\nAlun Prothero\nPayments Operations Manager\nCorvane Mutual Insurance Society Limited | Bristol Recoveries Centre\nMobile 07700 900135",
+      "attachments": []
+    },
+    {
+      "message_id": "<20260914112040.w1pay.2@corvane-mutual.example>",
+      "in_reply_to": "<20260914100512.w1pay.1@corvane-mutual.example>",
+      "date": "2026-09-14T11:20:40+01:00",
+      "from": {
+        "name": "Linnea Sjöberg",
+        "email": "linnea.sjoberg@corvane-mutual.example"
+      },
+      "to": [
+        {
+          "name": "Alun Prothero",
+          "email": "alun.prothero@corvane-mutual.example"
+        }
+      ],
+      "cc": [
+        {
+          "name": "Aisha Siddiqui",
+          "email": "aisha.siddiqui@corvane-mutual.example"
+        },
+        {
+          "name": "Neil Haworth",
+          "email": "neil.haworth@corvane-mutual.example"
+        },
+        {
+          "name": "Hamish Gilchrist",
+          "email": "hamish.gilchrist@corvane-mutual.example"
+        },
+        {
+          "name": "Arjun Kesavan",
+          "email": "arjun.kesavan@ibm-consulting.example"
+        }
+      ],
+      "subject": "RE: URGENT: Duplicate payment instructions from Claims Hub - Wave 1",
+      "importance": "normal",
+      "body": "Alun,\n\nWe have found it. payment-orchestrator retried instructions to CPG after a timeout, without an idempotency key, so the gateway treated each retry as a new instruction. The incident is INC-2026-0914 and I have raised CHUB-371 for the fix.\n\nWe will send you the list of affected claims as soon as we have matched it against the gateway log.\n\nLinnea\n\nLinnea Sjöberg\nEngineering Lead – Fraud & Settlement Squad\nCorvane Mutual Insurance Society Limited | Stockholm office (Corvane Mutual Sverige)\nMobile +46 555 01 042",
+      "attachments": []
+    },
+    {
+      "message_id": "<20260914160522.w1pay.3@corvane-mutual.example>",
+      "in_reply_to": "<20260914112040.w1pay.2@corvane-mutual.example>",
+      "date": "2026-09-14T16:05:22+01:00",
+      "from": {
+        "name": "Alun Prothero",
+        "email": "alun.prothero@corvane-mutual.example"
+      },
+      "to": [
+        {
+          "name": "Linnea Sjöberg",
+          "email": "linnea.sjoberg@corvane-mutual.example"
+        },
+        {
+          "name": "Aisha Siddiqui",
+          "email": "aisha.siddiqui@corvane-mutual.example"
+        }
+      ],
+      "cc": [
+        {
+          "name": "Neil Haworth",
+          "email": "neil.haworth@corvane-mutual.example"
+        },
+        {
+          "name": "Hamish Gilchrist",
+          "email": "hamish.gilchrist@corvane-mutual.example"
+        },
+        {
+          "name": "Arjun Kesavan",
+          "email": "arjun.kesavan@ibm-consulting.example"
+        }
+      ],
+      "subject": "RE: URGENT: Duplicate payment instructions from Claims Hub - Wave 1",
+      "importance": "normal",
+      "body": "All,\n\nThe count is confirmed with the gateway: 18 claims paid twice, £41,236.50 in total. No further duplicates since the incident was stabilised this afternoon.\n\nWe are issuing recall requests through CPG for every duplicate today and will track them daily until they are all back.\n\nAttached: the list of the 18 claims (claim references only).\n\nAlun\n\nAlun Prothero\nPayments Operations Manager\nCorvane Mutual Insurance Society Limited | Bristol Recoveries Centre\nMobile 07700 900135",
+      "attachments": [
+        {
+          "filename": "wave1_duplicate_payments_claim_refs.xlsx",
+          "size_bytes": 18432,
+          "note": "attachment not included in this export"
+        }
+      ]
+    },
+    {
+      "message_id": "<20260914163511.w1pay.4@corvane-mutual.example>",
+      "in_reply_to": "<20260914160522.w1pay.3@corvane-mutual.example>",
+      "date": "2026-09-14T16:35:11+01:00",
+      "from": {
+        "name": "Hamish Gilchrist",
+        "email": "hamish.gilchrist@corvane-mutual.example"
+      },
+      "to": [
+        {
+          "name": "Alun Prothero",
+          "email": "alun.prothero@corvane-mutual.example"
+        }
+      ],
+      "cc": [
+        {
+          "name": "Linnea Sjöberg",
+          "email": "linnea.sjoberg@corvane-mutual.example"
+        },
+        {
+          "name": "Aisha Siddiqui",
+          "email": "aisha.siddiqui@corvane-mutual.example"
+        },
+        {
+          "name": "Neil Haworth",
+          "email": "neil.haworth@corvane-mutual.example"
+        },
+        {
+          "name": "Arjun Kesavan",
+          "email": "arjun.kesavan@ibm-consulting.example"
+        }
+      ],
+      "subject": "RE: URGENT: Duplicate payment instructions from Claims Hub - Wave 1",
+      "importance": "normal",
+      "body": "Thanks, Alun. Please keep me posted on the recalls so that Financial Control can reconcile the payments account once they are back. I will brief the CFO this evening.\n\nHamish\n\nHamish Gilchrist\nFinancial Controller\nCorvane Mutual Insurance Society Limited | London (Group HQ)\nMobile 07700 900121",
+      "attachments": []
+    },
+    {
+      "message_id": "<20260915091003.w1pay.5@corvane-mutual.example>",
+      "in_reply_to": "<20260914163511.w1pay.4@corvane-mutual.example>",
+      "date": "2026-09-15T09:10:03+01:00",
+      "from": {
+        "name": "Neil Haworth",
+        "email": "neil.haworth@corvane-mutual.example"
+      },
+      "to": [
+        {
+          "name": "Alun Prothero",
+          "email": "alun.prothero@corvane-mutual.example"
+        },
+        {
+          "name": "Linnea Sjöberg",
+          "email": "linnea.sjoberg@corvane-mutual.example"
+        }
+      ],
+      "cc": [
+        {
+          "name": "Aisha Siddiqui",
+          "email": "aisha.siddiqui@corvane-mutual.example"
+        },
+        {
+          "name": "Hamish Gilchrist",
+          "email": "hamish.gilchrist@corvane-mutual.example"
+        },
+        {
+          "name": "Arjun Kesavan",
+          "email": "arjun.kesavan@ibm-consulting.example"
+        }
+      ],
+      "subject": "RE: URGENT: Duplicate payment instructions from Claims Hub - Wave 1",
+      "importance": "normal",
+      "body": "Morning all,\n\nFor the record: the incident was closed yesterday at 15:45 once no further duplicates were seen. CHUB-371 is the permanent fix, and the Design Authority is looking at making idempotency keys a standard for every payment instruction rather than a one-off fix.\n\nThank you to Payments Operations and to the squad for a fast response on a difficult first day.\n\nNeil\n\nNeil Haworth\nHead of Technology Delivery\nCorvane Mutual Insurance Society Limited | London (Group HQ)\nMobile 07700 900132",
+      "attachments": []
+    },
+    {
+      "message_id": "<20260915143210.w1pay.6@corvane-mutual.example>",
+      "in_reply_to": "<20260915091003.w1pay.5@corvane-mutual.example>",
+      "date": "2026-09-15T14:32:10+01:00",
+      "from": {
+        "name": "Arjun Kesavan",
+        "email": "arjun.kesavan@ibm-consulting.example"
+      },
+      "to": [
+        {
+          "name": "Neil Haworth",
+          "email": "neil.haworth@corvane-mutual.example"
+        }
+      ],
+      "cc": [
+        {
+          "name": "Alun Prothero",
+          "email": "alun.prothero@corvane-mutual.example"
+        },
+        {
+          "name": "Linnea Sjöberg",
+          "email": "linnea.sjoberg@corvane-mutual.example"
+        },
+        {
+          "name": "Aisha Siddiqui",
+          "email": "aisha.siddiqui@corvane-mutual.example"
+        },
+        {
+          "name": "Hamish Gilchrist",
+          "email": "hamish.gilchrist@corvane-mutual.example"
+        }
+      ],
+      "subject": "RE: URGENT: Duplicate payment instructions from Claims Hub - Wave 1",
+      "importance": "normal",
+      "body": "Neil, all,\n\nI have added this to the Wave 1 lessons-learned log, and we will add a specific duplicate-payment test to the Wave 2 rehearsals so the scenario is exercised before the next cut-over.\n\nArjun\n\nArjun Kesavan\nProgramme Delivery Lead\nIBM Consulting | IBM Consulting UK (team on site at Corvane House)\nMobile 07700 900148",
+      "attachments": []
+    },
+    {
+      "message_id": "<20260916155006.w1pay.7@corvane-mutual.example>",
+      "in_reply_to": "<20260915143210.w1pay.6@corvane-mutual.example>",
+      "date": "2026-09-16T15:50:06+01:00",
+      "from": {
+        "name": "Linnea Sjöberg",
+        "email": "linnea.sjoberg@corvane-mutual.example"
+      },
+      "to": [
+        {
+          "name": "Alun Prothero",
+          "email": "alun.prothero@corvane-mutual.example"
+        },
+        {
+          "name": "Neil Haworth",
+          "email": "neil.haworth@corvane-mutual.example"
+        }
+      ],
+      "cc": [
+        {
+          "name": "Aisha Siddiqui",
+          "email": "aisha.siddiqui@corvane-mutual.example"
+        },
+        {
+          "name": "Hamish Gilchrist",
+          "email": "hamish.gilchrist@corvane-mutual.example"
+        },
+        {
+          "name": "Arjun Kesavan",
+          "email": "arjun.kesavan@ibm-consulting.example"
+        }
+      ],
+      "subject": "RE: URGENT: Duplicate payment instructions from Claims Hub - Wave 1",
+      "importance": "normal",
+      "body": "All,\n\nCHUB-371 is deployed to production today. payment-orchestrator now sends an idempotency key with every instruction to CPG, so a retry after a timeout can no longer create a second payment.\n\nThe Design Authority also accepted ADR-021 today: idempotency keys for all payment instructions, across every service that sends them.\n\nLinnea\n\nLinnea Sjöberg\nEngineering Lead – Fraud & Settlement Squad\nCorvane Mutual Insurance Society Limited | Stockholm office (Corvane Mutual Sverige)\nMobile +46 555 01 042",
+      "attachments": []
+    },
+    {
+      "message_id": "<20260916171544.w1pay.8@corvane-mutual.example>",
+      "in_reply_to": "<20260916155006.w1pay.7@corvane-mutual.example>",
+      "date": "2026-09-16T17:15:44+01:00",
+      "from": {
+        "name": "Alun Prothero",
+        "email": "alun.prothero@corvane-mutual.example"
+      },
+      "to": [
+        {
+          "name": "Linnea Sjöberg",
+          "email": "linnea.sjoberg@corvane-mutual.example"
+        },
+        {
+          "name": "Neil Haworth",
+          "email": "neil.haworth@corvane-mutual.example"
+        }
+      ],
+      "cc": [
+        {
+          "name": "Aisha Siddiqui",
+          "email": "aisha.siddiqui@corvane-mutual.example"
+        },
+        {
+          "name": "Hamish Gilchrist",
+          "email": "hamish.gilchrist@corvane-mutual.example"
+        },
+        {
+          "name": "Arjun Kesavan",
+          "email": "arjun.kesavan@ibm-consulting.example"
+        }
+      ],
+      "subject": "RE: URGENT: Duplicate payment instructions from Claims Hub - Wave 1",
+      "importance": "normal",
+      "body": "Thanks, Linnea, good news. The recalls are progressing with the bank and I will confirm on this thread when all 18 are back.\n\nAlun\n\nAlun Prothero\nPayments Operations Manager\nCorvane Mutual Insurance Society Limited | Bristol Recoveries Centre\nMobile 07700 900135",
+      "attachments": []
+    }
+  ]
+}

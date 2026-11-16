@@ -1,0 +1,36 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+WAVE 1 HYPERCARE - SHIFT HANDOVER, DAY 3 (WEDNESDAY 16 SEPTEMBER 2026)
+========================================================================================
+Document reference : W1-HYP-HND-D3
+Version            : 1.0
+Date               : 16 September 2026
+Owner              : Arjun Kesavan, Programme Delivery Lead
+Classification     : Internal
+Distribution    : hypercare leads, squad leads, Claims Operations duty manager
+
+Version history
+  1.0    2026-09-16  A. Kesavan           Evening handover to the overnight hypercare cover
+========================================================================================
+
+1. OVERALL STATUS
+  UK motor has been live on Claims Hub since Monday 14 September. Handlers are working claims end to end.
+  No Sev 1 incidents open. Defect triage continues each morning with the squads and business leads.
+
+2. INCIDENTS
+  INC-2026-0914 (Sev 2): duplicate payment instructions on cut-over Monday - 18 claims paid twice, £41,236.50 in total.
+    Cause: payment-orchestrator retried after a timeout from the payments gateway without an idempotency key.
+    Fix: CHUB-371 deployed today. ADR-021 (idempotency keys for all payment instructions) accepted today.
+    Recovery: Payments Operations have issued recall requests for every duplicate. Recalls are being tracked daily.
+
+3. WATCH ITEMS FOR TONIGHT
+  - Overnight payment batch: Payments Operations duty contact to confirm there are no duplicate instructions.
+  - Claims Hub queues: check the triage and assessment queues are draining as expected.
+  - Evidence uploads: check document-svc is storing documents normally.
+  - Any new Sev 2: call the hypercare lead on the duty phone; do not wait for the morning call.
+
+4. CONTACTS (DUTY ROTA)
+  Hypercare lead: on the duty phone (see the rota).  Payments Operations: duty contact on the rota.
+  Integration: on-call via the service desk.  CLARA: on-call via the service desk.
+
+----------------------------------------------------------------------------------------
+End of document. Owner: Arjun Kesavan. Printed copies are uncontrolled.

@@ -1,0 +1,2468 @@
+- fact_id: ST027-F001
+  world_ref: RULE:BR-FRD-031@v2#parameters.tier3_threshold
+  kind: needle
+  statement: Sentinel sample response 2 has threshold_applied 60 for a Tier-3 claim.
+  file: corpus/upload/structured/ST027_sentinel_score_api_samples.json
+  locator:
+    kind: json_pointer
+    pointer: /responses/1/threshold_applied
+  needle: '60'
+  exclusive: false
+  also_in: []
+  placement: PL-169
+  placement_key: st27_json
+- fact_id: ST027-F002
+  world_ref: RULE:BR-FRD-031@v2
+  kind: general
+  statement: Sentinel sample response 2 is a Tier-3 claim scored 62 with threshold_applied 60 and referral_recommended true.
+  file: corpus/upload/structured/ST027_sentinel_score_api_samples.json
+  locator:
+    kind: json_pointer
+    pointer: /responses/1
+  needle: 'tier: Tier-3 threshold_applied: 60 referral_recommended: true'
+  exclusive: false
+  also_in: []
+- fact_id: ST027-F003
+  world_ref: RULE:BR-FRD-031@v2#parameters.threshold
+  kind: general
+  statement: Sentinel sample response 1 is a Tier-2 claim scored 41 against threshold 65 (not recommended for referral).
+  file: corpus/upload/structured/ST027_sentinel_score_api_samples.json
+  locator:
+    kind: json_pointer
+    pointer: /responses/0
+  needle: 'tier: Tier-2 threshold_applied: 65 referral_recommended: false'
+  exclusive: false
+  also_in: []
+- fact_id: ST027-F004
+  world_ref: SYSTEM:SYS03#model_version
+  kind: general
+  statement: The Sentinel scoring model version in the samples is SNT-4.2, scores on a 0-100 scale.
+  file: corpus/upload/structured/ST027_sentinel_score_api_samples.json
+  locator:
+    kind: json_pointer
+    pointer: /api
+  needle: 'modelVersion: SNT-4.2'
+  exclusive: false
+  also_in: []
+- fact_id: ST027-F005
+  world_ref: SYSTEM:SYS03#renames
+  kind: alias_use
+  statement: Sentinel was formerly called FRAUDNET (renamed 2025-03-01, CHUB-117).
+  file: corpus/upload/structured/ST027_sentinel_score_api_samples.json
+  locator:
+    kind: json_pointer
+    pointer: /api/formerName
+  needle: FRAUDNET (renamed 2025-03-01, CHUB-117)
+  exclusive: false
+  also_in: []
+- fact_id: ST027-F006
+  world_ref: INTERFACE:CLX-IF-008
+  kind: general
+  statement: Online Sentinel scoring from CLARA is interface CLX-IF-008, called by program CLRFR020 using SENTREQ1/SENTRSP1.
+  file: corpus/upload/structured/ST027_sentinel_score_api_samples.json
+  locator:
+    kind: json_pointer
+    pointer: /api/callers/0
+  needle: 'interface: CLX-IF-008'
+  exclusive: false
+  also_in: []
+- fact_id: ST027-F007
+  world_ref: INTERFACE:CLX-IF-036#services
+  kind: general
+  statement: Claims Hub calls Sentinel from triage-svc over interface CLX-IF-036.
+  file: corpus/upload/structured/ST027_sentinel_score_api_samples.json
+  locator:
+    kind: json_pointer
+    pointer: /api/callers/1
+  needle: 'interface: CLX-IF-036'
+  exclusive: false
+  also_in: []
+- fact_id: ST027-F008
+  world_ref: VENDOR:VEN-15
+  kind: general
+  statement: Sentinel is licensed from Kestwick Analytics Ltd.
+  file: corpus/upload/structured/ST027_sentinel_score_api_samples.json
+  locator:
+    kind: json_pointer
+    pointer: /api/licensor
+  needle: Kestwick Analytics Ltd
+  exclusive: false
+  also_in: []
+- fact_id: ST028-F001
+  world_ref: TICKET:CHUB-388
+  kind: general
+  statement: Feature flag fraud.tier3-referral-threshold is enabled in prod since 2026-10-01 (CHUB-388, BR-FRD-031 v2).
+  file: corpus/upload/structured/ST028_claims_hub_feature_flags.json
+  locator:
+    kind: json_pointer
+    pointer: /flags/0
+  needle: 'enabledSince: 2026-10-01'
+  exclusive: false
+  also_in: []
+- fact_id: ST028-F002
+  world_ref: RULE:BR-FRD-033@v1#parameters.auto_decline_allowed
+  kind: general
+  statement: Feature flag fraud.auto-decline is off in every environment (BR-FRD-033).
+  file: corpus/upload/structured/ST028_claims_hub_feature_flags.json
+  locator:
+    kind: json_pointer
+    pointer: /flags/1/states
+  needle: 'prod: false'
+  exclusive: false
+  also_in: []
+- fact_id: ST028-F003
+  world_ref: ADR:ADR-028
+  kind: general
+  statement: The reserve-engine revaluation run (ADR-028) is off in prod and planned for Wave 2.
+  file: corpus/upload/structured/ST028_claims_hub_feature_flags.json
+  locator:
+    kind: json_pointer
+    pointer: /flags/5
+  needle: reserve.revaluation-run
+  exclusive: false
+  also_in: []
+- fact_id: ST029-F001
+  world_ref: SERVICE:fraud-referral-svc#config
+  kind: needle
+  statement: 'Fraud parameters: referral.threshold.tier3 = 60 effective from 2026-10-01; default 65.'
+  file: corpus/upload/structured/ST029_fraud_rule_parameters.json
+  locator:
+    kind: json_pointer
+    pointer: /referral/threshold
+  needle: 'tier3: 60 tier3.effective-from: 2026-10-01'
+  exclusive: false
+  also_in: []
+  placement: PL-170
+  placement_key: st29_json
+- fact_id: ST029-F002
+  world_ref: SERVICE:fraud-referral-svc#config.referral.threshold.default
+  kind: general
+  statement: 'Fraud parameters: default referral threshold is 65 (BR-FRD-031 v2).'
+  file: corpus/upload/structured/ST029_fraud_rule_parameters.json
+  locator:
+    kind: json_pointer
+    pointer: /referral/threshold
+  needle: 'default: 65'
+  exclusive: false
+  also_in: []
+- fact_id: ST029-F003
+  world_ref: RULE:BR-FRD-012@v2
+  kind: temporal
+  statement: BR-FRD-012 v2 set the referral threshold at 70 from 2023-04-01 to 2026-03-31.
+  file: corpus/upload/structured/ST029_fraud_rule_parameters.json
+  locator:
+    kind: json_pointer
+    pointer: /referral/history/1
+  needle: 'effectiveTo: 2026-03-31 threshold: 70'
+  exclusive: false
+  also_in: []
+- fact_id: ST029-F004
+  world_ref: RULE:BR-FRD-036@v2#parameters.head_approval_after_days
+  kind: general
+  statement: Customer notice deferrals beyond 30 days need the Head of Counter-Fraud & SIU (BR-FRD-036 v2).
+  file: corpus/upload/structured/ST029_fraud_rule_parameters.json
+  locator:
+    kind: json_pointer
+    pointer: /notice
+  needle: 'head-approval-after-days: 30'
+  exclusive: false
+  also_in: []
+- fact_id: ST029-F005
+  world_ref: RULE:BR-FRD-032@v2#parameters.notice_business_days
+  kind: general
+  statement: Customer notice must be sent within 10 business days of referral (BR-FRD-032 v2).
+  file: corpus/upload/structured/ST029_fraud_rule_parameters.json
+  locator:
+    kind: json_pointer
+    pointer: /notice/business-days
+  needle: '10'
+  exclusive: false
+  also_in: []
+- fact_id: ST029-F006
+  world_ref: RULE:BR-FRD-035@v2
+  kind: general
+  statement: SIU triage of new referrals within 3 business days (BR-FRD-035 v2).
+  file: corpus/upload/structured/ST029_fraud_rule_parameters.json
+  locator:
+    kind: json_pointer
+    pointer: /siu-triage
+  needle: 'business-days: 3'
+  exclusive: false
+  also_in: []
+- fact_id: ST029-F007
+  world_ref: TABLE:CLR.T_PARAM#param_rows:FRD_REFER_T3_THRESH
+  kind: general
+  statement: CLARA reads the Tier-3 threshold from CLR.T_PARAM key FRD_REFER_T3_THRESH (CHUB-395).
+  file: corpus/upload/structured/ST029_fraud_rule_parameters.json
+  locator:
+    kind: json_pointer
+    pointer: /referral/clara
+  needle: FRD_REFER_T3_THRESH
+  exclusive: false
+  also_in: []
+- fact_id: ST029-F008
+  world_ref: RULE:BR-FRD-009@v1#parameters.pts
+  kind: general
+  statement: Pre-screen indicator BR-FRD-009 (shared bank account) adds 20 points.
+  file: corpus/upload/structured/ST029_fraud_rule_parameters.json
+  locator:
+    kind: json_pointer
+    pointer: /pre-screen-indicators/7
+  needle: 'points: 20'
+  exclusive: false
+  also_in: []
+- fact_id: ST030-F001
+  world_ref: TOPIC:claims.reserve.movement.v1#partitions
+  kind: needle
+  statement: 'Kafka catalogue: claims.reserve.movement.v1 has 12 partitions.'
+  file: corpus/upload/structured/ST030_kafka_topic_catalogue.json
+  locator:
+    kind: json_pointer
+    pointer: /topics/3
+  needle: 'claims.reserve.movement.v1 partitions: 12'
+  exclusive: true
+  also_in: []
+  placement: PL-171
+  placement_key: st30_parts
+  notes: Retention is deliberately omitted for this topic (retention is exclusive to LD013).
+- fact_id: ST030-F002
+  world_ref: TOPIC:claims.reserve.movement.v1#key
+  kind: general
+  statement: claims.reserve.movement.v1 is keyed by claim_id, schema version 3, produced by the MQ-to-Kafka bridge (CLX-IF-049)
+    and consumed by reserve-engine.
+  file: corpus/upload/structured/ST030_kafka_topic_catalogue.json
+  locator:
+    kind: json_pointer
+    pointer: /topics/3/key
+  needle: claim_id
+  exclusive: false
+  also_in: []
+- fact_id: ST030-F003
+  world_ref: TOPIC:reserve.changed.v2#consumers
+  kind: general
+  statement: reserve.changed.v2 is produced by reserve-engine and consumed by gl-posting-svc and reporting-feed-svc.
+  file: corpus/upload/structured/ST030_kafka_topic_catalogue.json
+  locator:
+    kind: json_pointer
+    pointer: /topics/15/consumers
+  needle: gl-posting-svc
+  exclusive: false
+  also_in: []
+- fact_id: ST030-F004
+  world_ref: TOPIC:fraud.referral.notice-due.v1#consumers
+  kind: general
+  statement: fraud.referral.notice-due.v1 is consumed by notification-svc.
+  file: corpus/upload/structured/ST030_kafka_topic_catalogue.json
+  locator:
+    kind: json_pointer
+    pointer: /topics/9/consumers
+  needle: notification-svc
+  exclusive: false
+  also_in: []
+- fact_id: ST030-F005
+  world_ref: TOPIC:triage.completed.v1#consumers
+  kind: general
+  statement: 'triage.completed.v1 has three consumers: reserve-engine, fraud-referral-svc and assessment-svc.'
+  file: corpus/upload/structured/ST030_kafka_topic_catalogue.json
+  locator:
+    kind: json_pointer
+    pointer: /topics/17/consumers
+  needle: reserve-engine
+  exclusive: false
+  also_in: []
+- fact_id: ST030-F006
+  world_ref: SYSTEM:SYS15
+  kind: scale
+  statement: The Kafka topic catalogue lists 18 topics on cluster esp-prd as at 2026-09-30.
+  file: corpus/upload/structured/ST030_kafka_topic_catalogue.json
+  locator:
+    kind: json_pointer
+    pointer: /topicCount
+  needle: '18'
+  exclusive: false
+  also_in: []
+- fact_id: ST031-F001
+  world_ref: SERVICE:reserve-engine#renames
+  kind: alias_use
+  statement: reserve-engine (SVC05) was formerly named reserve-svc; renamed on 2026-02-10 under CHUB-233 / ADR-019.
+  file: corpus/upload/structured/ST031_service_registry.json
+  locator:
+    kind: json_pointer
+    pointer: /services/4/formerNames/0
+  needle: 'name: reserve-svc renamedOn: 2026-02-10'
+  exclusive: false
+  also_in: []
+- fact_id: ST031-F002
+  world_ref: SERVICE:reserve-engine#replicas
+  kind: general
+  statement: reserve-engine runs in namespace chub-reserve with 4 replicas.
+  file: corpus/upload/structured/ST031_service_registry.json
+  locator:
+    kind: json_pointer
+    pointer: /services/4/runtime
+  needle: 'namespace: chub-reserve replicas: 4'
+  exclusive: false
+  also_in: []
+- fact_id: ST031-F003
+  world_ref: SERVICE:reserve-engine#config.tier3-review-days
+  kind: general
+  statement: 'reserve-engine config: Tier-3 review every 14 days; large loss threshold £250,000.'
+  file: corpus/upload/structured/ST031_service_registry.json
+  locator:
+    kind: json_pointer
+    pointer: /services/4/config
+  needle: 'tier3-review-days: 14'
+  exclusive: false
+  also_in: []
+- fact_id: ST031-F004
+  world_ref: SERVICE:reserve-engine#apis
+  kind: general
+  statement: reserve-engine POST /revaluation-runs triggers a currency revaluation run that replaces CLRGL090.
+  file: corpus/upload/structured/ST031_service_registry.json
+  locator:
+    kind: json_pointer
+    pointer: /services/4/apis/3/summary
+  needle: replaces CLRGL090
+  exclusive: false
+  also_in: []
+- fact_id: ST031-F005
+  world_ref: SERVICE:fraud-referral-svc#config
+  kind: general
+  statement: 'fraud-referral-svc configuration: referral.threshold.tier3 60 from 2026-10-01; default 65; notice 10 business
+    days; max deferral 60 days; auto-decline disabled.'
+  file: corpus/upload/structured/ST031_service_registry.json
+  locator:
+    kind: json_pointer
+    pointer: /services/5/config
+  needle: 'referral.threshold.tier3: 60'
+  exclusive: false
+  also_in: []
+- fact_id: ST031-F006
+  world_ref: SERVICE:fraud-referral-svc#owner_person
+  kind: general
+  statement: fraud-referral-svc is owned by Hub Squad – Fraud & Settlement, led by Linnea Sjöberg.
+  file: corpus/upload/structured/ST031_service_registry.json
+  locator:
+    kind: json_pointer
+    pointer: /services/5/owner
+  needle: 'lead: Linnea Sjöberg'
+  exclusive: false
+  also_in: []
+- fact_id: ST031-F007
+  world_ref: SERVICE:reserve-engine#replaces_programs
+  kind: general
+  statement: reserve-engine replaces 16 CLARA programs including CLRGL090 and CLRRS150.
+  file: corpus/upload/structured/ST031_service_registry.json
+  locator:
+    kind: json_pointer
+    pointer: /services/4/replacesPrograms
+  needle: CLRGL090
+  exclusive: false
+  also_in: []
+- fact_id: ST031-F008
+  world_ref: SERVICE:reporting-feed-svc#go_live
+  kind: general
+  statement: reporting-feed-svc is in development with go-live 2027-01-11.
+  file: corpus/upload/structured/ST031_service_registry.json
+  locator:
+    kind: json_pointer
+    pointer: /services/12
+  needle: 'status: in development goLive: 2027-01-11'
+  exclusive: false
+  also_in: []
+- fact_id: ST032-F001
+  world_ref: RULE:BR-FRD-032@v2#parameters.notice_business_days
+  kind: general
+  statement: 'Notice-due sample: referral on 2026-10-06 has notice due 2026-10-20 (referral date + 10 business days, BR-FRD-032
+    v2).'
+  file: corpus/upload/structured/ST032_fraud_referral_event_samples.json
+  locator:
+    kind: json_pointer
+    pointer: /events/3/payload
+  needle: 'noticeDueDate: 2026-10-20'
+  exclusive: false
+  also_in: []
+- fact_id: ST032-F002
+  world_ref: RULE:BR-FRD-036@v2
+  kind: general
+  statement: A 45-day customer-notice deferral is approved by the Head of Counter-Fraud & SIU and Compliance is notified the
+    same day (BR-FRD-036 v2).
+  file: corpus/upload/structured/ST032_fraud_referral_event_samples.json
+  locator:
+    kind: json_pointer
+    pointer: /events/11/payload
+  needle: 'deferralRule: BR-FRD-036 v2'
+  exclusive: false
+  also_in: []
+- fact_id: ST032-F003
+  world_ref: RULE:BR-FRD-031@v2#parameters.tier3_threshold
+  kind: general
+  statement: A Tier-3 fraud.referral.created.v1 sample shows thresholdApplied 60 under BR-FRD-031 v2.
+  file: corpus/upload/structured/ST032_fraud_referral_event_samples.json
+  locator:
+    kind: json_pointer
+    pointer: /events/2/payload
+  needle: 'thresholdApplied: 60 thresholdRule: BR-FRD-031 v2'
+  exclusive: false
+  also_in: []
+- fact_id: ST032-F004
+  world_ref: RULE:BR-FRD-031@v2
+  kind: general
+  statement: A Tier-3 claim scored 59 is not recommended for referral (threshold 60).
+  file: corpus/upload/structured/ST032_fraud_referral_event_samples.json
+  locator:
+    kind: json_pointer
+    pointer: /events/17/payload
+  needle: 'score: 59'
+  exclusive: false
+  also_in: []
+- fact_id: ST032-F005
+  world_ref: TOPIC:fraud.referral.created.v1#consumers
+  kind: general
+  statement: fraud.referral.created.v1 is consumed by reporting-feed-svc.
+  file: corpus/upload/structured/ST032_fraud_referral_event_samples.json
+  locator:
+    kind: json_pointer
+    pointer: /topics/fraud.referral.created.v1
+  needle: reporting-feed-svc
+  exclusive: false
+  also_in: []
+- fact_id: ST033-F001
+  world_ref: WAVE:MW-1#date
+  kind: general
+  statement: The Wave 1 data quality report covers MW-1 'Wave 1 – UK motor' (scope PRD-MOT-UK), cut over on 2026-09-14 after
+    3 rehearsals.
+  file: corpus/upload/structured/ST033_data_quality_report_wave1.json
+  locator:
+    kind: json_pointer
+    pointer: /wave
+  needle: 'cutOverDate: 2026-09-14'
+  exclusive: false
+  also_in: []
+- fact_id: ST033-F002
+  world_ref: WAVE:MW-1#freeze
+  kind: general
+  statement: Wave 1 freeze ran from 2026-09-11 18:00 to 2026-09-14 06:00.
+  file: corpus/upload/structured/ST033_data_quality_report_wave1.json
+  locator:
+    kind: json_pointer
+    pointer: /wave/freeze
+  needle: 2026-09-11 18:00 to 2026-09-14 06:00
+  exclusive: false
+  also_in: []
+- fact_id: ST033-F003
+  world_ref: PERSON:P051
+  kind: general
+  statement: The Wave 1 DQ report was prepared by Callum Fairbairn, IBM Data Migration Lead.
+  file: corpus/upload/structured/ST033_data_quality_report_wave1.json
+  locator:
+    kind: json_pointer
+    pointer: /method/ownership/report
+  needle: Callum Fairbairn (IBM, Data Migration Lead)
+  exclusive: false
+  also_in: []
+- fact_id: ST033-F004
+  world_ref: WAVE:MW-1
+  kind: scale
+  statement: The Wave 1 DQ report executed 74 checks (63 pass, 9 warn, 2 fail).
+  file: corpus/upload/structured/ST033_data_quality_report_wave1.json
+  locator:
+    kind: json_pointer
+    pointer: /summary
+  needle: 'checksExecuted: 74'
+  exclusive: false
+  also_in: []
+- fact_id: ST033-F005
+  world_ref: TABLE:reserve.reserve_movement
+  kind: general
+  statement: Reserve movements migrate from CLR.T_RESERVE_MOVEMENT to reserve.reserve_movement (reserve-engine).
+  file: corpus/upload/structured/ST033_data_quality_report_wave1.json
+  locator:
+    kind: json_pointer
+    pointer: /checks/39
+  needle: 'sourceTable: CLR.T_RESERVE_MOVEMENT'
+  exclusive: false
+  also_in: []
+- fact_id: ST034-F001
+  world_ref: TIMELINE:metrics#fraud_referrals_count
+  kind: needle
+  statement: 'NISA-FR1 2026Q3 payload: 1,530 fraud referrals in Q3 2026.'
+  file: corpus/upload/structured/ST034_nisa_fr1_2026q3_payload.json
+  locator:
+    kind: json_pointer
+    pointer: /figures/referralsTotal
+  needle: '1530'
+  exclusive: false
+  also_in:
+  - ST038-F001
+  - corpus/upload/visuals/VS042_kpi_report_charts_q3_2026.pdf
+  placement: PL-143
+  placement_key: vs42_fr_q3
+- fact_id: ST034-F002
+  world_ref: REPORT:NISA-FR1#submissions
+  kind: general
+  statement: NISA-FR1 2026Q3 was due 2026-10-30 and submitted 2026-10-28.
+  file: corpus/upload/structured/ST034_nisa_fr1_2026q3_payload.json
+  locator:
+    kind: json_pointer
+    pointer: /return
+  needle: 'due: 2026-10-30 submitted: 2026-10-28'
+  exclusive: false
+  also_in: []
+- fact_id: ST034-F003
+  world_ref: REPORT:NISA-FR1#signed_by_role
+  kind: general
+  statement: The NISA-FR1 return is signed by the Compliance Manager – Conduct & Counter-Fraud (Ruth Okafor).
+  file: corpus/upload/structured/ST034_nisa_fr1_2026q3_payload.json
+  locator:
+    kind: json_pointer
+    pointer: /signatory
+  needle: 'name: Ruth Okafor'
+  exclusive: false
+  also_in: []
+- fact_id: ST034-F004
+  world_ref: RULE:BR-FRD-031@v1
+  kind: temporal
+  statement: In Q3 2026 the referral threshold was 65 for all tiers (BR-FRD-031 v1); the Tier-3 threshold of 60 applies from
+    2026-10-01.
+  file: corpus/upload/structured/ST034_nisa_fr1_2026q3_payload.json
+  locator:
+    kind: json_pointer
+    pointer: /figures/referralThreshold
+  needle: 'value: 65 rule: BR-FRD-031 v1'
+  exclusive: false
+  also_in: []
+- fact_id: ST034-F005
+  world_ref: REPORT:NISA-FR1#source_interfaces
+  kind: general
+  statement: NISA-FR1 source interface is CLX-IF-033 (program CLRFR090).
+  file: corpus/upload/structured/ST034_nisa_fr1_2026q3_payload.json
+  locator:
+    kind: json_pointer
+    pointer: /return/sourceInterface
+  needle: CLX-IF-033
+  exclusive: false
+  also_in: []
+- fact_id: ST034-F006
+  world_ref: ORG:company#nisa_firm_reference
+  kind: general
+  statement: Corvane Mutual's NISA firm reference is NISA-FRN 40417.
+  file: corpus/upload/structured/ST034_nisa_fr1_2026q3_payload.json
+  locator:
+    kind: json_pointer
+    pointer: /firm/nisaFirmReference
+  needle: NISA-FRN 40417
+  exclusive: false
+  also_in: []
+- fact_id: ST034-F007
+  world_ref: TIMELINE:metrics#fraud_referrals_count
+  kind: general
+  statement: 'The FR1 Q3 payload restates the Q2 2026 comparative: 1,488 referrals.'
+  file: corpus/upload/structured/ST034_nisa_fr1_2026q3_payload.json
+  locator:
+    kind: json_pointer
+    pointer: /comparatives/2026Q2/referralsTotal
+  needle: '1488'
+  exclusive: false
+  also_in: []
+- fact_id: ST034-F008
+  world_ref: RULE:BR-FRD-036@v1#parameters.max_deferral_days
+  kind: general
+  statement: 'FR1 Q3 deferral annex: notices may be deferred up to 60 days under BR-FRD-036 v1.'
+  file: corpus/upload/structured/ST034_nisa_fr1_2026q3_payload.json
+  locator:
+    kind: json_pointer
+    pointer: /deferralAnnex/maxDeferralDays
+  needle: '60'
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F001
+  world_ref: INTERFACE:CLX-IF-042#dependents
+  kind: needle
+  statement: 'Interface catalogue: CLX-IF-043, CLX-IF-044, CLX-IF-047 and CLX-IF-049 each have dependsOn CLX-IF-042.'
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[dependsOn/interfaceRef/@ref='CLX-IF-042']/@id
+  needle: CLX-IF-043 CLX-IF-044 CLX-IF-047 CLX-IF-049
+  exclusive: false
+  also_in: []
+  placement: PL-172
+  placement_key: st35_deps
+  notes: The CLX-IF-042 schedule is deliberately omitted (exclusive to VS033).
+- fact_id: ST035-F002
+  world_ref: INTERFACE:CLX-IF-051#feeds_reports
+  kind: needle
+  statement: 'Interface catalogue: CLX-IF-051 feeds report NISA-TP2; CLX-IF-055 depends on CLX-IF-047; CLX-IF-058 depends
+    on CLX-IF-044.'
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-051']/feedsReports
+  needle: NISA-TP2
+  exclusive: false
+  also_in: []
+  placement: PL-173
+  placement_key: st35_tp2
+- fact_id: ST035-F003
+  world_ref: INTERFACE:CLX-IF-055#depends_on
+  kind: general
+  statement: CLX-IF-055 (Monthly Claims Bordereaux) depends on CLX-IF-047.
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-055']/dependsOn
+  needle: CLX-IF-047
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F004
+  world_ref: INTERFACE:CLX-IF-058#depends_on
+  kind: general
+  statement: CLX-IF-058 (Reserve Triangles Extract) depends on CLX-IF-044.
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-058']/dependsOn
+  needle: CLX-IF-044
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F005
+  world_ref: INTERFACE:CLX-IF-051#depends_on
+  kind: general
+  statement: CLX-IF-051 (Technical Provisions Feed) depends on CLX-IF-043.
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-051']/dependsOn
+  needle: CLX-IF-043
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F006
+  world_ref: INTERFACE:CLX-IF-042#dependents
+  kind: general
+  statement: 'Impact of CLX-IF-042: hop 2 is CLX-IF-051, CLX-IF-055 and CLX-IF-058.'
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-042']/impactAnalysis/hop[@level='2']
+  needle: CLX-IF-051 CLX-IF-055 CLX-IF-058
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F007
+  world_ref: REPORT:NISA-TP2
+  kind: general
+  statement: Impact of CLX-IF-042 reaches report NISA-TP2.
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-042']/impactAnalysis/affectedReports
+  needle: NISA-TP2
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F008
+  world_ref: INTERFACE:CLX-IF-042#owner
+  kind: general
+  statement: CLX-IF-042 is owned by Henrik Vestergaard (Integration Platform Lead), criticality Critical.
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-042']/owner/name
+  needle: Henrik Vestergaard
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F009
+  world_ref: INTERFACE:CLX-IF-042#mq_queue
+  kind: general
+  statement: CLX-IF-042 puts fixed-width RSVMOVE records to queue CLR.RSVMOVE.OUT, written by CLRRS170 in job CLRNRSV3.
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-042']/transport/mqQueue
+  needle: CLR.RSVMOVE.OUT
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F010
+  world_ref: INTERFACE:CLX-IF-042#depends_on
+  kind: general
+  statement: CLX-IF-042 depends on CLX-IF-027 (Currency rates to CLARA).
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-042']/dependsOn
+  needle: CLX-IF-027
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F011
+  world_ref: INTERFACE:CLX-IF-043#schedule_history
+  kind: temporal
+  statement: CLX-IF-043 moved from daily 03:00 to daily 03:45 on 2025-05-09 (CHUB-143).
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-043']/scheduleHistory/entry[2]
+  needle: daily 03:45 from=2025-05-09
+  exclusive: false
+  also_in: []
+  notes: Agrees with the authoritative side of C12; xml text renders children then attributes.
+- fact_id: ST035-F012
+  world_ref: INTERFACE:CLX-IF-049#kafka_topic
+  kind: general
+  statement: CLX-IF-049 bridges RSVMOVE to Avro on Kafka topic claims.reserve.movement.v1 (schema v3).
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-049']/transport/kafkaTopic
+  needle: claims.reserve.movement.v1
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F013
+  world_ref: INTERFACE:CLX-IF-058#note
+  kind: general
+  statement: CLX-IF-058 feeds the monthly IBNR run of the Reserving team.
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-058']/note
+  needle: monthly IBNR run of the Reserving team
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F014
+  world_ref: INTERFACE:CLX-IF-033#since
+  kind: general
+  statement: CLX-IF-033 (NISA-FR1 fraud referral return) has been live since 2026-07-07.
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-033']/@since
+  needle: '2026-07-07'
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F015
+  world_ref: INTERFACE:CLX-IF-060#status
+  kind: general
+  statement: CLX-IF-060 (Claims Hub regulatory extracts) is planned, using reporting-feed-svc.
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-060']/@status
+  needle: planned
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F016
+  world_ref: INTERFACE:CLX-IF-001
+  kind: scale
+  statement: The interface catalogue lists 60 interfaces (CLX-IF-001 to CLX-IF-060).
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interfaces/@count
+  needle: '60'
+  exclusive: false
+  also_in: []
+- fact_id: ST035-F017
+  world_ref: INTERFACE:CLX-IF-051#depends_on
+  kind: general
+  statement: 'Upstream lineage of CLX-IF-051: hop 1 CLX-IF-043, hop 2 CLX-IF-042, hop 3 CLX-IF-027.'
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-051']/lineage/upstreamHop[@level='2']
+  needle: CLX-IF-042
+  exclusive: false
+  also_in: []
+  notes: Derived transitively from depends_on.
+- fact_id: ST035-F018
+  world_ref: SERVICE:reserve-engine#kafka_topics
+  kind: general
+  statement: CLX-IF-049 is implemented by reserve-engine, which consumes claims.reserve.movement.v1 and triage.completed.v1.
+  file: corpus/upload/structured/ST035_interface_catalogue.xml
+  locator:
+    kind: xml_xpath
+    xpath: //interface[@id='CLX-IF-049']/implementation/services/service/consumes
+  needle: claims.reserve.movement.v1
+  exclusive: false
+  also_in: []
+- fact_id: ST036-F001
+  world_ref: PROGRAM:CLRFR020#renamed_from
+  kind: needle
+  statement: 'Program inventory XML: CLRFR020 renamedFrom FNETCAL1 on 2025-03-01.'
+  file: corpus/upload/structured/ST036_clara_program_inventory.xml
+  locator:
+    kind: xml_xpath
+    xpath: //program[@id='CLRFR020']/renamedFrom
+  needle: FNETCAL1 date=2025-03-01
+  exclusive: false
+  also_in: []
+  placement: PL-174
+  placement_key: st36_renamed
+- fact_id: ST036-F002
+  world_ref: TABLE:CLR.T_RESERVE#writers
+  kind: general
+  statement: 'Eight programs write CLR.T_RESERVE: CLRFN030, CLRGL090, CLRRC050, CLRRS010, CLRRS020, CLRRS110, CLRRS130, CLRST040.'
+  file: corpus/upload/structured/ST036_clara_program_inventory.xml
+  locator:
+    kind: xml_xpath
+    xpath: //summary/reserveTableWriters/program/@id
+  needle: CLRFN030 CLRGL090 CLRRC050 CLRRS010 CLRRS020 CLRRS110 CLRRS130 CLRST040
+  exclusive: false
+  also_in: []
+- fact_id: ST036-F003
+  world_ref: PROGRAM:CLRGL090#writes_tables:CLR.T_RESERVE
+  kind: general
+  statement: CLRGL090 updates CLR.T_RESERVE without writing a reserve movement (IA-25-07).
+  file: corpus/upload/structured/ST036_clara_program_inventory.xml
+  locator:
+    kind: xml_xpath
+    xpath: //program[@id='CLRGL090']/note
+  needle: without writing CLR.T_RESERVE_MOVEMENT
+  exclusive: false
+  also_in: []
+- fact_id: ST036-F004
+  world_ref: PROGRAM:CLRRS150
+  kind: general
+  statement: CLRRS150 writes reserve movements only and does not update CLR.T_RESERVE.
+  file: corpus/upload/structured/ST036_clara_program_inventory.xml
+  locator:
+    kind: xml_xpath
+    xpath: //program[@id='CLRRS150']/note
+  needle: does not update CLR.T_RESERVE
+  exclusive: false
+  also_in: []
+- fact_id: ST036-F005
+  world_ref: PROGRAM:CLRRS170
+  kind: general
+  statement: CLRRS170 (job CLRNRSV3) is the CLX-IF-042 reserve movement extract program.
+  file: corpus/upload/structured/ST036_clara_program_inventory.xml
+  locator:
+    kind: xml_xpath
+    xpath: //program[@id='CLRRS170']/interfaces
+  needle: CLX-IF-042
+  exclusive: false
+  also_in: []
+- fact_id: ST036-F006
+  world_ref: PROGRAM:CLRFR140#status
+  kind: general
+  statement: CLRFR140 (auto-decline sweep) has status disabled.
+  file: corpus/upload/structured/ST036_clara_program_inventory.xml
+  locator:
+    kind: xml_xpath
+    xpath: //program[@id='CLRFR140']/@status
+  needle: disabled
+  exclusive: false
+  also_in: []
+- fact_id: ST036-F007
+  world_ref: PROGRAM:CLRFR040#hardcoded_constants
+  kind: general
+  statement: CLRFR040 batch referral sweep has a hard-coded threshold defect tracked as CHUB-298.
+  file: corpus/upload/structured/ST036_clara_program_inventory.xml
+  locator:
+    kind: xml_xpath
+    xpath: //program[@id='CLRFR040']/note
+  needle: CHUB-298
+  exclusive: false
+  also_in: []
+- fact_id: ST036-F008
+  world_ref: PROGRAM:CLRFN010#cics_transaction
+  kind: general
+  statement: CLRFN010 runs under CICS transaction FN01 with BMS map CLRM010.
+  file: corpus/upload/structured/ST036_clara_program_inventory.xml
+  locator:
+    kind: xml_xpath
+    xpath: //program[@id='CLRFN010']/runtime
+  needle: cicsTransaction=FN01
+  exclusive: false
+  also_in: []
+- fact_id: ST036-F009
+  world_ref: SYSTEM:SYS01
+  kind: scale
+  statement: The CLARA program inventory lists 122 programs.
+  file: corpus/upload/structured/ST036_clara_program_inventory.xml
+  locator:
+    kind: xml_xpath
+    xpath: //summary/programCount
+  needle: '122'
+  exclusive: false
+  also_in: []
+- fact_id: ST036-F010
+  world_ref: TABLE:CLR.T_RESERVE#writers
+  kind: general
+  statement: 'Program inventory table index: CLR.T_RESERVE is written by eight programs.'
+  file: corpus/upload/structured/ST036_clara_program_inventory.xml
+  locator:
+    kind: xml_xpath
+    xpath: //tableIndex/table[@name='CLR.T_RESERVE']/writtenBy
+  needle: CLRFN030 CLRGL090 CLRRC050 CLRRS010 CLRRS020 CLRRS110 CLRRS130 CLRST040
+  exclusive: false
+  also_in: []
+- fact_id: ST037-F001
+  world_ref: INTERFACE:CLX-IF-042#mq_max_depth
+  kind: needle
+  statement: 'MQ definitions: queue CLR.RSVMOVE.OUT has MAXDEPTH 50000.'
+  file: corpus/upload/structured/ST037_mq_channel_definitions.xml
+  locator:
+    kind: xml_xpath
+    xpath: //queue[@name='CLR.RSVMOVE.OUT']
+  needle: QLOCAL('CLR.RSVMOVE.OUT') MAXDEPTH(50000)
+  exclusive: true
+  also_in: []
+  placement: PL-175
+  placement_key: st37_depth
+- fact_id: ST037-F002
+  world_ref: INTERFACE:CLX-IF-042#dependents
+  kind: general
+  statement: Queue CLR.RSVMOVE.OUT is put by CLRRS170 and consumed by interfaces CLX-IF-043, CLX-IF-044, CLX-IF-047 and CLX-IF-049.
+  file: corpus/upload/structured/ST037_mq_channel_definitions.xml
+  locator:
+    kind: xml_xpath
+    xpath: //queue[@name='CLR.RSVMOVE.OUT']/consumingInterfaces/interfaceRef/@ref
+  needle: CLX-IF-043 CLX-IF-044 CLX-IF-047 CLX-IF-049
+  exclusive: false
+  also_in: []
+- fact_id: ST037-F003
+  world_ref: SYSTEM:SYS14#tech
+  kind: general
+  statement: CLARA's z/OS queue manager is CLRQM01; the distributed queue manager is HUBQM01.
+  file: corpus/upload/structured/ST037_mq_channel_definitions.xml
+  locator:
+    kind: xml_xpath
+    xpath: //queueManager[@name='CLRQM01']/description
+  needle: z/OS queue manager
+  exclusive: false
+  also_in: []
+- fact_id: ST037-F004
+  world_ref: INTERFACE:CLX-IF-011
+  kind: general
+  statement: Queue CLR.SIUREF.OUT carries fraud referrals to SIU Case Manager (CLX-IF-011).
+  file: corpus/upload/structured/ST037_mq_channel_definitions.xml
+  locator:
+    kind: xml_xpath
+    xpath: //queue[@name='CLR.SIUREF.OUT']/@interface
+  needle: CLX-IF-011
+  exclusive: false
+  also_in: []
+- fact_id: ST037-F005
+  world_ref: INTERFACE:CLX-IF-031#programs
+  kind: general
+  statement: Large loss notifications to ReCede use queue CLR.LLN.OUT (CLX-IF-031), put by CLRRS160.
+  file: corpus/upload/structured/ST037_mq_channel_definitions.xml
+  locator:
+    kind: xml_xpath
+    xpath: //queue[@name='CLR.LLN.OUT']/putBy
+  needle: CLRRS160
+  exclusive: false
+  also_in: []
+- fact_id: ST037-F006
+  world_ref: INTERFACE:CLX-IF-042#owner
+  kind: general
+  statement: The interface owner recorded for queue CLR.RSVMOVE.OUT (CLX-IF-042) is Henrik Vestergaard.
+  file: corpus/upload/structured/ST037_mq_channel_definitions.xml
+  locator:
+    kind: xml_xpath
+    xpath: //queue[@name='CLR.RSVMOVE.OUT']/interfaceOwner
+  needle: Henrik Vestergaard
+  exclusive: false
+  also_in: []
+- fact_id: ST038-F001
+  world_ref: TIMELINE:metrics#fraud_referrals_count
+  kind: needle
+  statement: 'NISA-FR1 2026Q2 return: 1,488 fraud referrals in Q2 2026.'
+  file: corpus/upload/structured/ST038_nisa_fr1_return_2026q2.xml
+  locator:
+    kind: xml_xpath
+    xpath: //figures/referralsTotal
+  needle: '1488'
+  exclusive: false
+  also_in:
+  - ST034-F001
+  - corpus/upload/visuals/VS042_kpi_report_charts_q3_2026.pdf
+  placement: PL-143
+  placement_key: vs42_fr_q3
+- fact_id: ST038-F002
+  world_ref: REPORT:NISA-FR1#submissions
+  kind: general
+  statement: 'NISA-FR1 2026Q2 was the first FR1 return: due 2026-07-30, submitted 2026-07-29.'
+  file: corpus/upload/structured/ST038_nisa_fr1_return_2026q2.xml
+  locator:
+    kind: xml_xpath
+    xpath: //header/submittedDate
+  needle: '2026-07-29'
+  exclusive: false
+  also_in: []
+- fact_id: ST038-F003
+  world_ref: RULE:BR-FRD-031@v1#parameters.threshold
+  kind: temporal
+  statement: In Q2 2026 the referral threshold was 65 for all tiers (BR-FRD-031 v1, from 2026-04-01).
+  file: corpus/upload/structured/ST038_nisa_fr1_return_2026q2.xml
+  locator:
+    kind: xml_xpath
+    xpath: //figures/referralThreshold
+  needle: 65 rule=BR-FRD-031 v1
+  exclusive: false
+  also_in: []
+- fact_id: ST038-F004
+  world_ref: INCIDENT:INC-2026-0518
+  kind: general
+  statement: 'The FR1 Q2 return notes INC-2026-0518: the batch fraud sweep used the pre-2026 threshold.'
+  file: corpus/upload/structured/ST038_nisa_fr1_return_2026q2.xml
+  locator:
+    kind: xml_xpath
+    xpath: //dataQualityNotes/note[@incident='INC-2026-0518']
+  needle: pre-2026 referral threshold
+  exclusive: false
+  also_in: []
+- fact_id: ST038-F005
+  world_ref: REPORT:NISA-FR1#source_interfaces
+  kind: general
+  statement: NISA-FR1 is fed by interface CLX-IF-033.
+  file: corpus/upload/structured/ST038_nisa_fr1_return_2026q2.xml
+  locator:
+    kind: xml_xpath
+    xpath: //header/sourceInterfaces/interface/@id
+  needle: CLX-IF-033
+  exclusive: false
+  also_in: []
+- fact_id: ST038-F006
+  world_ref: RULE:BR-FRD-036@v1#parameters.max_deferral_days
+  kind: general
+  statement: 'FR1 Q2 deferral annex: notices may be deferred up to 60 days under BR-FRD-036 v1.'
+  file: corpus/upload/structured/ST038_nisa_fr1_return_2026q2.xml
+  locator:
+    kind: xml_xpath
+    xpath: //deferralAnnex/@maxDeferralDays
+  needle: '60'
+  exclusive: false
+  also_in: []
+- fact_id: ST039-F001
+  world_ref: REPORT:NISA-TP2#source_interfaces
+  kind: needle
+  statement: TP2 2026Q2 return metadata names source interface CLX-IF-051.
+  file: corpus/upload/structured/ST039_nisa_tp2_return_2026q2.xml
+  locator:
+    kind: xml_xpath
+    xpath: //header/sourceInterfaces
+  needle: CLX-IF-051
+  exclusive: false
+  also_in: []
+  placement: PL-176
+  placement_key: st39_tp2
+- fact_id: ST039-F002
+  world_ref: REPORT:NISA-TP2#signed_by_role
+  kind: general
+  statement: The TP2 2026Q2 return is signed by the CFO, Priya Raman.
+  file: corpus/upload/structured/ST039_nisa_tp2_return_2026q2.xml
+  locator:
+    kind: xml_xpath
+    xpath: //header/signedBy
+  needle: Priya Raman
+  exclusive: false
+  also_in: []
+- fact_id: ST039-F003
+  world_ref: INTERFACE:CLX-IF-051#depends_on
+  kind: general
+  statement: 'TP2 data lineage: CLX-IF-042 to CLX-IF-043 to CLX-IF-051 (NISA Reporting Hub).'
+  file: corpus/upload/structured/ST039_nisa_tp2_return_2026q2.xml
+  locator:
+    kind: xml_xpath
+    xpath: //dataLineage/step/@interface
+  needle: CLX-IF-042 CLX-IF-043 CLX-IF-051
+  exclusive: false
+  also_in: []
+- fact_id: ST039-F004
+  world_ref: REPORT:NISA-TP2#late_events
+  kind: general
+  statement: TP2 2025Q1 was submitted late on 2025-05-07 (due 2025-05-05) because of INC-2025-0412; NISA granted a 2-day extension.
+  file: corpus/upload/structured/ST039_nisa_tp2_return_2026q2.xml
+  locator:
+    kind: xml_xpath
+    xpath: //submissionHistory/lateSubmission
+  needle: 2-day extension granted by Imogen Thackray
+  exclusive: false
+  also_in: []
+- fact_id: ST039-F005
+  world_ref: REPORT:NISA-TP2#due
+  kind: general
+  statement: NISA-TP2 is due 35 calendar days after quarter end; the 2026Q2 return was due 2026-08-04.
+  file: corpus/upload/structured/ST039_nisa_tp2_return_2026q2.xml
+  locator:
+    kind: xml_xpath
+    xpath: //header/dueRule
+  needle: 35 calendar days after quarter end
+  exclusive: false
+  also_in: []
+- fact_id: ST040-F001
+  world_ref: PROCESS:S7#owner_history
+  kind: general
+  statement: 'Process definition (2026-07-13): the Recovery & Subrogation stage S7 is owned by Freya Lindahl, Head of Recoveries
+    & Subrogation.'
+  file: corpus/upload/structured/ST040_claims_process_definition.xml
+  locator:
+    kind: xml_xpath
+    xpath: //stage[@id='S7']/owner
+  needle: Freya Lindahl
+  exclusive: false
+  also_in: []
+- fact_id: ST040-F002
+  world_ref: RULE:BR-FRD-031@v1#parameters.threshold
+  kind: temporal
+  statement: As at 2026-07-13 the referral decision PS-FRD-01 refers at a Sentinel score of 65 or more for all claims (BR-FRD-031
+    v1).
+  file: corpus/upload/structured/ST040_claims_process_definition.xml
+  locator:
+    kind: xml_xpath
+    xpath: //step[@id='PS-FRD-01']/decision/branch[1]/@condition
+  needle: sentinel_score >= 65
+  exclusive: false
+  also_in: []
+- fact_id: ST040-F003
+  world_ref: PROCESS:PS-FRD-03#sla
+  kind: general
+  statement: 'Step PS-FRD-03: notify the customer within 10 business days of referral (BR-FRD-032 v2).'
+  file: corpus/upload/structured/ST040_claims_process_definition.xml
+  locator:
+    kind: xml_xpath
+    xpath: //step[@id='PS-FRD-03']/sla
+  needle: within 10 business days of referral
+  exclusive: false
+  also_in: []
+- fact_id: ST040-F004
+  world_ref: PROCESS:PS-RSV-03#sla
+  kind: general
+  statement: 'Step PS-RSV-03: Tier-3 reserves reviewed every 14 days (BR-RSV-007 v3).'
+  file: corpus/upload/structured/ST040_claims_process_definition.xml
+  locator:
+    kind: xml_xpath
+    xpath: //step[@id='PS-RSV-03']/sla
+  needle: Tier-3 every 14 days
+  exclusive: false
+  also_in: []
+- fact_id: ST040-F005
+  world_ref: RULE:BR-REC-003@v3#parameters.min_gbp
+  kind: general
+  statement: 'Step PS-REC-02 decision: pursue subrogation where the recoverable amount is £1,000 or more (BR-REC-003 v3).'
+  file: corpus/upload/structured/ST040_claims_process_definition.xml
+  locator:
+    kind: xml_xpath
+    xpath: //step[@id='PS-REC-02']/decision/branch[1]/@condition
+  needle: recoverable_gbp >= 1000
+  exclusive: false
+  also_in: []
+- fact_id: ST040-F006
+  world_ref: PROCESS:S4#owner_history
+  kind: general
+  statement: Reserving stage S4 is owned by Lena Kristiansen, Head of Reserving.
+  file: corpus/upload/structured/ST040_claims_process_definition.xml
+  locator:
+    kind: xml_xpath
+    xpath: //stage[@id='S4']/owner
+  needle: Lena Kristiansen
+  exclusive: false
+  also_in: []
+- fact_id: ST040-F007
+  world_ref: RULE:BR-FNOL-001@v3
+  kind: general
+  statement: 'Step PS-FNOL-05: acknowledge digital FNOLs within 1 business day and other channels within 2 (BR-FNOL-001 v3).'
+  file: corpus/upload/structured/ST040_claims_process_definition.xml
+  locator:
+    kind: xml_xpath
+    xpath: //step[@id='PS-FNOL-05']/sla
+  needle: 1 business day digital, 2 business days other channels
+  exclusive: false
+  also_in: []
+- fact_id: ST040-F008
+  world_ref: RULE:BR-REC-011@v2
+  kind: general
+  statement: 'Step PS-REC-06: write-offs above £10,000 need the Head of Recoveries & Subrogation (BR-REC-011 v2).'
+  file: corpus/upload/structured/ST040_claims_process_definition.xml
+  locator:
+    kind: xml_xpath
+    xpath: //step[@id='PS-REC-06']/decision/branch[1]
+  needle: approval by the Head of Recoveries & Subrogation
+  exclusive: false
+  also_in: []
+- fact_id: ST041-F001
+  world_ref: COPYBOOK:RSVMOVE#fields
+  kind: needle
+  statement: 'Copybook schema RSVMOVE: RM-AMOUNT PIC S9(9)V99 COMP-3; RM-REC-VERSION PIC 9(2).'
+  file: corpus/upload/structured/ST041_copybook_schemas.xml
+  locator:
+    kind: xml_xpath
+    xpath: //copybook[@name='RSVMOVE']/fields/field[name='RM-AMOUNT']
+  needle: RM-AMOUNT S9(9)V99 COMP-3
+  exclusive: false
+  also_in: []
+  placement: PL-177
+  placement_key: st41_rsvmove
+- fact_id: ST041-F002
+  world_ref: COPYBOOK:RSVMOVE#fields
+  kind: general
+  statement: RSVMOVE field RM-REC-VERSION is PIC 9(2) (record version byte added 2025-04-30, CHUB-142).
+  file: corpus/upload/structured/ST041_copybook_schemas.xml
+  locator:
+    kind: xml_xpath
+    xpath: //copybook[@name='RSVMOVE']/fields/field[name='RM-REC-VERSION']
+  needle: RM-REC-VERSION 9(2)
+  exclusive: false
+  also_in: []
+- fact_id: ST041-F003
+  world_ref: COPYBOOK:RSVMOVE#field_history
+  kind: temporal
+  statement: RSVMOVE RM-AMOUNT was widened to S9(11)V99 COMP-3 on 2025-04-25 (CHUB-138) and reverted on 2025-04-30 (CHUB-142).
+  file: corpus/upload/structured/ST041_copybook_schemas.xml
+  locator:
+    kind: xml_xpath
+    xpath: //copybook[@name='RSVMOVE']/changeLog
+  needle: Widened for Nordic large losses; broke CLX-IF-043 (INC-2025-0412)
+  exclusive: false
+  also_in: []
+- fact_id: ST041-F004
+  world_ref: COPYBOOK:RSVMOVE#used_by
+  kind: general
+  statement: Copybook RSVMOVE is the CLX-IF-042 fixed-width record (queue CLR.RSVMOVE.OUT), used by CLRRS170.
+  file: corpus/upload/structured/ST041_copybook_schemas.xml
+  locator:
+    kind: xml_xpath
+    xpath: //copybook[@name='RSVMOVE']/usedBy
+  needle: CLRRS170
+  exclusive: false
+  also_in: []
+- fact_id: ST041-F005
+  world_ref: SYSTEM:SYS01
+  kind: scale
+  statement: The copybook schema file describes 50 CLARA copybooks.
+  file: corpus/upload/structured/ST041_copybook_schemas.xml
+  locator:
+    kind: xml_xpath
+    xpath: //copybooks/@count
+  needle: '50'
+  exclusive: false
+  also_in: []
+- fact_id: ST042-F001
+  world_ref: JCL:CLRNRSV3#datasets
+  kind: general
+  statement: Job CLRNRSV3 runs CLRRS170 (STEP010) and writes dataset CLR.PROD.RSVMOVE.DAILY(+1) via DD RSVOUT.
+  file: corpus/upload/structured/ST042_jcl_schedule.xml
+  locator:
+    kind: xml_xpath
+    xpath: //job[@name='CLRNRSV3']/datasets
+  needle: CLR.PROD.RSVMOVE.DAILY(+1)
+  exclusive: false
+  also_in: []
+  notes: The CLRNRSV3 schedule is deliberately not stated (guarded by the CLX-IF-042 schedule, VS033).
+- fact_id: ST042-F002
+  world_ref: JCL:CLRNRSV3#restart
+  kind: general
+  statement: 'CLRNRSV3 restart: rerun the whole job; CLRRS170 only extracts rows with EXTRACTED_FLAG = ''N''.'
+  file: corpus/upload/structured/ST042_jcl_schedule.xml
+  locator:
+    kind: xml_xpath
+    xpath: //job[@name='CLRNRSV3']/restart
+  needle: only extracts rows with EXTRACTED_FLAG
+  exclusive: false
+  also_in: []
+- fact_id: ST042-F003
+  world_ref: JCL:CLRNRSV1#schedule
+  kind: general
+  statement: Job CLRNRSV1 (Tier-3 reserve review and revaluation) runs daily at 01:30.
+  file: corpus/upload/structured/ST042_jcl_schedule.xml
+  locator:
+    kind: xml_xpath
+    xpath: //job[@name='CLRNRSV1']/schedule
+  needle: daily 01:30
+  exclusive: false
+  also_in: []
+- fact_id: ST042-F004
+  world_ref: JCL:CLRNFR99#schedule
+  kind: general
+  statement: Job CLRNFR99 (auto-decline sweep, CLRFR140) was removed from the schedule on 2026-04-01; it previously ran daily
+    at 00:45.
+  file: corpus/upload/structured/ST042_jcl_schedule.xml
+  locator:
+    kind: xml_xpath
+    xpath: //job[@name='CLRNFR99']/schedule
+  needle: removed from schedule 2026-04-01 (was daily 00:45)
+  exclusive: false
+  also_in: []
+- fact_id: ST042-F005
+  world_ref: JCL:CLRDRSV9#status
+  kind: temporal
+  statement: As at 2026-05-18 job CLRDRSV9 (reserve parallel-run reconciliation) was active, daily 05:00 for 2026-03-02 to
+    2026-08-28.
+  file: corpus/upload/structured/ST042_jcl_schedule.xml
+  locator:
+    kind: xml_xpath
+    xpath: //job[@name='CLRDRSV9']/@status
+  needle: active
+  exclusive: false
+  also_in: []
+- fact_id: ST042-F006
+  world_ref: JCL:CLRNFR01#steps
+  kind: general
+  statement: Job CLRNFR01 (nightly fraud scoring and referral sweep) runs CLRFR110, CLRFR080 and CLRFR040 at 00:15.
+  file: corpus/upload/structured/ST042_jcl_schedule.xml
+  locator:
+    kind: xml_xpath
+    xpath: //job[@name='CLRNFR01']/steps
+  needle: CLRFR040
+  exclusive: false
+  also_in: []
+- fact_id: ST042-F007
+  world_ref: SYSTEM:SYS01#batch_window
+  kind: general
+  statement: The CLARA batch window is 23:30–05:30 UK time.
+  file: corpus/upload/structured/ST042_jcl_schedule.xml
+  locator:
+    kind: xml_xpath
+    xpath: //scheduleHeader/batchWindow
+  needle: 23:30–05:30 UK time
+  exclusive: false
+  also_in: []
+- fact_id: ST043-F001
+  world_ref: SERVICE:reserve-engine#renames
+  kind: contradiction_old
+  statement: OpenAPI info.title 'reserve-svc API' (version 1.4, 2025-12-01).
+  file: corpus/upload/structured/ST043_openapi_reserve_svc.yaml
+  locator:
+    kind: yaml_path
+    path: info.title
+  needle: reserve-svc API
+  exclusive: false
+  also_in: []
+  placement: PL-178
+  placement_key: st43_title
+  notes: 'C09: the same service is reserve-engine in ST049 (renamed 2026-02-10).'
+- fact_id: ST043-F002
+  world_ref: SERVICE:reserve-engine#apis
+  kind: general
+  statement: reserve-svc API version is 1.4.
+  file: corpus/upload/structured/ST043_openapi_reserve_svc.yaml
+  locator:
+    kind: yaml_path
+    path: info.version
+  needle: '1.4'
+  exclusive: false
+  also_in: []
+- fact_id: ST043-F003
+  world_ref: RULE:BR-RSV-007@v2#parameters.review_days
+  kind: temporal
+  statement: In the reserve-svc API (2025-12-01) Tier-3 reserves are reviewed every 21 days (BR-RSV-007 v2).
+  file: corpus/upload/structured/ST043_openapi_reserve_svc.yaml
+  locator:
+    kind: yaml_path
+    path: components.schemas.Reserve.properties.nextReviewDate.description
+  needle: reviewed every 21 days (BR-RSV-007 v2
+  exclusive: false
+  also_in: []
+- fact_id: ST043-F004
+  world_ref: RULE:BR-RSV-003@v3
+  kind: general
+  statement: 'Reserve authority limits (BR-RSV-003 v3): Claims Handler £25,000; Team Leader £100,000; Claims Manager £500,000;
+    Claims Director £2,000,000.'
+  file: corpus/upload/structured/ST043_openapi_reserve_svc.yaml
+  locator:
+    kind: yaml_path
+    path: components.schemas.AuthorityLevel.description
+  needle: Team Leader £100,000
+  exclusive: false
+  also_in: []
+- fact_id: ST043-F005
+  world_ref: SERVICE:reserve-engine#apis
+  kind: general
+  statement: POST /reserves/{claimId}/movements is authority-checked against BR-RSV-003.
+  file: corpus/upload/structured/ST043_openapi_reserve_svc.yaml
+  locator:
+    kind: yaml_path
+    path: paths."/reserves/{claimId}/movements".post.summary
+  needle: authority checked against BR-RSV-003
+  exclusive: false
+  also_in: []
+- fact_id: ST043-F006
+  world_ref: RULE:BR-RSV-011@v2#parameters.threshold_gbp
+  kind: general
+  statement: Large reserve movements above £250,000 are flagged and notified to Reinsurance within 24 hours (BR-RSV-011 v2).
+  file: corpus/upload/structured/ST043_openapi_reserve_svc.yaml
+  locator:
+    kind: yaml_path
+    path: components.schemas.Movement.properties.largeLoss.description
+  needle: £250,000 (BR-RSV-011 v2)
+  exclusive: false
+  also_in: []
+- fact_id: ST043-F007
+  world_ref: TABLE:reserve.review_schedule
+  kind: general
+  statement: reserve-svc keeps Tier-3 review dates in PostgreSQL table reserve.review_schedule (database chub_reserve).
+  file: corpus/upload/structured/ST043_openapi_reserve_svc.yaml
+  locator:
+    kind: yaml_path
+    path: x-data-model.tables[2]
+  needle: 'table: reserve.review_schedule database: chub_reserve'
+  exclusive: false
+  also_in: []
+- fact_id: ST044-F001
+  world_ref: SERVICE:fraud-referral-svc#apis
+  kind: needle
+  statement: 'OpenAPI: POST /referrals/{referralId}/customer-notice — deadline is the referral date plus 10 business days.'
+  file: corpus/upload/structured/ST044_openapi_fraud_referral_svc.yaml
+  locator:
+    kind: yaml_path
+    path: paths."/referrals/{referralId}/customer-notice".post.summary
+  needle: referral date + 10 business days
+  exclusive: false
+  also_in: []
+  placement: PL-179
+  placement_key: st44_notice
+- fact_id: ST044-F002
+  world_ref: RULE:BR-FRD-031@v2
+  kind: general
+  statement: 'fraud-referral-svc thresholdApplied: 65 for all claims; 60 for Tier-3 claims from 2026-10-01 (BR-FRD-031 v2).'
+  file: corpus/upload/structured/ST044_openapi_fraud_referral_svc.yaml
+  locator:
+    kind: yaml_path
+    path: components.schemas.Referral.properties.thresholdApplied.description
+  needle: 60 for Tier-3 claims from 2026-10-01
+  exclusive: false
+  also_in: []
+- fact_id: ST044-F003
+  world_ref: RULE:BR-FRD-036@v2
+  kind: general
+  statement: 'Customer notice deferral: up to 60 days; beyond 30 days needs the Head of Counter-Fraud & SIU from 2026-10-01
+    (BR-FRD-036 v2).'
+  file: corpus/upload/structured/ST044_openapi_fraud_referral_svc.yaml
+  locator:
+    kind: yaml_path
+    path: components.schemas.CustomerNoticeRequest.properties.deferralDays.description
+  needle: beyond 30 days need the Head of Counter-Fraud & SIU
+  exclusive: false
+  also_in: []
+- fact_id: ST044-F004
+  world_ref: SERVICE:fraud-referral-svc#kafka_topics
+  kind: general
+  statement: fraud-referral-svc produces fraud.referral.created.v1 and fraud.referral.notice-due.v1.
+  file: corpus/upload/structured/ST044_openapi_fraud_referral_svc.yaml
+  locator:
+    kind: yaml_path
+    path: x-events.produces
+  needle: fraud.referral.notice-due.v1
+  exclusive: false
+  also_in: []
+- fact_id: ST044-F005
+  world_ref: RULE:BR-FRD-035@v2
+  kind: general
+  statement: SIU triage due date is the referral date + 3 business days (BR-FRD-035 v2).
+  file: corpus/upload/structured/ST044_openapi_fraud_referral_svc.yaml
+  locator:
+    kind: yaml_path
+    path: components.schemas.Referral.properties.siuTriageDueBy.description
+  needle: 3 business days (BR-FRD-035 v2)
+  exclusive: false
+  also_in: []
+- fact_id: ST044-F006
+  world_ref: TABLE:fraud.customer_notice
+  kind: general
+  statement: fraud-referral-svc persists customer notices in PostgreSQL table fraud.customer_notice.
+  file: corpus/upload/structured/ST044_openapi_fraud_referral_svc.yaml
+  locator:
+    kind: yaml_path
+    path: x-data-model.tables[1].table
+  needle: fraud.customer_notice
+  exclusive: false
+  also_in: []
+- fact_id: ST045-F001
+  world_ref: RULE:BR-FRD-031@v2
+  kind: general
+  statement: 'Rules config: BR-FRD-031 v2 effective 2026-10-01 with threshold 65 and tier3_threshold 60.'
+  file: corpus/upload/structured/ST045_business_rules_config.yaml
+  locator:
+    kind: yaml_path
+    path: spec.areas.frd.BR-FRD-031.versions[0].parameters
+  needle: 'threshold: 65 tier3_threshold: 60'
+  exclusive: false
+  also_in: []
+- fact_id: ST045-F002
+  world_ref: RULE:BR-FRD-036@v2
+  kind: general
+  statement: 'Rules config: BR-FRD-036 v2 (from 2026-10-01): max 60 days deferral, Head approval after 30 days, notify Compliance.'
+  file: corpus/upload/structured/ST045_business_rules_config.yaml
+  locator:
+    kind: yaml_path
+    path: spec.areas.frd.BR-FRD-036.versions[0].parameters
+  needle: 'head_approval_after_days: 30'
+  exclusive: false
+  also_in: []
+- fact_id: ST045-F003
+  world_ref: RULE:BR-TRI-003@v3
+  kind: general
+  statement: 'Rules config: Tier-3 definition BR-TRI-003 v3 uses £50,000 (NOK 650,000 / SEK 680,000 / DKK 430,000).'
+  file: corpus/upload/structured/ST045_business_rules_config.yaml
+  locator:
+    kind: yaml_path
+    path: spec.areas.tri.BR-TRI-003.versions[0].parameters
+  needle: 'tier3_min_gbp: 50000'
+  exclusive: false
+  also_in: []
+- fact_id: ST045-F004
+  world_ref: RULE:BR-RSV-007@v2
+  kind: temporal
+  statement: 'Rules config: BR-RSV-007 v3 (14 days) from 2026-07-01 superseded v2 (21 days).'
+  file: corpus/upload/structured/ST045_business_rules_config.yaml
+  locator:
+    kind: yaml_path
+    path: spec.areas.rsv.BR-RSV-007.versions[1]
+  needle: 'review_days: 21'
+  exclusive: false
+  also_in: []
+- fact_id: ST045-F005
+  world_ref: RULE:BR-FRD-019#superseded_by
+  kind: general
+  statement: 'Rules config: BR-FRD-019 (auto-decline) is superseded by BR-FRD-033.'
+  file: corpus/upload/structured/ST045_business_rules_config.yaml
+  locator:
+    kind: yaml_path
+    path: spec.areas.frd.BR-FRD-019.supersededBy
+  needle: BR-FRD-033
+  exclusive: false
+  also_in: []
+- fact_id: ST045-F006
+  world_ref: RULE:BR-STL-002@v3
+  kind: general
+  statement: 'Rules config: payment authority BR-STL-002 v3 gives a Team Leader £75,000.'
+  file: corpus/upload/structured/ST045_business_rules_config.yaml
+  locator:
+    kind: yaml_path
+    path: spec.areas.stl.BR-STL-002.versions[0].parameters
+  needle: 'team_leader: 75000'
+  exclusive: false
+  also_in: []
+- fact_id: ST046-F001
+  world_ref: TOPIC:fnol.received.v1#partitions
+  kind: general
+  statement: 'GitOps: fnol.received.v1 has 6 partitions, 3 replicas and retention 604800000 ms (7 days).'
+  file: corpus/upload/structured/ST046_kafka_topics.yaml
+  locator:
+    kind: yaml_path
+    path: spec
+    doc_index: 7
+  needle: 'partitions: 6 replicas: 3'
+  exclusive: false
+  also_in: []
+- fact_id: ST046-F002
+  world_ref: TOPIC:reserve.changed.v2#retention_days
+  kind: general
+  statement: 'GitOps: reserve.changed.v2 has 12 partitions and retention 2592000000 ms (30 days).'
+  file: corpus/upload/structured/ST046_kafka_topics.yaml
+  locator:
+    kind: yaml_path
+    path: spec.config
+    doc_index: 15
+  needle: 'retention.ms: 2592000000'
+  exclusive: false
+  also_in: []
+- fact_id: ST046-F003
+  world_ref: TOPIC:claims.reserve.movement.v1
+  kind: general
+  statement: 'GitOps: claims.reserve.movement.v1 is labelled with interface CLX-IF-049.'
+  file: corpus/upload/structured/ST046_kafka_topics.yaml
+  locator:
+    kind: yaml_path
+    path: metadata.labels
+    doc_index: 3
+  needle: 'corvane.example/interface: CLX-IF-049'
+  exclusive: false
+  also_in: []
+  notes: Partitions and retention deliberately absent (exclusive to ST030 and LD013).
+- fact_id: ST046-F004
+  world_ref: SYSTEM:SYS15
+  kind: scale
+  statement: The GitOps topic file defines 18 KafkaTopic resources.
+  file: corpus/upload/structured/ST046_kafka_topics.yaml
+  locator:
+    kind: yaml_path
+    path: kind
+    doc_index: 17
+  needle: KafkaTopic
+  exclusive: false
+  also_in: []
+- fact_id: ST046-F005
+  world_ref: TOPIC:claims.reserve.movement.v1#consumers
+  kind: general
+  statement: 'GitOps: claims.reserve.movement.v1 is consumed by reserve-engine.'
+  file: corpus/upload/structured/ST046_kafka_topics.yaml
+  locator:
+    kind: yaml_path
+    path: metadata.annotations
+    doc_index: 3
+  needle: 'corvane.example/consumers: reserve-engine'
+  exclusive: false
+  also_in: []
+- fact_id: ST047-F001
+  world_ref: SERVICE:reserve-engine#infra.cpu_request
+  kind: general
+  statement: 'Helm: reserve-engine requests 500m CPU and has a 2Gi memory limit.'
+  file: corpus/upload/structured/ST047_helm_values_chub.yaml
+  locator:
+    kind: yaml_path
+    path: services.reserve-engine.resources
+  needle: 'cpu: 500m'
+  exclusive: false
+  also_in: []
+- fact_id: ST047-F002
+  world_ref: SERVICE:fraud-referral-svc#replicas
+  kind: general
+  statement: 'Helm: fraud-referral-svc runs 3 replicas in namespace chub-fraud.'
+  file: corpus/upload/structured/ST047_helm_values_chub.yaml
+  locator:
+    kind: yaml_path
+    path: services.fraud-referral-svc
+  needle: 'replicaCount: 3 namespace: chub-fraud'
+  exclusive: false
+  also_in: []
+- fact_id: ST047-F003
+  world_ref: SERVICE:recovery-svc#owner_history:T29
+  kind: general
+  statement: 'Helm (2026-10-20): recovery-svc is still labelled with squad Hub Squad – Fraud & Settlement.'
+  file: corpus/upload/structured/ST047_helm_values_chub.yaml
+  locator:
+    kind: yaml_path
+    path: services.recovery-svc.labels."corvane.example/squad"
+  needle: Hub Squad – Fraud & Settlement
+  exclusive: false
+  also_in: []
+- fact_id: ST047-F004
+  world_ref: SERVICE:reporting-feed-svc#status
+  kind: general
+  statement: 'Helm: reporting-feed-svc is disabled (in development).'
+  file: corpus/upload/structured/ST047_helm_values_chub.yaml
+  locator:
+    kind: yaml_path
+    path: services.reporting-feed-svc.enabled
+  needle: 'false'
+  exclusive: false
+  also_in: []
+- fact_id: ST047-F005
+  world_ref: SERVICE:reserve-engine#kafka_topics.consumes:claims.reserve.movement.v1
+  kind: general
+  statement: 'Helm: reserve-engine consumes claims.reserve.movement.v1 and triage.completed.v1.'
+  file: corpus/upload/structured/ST047_helm_values_chub.yaml
+  locator:
+    kind: yaml_path
+    path: services.reserve-engine.kafka.consumes
+  needle: claims.reserve.movement.v1
+  exclusive: false
+  also_in: []
+- fact_id: ST048-F001
+  world_ref: TOPIC:claims.reserve.movement.v1#schema_version
+  kind: needle
+  statement: 'Data contract CLX-IF-049: schema version 3, key claim_id, amounts in minor units.'
+  file: corpus/upload/structured/ST048_data_contract_clx_if_049.yaml
+  locator:
+    kind: yaml_path
+    path: ''
+  needle: 'schemaVersion: 3 key: claim_id amounts: minor units'
+  exclusive: false
+  also_in: []
+  placement: PL-180
+  placement_key: st48_contract
+- fact_id: ST048-F002
+  world_ref: SERVICE:reserve-engine#renames
+  kind: temporal
+  statement: As of 2025-12-12 the consumer of claims.reserve.movement.v1 is reserve-svc (renamed reserve-engine on 2026-02-10).
+  file: corpus/upload/structured/ST048_data_contract_clx_if_049.yaml
+  locator:
+    kind: yaml_path
+    path: consumers
+  needle: reserve-svc
+  exclusive: false
+  also_in: []
+- fact_id: ST048-F003
+  world_ref: COPYBOOK:RSVMOVE#fields
+  kind: general
+  statement: CLX-IF-049 maps RSVMOVE field RM-AMOUNT to amount_minor (minor units).
+  file: corpus/upload/structured/ST048_data_contract_clx_if_049.yaml
+  locator:
+    kind: yaml_path
+    path: fields[5]
+  needle: 'name: amount_minor'
+  exclusive: false
+  also_in: []
+- fact_id: ST048-F004
+  world_ref: INTERFACE:CLX-IF-049#schedule
+  kind: general
+  statement: The CLX-IF-049 bridge runs daily at 02:45.
+  file: corpus/upload/structured/ST048_data_contract_clx_if_049.yaml
+  locator:
+    kind: yaml_path
+    path: schedule
+  needle: daily 02:45
+  exclusive: false
+  also_in: []
+- fact_id: ST048-F005
+  world_ref: TOPIC:claims.reserve.movement.v1#ticket
+  kind: general
+  statement: CLX-IF-049 was delivered under CHUB-188.
+  file: corpus/upload/structured/ST048_data_contract_clx_if_049.yaml
+  locator:
+    kind: yaml_path
+    path: ticket
+  needle: CHUB-188
+  exclusive: false
+  also_in: []
+- fact_id: ST048-F006
+  world_ref: INTERFACE:CLX-IF-042#mq_queue
+  kind: general
+  statement: 'CLX-IF-049 lineage: RSVMOVE records arrive on queue CLR.RSVMOVE.OUT (CLX-IF-042) before bridging.'
+  file: corpus/upload/structured/ST048_data_contract_clx_if_049.yaml
+  locator:
+    kind: yaml_path
+    path: lineage[1].what
+  needle: CLR.RSVMOVE.OUT
+  exclusive: false
+  also_in: []
+- fact_id: ST049-F001
+  world_ref: SERVICE:reserve-engine#replicas
+  kind: contradiction_new
+  statement: k8s deployment metadata.name reserve-engine, namespace chub-reserve, replicas 4.
+  file: corpus/upload/structured/ST049_k8s_reserve_engine_deployment.yml
+  locator:
+    kind: yaml_path
+    path: metadata
+    doc_index: 0
+  needle: 'name: reserve-engine namespace: chub-reserve'
+  exclusive: false
+  also_in: []
+  placement: PL-181
+  placement_key: st49_deploy
+  notes: 'C09: ST043 (2025-12-01) still uses reserve-svc.'
+- fact_id: ST049-F002
+  world_ref: SERVICE:reserve-engine#replicas
+  kind: general
+  statement: The reserve-engine Deployment runs 4 replicas.
+  file: corpus/upload/structured/ST049_k8s_reserve_engine_deployment.yml
+  locator:
+    kind: yaml_path
+    path: spec.replicas
+    doc_index: 0
+  needle: '4'
+  exclusive: false
+  also_in: []
+- fact_id: ST049-F003
+  world_ref: SERVICE:reserve-engine#config.tier3-review-days
+  kind: general
+  statement: 'reserve-engine ConfigMap: tier3-review-days 14 and large-loss-threshold-gbp 250000.'
+  file: corpus/upload/structured/ST049_k8s_reserve_engine_deployment.yml
+  locator:
+    kind: yaml_path
+    path: data."application.yaml"
+    doc_index: 2
+  needle: 'tier3-review-days: 14'
+  exclusive: false
+  also_in: []
+- fact_id: ST049-F004
+  world_ref: SERVICE:reserve-engine#infra.cpu_request
+  kind: general
+  statement: 'reserve-engine container resources: CPU request 500m, memory limit 2Gi.'
+  file: corpus/upload/structured/ST049_k8s_reserve_engine_deployment.yml
+  locator:
+    kind: yaml_path
+    path: spec.template.spec.containers[0].resources
+    doc_index: 0
+  needle: 'cpu: 500m'
+  exclusive: false
+  also_in: []
+- fact_id: ST049-F005
+  world_ref: SERVICE:reserve-engine
+  kind: general
+  statement: reserve-engine is exposed through an OpenShift Route on reserve-engine.apps.ocp-prd-lon1.corvane.internal.
+  file: corpus/upload/structured/ST049_k8s_reserve_engine_deployment.yml
+  locator:
+    kind: yaml_path
+    path: spec.host
+    doc_index: 7
+  needle: reserve-engine.apps.ocp-prd-lon1.corvane.internal
+  exclusive: false
+  also_in: []
+- fact_id: ST050-F001
+  world_ref: SERVICE:fraud-referral-svc#config.referral.threshold.tier3
+  kind: needle
+  statement: fraud-referral-svc deployment env REFERRAL_THRESHOLD_TIER3=60.
+  file: corpus/upload/structured/ST050_k8s_fraud_referral_deployment.yml
+  locator:
+    kind: yaml_path
+    path: spec.template.spec.containers[0].env[3]
+    doc_index: 0
+  needle: 'name: REFERRAL_THRESHOLD_TIER3 value: 60'
+  exclusive: false
+  also_in: []
+  placement: PL-182
+  placement_key: st50_env
+- fact_id: ST050-F002
+  world_ref: SERVICE:fraud-referral-svc#config.referral.threshold.tier3.effective-from
+  kind: general
+  statement: fraud-referral-svc env REFERRAL_THRESHOLD_TIER3_EFFECTIVE_FROM=2026-10-01.
+  file: corpus/upload/structured/ST050_k8s_fraud_referral_deployment.yml
+  locator:
+    kind: yaml_path
+    path: spec.template.spec.containers[0].env[4]
+    doc_index: 0
+  needle: 'value: 2026-10-01'
+  exclusive: false
+  also_in: []
+- fact_id: ST050-F003
+  world_ref: SERVICE:fraud-referral-svc#config.auto-decline.enabled
+  kind: general
+  statement: fraud-referral-svc env AUTO_DECLINE_ENABLED=false.
+  file: corpus/upload/structured/ST050_k8s_fraud_referral_deployment.yml
+  locator:
+    kind: yaml_path
+    path: spec.template.spec.containers[0].env[7]
+    doc_index: 0
+  needle: 'name: AUTO_DECLINE_ENABLED value: false'
+  exclusive: false
+  also_in: []
+- fact_id: ST050-F004
+  world_ref: SERVICE:fraud-referral-svc#replicas
+  kind: general
+  statement: fraud-referral-svc runs 3 replicas in namespace chub-fraud.
+  file: corpus/upload/structured/ST050_k8s_fraud_referral_deployment.yml
+  locator:
+    kind: yaml_path
+    path: spec
+    doc_index: 0
+  needle: 'replicas: 3'
+  exclusive: false
+  also_in: []
+- fact_id: ST051-F001
+  world_ref: SERVICE:reserve-engine#repo_path
+  kind: general
+  statement: CI pipeline (2026-06-01) builds 13 Claims Hub services including reserve-engine.
+  file: corpus/upload/structured/ST051_ci_pipeline.yml
+  locator:
+    kind: yaml_path
+    path: jobs.detect-changes.steps[1].with.filters
+  needle: 'reserve-engine: services/reserve-engine/**'
+  exclusive: false
+  also_in: []
+- fact_id: ST051-F002
+  world_ref: ADR:ADR-023
+  kind: general
+  statement: The CI pipeline runs Kafka consumer contract tests (ADR-023).
+  file: corpus/upload/structured/ST051_ci_pipeline.yml
+  locator:
+    kind: yaml_path
+    path: jobs.contract-tests.steps[2].name
+  needle: Kafka consumer contract tests (ADR-023)
+  exclusive: false
+  also_in: []
+- fact_id: ST051-F003
+  world_ref: SYSTEM:SYS02#tech
+  kind: general
+  statement: CI builds with Java 21 and pushes images to registry.corvane.internal/chub.
+  file: corpus/upload/structured/ST051_ci_pipeline.yml
+  locator:
+    kind: yaml_path
+    path: env
+  needle: 'JAVA_VERSION: 21 REGISTRY: registry.corvane.internal/chub'
+  exclusive: false
+  also_in: []
+- fact_id: ST052-F001
+  world_ref: INCIDENT:INC-2026-0702
+  kind: general
+  statement: Alert ReserveTier3ReviewsOverdue references INC-2026-0702 and the 14-day Tier-3 review (BR-RSV-007 v3).
+  file: corpus/upload/structured/ST052_alerting_rules.yml
+  locator:
+    kind: yaml_path
+    path: spec.groups[2].rules[0].annotations.description
+  needle: every 14 days (BR-RSV-007 v3)
+  exclusive: false
+  also_in: []
+- fact_id: ST052-F002
+  world_ref: INTERFACE:CLX-IF-042#dependents
+  kind: general
+  statement: Alert MqRsvmoveQueueFilling lists the CLX-IF-042 consumers CLX-IF-043, CLX-IF-044, CLX-IF-047 and CLX-IF-049.
+  file: corpus/upload/structured/ST052_alerting_rules.yml
+  locator:
+    kind: yaml_path
+    path: spec.groups[0].rules[0].annotations.description
+  needle: CLX-IF-043, CLX-IF-044, CLX-IF-047, CLX-IF-049
+  exclusive: false
+  also_in: []
+- fact_id: ST052-F003
+  world_ref: INCIDENT:INC-2026-0311
+  kind: general
+  statement: Alert Clx049BridgeConsumerLag watches reserve-engine on claims.reserve.movement.v1 (INC-2026-0311).
+  file: corpus/upload/structured/ST052_alerting_rules.yml
+  locator:
+    kind: yaml_path
+    path: spec.groups[1].rules[0].labels.ref
+  needle: INC-2026-0311
+  exclusive: false
+  also_in: []
+- fact_id: ST052-F004
+  world_ref: RULE:BR-FRD-033@v1
+  kind: general
+  statement: Alert FraudAutoDeclineFlagOn fires if fraud.auto-decline is switched on (BR-FRD-033).
+  file: corpus/upload/structured/ST052_alerting_rules.yml
+  locator:
+    kind: yaml_path
+    path: spec.groups[3].rules[2].annotations.description
+  needle: BR-FRD-033
+  exclusive: false
+  also_in: []
+- fact_id: ST053-F001
+  world_ref: TEAM:T30
+  kind: needle
+  statement: 'Wiki home nested table: Squad Recoveries & Documents formed 2026-11-01, lead Tariq Hussain.'
+  file: corpus/upload/structured/ST053_wiki_claims_hub_home.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='squad-T30']
+  needle: Formed 2026-11-01 Engineering lead Tariq Hussain
+  exclusive: false
+  also_in: []
+  placement: PL-183
+  placement_key: st53_squad
+- fact_id: ST053-F002
+  world_ref: TEAM:T28
+  kind: general
+  statement: 'Wiki home: Hub Squad – Reserve & Finance is led by Daniel Achebe.'
+  file: corpus/upload/structured/ST053_wiki_claims_hub_home.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='squad-T28']
+  needle: Engineering lead Daniel Achebe
+  exclusive: false
+  also_in: []
+- fact_id: ST053-F003
+  world_ref: WAVE:MW-2#date
+  kind: general
+  statement: 'Wiki home: Wave 2 (UK home, commercial, liability; Norway; Sweden) is planned for 2027-02-15.'
+  file: corpus/upload/structured/ST053_wiki_claims_hub_home.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='programme-facts']
+  needle: 2027-02-15 – UK home, commercial, liability; Norway; Sweden
+  exclusive: false
+  also_in: []
+- fact_id: ST053-F004
+  world_ref: EVENT:EV-010
+  kind: general
+  statement: 'Wiki home: the business case was signed on 2024-11-18 by the then CFO Gareth Whitcombe, budget £48.6m.'
+  file: corpus/upload/structured/ST053_wiki_claims_hub_home.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='programme-facts']
+  needle: Signed 2024-11-18 by the then CFO, Gareth Whitcombe
+  exclusive: false
+  also_in: []
+- fact_id: ST053-F005
+  world_ref: SERVICE:reserve-engine#renames
+  kind: alias_use
+  statement: 'Wiki home services table: reserve-engine was called reserve-svc until 2026-02-10.'
+  file: corpus/upload/structured/ST053_wiki_claims_hub_home.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='services-table']
+  needle: reserve-svc (until 2026-02-10)
+  exclusive: false
+  also_in: []
+- fact_id: ST053-F006
+  world_ref: DECISION:DEC-011
+  kind: general
+  statement: 'Decision DEC-011: Wave 2 cut-over confirmed as 2027-02-15 (earlier draft 2027-01-18 void).'
+  file: corpus/upload/structured/ST053_wiki_claims_hub_home.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='decisions-table']
+  needle: Wave 2 cut-over date confirmed as 2027-02-15
+  exclusive: false
+  also_in: []
+- fact_id: ST053-F007
+  world_ref: WAVE:MW-0#date
+  kind: general
+  statement: 'Wiki home waves table: Wave 0 Denmark cut over on 2026-06-01 (complete).'
+  file: corpus/upload/structured/ST053_wiki_claims_hub_home.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='waves-table']//tr[2]
+  needle: Wave 0 – Denmark 2026-06-01
+  exclusive: false
+  also_in: []
+- fact_id: ST054-F001
+  world_ref: INTERFACE:CLX-IF-042#dependents
+  kind: needle
+  statement: 'Wiki CLX-IF-042 page: nested ''Downstream'' table lists CLX-IF-043, CLX-IF-044, CLX-IF-047, CLX-IF-049.'
+  file: corpus/upload/structured/ST054_wiki_interface_clx_if_042.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='downstream']//td[1]
+  needle: CLX-IF-043 CLX-IF-044 CLX-IF-047 CLX-IF-049
+  exclusive: false
+  also_in: []
+  placement: PL-184
+  placement_key: st54_down
+- fact_id: ST054-F002
+  world_ref: SYSTEM:SYS03#name
+  kind: contradiction_new
+  statement: The wiki calls the fraud engine 'Sentinel' throughout.
+  file: corpus/upload/structured/ST054_wiki_interface_clx_if_042.html
+  locator:
+    kind: html_xpath
+    xpath: //div[@id='related-systems']
+  needle: Sentinel (fraud scoring, CLX-IF-008)
+  exclusive: false
+  also_in: []
+  placement: PL-185
+  placement_key: st54_sentinel
+  notes: 'C06: LD025 (2024-11-04) calls the same system FRAUDNET.'
+- fact_id: ST054-F003
+  world_ref: INTERFACE:CLX-IF-042#dependents
+  kind: general
+  statement: 'CLX-IF-042 second hop: CLX-IF-051, CLX-IF-055 and CLX-IF-058.'
+  file: corpus/upload/structured/ST054_wiki_interface_clx_if_042.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='second-hop']//td[1]
+  needle: CLX-IF-051 CLX-IF-055 CLX-IF-058
+  exclusive: false
+  also_in: []
+- fact_id: ST054-F004
+  world_ref: INTERFACE:CLX-IF-043#schedule
+  kind: general
+  statement: 'CLX-IF-042 downstream schedules: CLX-IF-043 daily 03:45, CLX-IF-044 daily 04:00, CLX-IF-047 daily 04:15, CLX-IF-049
+    daily 02:45.'
+  file: corpus/upload/structured/ST054_wiki_interface_clx_if_042.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='downstream']//tr[td[1]/strong='CLX-IF-043']
+  needle: daily 03:45
+  exclusive: false
+  also_in: []
+- fact_id: ST054-F005
+  world_ref: INTERFACE:CLX-IF-042#jcl_job
+  kind: general
+  statement: CLX-IF-042 is written by program CLRRS170 in batch job CLRNRSV3, from CLR.T_RESERVE_MOVEMENT.
+  file: corpus/upload/structured/ST054_wiki_interface_clx_if_042.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='if-properties']
+  needle: CLRNRSV3
+  exclusive: false
+  also_in: []
+- fact_id: ST054-F006
+  world_ref: JCL:CLRNRSV3#restart
+  kind: general
+  statement: 'CLX-IF-042 restart: rerun the whole job; only EXTRACTED_FLAG = ''N'' rows are extracted.'
+  file: corpus/upload/structured/ST054_wiki_interface_clx_if_042.html
+  locator:
+    kind: html_xpath
+    xpath: //div[@id='main-content']/p[contains(., 'Restart')]
+  needle: only extracts rows with EXTRACTED_FLAG = 'N'
+  exclusive: false
+  also_in: []
+- fact_id: ST054-F007
+  world_ref: COPYBOOK:RSVMOVE#fields
+  kind: general
+  statement: RSVMOVE RM-AMOUNT is PIC S9(9)V99 COMP-3 (6 bytes).
+  file: corpus/upload/structured/ST054_wiki_interface_clx_if_042.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='rsvmove-layout']//tr[td[2]/code='RM-AMOUNT']
+  needle: RM-AMOUNT S9(9)V99 COMP-3
+  exclusive: false
+  also_in: []
+- fact_id: ST054-F008
+  world_ref: SYSTEM:SYS03#name
+  kind: general
+  statement: 'Wiki CLX-IF-042 page: CLARA outbound interface CLX-IF-008 targets Sentinel (SYS03).'
+  file: corpus/upload/structured/ST054_wiki_interface_clx_if_042.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='clara-outbound-table']//tr[td[1]='CLX-IF-008']
+  needle: Sentinel (SYS03)
+  exclusive: false
+  also_in: []
+  notes: Second use of the current name on the page (C06 side B).
+- fact_id: ST055-F001
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: 'Wiki glossary: ''loss adjuster / adjuster / assessor'' → Claims Assessor.'
+  file: corpus/upload/structured/ST055_wiki_glossary.html
+  locator:
+    kind: html_xpath
+    xpath: //tr[@id='gl-G-001']
+  needle: loss adjuster / adjuster / assessor
+  exclusive: false
+  also_in: []
+  placement: PL-186
+  placement_key: st55_gloss
+- fact_id: ST055-F002
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: 'Wiki glossary: canonical term Claims Assessor (internal employee or panel vendor who inspects or desk-assesses
+    a loss).'
+  file: corpus/upload/structured/ST055_wiki_glossary.html
+  locator:
+    kind: html_xpath
+    xpath: //tr[@id='gl-G-001']/td[1]
+  needle: Claims Assessor
+  exclusive: false
+  also_in: []
+- fact_id: ST055-F003
+  world_ref: GLOSSARY:G-007
+  kind: terminology
+  statement: 'Wiki glossary: ''case handler'' (older manual v6.1) means Claims Handler.'
+  file: corpus/upload/structured/ST055_wiki_glossary.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='usage-G-007']
+  needle: case handler
+  exclusive: false
+  also_in: []
+- fact_id: ST055-F004
+  world_ref: SYSTEM:SYS03#renames
+  kind: alias_use
+  statement: 'Wiki glossary: Sentinel was formerly FRAUDNET (renamed 2025-03-01).'
+  file: corpus/upload/structured/ST055_wiki_glossary.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='system-names-table']
+  needle: FRAUDNET (renamed 2025-03-01)
+  exclusive: false
+  also_in: []
+- fact_id: ST055-F005
+  world_ref: GLOSSARY:G-015
+  kind: terminology
+  statement: 'Wiki glossary: LLNT is the Large Loss Notification Threshold (£250,000, BR-RSV-011 v2).'
+  file: corpus/upload/structured/ST055_wiki_glossary.html
+  locator:
+    kind: html_xpath
+    xpath: //tr[@id='gl-G-015']
+  needle: LLNT
+  exclusive: false
+  also_in: []
+- fact_id: ST056-F001
+  world_ref: JCL:CLRNRSV3#restart
+  kind: general
+  statement: 'CLARA batch runbook: job CLRNRSV3 extracts reserve movements for CLX-IF-042 with CLRRS170; restart by rerunning
+    the whole job.'
+  file: corpus/upload/structured/ST056_wiki_clara_runbook.html
+  locator:
+    kind: html_xpath
+    xpath: //tr[@id='job-CLRNRSV3']
+  needle: Rerun the whole job
+  exclusive: false
+  also_in: []
+  notes: Schedule withheld (guarded by CLX-IF-042 schedule).
+- fact_id: ST056-F002
+  world_ref: JCL:CLRNTR01#schedule
+  kind: general
+  statement: 'CLARA batch runbook: job CLRNTR01 (nightly triage) runs daily at 23:45.'
+  file: corpus/upload/structured/ST056_wiki_clara_runbook.html
+  locator:
+    kind: html_xpath
+    xpath: //tr[@id='job-CLRNTR01']
+  needle: daily 23:45
+  exclusive: false
+  also_in: []
+- fact_id: ST056-F003
+  world_ref: JCL:CLRYGL90#restart
+  kind: general
+  statement: 'CLARA batch runbook: CLRYGL90 rerun allowed because revaluation is idempotent for the same rate date.'
+  file: corpus/upload/structured/ST056_wiki_clara_runbook.html
+  locator:
+    kind: html_xpath
+    xpath: //tr[@id='job-CLRYGL90']
+  needle: revaluation is idempotent for the same rate date
+  exclusive: false
+  also_in: []
+- fact_id: ST056-F004
+  world_ref: INCIDENT:INC-2026-0104
+  kind: general
+  statement: 'CLARA batch runbook: INC-2026-0104 – CLRYGL90 abended with S0C7 on a malformed SEK year-end rate.'
+  file: corpus/upload/structured/ST056_wiki_clara_runbook.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='lessons-table']
+  needle: Malformed SEK year-end rate
+  exclusive: false
+  also_in: []
+- fact_id: ST056-F005
+  world_ref: PERSON:P026
+  kind: general
+  statement: 'CLARA batch runbook: escalation starts with Sunita Vaghela, Batch Operations Lead.'
+  file: corpus/upload/structured/ST056_wiki_clara_runbook.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='escalation-table']
+  needle: Sunita Vaghela
+  exclusive: false
+  also_in: []
+- fact_id: ST057-F001
+  world_ref: PERSON:P022
+  kind: alias_use
+  statement: 'Team directory has two Callum Fairbairn entries: Corvane (Leeds, Motor Claims Team Leader) and IBM (London,
+    Data Migration Lead).'
+  file: corpus/upload/structured/ST057_wiki_team_directory.html
+  locator:
+    kind: html_xpath
+    xpath: //tr[@id='dir-P022']
+  needle: Callum Fairbairn Motor Claims Team Leader Corvane Mutual
+  exclusive: false
+  also_in: []
+  placement: PL-187
+  placement_key: st57_callum
+- fact_id: ST057-F002
+  world_ref: PERSON:P051
+  kind: alias_use
+  statement: 'Team directory: the IBM Callum Fairbairn is Data Migration Lead in London.'
+  file: corpus/upload/structured/ST057_wiki_team_directory.html
+  locator:
+    kind: html_xpath
+    xpath: //tr[@id='dir-P051']
+  needle: Callum Fairbairn Data Migration Lead IBM Consulting
+  exclusive: false
+  also_in: []
+- fact_id: ST057-F003
+  world_ref: PERSON:P005#name_history
+  kind: general
+  statement: 'Team directory: Ingrid Ashby is the Claims Director.'
+  file: corpus/upload/structured/ST057_wiki_team_directory.html
+  locator:
+    kind: html_xpath
+    xpath: //tr[@id='dir-P005']
+  needle: Ingrid Ashby Claims Director
+  exclusive: false
+  also_in: []
+- fact_id: ST057-F004
+  world_ref: PERSON:P043
+  kind: general
+  statement: 'Team directory: Tariq Hussain is Engineering Lead – Recoveries & Documents Squad.'
+  file: corpus/upload/structured/ST057_wiki_team_directory.html
+  locator:
+    kind: html_xpath
+    xpath: //tr[@id='dir-P043']
+  needle: Engineering Lead – Recoveries & Documents Squad
+  exclusive: false
+  also_in: []
+- fact_id: ST057-F005
+  world_ref: PERSON:P013
+  kind: general
+  statement: 'Team directory: Freya Lindahl (Head of Recoveries & Subrogation) is based in Stockholm.'
+  file: corpus/upload/structured/ST057_wiki_team_directory.html
+  locator:
+    kind: html_xpath
+    xpath: //tr[@id='dir-P013']
+  needle: Head of Recoveries & Subrogation
+  exclusive: false
+  also_in: []
+- fact_id: ST057-F006
+  world_ref: PERSON:P008#reports_to
+  kind: general
+  statement: 'Team directory: Niall Brannigan reports to Karin Holmberg (CRO).'
+  file: corpus/upload/structured/ST057_wiki_team_directory.html
+  locator:
+    kind: html_xpath
+    xpath: //tr[@id='dir-P008']
+  needle: Karin Holmberg
+  exclusive: false
+  also_in: []
+- fact_id: ST058-F001
+  world_ref: SERVICE:reserve-engine#renames
+  kind: alias_use
+  statement: 'reserve-engine design page: reserve-svc was renamed reserve-engine on 2026-02-10 (CHUB-233, ADR-019).'
+  file: corpus/upload/structured/ST058_wiki_reserve_engine_design.html
+  locator:
+    kind: html_xpath
+    xpath: //div[contains(@class,'confluence-information-macro-information')]
+  needle: renamed reserve-engine on 2026-02-10
+  exclusive: false
+  also_in: []
+- fact_id: ST058-F002
+  world_ref: SERVICE:reserve-engine#config.config_history
+  kind: temporal
+  statement: As of 2026-03-09 reserve-engine config tier3-review-days is 21 (BR-RSV-007 v2).
+  file: corpus/upload/structured/ST058_wiki_reserve_engine_design.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='config-table']//tr[td[1]='tier3-review-days']
+  needle: tier3-review-days 21
+  exclusive: false
+  also_in: []
+- fact_id: ST058-F003
+  world_ref: TABLE:CLR.T_RESERVE#writers
+  kind: general
+  statement: Eight CLARA programs write CLR.T_RESERVE, including CLRFN030, CLRST040, CLRRC050 and CLRGL090.
+  file: corpus/upload/structured/ST058_wiki_reserve_engine_design.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='reserve-writers']
+  needle: CLRGL090
+  exclusive: false
+  also_in: []
+- fact_id: ST058-F004
+  world_ref: SERVICE:reserve-engine#kafka_topics
+  kind: general
+  statement: reserve-engine consumes claims.reserve.movement.v1 from CLX-IF-049 and produces reserve.changed.v2.
+  file: corpus/upload/structured/ST058_wiki_reserve_engine_design.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='events-table']
+  needle: claims.reserve.movement.v1 CLX-IF-049
+  exclusive: false
+  also_in: []
+- fact_id: ST058-F005
+  world_ref: DECISION:DEC-005
+  kind: general
+  statement: 'DEC-005: reserve-engine records currency revaluations as RV movements (closing IA-25-07 in the target).'
+  file: corpus/upload/structured/ST058_wiki_reserve_engine_design.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='design-decisions']
+  needle: record currency revaluations as RV movements
+  exclusive: false
+  also_in: []
+- fact_id: ST058-F006
+  world_ref: RULE:BR-RSV-003@v3
+  kind: general
+  statement: 'reserve-engine error RSV-AUT-010: amount exceeds the caller''s reserve authority (BR-RSV-003 v3).'
+  file: corpus/upload/structured/ST058_wiki_reserve_engine_design.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='error-codes-table']//tr[td[1]/code='RSV-AUT-010']
+  needle: exceeds the caller's reserve authority
+  exclusive: false
+  also_in: []
+- fact_id: ST059-F001
+  world_ref: RULE:BR-FRD-031@v2
+  kind: needle
+  statement: 'Wiki fraud rules 2026 nested table: BR-FRD-031 v2 (65; Tier-3 60 from 2026-10-01), BR-FRD-032 v2, BR-FRD-033,
+    BR-FRD-034, BR-FRD-036 v2.'
+  file: corpus/upload/structured/ST059_wiki_fraud_rules_2026.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='in-force-2026-10-01']
+  needle: BR-FRD-031 v2 65; Tier-3 60 from 2026-10-01
+  exclusive: false
+  also_in: []
+  placement: PL-188
+  placement_key: st59_rules
+- fact_id: ST059-F002
+  world_ref: RULE:BR-FRD-036@v2
+  kind: general
+  statement: 'Wiki fraud rules: BR-FRD-036 v2 – deferral up to 60 days; beyond 30 days needs the Head of Counter-Fraud & SIU.'
+  file: corpus/upload/structured/ST059_wiki_fraud_rules_2026.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='in-force-2026-10-01']
+  needle: BR-FRD-036 v2 notice deferral up to 60 days
+  exclusive: false
+  also_in: []
+- fact_id: ST059-F003
+  world_ref: RULE:BR-FRD-019
+  kind: general
+  statement: 'Wiki fraud rules: BR-FRD-019 auto-decline withdrawn from 2026-04-01 and replaced by BR-FRD-033.'
+  file: corpus/upload/structured/ST059_wiki_fraud_rules_2026.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='superseded-table']
+  needle: withdrawn from 2026-04-01
+  exclusive: false
+  also_in: []
+- fact_id: ST059-F004
+  world_ref: TICKET:CHUB-298
+  kind: general
+  statement: 'Wiki fraud rules: CLRFR040 hard-coded threshold defect CHUB-298 still open on 2026-10-02.'
+  file: corpus/upload/structured/ST059_wiki_fraud_rules_2026.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='implementation-table']
+  needle: CHUB-298
+  exclusive: false
+  also_in: []
+- fact_id: ST059-F005
+  world_ref: DECISION:DEC-016
+  kind: general
+  statement: 'DEC-016: lowering the general referral threshold to 60 for all claims was rejected.'
+  file: corpus/upload/structured/ST059_wiki_fraud_rules_2026.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='workshop-decisions']
+  needle: Option to lower the general referral threshold to 60 for all claims rejected
+  exclusive: false
+  also_in: []
+- fact_id: ST059-F006
+  world_ref: CIRCULAR:CIRC-2026-04#requirements
+  kind: general
+  statement: 'NISA Circular 2026/04 §3.3: score cut-offs on a 0–100 scale must not exceed 65.'
+  file: corpus/upload/structured/ST059_wiki_fraud_rules_2026.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='circular-table']
+  needle: must not exceed 65
+  exclusive: false
+  also_in: []
+- fact_id: ST059-F007
+  world_ref: RULE:BR-FRD-034#owner
+  kind: general
+  statement: BR-FRD-034 (quarterly NISA-FR1 return) is owned by Ruth Okafor and implemented in reporting-feed-svc and CLRFR090.
+  file: corpus/upload/structured/ST059_wiki_fraud_rules_2026.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='all-fraud-rules']//tr[td[1]='BR-FRD-034']
+  needle: Ruth Okafor
+  exclusive: false
+  also_in: []
+- fact_id: ST060-F001
+  world_ref: ANCHOR:ST060
+  kind: general
+  statement: Release notes stop at R2026.09 Wave1 (released 2026-09-14); later releases are not published on the page.
+  file: corpus/upload/structured/ST060_wiki_release_notes.html
+  locator:
+    kind: html_xpath
+    xpath: //div[contains(@class,'confluence-information-macro-information')]
+  needle: latest published release is R2026.09 Wave1 (2026-09-14)
+  exclusive: false
+  also_in: []
+  notes: 'Deliberate: the follow-up commit (R2026.11) is a re-sync-only fact.'
+- fact_id: ST060-F002
+  world_ref: TICKET:CHUB-371
+  kind: general
+  statement: 'R2026.09 Wave1 included CHUB-371: duplicate payment instructions for 18 claims on the Wave 1 weekend (INC-2026-0914).'
+  file: corpus/upload/structured/ST060_wiki_release_notes.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='tickets-R2026.09']
+  needle: Duplicate payment instructions for 18 claims
+  exclusive: false
+  also_in: []
+- fact_id: ST060-F003
+  world_ref: TICKET:CHUB-209
+  kind: general
+  statement: 'R2026.04 NISA delivered CHUB-209: fraud-referral-svc customer-notice endpoint and 10-business-day deadline.'
+  file: corpus/upload/structured/ST060_wiki_release_notes.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='tickets-R2026.04']
+  needle: customer-notice endpoint and 10-business-day deadline
+  exclusive: false
+  also_in: []
+- fact_id: ST060-F004
+  world_ref: TICKET:CHUB-233
+  kind: general
+  statement: 'R2026.02 delivered CHUB-233: rename reserve-svc to reserve-engine per ADR-019.'
+  file: corpus/upload/structured/ST060_wiki_release_notes.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='tickets-R2026.02']
+  needle: Rename reserve-svc to reserve-engine
+  exclusive: false
+  also_in: []
+- fact_id: ST060-F005
+  world_ref: TICKET:CHUB-322
+  kind: general
+  statement: 'R2026.07 delivered CHUB-322: reserve-engine still scheduled Tier-3 reviews at 21 days (INC-2026-0702).'
+  file: corpus/upload/structured/ST060_wiki_release_notes.html
+  locator:
+    kind: html_xpath
+    xpath: //table[@id='tickets-R2026.07']
+  needle: reserve-engine still schedules Tier-3 reviews at 21 days
+  exclusive: false
+  also_in: []

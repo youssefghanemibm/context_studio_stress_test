@@ -1,0 +1,769 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+TRANSCRIPT - PROGRAMME SKERRY STEERING COMMITTEE 8 OCT 2026
+============================================================================================
+
+DOCUMENT CONTROL
+  Document reference : SKR-GOV-TRN-2026-10
+  Title              : Transcript - Programme Skerry Steering Committee 8 Oct 2026
+  Meeting            : Programme Skerry Steering Committee (October 2026)
+  Forum              : Programme Skerry Steering Committee (monthly)
+  Date and time      : Thursday 8 October 2026, 14:00-16:00 UK time (120 minutes)
+  Venue              : Corvane House, London (Board Room) and video bridge
+  Chair              : Duncan Ferrier, Chief Operating Officer
+  Prepared by        : Arjun Kesavan, Programme Delivery Lead (IBM Consulting)
+  Approved by        : Duncan Ferrier
+  Status             : Final
+  Classification     : Internal - Programme Confidential
+
+VERSION HISTORY
+  Version  Date        Author / approver         Change
+  0.1      2026-10-08  A. Kesavan                Automated transcript exported from the bridge recording
+  0.2      2026-10-08  A. Kesavan                Speaker labels corrected; inaudible passages marked
+  1.0      2026-10-08  D. Ferrier (chair)        Approved as the verbatim record of the meeting
+
+ATTENDEES
+  Duncan Ferrier               Chief Operating Officer
+  Ingrid (Claims Director)     Claims Director
+  Priya Raman                  Chief Financial Officer
+  Adaeze Nwosu                 Chief Information Officer
+  Aisha Siddiqui               Head of Claims Hub Product
+  Neil Haworth                 Head of Technology Delivery
+  Victoria Ashcombe            Engagement Partner, IBM Consulting
+  Arjun Kesavan                Programme Delivery Lead, IBM Consulting
+
+NOTES ON THIS TRANSCRIPT
+  - Timestamps are elapsed time from the start of the recording (hh:mm:ss).
+  - Speaker labels follow the display names on the bridge and were checked by hand.
+  - [inaudible] and [crosstalk] mark passages the transcription could not resolve.
+  - The Claims Director spoke from the Board Room microphone; her lines are labelled by role.
+  - Formal minutes and the action log are issued separately by the PMO.
+
+-------------------------------------- TRANSCRIPT ------------------------------------------
+
+[00:00:00] Duncan Ferrier: Okay, I think we're quorate, so let's make a start. Good afternoon, everyone. This is the October steering committee for Programme Skerry.
+[00:00:08] Duncan Ferrier: We've got a full agenda: Wave 1 post cut-over, finance, the Wave 2 plan, CLARA decommissioning, a contingency request from the programme, and a short item on fraud and people. Arjun's recording for the minutes as usual.
+[00:00:22] Arjun Kesavan: Yes, recording's on. Thanks, Duncan.
+[00:00:25] Duncan Ferrier: Claims Director, welcome back. I gather you've come straight from Leeds.
+[00:00:30] Ingrid (Claims Director): Straight off the train, yes. Happy to be here. I'll give the business view on Wave 1 when we get to it.
+[00:00:38] Duncan Ferrier: Where have we got to with the decisions log, Arjun?
+[00:00:43] Arjun Kesavan: It's moving. Not as fast as I'd like, but it's moving. Okay, so can I suggest we park the decisions log for now and pick it up under any other business?
+[00:00:54] Duncan Ferrier: Is there a simpler version of the board update than what's on the slide?
+[00:01:00] Ingrid (Claims Director): Not without losing something important, I think. But I'm happy to look. Right. I suspect the board update will come back to this group at some point, so let's not close it off.
+[00:01:13] Neil Haworth: Nothing from me on the action log. Mine are closed. The bit of the pack that worries me is the hand-off between teams, broadly.
+[00:01:23] Duncan Ferrier: So, um, if there's one thing I'd take away on the pack, it's that we need to keep it visible. Let's keep the pack simple and not try to solve every edge case in one go.
+[00:01:37] Ingrid (Claims Director): Neil, what's your gut feel on the board update?
+[00:01:41] Neil Haworth: Reasonably. I've seen worse at this stage. I'd want to see the board update working end to end before I'd put my name to it, if that makes sense.
+[00:01:51] Adaeze Nwosu: Same here. I had the one on environment capacity and that's closed in the log. On the action log, the teams have been brilliant, frankly, given everything else going on.
+[00:02:03] Arjun Kesavan: All of last month's actions are either closed or on today's agenda, so I won't go through them one by one.
+[00:02:12] Neil Haworth: I wouldn't want the decisions log to become the reason we lose momentum elsewhere.
+[00:02:17] Arjun Kesavan: Can I ask what's changed on the board update since we last discussed it?
+[00:02:23] Aisha Siddiqui: Honestly, less than I'd like. If the board update needs more time, I'd rather we said so now.
+[00:02:30] Arjun Kesavan: Is there a simpler version of the action log than what's on the slide?
+[00:02:36] Ingrid (Claims Director): Possibly. Let me take that away and see what we could strip out. I've not seen anything on the action log that changes the overall picture.
+[00:02:46] Arjun Kesavan: One thing on the action log: we should check we're not double-counting effort with the other workstream. I wouldn't want the action log to become the reason we lose momentum elsewhere. On that point, to be clear, nobody's saying the decisions log is broken. It's more that we haven't tested it the way we'd test anything else.
+[00:03:10] Duncan Ferrier: Right. Item two, Wave 1. Aisha, do you want to lead, and then the Claims Director can add the business view?
+[00:03:18] Aisha Siddiqui: Thanks, Duncan. So, Wave 1, UK motor, cut over on Monday 14 September. We're now a little over three weeks in. The headline is that the platform is stable and the handlers are working claims end to end on the Hub.
+[00:03:33] Aisha Siddiqui: On defects, as at Monday the 5th of October we had no Sev 1s open, 14 Sev 2 and 57 Sev 3. The Sev 2s are the ones we're chasing hardest, and they all have a fix date.
+[00:03:47] Duncan Ferrier: Ingrid, how are the team leaders finding it, honestly?
+[00:03:51] Ingrid (Claims Director): Honestly? Tired, but positive. They can see it's better. They just want the small things fixed quickly.
+[00:03:58] Victoria Ashcombe: The workaround guide is one of those things that looks easy on a slide and isn't. From the IBM side we've kept the hypercare team at full strength and we'll review that with Neil. I think we've got consensus on the payment reconciliation, broadly.
+[00:04:15] Aisha Siddiqui: Yeah, fair.
+[00:04:16] Ingrid (Claims Director): Adaeze, we lost you for a bit there. Could you repeat that last part?
+[00:04:22] Adaeze Nwosu: Sure. I was just saying I'd rather we didn't rush it.
+[00:04:26] Aisha Siddiqui: Just to build on what Adaeze said, it might be worth a separate session on the stabilisation plan, because we won't do it justice in a few minutes here. I'd want the business readiness side of handler feedback from Leeds given the same weight as the technical side.
+[00:04:45] Adaeze Nwosu: The month-end on the Hub is one of the items we'll want to evidence at the next gate. I'd like the month-end on the Hub reflected in the plan on a page, so the board sees the same picture we do. I'd like us to be careful about declaring victory. The first motor month-end on the Hub is the real test.
+[00:05:07] Ingrid (Claims Director): The motor teams in Leeds have been very good about it. The first week was hard, there's no point pretending otherwise, but the second week felt different.
+[00:05:18] Adaeze Nwosu: Are we still seeing the same defects come back, or are they new ones now?
+[00:05:25] Aisha Siddiqui: Mostly new ones, which is a good sign. The repeat offenders have largely been dealt with.
+[00:05:31] Duncan Ferrier: Credit where it's due: the cut-over weekend itself went as well as any of us could have hoped, apart from the payments issue.
+[00:05:40] Aisha Siddiqui: Ingrid, is there anything on the payment reconciliation you need from this group?
+[00:05:45] Ingrid (Claims Director): Nothing specific. Keep asking about it, that's helpful in itself.
+[00:05:50] Duncan Ferrier: The workstream leads have been through the defect backlog in detail and they're aligned. Again, if the defect backlog is going to need more people, we should flag that early rather than late.
+[00:06:03] Aisha Siddiqui: We're running the defect triage every morning with the squads and the business leads, and we'll keep doing that until the backlog is somewhere we're comfortable with. We'll bring the known-errors list back with options rather than a single answer.
+[00:06:19] Arjun Kesavan: Yeah.
+[00:06:20] Neil Haworth: Can I ask what's changed on the workaround guide since we last discussed it?
+[00:06:25] Duncan Ferrier: Not much, other than we understand it better. We've got good people looking at the workaround guide; I'm less sure we've given them enough time.
+[00:06:35] Neil Haworth: Lovely, thanks.
+[00:06:36] Arjun Kesavan: We're capturing everything from Wave 1 in a lessons-learned log for Wave 2, and it gets reviewed weekly. The hypercare lessons feed straight into the payment reconciliation, which is exactly what we wanted.
+[00:06:49] Duncan Ferrier: Sorry, just so I'm clear: when you say the workaround guide, do you mean the UK piece or the whole thing?
+[00:06:57] Aisha Siddiqui: Good challenge. I'll make sure the next version defines it properly. I'd want the business readiness side of the workaround guide given the same weight as the technical side.
+[00:07:08] Priya Raman: Finance's interest is the payment reconciliation, and from what I've seen that's now clean.
+[00:07:14] Ingrid (Claims Director): I suppose we've got a readiness checklist for the hypercare rota and it's being tracked line by line, I think. I'd rather have an honest amber on the post-cut-over survey than a green that turns red later. We should check whether the hypercare rota lands differently for the Nordic teams than for the UK.
+[00:07:34] Neil Haworth: The squads have been carrying hypercare on top of the Wave 2 work, so I'm watching for fatigue as much as anything. Honestly, the handlers have been very patient with us on the daily defect triage.
+[00:07:47] Duncan Ferrier: The workstream leads have been through the post-cut-over survey in detail and they're aligned. We'll bring handler feedback from Leeds back with options rather than a single answer. I'm happy with handler feedback from Leeds as long as we're clear about what's in and what's out, I think.
+[00:08:05] Neil Haworth: Where have we got to with the stabilisation plan, Victoria?
+[00:08:10] Victoria Ashcombe: We're waiting on one input, and then it's fairly straightforward. Everything I've seen on the stabilisation plan says the approach is right; it's the pace I'd question.
+[00:08:20] Arjun Kesavan: Are we expecting any pushback on the defect backlog?
+[00:08:25] Aisha Siddiqui: Some, probably, but nothing we can't work through. I'll be honest, the defect backlog wasn't really on my radar until this week.
+[00:08:34] Ingrid (Claims Director): What the handlers tell me is that the case estimate screen is better than the old one, once they've found where everything is.
+[00:08:43] Adaeze Nwosu: I'd echo that, we need a bit more rigour around the hypercare rota, particularly on the testing side. If the defect backlog moves, the comms plan moves with it, so let's keep that in mind.
+[00:08:56] Victoria Ashcombe: Where have we got to with the post-cut-over survey, Duncan?
+[00:09:01] Duncan Ferrier: It's progressing. I'll have a fuller picture by the next meeting. I've had a couple of conversations about the post-cut-over survey this week and the feedback was broadly positive.
+[00:09:12] Priya Raman: I'd ask that we don't make promises on the hypercare rota until we've seen the impact assessment. My read on the hypercare rota is that the hard part is behind us, but there's still a long tail.
+[00:09:30] Duncan Ferrier: Can we talk about the payments issue? I know it's been covered elsewhere, but for the record.
+[00:09:36] Neil Haworth: Sure. On the cut-over Monday, payment-orchestrator retried instructions to the payments gateway after a timeout, without an idempotency key, so some instructions went through twice.
+[00:09:46] Neil Haworth: It affected 18 claims, paid twice, £41,236.50 in total, and all of it was recalled by the 18th of September. The fix went in under CHUB-371, and the Design Authority accepted ADR-021 so that every payment instruction carries an idempotency key from now on.
+[00:10:03] Priya Raman: And from Finance's side the recalls have all been reconciled. I'd just like the lessons from that properly written up for Wave 2.
+[00:10:12] Arjun Kesavan: They're in the lessons log, and there's a specific test in the Wave 2 rehearsal plan for exactly that scenario.
+[00:10:20] Neil Haworth: So, the trouble with the workaround guide is that the people who know it best are also the busiest. From a programme point of view, the workaround guide sits on the critical path, so it gets looked at every week. Actually, the month-end on the Hub is a good example of where a bit of early testing saves a lot of pain later, as far as I can tell.
+[00:10:46] Ingrid (Claims Director): Aisha, any concerns from your side on the payment reconciliation?
+[00:10:51] Aisha Siddiqui: A few, mostly about timing rather than substance. The workstream leads have been through the payment reconciliation in detail and they're aligned.
+[00:10:59] Ingrid (Claims Director): If we get the month-end on the Hub right, a lot of the noise we've had recently goes away. The adjusters have noticed the difference too. Instructions are going out cleaner than they did from the ledger.
+[00:11:14] Neil Haworth: I'd rather we kept the hypercare structure a bit longer than we need than pulled it out too early. Just quickly, I think the defect backlog needs a bit of tidying up rather than a rethink.
+[00:11:27] Ingrid (Claims Director): How confident are we on handler feedback from Leeds, honestly?
+[00:11:31] Duncan Ferrier: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it. There's a reporting angle to handler feedback from Leeds that Finance will want to see before sign-off.
+[00:11:44] Ingrid (Claims Director): Is hypercare in the pack, or is that coming separately?
+[00:11:49] Aisha Siddiqui: Not in this pack, no. It'll come separately once it's been through the working group.
+[00:11:56] Ingrid (Claims Director): Great.
+[00:11:57] Duncan Ferrier: I'd want to see the stabilisation plan working end to end before I'd put my name to it. I'm keen that the stabilisation plan doesn't get lost now that the immediate pressure is off.
+[00:12:10] Neil Haworth: Arjun, are handler feedback from Leeds a resourcing question or a decision question?
+[00:12:15] Arjun Kesavan: Mostly resourcing, to be honest. The decision's been made; it's the doing. Just quickly, the hypercare lessons feed straight into handler feedback from Leeds, which is exactly what we wanted.
+[00:12:27] Ingrid (Claims Director): Duncan, is the motor handlers' experience a resourcing question or a decision question?
+[00:12:32] Duncan Ferrier: Probably both, if I'm honest.
+[00:12:35] Ingrid (Claims Director): Where have we got to with the post-cut-over survey, Neil?
+[00:12:39] Neil Haworth: Steady. No drama, which is what you want. The post-cut-over survey is one of those things that looks easy on a slide and isn't.
+[00:12:48] Ingrid (Claims Director): Yeah, um, Actually, let's keep hypercare simple and not try to solve every edge case in one go. One thing the handlers keep raising is search. They want to find a claim by the third party's registration, and today that's clunky.
+[00:13:04] Aisha Siddiqui: Can I just add to that? If I'm honest, handler feedback from Leeds have had less attention than it deserves over the last few weeks. There's a dependency on the daily defect triage that I don't think everyone's aware of, so it's worth calling out.
+[00:13:21] Neil Haworth: I suspect the defect backlog will come back to this group at some point, so let's not close it off. We're probably overthinking the defect backlog, but I'd rather overthink it than underthink it. We've been here before with the defect backlog, and the [inaudible] last time was to get the business in the room early.
+[00:13:41] Duncan Ferrier: Sorry, there's a bit of an echo in the room. Is that better?
+[00:13:47] Ingrid (Claims Director): Much better, thanks.
+[00:13:49] Neil Haworth: Aisha, can you give us a quick update on the payment reconciliation?
+[00:13:54] Aisha Siddiqui: In better shape than it was. I wouldn't call it done, but the direction is right. I'm keen we don't just tick a box on the payment reconciliation.
+[00:14:05] Neil Haworth: Is the hypercare rota something we need to decide today, or is it for noting?
+[00:14:11] Adaeze Nwosu: For noting, I think. Nothing we need to decide today. To be fair, the squads are carrying the hypercare rota on top of business as usual, which we shouldn't forget.
+[00:14:22] Duncan Ferrier: Neil, can you give us a quick update on the daily defect triage?
+[00:14:27] Neil Haworth: It's with the working group at the moment; I'll chase and come back.
+[00:14:40] Duncan Ferrier: Claims Director, anything from the business side before we move on?
+[00:14:45] Ingrid (Claims Director): One thing, Duncan. The Tier-3 referral change went live on the 1st of October, the threshold of 60 for Tier-3 claims, and the Hub didn't pick it up straight away.
+[00:14:57] Ingrid (Claims Director): Triage-svc had cached the old value and didn't reload it until the 5th, so 9 Tier-3 claims that scored between 60 and 64 weren't referred automatically. They've all been referred manually since.
+[00:15:08] Aisha Siddiqui: That's INC-2026-1007. The fix is CHUB-392, the thresholds now refresh when the configuration changes.
+[00:15:14] Adaeze Nwosu: I'd like to understand why that wasn't caught in testing, but maybe not in this forum.
+[00:15:20] Duncan Ferrier: Agreed. Neil, can you pick that up with the squads and bring a short note back?
+[00:15:27] Neil Haworth: Will do.
+[00:15:28] Adaeze Nwosu: Where have we got to with handler feedback from Leeds, Victoria?
+[00:15:33] Victoria Ashcombe: Broadly on track. There are a couple of loose ends, but nothing that worries me. I'm not going to pretend handler feedback from Leeds are exciting, but it's exactly the sort of thing that bites you if you ignore it.
+[00:15:48] Adaeze Nwosu: Have we taken handler feedback from Leeds through the team leaders yet?
+[00:15:53] Neil Haworth: Not yet, but it's planned. Okay, so I wouldn't want handler feedback from Leeds to become the reason we lose momentum elsewhere.
+[00:16:01] Arjun Kesavan: Is there anything we can do to unblock hypercare?
+[00:16:05] Priya Raman: Probably a bit of time from the business side, but I'll ask offline. We shouldn't confuse hypercare with the wider change; they're related but not the same.
+[00:16:16] Aisha Siddiqui: Do we need a decision on the payment reconciliation from this group, or is it just for awareness?
+[00:16:23] Neil Haworth: Not today. We'll bring options when we've done the analysis. Let's capture the payment reconciliation as a follow-up rather than try to close it today.
+[00:16:32] Aisha Siddiqui: On the daily defect triage, the IBM team and our people are working off one plan now, which helps. In fairness, we shouldn't confuse handler feedback from Leeds with the wider change; they're related but not the same. Most of what's left is usability rather than function. Labels, field order, that kind of thing.
+[00:16:53] Adaeze Nwosu: Got it, thanks.
+[00:16:54] Aisha Siddiqui: We've had good engagement from the team leaders in the daily huddles. They tell us very quickly when something isn't right. From a programme point of view, the payment reconciliation sits on the critical path, so it gets looked at every week.
+[00:17:10] Ingrid (Claims Director): Okay, I'm with you.
+[00:17:13] Duncan Ferrier: There's no silver bullet on the payment reconciliation; it's just steady work. If the payment reconciliation moves, the comms plan moves with it, so let's keep that in mind.
+[00:17:24] Aisha Siddiqui: Mm.
+[00:17:26] Adaeze Nwosu: Is the defect backlog something we need to decide today, or is it for noting?
+[00:17:32] Ingrid (Claims Director): Awareness for now. There may be a decision next time. I'd just add, on the defect backlog, that the lessons learned from the last cycle are worth rereading, to be honest.
+[00:17:44] Aisha Siddiqui: That one's on the backlog, it's a usability fix, not a defect as such.
+[00:17:49] Duncan Ferrier: Victoria, what's your gut feel on the post-cut-over survey?
+[00:17:53] Victoria Ashcombe: Short answer, yes. Long answer, it depends how the next few weeks go. Okay. We've got a readiness checklist for the post-cut-over survey and it's being tracked line by line.
+[00:18:05] Arjun Kesavan: Aisha, does the motor handlers' experience affect your area at all?
+[00:18:10] Aisha Siddiqui: Yes, and we're already talking to the team about it. Sure. I'd want the business readiness side of the motor handlers' experience given the same weight as the technical side.
+[00:18:22] Neil Haworth: So, um, my instinct on the stabilisation plan is to wait a little and see how things settle. Speaking for my area, if the stabilisation plan moves, the comms plan moves with it, so let's keep that in mind.
+[00:18:37] Ingrid (Claims Director): Okay, so the stabilisation plan is one of the items we'll want to evidence at the next gate. The workstream leads have been through the stabilisation plan in detail and they're aligned. For the stabilisation plan, I'd rather we under-promise and deliver than the other way round.
+[00:18:55] Aisha Siddiqui: It's the knock-on effect of [inaudible] stabilisation plan that I'm most interested in. We've got a readiness checklist for hypercare and it's being tracked line by line. We've got a readiness checklist for the motor handlers' experience and it's being tracked line by line. We should write the stabilisation plan up properly, if only so the next person doesn't have to work it all out again.
+[00:19:19] Neil Haworth: Can I ask what's changed on the stabilisation plan since we last discussed it?
+[00:19:25] Duncan Ferrier: The detail's firmer. The direction is the same. I think the stabilisation plan is a good-news story, actually, and we don't say that often enough, I think.
+[00:19:36] Neil Haworth: The post-cut-over survey is one of the items we'll want to evidence at the next gate. The conversation on the payment reconciliation has been constructive, which wasn't always the case, as far as I can tell.
+[00:19:49] Arjun Kesavan: Duncan, does the payment reconciliation affect your area at all?
+[00:19:54] Duncan Ferrier: Not directly. There's an indirect impact, but it's manageable. We'll want the risk and compliance view on the payment reconciliation before it comes back for approval.
+[00:20:04] Ingrid (Claims Director): The squads are carrying the motor handlers' experience on top of business as usual, which we shouldn't forget. The hypercare lessons feed straight into hypercare, which is exactly what we wanted.
+[00:20:16] Neil Haworth: Can I ask what's changed on the hypercare rota since we last discussed it?
+[00:20:21] Adaeze Nwosu: Mostly that more people are involved now, which is good. Picking up on that, the conversation on the hypercare rota has been constructive, which wasn't always the case, broadly.
+[00:20:32] Aisha Siddiqui: In terms of governance, the stabilisation plan goes through the normal change route, nothing special, if that makes sense. There's a reporting angle to the stabilisation plan that Finance will want to see before sign-off. We'll want the risk and compliance view on the stabilisation plan before it comes back for approval.
+[00:20:52] Duncan Ferrier: Victoria, does the defect backlog affect your area at all?
+[00:20:56] Victoria Ashcombe: A bit. We'll need some notice, but it's nothing we can't absorb.
+[00:21:01] Priya Raman: I suspect the hypercare rota will come back to this group at some point, so let's not close it off. I suspect the known-errors list will come back to this group at some point, so let's not close it off. I keep coming back to the hypercare rota, because it's the area that's had the least scrutiny.
+[00:21:23] Aisha Siddiqui: Is the share working? I'm just seeing a black screen.
+[00:21:27] Adaeze Nwosu: Hang on, let me stop and restart it.
+[00:21:30] Adaeze Nwosu: Any better?
+[00:21:32] Aisha Siddiqui: Yes, that's it now.
+[00:21:35] Neil Haworth: That chimes with what I'm hearing, and my only ask on the known-errors list is that we keep the business teams close. My only ask on handler feedback from Leeds is that we keep the business teams close, as far as I can tell.
+[00:21:51] Arjun Kesavan: On the motor handlers' experience, I'd like us to agree the principle and let the team sort out the detail.
+[00:22:05] Duncan Ferrier: Okay, let's move to finance. PR, over to you.
+[00:22:09] Priya Raman: Thanks, Duncan. I'll keep this short because the detail's in the appendix.
+[00:22:14] Priya Raman: We're still working inside the £48.6m business case that my predecessor, Gareth Whitcombe, signed in November 2024. The forecast hasn't moved materially since last month.
+[00:22:23] Priya Raman: The one thing on the horizon is the contingency request, which Arjun and Victoria will bring later on the agenda, so I'll hold my comments on that until then.
+[00:22:35] Duncan Ferrier: I'd push back slightly on that. I think we've got consensus on the cost reporting, broadly.
+[00:22:41] Adaeze Nwosu: Is the contingency position something we need to decide today, or is it for noting?
+[00:22:48] Neil Haworth: Noting only. If it needs a decision, it'll come back with a paper. So, I'd want the business readiness side of the contingency position given the same weight as the technical side, broadly.
+[00:23:00] Arjun Kesavan: Can I just [crosstalk]
+[00:23:02] Priya Raman: Sorry, after you.
+[00:23:04] Arjun Kesavan: Thanks. It was a small point.
+[00:23:07] Priya Raman: Can I just add to that? Mm. On the programme budget, the IBM team and our people are working off one plan now, which helps. We don't need to solve the quarterly reforecast here; we just need to agree who goes away and looks at it.
+[00:23:25] Duncan Ferrier: It's fair to say the IBM change request process took longer than any of us wanted, if I'm honest. The trouble with the IBM change request process is that the people who know it best are also the busiest. I'd like the IBM change request process reflected in the plan on a page, so the board sees the same picture we do. The conversation on the IBM change request process has been constructive, which wasn't always the case.
+[00:23:53] Aisha Siddiqui: Do we need a decision on the cost reporting from this group, or is it just for awareness?
+[00:24:00] Ingrid (Claims Director): Awareness for now. There may be a decision next time. Picking up on that, the squads are carrying the cost reporting on top of business as usual, which we shouldn't forget.
+[00:24:13] Aisha Siddiqui: Understood.
+[00:24:14] Ingrid (Claims Director): We need to be careful how we talk about the IBM change request process outside this room until it's settled. On the IBM change request process, the IBM team and our people are working off one plan now, which helps. I'm not going to pretend the IBM change request process is exciting, but it's exactly the sort of thing that bites you if you ignore it.
+[00:24:38] Victoria Ashcombe: What's the biggest risk on the run-rate, in your view?
+[00:24:42] Priya Raman: Timing more than anything. It's not hard, it's just competing with everything else. My read on the run-rate is that the hard part is behind us, but there's still a long tail.
+[00:24:55] Aisha Siddiqui: Before I forget, the coffee machine on our floor is fixed, for anyone who's been suffering.
+[00:25:01] Victoria Ashcombe: Best news I've had all week.
+[00:25:05] Arjun Kesavan: The forecast is in the pack, and it's the same basis we used last month, so it's like for like. We'll want the risk and compliance view on the benefits case before it comes back for approval.
+[00:25:18] Victoria Ashcombe: I'd echo that, my instinct on the programme budget is to wait a little and see how things settle. The squads are carrying the programme budget on top of business as usual, which we shouldn't forget.
+[00:25:32] Priya Raman: Let's not lose the programme budget in the detail; it needs to come back here with a clear recommendation. I'm not going to walk through the numbers line by line; they're in the appendix and Finance has reviewed them. I'd frame the programme budget as a risk rather than an issue at this stage, as far as I can tell. Speaking for my area, I'd like the programme budget reflected in the plan on a page, so the board sees the same picture we do.
+[00:26:03] Duncan Ferrier: I don't think the cost reporting is controversial, it's just fiddly. Honestly, the handlers have been very patient with us on the cost reporting. I think the key message for the board is that we're still inside the envelope.
+[00:26:17] Arjun Kesavan: Is there a simpler version of the cost reporting than what's on the slide?
+[00:26:23] Ingrid (Claims Director): There probably is, and I'd be open to it. There's no silver bullet on the cost reporting; it's just steady work.
+[00:26:31] Duncan Ferrier: I'm with Ingrid on that. Speaking for my area, the workstream leads have been through the contingency position in detail and they're aligned. The squads are carrying the IBM change request process on top of business as usual, which we shouldn't forget.
+[00:26:47] Arjun Kesavan: I see it a bit differently, actually. From a programme point of view, the benefits case sits on the critical path, so it gets looked at every week.
+[00:26:58] Victoria Ashcombe: I'd rather the benefits case was boring. Boring is good. It's the knock-on effect of the quarterly reforecast that I'm most interested in. We've got a readiness checklist for the benefits case and it's being tracked line by line.
+[00:27:12] Aisha Siddiqui: Who else needs to be involved in the run-rate?
+[00:27:17] Ingrid (Claims Director): Finance, and probably Compliance as well. I'll set something up. We've got a readiness checklist for the run-rate and it's being tracked line by line.
+[00:27:26] Aisha Siddiqui: Fair enough.
+[00:27:28] Victoria Ashcombe: Priya, what's your gut feel on the contingency position?
+[00:27:32] Priya Raman: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. Honestly, the handlers have been very patient with us on the contingency position.
+[00:27:41] Victoria Ashcombe: Sorry, can I just check what we mean by the run-rate? I think people are using it in different ways.
+[00:27:49] Duncan Ferrier: You're right, we're using it loosely. Let me tighten up the wording.
+[00:27:55] Adaeze Nwosu: To be honest, on the programme budget, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room. I'd keep the programme budget separate from the rest of it, because it involves different people and a different set of risks.
+[00:28:13] Victoria Ashcombe: Sorry, just so I'm clear: when you say the forecast to complete, do you mean the UK piece or the whole thing?
+[00:28:21] Arjun Kesavan: Fair point. I mean the whole thing, end to end.
+[00:28:26] Victoria Ashcombe: Mm-hm.
+[00:28:28] Adaeze Nwosu: The technology run costs are separate, and I'll pick those up in the annual planning round, not here. We'll want the risk and compliance view on the IBM change request process before it comes back for approval.
+[00:28:41] Arjun Kesavan: Victoria, is there anything on the contingency position you need from this group?
+[00:28:47] Victoria Ashcombe: Not today, thanks. If that changes, I'll shout. I mean, let's keep the contingency position simple and not try to solve every edge case in one go.
+[00:28:58] Arjun Kesavan: From a programme point of view, the quarterly [inaudible] sits on the critical path, so it gets looked at every week. I'd like the run-rate reflected in the plan on a page, so the board sees the same picture we do.
+[00:29:14] Adaeze Nwosu: In terms of governance, the, the IBM change request process goes through the normal change route, nothing special. I've asked for a short write-up on the IBM change request process so we can look at it properly. We'll bring the programme budget back with options rather than a single answer. Honestly, the handlers have been very patient with us on the capitalisation treatment.
+[00:29:37] Priya Raman: Where does the forecast to complete sit on the list of priorities right now?
+[00:29:43] Aisha Siddiqui: It's up there. It just keeps getting bumped by urgent things. The short version on the forecast to complete is that it's in hand; the longer version is in the pack.
+[00:29:55] Arjun Kesavan: Who else needs to be involved in the capitalisation treatment?
+[00:29:59] Priya Raman: The squads, obviously, but also the people on the floor.
+[00:30:03] Adaeze Nwosu: Is there anything we can do to unblock the run-rate?
+[00:30:07] Arjun Kesavan: Just air cover, really. People are stretched, so it helps if the message comes from here.
+[00:30:15] Victoria Ashcombe: Picking up on that, the benefits case is one of the items we'll want to evidence at the next gate. The squads are carrying the quarterly reforecast on top of business as usual, which we shouldn't forget. We've been through our change requests with Finance and there's nothing new this month.
+[00:30:34] Ingrid (Claims Director): There are two schools of thought on the forecast to complete, and both have some merit. From my side, I'm conscious the forecast to complete keeps coming up and we keep deferring it. The programme budget is one of the items we'll want to evidence at the next gate. We'll want the risk and compliance view on the programme budget before it comes back for approval.
+[00:30:58] Duncan Ferrier: For the cost reporting, I'd rather we under-promise and deliver than the other way round. We can talk about the cost reporting all day, but at some point someone has to make a call. The bit of the cost reporting that worries me is the hand-off between teams.
+[00:31:16] Victoria Ashcombe: Can I suggest we park the programme budget for now and pick it up under any other business? The hypercare lessons feed straight into the quarterly reforecast, which is exactly what we wanted. I don't want us to over-engineer the cost reporting. A one-page note would do the job. I'll be honest, the programme budget wasn't really on my radar until this week.
+[00:31:39] Priya Raman: Can you go back one slide?
+[00:31:42] Neil Haworth: Yes, sorry.
+[00:31:43] Priya Raman: Thanks, that's the one.
+[00:31:46] Aisha Siddiqui: Arjun, is there anything on the contingency position you need from this group?
+[00:31:51] Arjun Kesavan: Probably a bit of time from the business side, but I'll ask offline.
+[00:31:57] Aisha Siddiqui: Thanks.
+[00:31:57] Arjun Kesavan: Is the cost reporting something we need to decide today, or is it for noting?
+[00:32:04] Neil Haworth: Not today. We'll bring options when we've done the analysis. To be honest, I think the cost reporting is a good-news story, actually, and we don't say that often enough.
+[00:32:15] Priya Raman: My main ask is that we keep the forecast honest. I'd rather see a number go up early than get a surprise in the spring.
+[00:32:25] Duncan Ferrier: Arjun, does the capitalisation treatment affect your area at all?
+[00:32:29] Arjun Kesavan: Only at the edges. I'll flag it if that changes. For what it's worth, we probably need to separate the facts on the capitalisation treatment from the folklore.
+[00:32:40] Ingrid (Claims Director): We'll bring the benefits case back with options rather than a single answer. The bit of the benefits case that worries me is the hand-off between teams.
+[00:32:50] Aisha Siddiqui: I suspect the quarterly reforecast will come back to this group at some point, so let's not close it off, if I'm honest. I'd like the benefits case reflected in the plan on a page, so the board sees the same picture we do. In terms of governance, the quarterly reforecast goes through the normal change route, nothing special.
+[00:33:13] Duncan Ferrier: Yeah. My sense is that the programme budget is moving in the right direction, just slowly. On the programme budget, the teams have been brilliant, frankly, given everything else going on. If I'm honest, the programme budget has had less attention than it deserves over the last few weeks.
+[00:33:31] Priya Raman: And just to be clear for anyone newer to this, the contingency is held centrally and anything drawn has to come back here. I'd rather have an honest amber on the cost reporting than a green that turns red later.
+[00:33:46] Aisha Siddiqui: Adaeze, does the benefits case affect your area at all?
+[00:33:50] Adaeze Nwosu: A bit. We'll need some notice, but it's nothing we can't absorb. On the benefits case, the IBM team and our people are working off one plan now, which helps.
+[00:34:02] Victoria Ashcombe: Priya, where are we on the forecast to complete?
+[00:34:05] Priya Raman: It's moving. Not as fast as I'd like, but it's moving. There's a reporting angle to the forecast to complete that Finance will want to see before sign-off.
+[00:34:16] Victoria Ashcombe: Has anything moved on the contingency position since last time?
+[00:34:21] Duncan Ferrier: Mostly that more people are involved now, which is good. I think the contingency position needs a bit of tidying up rather than a rethink.
+[00:34:30] Victoria Ashcombe: Yeah, fair.
+[00:34:31] Neil Haworth: There are two schools of [inaudible] on the benefits case, and both have some merit. We should check whether the benefits case lands differently for the Nordic teams than for the UK.
+[00:34:44] Adaeze Nwosu: Fair enough.
+[00:34:45] Priya Raman: I'd challenge us a bit on the capitalisation treatment; I'm not sure we've tested the assumptions. We'll want the benefits tracking to start properly once motor has a full quarter on the Hub.
+[00:34:57] Arjun Kesavan: The workstream leads have been through the IBM change request process in detail and they're aligned. To be fair, I think we've got consensus on the IBM change request process, broadly.
+[00:35:09] Neil Haworth: Victoria, what keeps you awake about the cost reporting?
+[00:35:12] Victoria Ashcombe: That we assume it's done because nobody's complaining. To be honest, if we get the cost reporting right, a lot of the noise we've had recently goes away.
+[00:35:23] Neil Haworth: Okay.
+[00:35:24] Arjun Kesavan: If the contingency position moves, the comms plan moves with it, so let's keep that in mind. Just quickly, on the contingency position, there's been a lot of activity but not a lot of change, if you see what I mean. In terms of governance, the run-rate goes through the normal change route, nothing special.
+[00:35:45] Neil Haworth: On that point, what I'd like to avoid with the benefits case is finding out about a problem the week before, when there's nothing we can do about it. We've had mixed messages on the benefits case, so a clear statement would help. Honestly, the handlers have been very patient with us on the benefits case.
+[00:36:06] Adaeze Nwosu: [crosstalk] sorry, we both started at once.
+[00:36:09] Arjun Kesavan: Go on, Adaeze.
+[00:36:11] Adaeze Nwosu: Thanks.
+[00:36:13] Neil Haworth: Can I ask what's changed on the capitalisation treatment since we last discussed it?
+[00:36:19] Ingrid (Claims Director): The detail's firmer. The direction is the same. We did a walk-through of the capitalisation treatment with the team leaders and it generated some good questions.
+[00:36:30] Duncan Ferrier: Thanks, PR. If there's nothing else on finance, let's go to Wave 2. Arjun.
+[00:36:35] Arjun Kesavan: Thanks. Let me share the plan. Can everyone see that?
+[00:36:39] Victoria Ashcombe: Yes, we can see it.
+[00:36:42] Arjun Kesavan: So Wave 2 is UK home, commercial and liability, and then Norway and Sweden, all in one wave. That's the largest wave by product count.
+[00:36:51] Victoria Ashcombe: I'd like the Wave 2 readiness checklist reflected in the plan on a page, so the board sees the same picture we do.
+[00:37:00] Neil Haworth: Duncan, can you give us a quick update on the Nordic data mapping?
+[00:37:06] Duncan Ferrier: Steady. No drama, which is what you want. Let's be careful not to let the Nordic data mapping turn into a bigger piece of work than it needs to be.
+[00:37:18] Victoria Ashcombe: The IBM migration team have taken the Wave 1 reconciliation approach and are extending it to the Nordic products. I'm keen that the freeze comms plan doesn't get lost now that the immediate pressure is off.
+[00:37:31] Neil Haworth: The squads are already working on the Nordic product configuration, and that's tracking.
+[00:37:36] Adaeze Nwosu: From a technology side, the environments are the constraint, not the people. I think we underestimated the Wave 2 plan at the start, and that's fine as long as we learn from it.
+[00:37:49] Aisha Siddiqui: The home and commercial handlers are a different population from motor. More complex claims, longer tails, so the training has to reflect that. Let me be a bit provocative on the freeze comms plan: are we sure we need it in its current form?
+[00:38:05] Arjun Kesavan: The Wave 2 plan is one of the items we'll want to evidence at the next gate. There's a reporting angle to the Norway and Sweden readiness that Finance will want to see before sign-off.
+[00:38:18] Aisha Siddiqui: Is there anything we can do to unblock the cut-over runbook?
+[00:38:24] Neil Haworth: Nothing specific. Keep asking about it, that's helpful in itself. We should write the cut-over runbook up properly, if only so the next person doesn't have to work it all out again.
+[00:38:36] Duncan Ferrier: I'd like the freeze comms drafted early so we're not doing them in a rush in January. The squads are carrying the Norway and Sweden readiness on top of business as usual, which we shouldn't forget.
+[00:38:49] Neil Haworth: For what it's worth, the people closest to the Nordic data mapping are fairly confident. So, on the Nordic data mapping, the teams have been brilliant, frankly, given everything else going on. We've got a readiness checklist for the Nordic data mapping and it's being tracked line by line, in my view.
+[00:39:08] Priya Raman: The squads are carrying the Nordic data mapping on top of business as usual, which we shouldn't forget. I've not seen anything on the Nordic data mapping that changes the overall picture. If there's one thing I'd take away on the training plan for home handlers, it's that we need to keep it visible.
+[00:39:29] Arjun Kesavan: I'd like the next update on the Wave 2 scope to come with evidence rather than a status colour. It might be worth a separate session on the UK home and commercial readiness, because we won't do it justice in a few minutes here. Yeah. On the rehearsal plan, the IBM team and our people are working off one plan now, which helps. The Wave 2 plan is built from the Wave 1 plan, with the lessons applied, and with more rehearsal time for the Nordic data.
+[00:40:01] Ingrid (Claims Director): For the Nordic teams, I want the training in their own language where we can manage it. That made a real difference in Denmark.
+[00:40:11] Adaeze Nwosu: Okay, noted.
+[00:40:12] Priya Raman: I think the cut-over runbook needs a bit of tidying up rather than a rethink.
+[00:40:18] Aisha Siddiqui: Neil, you've frozen, I think.
+[00:40:21] Neil Haworth: Sorry, my connection dropped for a second. Where were we?
+[00:40:25] Aisha Siddiqui: You were just picking up the last point.
+[00:40:28] Priya Raman: The honest answer on the rehearsal plan is that we know what good looks like, we're just not there yet. The hypercare lessons feed straight into the Norway and Sweden readiness, which is exactly what we wanted.
+[00:40:43] Arjun Kesavan: We'll bring the detailed rehearsal plan to the next steering, once the environments are confirmed. We should write the Wave 2 plan up properly, if only so the next person doesn't have to work it all out again.
+[00:40:57] Aisha Siddiqui: Right.
+[00:41:07] Arjun Kesavan: The plan on the slide has the cut-over on Monday 18 January 2027, with the freeze running over the weekend before. The rehearsals are laid out backwards from that date.
+[00:41:18] Priya Raman: Sorry, January? That's not the date I've got in my notes.
+[00:41:23] Arjun Kesavan: Let me just check the version I've got up. Carry on and I'll come back to it.
+[00:41:30] Aisha Siddiqui: I'd rather have an honest amber on the training plan for home handlers than a green that turns red later. Brokers will need notice of the freeze as well. We learned that the hard way with motor.
+[00:41:44] Adaeze Nwosu: Have we taken the Wave 2 scope through the team leaders yet?
+[00:41:49] Neil Haworth: We've walked them through it, yes, and they had some useful challenge. We'll want the risk and compliance view on the Wave 2 scope before it comes back for approval.
+[00:42:01] Arjun Kesavan: Part of the, the issue with the Wave 2 plan is that the documentation lags behind what people actually do. It's fair to say the freeze comms plan took longer than any of us wanted. We need a bit more rigour around the Wave 2 scope, particularly on the testing side, I think.
+[00:42:21] Neil Haworth: I'm with Arjun on that. Okay. We touched on the Wave 2 scope last time and I'm not sure the position has really moved since. Speaking for my area, I'd want the business readiness side of [inaudible] Nordic data mapping given the same weight as the technical side.
+[00:42:39] Priya Raman: We need to be careful how we talk about the Wave 2 readiness checklist outside this room until it's settled.
+[00:42:47] Duncan Ferrier: Personally I'd go a bit further on the rehearsal plan, but I can live with what's proposed. In terms of governance, the UK home and commercial readiness goes through the normal change route, nothing special. Let's capture the cut-over runbook as a follow-up rather than try to close it today. Yeah. What's changed on the rehearsal plan since the last update is mainly the level of detail, not the direction, as far as I can tell.
+[00:43:14] Neil Haworth: Do we need a decision on the Nordic data mapping from this group, or is it just for awareness?
+[00:43:22] Adaeze Nwosu: Noting only. If it needs a decision, it'll come back with a paper. I'd split the Nordic data mapping into what we have to do now and what can wait, if that makes sense.
+[00:43:36] Neil Haworth: Is the Wave 2 plan in the pack, or is that coming separately?
+[00:43:41] Duncan Ferrier: It's in there, but only at summary level. Look, we need a bit more rigour around the Wave 2 plan, particularly on the testing side.
+[00:43:50] Aisha Siddiqui: That's helpful, thanks.
+[00:44:02] Aisha Siddiqui: Sorry, Arjun, can I go back to the date on the slide before we move on? That's the old date. Wave 2 is 15 February 2027. The 18th of January was in the draft plan and it's void. We shouldn't be showing it anywhere.
+[00:44:18] Arjun Kesavan: You're absolutely right, apologies. That's an old slide from the draft pack. Fifteenth of February. The January date is void.
+[00:44:26] Duncan Ferrier: Let's be clear for the record, then. Wave 2 cut-over is confirmed as 15 February 2027, and the earlier draft date of 18 January is void. Arjun, can you make sure every copy of that plan is updated?
+[00:44:41] Arjun Kesavan: Yes, I'll reissue it today.
+[00:44:43] Arjun Kesavan: So, with the right date: the freeze runs from 18:00 on Friday 12 February to 06:00 on Monday 15 February, the same shape as Wave 1.
+[00:44:54] Aisha Siddiqui: On the Nordic data mapping, the IBM team and our people are working off one plan now, which helps. The people side of the Nordic data mapping is going to be harder than the system side. Mm. My only ask on the Wave 2 plan is that we keep the business teams close. We've done the thinking on the cut-over runbook; now it's about execution.
+[00:45:18] Priya Raman: Is there anything we can do to unblock the training plan for home handlers?
+[00:45:23] Duncan Ferrier: Just air cover, really. People are stretched, so it helps if the message comes from here. I don't think the training plan for home handlers are controversial, it's just fiddly.
+[00:45:34] Priya Raman: That's helpful, thanks.
+[00:45:36] Aisha Siddiqui: Following on from Priya, I'd split the Norway and Sweden readiness into what we have to do now and what can wait. If we're short of capacity, the Wave 2 readiness checklist is the thing I'd protect.
+[00:45:50] Duncan Ferrier: Ingrid, is the Wave 2 scope a resourcing question or a decision question?
+[00:45:56] Ingrid (Claims Director): Resourcing. Nobody disagrees on what to do.
+[00:46:00] Neil Haworth: Is the rehearsal plan in the pack, or is that coming separately?
+[00:46:05] Duncan Ferrier: It's in the appendix, towards the back.
+[00:46:09] Neil Haworth: Is the cut-over runbook in the pack, or is that coming separately?
+[00:46:14] Ingrid (Claims Director): Not in this pack, no. It'll come separately once it's been through the working group. We've been here before with the cut-over runbook, and the lesson last time was to get the business in the room early.
+[00:46:28] Victoria Ashcombe: So, um, Mm. We've got a readiness checklist for the freeze comms plan and it's being tracked line by line.
+[00:46:36] Ingrid (Claims Director): Neil, what keeps you awake about the Wave 2 scope?
+[00:46:40] Neil Haworth: The hand-offs between teams. That's where things usually drop. I'm keen that the Wave 2 scope doesn't get lost now that the immediate pressure is off.
+[00:46:50] Arjun Kesavan: The honest answer on the Wave 2 readiness checklist is that we know what good looks like, we're just not there yet. From a customer point of view, the Wave 2 readiness checklist should be invisible, and that's the test I'd apply. My worry with the Wave 2 readiness checklist is less the technology and more whether people on the floor actually know what's changed, I think.
+[00:47:15] Duncan Ferrier: Ingrid, does the Wave 2 plan affect your area at all?
+[00:47:20] Ingrid (Claims Director): Not directly. There's an indirect impact, but it's manageable. Look, to be clear, nobody's saying the Wave 2 plan is broken. It's more that we haven't tested it the way we'd test anything else.
+[00:47:33] Aisha Siddiqui: I agree with Ingrid, and I'd add that I've not seen anything on the rehearsal plan that changes the overall picture.
+[00:47:41] Neil Haworth: Is there anything we can do to unblock the UK home and commercial readiness?
+[00:47:47] Adaeze Nwosu: Not today, thanks. If that changes, I'll shout. We've got good people looking at the UK home and commercial readiness; I'm less sure we've given them enough time.
+[00:47:58] Duncan Ferrier: Is everyone okay if we move to the next item?
+[00:48:01] Aisha Siddiqui: We did a walk-through of the Wave 2 scope with the team leaders and it generated some good questions. On the broker letter, the IBM team and our people are working off one plan now, which helps.
+[00:48:15] Neil Haworth: Can I ask what's changed on the rehearsal plan since we last discussed it?
+[00:48:21] Duncan Ferrier: Honestly, less than I'd like. Let me be a bit provocative on the rehearsal plan: are we sure we need it in its current form?
+[00:48:30] Arjun Kesavan: [inaudible] sorry, you broke up there, Aisha.
+[00:48:34] Aisha Siddiqui: Sorry. Is that clearer?
+[00:48:36] Arjun Kesavan: Yes.
+[00:48:37] Duncan Ferrier: Priya, is the Nordic data mapping a resourcing question or a decision question?
+[00:48:42] Priya Raman: Resourcing. Nobody disagrees on what to do.
+[00:48:46] Ingrid (Claims Director): The squads are carrying the Wave 2 readiness checklist on top of business as usual, which we shouldn't forget. If the freeze comms plan slips, it doesn't just slip on its own; it drags a couple of other things with it, I think. I think the main thing on the Wave 2 readiness checklist is that we don't let it drift without someone looking at it properly. And liability is a different animal again. The claims are slower, but they're the ones that end up in front of a judge.
+[00:49:20] Aisha Siddiqui: I'd want the business readiness side of the UK home and commercial readiness given the same weight as the technical side.
+[00:49:27] Arjun Kesavan: There's a Wave 2 readiness epic in the backlog, CHUB-401, and everything hangs off that. My worry with the Norway and Sweden readiness is less the technology and more whether people on the floor actually know what's changed.
+[00:49:42] Duncan Ferrier: Can we capture that as an action?
+[00:49:45] Neil Haworth: Let's keep the cut-over runbook simple and not try to solve every edge case in one go. On the Norway and Sweden readiness, the IBM team and our people are working off one plan now, which helps. We'll want the risk and compliance view on the cut-over runbook before it comes back for approval. If the cut-over runbook moves, the comms plan moves with it, so let's keep that in mind.
+[00:50:12] Aisha Siddiqui: I'd want to see the Wave 2 scope working end to end before I'd put my name to it, if that makes sense. In fairness, I'd frame the UK home and commercial readiness as a risk rather than an issue at this stage. Picking up on that, we should write the Wave 2 scope up properly, if only so the next person doesn't have to work it all out again.
+[00:50:37] Arjun Kesavan: No objection from me.
+[00:50:39] Ingrid (Claims Director): Yeah, so the hypercare lessons feed straight into the Wave 2 plan, which is exactly what we wanted. If there's one thing I'd take away on the Wave 2 plan, it's that we need to keep it visible.
+[00:50:53] Victoria Ashcombe: If we get the Nordic data mapping right, a lot of the noise we've had recently goes away. We don't need to solve the Nordic data mapping here; we just need to agree who goes away and looks at it. On that point, I've asked for a short write-up on the Nordic data mapping so we can look at it properly.
+[00:51:16] Arjun Kesavan: Aisha, is the Wave 2 plan a resourcing question or a decision question?
+[00:51:22] Aisha Siddiqui: Mostly resourcing, to be honest. The decision's been made; it's the doing. Personally I'd go a bit further on the Wave 2 plan, but I can live with what's proposed.
+[00:51:34] Neil Haworth: Arjun, did you get a chance to look at the Norway and Sweden readiness?
+[00:51:39] Arjun Kesavan: Yes. It reads well. One or two questions, but nothing major.
+[00:51:44] Neil Haworth: Fine by me.
+[00:51:46] Aisha Siddiqui: We've done the, the thinking on the training plan for home handlers; now it's about execution.
+[00:51:53] Duncan Ferrier: I'd echo that, to be clear, nobody's saying the Nordic data mapping is broken. It's more that we haven't tested it the way we'd test anything else. If we get the Norway and Sweden readiness right, a lot of the noise we've had recently goes away.
+[00:52:10] Neil Haworth: Are we expecting any pushback on the cut-over runbook?
+[00:52:14] Adaeze Nwosu: One or two. I'll pick them up offline rather than take time here. We've had mixed messages on the cut-over runbook, so a clear statement would help, as far as I can tell.
+[00:52:27] Ingrid (Claims Director): We should write the training plan for home handlers up properly, if only so the next person doesn't have to work it all out again. On that point, I'd like the training plan for home handlers closed down properly, not just quietly dropped. Let's keep the training plan for home handlers simple and not try to solve every edge case in one go. Honestly, for the training plan for home handlers, I'd rather we under-promise and deliver than the other way round.
+[00:52:57] Duncan Ferrier: I was going to say [crosstalk]
+[00:53:00] Arjun Kesavan: Sorry, go ahead.
+[00:53:03] Duncan Ferrier: No, you go.
+[00:53:04] Arjun Kesavan: I was only going to say I agree.
+[00:53:08] Neil Haworth: There's a reporting angle to the Wave 2 readiness checklist that Finance will want to see before sign-off. Actually, can I suggest [inaudible] park the rehearsal plan for now and pick it up under any other business? In terms of governance, the broker letter goes through the normal change route, nothing special.
+[00:53:28] Victoria Ashcombe: Can I ask what's changed on the Wave 2 plan since we last discussed it?
+[00:53:33] Priya Raman: Not much, other than we understand it better. The bit of the Wave 2 plan that worries me is the hand-off between teams.
+[00:53:43] Neil Haworth: If we're short of capacity, the cut-over runbook is the thing I'd protect.
+[00:53:48] Victoria Ashcombe: Where have we got to with the broker letter, Adaeze?
+[00:53:53] Adaeze Nwosu: Broadly on track. There are a couple of loose ends, but nothing that worries me. The broker letter is one of the items we'll want to evidence at the next gate.
+[00:54:05] Neil Haworth: Have we taken the UK home and commercial readiness through the team leaders yet?
+[00:54:11] Arjun Kesavan: Partly. We've done the UK team leaders; the Nordics are next.
+[00:54:15] Neil Haworth: That's helpful, thanks.
+[00:54:17] Aisha Siddiqui: Are we expecting any pushback on the Nordic data mapping?
+[00:54:21] Duncan Ferrier: Not really. The team have been very open about the gaps, which helps. If the Nordic data mapping moves, the comms plan moves with it, so let's keep that in mind.
+[00:54:32] Arjun Kesavan: Ingrid, what's your gut feel on the rehearsal plan?
+[00:54:37] Ingrid (Claims Director): Fairly comfortable. I'd flag it as watch rather than worry. The quality of the conversation on the rehearsal plan has improved a lot.
+[00:54:46] Victoria Ashcombe: On the Wave 2 scope, the IBM team and our people are working off one plan now, which helps. The honest answer on the Wave 2 scope is that we know what good looks like, we're just not there yet. Let me be a bit provocative on the Wave 2 plan: are we sure we need it in its current form? The workstream leads have been through the Wave 2 scope in detail and they're aligned.
+[00:55:14] Priya Raman: Same here.
+[00:55:15] Duncan Ferrier: We should write the Norway and Sweden readiness up properly, if only so the next person doesn't have to work it all out again. I'd want the business readiness side of the Norway and Sweden readiness given the same weight as the technical side, in my view.
+[00:55:32] Aisha Siddiqui: No objection from me.
+[00:55:34] Neil Haworth: If the Wave 2 readiness checklist moves, the comms plan moves with it, so let's keep that in mind. It's the knock-on effect of the Nordic data mapping that I'm most interested in. I'm happy with the Wave 2 readiness checklist as long as we're clear about what's in and what's out.
+[00:55:53] Victoria Ashcombe: Makes sense to me.
+[00:55:56] Duncan Ferrier: Aisha, can you give us a quick update on the training plan for home handlers?
+[00:56:01] Aisha Siddiqui: It's progressing. I'll have a fuller picture by the next meeting. For what it's worth, I'd like the training plan for home handlers reflected in the plan on a page, so the board sees the same picture we do.
+[00:56:16] Victoria Ashcombe: Have we taken the rehearsal plan through the team leaders yet?
+[00:56:21] Ingrid (Claims Director): We've walked them through it, yes, and they had some useful challenge. To be fair, we'll want the risk and compliance view on the rehearsal plan before it comes back for approval.
+[00:56:33] Neil Haworth: I'm going to have to drop off a few minutes early, apologies in advance.
+[00:56:39] Arjun Kesavan: No worries, thanks for letting us know.
+[00:56:43] Duncan Ferrier: I'd frame the broker letter as a risk rather than an issue at this stage. I'd want the business readiness side of the Wave 2 readiness checklist given the same weight as the technical side. We'll bring the broker letter back with options rather than a single answer.
+[00:57:01] Arjun Kesavan: So, um, there's a reporting angle to the UK home and commercial readiness that Finance will want to see before sign-off. There's a temptation to treat the UK home and commercial readiness as a technical problem, and it really isn't.
+[00:57:16] Neil Haworth: That's helpful, thanks.
+[00:57:20] Duncan Ferrier: Good. Thanks, Arjun, and thanks, Aisha, for catching that. Next item, CLARA decommissioning. Neil.
+[00:57:26] Neil Haworth: Thanks. The decommission target for CLARA is still 30 September 2027. Nothing has changed there, but it depends on Wave 2 landing in February and on us finding a home for the residual workload.
+[00:57:39] Neil Haworth: The big open question is read-only enquiry after cut-over. ADR-026 proposes a read-only CLARA enquiry, but it's still a proposal; the Design Authority hasn't accepted it yet.
+[00:57:50] Priya Raman: If the residual CLARA workload slips, it doesn't just slip on its own; it drags a couple of other things with it. I'd rather the residual CLARA workload was boring. Boring is good.
+[00:58:02] Aisha Siddiqui: I'm not sure I'd go quite that far, Priya. Okay. I'd want to see the legacy skills risk working end to end before I'd put my name to it. I'm keen that the residual CLARA workload doesn't get lost now that the immediate pressure is off.
+[00:58:20] Neil Haworth: I'd like the residual CLARA workload reflected in the plan on a page, so the board sees the same picture we do.
+[00:58:28] Arjun Kesavan: Right. Honestly, the handlers have been very patient with us on the CLARA decommissioning plan. I'm keen that the mainframe capacity plan doesn't get lost now that the immediate pressure is off. I'd like the SUBTRAK retirement reflected in the plan on a page, so the board sees the same picture we do, if I'm honest.
+[00:58:49] Aisha Siddiqui: Just to build on what Arjun said, I'd just add, on the interface retirement plan, that the lessons learned from the last cycle are worth rereading.
+[00:58:59] Adaeze Nwosu: I'm keen that the legacy skills risk doesn't get lost now that the immediate pressure is off. My concern with the decommission is the long tail of reporting. People always find a report they forgot about.
+[00:59:13] Neil Haworth: I'd want the business readiness side of the data retention position given the same weight as the technical side. Graham's team have been brilliant through all of this, and they're also the people we need to decommission it. That's a capacity question for next year.
+[00:59:30] Priya Raman: Duncan, does the data retention position affect your area at all?
+[00:59:35] Duncan Ferrier: Yes, and we're already talking to the team about it.
+[00:59:39] Adaeze Nwosu: Where have we got to with the SUBTRAK retirement, Neil?
+[00:59:43] Neil Haworth: In better shape than it was. I wouldn't call it done, but the direction is right. I had a look at the SUBTRAK retirement over the weekend and nothing jumped out as a showstopper.
+[00:59:56] Priya Raman: My instinct on the mainframe capacity plan is to wait a little and see how things settle, for what it's worth. The hypercare lessons feed straight into the mainframe capacity plan, which is exactly what we wanted. For the mainframe capacity plan, the question isn't whether, it's how and in what order.
+[01:00:16] Neil Haworth: Sure. I'm not going to pretend the, the interface retirement plan is exciting, but it's exactly the sort of thing that bites you if you ignore it. I suspect the interface retirement plan will come back to this group at some point, so let's not close it off, if that makes sense.
+[01:00:35] Aisha Siddiqui: It's properly dark out already here.
+[01:00:37] Duncan Ferrier: Same here. Winter's arrived.
+[01:00:39] Aisha Siddiqui: Right, anyway.
+[01:00:40] Neil Haworth: Duncan, did you get a chance to look at the mainframe capacity plan?
+[01:00:46] Duncan Ferrier: I did, briefly. I've got a couple of comments, I'll send them over. On the mainframe capacity plan, there's been a lot of activity but not a lot of change, if you see what I mean.
+[01:01:00] Neil Haworth: We've started an inventory of everything that still reads from the ledger after Wave 2, and it's longer than I'd like. To be clear, nobody's saying the mainframe capacity plan is broken. It's more that we haven't tested it the way we'd test anything else.
+[01:01:17] Adaeze Nwosu: Data retention needs the DPO's input before we commit to an archive design. In fairness, the CLARA decommissioning plan is one [inaudible] the items we'll want to evidence at the next gate.
+[01:01:29] Aisha Siddiqui: Personally I'd go a bit further on the residual CLARA workload, but I can live with what's proposed. I've asked for a short write-up on the residual CLARA workload so we can look at it properly.
+[01:01:42] Duncan Ferrier: I'll pick that up offline.
+[01:01:45] Neil Haworth: Sorry, just so I'm clear: when you say the legacy skills risk, do you mean the UK piece or the whole thing?
+[01:01:54] Priya Raman: Fair point. I mean the whole thing, end to end.
+[01:01:58] Neil Haworth: The sub-ro team are keen to get off SUBTRAK. It's been creaking for a while.
+[01:02:04] Arjun Kesavan: I'm reassured on the CLARA decommissioning plan, mostly because the team have been very open about the gaps. If the CLARA decommissioning plan moves, the comms plan moves with it, so let's keep that in mind.
+[01:02:18] Duncan Ferrier: I'd rather have an honest amber on the interface retirement plan than a green that turns red later. Look, the quality of the conversation on the interface retirement plan has improved a lot. The feedback from the teams on the archive approach is that they want fewer surprises and more notice.
+[01:02:37] Neil Haworth: Aisha, any concerns from your side on the legacy skills risk?
+[01:02:42] Aisha Siddiqui: Not really. The team have been very open about the gaps, which helps.
+[01:02:47] Arjun Kesavan: My read on read-only enquiry is that the hard part is behind us, but there's [inaudible] a long tail. If anyone's got concerns about read-only enquiry, I'd rather hear them now than in the corridor afterwards. I'd rather read-only enquiry was boring. Boring is good.
+[01:03:04] Adaeze Nwosu: How confident are we on the data retention position, honestly?
+[01:03:08] Aisha Siddiqui: Fairly comfortable. I'd flag it as watch rather than worry. The quality of the conversation on the data retention position has improved a lot.
+[01:03:18] Adaeze Nwosu: Just quickly, on the archive approach, I'd like us to agree the principle and let the team sort out the detail.
+[01:03:26] Aisha Siddiqui: There's a reporting angle to the CLARA decommissioning plan that Finance will want to see before sign-off. My instinct on the CLARA decommissioning plan is to wait a little and see how things settle.
+[01:03:39] Duncan Ferrier: The data retention position keeps getting squeezed by more urgent things. Let's make sure the decommission plan has the business in it, not just the technology.
+[01:03:48] Arjun Kesavan: If there's one thing I'd take away on read-only enquiry, it's that we need to keep it visible. Okay, so there's a dependency on the interface retirement plan that I don't think everyone's aware of, so it's worth calling out, I think. Look, Read-only enquiry is one of the items we'll want to evidence at the next gate.
+[01:04:15] Aisha Siddiqui: And on SUBTRAK, the retirement target is still 31 December this year. The epic for that is CHUB-430 and Freya's team are working through the open recovery cases.
+[01:04:25] Neil Haworth: There's a temptation to treat the CLARA decommissioning plan as a technical problem, and it really isn't. Can I suggest we park the CLARA decommissioning plan for now and pick it up under any other business?
+[01:04:39] Adaeze Nwosu: That works.
+[01:04:40] Aisha Siddiqui: That chimes with what I'm hearing, and on the interface retirement plan, the IBM team and our people are working off one plan now, which helps. Sure. There's a reporting angle to the legacy skills risk that Finance will want to see before sign-off.
+[01:04:57] Adaeze Nwosu: How confident are we on the archive approach, honestly?
+[01:05:01] Priya Raman: Reasonably. I've seen worse at this stage. Speaking for my area, the hypercare lessons feed straight into the archive approach, which is exactly what we wanted.
+[01:05:11] Aisha Siddiqui: Picking up on that, let's capture the data retention position as a follow-up rather than try to close it today. In terms of governance, the residual CLARA workload goes through the normal change route, nothing special. Read-only enquiry is the big one for the business. Handlers will want to look things up on old claims for a while.
+[01:05:33] Adaeze Nwosu: In fairness, it's the knock-on effect of the interface retirement plan that I'm most interested in. From a customer point of view, the interface retirement plan should be invisible, and that's the test I'd apply.
+[01:05:46] Neil Haworth: Yeah, I'd agree with that.
+[01:05:48] Aisha Siddiqui: Duncan, where are we on the interface retirement plan?
+[01:05:52] Duncan Ferrier: It's with the working group at the moment; I'll chase and come back. To be fair, can I suggest we park the interface retirement plan for now and pick it up under any other business?
+[01:06:06] Neil Haworth: From my side, the workstream leads have been through the archive approach in detail and they're aligned. For what it's worth, I had a look at the archive approach over the weekend and nothing jumped out as a showstopper, to be honest.
+[01:06:21] Adaeze Nwosu: If anyone's got concerns about the data retention position, I'd rather hear them now than in the corridor afterwards. The data retention position is one of the items we'll want to evidence at the next gate.
+[01:06:36] Priya Raman: Sorry, can I just check what we mean by the mainframe capacity plan? I think people are using it in different ways.
+[01:06:44] Neil Haworth: Good challenge. I'll make sure the next version defines it properly. The thing about the mainframe capacity plan is that everyone agrees with it in principle and nobody wants to do the work.
+[01:06:57] Priya Raman: Yeah, go on.
+[01:06:59] Aisha Siddiqui: Honestly, I'd want the business readiness side of the legacy skills risk given the same weight as the technical side. The squads are carrying the archive approach on top of business as usual, which we shouldn't forget. Picking up on that, if read-only enquiry moves, the comms plan moves with it, so let's keep that in mind. I'd rather have an honest amber on the legacy skills risk than a green that turns red later.
+[01:07:26] Neil Haworth: What would really help on the data retention position is a single view that everyone works from. On the data retention position, the IBM team and our people are working off one plan now, which helps.
+[01:07:40] Victoria Ashcombe: I'll drop the link in the chat.
+[01:07:44] Duncan Ferrier: Thanks.
+[01:07:44] Neil Haworth: How confident are we on the CLARA decommissioning plan, honestly?
+[01:07:49] Aisha Siddiqui: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it. In terms of governance, the CLARA decommissioning plan goes through the normal change route, nothing special.
+[01:08:02] Neil Haworth: Same view here. Honestly, the handlers have been very patient with us on the legacy skills risk. If the SUBTRAK retirement moves, the comms plan moves with it, so let's keep that in mind.
+[01:08:15] Victoria Ashcombe: We should probably sanity-check the mainframe capacity plan with someone who wasn't involved in designing it. There's a temptation to treat the legacy skills risk as a technical problem, and it really isn't. I'd like read-only enquiry closed down properly, not just quietly dropped.
+[01:08:32] Neil Haworth: The thing is [crosstalk]
+[01:08:34] Duncan Ferrier: Sorry, one at a time, please.
+[01:08:38] Neil Haworth: Sorry. Go on, Aisha.
+[01:08:40] Aisha Siddiqui: No, it's fine, carry on.
+[01:08:43] Adaeze Nwosu: Neil, is the data retention position a resourcing question or a decision question?
+[01:08:49] Neil Haworth: Probably both, if I'm honest. I'm conscious the data retention position keeps coming up and we keep deferring it.
+[01:08:56] Ingrid (Claims Director): Can I ask what's changed on the data retention position since we last discussed it?
+[01:09:02] Aisha Siddiqui: Mostly that more people are involved now, which is good. The bit of the data retention position that worries me is the hand-off between teams.
+[01:09:12] Victoria Ashcombe: Priya, did you get a chance to look at the data retention position?
+[01:09:18] Priya Raman: Not properly yet. It's on my list for this week. I'd challenge us a bit on the data retention position; I'm not sure we've tested the assumptions.
+[01:09:29] Aisha Siddiqui: Arjun, does the residual CLARA workload affect your area at all?
+[01:09:34] Arjun Kesavan: Not directly. There's an indirect impact, but it's manageable. Mm. We'll bring the residual CLARA workload back with options rather than a single answer.
+[01:09:42] Duncan Ferrier: Is the CLARA decommissioning plan in the pack, or is that coming separately?
+[01:09:48] Victoria Ashcombe: It's in the appendix, towards the back. I suspect the CLARA decommissioning plan will come back to this group at some point, so let's not close it off.
+[01:09:59] Neil Haworth: The workstream leads have been through read-only enquiry in detail and they're aligned. The feedback from the teams on the CLARA decommissioning plan is that they want fewer surprises and more notice.
+[01:10:11] Arjun Kesavan: Duncan, what's your gut feel on read-only enquiry?
+[01:10:15] Duncan Ferrier: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. If we get read-only enquiry right, a lot of the noise we've had recently goes away.
+[01:10:30] Duncan Ferrier: Thanks. Let's move to the contingency request. Victoria, Arjun.
+[01:10:34] Victoria Ashcombe: Thanks, Duncan. We're asking the committee to approve a contingency drawdown of £1.8m for Wave 2. It's set out on the slide, and the breakdown is in the appendix.
+[01:10:44] Arjun Kesavan: The short version is that Wave 2 is bigger and more complex than Wave 1, and we want to protect the February date rather than find ourselves short in January.
+[01:10:56] Victoria Ashcombe: We've tried to be disciplined about this. We're asking for what we need to protect the date, not a cushion.
+[01:11:04] Duncan Ferrier: Okay, I think that's that one done.
+[01:11:07] Neil Haworth: Victoria, what's your gut feel on the Wave 2 resourcing?
+[01:11:12] Victoria Ashcombe: Short answer, yes. Long answer, it depends how the next few weeks go. In terms of governance, the Wave 2 resourcing goes through the normal change route, nothing special.
+[01:11:24] Duncan Ferrier: In terms of governance, the contingency request goes through the normal change route, nothing special. I'd like the board to see this as protecting the plan rather than a cost overrun. We should be honest that the contingency request is partly a capacity problem.
+[01:11:40] Neil Haworth: There's a reporting angle to the drawdown governance that Finance will want to see before sign-off.
+[01:11:47] Arjun Kesavan: The request is set out on the slide, and the detail is in the appendix, broken down by workstream. I'd want the business readiness side of the drawdown governance given the same weight as the technical side.
+[01:12:01] Aisha Siddiqui: Yeah, um, I'd challenge us a bit on the Nordic migration effort; I'm not sure we've tested the assumptions. We don't need to solve the risk position on Wave 2 here; we just need to agree who goes away and looks at it. From my side, on the Nordic migration effort, the risk isn't that it fails outright, it's that it half works and nobody notices.
+[01:12:26] Duncan Ferrier: What's changed on the IBM team extension since the last update is mainly the level of detail, not the direction. My sense is that the IBM team extension is moving in the right direction, just slowly.
+[01:12:40] Adaeze Nwosu: Priya, what's your gut feel on the additional test capacity?
+[01:12:44] Priya Raman: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. The additional test capacity is one of the items we'll want to evidence at the next gate.
+[01:12:55] Aisha Siddiqui: Is the Wave 2 resourcing something we need to decide today, or is it for noting?
+[01:13:02] Duncan Ferrier: For noting, I think. Nothing we need to decide today. The squads are carrying the Wave 2 resourcing on top of business as usual, which we shouldn't forget.
+[01:13:13] Aisha Siddiqui: Yeah, fair.
+[01:13:14] Arjun Kesavan: The squads are carrying the rehearsal environment work on top of business as usual, which we shouldn't forget, at least from where I sit. I'm keen that the rehearsal environment work doesn't get lost now that the immediate pressure is off. We shouldn't confuse the risk position on Wave 2 with the wider change; they're related but not the same.
+[01:13:36] Priya Raman: Are we expecting any pushback on the IBM team extension?
+[01:13:41] Aisha Siddiqui: A few, mostly about timing rather than substance. If the IBM team extension needs more time, I'd rather we said so now.
+[01:13:49] Neil Haworth: We've got a readiness checklist for the contingency request and it's being tracked line by line. If we don't do this, the risk doesn't disappear; it just moves to the cut-over weekend. The hypercare lessons feed straight into the additional test capacity, which is exactly what we wanted.
+[01:14:07] Adaeze Nwosu: Perfect.
+[01:14:08] Arjun Kesavan: I'd like the risk position on Wave 2 reflected in the plan on a page, so the board sees the same picture we do. We'll want the risk and compliance view on the risk position on Wave 2 before it comes back for approval. It might be worth a separate session on the risk position on Wave 2, because we won't do it justice in a few minutes here. It's fair to say the additional test capacity took longer than any of us wanted.
+[01:14:39] Priya Raman: Have we taken the contingency request through the team leaders yet?
+[01:14:44] Duncan Ferrier: Not yet, but it's planned.
+[01:14:47] Priya Raman: We need a bit more rigour around the contingency request, particularly on the testing side. Right. The hypercare lessons feed straight into the rehearsal environment work, which is exactly what we wanted. My worry with the contingency request is less the technology and more whether people on the floor actually know what's changed. I've been through the breakdown with Arjun and with my team, and I'm comfortable it's been challenged properly.
+[01:15:13] Arjun Kesavan: What's the biggest risk on the contingency request, in your view?
+[01:15:17] Victoria Ashcombe: Honestly, people. The people who know it best are also the busiest.
+[01:15:23] Arjun Kesavan: Noted.
+[01:15:24] Victoria Ashcombe: And we'll report against the drawdown separately, so you can see exactly where it goes.
+[01:15:31] Priya Raman: How confident are we on the Nordic migration effort, honestly?
+[01:15:35] Aisha Siddiqui: Short answer, yes. Long answer, it depends how the next few weeks go. Let's be careful not to let the Nordic migration effort turn into a bigger piece of work than it needs to be.
+[01:15:48] Arjun Kesavan: Is there anything we can do to unblock the risk position on Wave 2?
+[01:15:55] Ingrid (Claims Director): Nothing specific. Keep asking about it, that's helpful in itself. To be clear, nobody's saying the risk position on Wave 2 is broken. It's more that we haven't tested it the way we'd test anything else.
+[01:16:08] Arjun Kesavan: We've got good people looking at the risk position on Wave 2; I'm less sure we've given them enough time. In terms of governance, the risk position on Wave 2 goes through the normal change route, nothing special.
+[01:16:23] Adaeze Nwosu: Aisha, does the contingency request affect your area at all?
+[01:16:28] Aisha Siddiqui: Yes, and we're already talking to the team about it.
+[01:16:32] Adaeze Nwosu: Okay.
+[01:16:33] Ingrid (Claims Director): If the additional test capacity is going to need more people, we should flag that early rather than late. I'm keen we don't just tick a box on the additional test capacity. Whatever happens with the additional test capacity, the communication needs to be joined up.
+[01:16:50] Victoria Ashcombe: Priya, are you comfortable with the contingency request as it stands?
+[01:16:56] Priya Raman: Reasonably. I've seen worse at this stage. We don't need to solve the contingency request here; we just need to agree who goes away and looks at it.
+[01:17:06] Adaeze Nwosu: The additional test capacity is one of those things that looks easy on a slide and isn't. I'd ask that we don't make promises on the contingency request until we've seen the impact assessment.
+[01:17:19] Duncan Ferrier: How confident are we on the Wave 2 resourcing, honestly?
+[01:17:23] Priya Raman: Fairly comfortable. I'd flag it as watch rather than worry. If the Wave 2 resourcing moves, the comms plan moves with it, so let's keep that in mind.
+[01:17:34] Aisha Siddiqui: Can I ask what's changed on the drawdown governance since we last discussed it?
+[01:17:39] Arjun Kesavan: The detail's firmer. The direction is the same. The short version on the drawdown governance is that it's in hand; the longer version is in the pack.
+[01:17:49] Priya Raman: Adaeze, are you comfortable with the Nordic migration effort as it stands?
+[01:17:54] Adaeze Nwosu: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it. Well, there are two schools of thought on the Nordic migration effort, and both have some merit.
+[01:18:07] Neil Haworth: In fairness, the honest answer on the IBM team extension is that we know what good looks like, we're just not there yet. On the Nordic migration effort, I'd like us to agree the [inaudible] and let the team sort out the detail. The Nordic migration effort is one of the items we'll want to evidence at the next gate. What would really help on the additional test capacity is a single view that everyone works from.
+[01:18:36] Victoria Ashcombe: Arjun, is there anything on the Wave 2 resourcing you need from this group?
+[01:18:42] Arjun Kesavan: Just air cover, really. People are stretched, so it helps if the message comes from here. We need a bit more rigour around the Wave 2 resourcing, particularly on the testing side.
+[01:19:00] Duncan Ferrier: So, PR, as the CFO this one is your call. Anything above half a million comes to you.
+[01:19:06] Priya Raman: Yes. I've been through it with my team and with Arjun. I'm comfortable, so I'll approve the £1.8m contingency drawdown for Wave 2. I'll confirm it in writing after the meeting.
+[01:19:18] Duncan Ferrier: Thank you. And for the minutes, I'm happy to support that as chair. So that's approved.
+[01:19:25] Victoria Ashcombe: Thank you both. We'll report against it separately every month.
+[01:19:29] Ingrid (Claims Director): Just one comment from me. I'd like some of that to go towards the Nordic training. My view, for what it's worth, is that's where Wave 2 will be won or lost.
+[01:19:42] Arjun Kesavan: Noted. Training is one of the lines in the breakdown, and we'll make sure the Nordic share is visible.
+[01:19:49] Priya Raman: The trouble with the Nordic migration effort is that the people who know it best are also the busiest. The additional test capacity keeps getting squeezed by more urgent things.
+[01:20:01] Aisha Siddiqui: Ingrid, does the additional test capacity affect your area at all?
+[01:20:05] Ingrid (Claims Director): Only at the edges. I'll flag it if that changes. I suppose we need a bit more rigour around the additional test capacity, particularly on the testing side.
+[01:20:16] Arjun Kesavan: I mean, for what it's worth, the people closest to the drawdown governance are fairly confident. The rehearsal environment work is one of the items we'll want to evidence at the next gate. The workstream leads have been through the additional test capacity in detail and they're aligned.
+[01:20:34] Priya Raman: We've got a readiness [inaudible] for the risk position on Wave 2 and it's being tracked line by line. Okay, so if I'm honest, the risk position on Wave 2 has had less attention than it deserves over the last few weeks. The people side of the risk position on Wave 2 is going to be harder than the system side.
+[01:20:56] Victoria Ashcombe: I'm with Priya on that. Well, from a customer point of view, the risk position on Wave 2 should be invisible, and that's the test I'd apply. I think the Nordic migration effort needs a bit of tidying up rather than a rethink.
+[01:21:12] Duncan Ferrier: Okay, I think that's that one done.
+[01:21:16] Ingrid (Claims Director): Victoria, did you get a chance to look at the risk position on Wave 2?
+[01:21:22] Victoria Ashcombe: Yes. It reads well. One or two questions, but nothing major. We should probably sanity-check the risk position on Wave 2 with someone who wasn't involved in designing it.
+[01:21:34] Ingrid (Claims Director): My only ask on the rehearsal environment work is that we keep the business teams close. Yeah, so we need a bit more rigour around the Nordic migration effort, particularly on the testing side.
+[01:21:47] Neil Haworth: Priya, is there anything on the drawdown governance you need from this group?
+[01:21:53] Priya Raman: Not today, thanks. If that changes, I'll shout. We'll want the risk and compliance view on the drawdown governance before it comes back for approval.
+[01:22:03] Aisha Siddiqui: I think the risk position on Wave 2 is a good-news story, actually, and we don't say that often enough. There's a reporting angle to the risk position on Wave 2 that Finance will want to see before sign-off. To be fair, I'd want the business readiness side of the IBM team extension given the same weight as the technical side.
+[01:22:25] Victoria Ashcombe: Arjun, any concerns from your side on the contingency request?
+[01:22:30] Arjun Kesavan: Some, probably, but nothing we can't work through. Again, I'm keen we don't just tick a box on the contingency request.
+[01:22:38] Victoria Ashcombe: Is the Nordic migration effort in the pack, or is that coming separately?
+[01:22:43] Neil Haworth: It's in there, but only at summary level. Let's keep the Nordic migration effort simple and not try to solve every edge case in one go.
+[01:22:54] Duncan Ferrier: Where have we got to with the contingency request, Arjun?
+[01:22:58] Arjun Kesavan: In better shape than it was. I wouldn't call it done, but the direction is right. We're probably overthinking the contingency request, but I'd rather overthink it than underthink it.
+[01:23:09] Victoria Ashcombe: Duncan, is there anything on the contingency request you need from this group?
+[01:23:15] Duncan Ferrier: Probably a bit of time from the business side, but I'll ask offline. I'd want to see the contingency request working end to end before I'd put my name to it.
+[01:23:26] Priya Raman: Picking up Duncan's point, I've had a couple of conversations about the drawdown governance this week and the feedback was broadly positive.
+[01:23:35] Duncan Ferrier: Neil, does the additional test capacity affect your area at all?
+[01:23:40] Neil Haworth: A bit. We'll need some notice, but it's nothing we can't absorb. I'll be honest, the additional test capacity wasn't really on my radar until this week.
+[01:23:51] Duncan Ferrier: Noted.
+[01:23:52] Priya Raman: Sorry, my dog's decided now's the moment to bark at the postman.
+[01:23:58] Arjun Kesavan: [laughter] We've all been there.
+[01:24:00] Neil Haworth: Are we expecting any pushback on the Wave 2 resourcing?
+[01:24:05] Adaeze Nwosu: One or two. I'll pick them up offline rather than take time here.
+[01:24:10] Arjun Kesavan: Just to build on what Adaeze said, on the contingency request, the teams have been brilliant, frankly, given everything else going on.
+[01:24:18] Victoria Ashcombe: Neil, does the contingency request affect your area at all?
+[01:24:22] Neil Haworth: Only at the edges. I'll flag it if that changes. The squads are carrying the contingency request on top of business as usual, which we shouldn't forget.
+[01:24:33] Victoria Ashcombe: Yeah.
+[01:24:34] Arjun Kesavan: Has anything moved on the risk position on Wave 2 since last time?
+[01:24:39] Ingrid (Claims Director): Honestly, less than I'd like. The short version on the risk position on Wave 2 is that it's in hand; the longer version is in the pack.
+[01:24:49] Arjun Kesavan: We've got a readiness checklist for the Wave 2 resourcing and it's being tracked line by line, as far as I can tell. Sure. I'd just add, on the Wave 2 resourcing, that the lessons learned from the last cycle are worth rereading. Honestly, the handlers have been very patient with us on the Wave 2 resourcing. Just quickly, the Wave 2 resourcing is one of the items we'll want to evidence at the next gate.
+[01:25:18] Victoria Ashcombe: Okay. For the contingency request, the question isn't whether, it's how and in what order. To be honest, from a programme point of view, the risk position on Wave 2 sits on the critical path, so it gets looked at every week.
+[01:25:34] Priya Raman: Sorry, can I just check what we mean by the contingency request? I think people are using it in different ways.
+[01:25:42] Adaeze Nwosu: Good challenge. I'll make sure the next version defines it properly.
+[01:25:47] Duncan Ferrier: There's a temptation to treat the drawdown governance as a technical problem, and it really isn't. If the Wave 2 resourcing slips, it doesn't just slip on its own; it drags a couple of other things with it.
+[01:26:01] Adaeze Nwosu: From the technology side, the environments piece is the bit I'd least want to cut. I suppose we should acknowledge the work that's gone into the additional test capacity, because it's been a slog.
+[01:26:14] Neil Haworth: Right. If the, the Wave 2 resourcing is going to need more people, we should flag that early rather than late. I'd frame the Wave 2 resourcing as a risk rather than an issue at this stage. The squads are carrying the Nordic migration effort on top of business as usual, which we shouldn't forget.
+[01:26:34] Priya Raman: Just to build on what Neil said, I'm keen that the Wave 2 resourcing doesn't get lost now that the immediate pressure is off, at least from where I sit. The contingency request is one of the items we'll want to evidence at the next gate.
+[01:26:51] Aisha Siddiqui: Following on from Priya, I'd want the business readiness side of the risk position on Wave 2 given the same weight as the technical side.
+[01:27:01] Victoria Ashcombe: There's a reporting angle to the contingency request that Finance will want to see before sign-off. The contingency request is one of those things that looks easy on a slide and isn't, to be honest. The hypercare lessons feed straight into the contingency request, which is exactly what we wanted, at least from where I sit.
+[01:27:22] Adaeze Nwosu: To be clear, nobody's saying the additional test capacity is broken. It's more that we haven't tested it the way we'd test anything else, if I'm honest. I'm conscious the additional test capacity keeps coming up and we keep deferring it.
+[01:27:38] Aisha Siddiqui: Has anything moved on the Wave 2 resourcing since last time?
+[01:27:43] Duncan Ferrier: Not much, other than we understand it better. The hypercare lessons feed straight into the Wave 2 resourcing, which is exactly what we wanted.
+[01:27:52] Adaeze Nwosu: The workstream leads have been through the contingency request in detail and they're aligned. From a programme point of view, the contingency request sits on the critical path, so it gets looked at every week. My worry with the rehearsal environment work is less the technology and more whether people on the floor actually know what's changed.
+[01:28:13] Ingrid (Claims Director): I'd ask that we don't make promises on the drawdown governance until we've seen the impact assessment. On the rehearsal environment work, the risk isn't that it fails outright, it's that it half works and nobody notices. I'd like the drawdown governance reflected in the plan on a page, so the board sees the same picture we do. The feedback from the teams on the drawdown governance is that they want fewer surprises and more notice.
+[01:28:42] Arjun Kesavan: Victoria, did you get a chance to look at the Wave 2 resourcing?
+[01:28:47] Victoria Ashcombe: Not properly yet. It's on my list for this week.
+[01:28:51] Duncan Ferrier: Honestly, the handlers have been very patient with us on the contingency request. The quality of the conversation on the contingency request has improved a lot. I'd want the business readiness side of the rehearsal environment work given the same weight as the technical side. On that point, we're not starting from scratch on the contingency request; a lot of the groundwork is already there.
+[01:29:15] Neil Haworth: That's helpful, thanks.
+[01:29:18] Arjun Kesavan: Aisha, where are we on the risk position on Wave 2?
+[01:29:22] Aisha Siddiqui: Steady. No drama, which is what you want. Let's not lose the risk position on Wave 2 in the detail; it needs to come back here with a clear recommendation.
+[01:29:33] Arjun Kesavan: Is there anything we can do to unblock the IBM team extension?
+[01:29:38] Ingrid (Claims Director): Nothing specific. Keep asking about it, that's helpful in itself. It might be worth a separate session on the IBM team extension, because we won't do it justice in a few minutes here.
+[01:29:50] Aisha Siddiqui: Where have we got to with the Wave 2 resourcing, Priya?
+[01:29:55] Priya Raman: It's progressing. I'll have a fuller picture by the next meeting. We'll bring the Wave 2 resourcing back with options rather than a single answer.
+[01:30:05] Neil Haworth: Arjun, are you comfortable with the additional test capacity as it stands?
+[01:30:10] Arjun Kesavan: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. To be fair, honestly, the handlers have been very patient with us on the additional test capacity.
+[01:30:22] Ingrid (Claims Director): We should acknowledge the work that's gone into the drawdown governance, because it's been a slog. I think the drawdown governance needs a bit of tidying up rather than a rethink. Sure. If the drawdown governance moves, the comms plan moves with it, so let's keep that in mind.
+[01:30:40] Arjun Kesavan: In terms of governance, the drawdown governance goes through the normal change route, nothing special. If the Nordic migration effort is going to need more people, we should flag that early rather than late.
+[01:30:54] Duncan Ferrier: I'd push back slightly on that. To be honest, in terms of governance, the rehearsal environment work goes through the normal change route, nothing special.
+[01:31:04] Victoria Ashcombe: Sorry, just so I'm clear: when you say the contingency request, do you mean the UK piece or the whole thing?
+[01:31:12] Arjun Kesavan: Fair point. I mean the whole thing, end to end. We'll bring the contingency request back with options rather than a single answer.
+[01:31:21] Duncan Ferrier: We're slightly behind, so let's be quick on the next one.
+[01:31:26] Neil Haworth: What's the biggest risk on the additional test capacity, in your view?
+[01:31:31] Arjun Kesavan: Knock-on effects. If it moves, other things move with it.
+[01:31:35] Neil Haworth: I've asked for a short write-up on the rehearsal environment work so we can look at it properly. I'd split the rehearsal environment work into what we have to do now and what can wait.
+[01:31:50] Duncan Ferrier: Okay, short item on fraud and regulatory. Claims Director, Aisha.
+[01:31:54] Ingrid (Claims Director): So, as I said earlier, BR-FRD-031 version 2 went live on 1 October. Tier-3 claims are now referred to SIU at a Sentinel score of 60 or more; everything else stays at 65. That came out of the Fraud Rules Workshop last month.
+[01:32:10] Aisha Siddiqui: And CHUB-298, the CLARA batch sweep that still has the old threshold hard-coded in CLRFR040, is still open. It's planned for the November release, R2026.11. Until then, Compliance run their daily query for unreferred claims.
+[01:32:23] Ingrid (Claims Director): The first FR1 return went in on time in July, and the Q3 one is due by the 30th of October, thirty days after quarter end. Ruth has that in hand.
+[01:32:35] Neil Haworth: If we, we change the customer notice process, the triage queue changes shape, and we need the investigators ready for that. CAB will look at the November release in the usual way. Nothing unusual about it.
+[01:32:48] Aisha Siddiqui: The November release is a small one, which is deliberate. We didn't want anything big straight after Wave 1. We can't decline on the score alone, so the Compliance daily check is always going to need a human in the loop.
+[01:33:03] Duncan Ferrier: Let's keep moving, we've got a lot to get through.
+[01:33:08] Ingrid (Claims Director): Aisha, can you give us a quick update on the customer notice process?
+[01:33:13] Aisha Siddiqui: Broadly on track. There are a couple of loose ends, but nothing that worries me. For what it's worth, we should write the customer notice process up properly, if only so the next person doesn't have to work it all out again.
+[01:33:29] Victoria Ashcombe: I'd frame the November release as a risk rather than an issue at this stage. The FR1 return is where the false positives hurt most, because they slow down genuine claims.
+[01:33:41] Aisha Siddiqui: Sentinel isn't the only signal; the referral volume has to sit alongside what the handler actually sees on the claim. I'd want the FR1 return reflected in the referral reason codes, so the data is clean for the return.
+[01:33:56] Arjun Kesavan: Tipping-off is the thing that keeps me awake on the customer notice process. In fairness, the adjusters out in the field have opinions on the customer notice process, and they're usually right about the patterns. The handlers don't see the score itself, they just see the referral, so the Compliance daily check is invisible to them until it isn't.
+[01:34:18] Victoria Ashcombe: Yeah.
+[01:34:19] Duncan Ferrier: Okay, I think that's that one done.
+[01:34:23] Neil Haworth: I'd push back slightly on that. We should acknowledge the work that's gone into the SIU workload, because it's been a slog.
+[01:34:32] Ingrid (Claims Director): Is the November release something we need to decide today, or is it for noting?
+[01:34:38] Adaeze Nwosu: Noting only. If it needs a decision, it'll come back with a paper.
+[01:34:43] Aisha Siddiqui: Where have we got to with the SIU workload, Ingrid?
+[01:34:47] Ingrid (Claims Director): We're waiting on one input, and then it's fairly straightforward. The sticking point on the SIU workload has been agreeing the scope, not the build.
+[01:34:57] Victoria Ashcombe: What's the biggest risk on the Tier-3 referral change, in your view?
+[01:35:01] Adaeze Nwosu: The hand-offs between teams. That's where things usually drop. Whatever happens with the Tier-3 referral change, the communication needs to be joined up.
+[01:35:11] Aisha Siddiqui: One thing on the CLRFR040 defect: we should check we're not double-counting effort with the other workstream. I suppose for the CLRFR040 defect, the question isn't whether, it's how and in what order. Speaking for my area, I'd be interested in how other teams have handled the customer notice process, because we can't be the first to hit it.
+[01:35:33] Ingrid (Claims Director): I'd push back slightly on that. I think the CLRFR040 defect is a good-news story, actually, and we don't say that often enough. Tipping-off is the thing that keeps me awake on the FR1 return.
+[01:35:46] Aisha Siddiqui: Neil, is there anything on the FR1 return you need from this group?
+[01:35:52] Neil Haworth: Just air cover, really. People are stretched, so it helps if the message comes from here. For the FR1 return, I'd like the investigators' view as well as the analysts' view.
+[01:36:03] Aisha Siddiqui: On that point, I think the referral volume needs a bit of tidying up rather than a rethink. On the referral volume, the case notes need to say why a claim was referred, not just that it was.
+[01:36:17] Adaeze Nwosu: Lovely, thanks.
+[01:36:19] Ingrid (Claims Director): SIU are watching the referral volumes closely since the change. Niall will report properly at the Fraud Forum. I mean, we can talk about the FR1 return all day, but at some point someone has to make a call.
+[01:36:33] Neil Haworth: Victoria, where are we on the November release?
+[01:36:37] Victoria Ashcombe: It's moving. Not as fast as I'd like, but it's moving. If I'm honest, the November release has had less attention than it deserves over the last few weeks.
+[01:36:48] Arjun Kesavan: Sorry, can I just check what we mean by the FR1 return? I think people are using it in different ways.
+[01:36:57] Ingrid (Claims Director): You're right, we're using it loosely. Let me tighten up the wording. If we change the FR1 return, the triage queue changes shape, and we need the investigators ready for that.
+[01:37:09] Arjun Kesavan: Yep.
+[01:37:10] Duncan Ferrier: Sorry, just so I'm clear: when you say the Tier-3 referral change, do you mean the UK piece or the whole thing?
+[01:37:19] Neil Haworth: Fair point. I mean the whole thing, end to end. Whatever we land on for the Tier-3 referral change, people need to hear it from their own managers first.
+[01:37:30] Arjun Kesavan: Who else needs to be involved in the November release?
+[01:37:35] Adaeze Nwosu: Someone from the business side, ideally a team leader who's lived with it. I'd ask that we don't make promises on the November release until we've seen the impact assessment.
+[01:37:47] Arjun Kesavan: Okay, cool.
+[01:37:49] Neil Haworth: If we change the Tier-3 referral change, the triage queue changes shape, and we need the investigators ready for that. Picking up on that, the Tier-3 referral change is where the false positives hurt most, because they slow down genuine claims. On the FR1 return, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room.
+[01:38:13] Priya Raman: Is there any financial exposure from the claims that weren't referred?
+[01:38:18] Arjun Kesavan: Okay.
+[01:38:18] Ingrid (Claims Director): From a customer point of view, the referral letters are going out as they should. I've had no complaints escalate to me. From my side, we can't decline on the score alone, so the SIU workload is always going to need a human in the loop.
+[01:38:35] Priya Raman: Sure.
+[01:38:36] Adaeze Nwosu: Duncan, is there anything on the customer notice process you need from this group?
+[01:38:42] Duncan Ferrier: Not today, thanks. If that changes, I'll shout. Well, on the customer notice process, the case notes need to say why a claim was referred, not just that it was.
+[01:38:53] Ingrid (Claims Director): Neil, what keeps you awake about the customer notice process?
+[01:38:58] Neil Haworth: That we assume it's done because nobody's complaining. I'd frame the customer notice process as a risk rather than an issue at this stage.
+[01:39:08] Ingrid (Claims Director): I'd want the Compliance daily check reflected in the referral reason codes, so the data is clean for the return. I'd rather have an honest amber on the FR1 return than a green that turns red later. I'd ask that we don't make promises on the Tier-3 referral change until we've seen the impact assessment.
+[01:39:29] Duncan Ferrier: Can everyone see my screen?
+[01:39:31] Aisha Siddiqui: Yes, we can see it.
+[01:39:34] Duncan Ferrier: Great.
+[01:39:35] Neil Haworth: Where does the referral volume sit on the list of priorities right now?
+[01:39:41] Arjun Kesavan: Near the top, but not at the top. If the referral volume is going to need more people, we should flag [inaudible] early rather than late.
+[01:39:51] Ingrid (Claims Director): We're not starting from scratch on the Compliance daily check; a lot of the groundwork is already there.
+[01:39:58] Arjun Kesavan: The handlers don't see the score itself, they just see the referral, so the CLRFR040 defect is invisible to them until it isn't. Okay, so on the CLRFR040 defect, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room.
+[01:40:16] Aisha Siddiqui: On that, that point, the model behaves differently at the margins, so the Compliance daily check needs watching for the first few weeks. Part of the issue with the referral volume is that the documentation lags behind what people actually do. The feedback from the teams on the customer notice process is that they want fewer surprises and more notice. What's changed on the referral volume since the last update is mainly the level of detail, not the direction, in my view.
+[01:40:46] Victoria Ashcombe: The model behaves differently at the margins, so the FR1 return needs watching for the first few weeks. If the FR1 return needs more time, I'd rather we said so now.
+[01:40:58] Duncan Ferrier: Just to build on what Victoria said, I'd want the CLRFR040 defect reflected in the referral reason codes, so the data is clean for the return. There's no silver bullet on the CLRFR040 defect; it's just steady work.
+[01:41:12] Duncan Ferrier: Okay, I think that's that one done.
+[01:41:16] Neil Haworth: Can I ask what's changed on the customer notice process since we last discussed it?
+[01:41:22] Aisha Siddiqui: Honestly, less than I'd like. I'd want the customer notice process reflected in the referral reason codes, so the data is clean for the return.
+[01:41:32] Priya Raman: On the Tier-3 referral change, the risk isn't that it fails outright, it's that it half works and nobody notices. The adjusters out in the field have opinions on the Tier-3 referral change, and they're usually right about the patterns. The short version on the Tier-3 referral change is that it's in hand; the longer version is in the pack.
+[01:41:55] Aisha Siddiqui: If we change the referral volume, the triage queue changes shape, and we need the investigators ready for that. Sure. We can't decline on the score alone, so the referral volume is always going to need a human in the loop.
+[01:42:10] Ingrid (Claims Director): The short version on the FR1 return is that it's in hand; the longer version is in the pack. My worry with the FR1 return is less the technology and more whether people on the floor actually know what's changed.
+[01:42:25] Duncan Ferrier: Can someone note that for the minutes?
+[01:42:28] Aisha Siddiqui: Priya, any concerns from your side on the CLRFR040 defect?
+[01:42:33] Priya Raman: Not really. The team have been very open about the gaps, which helps. My sense is that the CLRFR040 defect is moving in the right direction, just slowly, in my view.
+[01:42:46] Arjun Kesavan: I'd challenge us a bit on the SIU workload; I'm not sure we've tested the assumptions. I'd like the next update on the CLRFR040 defect to come with evidence rather than a status colour.
+[01:42:59] Aisha Siddiqui: I'm not sure I'd go quite that far, Arjun. Right. We did a walk-through of the referral volume with the team leaders and it generated some good questions, for what it's worth.
+[01:43:12] Ingrid (Claims Director): I agree with Aisha, and I'd add that if I can come in here, I suspect the November release will come back to this group at some point, so let's not close it off.
+[01:43:25] Victoria Ashcombe: Is the SIU workload in the pack, or is that coming separately?
+[01:43:30] Neil Haworth: Not in this pack, no. It'll come separately once it's been through the working group.
+[01:43:36] Ingrid (Claims Director): I mean, from a customer point of view, the SIU workload should be invisible, and that's the test I'd apply, if that makes sense. Can we make sure the SIU workload is visible on the RAID log, so it doesn't fall between the cracks?
+[01:43:53] Aisha Siddiqui: The quality of the conversation on the November release has improved a lot.
+[01:43:59] Ingrid (Claims Director): Sorry, just so I'm clear: when you say the Compliance daily check, do you mean the UK piece or the whole thing?
+[01:44:08] Duncan Ferrier: Good challenge. I'll make sure the next version defines it properly. I think the Compliance daily check needs a bit of tidying up rather than a rethink.
+[01:44:18] Aisha Siddiqui: If anyone's got concerns about the customer notice process, I'd rather hear them now than in the corridor afterwards. I'd challenge us a bit on the customer notice process; I'm not sure we've tested the assumptions.
+[01:44:40] Duncan Ferrier: Thank you. Last substantive item, people. Neil.
+[01:44:43] Neil Haworth: Quick update. From 1 November we're standing up a Recoveries & Documents squad, led by Tariq Hussain. That completes the squad structure we agreed earlier in the year.
+[01:44:54] Adaeze Nwosu: The CLARA skills risk is real. There are people in Leeds who know things that aren't written down anywhere. I've had a couple of conversations about the new squad structure this week and the feedback was broadly positive, broadly.
+[01:45:09] Neil Haworth: I'd ask that we don't make promises on knowledge transfer from IBM until we've seen the impact assessment.
+[01:45:16] Victoria Ashcombe: If I can come in here, we'll bring the handover plan back with options rather than a single answer. Knowledge transfer is built into our plan for next year. We don't want Corvane dependent on us forever. In terms of governance, knowledge transfer from IBM goes through the normal change route, nothing special.
+[01:45:35] Ingrid (Claims Director): Can I just add to that? The detail on the handover plan is in the appendix, so I won't walk through it line by line. Okay, so I'd like squad leadership reflected in the plan on a page, so the board sees the same picture we do.
+[01:45:52] Duncan Ferrier: We're slightly behind, so let's be quick on the next one.
+[01:45:57] Priya Raman: My instinct on knowledge transfer from IBM is to wait a little and see how things settle. On knowledge transfer from IBM, the IBM team and our people are working off one plan now, which helps. We should probably sanity-check knowledge transfer from IBM with someone who wasn't involved in designing it.
+[01:46:16] Victoria Ashcombe: Look, I'd like the, the new squad structure closed down properly, not just quietly dropped. I suspect the handover plan will come back to this group at some point, so let's not close it off.
+[01:46:30] Duncan Ferrier: Is everyone okay if we move to the next item?
+[01:46:34] Aisha Siddiqui: Just to build on what Duncan said, to be clear, nobody's saying knowledge transfer from IBM is broken. It's more that we haven't tested it the way we'd test anything else.
+[01:46:47] Adaeze Nwosu: The CLARA skills risk is one of the items we'll want to evidence at the next gate. The new squad structure is one of the items we'll want to evidence at the next gate. I keep coming back to the CLARA skills risk, because it's the area that's had the least scrutiny.
+[01:47:05] Ingrid (Claims Director): For what it's worth, we've done the thinking on the CLARA skills risk; now it's about execution. If we're going to change anything about the CLARA skills risk, now's the time rather than later. Well, if the handover plan needs more time, I'd rather we said so now.
+[01:47:23] Neil Haworth: We're moving to squads that line up with the claims journey, which should make ownership clearer. I'd ask that we don't make promises on the CLARA skills risk until we've seen the impact assessment.
+[01:47:35] Adaeze Nwosu: Personally I'd go a bit further on knowledge transfer from IBM, but I can live with what's proposed. I suppose it might be worth a separate session on squad leadership, because we won't do it justice in a few minutes here. There's a reporting angle to knowledge transfer from IBM that Finance will want to see before sign-off, as far as I can tell.
+[01:47:59] Duncan Ferrier: We need a bit more rigour around the change network, particularly on the testing side. We probably need to separate the facts on the hiring plan from the folklore, in my view. Let's make sure we recognise the change champions properly. A thank-you from this group would go a long way.
+[01:48:17] Adaeze Nwosu: If I'm honest, squad leadership has had less attention than it deserves over the last few weeks. If I can come in here, if we get squad leadership right, a lot of the noise we've had recently goes away. For what it's worth, the people closest to the hiring plan are fairly confident.
+[01:48:37] Aisha Siddiqui: Where have we got to with squad leadership, Ingrid?
+[01:48:42] Ingrid (Claims Director): It's with the working group at the moment; I'll chase and come back. I'm keen we don't just tick a box on squad leadership.
+[01:48:51] Aisha Siddiqui: On the handover plan, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room. Honestly, the handlers have been very patient with us on the CLARA skills risk. Okay, so I'd frame the handover plan as a risk rather than an issue at this stage. If we're short of capacity, knowledge transfer from IBM is the thing I'd protect, I think.
+[01:49:17] Neil Haworth: Adaeze, what keeps you awake about squad leadership?
+[01:49:22] Adaeze Nwosu: Honestly, people. The people who know it best are also the busiest.
+[01:49:27] Neil Haworth: Perfect.
+[01:49:28] Duncan Ferrier: If the CLARA skills risk moves, the comms plan moves with it, so let's keep that in mind. I'd want the business readiness side of squad leadership given the same weight as the technical side, to be honest.
+[01:49:43] Adaeze Nwosu: Yeah, I'd agree with that.
+[01:49:45] Neil Haworth: Are we expecting any pushback on squad leadership?
+[01:49:49] Aisha Siddiqui: Some, probably, but nothing we can't work through. I think the main thing on squad leadership is that we don't let it drift without someone looking at it properly.
+[01:50:00] Adaeze Nwosu: What's the biggest risk on knowledge transfer from IBM, in your view?
+[01:50:05] Victoria Ashcombe: Timing more than anything. It's not hard, it's just competing with everything else. Knowledge transfer from IBM is one of the items we'll want to evidence at the next gate, if that makes sense.
+[01:50:18] Duncan Ferrier: Is the new squad structure something we need to decide today, or is it for noting?
+[01:50:25] Adaeze Nwosu: Not today. We'll bring options when we've done the analysis. From a programme point of view, the new squad structure sits on the critical path, so it gets looked at every week.
+[01:50:37] Duncan Ferrier: Is everyone okay if we move to the next item?
+[01:50:41] Ingrid (Claims Director): So, um, what I'd like [inaudible] avoid with the handover plan is finding out about a problem the week before, when there's nothing we can do about it. I'm keen that the handover plan doesn't get lost now that the immediate pressure is off. The change network has been the unsung hero of Wave 1, honestly. The champions on the floor made a huge difference. Speaking for my area, everything I've seen on the handover plan says the approach is right; it's the pace I'd question.
+[01:51:13] Duncan Ferrier: Priya, does knowledge transfer from IBM affect your area at all?
+[01:51:19] Priya Raman: Not directly. There's an indirect impact, but it's manageable.
+[01:51:23] Adaeze Nwosu: I suppose on the new squad structure, I'd like us to agree the principle and let the team sort out the detail. On the new squad structure, the teams have been brilliant, frankly, given everything else going on. I'd like the hiring plan reflected in the plan on a page, so the board sees the same picture we do.
+[01:51:45] Victoria Ashcombe: Duncan, what keeps you awake about the change network?
+[01:51:48] Duncan Ferrier: Knock-on effects. If it moves, other things move with it. Look, I'm keen that the change network doesn't get lost now that the immediate pressure is off.
+[01:51:59] Adaeze Nwosu: Everything I've seen on the CLARA skills risk says the approach is right; it's the pace I'd question.
+[01:52:06] Aisha Siddiqui: I think the main thing on the handover plan is that we don't let it drift without someone looking at it properly. On the handover plan, the risk isn't that it fails outright, it's that it half works and nobody notices.
+[01:52:21] Priya Raman: Can I ask what's changed on the new squad structure since we last discussed it?
+[01:52:28] Neil Haworth: Not much, other than we understand it better. My worry with the new squad structure is less the technology and more whether people on the floor actually know what's changed.
+[01:52:39] Victoria Ashcombe: We'll want the risk and compliance view on the hiring plan before it comes back for approval.
+[01:52:46] Duncan Ferrier: My read on the new squad structure is that the hard part is behind us, but there's still a long tail. I'm keen we don't just tick a box on the change network. We did a walk-through of the handover plan with the team leaders and it generated some good questions.
+[01:53:10] Duncan Ferrier: Thanks, Neil. Any other business? No? Arjun, can you recap the actions and decisions?
+[01:53:16] Arjun Kesavan: Sure. Decisions: one, the CFO approved the £1.8m contingency drawdown for Wave 2. Two, Wave 2 cut-over is confirmed as 15 February 2027, and the January date is void.
+[01:53:26] Arjun Kesavan: Actions: me, reissue the Wave 2 plan with the February date and withdraw the old slide. P. Raman, to confirm the drawdown in writing. Aisha, to circulate the defect burn-down weekly until the Sev 2s are closed. Neil, a short note on the Tier-3 configuration incident, and the CLARA decommissioning plan at the next meeting.
+[01:53:47] Priya Raman: Yes, I'll send that email this afternoon.
+[01:53:50] Duncan Ferrier: Anything else before we close? Any other business at all?
+[01:53:54] Victoria Ashcombe: Is the next steering in the pack, or is that coming separately?
+[01:54:00] Arjun Kesavan: It's in there, but only at summary level. I think the main thing on the next steering is that we don't let it drift without someone looking at it properly.
+[01:54:12] Aisha Siddiqui: Honestly, the handlers have been very patient with us on any other business, I think. I'd frame the board update as a risk rather than an issue at this stage. I'll be honest, any other business wasn't really on my radar until this week. I'm keen that any other business doesn't get lost now that the immediate pressure is off.
+[01:54:33] Duncan Ferrier: Arjun, is the board update a resourcing question or a decision question?
+[01:54:39] Arjun Kesavan: Mostly resourcing, to be honest. The decision's been made; it's the doing. I don't have strong views on the board update, other than wanting it done properly.
+[01:54:50] Aisha Siddiqui: Priya, is there anything on the board update you need from this group?
+[01:54:56] Priya Raman: Probably a bit of time from the business side, but I'll ask offline. The hypercare lessons feed straight into the board update, which is exactly what we wanted.
+[01:55:07] Duncan Ferrier: I'll take the key messages to the board: Wave 1 stable, Wave 2 on track for February, contingency drawn with approval. The trouble with the board update is that the people who know it best are also the busiest.
+[01:55:21] Aisha Siddiqui: We probably need to separate the facts on the next steering from the folklore. I don't think the next steering is controversial, it's just fiddly. We should probably sanity-check the next steering with someone who wasn't involved in designing it.
+[01:55:36] Priya Raman: What's the biggest risk on the action recap, in your view?
+[01:55:41] Neil Haworth: Honestly, people. The people who know it best are also the busiest. We'll bring the action recap back with options rather than a single answer.
+[01:55:51] Arjun Kesavan: Sorry, just so I'm clear: when you say any other business, do you mean the UK piece or the whole thing?
+[01:56:00] Duncan Ferrier: You're right, we're using it loosely. Let me tighten up the wording. I don't want us to over-engineer any other business. A one-page note would do the job.
+[01:56:10] Aisha Siddiqui: Arjun, does the board update affect your area at all?
+[01:56:15] Arjun Kesavan: Yes, and we're already talking to the team about it. In terms of governance, the board update goes through the normal change route, nothing special.
+[01:56:25] Duncan Ferrier: Is any other business in the pack, or is that coming separately?
+[01:56:31] Neil Haworth: It's in the appendix, towards the back.
+[01:56:33] Duncan Ferrier: Yes.
+[01:56:35] Duncan Ferrier: Let's keep moving, we've got a lot to get through.
+[01:56:39] Neil Haworth: From a customer point of view, the next steering should be invisible, and that's the test I'd apply. If the next steering moves, the comms plan moves with it, so let's keep that in mind.
+[01:56:52] Duncan Ferrier: Is the action recap something we need to decide today, or is it for noting?
+[01:56:58] Priya Raman: For noting, I think. Nothing we need to decide today. On the action recap, there's been a lot of activity but not a lot of change, if you see what I mean.
+[01:57:11] Duncan Ferrier: Can we make sure any other business is visible on the RAID log, so it doesn't fall between the cracks? If any other business is going to need more people, we should flag that early rather than late. The squads are carrying the action recap on top of business as usual, which we shouldn't forget.
+[01:57:31] Arjun Kesavan: I'd like the action recap reflected in the plan on a page, so the board sees the same picture we do. I keep coming back to the next steering, because it's the area that's had the least scrutiny.
+[01:57:45] Duncan Ferrier: Adaeze, is the board update a resourcing question or a decision question?
+[01:57:51] Adaeze Nwosu: Resourcing. Nobody disagrees on what to do.
+[01:58:00] Duncan Ferrier: Thanks, everyone. Good session. I'll let you have a couple of minutes back.
+[01:58:05] Ingrid (Claims Director): Thanks, Duncan.
+[01:58:06] Victoria Ashcombe: Thanks, all.
+[01:58:08] Recording stopped.
+
+-------------------------------------- END OF TRANSCRIPT -----------------------------------
+Recording length 02:00:00. Transcript reviewed by Arjun Kesavan. Corvane Mutual - Internal.

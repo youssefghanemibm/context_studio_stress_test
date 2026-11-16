@@ -1,0 +1,110 @@
+Exported conversation (mail archive)
+Conversation: Compliance sampling – referrals missed by the batch sweep (scores 65–69)
+Messages: 4
+
+========================================================================
+Message 1 of 4
+From:     Ruth Okafor <ruth.okafor@corvane-mutual.example>
+Sent:     Tue, 12 May 2026 11:52:15 +0100
+To:       Niall Brannigan <niall.brannigan@corvane-mutual.example>; Graham Pocock <graham.pocock@corvane-mutual.example>
+Cc:       Oskar Lindgren <oskar.lindgren@corvane-mutual.example>; Rachel Dunmore <rachel.dunmore@corvane-mutual.example>; Keith Barraclough <keith.barraclough@corvane-mutual.example>
+Subject:  Compliance sampling – referrals missed by the batch sweep (scores 65–69)
+Priority: High
+------------------------------------------------------------------------
+
+Niall, Graham,
+
+Our sampling of fraud referrals since the threshold changed on 1 April has
+turned up a gap: we found 37 claims scored 65–69 that the CLRFR040 batch
+sweep did not refer to SIU.
+
+Claims scored on the online path (CLRFR030) were referred correctly, so this
+looks specific to the batch sweep. All 37 were scored between 1 April and
+today.
+
+Given Circular 2026/04, I would like these referred manually as a priority
+and an incident raised. Rachel – can SIU pick them up once Niall confirms?
+
+Many thanks,
+Ruth
+
+Ruth Okafor
+Compliance Manager – Conduct & Counter-Fraud
+Corvane Mutual
+Corvane House, 14 Tallowgate, London EC3N 9ZZ
+T: 07700 900137
+ruth.okafor@corvane-mutual.example
+
+This e-mail and any attachments are confidential and intended solely for the
+named addressee(s). If you have received it in error please notify the
+sender and delete it. Corvane Mutual Insurance Society Limited is supervised
+by the National Insurance Supervisory Authority (NISA-FRN 40417). Registered
+office: Corvane House, 14 Tallowgate, London EC3N 9ZZ.
+
+========================================================================
+Message 2 of 4
+From:     Niall Brannigan <niall.brannigan@corvane-mutual.example>
+Sent:     Tue, 12 May 2026 12:22:37 +0100
+To:       Ruth Okafor <ruth.okafor@corvane-mutual.example>
+Cc:       Graham Pocock <graham.pocock@corvane-mutual.example>; Oskar Lindgren <oskar.lindgren@corvane-mutual.example>; Rachel Dunmore <rachel.dunmore@corvane-mutual.example>; Keith Barraclough <keith.barraclough@corvane-mutual.example>
+Subject:  RE: Compliance sampling – referrals missed by the batch sweep (scores 65–69)
+------------------------------------------------------------------------
+
+Ruth,
+
+Agreed. Please log it as a Sev2 incident with me as owner – it is now
+INC-2026-0518. Rachel, please arrange manual referral of the 37 claims as
+soon as Ruth sends the list.
+
+Niall
+
+Niall Brannigan
+Head of Counter-Fraud & SIU
+
+Corvane Mutual Insurance Society Limited | Corvane House, 14 Tallowgate,
+London EC3N 9ZZ | NISA-FRN 40417. This message may contain confidential
+information. If it reached you by mistake, please let the sender know and
+remove it from your system.
+
+========================================================================
+Message 3 of 4
+From:     Graham Pocock <graham.pocock@corvane-mutual.example>
+Sent:     Tue, 12 May 2026 13:34:19 +0100
+To:       Ruth Okafor <ruth.okafor@corvane-mutual.example>; Niall Brannigan <niall.brannigan@corvane-mutual.example>
+Cc:       Oskar Lindgren <oskar.lindgren@corvane-mutual.example>; Rachel Dunmore <rachel.dunmore@corvane-mutual.example>; Keith Barraclough <keith.barraclough@corvane-mutual.example>
+Subject:  RE: Compliance sampling – referrals missed by the batch sweep (scores 65–69)
+------------------------------------------------------------------------
+
+Keith is looking at CLRFR040 now. First look suggests the batch sweep is not
+picking up the threshold from CLR.T_PARAM, whereas the online program is. We
+will confirm the root cause and raise a ticket for the fix.
+
+Thanks again,
+Graham
+
+--
+Graham Pocock
+Head of Legacy Claims Platforms
+
+This e-mail and any attachments are confidential and intended solely for the
+named addressee(s). If you have received it in error please notify the
+sender and delete it. Corvane Mutual Insurance Society Limited is supervised
+by the National Insurance Supervisory Authority (NISA-FRN 40417). Registered
+office: Corvane House, 14 Tallowgate, London EC3N 9ZZ.
+
+========================================================================
+Message 4 of 4
+From:     Ruth Okafor <ruth.okafor@corvane-mutual.example>
+Sent:     Tue, 12 May 2026 14:08:57 +0100
+To:       Niall Brannigan <niall.brannigan@corvane-mutual.example>; Graham Pocock <graham.pocock@corvane-mutual.example>; Rachel Dunmore <rachel.dunmore@corvane-mutual.example>
+Cc:       Oskar Lindgren <oskar.lindgren@corvane-mutual.example>; Keith Barraclough <keith.barraclough@corvane-mutual.example>
+Subject:  RE: Compliance sampling – referrals missed by the batch sweep (scores 65–69)
+------------------------------------------------------------------------
+
+Thanks both. Rachel, the list of claim references is in the Compliance
+folder you have access to – not attached here for data protection reasons.
+
+Ruth
+
+========================================================================
+End of conversation

@@ -1,0 +1,36 @@
+From: Neil Haworth <neil.haworth@corvane-mutual.example>
+To: All Claims and Technology staff <claims-tech.all@corvane-mutual.example>
+Date: Mon, 27 Oct 2025 09:14:59 +0000
+Subject: DOCSTOR becomes Evidence Vault on 3 November 2025
+Message-ID: <3d4730319c3c.1@corvane-mutual.example>
+
+Dear all,
+
+On Monday 3 November 2025 our document and image store, DOCSTOR, will be
+renamed Evidence Vault.
+
+The rename goes live on the same day as the Claims Hub MVP. It is a change
+of name: the documents, photos and letters themselves are unaffected.
+
+The work is tracked under CHUB-276.
+
+If you maintain procedures, templates or training material that mention
+DOCSTOR, please update them when you next review them.
+
+I will keep you posted as things move.
+
+Kind regards,
+Neil
+
+Neil Haworth
+Head of Technology Delivery
+Corvane Mutual
+Corvane House, 14 Tallowgate, London EC3N 9ZZ
+T: 07700 900132
+neil.haworth@corvane-mutual.example
+
+CONFIDENTIALITY: The information in this message is private to Corvane
+Mutual and the intended recipient(s). If you are not an intended
+recipient, please tell the sender and delete the message; do not copy or
+forward it. Corvane Mutual Insurance Society Limited, Corvane House, 14
+Tallowgate, London EC3N 9ZZ. Supervised by NISA (NISA-FRN 40417).

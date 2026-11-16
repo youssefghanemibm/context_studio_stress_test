@@ -1,0 +1,35 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+RESERVING - MONTH-END HANDOVER NOTES (SEPTEMBER 2026 CLOSE)
+========================================================================================
+Document reference : RSV-ME-2026-09
+Version            : 1.0
+Date               : 2 October 2026
+Owner              : Lena Kristiansen, Head of Reserving
+Classification     : Internal
+Distribution    : Reserving team, Financial Control, Actuarial
+
+Version history
+  1.0    2026-10-02  L. Kristiansen       Handover for the October close team
+========================================================================================
+
+1. WHAT WAS DIFFERENT THIS MONTH
+  - First month-end with UK motor on Claims Hub (Wave 1 cut over on 14 September).
+  - Motor reserve movements now come from reserve-engine as reserve.changed.v2 events, consumed by gl-posting-svc and reporting-feed-svc.
+  - All other products are still reserved in CLARA. The month-end snapshot for those ran as usual.
+
+2. CHECKS COMPLETED
+  [x] Motor outstanding on the Hub agreed to the general ledger after journals posted.
+  [x] CLARA outstanding for the remaining products agreed to the general ledger.
+  [x] Large movements reviewed and confirmed with the handlers.
+  [x] Tier-3 review diary checked: reviews are running on the 14-day cycle.
+
+3. FOR THE IBNR RUN
+  - The triangles extract (CLX-IF-058) from the Claims Data Warehouse runs on the 3rd business day as usual and feeds the monthly IBNR run.
+  - Actuarial asked for motor to be flagged separately this month so the first Hub month can be reviewed on its own.
+
+4. OPEN POINTS
+  - Agree with Financial Control how the Hub journals are labelled in the ledger reports.
+  - Confirm with Actuarial that the motor triangle has no break at the cut-over date.
+
+----------------------------------------------------------------------------------------
+End of document. Owner: Lena Kristiansen. Printed copies are uncontrolled.

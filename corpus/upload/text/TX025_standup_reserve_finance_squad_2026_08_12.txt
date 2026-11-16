@@ -1,0 +1,100 @@
+CORVANE MUTUAL - PROGRAMME SKERRY
+Stand-up transcript - Hub Squad: Reserve & Finance
+--------------------------------------------------------------------------------
+Ref: SQD-RF-SU-2026-08-12    Date: Wednesday 12 August 2026    Start: 09:15 UK time    Length: about 15 minutes
+Team: Hub Squad - Reserve & Finance (reserve-engine, gl-posting-svc, reporting-feed-svc)
+Transcribed by: automatic transcription; tidied by Daniel Achebe (Engineering Lead – Reserve & Finance Squad)
+Classification: Internal
+
+Participants:
+  Daniel Achebe - Engineering Lead – Reserve & Finance Squad
+  Nadia Petrovic - Java Technical Lead (IBM Consulting)
+  Callum Fairbairn (IBM) - Data Migration Lead (IBM Consulting)
+  Aisha Siddiqui - Head of Claims Hub Product
+
+Note: stand-up notes are informal. Decisions are recorded in the relevant tickets, not here.
+
+--------------------------------------------------------------------------------
+
+[00:00:00] Daniel Achebe: Morning. Let's go round. Keep it short, please, we've got the parallel-run review at ten.
+[00:00:05] Daniel Achebe: Quick context: the reserve parallel run finishes on the 28th, so we've got just over two weeks of comparisons left, and then Wave 1 on the 14th of September.
+[00:00:15] Nadia Petrovic: From a reserving point of view, the parallel run report matters because every movement has to land in the right period. My worry with the rehearsal fixes is less the technology and more whether people on the floor actually know what's changed, if I'm honest. Yesterday I finished the review of the movement mapping changes. Today I'm pairing on the GL posting tests. No blockers.
+[00:00:36] Daniel Achebe: Um, the quality of the conversation on the sprint board has improved a lot. In fairness, I'm not going to pretend the [inaudible] board is exciting, but it's exactly the sort of thing that bites you if you ignore it. The parallel run report is looking clean. We're mostly chasing timing breaks now, not amount breaks. Let's keep the board up to date, please. Aisha's been asking where things are and the board should answer that.
+[00:01:00] Aisha Siddiqui: Just a reminder that sprint review is on Thursday, and I'd like a demo of the reconciliation report if it's ready. On the reporting feed, there's been a lot of activity but not a lot of change, if you see what I mean.
+[00:01:15] Nadia Petrovic: Can I ask what's changed on the reconciliation breaks since we last discussed it?
+[00:01:20] Daniel Achebe: Mostly that more people are involved now, which is good. On the reconciliation breaks, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room.
+[00:01:31] Aisha Siddiqui: We've got good people looking at the defect list; I'm less sure we've given them enough time. Personally I'd go a bit further on the defect list, but I can live with what's proposed. If the defect list changes the case estimate a handler sees, we need to tell them why.
+[00:01:48] Daniel Achebe: I think we've covered that. Moving on.
+[00:01:50] Nadia Petrovic: I suppose I've asked for a short write-up on the defect list so we can look at it properly, for what it's worth. We need to be careful how we talk about the defect list outside this room until it's settled.
+[00:02:05] Callum Fairbairn (IBM): Can I ask what's changed on the defect list since we last discussed it?
+[00:02:10] Aisha Siddiqui: Not much, other than we understand it better. If we get the defect list right, a lot of the noise we've had recently goes away.
+[00:02:18] Daniel Achebe: Following on from Aisha, in fairness, I'd want the actuaries to see the code review queue before we lock anything down.
+[00:02:26] Nadia Petrovic: I see it a bit differently, actually. There's a dependency on the rehearsal fixes that I don't think everyone's aware of, so it's worth calling out. Actually, from where I sit, the sprint board is the thing most likely to catch us out, simply because it touches so many teams.
+[00:02:42] Daniel Achebe: I'm reassured on the GL posting tests, mostly because the team have been very open about the gaps, as far as I can tell. From a customer point of view, the GL posting tests should be invisible, and that's the test I'd apply. If anyone's got concerns about the GL posting tests, I'd rather hear them now than in the corridor afterwards. I've asked for a short write-up on the GL posting tests so we can look at it properly.
+[00:03:08] Callum Fairbairn (IBM): Is there anything we can do to unblock the sprint board?
+[00:03:12] Nadia Petrovic: Just air cover, really. People are stretched, so it helps if the message comes from here.
+[00:03:18] Daniel Achebe: Do we need a decision on the sprint board from this group, or is it just for awareness?
+[00:03:24] Callum Fairbairn (IBM): Not today. We'll bring options when we've done the analysis.
+[00:03:29] Daniel Achebe: Agreed.
+[00:03:30] Aisha Siddiqui: Is there a simpler version of the GL posting tests than what's on the slide?
+[00:03:35] Nadia Petrovic: Possibly. Let me take that away and see what we could strip out. We're probably overthinking the GL posting tests, but I'd rather overthink it than underthink it.
+[00:03:45] Daniel Achebe: If I can come in here, on the parallel run report, the copybook is the contract, whether we like it or not.
+[00:04:00] Nadia Petrovic: On the review-cadence bug from July, the engine and CLARA have both been on 14 days for Tier-3 since the fix, and the parallel run hasn't flagged a cadence mismatch since.
+[00:04:10] Callum Fairbairn (IBM): Is the defect list something we need to decide today, or is it for noting?
+[00:04:16] Daniel Achebe: Awareness for now. There may be a decision next time. We should be honest that the defect list is partly a capacity problem.
+[00:04:24] Nadia Petrovic: Callum, any concerns from your side on the parallel run report?
+[00:04:28] Callum Fairbairn (IBM): A few, mostly about timing rather than substance. I'd split the parallel run report into what we have to do now and what can wait.
+[00:04:37] Daniel Achebe: Um, I'm happy with the sprint board as long as we're clear about what's in and what's out. I suppose it might be worth a separate session on the sprint board, because we won't do it justice in a few minutes here. Okay. There's a temptation to treat the sprint board as a technical problem, and it really isn't. For the code review queue, I'd rather we under-promise and deliver than the other way round.
+[00:05:02] Nadia Petrovic: I've got one flaky integration test on gl-posting-svc. I'll fix it today rather than keep re-running it. Actually, the honest answer on the code review queue is that we know what good looks like, we're just not there yet.
+[00:05:15] Daniel Achebe: Sorry, can I just check what we mean by the reconciliation breaks? I think people are using it in different ways.
+[00:05:22] Aisha Siddiqui: Good challenge. I'll make sure the next version defines it properly.
+[00:05:27] Daniel Achebe: Right.
+[00:05:28] Callum Fairbairn (IBM): From migration, rehearsal three is in the reconciliation phase. I'll need someone from the squad for an hour this week to look at a couple of breaks. I had a look at the test data refresh over the weekend and nothing jumped out as a showstopper.
+[00:05:43] Daniel Achebe: There's a temptation to treat the reporting feed as a technical problem, and it really isn't. On that point, my instinct on the reporting feed is to wait a little and see how things settle. Let's be careful not to let the reporting feed turn into a bigger piece of work than it needs to be.
+[00:06:01] Nadia Petrovic: Okay, noted.
+[00:06:02] Daniel Achebe: Are the rehearsal fixes in the pack, or are they coming separately?
+[00:06:07] Aisha Siddiqui: Not in this pack, no. It'll come separately once it's been through the working group.
+[00:06:13] Callum Fairbairn (IBM): Could whoever's typing go on mute? It's coming through quite loud.
+[00:06:17] Daniel Achebe: Sorry, that's me.
+[00:06:19] Callum Fairbairn (IBM): The reconciliation scripts are in the shared repo now, so the squad can run them themselves.
+[00:06:25] Aisha Siddiqui: Okay, I'm with you.
+[00:06:27] Daniel Achebe: I'll pick that up offline.
+[00:06:30] Nadia Petrovic: Following on from Daniel, I think we underestimated the sprint board at the start, and that's fine as long as we learn from it.
+[00:06:38] Daniel Achebe: Look, I'd want the actuaries to see the reconciliation breaks before we lock anything down.
+[00:06:43] Aisha Siddiqui: Are we expecting any pushback on the defect list?
+[00:06:47] Nadia Petrovic: One or two. I'll pick them up offline rather than take time here.
+[00:06:52] Daniel Achebe: Aisha, where are we on the parallel run report?
+[00:06:56] Aisha Siddiqui: We're waiting on one input, and then it's fairly straightforward.
+[00:06:59] Nadia Petrovic: It might be worth a, a separate session on the reporting feed, because we won't do it justice in a few minutes here. I'd like the reporting feed traced through to the general ledger, not just checked at the service boundary. One thing on the GL posting tests: we should check we're not double-counting effort with the other workstream.
+[00:07:19] Daniel Achebe: Sorry, my dog's decided now's the moment to bark at the postman.
+[00:07:23] Callum Fairbairn (IBM): [laughter] We've all been there.
+[00:07:26] Daniel Achebe: Same view here. I'd want the actuaries to see the GL posting tests before we lock anything down.
+[00:07:32] Nadia Petrovic: Is the sprint board something we need to decide today, or is it for noting?
+[00:07:37] Callum Fairbairn (IBM): Noting only. If it needs a decision, it'll come back with a paper. I'm keen we don't just tick a box on the sprint board.
+[00:07:47] Aisha Siddiqui: Honestly, we're not starting from scratch on the, the reconciliation breaks; a lot of the groundwork is already there. On the GL posting tests, the copybook is the contract, whether we like it or not. If we get the reconciliation breaks right, a lot of the noise we've had recently goes away.
+[00:08:04] Daniel Achebe: The sticking point on the code review queue has been agreeing the scope, not the build. If the parallel run report changes the case estimate a handler sees, we need to tell them why.
+[00:08:15] Nadia Petrovic: Aisha, what's your gut feel on the parallel run report?
+[00:08:20] Aisha Siddiqui: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. If the parallel run report is wrong, it doesn't show up on the day; it shows up at month-end, which is worse.
+[00:08:31] Daniel Achebe: Just to build on what Aisha said, if the code review queue changes the case estimate a handler sees, we need to tell them why.
+[00:08:40] Aisha Siddiqui: What's the biggest risk on the reporting feed, in your view?
+[00:08:44] Nadia Petrovic: Timing more than anything. It's not hard, it's just competing with everything else.
+[00:08:49] Daniel Achebe: Again, I'd like the sprint board traced through to the general ledger, not just checked at the service boundary. To be fair, can I suggest we park the reporting feed for now and pick it up under any other business? Let's keep the defect list simple and not try to solve every edge case in one go. Right. The parallel run report is exactly where the parallel run earns its keep.
+[00:09:12] Aisha Siddiqui: Sorry, just so I'm clear: when you say the test data refresh, do you mean the UK piece or the whole thing?
+[00:09:20] Nadia Petrovic: You're right, we're using it loosely. Let me tighten up the wording. The handlers think in case estimates, the actuaries think in triangles, and the test data refresh has to work for both.
+[00:09:31] Daniel Achebe: That chimes with what I'm hearing, and Again, on the rehearsal fixes, the teams have been brilliant, frankly, given everything else going on. Whatever we land on for the parallel run report, people need to hear it from their own managers first.
+[00:09:45] Aisha Siddiqui: Sorry, just so I'm clear: when you say the reporting feed, do you mean the UK piece or the whole thing?
+[00:09:53] Nadia Petrovic: Fair point. I mean the whole thing, end to end. On that point, if the reporting feed changes the case estimate a handler sees, we need to tell them why.
+[00:10:03] Daniel Achebe: We need the code review queue to be explainable to Finance in plain English, not just in COBOL paragraphs.
+[00:10:10] Aisha Siddiqui: Same view here. For the rehearsal fixes, the question isn't whether, it's how and in what order. The thing about the defect list is that everyone agrees with it in principle and nobody wants to do the work.
+[00:10:23] Daniel Achebe: Is the test data refresh in the pack, or is that coming separately?
+[00:10:27] Nadia Petrovic: It's in there, but only at summary level. For the test data refresh, the movement type matters as much as the amount.
+[00:10:35] Daniel Achebe: Aisha, what's your gut feel on the code review queue?
+[00:10:39] Aisha Siddiqui: Reasonably. I've seen worse at this stage. If the code review queue is wrong, it doesn't show up on the day; it shows up at month-end, which is worse.
+[00:10:50] Daniel Achebe: Right.
+[00:10:51] Nadia Petrovic: We probably need to separate the facts on the test data refresh from the folklore. The honest answer on the test data refresh is that we know what good looks like, we're just not there yet. My read on the reconciliation breaks is that the hard part is behind us, but there's still a long tail, if that makes sense. The trouble with the test data refresh is that the people who know it best are also the busiest, to be honest.
+[00:11:17] Daniel Achebe: I'd like the next update on the parallel run report to come with evidence rather than a status colour.
+[00:11:30] Daniel Achebe: Okay, that's everyone. Thanks all. Callum, I'll find you someone for the rehearsal breaks.
+[00:11:34] Callum Fairbairn (IBM): Cheers, Daniel.
+
+--------------------------------------------------------------------------------
+End of stand-up transcript.

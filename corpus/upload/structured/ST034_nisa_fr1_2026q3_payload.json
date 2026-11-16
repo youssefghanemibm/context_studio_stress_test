@@ -1,0 +1,723 @@
+{
+  "documentControl": {
+    "documentId": "REG-FR1-2026Q3",
+    "title": "NISA-FR1 2026Q3 Payload",
+    "version": "1.0",
+    "status": "submitted",
+    "date": "2026-10-28",
+    "owner": {
+      "name": "Bjørn Aasheim",
+      "title": "Regulatory Reporting Manager"
+    },
+    "reviewers": [
+      {
+        "name": "Niall Brannigan",
+        "title": "Head of Counter-Fraud & SIU"
+      },
+      {
+        "name": "Hamish Gilchrist",
+        "title": "Financial Controller"
+      }
+    ],
+    "approvers": [
+      {
+        "name": "Ruth Okafor",
+        "title": "Compliance Manager – Conduct & Counter-Fraud",
+        "date": "2026-10-28"
+      }
+    ],
+    "classification": "Internal",
+    "organisation": "Corvane Mutual Insurance Society Limited",
+    "programme": "Programme Skerry (CLARA to Claims Hub)",
+    "changeHistory": [
+      {
+        "version": "0.1",
+        "date": "2026-07-07",
+        "author": "Bjørn Aasheim",
+        "change": "Initial draft for review"
+      },
+      {
+        "version": "0.2",
+        "date": "2026-07-23",
+        "author": "Bjørn Aasheim",
+        "change": "Updated after design review"
+      },
+      {
+        "version": "0.3",
+        "date": "2026-09-17",
+        "author": "Bjørn Aasheim",
+        "change": "Structure agreed with reviewers"
+      },
+      {
+        "version": "1.0",
+        "date": "2026-10-28",
+        "author": "Bjørn Aasheim",
+        "change": "Submitted to NISA"
+      }
+    ]
+  },
+  "return": {
+    "code": "NISA-FR1",
+    "name": "Quarterly Fraud Referral Return",
+    "period": "2026Q3",
+    "periodStart": "2026-07-01",
+    "periodEnd": "2026-09-30",
+    "due": "2026-10-30",
+    "submitted": "2026-10-28",
+    "submissionChannel": "NISA Reporting Hub (SYS10)",
+    "sourceInterface": "CLX-IF-033",
+    "sourceProgram": "CLRFR090",
+    "legalBasis": "NISA Circular 2026/04 §3.4; BR-FRD-034 v1"
+  },
+  "firm": {
+    "name": "Corvane Mutual Insurance Society Limited",
+    "nisaFirmReference": "NISA-FRN 40417",
+    "regions": [
+      "UK",
+      "Norway",
+      "Sweden",
+      "Denmark"
+    ]
+  },
+  "preparer": {
+    "name": "Bjørn Aasheim",
+    "title": "Regulatory Reporting Manager"
+  },
+  "signatory": {
+    "name": "Ruth Okafor",
+    "role": "Compliance Manager – Conduct & Counter-Fraud"
+  },
+  "figures": {
+    "referralsTotal": 1530,
+    "referralThreshold": {
+      "value": 65,
+      "rule": "BR-FRD-031 v1",
+      "appliesTo": "all tiers",
+      "note": "The Tier-3 threshold of 60 (BR-FRD-031 v2) applies from 2026-10-01 and is outside this period."
+    },
+    "breakdowns": {
+      "byRegion": {
+        "UK": 1134,
+        "NO": 152,
+        "SE": 137,
+        "DK": 107
+      },
+      "byLine": {
+        "Motor": 841,
+        "Home": 505,
+        "Commercial Property": 107,
+        "SME Liability": 77
+      },
+      "byTier": {
+        "Tier-1": 272,
+        "Tier-2": 966,
+        "Tier-3": 292
+      },
+      "bySource": {
+        "score-based": 1239,
+        "handler referral": 184,
+        "indicator review": 107
+      }
+    },
+    "customerNotices": {
+      "issuedWithin10BusinessDays": 1505,
+      "deferred": 25,
+      "rule": "BR-FRD-032 v2 / BR-FRD-036 v1"
+    },
+    "adverseDecisionsOnScoreAlone": 0,
+    "siuTriageRule": "BR-FRD-035 v2 (3 business days)"
+  },
+  "detail": {
+    "byProduct": [
+      {
+        "product": "PRD-MOT-UK",
+        "name": "Motor Private UK",
+        "referrals": 612
+      },
+      {
+        "product": "PRD-HOM-UK",
+        "name": "Home Buildings & Contents UK",
+        "referrals": 383
+      },
+      {
+        "product": "PRD-COM-UK",
+        "name": "Commercial Property UK",
+        "referrals": 92
+      },
+      {
+        "product": "PRD-LIA-UK",
+        "name": "SME Liability UK",
+        "referrals": 61
+      },
+      {
+        "product": "PRD-MOT-NO",
+        "name": "Motor Privat Norge",
+        "referrals": 92
+      },
+      {
+        "product": "PRD-HOM-NO",
+        "name": "Hjem Norge",
+        "referrals": 61
+      },
+      {
+        "product": "PRD-MOT-SE",
+        "name": "Motor Privat Sverige",
+        "referrals": 76
+      },
+      {
+        "product": "PRD-HOM-SE",
+        "name": "Hem Sverige",
+        "referrals": 61
+      },
+      {
+        "product": "PRD-MOT-DK",
+        "name": "Motor Privat Danmark",
+        "referrals": 46
+      },
+      {
+        "product": "PRD-HOM-DK",
+        "name": "Hjem Danmark",
+        "referrals": 46
+      }
+    ],
+    "byClaimType": [
+      {
+        "claimType": "CT-COL",
+        "name": "Collision",
+        "referrals": 337
+      },
+      {
+        "claimType": "CT-THF",
+        "name": "Theft",
+        "referrals": 245
+      },
+      {
+        "claimType": "CT-WSC",
+        "name": "Windscreen",
+        "referrals": 46
+      },
+      {
+        "claimType": "CT-FIR",
+        "name": "Fire",
+        "referrals": 92
+      },
+      {
+        "claimType": "CT-EOW",
+        "name": "Escape of Water",
+        "referrals": 199
+      },
+      {
+        "claimType": "CT-STM",
+        "name": "Storm",
+        "referrals": 61
+      },
+      {
+        "claimType": "CT-ACD",
+        "name": "Accidental Damage",
+        "referrals": 138
+      },
+      {
+        "claimType": "CT-VAN",
+        "name": "Vandalism / Malicious Damage",
+        "referrals": 76
+      },
+      {
+        "claimType": "CT-BIJ",
+        "name": "Bodily Injury",
+        "referrals": 214
+      },
+      {
+        "claimType": "CT-TPD",
+        "name": "Third-Party Property Damage",
+        "referrals": 76
+      },
+      {
+        "claimType": "CT-FLD",
+        "name": "Flood",
+        "referrals": 46
+      }
+    ],
+    "byChannel": {
+      "telephone": 719,
+      "portal": 337,
+      "app": 260,
+      "broker": 138,
+      "telematics": 46,
+      "post": 30
+    },
+    "byMonth": {
+      "2026-07": 505,
+      "2026-08": 510,
+      "2026-09": 515
+    },
+    "noticeTiming": {
+      "within 5 business days": 949,
+      "6-10 business days": 459,
+      "deferred (BR-FRD-036)": 92,
+      "pending at period end": 30
+    }
+  },
+  "weekly": [
+    {
+      "weekStart": "2026-07-01",
+      "weekEnd": "2026-07-05",
+      "referrals": 77
+    },
+    {
+      "weekStart": "2026-07-06",
+      "weekEnd": "2026-07-12",
+      "referrals": 108
+    },
+    {
+      "weekStart": "2026-07-13",
+      "weekEnd": "2026-07-19",
+      "referrals": 108
+    },
+    {
+      "weekStart": "2026-07-20",
+      "weekEnd": "2026-07-26",
+      "referrals": 117
+    },
+    {
+      "weekStart": "2026-07-27",
+      "weekEnd": "2026-08-02",
+      "referrals": 114
+    },
+    {
+      "weekStart": "2026-08-03",
+      "weekEnd": "2026-08-09",
+      "referrals": 107
+    },
+    {
+      "weekStart": "2026-08-10",
+      "weekEnd": "2026-08-16",
+      "referrals": 129
+    },
+    {
+      "weekStart": "2026-08-17",
+      "weekEnd": "2026-08-23",
+      "referrals": 124
+    },
+    {
+      "weekStart": "2026-08-24",
+      "weekEnd": "2026-08-30",
+      "referrals": 119
+    },
+    {
+      "weekStart": "2026-08-31",
+      "weekEnd": "2026-09-06",
+      "referrals": 121
+    },
+    {
+      "weekStart": "2026-09-07",
+      "weekEnd": "2026-09-13",
+      "referrals": 119
+    },
+    {
+      "weekStart": "2026-09-14",
+      "weekEnd": "2026-09-20",
+      "referrals": 111
+    },
+    {
+      "weekStart": "2026-09-21",
+      "weekEnd": "2026-09-27",
+      "referrals": 130
+    },
+    {
+      "weekStart": "2026-09-28",
+      "weekEnd": "2026-09-30",
+      "referrals": 46
+    }
+  ],
+  "deferralAnnex": {
+    "rule": "BR-FRD-036 v1",
+    "maxDeferralDays": 60,
+    "records": [
+      {
+        "claimRef": "CLM-NO-2026-294156",
+        "product": "PRD-MOT-NO",
+        "tier": "Tier-2",
+        "referralDate": "2026-07-03",
+        "noticeDueDate": "2026-07-17",
+        "deferralDays": 25,
+        "deferredUntil": "2026-08-11",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-342715",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-07-06",
+        "noticeDueDate": "2026-07-20",
+        "deferralDays": 19,
+        "deferredUntil": "2026-08-08",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-NO-2026-478386",
+        "product": "PRD-MOT-NO",
+        "tier": "Tier-3",
+        "referralDate": "2026-07-20",
+        "noticeDueDate": "2026-08-03",
+        "deferralDays": 13,
+        "deferredUntil": "2026-08-16",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-SE-2026-479688",
+        "product": "PRD-MOT-SE",
+        "tier": "Tier-2",
+        "referralDate": "2026-07-24",
+        "noticeDueDate": "2026-08-07",
+        "deferralDays": 43,
+        "deferredUntil": "2026-09-19",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-NO-2026-348006",
+        "product": "PRD-MOT-NO",
+        "tier": "Tier-2",
+        "referralDate": "2026-07-27",
+        "noticeDueDate": "2026-08-10",
+        "deferralDays": 48,
+        "deferredUntil": "2026-09-27",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-203859",
+        "product": "PRD-COM-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-08-07",
+        "noticeDueDate": "2026-08-21",
+        "deferralDays": 32,
+        "deferredUntil": "2026-09-22",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-DK-2026-242911",
+        "product": "PRD-MOT-DK",
+        "tier": "Tier-3",
+        "referralDate": "2026-08-14",
+        "noticeDueDate": "2026-08-28",
+        "deferralDays": 43,
+        "deferredUntil": "2026-10-10",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-SE-2026-392223",
+        "product": "PRD-MOT-SE",
+        "tier": "Tier-3",
+        "referralDate": "2026-08-17",
+        "noticeDueDate": "2026-09-01",
+        "deferralDays": 33,
+        "deferredUntil": "2026-10-04",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-DK-2026-358831",
+        "product": "PRD-MOT-DK",
+        "tier": "Tier-2",
+        "referralDate": "2026-08-18",
+        "noticeDueDate": "2026-09-02",
+        "deferralDays": 42,
+        "deferredUntil": "2026-10-14",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-284303",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-08-24",
+        "noticeDueDate": "2026-09-08",
+        "deferralDays": 48,
+        "deferredUntil": "2026-10-26",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-DK-2026-481732",
+        "product": "PRD-HOM-DK",
+        "tier": "Tier-1",
+        "referralDate": "2026-08-26",
+        "noticeDueDate": "2026-09-10",
+        "deferralDays": 58,
+        "deferredUntil": "2026-11-07",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-DK-2026-324640",
+        "product": "PRD-MOT-DK",
+        "tier": "Tier-2",
+        "referralDate": "2026-08-31",
+        "noticeDueDate": "2026-09-14",
+        "deferralDays": 13,
+        "deferredUntil": "2026-09-27",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-223076",
+        "product": "PRD-LIA-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-09-02",
+        "noticeDueDate": "2026-09-16",
+        "deferralDays": 25,
+        "deferredUntil": "2026-10-11",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-NO-2026-469198",
+        "product": "PRD-MOT-NO",
+        "tier": "Tier-2",
+        "referralDate": "2026-09-04",
+        "noticeDueDate": "2026-09-18",
+        "deferralDays": 37,
+        "deferredUntil": "2026-10-25",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-173962",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-09-09",
+        "noticeDueDate": "2026-09-23",
+        "deferralDays": 21,
+        "deferredUntil": "2026-10-14",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-184695",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-09-11",
+        "noticeDueDate": "2026-09-25",
+        "deferralDays": 45,
+        "deferredUntil": "2026-11-09",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-DK-2026-323101",
+        "product": "PRD-HOM-DK",
+        "tier": "Tier-2",
+        "referralDate": "2026-09-14",
+        "noticeDueDate": "2026-09-28",
+        "deferralDays": 21,
+        "deferredUntil": "2026-10-19",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-153875",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-09-16",
+        "noticeDueDate": "2026-09-30",
+        "deferralDays": 23,
+        "deferredUntil": "2026-10-23",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-299710",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-09-17",
+        "noticeDueDate": "2026-10-01",
+        "deferralDays": 27,
+        "deferredUntil": "2026-10-28",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-278075",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-09-21",
+        "noticeDueDate": "2026-10-05",
+        "deferralDays": 27,
+        "deferredUntil": "2026-11-01",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-375086",
+        "product": "PRD-LIA-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-09-21",
+        "noticeDueDate": "2026-10-05",
+        "deferralDays": 57,
+        "deferredUntil": "2026-12-01",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-434311",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-09-21",
+        "noticeDueDate": "2026-10-05",
+        "deferralDays": 21,
+        "deferredUntil": "2026-10-26",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-SE-2026-241009",
+        "product": "PRD-HOM-SE",
+        "tier": "Tier-2",
+        "referralDate": "2026-09-22",
+        "noticeDueDate": "2026-10-06",
+        "deferralDays": 36,
+        "deferredUntil": "2026-11-11",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-SE-2026-305638",
+        "product": "PRD-HOM-SE",
+        "tier": "Tier-1",
+        "referralDate": "2026-09-22",
+        "noticeDueDate": "2026-10-06",
+        "deferralDays": 55,
+        "deferredUntil": "2026-11-30",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-NO-2026-120922",
+        "product": "PRD-HOM-NO",
+        "tier": "Tier-2",
+        "referralDate": "2026-09-25",
+        "noticeDueDate": "2026-10-09",
+        "deferralDays": 31,
+        "deferredUntil": "2026-11-09",
+        "reason": "SIU certified tipping-off risk"
+      }
+    ]
+  },
+  "definitions": [
+    {
+      "term": "Fraud Referral",
+      "definition": "Referral of a claim to the Counter-Fraud & SIU team for investigation.",
+      "source": "Programme glossary G-002"
+    },
+    {
+      "term": "Tier-3 Claim",
+      "definition": "A claim meeting the Tier-3 definition in BR-TRI-003 (v3 from 2025-01-01).",
+      "source": "Programme glossary G-008"
+    },
+    {
+      "term": "Fraud Score",
+      "definition": "Sentinel score from 0 to 100.",
+      "source": "Programme glossary G-009"
+    },
+    {
+      "term": "Customer Referral Notice",
+      "definition": "Written notice to the customer that a claim is subject to additional checks (BR-FRD-032).",
+      "source": "Programme glossary G-021"
+    },
+    {
+      "term": "Counter-Fraud & SIU",
+      "definition": "The Special Investigations Unit (renamed Counter-Fraud & SIU on 2025-09-01).",
+      "source": "Programme glossary G-012"
+    },
+    {
+      "term": "BR-FRD-031 v1",
+      "definition": "Refer a claim to SIU when the Sentinel score is 65 or more (all tiers).",
+      "source": "NISA Circular 2026/04 §3.3; Claims Handling Manual v7.2 §28.3"
+    },
+    {
+      "term": "BR-FRD-032 v2",
+      "definition": "Notify the customer in writing within 10 business days of a fraud referral that the claim is subject to additional checks, unless the notice is deferred under BR-FRD-036.",
+      "source": "NISA Circular 2026/04 §3.2; APPROVED BRD v1.0 (2026-03-12); Claims Handling Manual v7.2 §29.1"
+    },
+    {
+      "term": "BR-FRD-033 v1",
+      "definition": "No claim may be declined, reduced or repudiated on the basis of an automated fraud score alone; every adverse outcome requires a documented human review by SIU.",
+      "source": "NISA Circular 2026/04 §3.1; Claims Handling Manual v7.2 §28.6"
+    },
+    {
+      "term": "BR-FRD-034 v1",
+      "definition": "Submit the NISA-FR1 fraud referral return within 30 calendar days after each quarter end; first return for Q2 2026 due 2026-07-30.",
+      "source": "NISA Circular 2026/04 §3.4"
+    },
+    {
+      "term": "BR-FRD-035 v2",
+      "definition": "SIU must triage a new referral within 3 business days.",
+      "source": "Claims Handling Manual v7.2 §30.1"
+    }
+  ],
+  "lineage": [
+    {
+      "step": 1,
+      "what": "Referral records in CLR.T_FRAUD_REFERRAL and fraud.referral (Claims Hub, migrated UK motor)"
+    },
+    {
+      "step": 2,
+      "what": "Quarterly extract by CLRFR090 (job CLRQFR01)"
+    },
+    {
+      "step": 3,
+      "what": "Delivery to the NISA Reporting Hub over CLX-IF-033"
+    },
+    {
+      "step": 4,
+      "what": "Validation and submission by Regulatory Reporting"
+    }
+  ],
+  "controls": [
+    {
+      "id": "C01",
+      "check": "breakdown totals equal referralsTotal",
+      "result": "PASS"
+    },
+    {
+      "id": "C02",
+      "check": "every referral has a referral date inside the period",
+      "result": "PASS"
+    },
+    {
+      "id": "C03",
+      "check": "no referral without a Sentinel score or handler reason",
+      "result": "PASS"
+    },
+    {
+      "id": "C04",
+      "check": "notice records exist for every non-deferred referral",
+      "result": "PASS"
+    },
+    {
+      "id": "C05",
+      "check": "deferrals carry an approval record",
+      "result": "PASS"
+    },
+    {
+      "id": "C06",
+      "check": "CLARA and Claims Hub counts reconciled for migrated claims",
+      "result": "PASS"
+    },
+    {
+      "id": "C07",
+      "check": "schema validation against FR1 v1.0",
+      "result": "PASS"
+    }
+  ],
+  "contacts": [
+    {
+      "role": "Preparer",
+      "name": "Bjørn Aasheim",
+      "email": "bjorn.aasheim@corvane-mutual.example"
+    },
+    {
+      "role": "Signatory",
+      "name": "Ruth Okafor",
+      "email": "ruth.okafor@corvane-mutual.example"
+    },
+    {
+      "role": "Counter-Fraud & SIU",
+      "name": "Niall Brannigan",
+      "email": "niall.brannigan@corvane-mutual.example"
+    }
+  ],
+  "comparatives": {
+    "2026Q2": {
+      "referralsTotal": 1488,
+      "submitted": "2026-07-29"
+    }
+  },
+  "declarations": [
+    "The figures were extracted from CLARA (CLRFR090) and reconciled to Claims Hub fraud-referral-svc for migrated UK motor claims.",
+    "No claim was declined, reduced or repudiated on the basis of an automated score alone (BR-FRD-033).",
+    "Approval is recorded in the change history; reviewers are listed for traceability."
+  ]
+}

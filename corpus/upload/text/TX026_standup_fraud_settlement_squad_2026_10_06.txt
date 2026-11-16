@@ -1,0 +1,105 @@
+CORVANE MUTUAL - PROGRAMME SKERRY
+Stand-up transcript - Hub Squad: Fraud & Settlement
+--------------------------------------------------------------------------------
+Ref: SQD-FS-SU-2026-10-06    Date: Tuesday 6 October 2026    Start: 09:30 UK time    Length: about 15 minutes
+Team: Hub Squad - Fraud & Settlement (fraud-referral-svc, settlement-svc, payment-orchestrator)
+Transcribed by: automatic transcription; tidied by Hannah Lyle (Business Analyst – Claims)
+Classification: Internal
+
+Participants:
+  Linnea Sjoberg - Engineering Lead – Fraud & Settlement Squad
+  Tariq Hussain - Senior Java Developer
+  Hannah Lyle - Business Analyst – Claims (IBM Consulting)
+  Aisha Siddiqui - Head of Claims Hub Product
+
+Note: stand-up notes are informal. Decisions are recorded in the relevant tickets, not here.
+
+--------------------------------------------------------------------------------
+
+[00:00:00] Linnea Sjoberg: Morning, all. Let's go round. Quick one today.
+[00:00:03] Linnea Sjoberg: First, the Tier-3 threshold. Our change in fraud-referral-svc went in last week under CHUB-388, but triage-svc didn't pick up the new value until yesterday. Sofie's squad have the fix under CHUB-392, so nothing for us to do except watch the referrals.
+[00:00:18] Tariq Hussain: Yesterday I finished the regression pack for payment-orchestrator. Today I'm on two of the hypercare defects from the settlement screens. No blockers.
+[00:00:26] Linnea Sjoberg: Who else needs to be involved in the payment retry tests?
+[00:00:30] Hannah Lyle: Someone from the business side, ideally a team leader who's lived with it. I mean, I've asked for a short write-up on the payment retry tests so we can look at it properly.
+[00:00:41] Linnea Sjoberg: From the SIU side, the code review queue matters because every extra referral lands on an investigator's desk. Can I suggest we park the code review queue for now and pick it up under any other business? The thing about the settlement screen fixes is that everyone agrees with it in principle and nobody wants to do the work.
+[00:01:01] Hannah Lyle: I'm updating the acceptance criteria for the notice-deadline stories so they match the rule wording. If we change the release notes, the triage queue changes shape, and we need the investigators ready for that.
+[00:01:13] Linnea Sjoberg: Tariq, any concerns from your side on the referral notice tests?
+[00:01:18] Tariq Hussain: Some, probably, but nothing we can't work through. Right. Compliance will want an audit trail for the referral notice tests, so let's design that in rather than bolt it on.
+[00:01:29] Linnea Sjoberg: The payments side has been quiet since the fix went in, which is exactly what we want. To be clear, nobody's saying the referral notice tests are broken. It's more that we haven't tested it the way we'd test anything else.
+[00:01:43] Tariq Hussain: I'll pair with someone on the release notes this afternoon, they're behind.
+[00:01:48] Linnea Sjoberg: Are we expecting any pushback on the hypercare defects?
+[00:01:52] Aisha Siddiqui: One or two. I'll pick them up offline rather than take time here. I'd keep the hypercare defects separate from the rest of it, because it involves different people and a different set of risks.
+[00:02:03] Tariq Hussain: So, can we make sure the payment retry tests are visible on the RAID log, so it doesn't fall between the cracks? For the payment retry tests, I'd rather we under-promise and deliver than the other way round.
+[00:02:17] Linnea Sjoberg: Can I ask what's changed on the regression pack since we last discussed it?
+[00:02:23] Hannah Lyle: Mostly that more people are involved now, which is good. The honest answer on the regression pack is that we know what good looks like, we're just not there yet.
+[00:02:33] Linnea Sjoberg: Understood.
+[00:02:34] Tariq Hussain: On that point, we can't decline on the score alone, so the hypercare defects are always going to need a human in the loop. Tipping-off is the thing that keeps me awake on the payment retry tests. Again, what we don't want with the settlement screen fixes is a referral sitting in a queue that nobody owns. Tipping-off is the thing that keeps me awake on the hypercare defects.
+[00:02:58] Hannah Lyle: Sounds sensible.
+[00:03:00] Tariq Hussain: Do we need a decision on the payment retry tests from this group, or is it just for awareness?
+[00:03:07] Linnea Sjoberg: For noting, I think. Nothing we need to decide today.
+[00:03:11] Aisha Siddiqui: We can't decline on the score alone, so the payment retry tests are always going to need a human in the loop. Everything I've seen on the payment retry tests says the approach is right; it's the pace I'd question, if that makes sense.
+[00:03:26] Tariq Hussain: Uh, there are two schools of thought on the hypercare defects, and both have some merit. Sentinel isn't the only signal; the hypercare defects have to sit alongside what the handler actually sees on the claim.
+[00:03:38] Linnea Sjoberg: Hannah, what keeps you awake about the regression pack?
+[00:03:42] Hannah Lyle: That we assume it's done because nobody's complaining. I'm keen we don't just tick a box on the regression pack.
+[00:03:49] Linnea Sjoberg: Aisha, are you comfortable with the referral notice tests as it stands?
+[00:03:54] Aisha Siddiqui: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. I wouldn't want the referral notice tests to become the reason we lose momentum elsewhere.
+[00:04:03] Hannah Lyle: I've got questions on two of the settlement stories. I'll grab people after this rather than take time now.
+[00:04:10] Linnea Sjoberg: Okay, so the bit of the release notes that worries me [inaudible] the hand-off between teams. To be fair, on the release notes, the teams have been brilliant, frankly, given everything else going on.
+[00:04:21] Aisha Siddiqui: Sprint review on Thursday. Linnea, can the team show the payment retry behaviour? The adjusters out in the field have opinions on the settlement screen fixes, and they're usually right about the patterns.
+[00:04:33] Tariq Hussain: Linnea, can you give us a quick update on the settlement screen fixes?
+[00:04:38] Linnea Sjoberg: Steady. No drama, which is what you want. To be honest, one thing on the settlement screen fixes: we should check we're not double-counting effort with the other workstream.
+[00:04:48] Tariq Hussain: Agreed.
+[00:05:00] Tariq Hussain: On payments, every instruction to CPG now carries an idempotency key, per ADR-021, so a retry after a timeout can't create a second payment.
+[00:05:08] Linnea Sjoberg: The sprint goal keeps getting squeezed by more urgent things. Personally I'd go a bit further on the release notes, but I can live with what's proposed. From the SIU side, the sprint goal matters because every extra referral lands on an investigator's desk.
+[00:05:23] Tariq Hussain: Where have we got to with the settlement screen fixes, Aisha?
+[00:05:28] Aisha Siddiqui: Broadly on track. There are a couple of loose ends, but nothing that worries me. The settlement screen fixes are one of those things that looks easy on a slide and isn't.
+[00:05:39] Tariq Hussain: Sentinel isn't the only signal; the code review queue has to sit alongside what the handler actually sees on the claim.
+[00:05:46] Hannah Lyle: Do we need a decision on the hypercare defects from this group, or is it just for awareness?
+[00:05:53] Linnea Sjoberg: Not today. We'll bring options when we've done the analysis. I'd want the hypercare defects reflected in the referral reason codes, so the data is clean for the return.
+[00:06:04] Tariq Hussain: Uh, we've been here before with the release notes, and the lesson last time was to get the business in the room early, for what it's worth. For what it's worth, on the release notes, the case notes need to say why a claim was referred, not just that it was.
+[00:06:20] Linnea Sjoberg: Sorry, I think you're on mute, Hannah.
+[00:06:23] Hannah Lyle: Sorry, sorry. Can you hear me now?
+[00:06:27] Linnea Sjoberg: Yes, we've got you.
+[00:06:29] Hannah Lyle: I'd frame the referral notice tests as a risk rather than an issue at this stage. Picking up on that, what we don't want with the referral notice tests is a referral sitting in a queue that nobody owns, if I'm honest.
+[00:06:43] Aisha Siddiqui: I'm not sure I'd go quite that far, Hannah. I'd keep the payment retry tests separate from the rest of it, because it involves different people and a different set of risks.
+[00:06:54] Linnea Sjoberg: Has anything moved on the referral notice tests since last time?
+[00:06:59] Tariq Hussain: Honestly, less than I'd like.
+[00:07:01] Linnea Sjoberg: We should acknowledge the work that's gone into the regression pack, because it's been a slog. I think we underestimated the referral notice tests at the start, and that's fine as long as we learn from it.
+[00:07:13] Tariq Hussain: We should check whether the hypercare defects land differently for the Nordic teams than for the UK. For the hypercare defects, the question isn't whether, it's how and in what order.
+[00:07:24] Aisha Siddiqui: So, um, there's a temptation to treat the hypercare defects as a technical problem, and it really isn't, I think. Let's capture the hypercare defects as a follow-up rather than try to close it today. Yeah. We can't decline on the score alone, so the release notes are always going to need a human in the loop.
+[00:07:43] Linnea Sjoberg: Can I ask what's changed on the hypercare defects since we last discussed it?
+[00:07:47] Tariq Hussain: Not much, other than we understand it better.
+[00:07:51] Linnea Sjoberg: Great.
+[00:07:53] Tariq Hussain: Hannah, can you give us a quick update on the hypercare defects?
+[00:07:57] Hannah Lyle: It's moving. Not as fast as I'd like, but it's moving. My sense is that the hypercare defects are moving in the right direction, just slowly.
+[00:08:07] Aisha Siddiqui: Before I forget, the coffee machine on our floor is fixed, for anyone who's been suffering.
+[00:08:12] Tariq Hussain: Best news I've had all week.
+[00:08:16] Linnea Sjoberg: Personally I'd go a bit further on the payment retry tests, but I can live with what's proposed. On the code review queue, the teams have been brilliant, frankly, given everything else going on. The payment retry tests are where the false positives hurt most, because they slow down genuine claims.
+[00:08:33] Aisha Siddiqui: Yeah, um, just quickly, it's the knock-on effect of the hypercare defects that I'm most interested in. I'd keep the sprint goal separate from the rest of it, because it involves different people and a different set of risks. We should acknowledge the work that's gone into the hypercare defects, because it's been a slog. On the hypercare defects, we have to think about the customer letter as much as the referral.
+[00:08:57] Linnea Sjoberg: The bit of the settlement screen fixes that worries me is the hand-off between teams. I'd want the settlement screen fixes reflected in the referral reason codes, so the data is clean for the return. I'd ask that we don't make promises on the payment retry tests until we've seen the impact assessment.
+[00:09:15] Hannah Lyle: Sentinel isn't the only signal; the release notes have to sit alongside what the handler actually sees on the claim. Mm. I'd want the release notes reflected in the referral reason codes, so the data is clean for the return. I'd challenge us a bit on the regression pack; I'm not sure we've tested the assumptions.
+[00:09:34] Tariq Hussain: Where have we got to with the settlement screen fixes, Linnea?
+[00:09:38] Linnea Sjoberg: It's progressing. I'll have a fuller picture by the next meeting. I keep coming back to the settlement screen fixes, because it's the area that's had the least scrutiny.
+[00:09:48] Hannah Lyle: Are the payment retry tests something we need to decide today, or is it for noting?
+[00:09:53] Aisha Siddiqui: Awareness for now. There may be a decision next time. My worry with the payment retry tests is less the technology and more whether people on the floor actually know what's changed.
+[00:10:05] Linnea Sjoberg: Is there anything we can do to unblock the referral notice tests?
+[00:10:10] Hannah Lyle: Just air cover, really. People are stretched, so it helps if the message comes from here.
+[00:10:15] Tariq Hussain: Do we need a decision on the release notes from this group, or is it just for awareness?
+[00:10:23] Aisha Siddiqui: Noting only. If it needs a decision, it'll come back with a paper. I suppose for the release notes, I'd like the investigators' view as well as the analysts' view.
+[00:10:33] Tariq Hussain: Right.
+[00:10:34] Linnea Sjoberg: I was going to say [crosstalk]
+[00:10:38] Hannah Lyle: Sorry, go ahead.
+[00:10:40] Linnea Sjoberg: No, you go.
+[00:10:41] Hannah Lyle: I was only going to say I agree.
+[00:10:45] Linnea Sjoberg: Tariq, are the release notes a resourcing question or a decision question?
+[00:10:49] Tariq Hussain: Resourcing. Nobody disagrees on what to do.
+[00:10:52] Linnea Sjoberg: My worry with the referral notice tests is less the technology and more whether people on the floor actually know what's changed.
+[00:11:00] Tariq Hussain: I agree with Linnea, and I'd add that for the regression pack, I'd like the investigators' view as well as the analysts' view.
+[00:11:09] Linnea Sjoberg: Okay. Everything I've seen on the release notes says the approach is right; it's the pace I'd question. On the release notes, we have to think about the customer letter as much as the referral. The hypercare defects are where the false positives hurt most, because they [inaudible] down genuine claims. The model behaves differently at the margins, so the release notes need watching for the first few weeks, if that makes sense.
+[00:11:34] Tariq Hussain: How confident are we on the referral notice tests, honestly?
+[00:11:38] Hannah Lyle: Reasonably. I've seen worse at this stage. On the referral notice tests, we have to think about the customer letter as much as the referral.
+[00:11:47] Linnea Sjoberg: On the regression pack, the case notes need to say why a claim was referred, not just that it was.
+[00:12:00] Linnea Sjoberg: Thanks, everyone. Shout if anything gets stuck.
+
+--------------------------------------------------------------------------------
+End of stand-up transcript.

@@ -1,0 +1,96 @@
+From: Dahl, Mette <mette.dahl@corvane-mutual.example>
+Sent: Friday, 9 October 2026 11:40 AM
+To: Kesavan, Arjun <arjun.kesavan@ibm-consulting.example>
+Cc: Siddiqui, Aisha <aisha.siddiqui@corvane-mutual.example>
+Subject: RE: Wave 2 cut-over – confirmed date and freeze window
+
+Thanks – I will make sure the Oslo and Stockholm teams are briefed. We will
+need handler cover planned for the Monday.
+
+Many thanks,
+Mette
+
+Mette Dahl
+Claims Operations Lead – Nordics
+
+This message is intended only for the addressee(s) and may contain
+confidential information. Corvane Mutual Insurance Society Limited – Nordic
+branches. Supervised by NISA (NISA-FRN 40417).
+
+________________________________
+From: Haworth, Neil <neil.haworth@corvane-mutual.example>
+Sent: Friday, 9 October 2026 11:01 AM
+To: Kesavan, Arjun <arjun.kesavan@ibm-consulting.example>
+Cc: Pocock, Graham <graham.pocock@corvane-mutual.example>; Vaghela, Sunita <sunita.vaghela@corvane-mutual.example>
+Subject: RE: Wave 2 cut-over – confirmed date and freeze window
+
+Noted – I will block the window in the CAB change calendar.
+
+Neil
+
+Neil Haworth
+Head of Technology Delivery
+
+CONFIDENTIALITY: The information in this message is private to Corvane
+Mutual and the intended recipient(s). If you are not an intended recipient,
+please tell the sender and delete the message; do not copy or forward it.
+Corvane Mutual Insurance Society Limited, Corvane House, 14 Tallowgate,
+London EC3N 9ZZ. Supervised by NISA (NISA-FRN 40417).
+
+From: Vaghela, Sunita <sunita.vaghela@corvane-mutual.example>
+Sent: Friday, 9 October 2026 10:06 AM
+To: Kesavan, Arjun <arjun.kesavan@ibm-consulting.example>
+Cc: Pocock, Graham <graham.pocock@corvane-mutual.example>
+Subject: RE: Wave 2 cut-over – confirmed date and freeze window
+
+Arjun,
+
+I will align the CLARA batch schedule to the freeze and send a draft for
+review.
+
+Sunita
+
+--
+Sunita Vaghela
+Batch Operations Lead
+
+This e-mail and any attachments are confidential and intended solely for the
+named addressee(s). If you have received it in error please notify the
+sender and delete it. Corvane Mutual Insurance Society Limited is supervised
+by the National Insurance Supervisory Authority (NISA-FRN 40417). Registered
+office: Corvane House, 14 Tallowgate, London EC3N 9ZZ.
+
+From: Kesavan, Arjun <arjun.kesavan@ibm-consulting.example>
+Sent: Friday, 9 October 2026 9:23 AM
+To: Wave 2 cut-over stakeholders <skerry.wave2@corvane-mutual.example>; Pocock, Graham <graham.pocock@corvane-mutual.example>; Vaghela, Sunita <sunita.vaghela@corvane-mutual.example>; Haworth, Neil <neil.haworth@corvane-mutual.example>; Vestergaard, Henrik <henrik.vestergaard@corvane-mutual.example>; Siddiqui, Aisha <aisha.siddiqui@corvane-mutual.example>; Dahl, Mette <mette.dahl@corvane-mutual.example>
+Cc: Ferrier, Duncan <duncan.ferrier@corvane-mutual.example>; Ashcombe, Victoria <victoria.ashcombe@ibm-consulting.example>
+Subject: Wave 2 cut-over – confirmed date and freeze window
+
+Hi all,
+
+Following yesterday's Steering Committee, the Wave 2 cut-over date is
+confirmed as Monday 15 February 2027.
+
+The freeze runs from 18:00 on Friday 12 February 2027 to 06:00 on Monday 15
+February 2027.
+
+Scope: UK home, commercial and liability, plus Norway and Sweden
+(PRD-HOM-UK, PRD-COM-UK, PRD-LIA-UK, PRD-MOT-NO, PRD-HOM-NO, PRD-MOT-SE,
+PRD-HOM-SE).
+
+During the freeze nothing goes into CLARA or Claims Hub production other
+than the cut-over itself. Please put the window in your team calendars now;
+detailed runbook timings will follow from the cut-over planning sessions.
+
+Regards,
+Arjun
+
+Arjun Kesavan
+Programme Delivery Lead
+IBM Consulting – Programme Skerry
+Mobile: 07700 900148
+arjun.kesavan@ibm-consulting.example
+
+Delivered by the IBM Consulting team working on Programme Skerry for Corvane
+Mutual. Please do not forward outside the programme distribution without the
+sender's agreement.

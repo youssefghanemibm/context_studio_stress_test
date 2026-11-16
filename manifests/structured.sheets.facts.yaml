@@ -1,0 +1,3251 @@
+- fact_id: ST001-F001
+  world_ref: TABLE:CLR.T_CLAIM#retired_columns
+  kind: hidden_sheet
+  statement: Hidden sheet '_retired' of the CLARA data dictionary lists retired column CLR.T_CLAIM.LEGACY_SKADE_REF (CHAR
+    14), retired 2024-05-31 with SKADE-90.
+  file: corpus/upload/structured/ST001_clara_data_dictionary.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: _retired
+    cell: B2
+    hidden: true
+  needle: LEGACY_SKADE_REF
+  exclusive: true
+  also_in: []
+  placement: PL-152
+  placement_key: st1_hidden
+- fact_id: ST001-F002
+  world_ref: TABLE:CLR.T_CLAIM#retired_columns
+  kind: hidden_sheet
+  statement: Retired column LEGACY_SKADE_REF was CHAR(14).
+  file: corpus/upload/structured/ST001_clara_data_dictionary.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: _retired
+    cell: C2
+    hidden: true
+  needle: CHAR(14)
+  exclusive: true
+  also_in: []
+  notes: part of PL-152
+- fact_id: ST001-F003
+  world_ref: TABLE:CLR.T_CLAIM#retired_columns
+  kind: hidden_sheet
+  statement: LEGACY_SKADE_REF was retired on 2024-05-31.
+  file: corpus/upload/structured/ST001_clara_data_dictionary.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: _retired
+    cell: D2
+    hidden: true
+  needle: '2024-05-31'
+  exclusive: true
+  also_in: []
+  notes: part of PL-152
+- fact_id: ST001-F004
+  world_ref: TEAM:T12#lead_history
+  kind: merged_cell
+  statement: 'Merged header ''RESERVE AREA - owner: Reserving (Lena Kristiansen)'' spans the CLR.T_RESERVE block of the Tables
+    sheet.'
+  file: corpus/upload/structured/ST001_clara_data_dictionary.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Tables
+    cell: A35
+  needle: 'RESERVE AREA — owner: Reserving (Lena Kristiansen)'
+  exclusive: false
+  also_in: []
+  placement: PL-153
+  placement_key: st1_merged
+- fact_id: ST001-F005
+  world_ref: TABLE:CLR.T_RESERVE#writers
+  kind: contradiction_old
+  statement: 'Data dictionary (2025-02-14) ''Written by'' for CLR.T_RESERVE lists 7 programs: CLRFN030, CLRRS010, CLRRS020,
+    CLRRS110, CLRRS130, CLRST040, CLRRC050 (omits CLRGL090).'
+  file: corpus/upload/structured/ST001_clara_data_dictionary.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Tables
+    cell: E37
+  needle: CLRFN030, CLRRS010, CLRRS020, CLRRS110, CLRRS130, CLRST040, CLRRC050
+  exclusive: false
+  also_in: []
+  placement: PL-154
+  placement_key: st1_writers7
+  contradictions:
+  - C08
+- fact_id: ST001-F006
+  world_ref: TABLE:CLR.T_CLAIMANT#columns.NI_NO
+  kind: needle
+  statement: CLR.T_CLAIMANT.NI_NO is CHAR(13).
+  file: corpus/upload/structured/ST001_clara_data_dictionary.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Columns
+    cell: D31
+  needle: CHAR(13)
+  exclusive: false
+  also_in: []
+  placement: PL-155
+  placement_key: st1_pii
+- fact_id: ST001-F007
+  world_ref: TABLE:CLR.T_CLAIMANT#columns.NI_NO
+  kind: needle
+  statement: CLR.T_CLAIMANT.NI_NO is flagged PII in the data dictionary.
+  file: corpus/upload/structured/ST001_clara_data_dictionary.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Columns
+    cell: H31
+  needle: 'Yes'
+  exclusive: false
+  also_in: []
+  notes: part of PL-155
+- fact_id: ST001-F008
+  world_ref: PROGRAM:CLRFR030#renamed_from
+  kind: temporal
+  statement: In the 2025-02-14 data dictionary the fraud referral writer is listed under its pre-rename id FNETREF1 (renamed
+    CLRFR030 on 2025-03-01).
+  file: corpus/upload/structured/ST001_clara_data_dictionary.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Tables
+    cell: E44
+  needle: FNETREF1
+  exclusive: false
+  also_in: []
+- fact_id: ST001-F009
+  world_ref: SYSTEM:SYS03#renames
+  kind: temporal
+  statement: The 2025-02-14 data dictionary describes CLR.T_FRAUD_REFERRAL.REF_SCORE as the FRAUDNET score at referral (the
+    engine was renamed Sentinel on 2025-03-01).
+  file: corpus/upload/structured/ST001_clara_data_dictionary.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Columns
+    cell: I74
+  needle: FRAUDNET score
+  exclusive: false
+  also_in: []
+- fact_id: ST001-F010
+  world_ref: TABLE:CLR.T_CLAIM#columns.CLAIM_STATUS
+  kind: general
+  statement: CLAIM_STATUS code RC means 'in recovery'.
+  file: corpus/upload/structured/ST001_clara_data_dictionary.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Code Values
+    cell: D14
+  needle: in recovery
+  exclusive: false
+  also_in: []
+- fact_id: ST001-F011
+  world_ref: TABLE:CLR.T_RESERVE#writers
+  kind: contradiction_old
+  statement: In the data dictionary's Column Usage sheet CLRGL090 appears only as a reader of CLR.T_CURRENCY_RATE and CLR.T_GL_PERIOD,
+    not on CLR.T_RESERVE.
+  file: corpus/upload/structured/ST001_clara_data_dictionary.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Column Usage
+    cell: C3513
+  needle: CLRGL090
+  exclusive: false
+  also_in: []
+  notes: stale; see ST019
+- fact_id: ST001-F012
+  world_ref: SYSTEM:SYS01
+  kind: general
+  statement: The CLARA data dictionary documents 42 DB2 tables.
+  file: corpus/upload/structured/ST001_clara_data_dictionary.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Document Control
+    cell: B11
+  needle: '42'
+  exclusive: false
+  also_in: []
+- fact_id: ST002-F001
+  world_ref: PROCESS:S7#owner
+  kind: merged_cell
+  statement: Merged stage cell 'Recovery & Subrogation' spans 6 step rows (A30:A35); Accountable for every step is Freya Lindahl.
+  file: corpus/upload/structured/ST002_raci_matrix.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: RACI
+    cell: A30
+  needle: Recovery & Subrogation
+  exclusive: false
+  also_in: []
+  placement: PL-156
+  placement_key: st2_merged
+- fact_id: ST002-F002
+  world_ref: PROCESS:S7#owner
+  kind: needle
+  statement: 'RACI: PS-REC-02 ''Open subrogation case and demand'' - Accountable Freya Lindahl (Head of Recoveries & Subrogation).'
+  file: corpus/upload/structured/ST002_raci_matrix.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: RACI
+    cell: E31
+  needle: Freya Lindahl
+  exclusive: false
+  also_in: []
+  notes: supports PL-156
+- fact_id: ST002-F003
+  world_ref: PROCESS:S5
+  kind: merged_cell
+  statement: Merged stage cell 'Fraud Referral' spans 3 step rows.
+  file: corpus/upload/structured/ST002_raci_matrix.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: RACI
+    cell: A22
+  needle: Fraud Referral
+  exclusive: false
+  also_in: []
+- fact_id: ST002-F004
+  world_ref: PROCESS:PS-FRD-04#raci
+  kind: general
+  statement: 'RACI: PS-FRD-04 ''SIU investigation and outcome'' - Accountable Rachel Dunmore (SIU Investigations Manager (UK)).'
+  file: corpus/upload/structured/ST002_raci_matrix.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: RACI
+    cell: E24
+  needle: Rachel Dunmore
+  exclusive: false
+  also_in: []
+- fact_id: ST002-F005
+  world_ref: PROCESS:PS-RSV-04#sla
+  kind: general
+  statement: 'RACI: PS-RSV-04 large loss notification SLA is within 24 hours (BR-RSV-011 v2).'
+  file: corpus/upload/structured/ST002_raci_matrix.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: RACI
+    cell: H21
+  needle: within 24 hours
+  exclusive: false
+  also_in: []
+- fact_id: ST003-F001
+  world_ref: INTERFACE:CLX-IF-042#owner
+  kind: needle
+  statement: 'Interface register: CLX-IF-042 owner Henrik Vestergaard.'
+  file: corpus/upload/structured/ST003_interface_register.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Register
+    cell: K46
+  needle: Henrik Vestergaard
+  exclusive: false
+  also_in: []
+  placement: PL-157
+  placement_key: st3_042
+- fact_id: ST003-F002
+  world_ref: INTERFACE:CLX-IF-042#criticality
+  kind: needle
+  statement: 'Interface register: CLX-IF-042 criticality Critical.'
+  file: corpus/upload/structured/ST003_interface_register.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Register
+    cell: M46
+  needle: Critical
+  exclusive: false
+  also_in: []
+  notes: part of PL-157
+- fact_id: ST003-F003
+  world_ref: INTERFACE:CLX-IF-042#dependents
+  kind: needle
+  statement: 'Interface register: CLX-IF-042 dependents are CLX-IF-043, CLX-IF-044, CLX-IF-047 and CLX-IF-049.'
+  file: corpus/upload/structured/ST003_interface_register.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Register
+    cell: R46
+  needle: CLX-IF-043, CLX-IF-044, CLX-IF-047, CLX-IF-049
+  exclusive: false
+  also_in: []
+- fact_id: ST003-F004
+  world_ref: INTERFACE:CLX-IF-043#schedule_history
+  kind: temporal
+  statement: 'Interface register (2026-08-24): CLX-IF-043 GL Reserve Journal Feed runs daily 03:45.'
+  file: corpus/upload/structured/ST003_interface_register.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Register
+    cell: G47
+  needle: daily 03:45
+  exclusive: false
+  also_in: []
+- fact_id: ST003-F005
+  world_ref: INTERFACE:CLX-IF-035#since
+  kind: temporal
+  statement: 'Interface register (2026-08-24): CLX-IF-035 Portal FNOL to Claims Hub is still ''planned'' (live from 2026-09-14).'
+  file: corpus/upload/structured/ST003_interface_register.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Register
+    cell: N39
+  needle: planned
+  exclusive: false
+  also_in: []
+- fact_id: ST003-F006
+  world_ref: INTERFACE:CLX-IF-058#note
+  kind: general
+  statement: CLX-IF-058 Reserve Triangles Extract feeds the monthly IBNR run of the Reserving team.
+  file: corpus/upload/structured/ST003_interface_register.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Register
+    cell: V62
+  needle: IBNR
+  exclusive: false
+  also_in: []
+- fact_id: ST003-F007
+  world_ref: INTERFACE:CLX-IF-051#feeds_reports
+  kind: general
+  statement: CLX-IF-051 Technical Provisions Feed feeds report NISA-TP2.
+  file: corpus/upload/structured/ST003_interface_register.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Register
+    cell: T55
+  needle: NISA-TP2
+  exclusive: false
+  also_in: []
+- fact_id: ST004-F001
+  world_ref: PROFILE:fx_to_gbp_quarter_end#2026-09-30
+  kind: hidden_sheet
+  statement: 'Hidden sheet ''calc'' of the Q3 2026 reserve movements workbook: revaluation rate at 2026-09-30 NOK/GBP 0.0731.'
+  file: corpus/upload/structured/ST004_reserve_movements_q3_2026.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: calc
+    cell: B2
+    hidden: true
+  needle: '0.0731'
+  exclusive: false
+  also_in:
+  - ST022-F002
+  placement: PL-158
+  placement_key: st4_calc
+- fact_id: ST004-F002
+  world_ref: PROFILE:fx_to_gbp_quarter_end#2026-09-30
+  kind: hidden_sheet
+  statement: 'Hidden sheet ''calc'' of the Q3 2026 reserve movements workbook: revaluation rate at 2026-09-30 SEK/GBP 0.0712.'
+  file: corpus/upload/structured/ST004_reserve_movements_q3_2026.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: calc
+    cell: B3
+    hidden: true
+  needle: '0.0712'
+  exclusive: false
+  also_in:
+  - ST022-F003
+  notes: part of PL-158
+- fact_id: ST004-F003
+  world_ref: PROFILE:fx_to_gbp_quarter_end#2026-09-30
+  kind: hidden_sheet
+  statement: 'Hidden sheet ''calc'' of the Q3 2026 reserve movements workbook: revaluation rate at 2026-09-30 DKK/GBP 0.1158.'
+  file: corpus/upload/structured/ST004_reserve_movements_q3_2026.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: calc
+    cell: B4
+    hidden: true
+  needle: '0.1158'
+  exclusive: false
+  also_in:
+  - ST022-F004
+  notes: part of PL-158
+- fact_id: ST004-F004
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: general
+  statement: 'Q3 2026: 111 NOK movements of type ST on Nordic Tier-2/3 claims.'
+  file: corpus/upload/structured/ST004_reserve_movements_q3_2026.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Summary
+    cell: C10
+  needle: '111'
+  exclusive: false
+  also_in: []
+- fact_id: ST004-F005
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: general
+  statement: Q3 2026 NOK ST movements total GBP -715,539.82 at the 30-Sep revaluation rate.
+  file: corpus/upload/structured/ST004_reserve_movements_q3_2026.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Summary
+    cell: E10
+  needle: '-715539.82'
+  exclusive: false
+  also_in: []
+- fact_id: ST005-F001
+  world_ref: RULE:BR-FRD-031@v2#approved_by
+  kind: needle
+  statement: 'Rule catalogue: BR-FRD-031 v2 approved 2026-09-17 by Niall Brannigan and Ingrid Ashby.'
+  file: corpus/upload/structured/ST005_business_rule_catalogue.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Versions
+    cell: H79
+  needle: Niall Brannigan, Ingrid Ashby
+  exclusive: false
+  also_in: []
+  placement: PL-159
+  placement_key: st5_frd031
+- fact_id: ST005-F002
+  world_ref: RULE:BR-FRD-031@v2#approved_on
+  kind: needle
+  statement: BR-FRD-031 v2 was approved on 2026-09-17.
+  file: corpus/upload/structured/ST005_business_rule_catalogue.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Versions
+    cell: I79
+  needle: '2026-09-17'
+  exclusive: false
+  also_in: []
+  notes: part of PL-159
+- fact_id: ST005-F003
+  world_ref: RULE:BR-FRD-031@v2#parameters.tier3_threshold
+  kind: general
+  statement: 'BR-FRD-031 v2 parameters: threshold=65; tier3_threshold=60.'
+  file: corpus/upload/structured/ST005_business_rule_catalogue.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Versions
+    cell: G79
+  needle: tier3_threshold=60
+  exclusive: false
+  also_in: []
+- fact_id: ST005-F004
+  world_ref: RULE:BR-FRD-031@v2#effective_from
+  kind: general
+  statement: BR-FRD-031 v2 is effective from 2026-10-01.
+  file: corpus/upload/structured/ST005_business_rule_catalogue.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Versions
+    cell: D79
+  needle: '2026-10-01'
+  exclusive: false
+  also_in: []
+- fact_id: ST005-F005
+  world_ref: RULE:BR-FRD-032@v1#status
+  kind: draft
+  statement: BR-FRD-032 v1 (customer notice within 5 business days) is a draft that never took effect.
+  file: corpus/upload/structured/ST005_business_rule_catalogue.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Versions
+    cell: C80
+  needle: draft
+  exclusive: false
+  also_in: []
+- fact_id: ST005-F006
+  world_ref: RULE:BR-FRD-032@v2#parameters.notice_business_days
+  kind: approved
+  statement: 'BR-FRD-032 v2 (approved): customer notice within 10 business days of a fraud referral.'
+  file: corpus/upload/structured/ST005_business_rule_catalogue.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Versions
+    cell: G81
+  needle: notice_business_days=10
+  exclusive: false
+  also_in: []
+- fact_id: ST005-F007
+  world_ref: RULE:BR-RSV-007@v3#parameters.review_days
+  kind: general
+  statement: 'BR-RSV-007 v3: Tier-3 reserves reviewed at least every 14 days, effective 2026-07-01.'
+  file: corpus/upload/structured/ST005_business_rule_catalogue.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Versions
+    cell: G132
+  needle: review_days=14
+  exclusive: false
+  also_in: []
+- fact_id: ST005-F008
+  world_ref: RULE:BR-RSV-007@v2#effective_to
+  kind: temporal
+  statement: BR-RSV-007 v2 (21-day cadence) applied until 2026-06-30.
+  file: corpus/upload/structured/ST005_business_rule_catalogue.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Versions
+    cell: E131
+  needle: '2026-06-30'
+  exclusive: false
+  also_in: []
+- fact_id: ST005-F009
+  world_ref: RULE:BR-RSV-009@v3
+  kind: general
+  statement: The rule catalogue does not reproduce BR-RSV-009 v3's text or rate; it points to the source document.
+  file: corpus/upload/structured/ST005_business_rule_catalogue.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Versions
+    cell: F136
+  needle: Restricted - see source document
+  exclusive: false
+  also_in: []
+  notes: exclusive parameter withheld (PL-011 lives elsewhere)
+- fact_id: ST005-F010
+  world_ref: RULE:BR-FRD-019@v2#status
+  kind: general
+  statement: BR-FRD-019 v2 (automatic decline at score 90) is withdrawn.
+  file: corpus/upload/structured/ST005_business_rule_catalogue.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Versions
+    cell: C77
+  needle: withdrawn
+  exclusive: false
+  also_in: []
+- fact_id: ST005-F011
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier3_min_gbp
+  kind: general
+  statement: 'BR-TRI-003 v3: Tier-3 at estimated incurred of £50,000 or more from 2025-01-01.'
+  file: corpus/upload/structured/ST005_business_rule_catalogue.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Versions
+    cell: G182
+  needle: tier3_min_gbp=50000
+  exclusive: false
+  also_in: []
+- fact_id: ST006-F001
+  world_ref: PROGRAM:CLRFR140#status
+  kind: needle
+  statement: 'Program inventory: CLRFR140 status ''disabled''.'
+  file: corpus/upload/structured/ST006_clara_program_inventory.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Programs
+    cell: G58
+  needle: disabled
+  exclusive: false
+  also_in: []
+  placement: PL-160
+  placement_key: st6_disabled
+- fact_id: ST006-F002
+  world_ref: PROGRAM:CLRFR020#renamed_from
+  kind: general
+  statement: 'Program inventory: CLRFR020 was formerly FNETCAL1 (renamed 2025-03-01).'
+  file: corpus/upload/structured/ST006_clara_program_inventory.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Programs
+    cell: B46
+  needle: FNETCAL1
+  exclusive: false
+  also_in: []
+- fact_id: ST006-F003
+  world_ref: PROGRAM:CLRRS210#status
+  kind: temporal
+  statement: 'Program inventory (2026-08-20): CLRRS210 (parallel-run reconciliation) is still active; it was retired after
+    the parallel run ended on 2026-08-28.'
+  file: corpus/upload/structured/ST006_clara_program_inventory.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Programs
+    cell: G102
+  needle: active
+  exclusive: false
+  also_in: []
+- fact_id: ST006-F004
+  world_ref: PROGRAM:CLRRS110#replaced_by
+  kind: general
+  statement: CLRRS110 is replaced by the Claims Hub service reserve-engine.
+  file: corpus/upload/structured/ST006_clara_program_inventory.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Programs
+    cell: S92
+  needle: reserve-engine
+  exclusive: false
+  also_in: []
+- fact_id: ST006-F005
+  world_ref: PROGRAM:CLRGL090#renamed_from
+  kind: general
+  statement: CLRGL090 (year-end reserve currency revaluation) was formerly YEREVAL1, renamed 2021-01-01.
+  file: corpus/upload/structured/ST006_clara_program_inventory.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Programs
+    cell: B66
+  needle: YEREVAL1
+  exclusive: false
+  also_in: []
+- fact_id: ST006-F006
+  world_ref: PROGRAM:CLRFN010#loc
+  kind: general
+  statement: CLRFN010 (FNOL capture) has 633 lines of code.
+  file: corpus/upload/structured/ST006_clara_program_inventory.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Programs
+    cell: L31
+  needle: '633'
+  exclusive: false
+  also_in: []
+- fact_id: ST007-F001
+  world_ref: TABLE:reserve.reserve#columns.outstanding_amount
+  kind: needle
+  statement: 'Mapping: CLR.T_RESERVE.RSV_OUTSTANDING_AMT -> reserve.reserve.outstanding_amount (Direct).'
+  file: corpus/upload/structured/ST007_data_migration_mapping.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Column Mapping
+    cell: F46
+  needle: outstanding_amount
+  exclusive: false
+  also_in: []
+- fact_id: ST007-F002
+  world_ref: TABLE:fraud.referral#columns.sentinel_score
+  kind: needle
+  statement: 'Mapping: CLR.T_FRAUD_REFERRAL.REF_SCORE -> fraud.referral.sentinel_score (Direct).'
+  file: corpus/upload/structured/ST007_data_migration_mapping.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Column Mapping
+    cell: F74
+  needle: sentinel_score
+  exclusive: false
+  also_in: []
+- fact_id: ST007-F003
+  world_ref: SERVICE:reserve-engine#renames
+  kind: temporal
+  statement: In the 2025-06-16 mapping workbook the reserve tables are owned by reserve-svc (renamed reserve-engine on 2026-02-10).
+  file: corpus/upload/structured/ST007_data_migration_mapping.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Column Mapping
+    cell: J46
+  needle: reserve-svc
+  exclusive: false
+  also_in: []
+- fact_id: ST007-F004
+  world_ref: TABLE:reserve.reserve_movement#columns.amount_minor
+  kind: general
+  statement: 'Mapping: CLR.T_RESERVE_MOVEMENT.MOVE_AMT -> reserve.reserve_movement.amount_minor, multiplied by 100 to minor
+    units.'
+  file: corpus/upload/structured/ST007_data_migration_mapping.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Column Mapping
+    cell: I64
+  needle: minor units
+  exclusive: false
+  also_in: []
+- fact_id: ST007-F005
+  world_ref: TABLE:claim_core.claim#columns.legacy_claim_id
+  kind: general
+  statement: 'Mapping: CLR.T_CLAIM.CLAIM_ID is reformatted to CLM-<region>-<yyyy>-<6 digits>; the original goes to legacy_claim_id.'
+  file: corpus/upload/structured/ST007_data_migration_mapping.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Column Mapping
+    cell: I5
+  needle: CLM-<region>-<yyyy>-<6 digits>
+  exclusive: false
+  also_in: []
+- fact_id: ST008-F001
+  world_ref: WAVE:MW-1
+  kind: general
+  statement: 'Wave 1 regression cycle (REG): 261 executions, 249 passed.'
+  file: corpus/upload/structured/ST008_wave1_test_results.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Summary
+    cell: B7
+  needle: '261'
+  exclusive: false
+  also_in: []
+- fact_id: ST008-F002
+  world_ref: WAVE:MW-1
+  kind: temporal
+  statement: 'Wave 1 test report (2026-09-10): open defects Sev1 0, Sev2 2, Sev3 8, Sev4 4.'
+  file: corpus/upload/structured/ST008_wave1_test_results.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Document Control
+    cell: B11
+  needle: Sev1 0
+  exclusive: false
+  also_in: []
+  notes: snapshot at 2026-09-10; the 2026-10-05 figures live elsewhere
+- fact_id: ST009-F001
+  world_ref: VENDOR:VEN-01#fees.site_visit_gbp
+  kind: needle
+  statement: 'Vendor fee schedule 2026: Brackenfield site visit and report GBP 420 per instruction.'
+  file: corpus/upload/structured/ST009_vendor_fee_schedule_2026.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Fee Schedule
+    cell: F6
+  needle: '420'
+  exclusive: false
+  also_in: []
+- fact_id: ST009-F002
+  world_ref: VENDOR:VEN-01#fees.desk_assessment_gbp
+  kind: general
+  statement: 'Vendor fee schedule 2026: Brackenfield desk assessment GBP 185.'
+  file: corpus/upload/structured/ST009_vendor_fee_schedule_2026.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Fee Schedule
+    cell: F5
+  needle: '185'
+  exclusive: false
+  also_in: []
+- fact_id: ST009-F003
+  world_ref: VENDOR:VEN-03#fees
+  kind: temporal
+  statement: 'Vendor fee schedule 2026 (issued 2026-01-12): Fellgate major loss handling GBP 165 per hour.'
+  file: corpus/upload/structured/ST009_vendor_fee_schedule_2026.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Fee Schedule
+    cell: F14
+  needle: '165'
+  exclusive: false
+  also_in: []
+- fact_id: ST009-F004
+  world_ref: VENDOR:VEN-07#fees.success_fee_pct
+  kind: general
+  statement: 'Quarryhill Solicitors success fee on recoveries: 12%.'
+  file: corpus/upload/structured/ST009_vendor_fee_schedule_2026.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Fee Schedule
+    cell: F29
+  needle: '12'
+  exclusive: false
+  also_in: []
+- fact_id: ST009-F005
+  world_ref: VENDOR:VEN-10#fees.surveillance_day_gbp
+  kind: general
+  statement: 'Greyfold Investigations surveillance: GBP 640 per day.'
+  file: corpus/upload/structured/ST009_vendor_fee_schedule_2026.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Fee Schedule
+    cell: F42
+  needle: '640'
+  exclusive: false
+  also_in: []
+- fact_id: ST009-F006
+  world_ref: VENDOR:VEN-09#fees.collection_gbp
+  kind: general
+  statement: Salvanta vehicle collection fee GBP 60 per vehicle.
+  file: corpus/upload/structured/ST009_vendor_fee_schedule_2026.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Fee Schedule
+    cell: F37
+  needle: '60'
+  exclusive: false
+  also_in: []
+- fact_id: ST010-F001
+  world_ref: TIMELINE:metrics#fnol_channel_mix_pct.2026YTD
+  kind: chart_only
+  statement: 'Native chart cache: FNOL channel mix 2026 YTD - telephone 50%, digital 41%, broker 9%.'
+  file: corpus/upload/structured/ST010_claims_kpi_workbook.xlsx
+  locator:
+    kind: xlsx_chart
+    sheet: Channels
+    chart_index: 0
+  needle: Telephone=50
+  exclusive: true
+  also_in: []
+  placement: PL-161
+  placement_key: st10_chart
+- fact_id: ST010-F002
+  world_ref: TIMELINE:metrics#fnol_channel_mix_pct.2026YTD
+  kind: chart_only
+  statement: 'FNOL channel mix 2026 YTD: digital 41%.'
+  file: corpus/upload/structured/ST010_claims_kpi_workbook.xlsx
+  locator:
+    kind: xlsx_chart
+    sheet: Channels
+    chart_index: 0
+  needle: Digital=41
+  exclusive: true
+  also_in: []
+  notes: part of PL-161
+- fact_id: ST010-F003
+  world_ref: TIMELINE:metrics#fnol_channel_mix_pct.2026YTD
+  kind: chart_only
+  statement: 'FNOL channel mix 2026 YTD: broker 9%.'
+  file: corpus/upload/structured/ST010_claims_kpi_workbook.xlsx
+  locator:
+    kind: xlsx_chart
+    sheet: Channels
+    chart_index: 0
+  needle: Broker=9
+  exclusive: true
+  also_in: []
+  notes: part of PL-161
+- fact_id: ST010-F004
+  world_ref: TIMELINE:metrics#fraud_referrals_count
+  kind: chart_only
+  statement: 'Fraud referrals chart: 1,488 in 2026 Q2 and 1,530 in 2026 Q3 (values only in the chart).'
+  file: corpus/upload/structured/ST010_claims_kpi_workbook.xlsx
+  locator:
+    kind: xlsx_chart
+    sheet: Fraud
+    chart_index: 0
+  needle: 2026 Q3=1530
+  exclusive: false
+  also_in: []
+- fact_id: ST010-F005
+  world_ref: TIMELINE:metrics#claims_notified.2026Q3
+  kind: general
+  statement: 'Claims notified chart: 55,180 claims notified in 2026 Q3.'
+  file: corpus/upload/structured/ST010_claims_kpi_workbook.xlsx
+  locator:
+    kind: xlsx_chart
+    sheet: Volumes
+    chart_index: 0
+  needle: 2026 Q3=55180
+  exclusive: false
+  also_in: []
+- fact_id: ST010-F006
+  world_ref: TIMELINE:metrics#claims_notified.2026Q3
+  kind: general
+  statement: 'Claims notified in 2026 Q3: 55,180.'
+  file: corpus/upload/structured/ST010_claims_kpi_workbook.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Volumes
+    cell: B6
+  needle: '55180'
+  exclusive: false
+  also_in: []
+- fact_id: ST010-F007
+  world_ref: PROFILE:rows
+  kind: general
+  statement: In the analytical claims sample the busiest notification month to 2026-09 is 2026-01 with 560 claims.
+  file: corpus/upload/structured/ST010_claims_kpi_workbook.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Sample Trends
+    cell: F29
+  needle: '560'
+  exclusive: false
+  also_in: []
+- fact_id: ST010-F008
+  world_ref: ORG:company#financials.fy2025.avg_settlement_days_motor
+  kind: general
+  statement: 'FY2025 average settlement days for motor: 34.'
+  file: corpus/upload/structured/ST010_claims_kpi_workbook.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: FY2025
+    cell: B12
+  needle: '34'
+  exclusive: false
+  also_in: []
+- fact_id: ST010-F009
+  world_ref: ORG:company#financials.fy2025.fraud_referrals
+  kind: general
+  statement: 'FY2025 fraud referrals: 4,812.'
+  file: corpus/upload/structured/ST010_claims_kpi_workbook.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: FY2025
+    cell: B9
+  needle: '4812'
+  exclusive: false
+  also_in: []
+- fact_id: ST011-F001
+  world_ref: SYSTEM:SYS01#batch_window
+  kind: needle
+  statement: 'Mainframe capacity plan: the CLARA batch window is 23:30–05:30 UK time.'
+  file: corpus/upload/structured/ST011_mainframe_capacity_plan.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Assumptions
+    cell: B4
+  needle: 23:30–05:30 UK time
+  exclusive: false
+  also_in: []
+- fact_id: ST011-F002
+  world_ref: SYSTEM:SYS01#decommission_target
+  kind: general
+  statement: 'CLARA decommission target: 2027-09-30.'
+  file: corpus/upload/structured/ST011_mainframe_capacity_plan.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Assumptions
+    cell: B9
+  needle: '2027-09-30'
+  exclusive: false
+  also_in: []
+- fact_id: ST011-F003
+  world_ref: JCL:CLRNFR99#schedule
+  kind: temporal
+  statement: 'Capacity plan (2026-04-06): job CLRNFR99 (auto-decline sweep) was removed from the schedule on 2026-04-01.'
+  file: corpus/upload/structured/ST011_mainframe_capacity_plan.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Batch Window
+    cell: C16
+  needle: removed from schedule 2026-04-01
+  exclusive: false
+  also_in: []
+- fact_id: ST011-F004
+  world_ref: JCL:CLRDRSV9#status
+  kind: temporal
+  statement: 'Capacity plan (2026-04-06): CLRDRSV9 reserve parallel-run reconciliation is active (daily 05:00 during the parallel
+    run).'
+  file: corpus/upload/structured/ST011_mainframe_capacity_plan.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Batch Window
+    cell: E5
+  needle: active
+  exclusive: false
+  also_in: []
+- fact_id: ST011-F005
+  world_ref: JCL:CLRYGL90#schedule
+  kind: general
+  statement: CLRYGL90 year-end reserve currency revaluation runs annually on 31 Dec at 23:30 (and on Reserving request).
+  file: corpus/upload/structured/ST011_mainframe_capacity_plan.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Batch Window
+    cell: C34
+  needle: annually 31 Dec 23:30
+  exclusive: false
+  also_in: []
+- fact_id: ST012-F001
+  world_ref: PERSON:P005#email_history
+  kind: needle
+  statement: 'Contact directory (2026-11-02): the Claims Director is Ingrid Ashby, email ingrid.ashby@corvane-mutual.example.'
+  file: corpus/upload/structured/ST012_programme_contact_directory.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Directory
+    cell: F7
+  needle: ingrid.ashby@corvane-mutual.example
+  exclusive: false
+  also_in: []
+- fact_id: ST012-F002
+  world_ref: PERSON:P013#titles
+  kind: general
+  statement: Freya Lindahl is Head of Recoveries & Subrogation.
+  file: corpus/upload/structured/ST012_programme_contact_directory.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Directory
+    cell: B25
+  needle: Head of Recoveries & Subrogation
+  exclusive: false
+  also_in: []
+- fact_id: ST012-F003
+  world_ref: PERSON:P008#reports_to
+  kind: general
+  statement: Niall Brannigan (Head of Counter-Fraud & SIU) reports to Karin Holmberg.
+  file: corpus/upload/structured/ST012_programme_contact_directory.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Directory
+    cell: H11
+  needle: Karin Holmberg
+  exclusive: false
+  also_in: []
+- fact_id: ST012-F004
+  world_ref: PERSON:P022#location
+  kind: general
+  statement: The Corvane Callum Fairbairn is Motor Claims Team Leader at the Leeds Claims Centre.
+  file: corpus/upload/structured/ST012_programme_contact_directory.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Directory
+    cell: E16
+  needle: Leeds Claims Centre
+  exclusive: false
+  also_in: []
+- fact_id: ST012-F005
+  world_ref: TEAM:T30#lead_history
+  kind: temporal
+  statement: 'Contact directory (2026-11-02): Hub Squad - Recoveries & Documents is led by Tariq Hussain.'
+  file: corpus/upload/structured/ST012_programme_contact_directory.xlsx
+  locator:
+    kind: xlsx_cell
+    sheet: Teams
+    cell: D32
+  needle: Tariq Hussain
+  exclusive: false
+  also_in: []
+- fact_id: ST013-F001
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The synthetic claims extract 2024-2026 contains exactly 15,000 claim rows.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'claim_id: CLM-DK-2024-100039'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter: {}
+    op: count
+    value: 15000
+  notes: row count of ST013
+- fact_id: ST013-F002
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The claims extract holds 10 Tier-3 Escape of Water (CT-EOW) claims on Home Buildings & Contents UK (PRD-HOM-UK).
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 1203
+  needle: 'product_code: PRD-HOM-UK'
+  exclusive: false
+  also_in: []
+  placement: PL-162
+  placement_key: st13_agg_tier
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      product_code: PRD-HOM-UK
+      claim_type: CT-EOW
+      tier: '3'
+    op: count
+    value: 10
+- fact_id: ST013-F003
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The claims extract has 521 Escape of Water (CT-EOW) claims in region UK with a loss date in 2025.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 5001
+  needle: 'claim_type: CT-EOW'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      claim_type: CT-EOW
+      region: UK
+      loss_date:
+        prefix: '2025'
+    op: count
+    value: 521
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F004
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The claims extract has 883 Collision (CT-COL) claims in region UK with a loss date in 2024.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 5
+  needle: 'claim_type: CT-COL'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      claim_type: CT-COL
+      region: UK
+      loss_date:
+        prefix: '2024'
+    op: count
+    value: 883
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F005
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The claims extract has 9 Frost Damage (CT-FRO) claims in region NO with a loss date in 2026.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 10440
+  needle: 'claim_type: CT-FRO'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      claim_type: CT-FRO
+      region: 'NO'
+      loss_date:
+        prefix: '2026'
+    op: count
+    value: 9
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F006
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The claims extract has 43 Storm (CT-STM) claims in region SE with a loss date in 2025.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 5192
+  needle: 'claim_type: CT-STM'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      claim_type: CT-STM
+      region: SE
+      loss_date:
+        prefix: '2025'
+    op: count
+    value: 43
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F007
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The claims extract has 39 Theft (CT-THF) claims in region DK with a loss date in 2025.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 5345
+  needle: 'claim_type: CT-THF'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      claim_type: CT-THF
+      region: DK
+      loss_date:
+        prefix: '2025'
+    op: count
+    value: 39
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F008
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The claims extract has 10 Snow Load (CT-SNO) claims in region NO with a loss date in 2024.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 97
+  needle: 'claim_type: CT-SNO'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      claim_type: CT-SNO
+      region: 'NO'
+      loss_date:
+        prefix: '2024'
+    op: count
+    value: 10
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F009
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The claims extract has 144 Bodily Injury (CT-BIJ) claims in region UK with a loss date in 2026.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 10259
+  needle: 'claim_type: CT-BIJ'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      claim_type: CT-BIJ
+      region: UK
+      loss_date:
+        prefix: '2026'
+    op: count
+    value: 144
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F010
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The claims extract has 56 Windscreen (CT-WSC) claims in region SE with a loss date in 2026.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 10346
+  needle: 'claim_type: CT-WSC'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      claim_type: CT-WSC
+      region: SE
+      loss_date:
+        prefix: '2026'
+    op: count
+    value: 56
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F011
+  world_ref: CLAIMTYPE:CT-SUB#uk_only
+  kind: aggregate_source
+  statement: There are 0 Subsidence (CT-SUB) claims in Denmark in the claims extract (Subsidence is a UK-only claim type).
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'region: DK'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      claim_type: CT-SUB
+      region: DK
+    op: count
+    value: 0
+  notes: negation
+- fact_id: ST013-F012
+  world_ref: CLAIMTYPE:CT-FRO#nordic_only
+  kind: aggregate_source
+  statement: There are 0 Frost Damage or Snow Load claims in the UK in the claims extract (both are Nordic-only claim types).
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 2
+  needle: 'region: UK'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      claim_type:
+        in:
+        - CT-FRO
+        - CT-SNO
+      region: UK
+    op: count
+    value: 0
+  notes: negation
+- fact_id: ST013-F013
+  world_ref: CLAIMTYPE:CT-BIN#uk_only
+  kind: aggregate_source
+  statement: There are 0 Business Interruption (CT-BIN) claims in the Nordic regions in the claims extract.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 8
+  needle: 'region: NO'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      claim_type: CT-BIN
+      region:
+        in:
+        - 'NO'
+        - SE
+        - DK
+    op: count
+    value: 0
+  notes: negation
+- fact_id: ST013-F014
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: Sum of reserve_outstanding for PRD-MOT-UK in the claims extract is GBP 4,812,850.51.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 2
+  needle: 'product_code: PRD-MOT-UK'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      product_code: PRD-MOT-UK
+    op: sum
+    value: 4812850.51
+    column: reserve_outstanding
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F015
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: Sum of reserve_outstanding for PRD-HOM-NO in the claims extract is NOK 17,307,516.80.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 8
+  needle: 'product_code: PRD-HOM-NO'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      product_code: PRD-HOM-NO
+    op: sum
+    value: 17307516.8
+    column: reserve_outstanding
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F016
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: Sum of reserve_outstanding for PRD-HOM-SE in the claims extract is SEK 14,597,955.37.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 10
+  needle: 'product_code: PRD-HOM-SE'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      product_code: PRD-HOM-SE
+    op: sum
+    value: 14597955.37
+    column: reserve_outstanding
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F017
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: Sum of reserve_outstanding for PRD-LIA-UK in the claims extract is GBP 2,211,469.65.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 69
+  needle: 'product_code: PRD-LIA-UK'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      product_code: PRD-LIA-UK
+    op: sum
+    value: 2211469.65
+    column: reserve_outstanding
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F018
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: Sum of incurred_gbp for Commercial Property UK (PRD-COM-UK) in the claims extract is GBP 22,904,519.50.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 58
+  needle: 'product_code: PRD-COM-UK'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      product_code: PRD-COM-UK
+    op: sum
+    value: 22904519.5
+    column: incurred_gbp
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F019
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: Sum of incurred_gbp for Nordic claims with 2026 loss dates is GBP 10,543,840.26.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 10266
+  needle: 'region: NO'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      region:
+        in:
+        - 'NO'
+        - SE
+        - DK
+      loss_date:
+        prefix: '2026'
+    op: sum
+    value: 10543840.26
+    column: incurred_gbp
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F020
+  world_ref: RULE:BR-FRD-031
+  kind: aggregate_source
+  statement: 10 Tier-3 claims in the claims extract were referred for fraud (fraud_referred = Y).
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 1247
+  needle: 'tier: 3'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      tier: '3'
+      fraud_referred: Y
+    op: count
+    value: 10
+- fact_id: ST013-F021
+  world_ref: PROFILE:referral_rule_by_date
+  kind: aggregate_source
+  statement: 5 Tier-3 claims notified from 2026-10-01 were referred with Sentinel scores of 60-64 (BR-FRD-031 v2 Tier-3 threshold
+    60).
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 14532
+  needle: 'tier: 3'
+  exclusive: false
+  also_in: []
+  placement: PL-163
+  placement_key: st13_agg_t3_60
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      tier: '3'
+      fraud_referred: Y
+      notified_date:
+        gte: '2026-10-01'
+      sentinel_score:
+        gte: 60
+        lte: 64
+    op: count
+    value: 5
+- fact_id: ST013-F022
+  world_ref: RULE:BR-FRD-031@v2#parameters.tier3_threshold
+  kind: aggregate_source
+  statement: 0 Tier-1/Tier-2 claims scored 60-64 from 2026-10-01 were referred (the 60 threshold applies to Tier-3 only).
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 14559
+  needle: 'tier: 1'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      tier:
+        in:
+        - '1'
+        - '2'
+      notified_date:
+        gte: '2026-10-01'
+      sentinel_score:
+        gte: 60
+        lte: 64
+      fraud_referred: Y
+    op: count
+    value: 0
+  notes: negation
+- fact_id: ST013-F023
+  world_ref: RULE:BR-FRD-012@v2
+  kind: aggregate_source
+  statement: 42 claims in the claims extract were referred under BR-FRD-012 v2.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 695
+  needle: 'referral_rule: BR-FRD-012 v2'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      referral_rule: BR-FRD-012 v2
+    op: count
+    value: 42
+- fact_id: ST013-F024
+  world_ref: RULE:BR-FRD-031@v1
+  kind: aggregate_source
+  statement: 27 claims in the claims extract were referred under BR-FRD-031 v1.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 11991
+  needle: 'referral_rule: BR-FRD-031 v1'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      referral_rule: BR-FRD-031 v1
+    op: count
+    value: 27
+- fact_id: ST013-F025
+  world_ref: RULE:BR-FRD-031@v2
+  kind: aggregate_source
+  statement: 12 claims in the claims extract were referred under BR-FRD-031 v2.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 14532
+  needle: 'referral_rule: BR-FRD-031 v2'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      referral_rule: BR-FRD-031 v2
+    op: count
+    value: 12
+- fact_id: ST013-F026
+  world_ref: VENDOR:VEN-01
+  kind: aggregate_source
+  statement: The vendor with the most Claims Assessor assignments in the claims extract is BRACKFLD (Brackenfield Loss Adjusting)
+    with 3,651 claims.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 3
+  needle: 'assessor_ref: BRACKFLD'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      assessor_type: vendor
+    op: top
+    value:
+    - BRACKFLD
+    - 3651
+    column: assessor_ref
+- fact_id: ST013-F027
+  world_ref: VENDOR:VEN-03#panel_to
+  kind: aggregate_source
+  statement: 0 claims notified on or after 2026-02-01 are assigned to FELLGATE (Fellgate left the panel on 2026-01-31).
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 58
+  needle: 'assessor_ref: FELLGATE'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      assessor_ref: FELLGATE
+      notified_date:
+        gte: '2026-02-01'
+    op: count
+    value: 0
+  notes: negation
+- fact_id: ST013-F028
+  world_ref: VENDOR:VEN-03
+  kind: aggregate_source
+  statement: 130 claims in the claims extract are assigned to Fellgate (FELLGATE), all UK Tier-3 claims notified before 2026-02-01.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 58
+  needle: 'assessor_ref: FELLGATE'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      assessor_ref: FELLGATE
+    op: count
+    value: 130
+- fact_id: ST013-F029
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The month with the most FNOLs (notified_date) in the claims extract is 2026-01 with 560 claims.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'notified_date: 2024-01-01'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter: {}
+    op: top_month
+    value:
+    - 2026-01
+    - 560
+    column: notified_date
+- fact_id: ST013-F030
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: 2,440 claims in the claims extract have status OP (open).
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 33
+  needle: 'status: OP'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      status: OP
+    op: count
+    value: 2440
+- fact_id: ST013-F031
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The claims extract references 235 distinct handler_ref values.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'handler_ref: H-6178'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter: {}
+    op: distinct
+    value: 235
+    column: handler_ref
+- fact_id: ST013-F032
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The largest incurred_gbp in the claims extract is GBP 1,707,798.17.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'incurred_gbp: 4942.86'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter: {}
+    op: max
+    value: 1707798.17
+    column: incurred_gbp
+- fact_id: ST013-F033
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: 0 non-motor claims were notified through the telematics channel (TL) in the claims extract.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 129
+  needle: 'channel: TL'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      channel: TL
+      product_code:
+        in:
+        - PRD-HOM-UK
+        - PRD-COM-UK
+        - PRD-LIA-UK
+        - PRD-HOM-NO
+        - PRD-HOM-SE
+        - PRD-HOM-DK
+    op: count
+    value: 0
+  notes: negation
+- fact_id: ST013-F034
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: 1,283 Motor Private UK claims in the claims extract carry recovery_flag = Y.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 4
+  needle: 'recovery_flag: Y'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      recovery_flag: Y
+      product_code: PRD-MOT-UK
+    op: count
+    value: 1283
+- fact_id: ST013-F035
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: 195 SME Liability UK claims in the claims extract are Tier-3.
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 69
+  needle: 'product_code: PRD-LIA-UK'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+    filter:
+      product_code: PRD-LIA-UK
+      tier: '3'
+    op: count
+    value: 195
+  notes: supports PL-162 (aggregates of the claims extract)
+- fact_id: ST013-F036
+  world_ref: null
+  kind: general
+  statement: The claim with the largest incurred_gbp in the extract is CLM-UK-2024-129568 (CT-FIR, GBP 1,707,798.17).
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 921
+    column: claim_id
+  needle: CLM-UK-2024-129568
+  exclusive: false
+  also_in: []
+- fact_id: ST013-F037
+  world_ref: TABLE:CLR.T_CLAIM#columns.CLAIM_ID
+  kind: general
+  statement: Claim CLM-DK-2024-100039 has CLARA legacy id DK2024100039 (format CLM-<region>-<yyyy>-<6 digits> vs <region><yyyy><6
+    digits>).
+  file: corpus/upload/structured/ST013_claims_extract_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+    column: legacy_claim_id
+  needle: DK2024100039
+  exclusive: false
+  also_in: []
+- fact_id: ST014-F001
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: aggregate_source
+  statement: October 2026 reserve movements of type ST (settlement close) total GBP -1,227,676.68 (movement_amount_gbp).
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 4
+  needle: 'movement_type: ST'
+  exclusive: false
+  also_in: []
+  placement: PL-164
+  placement_key: st14_agg
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      movement_type: ST
+    op: sum
+    value: -1227676.68
+    column: movement_amount_gbp
+- fact_id: ST014-F002
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: aggregate_source
+  statement: There are 292 October 2026 reserve movements of type ST (settlement close).
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 4
+  needle: 'movement_type: ST'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      movement_type: ST
+    op: count
+    value: 292
+  notes: supports PL-164
+- fact_id: ST014-F003
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: aggregate_source
+  statement: October 2026 reserve movements of type IN (initial) total GBP 3,307,112.21 (movement_amount_gbp).
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 381
+  needle: 'movement_type: IN'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      movement_type: IN
+    op: sum
+    value: 3307112.21
+    column: movement_amount_gbp
+  notes: supports PL-164
+- fact_id: ST014-F004
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: aggregate_source
+  statement: There are 768 October 2026 reserve movements of type IN (initial).
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 381
+  needle: 'movement_type: IN'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      movement_type: IN
+    op: count
+    value: 768
+  notes: supports PL-164
+- fact_id: ST014-F005
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: aggregate_source
+  statement: October 2026 reserve movements of type AD (adjustment) total GBP 1,610,272.39 (movement_amount_gbp).
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 377
+  needle: 'movement_type: AD'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      movement_type: AD
+    op: sum
+    value: 1610272.39
+    column: movement_amount_gbp
+  notes: supports PL-164
+- fact_id: ST014-F006
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: aggregate_source
+  statement: There are 6,701 October 2026 reserve movements of type AD (adjustment).
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 377
+  needle: 'movement_type: AD'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      movement_type: AD
+    op: count
+    value: 6701
+  notes: supports PL-164
+- fact_id: ST014-F007
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: aggregate_source
+  statement: October 2026 reserve movements of type IX (indexation) total GBP 21,866.75 (movement_amount_gbp).
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'movement_type: IX'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      movement_type: IX
+    op: sum
+    value: 21866.75
+    column: movement_amount_gbp
+  notes: supports PL-164
+- fact_id: ST014-F008
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: aggregate_source
+  statement: There are 352 October 2026 reserve movements of type IX (indexation).
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'movement_type: IX'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      movement_type: IX
+    op: count
+    value: 352
+  notes: supports PL-164
+- fact_id: ST014-F009
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: aggregate_source
+  statement: October 2026 reserve movements of type RV (review) total GBP 296,625.44 (movement_amount_gbp).
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 7
+  needle: 'movement_type: RV'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      movement_type: RV
+    op: sum
+    value: 296625.44
+    column: movement_amount_gbp
+  notes: supports PL-164
+- fact_id: ST014-F010
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: aggregate_source
+  statement: There are 561 October 2026 reserve movements of type RV (review).
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 7
+  needle: 'movement_type: RV'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      movement_type: RV
+    op: count
+    value: 561
+  notes: supports PL-164
+- fact_id: ST014-F011
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: aggregate_source
+  statement: October 2026 reserve movements of type RC (recovery) total GBP -25,671.87 (movement_amount_gbp).
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 548
+  needle: 'movement_type: RC'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      movement_type: RC
+    op: sum
+    value: -25671.87
+    column: movement_amount_gbp
+  notes: supports PL-164
+- fact_id: ST014-F012
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT
+  kind: aggregate_source
+  statement: There are 17 October 2026 reserve movements of type RC (recovery).
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 548
+  needle: 'movement_type: RC'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      movement_type: RC
+    op: count
+    value: 17
+  notes: supports PL-164
+- fact_id: ST014-F013
+  world_ref: PROGRAM:CLRGL090#writes_tables
+  kind: aggregate_source
+  statement: 0 October 2026 reserve movements were written by CLRGL090 (it updates CLR.T_RESERVE without writing movements).
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 4
+  needle: 'source_system: CLARA'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      program_or_service: CLRGL090
+    op: count
+    value: 0
+  notes: negation
+- fact_id: ST014-F014
+  world_ref: SERVICE:reserve-engine
+  kind: aggregate_source
+  statement: 3,303 October 2026 reserve movements came from Claims Hub (reserve-engine); the rest from CLARA.
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'source_system: Claims Hub'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      source_system: Claims Hub
+    op: count
+    value: 3303
+- fact_id: ST014-F015
+  world_ref: PROGRAM:CLRRS150
+  kind: aggregate_source
+  statement: 24 October 2026 movements were written by the movement correction utility CLRRS150.
+  file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 560
+  needle: 'program_or_service: CLRRS150'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
+    filter:
+      program_or_service: CLRRS150
+    op: count
+    value: 24
+- fact_id: ST015-F001
+  world_ref: RULE:BR-FRD-031
+  kind: aggregate_source
+  statement: The 2026 fraud referral extract has 1,402 referrals with rule applied BR-FRD-012 v2.
+  file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'rule_applied: BR-FRD-012 v2'
+  exclusive: false
+  also_in: []
+  placement: PL-165
+  placement_key: st15_agg
+  aggregate:
+    file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+    filter:
+      rule_applied: BR-FRD-012 v2
+    op: count
+    value: 1402
+- fact_id: ST015-F002
+  world_ref: RULE:BR-FRD-031@v1
+  kind: aggregate_source
+  statement: The 2026 fraud referral extract has 3,018 referrals with rule applied BR-FRD-031 v1.
+  file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+  locator:
+    kind: csv_row
+    row: 1403
+  needle: 'rule_applied: BR-FRD-031 v1'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+    filter:
+      rule_applied: BR-FRD-031 v1
+    op: count
+    value: 3018
+  notes: supports PL-165
+- fact_id: ST015-F003
+  world_ref: RULE:BR-FRD-031@v2
+  kind: aggregate_source
+  statement: The 2026 fraud referral extract has 548 referrals with rule applied BR-FRD-031 v2.
+  file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+  locator:
+    kind: csv_row
+    row: 4421
+  needle: 'rule_applied: BR-FRD-031 v2'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+    filter:
+      rule_applied: BR-FRD-031 v2
+    op: count
+    value: 548
+  notes: supports PL-165
+- fact_id: ST015-F004
+  world_ref: TIMELINE:metrics#fraud_referrals_count.2026Q2
+  kind: aggregate_source
+  statement: The 2026 fraud referral extract has 1,488 referrals dated in Q2 2026 (matches the 2026Q2 referral count).
+  file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+  locator:
+    kind: csv_row
+    row: 1403
+  needle: 'referral_date: 2026-04-01'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+    filter:
+      referral_date:
+        gte: '2026-04-01'
+        lte: '2026-06-30'
+    op: count
+    value: 1488
+- fact_id: ST015-F005
+  world_ref: TIMELINE:metrics#fraud_referrals_count.2026Q3
+  kind: aggregate_source
+  statement: The 2026 fraud referral extract has 1,530 referrals dated in Q3 2026 (matches the 2026Q3 referral count).
+  file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+  locator:
+    kind: csv_row
+    row: 2891
+  needle: 'referral_date: 2026-07-01'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+    filter:
+      referral_date:
+        gte: '2026-07-01'
+        lte: '2026-09-30'
+    op: count
+    value: 1530
+- fact_id: ST015-F006
+  world_ref: INCIDENT:INC-2026-0518#impact
+  kind: aggregate_source
+  statement: '37 manual (MN) referrals dated 2026-05-13 have Sentinel scores 65-69: the claims the CLRFR040 batch path missed
+    (INC-2026-0518).'
+  file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+  locator:
+    kind: csv_row
+    row: 2117
+  needle: 'referral_source: MN'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+    filter:
+      referral_source: MN
+      referral_date: '2026-05-13'
+      rule_applied: BR-FRD-031 v1
+      sentinel_score:
+        gte: 65
+        lte: 69
+    op: count
+    value: 37
+- fact_id: ST015-F007
+  world_ref: INCIDENT:INC-2026-1007#impact
+  kind: aggregate_source
+  statement: 9 Tier-3 Claims Hub referrals scored 60-64 between 2026-10-01 and 2026-10-05 were made manually (INC-2026-1007).
+  file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+  locator:
+    kind: csv_row
+    row: 4511
+  needle: 'referral_source: MN'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+    filter:
+      referral_source: MN
+      system: Claims Hub
+      tier: '3'
+      sentinel_score:
+        gte: 60
+        lte: 64
+      score_date:
+        gte: '2026-10-01'
+        lte: '2026-10-05'
+    op: count
+    value: 9
+- fact_id: ST015-F008
+  world_ref: PROGRAM:CLRFR040#hardcoded_constants
+  kind: aggregate_source
+  statement: '0 batch-sweep (BS) referrals have a Sentinel score below 70: the CLRFR040 sweep still applies a hard-coded 070.'
+  file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'referral_source: BS'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+    filter:
+      referral_source: BS
+      sentinel_score:
+        lt: 70
+    op: count
+    value: 0
+  notes: negation
+- fact_id: ST015-F009
+  world_ref: PROGRAM:CLRFR040#hardcoded_constants
+  kind: aggregate_source
+  statement: 0 batch-sweep (BS) referrals record a threshold_applied other than 70.
+  file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'referral_source: BS'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+    filter:
+      referral_source: BS
+      threshold_applied:
+        ne: '70'
+    op: count
+    value: 0
+  notes: negation
+- fact_id: ST015-F010
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The 2026 fraud referral extract (to 2026-10-31) has 4,968 rows.
+  file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'referral_id: REF-2026-000001'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+    filter: {}
+    op: count
+    value: 4968
+- fact_id: ST015-F011
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: 713 2026 referrals in the extract have outcome CF (confirmed fraud).
+  file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+  locator:
+    kind: csv_row
+    row: 2
+  needle: 'outcome: CF'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST015_fraud_referrals_2026.csv
+    filter:
+      outcome: CF
+    op: count
+    value: 713
+- fact_id: ST016-F001
+  world_ref: INCIDENT:INC-2026-0914#impact
+  kind: aggregate_source
+  statement: 18 payments in the September-October 2026 payments extract are RECALLED duplicates from the Wave 1 cut-over (INC-2026-0914).
+  file: corpus/upload/structured/ST016_payments_sep_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 476
+  needle: 'payment_status: RECALLED'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST016_payments_sep_oct_2026.csv
+    filter:
+      payment_status: RECALLED
+    op: count
+    value: 18
+- fact_id: ST016-F002
+  world_ref: INCIDENT:INC-2026-0914#impact
+  kind: aggregate_source
+  statement: The recalled duplicate payments of 2026-09-14 total GBP 41,236.50.
+  file: corpus/upload/structured/ST016_payments_sep_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 476
+  needle: 'payment_status: RECALLED'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST016_payments_sep_oct_2026.csv
+    filter:
+      payment_status: RECALLED
+    op: sum
+    value: 41236.5
+    column: amount
+- fact_id: ST016-F003
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: Confirmed or sent payments dated October 2026 total GBP 2,925,301.06 (amount_gbp at 2026-09-30 rates).
+  file: corpus/upload/structured/ST016_payments_sep_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 1419
+  needle: 'payment_date: 2026-10-01'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST016_payments_sep_oct_2026.csv
+    filter:
+      payment_date:
+        prefix: 2026-10
+      payment_status:
+        in:
+        - CONFIRMED
+        - SENT
+    op: sum
+    value: 2925301.06
+    column: amount_gbp
+- fact_id: ST016-F004
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: 0 payments in the extract are made to Norrvik (NORRVIK).
+  file: corpus/upload/structured/ST016_payments_sep_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 6
+  needle: 'region: SE'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST016_payments_sep_oct_2026.csv
+    filter:
+      payee_ref: NORRVIK
+    op: count
+    value: 0
+  notes: negation; Norrvik fee amounts are deliberately absent from this family
+- fact_id: ST016-F005
+  world_ref: VENDOR:VEN-01#fees
+  kind: aggregate_source
+  statement: The most common Brackenfield fee payment amount in the extract is GBP 420.00 (53 payments).
+  file: corpus/upload/structured/ST016_payments_sep_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 34
+  needle: 'payee_type: vendor_fee'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST016_payments_sep_oct_2026.csv
+    filter:
+      payee_type: vendor_fee
+      payee_ref: BRACKFLD
+    op: top
+    value:
+    - '420.00'
+    - 53
+    column: amount
+- fact_id: ST017-F001
+  world_ref: TABLE:CLR.T_RECOVERY
+  kind: aggregate_source
+  statement: The 2026 recoveries extract has 1,043 subrogation (SB) rows.
+  file: corpus/upload/structured/ST017_recoveries_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'recovery_type: SB'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST017_recoveries_2026.csv
+    filter:
+      recovery_type: SB
+    op: count
+    value: 1043
+- fact_id: ST017-F002
+  world_ref: TABLE:CLR.T_RECOVERY
+  kind: aggregate_source
+  statement: The 2026 recoveries extract has 134 salvage (SV) rows.
+  file: corpus/upload/structured/ST017_recoveries_2026.csv
+  locator:
+    kind: csv_row
+    row: 3
+  needle: 'recovery_type: SV'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST017_recoveries_2026.csv
+    filter:
+      recovery_type: SV
+    op: count
+    value: 134
+- fact_id: ST017-F003
+  world_ref: TABLE:CLR.T_RECOVERY
+  kind: aggregate_source
+  statement: The 2026 recoveries extract has 86 excess recovery (EX) rows.
+  file: corpus/upload/structured/ST017_recoveries_2026.csv
+  locator:
+    kind: csv_row
+    row: 13
+  needle: 'recovery_type: EX'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST017_recoveries_2026.csv
+    filter:
+      recovery_type: EX
+    op: count
+    value: 86
+- fact_id: ST017-F004
+  world_ref: VENDOR:VEN-09#role
+  kind: aggregate_source
+  statement: 0 salvage rows use a counterparty other than SALVANTA (Salvanta Salvage handles UK and Nordic vehicle salvage).
+  file: corpus/upload/structured/ST017_recoveries_2026.csv
+  locator:
+    kind: csv_row
+    row: 3
+  needle: 'recovery_type: SV'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST017_recoveries_2026.csv
+    filter:
+      recovery_type: SV
+      counterparty_ref:
+        ne: SALVANTA
+    op: count
+    value: 0
+  notes: negation
+- fact_id: ST017-F005
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: Closed GBP recoveries in the 2026 extract received GBP 704,428.74 in total.
+  file: corpus/upload/structured/ST017_recoveries_2026.csv
+  locator:
+    kind: csv_row
+    row: 3
+  needle: 'currency: GBP'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST017_recoveries_2026.csv
+    filter:
+      currency: GBP
+      status: CL
+    op: sum
+    value: 704428.74
+    column: received_amount
+- fact_id: ST017-F006
+  world_ref: VENDOR:VEN-07#role
+  kind: aggregate_source
+  statement: 101 recovery cases in the 2026 extract are with Quarryhill Solicitors (QUARRYHL).
+  file: corpus/upload/structured/ST017_recoveries_2026.csv
+  locator:
+    kind: csv_row
+    row: 33
+  needle: 'solicitor_vendor: QUARRYHL'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST017_recoveries_2026.csv
+    filter:
+      solicitor_vendor: QUARRYHL
+    op: count
+    value: 101
+- fact_id: ST018-F001
+  world_ref: VENDOR:VEN-01
+  kind: aggregate_source
+  statement: The vendor with the most Claims Assessor assignments in 2026 is BRACKFLD (Brackenfield Loss Adjusting) with 1,205
+    assignments.
+  file: corpus/upload/structured/ST018_assessor_assignments_2026.csv
+  locator:
+    kind: csv_row
+    row: 3
+  needle: 'vendor_code: BRACKFLD'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST018_assessor_assignments_2026.csv
+    filter:
+      assessor_type: vendor
+    op: top
+    value:
+    - BRACKFLD
+    - 1205
+    column: vendor_code
+- fact_id: ST018-F002
+  world_ref: VENDOR:VEN-03#panel_to
+  kind: aggregate_source
+  statement: 0 Fellgate (FELLGATE) assignments are dated on or after 2026-02-01 (removed from the panel 2026-01-31).
+  file: corpus/upload/structured/ST018_assessor_assignments_2026.csv
+  locator:
+    kind: csv_row
+    row: 87
+  needle: 'vendor_code: FELLGATE'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST018_assessor_assignments_2026.csv
+    filter:
+      vendor_code: FELLGATE
+      appointed_ts:
+        gte: '2026-02-01'
+    op: count
+    value: 0
+  notes: negation
+- fact_id: ST018-F003
+  world_ref: VENDOR:VEN-02#role
+  kind: aggregate_source
+  statement: 0 Norrvik assignments are on UK claims (Norrvik covers the Nordic regions).
+  file: corpus/upload/structured/ST018_assessor_assignments_2026.csv
+  locator:
+    kind: csv_row
+    row: 5
+  needle: 'vendor_code: NORRVIK'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST018_assessor_assignments_2026.csv
+    filter:
+      vendor_code: NORRVIK
+      region: UK
+    op: count
+    value: 0
+  notes: negation
+- fact_id: ST018-F004
+  world_ref: RULE:BR-ASM-003@v2
+  kind: aggregate_source
+  statement: 109 2026 assignments are video assessments (Escape of Water below GBP 7,500, BR-ASM-003 v2).
+  file: corpus/upload/structured/ST018_assessor_assignments_2026.csv
+  locator:
+    kind: csv_row
+    row: 14
+  needle: 'assessment_type: video'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST018_assessor_assignments_2026.csv
+    filter:
+      assessment_type: video
+    op: count
+    value: 109
+- fact_id: ST019-F001
+  world_ref: TABLE:CLR.T_RESERVE#writers
+  kind: contradiction_new
+  statement: 'CRUD matrix: exactly 8 programs have C (insert) or U (update) on CLR.T_RESERVE - CLRFN030, CLRRS010, CLRRS020,
+    CLRRS110, CLRRS130, CLRST040, CLRRC050, CLRGL090.'
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 162
+  needle: 'program_id: CLRGL090'
+  exclusive: false
+  also_in: []
+  placement: PL-166
+  placement_key: st19_writers8
+  contradictions:
+  - C08
+  aggregate:
+    file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+    filter:
+      table_name: CLR.T_RESERVE
+      crud:
+        regex: '[CU]'
+    op: distinct
+    value: 8
+    column: program_id
+- fact_id: ST019-F002
+  world_ref: PROGRAM:CLRFN030#writes_tables:CLR.T_RESERVE
+  kind: needle
+  statement: 'CRUD matrix row: CLRFN030 has ''C'' on CLR.T_RESERVE (a reserve-table writer).'
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 71
+    column: program_id
+  needle: CLRFN030
+  exclusive: false
+  also_in: []
+  notes: supports PL-166
+- fact_id: ST019-F003
+  world_ref: PROGRAM:CLRGL090#writes_tables:CLR.T_RESERVE
+  kind: contradiction_new
+  statement: 'CRUD matrix row: CLRGL090 has ''U'' on CLR.T_RESERVE (a reserve-table writer).'
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 162
+    column: program_id
+  needle: CLRGL090
+  exclusive: false
+  also_in: []
+  notes: supports PL-166; the data dictionary ST001 omits this writer
+  contradictions:
+  - C08
+- fact_id: ST019-F004
+  world_ref: PROGRAM:CLRRC050#writes_tables:CLR.T_RESERVE
+  kind: needle
+  statement: 'CRUD matrix row: CLRRC050 has ''U'' on CLR.T_RESERVE (a reserve-table writer).'
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 173
+    column: program_id
+  needle: CLRRC050
+  exclusive: false
+  also_in: []
+  notes: supports PL-166
+- fact_id: ST019-F005
+  world_ref: PROGRAM:CLRRS010#writes_tables:CLR.T_RESERVE
+  kind: needle
+  statement: 'CRUD matrix row: CLRRS010 has ''CU'' on CLR.T_RESERVE (a reserve-table writer).'
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 220
+    column: program_id
+  needle: CLRRS010
+  exclusive: false
+  also_in: []
+  notes: supports PL-166
+- fact_id: ST019-F006
+  world_ref: PROGRAM:CLRRS020#writes_tables:CLR.T_RESERVE
+  kind: needle
+  statement: 'CRUD matrix row: CLRRS020 has ''U'' on CLR.T_RESERVE (a reserve-table writer).'
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 226
+    column: program_id
+  needle: CLRRS020
+  exclusive: false
+  also_in: []
+  notes: supports PL-166
+- fact_id: ST019-F007
+  world_ref: PROGRAM:CLRRS110#writes_tables:CLR.T_RESERVE
+  kind: needle
+  statement: 'CRUD matrix row: CLRRS110 has ''U'' on CLR.T_RESERVE (a reserve-table writer).'
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 237
+    column: program_id
+  needle: CLRRS110
+  exclusive: false
+  also_in: []
+  notes: supports PL-166
+- fact_id: ST019-F008
+  world_ref: PROGRAM:CLRRS130#writes_tables:CLR.T_RESERVE
+  kind: needle
+  statement: 'CRUD matrix row: CLRRS130 has ''U'' on CLR.T_RESERVE (a reserve-table writer).'
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 243
+    column: program_id
+  needle: CLRRS130
+  exclusive: false
+  also_in: []
+  notes: supports PL-166
+- fact_id: ST019-F009
+  world_ref: PROGRAM:CLRST040#writes_tables:CLR.T_RESERVE
+  kind: needle
+  statement: 'CRUD matrix row: CLRST040 has ''U'' on CLR.T_RESERVE (a reserve-table writer).'
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 277
+    column: program_id
+  needle: CLRST040
+  exclusive: false
+  also_in: []
+  notes: supports PL-166
+- fact_id: ST019-F010
+  world_ref: PROGRAM:CLRRS150#writes_tables
+  kind: needle
+  statement: 'CRUD matrix: CLRRS150 (reserve movement correction utility) writes CLR.T_RESERVE_MOVEMENT (C/U); its only access
+    to CLR.T_RESERVE is a read.'
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 248
+    column: crud
+  needle: CU
+  exclusive: false
+  also_in: []
+  placement: PL-167
+  placement_key: st19_rs150
+  notes: placement text says 'no access to CLR.T_RESERVE'; programs.yaml lists CLR.T_RESERVE in reads_tables, so the matrix
+    shows R only
+- fact_id: ST019-F011
+  world_ref: PROGRAM:CLRRS150#writes_tables
+  kind: aggregate_source
+  statement: 'CRUD matrix: CLRRS150 has 0 write operations (C/U/D) on CLR.T_RESERVE (read only).'
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 247
+  needle: 'program_id: CLRRS150'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+    filter:
+      program_id: CLRRS150
+      table_name: CLR.T_RESERVE
+      crud:
+        regex: '[CUD]'
+    op: count
+    value: 0
+  notes: negation; supports PL-167
+- fact_id: ST019-F012
+  world_ref: TABLE:CLR.T_RESERVE_MOVEMENT#writers
+  kind: aggregate_source
+  statement: 'CRUD matrix: 9 programs write CLR.T_RESERVE_MOVEMENT.'
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 72
+  needle: 'table_name: CLR.T_RESERVE_MOVEMENT'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+    filter:
+      table_name: CLR.T_RESERVE_MOVEMENT
+      crud:
+        regex: '[CU]'
+    op: distinct
+    value: 9
+    column: program_id
+- fact_id: ST019-F013
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The CLARA program-table CRUD matrix has 340 program-table rows.
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'program_id: CLRAS010'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+    filter: {}
+    op: count
+    value: 340
+- fact_id: ST019-F014
+  world_ref: TABLE:CLR.T_CLAIM#readers
+  kind: aggregate_source
+  statement: 'CRUD matrix: 39 programs read CLR.T_CLAIM.'
+  file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+  locator:
+    kind: csv_row
+    row: 10
+  needle: 'table_name: CLR.T_CLAIM'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST019_program_table_crud_matrix.csv
+    filter:
+      table_name: CLR.T_CLAIM
+      crud:
+        regex: R
+    op: distinct
+    value: 39
+    column: program_id
+- fact_id: ST020-F001
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The October 2026 interface run log has 0 rows for CLX-IF-042.
+  file: corpus/upload/structured/ST020_interface_run_log_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 11
+  needle: 'interface_id: CLX-IF-043'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST020_interface_run_log_oct_2026.csv
+    filter:
+      interface_id: CLX-IF-042
+    op: count
+    value: 0
+  notes: 'negation: CLX-IF-042 is not covered by this log'
+- fact_id: ST020-F002
+  world_ref: INCIDENT:INC-2026-0340
+  kind: aggregate_source
+  statement: The October 2026 interface run log has 1 failed (ER) run, on CLX-IF-020 on 2026-10-22 (INC-2026-0340).
+  file: corpus/upload/structured/ST020_interface_run_log_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 1362
+  needle: 'status: ER'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST020_interface_run_log_oct_2026.csv
+    filter:
+      status: ER
+    op: count
+    value: 1
+- fact_id: ST020-F003
+  world_ref: INTERFACE:CLX-IF-043#schedule_history
+  kind: aggregate_source
+  statement: CLX-IF-043 (GL Reserve Journal Feed) ran 31 times in October 2026, scheduled daily 03:45.
+  file: corpus/upload/structured/ST020_interface_run_log_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 11
+  needle: 'interface_id: CLX-IF-043'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST020_interface_run_log_oct_2026.csv
+    filter:
+      interface_id: CLX-IF-043
+    op: count
+    value: 31
+- fact_id: ST020-F004
+  world_ref: INTERFACE:CLX-IF-033#schedule
+  kind: aggregate_source
+  statement: CLX-IF-033 (NISA-FR1 fraud referral return) ran 1 time in October 2026, on the 5th business day after quarter
+    end.
+  file: corpus/upload/structured/ST020_interface_run_log_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 401
+  needle: 'interface_id: CLX-IF-033'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST020_interface_run_log_oct_2026.csv
+    filter:
+      interface_id: CLX-IF-033
+    op: count
+    value: 1
+- fact_id: ST021-F001
+  world_ref: TABLE:CLR.T_GL_POSTING
+  kind: aggregate_source
+  statement: October 2026 GL debit postings for claim payments total GBP 2,925,301.06, equal to the October confirmed/sent
+    payments in ST016.
+  file: corpus/upload/structured/ST021_gl_postings_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'source_type: PAYMENT'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST021_gl_postings_oct_2026.csv
+    filter:
+      source_type: PAYMENT
+      dr_cr: D
+    op: sum
+    value: 2925301.06
+    column: amount_gbp
+- fact_id: ST021-F002
+  world_ref: TABLE:CLR.T_GL_POSTING
+  kind: aggregate_source
+  statement: October 2026 GL credit postings to payments clearing total GBP 2,925,301.06.
+  file: corpus/upload/structured/ST021_gl_postings_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 2
+  needle: 'source_type: PAYMENT'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST021_gl_postings_oct_2026.csv
+    filter:
+      source_type: PAYMENT
+      dr_cr: C
+    op: sum
+    value: 2925301.06
+    column: amount_gbp
+- fact_id: ST021-F003
+  world_ref: INTERFACE:CLX-IF-050
+  kind: aggregate_source
+  statement: 2,456 October 2026 GL posting lines came from Claims Hub gl-posting-svc (CLX-IF-050).
+  file: corpus/upload/structured/ST021_gl_postings_oct_2026.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'source_program_or_service: gl-posting-svc'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST021_gl_postings_oct_2026.csv
+    filter:
+      source_program_or_service: gl-posting-svc
+    op: count
+    value: 2456
+- fact_id: ST022-F001
+  world_ref: TABLE:CLR.T_CURRENCY_RATE#columns.RATE_TYPE_CD
+  kind: general
+  statement: The 2024-12-31 rates are loaded as year-end (YE) rates.
+  file: corpus/upload/structured/ST022_currency_rates_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 10
+    column: rate_type
+  needle: YE
+  exclusive: false
+  also_in: []
+- fact_id: ST022-F002
+  world_ref: PROFILE:fx_to_gbp_quarter_end#2026-09-30
+  kind: needle
+  statement: 'Quarter-end rate at 2026-09-30: NOK/GBP 0.0731.'
+  file: corpus/upload/structured/ST022_currency_rates_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 31
+    column: rate_to_gbp
+  needle: '0.0731'
+  exclusive: false
+  also_in:
+  - ST004-F001
+- fact_id: ST022-F003
+  world_ref: PROFILE:fx_to_gbp_quarter_end#2026-09-30
+  kind: needle
+  statement: 'Quarter-end rate at 2026-09-30: SEK/GBP 0.0712.'
+  file: corpus/upload/structured/ST022_currency_rates_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 32
+    column: rate_to_gbp
+  needle: '0.0712'
+  exclusive: false
+  also_in:
+  - ST004-F002
+- fact_id: ST022-F004
+  world_ref: PROFILE:fx_to_gbp_quarter_end#2026-09-30
+  kind: needle
+  statement: 'Quarter-end rate at 2026-09-30: DKK/GBP 0.1158.'
+  file: corpus/upload/structured/ST022_currency_rates_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 33
+    column: rate_to_gbp
+  needle: '0.1158'
+  exclusive: false
+  also_in:
+  - ST004-F003
+- fact_id: ST022-F005
+  world_ref: PROFILE:fx_to_gbp_quarter_end#2025-06-30
+  kind: general
+  statement: DKK/GBP quarter-end rate at 2025-06-30 is 0.1121.
+  file: corpus/upload/structured/ST022_currency_rates_2024_2026.csv
+  locator:
+    kind: csv_row
+    row: 18
+    column: rate_to_gbp
+  needle: '0.1121'
+  exclusive: false
+  also_in: []
+- fact_id: ST023-F001
+  world_ref: INCIDENT:INC-2025-0233#fix_tickets
+  kind: general
+  statement: INC-2025-0233 (Sentinel scoring failures after the FRAUDNET rename) was fixed under CHUB-119.
+  file: corpus/upload/structured/ST023_incident_log.csv
+  locator:
+    kind: csv_row
+    row: 4
+    column: fix_tickets
+  needle: CHUB-119
+  exclusive: false
+  also_in: []
+- fact_id: ST023-F002
+  world_ref: INCIDENT:INC-2025-0412#severity
+  kind: needle
+  statement: INC-2025-0412 (GL reserve journals rejected after the CLX-IF-042 layout change) was a Sev1 incident.
+  file: corpus/upload/structured/ST023_incident_log.csv
+  locator:
+    kind: csv_row
+    row: 5
+    column: severity
+  needle: Sev1
+  exclusive: false
+  also_in: []
+- fact_id: ST023-F003
+  world_ref: INCIDENT:INC-2025-0412#fix_tickets
+  kind: general
+  statement: INC-2025-0412 was fixed under CHUB-142, CHUB-143 and CHUB-144.
+  file: corpus/upload/structured/ST023_incident_log.csv
+  locator:
+    kind: csv_row
+    row: 5
+    column: fix_tickets
+  needle: CHUB-142
+  exclusive: false
+  also_in: []
+- fact_id: ST023-F004
+  world_ref: INCIDENT:INC-2026-0518#owner
+  kind: general
+  statement: INC-2026-0518 (batch fraud sweep used the pre-2026 threshold) is owned by Niall Brannigan.
+  file: corpus/upload/structured/ST023_incident_log.csv
+  locator:
+    kind: csv_row
+    row: 15
+    column: owner
+  needle: Niall Brannigan
+  exclusive: false
+  also_in: []
+- fact_id: ST023-F005
+  world_ref: INCIDENT:INC-2026-0914#impact
+  kind: needle
+  statement: 'INC-2026-0914: 18 claims were paid twice on the Wave 1 cut-over, total GBP 41,236.50, all recalled by 2026-09-18.'
+  file: corpus/upload/structured/ST023_incident_log.csv
+  locator:
+    kind: csv_row
+    row: 22
+    column: impact
+  needle: 41,236.50
+  exclusive: false
+  also_in: []
+- fact_id: ST023-F006
+  world_ref: INCIDENT:INC-2026-1007#impact
+  kind: needle
+  statement: 'INC-2026-1007: 9 Tier-3 claims scored 60-64 between 2026-10-01 and 2026-10-05 were not referred by Claims Hub
+    and were referred manually.'
+  file: corpus/upload/structured/ST023_incident_log.csv
+  locator:
+    kind: csv_row
+    row: 24
+    column: impact
+  needle: 9 Tier-3 claims scored 60
+  exclusive: false
+  also_in: []
+- fact_id: ST024-F001
+  world_ref: TICKET:CHUB-143
+  kind: general
+  statement: CHUB-143 was resolved on 2025-05-09.
+  file: corpus/upload/structured/ST024_jira_ticket_summary.csv
+  locator:
+    kind: csv_row
+    row: 43
+    column: resolved
+  needle: '2025-05-09'
+  exclusive: false
+  also_in: []
+- fact_id: ST024-F002
+  world_ref: TICKET:CHUB-233
+  kind: needle
+  statement: CHUB-233 (rename reserve-svc to reserve-engine) was resolved on 2026-02-10.
+  file: corpus/upload/structured/ST024_jira_ticket_summary.csv
+  locator:
+    kind: csv_row
+    row: 133
+    column: resolved
+  needle: '2026-02-10'
+  exclusive: false
+  also_in: []
+- fact_id: ST024-F003
+  world_ref: TICKET:CHUB-298#status_history
+  kind: temporal
+  statement: 'Jira summary (2026-11-11): CHUB-298 (CLRFR040 hard-codes 070) is In Review, assigned to Keith Barraclough.'
+  file: corpus/upload/structured/ST024_jira_ticket_summary.csv
+  locator:
+    kind: csv_row
+    row: 198
+    column: status
+  needle: In Review
+  exclusive: false
+  also_in: []
+- fact_id: ST024-F004
+  world_ref: TICKET:CHUB-298#assignee
+  kind: general
+  statement: CHUB-298 is assigned to Keith Barraclough.
+  file: corpus/upload/structured/ST024_jira_ticket_summary.csv
+  locator:
+    kind: csv_row
+    row: 198
+    column: assignee
+  needle: Keith Barraclough
+  exclusive: false
+  also_in: []
+- fact_id: ST024-F005
+  world_ref: TICKET:CHUB-441
+  kind: general
+  statement: 'CHUB-441: Wave 2 cut-over plan v1 (freeze 2027-02-12 18:00 to 2027-02-15 06:00), status To Do.'
+  file: corpus/upload/structured/ST024_jira_ticket_summary.csv
+  locator:
+    kind: csv_row
+    row: 341
+    column: summary
+  needle: Wave 2 cut-over plan
+  exclusive: false
+  also_in: []
+- fact_id: ST024-F006
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The CHUB Jira ticket summary of 2026-11-11 lists 2,000 tickets (CHUB-101 to CHUB-2100).
+  file: corpus/upload/structured/ST024_jira_ticket_summary.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'key: CHUB-101'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST024_jira_ticket_summary.csv
+    filter: {}
+    op: count
+    value: 2000
+- fact_id: ST024-F007
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: 124 tickets in the 2026-11-11 Jira summary are In Review.
+  file: corpus/upload/structured/ST024_jira_ticket_summary.csv
+  locator:
+    kind: csv_row
+    row: 39
+  needle: 'status: In Review'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST024_jira_ticket_summary.csv
+    filter:
+      status: In Review
+    op: count
+    value: 124
+- fact_id: ST025-F001
+  world_ref: PRODUCT:PRD-HOM-UK#excess.escape_of_water
+  kind: needle
+  statement: 'Home Buildings & Contents UK: escape of water excess £400.'
+  file: corpus/upload/structured/ST025_product_peril_matrix.csv
+  locator:
+    kind: csv_row
+    row: 10
+    column: excess_text
+  needle: £400
+  exclusive: false
+  also_in: []
+- fact_id: ST025-F002
+  world_ref: PRODUCT:PRD-HOM-UK#excess.subsidence
+  kind: needle
+  statement: 'Home Buildings & Contents UK: subsidence excess £1,000.'
+  file: corpus/upload/structured/ST025_product_peril_matrix.csv
+  locator:
+    kind: csv_row
+    row: 13
+    column: excess_text
+  needle: £1,000
+  exclusive: false
+  also_in: []
+- fact_id: ST025-F003
+  world_ref: PRODUCT:PRD-COM-UK#bi_indemnity_period_months
+  kind: general
+  statement: 'Commercial Property UK: BI indemnity period 12 months standard (24 optional).'
+  file: corpus/upload/structured/ST025_product_peril_matrix.csv
+  locator:
+    kind: csv_row
+    row: 21
+    column: other_terms
+  needle: 12 months
+  exclusive: false
+  also_in: []
+- fact_id: ST025-F004
+  world_ref: PRODUCT:PRD-MOT-NO#excess.windscreen
+  kind: needle
+  statement: 'Motor Privat Norge: windscreen egenandel NOK 2,000.'
+  file: corpus/upload/structured/ST025_product_peril_matrix.csv
+  locator:
+    kind: csv_row
+    row: 27
+    column: excess_text
+  needle: NOK 2,000
+  exclusive: false
+  also_in: []
+- fact_id: ST025-F005
+  world_ref: PRODUCT:PRD-HOM-SE#excess.standard
+  kind: contradiction_new
+  statement: 'Product-peril matrix 2026: Hem Sverige (PRD-HOM-SE) standard självrisk is SEK 2,000.'
+  file: corpus/upload/structured/ST025_product_peril_matrix.csv
+  locator:
+    kind: csv_row
+    row: 55
+    column: excess_text
+  needle: SEK 2,000
+  exclusive: false
+  also_in: []
+  placement: PL-168
+  placement_key: st25_sek2000
+  contradictions:
+  - C17
+- fact_id: ST025-F006
+  world_ref: PRODUCT:PRD-HOM-DK#excess.standard
+  kind: general
+  statement: Hjem Danmark covers Frost Damage (Frostskade) with selvrisiko DKK 1,500.
+  file: corpus/upload/structured/ST025_product_peril_matrix.csv
+  locator:
+    kind: csv_row
+    row: 71
+    column: local_name
+  needle: Frostskade
+  exclusive: false
+  also_in: []
+- fact_id: ST025-F007
+  world_ref: CLAIMTYPE:CT-SUB#uk_only
+  kind: aggregate_source
+  statement: The product-peril matrix lists 0 Nordic products covering Subsidence (CT-SUB).
+  file: corpus/upload/structured/ST025_product_peril_matrix.csv
+  locator:
+    kind: csv_row
+    row: 13
+  needle: 'claim_type: CT-SUB'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST025_product_peril_matrix.csv
+    filter:
+      claim_type: CT-SUB
+      region:
+        ne: UK
+    op: count
+    value: 0
+  notes: negation
+- fact_id: ST026-F001
+  world_ref: COPYBOOK:RSVMOVE#field_history
+  kind: needle
+  statement: 'Copybook RSVMOVE: RM-REC-VERSION is PIC 9(2), in the RM-HEADER group.'
+  file: corpus/upload/structured/ST026_copybook_fields.csv
+  locator:
+    kind: csv_row
+    row: 439
+    column: pic
+  needle: 9(2)
+  exclusive: false
+  also_in: []
+- fact_id: ST026-F002
+  world_ref: COPYBOOK:RSVMOVE#fields.RM-AMOUNT
+  kind: needle
+  statement: 'Copybook RSVMOVE: RM-AMOUNT is PIC S9(9)V99 COMP-3 (6 bytes).'
+  file: corpus/upload/structured/ST026_copybook_fields.csv
+  locator:
+    kind: csv_row
+    row: 446
+    column: pic
+  needle: S9(9)V99 COMP-3
+  exclusive: false
+  also_in: []
+- fact_id: ST026-F003
+  world_ref: COPYBOOK:RSVREC#table
+  kind: general
+  statement: Copybook RSVREC is the record layout of CLR.T_RESERVE.
+  file: corpus/upload/structured/ST026_copybook_fields.csv
+  locator:
+    kind: csv_row
+    row: 466
+    column: table
+  needle: CLR.T_RESERVE
+  exclusive: false
+  also_in: []
+- fact_id: ST026-F004
+  world_ref: COPYBOOK:RSVMOVE
+  kind: aggregate_source
+  statement: The copybook field list has 566 field rows.
+  file: corpus/upload/structured/ST026_copybook_fields.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'copybook: AUDREC01'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST026_copybook_fields.csv
+    filter: {}
+    op: count
+    value: 566
+- fact_id: ST026-F005
+  world_ref: PROFILE:rows
+  kind: aggregate_source
+  statement: The copybook field list covers 50 copybooks.
+  file: corpus/upload/structured/ST026_copybook_fields.csv
+  locator:
+    kind: csv_row
+    row: 1
+  needle: 'copybook: AUDREC01'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST026_copybook_fields.csv
+    filter: {}
+    op: distinct
+    value: 50
+    column: copybook
+- fact_id: ST026-F006
+  world_ref: COPYBOOK:RSVMOVE#fields
+  kind: aggregate_source
+  statement: Copybook RSVMOVE has 15 elementary fields.
+  file: corpus/upload/structured/ST026_copybook_fields.csv
+  locator:
+    kind: csv_row
+    row: 438
+  needle: 'copybook: RSVMOVE'
+  exclusive: false
+  also_in: []
+  aggregate:
+    file: corpus/upload/structured/ST026_copybook_fields.csv
+    filter:
+      copybook: RSVMOVE
+      pic:
+        ne: ''
+    op: count
+    value: 15

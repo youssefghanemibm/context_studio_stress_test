@@ -1,0 +1,341 @@
+program_id,program_type,program_area,program_status,table_name,table_area,C,R,U,D,crud,evidence
+CLRAS010,online,ASSESS,active,CLR.T_ASSESSMENT,ASSESS,,,Y,,U,EXEC SQL in program source (CICS)
+CLRAS010,online,ASSESS,active,CLR.T_INSPECTION,ASSESS,,Y,,,R,EXEC SQL in program source (CICS)
+CLRAS020,online,ASSESS,active,CLR.T_ASSESSMENT,ASSESS,,Y,,,R,EXEC SQL in program source (CICS)
+CLRAS020,online,ASSESS,active,CLR.T_ASSESSOR_ASSIGNMENT,ASSESS,Y,,Y,,CU,EXEC SQL in program source (CICS)
+CLRAS020,online,ASSESS,active,CLR.T_INSPECTION,ASSESS,,Y,,,R,EXEC SQL in program source (CICS)
+CLRAS020,online,ASSESS,active,CLR.T_VENDOR,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRAS030,batch,ASSESS,active,CLR.T_ESTIMATE,ASSESS,,Y,,,R,EXEC SQL in program source
+CLRAS030,batch,ASSESS,active,CLR.T_INSPECTION,ASSESS,,Y,,,R,EXEC SQL in program source
+CLRAS040,batch,ASSESS,active,CLR.T_ASSESSMENT,ASSESS,Y,,Y,,CU,EXEC SQL in program source
+CLRAS040,batch,ASSESS,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRAS040,batch,ASSESS,active,CLR.T_INSPECTION,ASSESS,,Y,,,R,EXEC SQL in program source
+CLRAS050,online,ASSESS,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRAS050,online,ASSESS,active,CLR.T_ESTIMATE,ASSESS,,Y,,,R,EXEC SQL in program source (CICS)
+CLRAS050,online,ASSESS,active,CLR.T_INSPECTION,ASSESS,,,Y,,U,EXEC SQL in program source (CICS)
+CLRAS050,online,ASSESS,active,CLR.T_VENDOR,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRAS060,online,ASSESS,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRAS060,online,ASSESS,active,CLR.T_ESTIMATE,ASSESS,,,Y,,U,EXEC SQL in program source (CICS)
+CLRAS060,online,ASSESS,active,CLR.T_VENDOR,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRAS070,batch,ASSESS,active,CLR.T_ESTIMATE,ASSESS,,Y,,,R,EXEC SQL in program source
+CLRAS070,batch,ASSESS,active,CLR.T_VENDOR_INVOICE,SETTLE,,,Y,,U,EXEC SQL in program source
+CLRAS080,online,ASSESS,active,CLR.T_ASSESSMENT,ASSESS,,,Y,,U,EXEC SQL in program source (CICS)
+CLRAS080,online,ASSESS,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRAS080,online,ASSESS,active,CLR.T_ESTIMATE,ASSESS,,Y,,,R,EXEC SQL in program source (CICS)
+CLRAS080,online,ASSESS,active,CLR.T_VENDOR,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRAS090,batch,ASSESS,active,CLR.T_INSPECTION,ASSESS,,Y,,,R,EXEC SQL in program source
+CLRAS100,batch,ASSESS,active,CLR.T_ASSESSOR_ASSIGNMENT,ASSESS,,Y,,,R,EXEC SQL in program source
+CLRAS110,online,ASSESS,active,CLR.T_ASSESSMENT,ASSESS,,,Y,,U,EXEC SQL in program source (CICS)
+CLRAS110,online,ASSESS,active,CLR.T_INSPECTION,ASSESS,,Y,,,R,EXEC SQL in program source (CICS)
+CLRAS120,batch,ASSESS,active,CLR.T_ASSESSMENT,ASSESS,,Y,,,R,EXEC SQL in program source
+CLRAS120,batch,ASSESS,active,CLR.T_ASSESSOR_ASSIGNMENT,ASSESS,,Y,,,R,EXEC SQL in program source
+CLRCM010,online,COMMON,active,CLR.T_CODE_LOOKUP,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM010,online,COMMON,active,CLR.T_USER,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM020,online,COMMON,active,CLR.T_AUDIT,COMMON,Y,,,,C,EXEC SQL in program source (CICS)
+CLRCM020,online,COMMON,active,CLR.T_CODE_LOOKUP,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM020,online,COMMON,active,CLR.T_USER,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM030,online,COMMON,active,CLR.T_CURRENCY_RATE,GL,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM040,online,COMMON,active,CLR.T_PARAM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM050,online,COMMON,active,CLR.T_USER,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM060,online,COMMON,active,CLR.T_CODE_LOOKUP,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM070,online,COMMON,active,CLR.T_USER,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM080,online,COMMON,active,CLR.T_CODE_LOOKUP,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM080,online,COMMON,active,CLR.T_NOTE,COMMON,Y,,,,C,EXEC SQL in program source (CICS)
+CLRCM080,online,COMMON,active,CLR.T_USER,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM090,online,COMMON,active,CLR.T_CODE_LOOKUP,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM090,online,COMMON,active,CLR.T_DIARY,COMMON,,,Y,,U,EXEC SQL in program source (CICS)
+CLRCM100,online,COMMON,active,CLR.T_CODE_LOOKUP,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM100,online,COMMON,active,CLR.T_DOCUMENT_REF,COMMON,,,Y,,U,EXEC SQL in program source (CICS)
+CLRCM100,online,COMMON,active,CLR.T_USER,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM110,online,COMMON,active,CLR.T_CODE_LOOKUP,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM120,online,COMMON,active,CLR.T_USER,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRCM130,batch,COMMON,active,CLR.T_CODE_LOOKUP,COMMON,,Y,,,R,EXEC SQL in program source
+CLRCM130,batch,COMMON,active,CLR.T_INTERFACE_LOG,COMMON,Y,,,,C,EXEC SQL in program source
+CLRCM130,batch,COMMON,active,CLR.T_USER,COMMON,,Y,,,R,EXEC SQL in program source
+CLRCM140,batch,COMMON,active,CLR.T_CLAIM,COMMON,,,Y,,U,EXEC SQL in program source
+CLRCM140,batch,COMMON,active,CLR.T_CODE_LOOKUP,COMMON,,Y,,,R,EXEC SQL in program source
+CLRCM140,batch,COMMON,active,CLR.T_DOCUMENT_REF,COMMON,,,Y,Y,UD,EXEC SQL in program source
+CLRCM140,batch,COMMON,active,CLR.T_NOTE,COMMON,Y,,,,C,EXEC SQL in program source
+CLRCM140,batch,COMMON,active,CLR.T_USER,COMMON,,Y,,,R,EXEC SQL in program source
+CLRFN010,online,FNOL,active,CLR.T_CLAIMANT,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN010,online,FNOL,active,CLR.T_FNOL_EVENT,FNOL,Y,,,,C,EXEC SQL in program source (CICS)
+CLRFN010,online,FNOL,active,CLR.T_POLICY_SNAPSHOT,FNOL,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN015,online,FNOL,active,CLR.T_FNOL_EVENT,FNOL,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN020,online,FNOL,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN020,online,FNOL,active,CLR.T_CLAIMANT,COMMON,,,Y,,U,EXEC SQL in program source (CICS)
+CLRFN020,online,FNOL,active,CLR.T_FNOL_EVENT,FNOL,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN020,online,FNOL,active,CLR.T_POLICY_SNAPSHOT,FNOL,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN030,online,FNOL,active,CLR.T_CLAIM,COMMON,Y,,,,C,EXEC SQL in program source (CICS)
+CLRFN030,online,FNOL,active,CLR.T_CODE_LOOKUP,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN030,online,FNOL,active,CLR.T_PARAM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN030,online,FNOL,active,CLR.T_POLICY_SNAPSHOT,FNOL,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN030,online,FNOL,active,CLR.T_RESERVE,RESERVE,Y,,,,C,EXEC SQL in program source (CICS)
+CLRFN030,online,FNOL,active,CLR.T_RESERVE_MOVEMENT,RESERVE,Y,,,,C,EXEC SQL in program source (CICS)
+CLRFN040,batch,FNOL,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRFN040,batch,FNOL,active,CLR.T_CLAIMANT,COMMON,,Y,,,R,EXEC SQL in program source
+CLRFN040,batch,FNOL,active,CLR.T_FNOL_EVENT,FNOL,Y,,,,C,EXEC SQL in program source
+CLRFN040,batch,FNOL,active,CLR.T_POLICY_SNAPSHOT,FNOL,,Y,,,R,EXEC SQL in program source
+CLRFN050,batch,FNOL,active,CLR.T_DOCUMENT_REF,COMMON,Y,,Y,,CU,EXEC SQL in program source
+CLRFN050,batch,FNOL,active,CLR.T_FNOL_EVENT,FNOL,,Y,,,R,EXEC SQL in program source
+CLRFN060,online,FNOL,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN060,online,FNOL,active,CLR.T_FNOL_EVENT,FNOL,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN060,online,FNOL,active,CLR.T_POLICY_SNAPSHOT,FNOL,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN070,batch,FNOL,active,CLR.T_FNOL_EVENT,FNOL,Y,,,,C,EXEC SQL in program source
+CLRFN070,batch,FNOL,active,CLR.T_POLICY_SNAPSHOT,FNOL,,Y,,,R,EXEC SQL in program source
+CLRFN080,batch,FNOL,active,CLR.T_FNOL_EVENT,FNOL,,Y,,,R,EXEC SQL in program source
+CLRFN090,online,FNOL,active,CLR.T_CLAIM,COMMON,,,Y,,U,EXEC SQL in program source (CICS)
+CLRFN090,online,FNOL,active,CLR.T_CLAIMANT,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN090,online,FNOL,active,CLR.T_FNOL_EVENT,FNOL,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN100,batch,FNOL,active,CLR.T_CLAIMANT,COMMON,,Y,,,R,EXEC SQL in program source
+CLRFN100,batch,FNOL,active,CLR.T_FNOL_EVENT,FNOL,,Y,,,R,EXEC SQL in program source
+CLRFN100,batch,FNOL,active,CLR.T_POLICY_SNAPSHOT,FNOL,Y,,Y,,CU,EXEC SQL in program source
+CLRFN110,online,FNOL,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN110,online,FNOL,active,CLR.T_CLAIMANT,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN110,online,FNOL,active,CLR.T_FNOL_EVENT,FNOL,Y,,,,C,EXEC SQL in program source (CICS)
+CLRFN110,online,FNOL,active,CLR.T_POLICY_SNAPSHOT,FNOL,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN120,batch,FNOL,active,CLR.T_CLAIMANT,COMMON,,Y,,,R,EXEC SQL in program source
+CLRFN120,batch,FNOL,active,CLR.T_POLICY_SNAPSHOT,FNOL,,Y,,,R,EXEC SQL in program source
+CLRFN130,online,FNOL,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN130,online,FNOL,active,CLR.T_CLAIMANT,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFN130,online,FNOL,active,CLR.T_FNOL_EVENT,FNOL,Y,,,,C,EXEC SQL in program source (CICS)
+CLRFN130,online,FNOL,active,CLR.T_POLICY_SNAPSHOT,FNOL,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFR010,online,FRAUD,active,CLR.T_CLAIM_LINK,FRAUD,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFR010,online,FRAUD,active,CLR.T_FRAUD_NOTIFICATION,FRAUD,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFR010,online,FRAUD,active,CLR.T_FRAUD_SCORE,FRAUD,,,Y,,U,EXEC SQL in program source (CICS)
+CLRFR020,online,FRAUD,active,CLR.T_CLAIM_LINK,FRAUD,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFR020,online,FRAUD,active,CLR.T_FRAUD_SCORE,FRAUD,Y,,Y,,CU,EXEC SQL in program source (CICS)
+CLRFR030,online,FRAUD,active,CLR.T_CLAIM_TIER,TRIAGE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFR030,online,FRAUD,active,CLR.T_FRAUD_REFERRAL,FRAUD,Y,,Y,,CU,EXEC SQL in program source (CICS)
+CLRFR030,online,FRAUD,active,CLR.T_FRAUD_SCORE,FRAUD,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFR030,online,FRAUD,active,CLR.T_PARAM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFR040,batch,FRAUD,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRFR040,batch,FRAUD,active,CLR.T_FRAUD_REFERRAL,FRAUD,Y,,Y,,CU,EXEC SQL in program source
+CLRFR040,batch,FRAUD,active,CLR.T_FRAUD_SCORE,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRFR050,online,FRAUD,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFR050,online,FRAUD,active,CLR.T_CLAIM_LINK,FRAUD,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFR050,online,FRAUD,active,CLR.T_FRAUD_REFERRAL,FRAUD,,,Y,,U,EXEC SQL in program source (CICS)
+CLRFR050,online,FRAUD,active,CLR.T_FRAUD_SCORE,FRAUD,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFR050,online,FRAUD,active,CLR.T_SIU_CASE,FRAUD,,,Y,,U,EXEC SQL in program source (CICS)
+CLRFR060,batch,FRAUD,active,CLR.T_FRAUD_NOTIFICATION,FRAUD,Y,,,,C,EXEC SQL in program source
+CLRFR060,batch,FRAUD,active,CLR.T_FRAUD_REFERRAL,FRAUD,Y,,Y,,CU,EXEC SQL in program source
+CLRFR060,batch,FRAUD,active,CLR.T_PARAM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRFR070,batch,FRAUD,active,CLR.T_CLAIM_LINK,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRFR070,batch,FRAUD,active,CLR.T_FRAUD_REFERRAL,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRFR070,batch,FRAUD,active,CLR.T_SIU_CASE,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRFR080,batch,FRAUD,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRFR080,batch,FRAUD,active,CLR.T_CLAIM_LINK,FRAUD,,,Y,,U,EXEC SQL in program source
+CLRFR080,batch,FRAUD,active,CLR.T_SIU_CASE,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRFR090,batch,FRAUD,active,CLR.T_CLAIM_LINK,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRFR090,batch,FRAUD,active,CLR.T_NISA_RETURN,REPORT,Y,,,,C,EXEC SQL in program source
+CLRFR100,online,FRAUD,active,CLR.T_FRAUD_NOTIFICATION,FRAUD,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFR100,online,FRAUD,active,CLR.T_FRAUD_REFERRAL,FRAUD,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFR110,batch,FRAUD,active,CLR.T_FRAUD_NOTIFICATION,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRFR110,batch,FRAUD,active,CLR.T_FRAUD_REFERRAL,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRFR110,batch,FRAUD,active,CLR.T_FRAUD_SCORE,FRAUD,Y,,Y,,CU,EXEC SQL in program source
+CLRFR110,batch,FRAUD,active,CLR.T_SIU_CASE,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRFR120,online,FRAUD,active,CLR.T_CLAIM_LINK,FRAUD,,Y,,,R,EXEC SQL in program source (CICS)
+CLRFR120,online,FRAUD,active,CLR.T_FRAUD_NOTIFICATION,FRAUD,Y,,,,C,EXEC SQL in program source (CICS)
+CLRFR130,batch,FRAUD,active,CLR.T_FRAUD_SCORE,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRFR140,batch,FRAUD,disabled,CLR.T_CLAIM,COMMON,,,Y,,U,EXEC SQL in program source
+CLRFR140,batch,FRAUD,disabled,CLR.T_FRAUD_NOTIFICATION,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRGL010,batch,GL,active,CLR.T_GL_PERIOD,GL,,Y,,,R,EXEC SQL in program source
+CLRGL010,batch,GL,active,CLR.T_GL_POSTING,GL,Y,,,,C,EXEC SQL in program source
+CLRGL010,batch,GL,active,CLR.T_PAYMENT,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRGL010,batch,GL,active,CLR.T_RECOVERY,RECOVER,,Y,,,R,EXEC SQL in program source
+CLRGL020,batch,GL,active,CLR.T_CURRENCY_RATE,GL,,Y,,,R,EXEC SQL in program source
+CLRGL020,batch,GL,active,CLR.T_GL_PERIOD,GL,,,Y,,U,EXEC SQL in program source
+CLRGL030,batch,GL,active,CLR.T_CURRENCY_RATE,GL,Y,,Y,,CU,EXEC SQL in program source
+CLRGL030,batch,GL,active,CLR.T_GL_POSTING,GL,,Y,,,R,EXEC SQL in program source
+CLRGL030,batch,GL,active,CLR.T_PAYMENT,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRGL030,batch,GL,active,CLR.T_RECOVERY,RECOVER,,Y,,,R,EXEC SQL in program source
+CLRGL040,batch,GL,active,CLR.T_PAYMENT,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRGL040,batch,GL,active,CLR.T_REINSURANCE_CESSION,GL,Y,,Y,,CU,EXEC SQL in program source
+CLRGL040,batch,GL,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRGL050,batch,GL,active,CLR.T_GL_POSTING,GL,Y,,,,C,EXEC SQL in program source
+CLRGL050,batch,GL,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRGL060,batch,GL,active,CLR.T_CURRENCY_RATE,GL,,Y,,,R,EXEC SQL in program source
+CLRGL070,batch,GL,active,CLR.T_GL_PERIOD,GL,,Y,,,R,EXEC SQL in program source
+CLRGL070,batch,GL,active,CLR.T_GL_POSTING,GL,Y,,,,C,EXEC SQL in program source
+CLRGL070,batch,GL,active,CLR.T_PAYMENT,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRGL070,batch,GL,active,CLR.T_RECOVERY,RECOVER,,Y,,,R,EXEC SQL in program source
+CLRGL090,batch,GL,active,CLR.T_CURRENCY_RATE,GL,,Y,,,R,EXEC SQL in program source
+CLRGL090,batch,GL,active,CLR.T_GL_PERIOD,GL,,Y,,,R,EXEC SQL in program source
+CLRGL090,batch,GL,active,CLR.T_RESERVE,RESERVE,,,Y,,U,EXEC SQL in program source
+CLRRC010,online,RECOVER,active,CLR.T_CLAIM,COMMON,,,Y,,U,EXEC SQL in program source (CICS)
+CLRRC010,online,RECOVER,active,CLR.T_RECOVERY,RECOVER,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRC020,online,RECOVER,active,CLR.T_PARAM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRC020,online,RECOVER,active,CLR.T_SUBROGATION_CASE,RECOVER,,,Y,,U,EXEC SQL in program source (CICS)
+CLRRC030,batch,RECOVER,active,CLR.T_SUBROGATION_CASE,RECOVER,,Y,,,R,EXEC SQL in program source
+CLRRC040,batch,RECOVER,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRC040,batch,RECOVER,active,CLR.T_RECOVERY,RECOVER,,Y,,,R,EXEC SQL in program source
+CLRRC040,batch,RECOVER,active,CLR.T_SALVAGE,RECOVER,,Y,,,R,EXEC SQL in program source
+CLRRC040,batch,RECOVER,active,CLR.T_SUBROGATION_CASE,RECOVER,,,Y,,U,EXEC SQL in program source
+CLRRC050,batch,RECOVER,active,CLR.T_RECOVERY,RECOVER,Y,,Y,,CU,EXEC SQL in program source
+CLRRC050,batch,RECOVER,active,CLR.T_RESERVE,RESERVE,,,Y,,U,EXEC SQL in program source
+CLRRC050,batch,RECOVER,active,CLR.T_RESERVE_MOVEMENT,RESERVE,Y,,,,C,EXEC SQL in program source
+CLRRC050,batch,RECOVER,active,CLR.T_SUBROGATION_CASE,RECOVER,,Y,,,R,EXEC SQL in program source
+CLRRC060,online,RECOVER,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRC060,online,RECOVER,active,CLR.T_LITIGATION,RECOVER,,,Y,,U,EXEC SQL in program source (CICS)
+CLRRC060,online,RECOVER,active,CLR.T_SUBROGATION_CASE,RECOVER,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRC070,batch,RECOVER,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRC070,batch,RECOVER,active,CLR.T_RECOVERY,RECOVER,,Y,,,R,EXEC SQL in program source
+CLRRC070,batch,RECOVER,active,CLR.T_SALVAGE,RECOVER,Y,,Y,,CU,EXEC SQL in program source
+CLRRC080,batch,RECOVER,active,CLR.T_DIARY,COMMON,,,Y,,U,EXEC SQL in program source
+CLRRC080,batch,RECOVER,active,CLR.T_LITIGATION,RECOVER,,Y,,,R,EXEC SQL in program source
+CLRRC080,batch,RECOVER,active,CLR.T_RECOVERY,RECOVER,,Y,,,R,EXEC SQL in program source
+CLRRC080,batch,RECOVER,active,CLR.T_SUBROGATION_CASE,RECOVER,,Y,,,R,EXEC SQL in program source
+CLRRC090,online,RECOVER,active,CLR.T_RECOVERY,RECOVER,,,Y,,U,EXEC SQL in program source (CICS)
+CLRRC090,online,RECOVER,active,CLR.T_SUBROGATION_CASE,RECOVER,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRC100,batch,RECOVER,active,CLR.T_LITIGATION,RECOVER,,Y,,,R,EXEC SQL in program source
+CLRRP010,batch,REPORT,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRP010,batch,REPORT,active,CLR.T_CLAIM_TIER,TRIAGE,,Y,,,R,EXEC SQL in program source
+CLRRP010,batch,REPORT,active,CLR.T_REPORT_RUN,REPORT,Y,,,,C,EXEC SQL in program source
+CLRRP010,batch,REPORT,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRRP020,batch,REPORT,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRP020,batch,REPORT,active,CLR.T_REPORT_RUN,REPORT,Y,,,,C,EXEC SQL in program source
+CLRRP020,batch,REPORT,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRRP030,batch,REPORT,active,CLR.T_NISA_RETURN,REPORT,Y,,,,C,EXEC SQL in program source
+CLRRP030,batch,REPORT,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRRP030,batch,REPORT,active,CLR.T_RESERVE_HISTORY,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRRP040,batch,REPORT,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRP040,batch,REPORT,active,CLR.T_NISA_RETURN,REPORT,Y,,,,C,EXEC SQL in program source
+CLRRP040,batch,REPORT,active,CLR.T_REPORT_RUN,REPORT,,Y,,,R,EXEC SQL in program source
+CLRRP050,batch,REPORT,active,CLR.T_ASSESSOR_ASSIGNMENT,ASSESS,,Y,,,R,EXEC SQL in program source
+CLRRP050,batch,REPORT,active,CLR.T_REPORT_RUN,REPORT,Y,,,,C,EXEC SQL in program source
+CLRRP060,batch,REPORT,active,CLR.T_FRAUD_REFERRAL,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRRP060,batch,REPORT,active,CLR.T_REPORT_RUN,REPORT,Y,,,,C,EXEC SQL in program source
+CLRRP070,batch,REPORT,active,CLR.T_RECOVERY,RECOVER,,Y,,,R,EXEC SQL in program source
+CLRRP070,batch,REPORT,active,CLR.T_REPORT_RUN,REPORT,Y,,,,C,EXEC SQL in program source
+CLRRP080,batch,REPORT,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRP080,batch,REPORT,active,CLR.T_NISA_RETURN,REPORT,,Y,,,R,EXEC SQL in program source
+CLRRP080,batch,REPORT,active,CLR.T_REPORT_RUN,REPORT,Y,,,,C,EXEC SQL in program source
+CLRRP090,batch,REPORT,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRP090,batch,REPORT,active,CLR.T_NISA_RETURN,REPORT,,Y,,,R,EXEC SQL in program source
+CLRRP090,batch,REPORT,active,CLR.T_REPORT_RUN,REPORT,Y,,,,C,EXEC SQL in program source
+CLRRP100,batch,REPORT,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRP100,batch,REPORT,active,CLR.T_NISA_RETURN,REPORT,,Y,,,R,EXEC SQL in program source
+CLRRP100,batch,REPORT,active,CLR.T_REPORT_RUN,REPORT,Y,,,,C,EXEC SQL in program source
+CLRRS010,online,RESERVE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS010,online,RESERVE,active,CLR.T_CURRENCY_RATE,GL,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS010,online,RESERVE,active,CLR.T_PARAM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS010,online,RESERVE,active,CLR.T_RESERVE,RESERVE,Y,,Y,,CU,EXEC SQL in program source (CICS)
+CLRRS010,online,RESERVE,active,CLR.T_RESERVE_MOVEMENT,RESERVE,Y,,,,C,EXEC SQL in program source (CICS)
+CLRRS015,online,RESERVE,active,CLR.T_PARAM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS015,online,RESERVE,active,CLR.T_USER,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS020,online,RESERVE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS020,online,RESERVE,active,CLR.T_CURRENCY_RATE,GL,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS020,online,RESERVE,active,CLR.T_RESERVE,RESERVE,,,Y,,U,EXEC SQL in program source (CICS)
+CLRRS020,online,RESERVE,active,CLR.T_RESERVE_AUTHORITY,RESERVE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS020,online,RESERVE,active,CLR.T_RESERVE_MOVEMENT,RESERVE,Y,,,,C,EXEC SQL in program source (CICS)
+CLRRS030,online,RESERVE,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS030,online,RESERVE,active,CLR.T_RESERVE_HISTORY,RESERVE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS030,online,RESERVE,active,CLR.T_RESERVE_MOVEMENT,RESERVE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS040,online,RESERVE,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS040,online,RESERVE,active,CLR.T_RESERVE_AUTHORITY,RESERVE,,,Y,,U,EXEC SQL in program source (CICS)
+CLRRS110,batch,RESERVE,active,CLR.T_CLAIM_TIER,TRIAGE,,Y,,,R,EXEC SQL in program source
+CLRRS110,batch,RESERVE,active,CLR.T_DIARY,COMMON,,,Y,,U,EXEC SQL in program source
+CLRRS110,batch,RESERVE,active,CLR.T_PARAM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRS110,batch,RESERVE,active,CLR.T_RESERVE,RESERVE,,,Y,,U,EXEC SQL in program source
+CLRRS110,batch,RESERVE,active,CLR.T_RESERVE_MOVEMENT,RESERVE,Y,,,,C,EXEC SQL in program source
+CLRRS120,batch,RESERVE,active,CLR.T_DIARY,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRS120,batch,RESERVE,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRRS130,batch,RESERVE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRS130,batch,RESERVE,active,CLR.T_PARAM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRS130,batch,RESERVE,active,CLR.T_RESERVE,RESERVE,,,Y,,U,EXEC SQL in program source
+CLRRS130,batch,RESERVE,active,CLR.T_RESERVE_MOVEMENT,RESERVE,Y,,,,C,EXEC SQL in program source
+CLRRS140,batch,RESERVE,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRRS140,batch,RESERVE,active,CLR.T_RESERVE_HISTORY,RESERVE,Y,,,,C,EXEC SQL in program source
+CLRRS150,batch,RESERVE,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRRS150,batch,RESERVE,active,CLR.T_RESERVE_MOVEMENT,RESERVE,Y,,Y,,CU,EXEC SQL in program source
+CLRRS160,batch,RESERVE,active,CLR.T_PARAM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRS160,batch,RESERVE,active,CLR.T_RESERVE_MOVEMENT,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRRS170,batch,RESERVE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRRS170,batch,RESERVE,active,CLR.T_INTERFACE_LOG,COMMON,Y,,,,C,EXEC SQL in program source
+CLRRS170,batch,RESERVE,active,CLR.T_RESERVE_MOVEMENT,RESERVE,,Y,Y,,RU,EXEC SQL in program source
+CLRRS180,batch,RESERVE,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRRS180,batch,RESERVE,active,CLR.T_RESERVE_HISTORY,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRRS190,batch,RESERVE,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRRS190,batch,RESERVE,active,CLR.T_RESERVE_MOVEMENT,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRRS200,online,RESERVE,active,CLR.T_CLAIM_TIER,TRIAGE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS200,online,RESERVE,active,CLR.T_CODE_LOOKUP,COMMON,,,Y,,U,EXEC SQL in program source (CICS)
+CLRRS200,online,RESERVE,active,CLR.T_RESERVE_HISTORY,RESERVE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRRS210,batch,RESERVE,active,CLR.T_INTERFACE_LOG,COMMON,Y,,,,C,EXEC SQL in program source
+CLRRS210,batch,RESERVE,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRRS210,batch,RESERVE,active,CLR.T_RESERVE_MOVEMENT,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRST010,online,SETTLE,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRST010,online,SETTLE,active,CLR.T_SETTLEMENT,SETTLE,,,Y,,U,EXEC SQL in program source (CICS)
+CLRST020,online,SETTLE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRST020,online,SETTLE,active,CLR.T_PAYEE,SETTLE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRST020,online,SETTLE,active,CLR.T_PAYMENT,SETTLE,Y,,Y,,CU,EXEC SQL in program source (CICS)
+CLRST020,online,SETTLE,active,CLR.T_VENDOR_INVOICE,SETTLE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRST030,batch,SETTLE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRST030,batch,SETTLE,active,CLR.T_PAYMENT,SETTLE,Y,,Y,,CU,EXEC SQL in program source
+CLRST030,batch,SETTLE,active,CLR.T_PAYMENT_BATCH,SETTLE,Y,,Y,,CU,EXEC SQL in program source
+CLRST030,batch,SETTLE,active,CLR.T_SETTLEMENT,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRST030,batch,SETTLE,active,CLR.T_VENDOR_INVOICE,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRST040,batch,SETTLE,active,CLR.T_CLAIM,COMMON,,,Y,,U,EXEC SQL in program source
+CLRST040,batch,SETTLE,active,CLR.T_PAYMENT,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRST040,batch,SETTLE,active,CLR.T_RESERVE,RESERVE,,,Y,,U,EXEC SQL in program source
+CLRST040,batch,SETTLE,active,CLR.T_RESERVE_MOVEMENT,RESERVE,Y,,,,C,EXEC SQL in program source
+CLRST040,batch,SETTLE,active,CLR.T_SETTLEMENT,SETTLE,,,Y,,U,EXEC SQL in program source
+CLRST050,batch,SETTLE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRST050,batch,SETTLE,active,CLR.T_PAYEE,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRST050,batch,SETTLE,active,CLR.T_PAYMENT,SETTLE,Y,,Y,,CU,EXEC SQL in program source
+CLRST060,online,SETTLE,active,CLR.T_PAYEE,SETTLE,,,Y,,U,EXEC SQL in program source (CICS)
+CLRST060,online,SETTLE,active,CLR.T_PAYMENT_BATCH,SETTLE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRST060,online,SETTLE,active,CLR.T_SETTLEMENT,SETTLE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRST060,online,SETTLE,active,CLR.T_VENDOR_INVOICE,SETTLE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRST070,batch,SETTLE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRST070,batch,SETTLE,active,CLR.T_PAYEE,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRST070,batch,SETTLE,active,CLR.T_PAYMENT,SETTLE,Y,,Y,,CU,EXEC SQL in program source
+CLRST070,batch,SETTLE,active,CLR.T_PAYMENT_BATCH,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRST080,batch,SETTLE,active,CLR.T_PARAM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRST080,batch,SETTLE,active,CLR.T_PAYMENT,SETTLE,,,Y,,U,EXEC SQL in program source
+CLRST080,batch,SETTLE,active,CLR.T_SETTLEMENT,SETTLE,,,Y,,U,EXEC SQL in program source
+CLRST080,batch,SETTLE,active,CLR.T_TRIAGE,TRIAGE,,Y,,,R,EXEC SQL in program source
+CLRST090,online,SETTLE,active,CLR.T_PAYEE,SETTLE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRST090,online,SETTLE,active,CLR.T_PAYMENT,SETTLE,,,Y,,U,EXEC SQL in program source (CICS)
+CLRST100,batch,SETTLE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRST100,batch,SETTLE,active,CLR.T_PAYMENT,SETTLE,Y,,Y,,CU,EXEC SQL in program source
+CLRST100,batch,SETTLE,active,CLR.T_SETTLEMENT,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRST110,batch,SETTLE,active,CLR.T_PAYMENT,SETTLE,,,Y,,U,EXEC SQL in program source
+CLRST110,batch,SETTLE,active,CLR.T_PAYMENT_BATCH,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRST110,batch,SETTLE,active,CLR.T_VENDOR_INVOICE,SETTLE,,,Y,,U,EXEC SQL in program source
+CLRST120,online,SETTLE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRST120,online,SETTLE,active,CLR.T_SETTLEMENT,SETTLE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRST130,batch,SETTLE,active,CLR.T_PAYMENT_BATCH,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRST130,batch,SETTLE,active,CLR.T_VENDOR_INVOICE,SETTLE,,Y,,,R,EXEC SQL in program source
+CLRST140,batch,SETTLE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRST140,batch,SETTLE,active,CLR.T_PAYMENT_BATCH,SETTLE,,,Y,,U,EXEC SQL in program source
+CLRTR010,online,TRIAGE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRTR010,online,TRIAGE,active,CLR.T_CLAIM_TIER,TRIAGE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRTR010,online,TRIAGE,active,CLR.T_FRAUD_SCORE,FRAUD,,Y,,,R,EXEC SQL in program source (CICS)
+CLRTR010,online,TRIAGE,active,CLR.T_TRIAGE,TRIAGE,,,Y,,U,EXEC SQL in program source (CICS)
+CLRTR020,batch,TRIAGE,active,CLR.T_CLAIM,COMMON,,,Y,,U,EXEC SQL in program source
+CLRTR020,batch,TRIAGE,active,CLR.T_CLAIM_TIER,TRIAGE,,,Y,,U,EXEC SQL in program source
+CLRTR020,batch,TRIAGE,active,CLR.T_ESTIMATE,ASSESS,,Y,,,R,EXEC SQL in program source
+CLRTR020,batch,TRIAGE,active,CLR.T_PARAM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRTR020,batch,TRIAGE,active,CLR.T_RESERVE,RESERVE,,Y,,,R,EXEC SQL in program source
+CLRTR030,online,TRIAGE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRTR030,online,TRIAGE,active,CLR.T_CLAIM_TIER,TRIAGE,,,Y,,U,EXEC SQL in program source (CICS)
+CLRTR030,online,TRIAGE,active,CLR.T_FRAUD_SCORE,FRAUD,,Y,,,R,EXEC SQL in program source (CICS)
+CLRTR030,online,TRIAGE,active,CLR.T_TRIAGE,TRIAGE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRTR040,batch,TRIAGE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRTR040,batch,TRIAGE,active,CLR.T_CLAIM_TIER,TRIAGE,,Y,,,R,EXEC SQL in program source
+CLRTR040,batch,TRIAGE,active,CLR.T_FRAUD_SCORE,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRTR050,online,TRIAGE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRTR050,online,TRIAGE,active,CLR.T_CLAIM_TIER,TRIAGE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRTR050,online,TRIAGE,active,CLR.T_FRAUD_SCORE,FRAUD,,Y,,,R,EXEC SQL in program source (CICS)
+CLRTR050,online,TRIAGE,active,CLR.T_TRIAGE,TRIAGE,,,Y,,U,EXEC SQL in program source (CICS)
+CLRTR060,batch,TRIAGE,active,CLR.T_FRAUD_SCORE,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRTR060,batch,TRIAGE,active,CLR.T_PARAM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRTR060,batch,TRIAGE,active,CLR.T_TRIAGE,TRIAGE,,,Y,,U,EXEC SQL in program source
+CLRTR070,online,TRIAGE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source (CICS)
+CLRTR080,batch,TRIAGE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRTR080,batch,TRIAGE,active,CLR.T_FRAUD_SCORE,FRAUD,,Y,,,R,EXEC SQL in program source
+CLRTR090,online,TRIAGE,active,CLR.T_CLAIM_TIER,TRIAGE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRTR090,online,TRIAGE,active,CLR.T_FRAUD_SCORE,FRAUD,,Y,,,R,EXEC SQL in program source (CICS)
+CLRTR090,online,TRIAGE,active,CLR.T_TRIAGE,TRIAGE,,Y,,,R,EXEC SQL in program source (CICS)
+CLRTR100,batch,TRIAGE,active,CLR.T_CLAIM,COMMON,,Y,,,R,EXEC SQL in program source
+CLRTR100,batch,TRIAGE,active,CLR.T_CLAIM_TIER,TRIAGE,,,Y,,U,EXEC SQL in program source
+CLRTR100,batch,TRIAGE,active,CLR.T_TRIAGE,TRIAGE,,Y,,,R,EXEC SQL in program source

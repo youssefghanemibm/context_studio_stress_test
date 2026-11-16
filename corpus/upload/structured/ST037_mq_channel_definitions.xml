@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Corvane Mutual - MQ Backbone definitions (CLRQM01, HUBQM01) - Internal -->
+<mqDefinitions xmlns="urn:corvane:skerry:mq-definitions:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" platform="IBM MQ" asOf="2026-05-04">
+  <documentControl>
+    <documentId>SKR-INT-MQD-037</documentId>
+    <title>MQ Channel and Queue Definitions</title>
+    <version>1.0</version>
+    <status>approved</status>
+    <date>2026-05-04</date>
+    <classification>Internal</classification>
+    <owner personId="P031">
+      <name>Henrik Vestergaard</name>
+      <title>Integration Platform Lead</title>
+    </owner>
+    <reviewers>
+      <reviewer personId="P050" title="Integration Architect">Marcus Oduya</reviewer>
+      <reviewer personId="P023" title="Senior Mainframe Developer">Keith Barraclough</reviewer>
+    </reviewers>
+    <approvers>
+      <approver personId="P016" title="Head of Legacy Claims Platforms" date="2026-05-04">Graham Pocock</approver>
+      <approver personId="P032" title="Head of Technology Delivery" date="2026-05-04">Neil Haworth</approver>
+    </approvers>
+    <changeHistory>
+      <revision version="0.1" date="2026-01-18" author="Henrik Vestergaard">Initial draft for review</revision>
+      <revision version="0.2" date="2026-01-23" author="Henrik Vestergaard">Updated after design review</revision>
+      <revision version="0.3" date="2026-03-31" author="Henrik Vestergaard">Second review round</revision>
+      <revision version="0.4" date="2026-04-23" author="Henrik Vestergaard">Clarified ownership fields</revision>
+      <revision version="1.0" date="2026-05-04" author="Henrik Vestergaard">Approved</revision>
+    </changeHistory>
+  </documentControl>
+  <scope>Queue managers, queues, channels and authority records for the CLARA MQ estate on the MQ Backbone (SYS14). Definitions are applied by the Integration Platform team through change-controlled MQSC scripts. In practice, terminology follows the programme glossary; system names follow the system catalogue.</scope>
+  <queueManagers>
+    <queueManager name="CLRQM01" platform="z/OS" host="LPAR PRD1, Leeds Data Centre" drHost="LPAR DRP1, Bristol DR Data Centre" owner="Henrik Vestergaard">
+      <description>z/OS queue manager used by CLARA online and batch programs.</description>
+      <queues>
+        <queue name="CLR.FNOL.IN" type="QLOCAL" interface="CLX-IF-001" direction="inbound">
+          <description>Portal FNOL submissions (JSON). Interface CLX-IF-001 Portal FNOL submissions.</description>
+          <mqsc>DEFINE QLOCAL('CLR.FNOL.IN') DESCR('Portal FNOL submissions (JSON)') DEFPSIST(YES) BOQNAME('CLR.FNOL.IN.BOQ') SHARE REPLACE</mqsc>
+          <getBy>CLRFN040</getBy>
+          <producer>MyCorvane Claims</producer>
+          <depthNote>MAXDEPTH not specified; queue manager default applies.</depthNote>
+          <messageLayout format="JSON over MQ (queue CLR.FNOL.IN)">
+            <field name="fnol_id" sourceColumn="CLR.T_FNOL_EVENT.FNOL_ID" type="BIGINT">FNOL event id</field>
+            <field name="claim_id" sourceColumn="CLR.T_FNOL_EVENT.CLAIM_ID" type="CHAR">Claim reference</field>
+            <field name="channel_cd" sourceColumn="CLR.T_FNOL_EVENT.CHANNEL_CD" type="CHAR">Channel</field>
+            <field name="received_ts" sourceColumn="CLR.T_FNOL_EVENT.RECEIVED_TS" type="TIMESTAMP">Received</field>
+            <field name="payload_ref" sourceColumn="CLR.T_FNOL_EVENT.PAYLOAD_REF" type="CHAR">Evidence Vault reference</field>
+            <field name="caller_phone" sourceColumn="CLR.T_FNOL_EVENT.CALLER_PHONE" type="CHAR">Caller phone</field>
+            <field name="ack_sent_ts" sourceColumn="CLR.T_FNOL_EVENT.ACK_SENT_TS" type="TIMESTAMP">Acknowledgement sent</field>
+            <field name="last_upd_ts" sourceColumn="CLR.T_FNOL_EVENT.LAST_UPD_TS" type="TIMESTAMP">Timestamp of last update</field>
+            <field name="last_upd_pgm" sourceColumn="CLR.T_FNOL_EVENT.LAST_UPD_PGM" type="CHAR">Program that last updated the row</field>
+            <field name="last_upd_user" sourceColumn="CLR.T_FNOL_EVENT.LAST_UPD_USER" type="CHAR">User or batch id that last updated the row</field>
+          </messageLayout>
+          <history>
+            <entry date="2011-01-01">Queue in service for CLX-IF-001 since 2011-01-01.</entry>
+          </history>
+          <operations>As a rule, any temporary workaround on CLR.FNOL.IN must be logged on the change record and removed within the next release.</operations>
+          <interfaceOwner personId="P029" title="Contact Centre Manager">Ewan Strachan</interfaceOwner>
+          <runbook>
+            <step order="1">Look for parked or rejected records and note their keys.</step>
+            <step order="2">Raise an incident if the delivery misses its business deadline.</step>
+            <step order="3">Check the channel or connection status between the two systems.</step>
+            <step order="4">Check the interface status on the integration dashboard.</step>
+          </runbook>
+          <reconciliation>
+            <control>Mismatches are investigated before the next delivery is released.</control>
+            <control>Record counts are compared between source and target after each delivery.</control>
+          </reconciliation>
+          <testCases>
+            <testCase id="CLR.FNOL.IN-T01">Nordic currency amounts keep their original currency code.</testCase>
+            <testCase id="CLR.FNOL.IN-T02">A restart after failure resumes without losing or repeating records.</testCase>
+            <testCase id="CLR.FNOL.IN-T03">A late upstream delivery holds the dependent processing until it arrives.</testCase>
+          </testCases>
+        </queue>
+        <queue name="CLR.FNOL.IN.BOQ" type="QLOCAL" direction="backout">
+          <description>Backout queue for CLR.FNOL.IN.</description>
+          <mqsc>DEFINE QLOCAL('CLR.FNOL.IN.BOQ') DESCR('Backout for CLR.FNOL.IN') DEFPSIST(YES) REPLACE</mqsc>
+        </queue>
+        <queue name="CLR.EVIDENCE.IN" type="QLOCAL" interface="CLX-IF-004" direction="inbound">
+          <description>Evidence references from EIG (JSON). Interface CLX-IF-004 Evidence references to CLARA.</description>
+          <mqsc>DEFINE QLOCAL('CLR.EVIDENCE.IN') DESCR('Evidence references from EIG (JSON)') DEFPSIST(YES) BOQNAME('CLR.EVIDENCE.IN.BOQ') SHARE REPLACE</mqsc>
+          <getBy>CLRFN050</getBy>
+          <producer>Evidence Intake Gateway</producer>
+          <depthNote>MAXDEPTH not specified; queue manager default applies.</depthNote>
+          <messageLayout format="JSON over MQ (queue CLR.EVIDENCE.IN)">
+            <field name="doc_ref_id" sourceColumn="CLR.T_DOCUMENT_REF.DOC_REF_ID" type="BIGINT">Reference id</field>
+            <field name="claim_id" sourceColumn="CLR.T_DOCUMENT_REF.CLAIM_ID" type="CHAR">Claim reference</field>
+            <field name="vault_object_id" sourceColumn="CLR.T_DOCUMENT_REF.VAULT_OBJECT_ID" type="CHAR">Evidence Vault object id</field>
+            <field name="doc_type_cd" sourceColumn="CLR.T_DOCUMENT_REF.DOC_TYPE_CD" type="CHAR">Type (PHOT, LETR, RPRT)</field>
+            <field name="received_ts" sourceColumn="CLR.T_DOCUMENT_REF.RECEIVED_TS" type="TIMESTAMP">Received</field>
+            <field name="last_upd_ts" sourceColumn="CLR.T_DOCUMENT_REF.LAST_UPD_TS" type="TIMESTAMP">Timestamp of last update</field>
+            <field name="last_upd_pgm" sourceColumn="CLR.T_DOCUMENT_REF.LAST_UPD_PGM" type="CHAR">Program that last updated the row</field>
+            <field name="last_upd_user" sourceColumn="CLR.T_DOCUMENT_REF.LAST_UPD_USER" type="CHAR">User or batch id that last updated the row</field>
+          </messageLayout>
+          <history>
+            <entry date="2023-03-01">Queue in service for CLX-IF-004 since 2023-03-01.</entry>
+          </history>
+          <operations>Operationally, any temporary workaround on CLR.EVIDENCE.IN must be logged on the change record and removed within the next release.</operations>
+          <interfaceOwner personId="P040" title="Engineering Lead – Intake &amp; Triage Squad">Sofie Bak</interfaceOwner>
+          <runbook>
+            <step order="1">Look for parked or rejected records and note their keys.</step>
+            <step order="2">Raise an incident if the delivery misses its business deadline.</step>
+            <step order="3">Inform the consuming teams if delivery will be late.</step>
+            <step order="4">Record the actions taken in the interface log.</step>
+          </runbook>
+          <reconciliation>
+            <control>Mismatches are investigated before the next delivery is released.</control>
+            <control>Daily counts are kept for audit and compared month on month by the owning team.</control>
+          </reconciliation>
+          <testCases>
+            <testCase id="CLR.EVIDENCE.IN-T01">An empty delivery is processed without error and reported as zero records.</testCase>
+            <testCase id="CLR.EVIDENCE.IN-T02">A malformed record is rejected at the boundary and logged with its key.</testCase>
+            <testCase id="CLR.EVIDENCE.IN-T03">A schema version mismatch is detected and the record is parked.</testCase>
+          </testCases>
+        </queue>
+        <queue name="CLR.EVIDENCE.IN.BOQ" type="QLOCAL" direction="backout">
+          <description>Backout queue for CLR.EVIDENCE.IN.</description>
+          <mqsc>DEFINE QLOCAL('CLR.EVIDENCE.IN.BOQ') DESCR('Backout for CLR.EVIDENCE.IN') DEFPSIST(YES) REPLACE</mqsc>
+        </queue>
+        <queue name="CLR.SIUREF.OUT" type="QLOCAL" interface="CLX-IF-011" direction="outbound">
+          <description>Fraud referrals to SIU Case Manager (XML). Interface CLX-IF-011 Fraud referrals to SIU Case Manager.</description>
+          <mqsc>DEFINE QLOCAL('CLR.SIUREF.OUT') DESCR('Fraud referrals to SIU Case Manager (XML)') DEFPSIST(YES) BOQNAME('CLR.SIUREF.OUT.BOQ') SHARE REPLACE</mqsc>
+          <putBy>CLRFR030, CLRFR070</putBy>
+          <consumer>SIU Case Manager</consumer>
+          <depthNote>MAXDEPTH not specified; queue manager default applies.</depthNote>
+          <messageLayout format="XML over MQ (queue CLR.SIUREF.OUT)">
+            <field name="ref_id" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_ID" type="BIGINT">Referral identifier</field>
+            <field name="claim_id" sourceColumn="CLR.T_FRAUD_REFERRAL.CLAIM_ID" type="CHAR">Claim reference</field>
+            <field name="ref_ts" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_TS" type="TIMESTAMP">Referral timestamp</field>
+            <field name="ref_score" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_SCORE" type="SMALLINT">Sentinel score at referral (0-100)</field>
+            <field name="ref_threshold_applied" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_THRESHOLD_APPLIED" type="SMALLINT">Threshold applied at referral (read from CLR.T_PARAM, except CLRFR040)</field>
+            <field name="ref_source_cd" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_SOURCE_CD" type="CHAR">ON online (CLRFR030), BS batch sweep (CLRFR040), MN manual</field>
+            <field name="ref_reason_cd" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_REASON_CD" type="CHAR">Referral reason code</field>
+            <field name="rule_id" sourceColumn="CLR.T_FRAUD_REFERRAL.RULE_ID" type="CHAR">Business rule applied (e.g. BR-FRD-031)</field>
+            <field name="tier_cd" sourceColumn="CLR.T_FRAUD_REFERRAL.TIER_CD" type="CHAR">Claim tier at referral</field>
+            <field name="siu_case_id" sourceColumn="CLR.T_FRAUD_REFERRAL.SIU_CASE_ID" type="CHAR">SIU Case Manager case id</field>
+            <field name="ref_status" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_STATUS" type="CHAR">OP open, IN investigating, CL closed</field>
+            <field name="customer_notice_due_dt" sourceColumn="CLR.T_FRAUD_REFERRAL.CUSTOMER_NOTICE_DUE_DT" type="DATE">Customer notice due date (referral date + 10 business days, BR-FRD-032)</field>
+            <field name="customer_notice_defer_flag" sourceColumn="CLR.T_FRAUD_REFERRAL.CUSTOMER_NOTICE_DEFER_FLAG" type="CHAR">Y when notice deferred for tipping-off risk (BR-FRD-036)</field>
+            <field name="defer_approved_by" sourceColumn="CLR.T_FRAUD_REFERRAL.DEFER_APPROVED_BY" type="CHAR">Approver of deferral</field>
+            <field name="outcome_cd" sourceColumn="CLR.T_FRAUD_REFERRAL.OUTCOME_CD" type="CHAR">NF no fraud, CF confirmed fraud, WD withdrawn</field>
+            <field name="outcome_dt" sourceColumn="CLR.T_FRAUD_REFERRAL.OUTCOME_DT" type="DATE">Outcome date</field>
+            <field name="last_upd_ts" sourceColumn="CLR.T_FRAUD_REFERRAL.LAST_UPD_TS" type="TIMESTAMP">Timestamp of last update</field>
+            <field name="last_upd_pgm" sourceColumn="CLR.T_FRAUD_REFERRAL.LAST_UPD_PGM" type="CHAR">Program that last updated the row</field>
+            <field name="last_upd_user" sourceColumn="CLR.T_FRAUD_REFERRAL.LAST_UPD_USER" type="CHAR">User or batch id that last updated the row</field>
+          </messageLayout>
+          <history>
+            <entry date="1994-10-03">Queue in service for CLX-IF-011 since 1994-10-03.</entry>
+          </history>
+          <operations>Changes to CLR.SIUREF.OUT follow the interface change checklist and need consumer sign-off recorded on the change before release.</operations>
+          <interfaceOwner personId="P028" title="SIU Investigations Manager (UK)">Rachel Dunmore</interfaceOwner>
+          <runbook>
+            <step order="1">Escalate to the interface owner if the cause is not clear.</step>
+            <step order="2">Look for parked or rejected records and note their keys.</step>
+            <step order="3">Check the interface status on the integration dashboard.</step>
+            <step order="4">Check the channel or connection status between the two systems.</step>
+          </runbook>
+          <reconciliation>
+            <control>Rejected records are counted separately so that totals still balance.</control>
+            <control>Control totals are carried in the trailer and checked by the receiving side.</control>
+          </reconciliation>
+          <testCases>
+            <testCase id="CLR.SIUREF.OUT-T01">A malformed record is rejected at the boundary and logged with its key.</testCase>
+            <testCase id="CLR.SIUREF.OUT-T02">Nordic currency amounts keep their original currency code.</testCase>
+            <testCase id="CLR.SIUREF.OUT-T03">A resent record with the same business key does not create a duplicate.</testCase>
+          </testCases>
+        </queue>
+        <queue name="CLR.SIUREF.OUT.BOQ" type="QLOCAL" direction="backout">
+          <description>Backout queue for CLR.SIUREF.OUT.</description>
+          <mqsc>DEFINE QLOCAL('CLR.SIUREF.OUT.BOQ') DESCR('Backout for CLR.SIUREF.OUT') DEFPSIST(YES) REPLACE</mqsc>
+        </queue>
+        <queue name="CLR.SIUOUT.IN" type="QLOCAL" interface="CLX-IF-012" direction="inbound">
+          <description>SIU outcomes to CLARA (XML). Interface CLX-IF-012 SIU outcomes to CLARA.</description>
+          <mqsc>DEFINE QLOCAL('CLR.SIUOUT.IN') DESCR('SIU outcomes to CLARA (XML)') DEFPSIST(YES) BOQNAME('CLR.SIUOUT.IN.BOQ') SHARE REPLACE</mqsc>
+          <getBy>CLRFR050</getBy>
+          <producer>SIU Case Manager</producer>
+          <depthNote>MAXDEPTH not specified; queue manager default applies.</depthNote>
+          <messageLayout format="XML over MQ (queue CLR.SIUOUT.IN)">
+            <field name="ref_id" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_ID" type="BIGINT">Referral identifier</field>
+            <field name="claim_id" sourceColumn="CLR.T_FRAUD_REFERRAL.CLAIM_ID" type="CHAR">Claim reference</field>
+            <field name="ref_ts" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_TS" type="TIMESTAMP">Referral timestamp</field>
+            <field name="ref_score" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_SCORE" type="SMALLINT">Sentinel score at referral (0-100)</field>
+            <field name="ref_threshold_applied" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_THRESHOLD_APPLIED" type="SMALLINT">Threshold applied at referral (read from CLR.T_PARAM, except CLRFR040)</field>
+            <field name="ref_source_cd" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_SOURCE_CD" type="CHAR">ON online (CLRFR030), BS batch sweep (CLRFR040), MN manual</field>
+            <field name="ref_reason_cd" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_REASON_CD" type="CHAR">Referral reason code</field>
+            <field name="rule_id" sourceColumn="CLR.T_FRAUD_REFERRAL.RULE_ID" type="CHAR">Business rule applied (e.g. BR-FRD-031)</field>
+            <field name="tier_cd" sourceColumn="CLR.T_FRAUD_REFERRAL.TIER_CD" type="CHAR">Claim tier at referral</field>
+            <field name="siu_case_id" sourceColumn="CLR.T_FRAUD_REFERRAL.SIU_CASE_ID" type="CHAR">SIU Case Manager case id</field>
+            <field name="ref_status" sourceColumn="CLR.T_FRAUD_REFERRAL.REF_STATUS" type="CHAR">OP open, IN investigating, CL closed</field>
+            <field name="customer_notice_due_dt" sourceColumn="CLR.T_FRAUD_REFERRAL.CUSTOMER_NOTICE_DUE_DT" type="DATE">Customer notice due date (referral date + 10 business days, BR-FRD-032)</field>
+            <field name="customer_notice_defer_flag" sourceColumn="CLR.T_FRAUD_REFERRAL.CUSTOMER_NOTICE_DEFER_FLAG" type="CHAR">Y when notice deferred for tipping-off risk (BR-FRD-036)</field>
+            <field name="defer_approved_by" sourceColumn="CLR.T_FRAUD_REFERRAL.DEFER_APPROVED_BY" type="CHAR">Approver of deferral</field>
+            <field name="outcome_cd" sourceColumn="CLR.T_FRAUD_REFERRAL.OUTCOME_CD" type="CHAR">NF no fraud, CF confirmed fraud, WD withdrawn</field>
+            <field name="outcome_dt" sourceColumn="CLR.T_FRAUD_REFERRAL.OUTCOME_DT" type="DATE">Outcome date</field>
+            <field name="last_upd_ts" sourceColumn="CLR.T_FRAUD_REFERRAL.LAST_UPD_TS" type="TIMESTAMP">Timestamp of last update</field>
+            <field name="last_upd_pgm" sourceColumn="CLR.T_FRAUD_REFERRAL.LAST_UPD_PGM" type="CHAR">Program that last updated the row</field>
+            <field name="last_upd_user" sourceColumn="CLR.T_FRAUD_REFERRAL.LAST_UPD_USER" type="CHAR">User or batch id that last updated the row</field>
+            <field name="siu_case_id" sourceColumn="CLR.T_SIU_CASE.SIU_CASE_ID" type="CHAR">Case id</field>
+            <field name="ref_id" sourceColumn="CLR.T_SIU_CASE.REF_ID" type="BIGINT">Referral</field>
+            <field name="investigator_user" sourceColumn="CLR.T_SIU_CASE.INVESTIGATOR_USER" type="CHAR">Investigator</field>
+            <field name="opened_dt" sourceColumn="CLR.T_SIU_CASE.OPENED_DT" type="DATE">Opened</field>
+            <field name="case_status" sourceColumn="CLR.T_SIU_CASE.CASE_STATUS" type="CHAR">Status</field>
+            <field name="partner_vendor_cd" sourceColumn="CLR.T_SIU_CASE.PARTNER_VENDOR_CD" type="CHAR">Partner (GREYFOLD)</field>
+            <field name="branch_cd" sourceColumn="CLR.T_SIU_CASE.BRANCH_CD" type="CHAR">Branch code (UK, NO, SE, DK branch)</field>
+            <field name="version_no" sourceColumn="CLR.T_SIU_CASE.VERSION_NO" type="SMALLINT">Optimistic locking version</field>
+            <field name="last_upd_ts" sourceColumn="CLR.T_SIU_CASE.LAST_UPD_TS" type="TIMESTAMP">Timestamp of last update</field>
+            <field name="last_upd_pgm" sourceColumn="CLR.T_SIU_CASE.LAST_UPD_PGM" type="CHAR">Program that last updated the row</field>
+            <field name="last_upd_user" sourceColumn="CLR.T_SIU_CASE.LAST_UPD_USER" type="CHAR">User or batch id that last updated the row</field>
+          </messageLayout>
+          <history>
+            <entry date="2008-07-01">Queue in service for CLX-IF-012 since 2008-07-01.</entry>
+          </history>
+          <operations>Note that support for CLR.SIUOUT.IN follows the service catalogue entry; support hours match the business service.</operations>
+          <interfaceOwner personId="P028" title="SIU Investigations Manager (UK)">Rachel Dunmore</interfaceOwner>
+          <runbook>
+            <step order="1">Confirm the target has loaded the delivery and reconciled the counts.</step>
+            <step order="2">Raise an incident if the delivery misses its business deadline.</step>
+            <step order="3">Escalate to the interface owner if the cause is not clear.</step>
+            <step order="4">Re-run the delivery once the cause is fixed; the process is safe to repeat.</step>
+          </runbook>
+          <reconciliation>
+            <control>Rejected records are counted separately so that totals still balance.</control>
+            <control>Mismatches are investigated before the next delivery is released.</control>
+          </reconciliation>
+          <testCases>
+            <testCase id="CLR.SIUOUT.IN-T01">A restart after failure resumes without losing or repeating records.</testCase>
+            <testCase id="CLR.SIUOUT.IN-T02">An empty delivery is processed without error and reported as zero records.</testCase>
+            <testCase id="CLR.SIUOUT.IN-T03">A negative amount is carried with the correct sign.</testCase>
+          </testCases>
+        </queue>
+        <queue name="CLR.SIUOUT.IN.BOQ" type="QLOCAL" direction="backout">
+          <description>Backout queue for CLR.SIUOUT.IN.</description>
+          <mqsc>DEFINE QLOCAL('CLR.SIUOUT.IN.BOQ') DESCR('Backout for CLR.SIUOUT.IN') DEFPSIST(YES) REPLACE</mqsc>
+        </queue>
+        <queue name="CLR.SANCTIONS.REQ.OUT" type="QLOCAL" interface="CLX-IF-017" direction="outbound">
+          <description>Sanctions screening requests to WatchScreen (XML). Interface CLX-IF-017 Sanctions screening requests.</description>
+          <mqsc>DEFINE QLOCAL('CLR.SANCTIONS.REQ.OUT') DESCR('Sanctions screening requests to WatchScreen (XML)') DEFPSIST(YES) BOQNAME('CLR.SANCTIONS.REQ.OUT.BOQ') SHARE REPLACE</mqsc>
+          <putBy>CLRST070</putBy>
+          <consumer>WatchScreen</consumer>
+          <depthNote>MAXDEPTH not specified; queue manager default applies.</depthNote>
+          <messageLayout format="XML over MQ">
+            <field name="pay_id" sourceColumn="CLR.T_PAYMENT.PAY_ID" type="BIGINT">Payment id</field>
+            <field name="claim_id" sourceColumn="CLR.T_PAYMENT.CLAIM_ID" type="CHAR">Claim reference</field>
+            <field name="payee_id" sourceColumn="CLR.T_PAYMENT.PAYEE_ID" type="CHAR">Payee</field>
+            <field name="pay_amt" sourceColumn="CLR.T_PAYMENT.PAY_AMT" type="DECIMAL">Amount</field>
+            <field name="currency_cd" sourceColumn="CLR.T_PAYMENT.CURRENCY_CD" type="CHAR">Currency</field>
+            <field name="pay_status" sourceColumn="CLR.T_PAYMENT.PAY_STATUS" type="CHAR">RQ requested, SC screened, SN sent, CF confirmed, CX cancelled</field>
+            <field name="auth_user" sourceColumn="CLR.T_PAYMENT.AUTH_USER" type="CHAR">Authoriser</field>
+            <field name="sanctions_result" sourceColumn="CLR.T_PAYMENT.SANCTIONS_RESULT" type="CHAR">WatchScreen result</field>
+            <field name="comment_txt" sourceColumn="CLR.T_PAYMENT.COMMENT_TXT" type="VARCHAR">Free-text comment</field>
+            <field name="last_upd_ts" sourceColumn="CLR.T_PAYMENT.LAST_UPD_TS" type="TIMESTAMP">Timestamp of last update</field>
+            <field name="last_upd_pgm" sourceColumn="CLR.T_PAYMENT.LAST_UPD_PGM" type="CHAR">Program that last updated the row</field>
+            <field name="last_upd_user" sourceColumn="CLR.T_PAYMENT.LAST_UPD_USER" type="CHAR">User or batch id that last updated the row</field>
+          </messageLayout>
+          <history>
+            <entry date="2006-09-01">Queue in service for CLX-IF-017 since 2006-09-01.</entry>
+          </history>
+          <operations>The message layout of CLR.SANCTIONS.REQ.OUT is versioned, and downstream owners are told about any change in advance.</operations>
+          <interfaceOwner personId="P037" title="Compliance Manager – Conduct &amp; Counter-Fraud">Ruth Okafor</interfaceOwner>
+          <runbook>
+            <step order="1">Re-run the delivery once the cause is fixed; the process is safe to repeat.</step>
+            <step order="2">Look for parked or rejected records and note their keys.</step>
+            <step order="3">Inform the consuming teams if delivery will be late.</step>
+            <step order="4">Check the channel or connection status between the two systems.</step>
+          </runbook>
+          <reconciliation>
+            <control>Daily counts are kept for audit and compared month on month by the owning team.</control>
+            <control>Mismatches are investigated before the next delivery is released.</control>
+          </reconciliation>
+          <testCases>
+            <testCase id="CLR.SANCTIONS.REQ.OUT-T01">Characters outside ASCII (æ, ø, å, ä, ö) survive the round trip.</testCase>
+            <testCase id="CLR.SANCTIONS.REQ.OUT-T02">A malformed record is rejected at the boundary and logged with its key.</testCase>
+            <testCase id="CLR.SANCTIONS.REQ.OUT-T03">A negative amount is carried with the correct sign.</testCase>
+          </testCases>
+        </queue>
+        <queue name="CLR.SANCTIONS.REQ.OUT.BOQ" type="QLOCAL" direction="backout">
+          <description>Backout queue for CLR.SANCTIONS.REQ.OUT.</description>
+          <mqsc>DEFINE QLOCAL('CLR.SANCTIONS.REQ.OUT.BOQ') DESCR('Backout for CLR.SANCTIONS.REQ.OUT') DEFPSIST(YES) REPLACE</mqsc>
+        </queue>
+        <queue name="CLR.SANCTIONS.RSP.IN" type="QLOCAL" interface="CLX-IF-018" direction="inbound">
+          <description>Sanctions screening results from WatchScreen (XML). Interface CLX-IF-018 Sanctions screening results.</description>
+          <mqsc>DEFINE QLOCAL('CLR.SANCTIONS.RSP.IN') DESCR('Sanctions screening results from WatchScreen (XML)') DEFPSIST(YES) BOQNAME('CLR.SANCTIONS.RSP.IN.BOQ') SHARE REPLACE</mqsc>
+          <getBy>CLRST070</getBy>
+          <producer>WatchScreen</producer>
+          <depthNote>MAXDEPTH not specified; queue manager default applies.</depthNote>
+          <messageLayout format="XML over MQ">
+            <field name="pay_id" sourceColumn="CLR.T_PAYMENT.PAY_ID" type="BIGINT">Payment id</field>
+            <field name="claim_id" sourceColumn="CLR.T_PAYMENT.CLAIM_ID" type="CHAR">Claim reference</field>
+            <field name="payee_id" sourceColumn="CLR.T_PAYMENT.PAYEE_ID" type="CHAR">Payee</field>
+            <field name="pay_amt" sourceColumn="CLR.T_PAYMENT.PAY_AMT" type="DECIMAL">Amount</field>
+            <field name="currency_cd" sourceColumn="CLR.T_PAYMENT.CURRENCY_CD" type="CHAR">Currency</field>
+            <field name="pay_status" sourceColumn="CLR.T_PAYMENT.PAY_STATUS" type="CHAR">RQ requested, SC screened, SN sent, CF confirmed, CX cancelled</field>
+            <field name="auth_user" sourceColumn="CLR.T_PAYMENT.AUTH_USER" type="CHAR">Authoriser</field>
+            <field name="sanctions_result" sourceColumn="CLR.T_PAYMENT.SANCTIONS_RESULT" type="CHAR">WatchScreen result</field>
+            <field name="comment_txt" sourceColumn="CLR.T_PAYMENT.COMMENT_TXT" type="VARCHAR">Free-text comment</field>
+            <field name="last_upd_ts" sourceColumn="CLR.T_PAYMENT.LAST_UPD_TS" type="TIMESTAMP">Timestamp of last update</field>
+            <field name="last_upd_pgm" sourceColumn="CLR.T_PAYMENT.LAST_UPD_PGM" type="CHAR">Program that last updated the row</field>
+            <field name="last_upd_user" sourceColumn="CLR.T_PAYMENT.LAST_UPD_USER" type="CHAR">User or batch id that last updated the row</field>
+          </messageLayout>
+          <history>
+            <entry date="2020-12-01">Queue in service for CLX-IF-018 since 2020-12-01.</entry>
+          </history>
+          <operations>Operationally, delivery failures on CLR.SANCTIONS.RSP.IN are parked for manual review and raised with the owning team.</operations>
+          <interfaceOwner personId="P037" title="Compliance Manager – Conduct &amp; Counter-Fraud">Ruth Okafor</interfaceOwner>
+          <runbook>
+            <step order="1">Check the interface status on the integration dashboard.</step>
+            <step order="2">Confirm the upstream delivery arrived and is complete.</step>
+            <step order="3">Look for parked or rejected records and note their keys.</step>
+            <step order="4">Escalate to the interface owner if the cause is not clear.</step>
+          </runbook>
+          <reconciliation>
+            <control>Reconciliation results are visible on the integration dashboard.</control>
+            <control>Record counts are compared between source and target after each delivery.</control>
+          </reconciliation>
+          <testCases>
+            <testCase id="CLR.SANCTIONS.RSP.IN-T01">A negative amount is carried with the correct sign.</testCase>
+            <testCase id="CLR.SANCTIONS.RSP.IN-T02">A malformed record is rejected at the boundary and logged with its key.</testCase>
+            <testCase id="CLR.SANCTIONS.RSP.IN-T03">A schema version mismatch is detected and the record is parked.</testCase>
+          </testCases>
+        </queue>
+        <queue name="CLR.SANCTIONS.RSP.IN.BOQ" type="QLOCAL" direction="backout">
+          <description>Backout queue for CLR.SANCTIONS.RSP.IN.</description>
+          <mqsc>DEFINE QLOCAL('CLR.SANCTIONS.RSP.IN.BOQ') DESCR('Backout for CLR.SANCTIONS.RSP.IN') DEFPSIST(YES) REPLACE</mqsc>
+        </queue>
+        <queue name="CLR.LLN.OUT" type="QLOCAL" interface="CLX-IF-031" direction="outbound">
+          <description>Large loss notifications to ReCede (XML). Interface CLX-IF-031 Large loss notifications to reinsurance.</description>
+          <mqsc>DEFINE QLOCAL('CLR.LLN.OUT') DESCR('Large loss notifications to ReCede (XML)') DEFPSIST(YES) BOQNAME('CLR.LLN.OUT.BOQ') SHARE REPLACE</mqsc>
+          <putBy>CLRRS160</putBy>
+          <consumer>ReCede</consumer>
+          <depthNote>MAXDEPTH not specified; queue manager default applies.</depthNote>
+          <messageLayout format="XML over MQ (queue CLR.LLN.OUT)">
+            <field name="move_id" sourceColumn="CLR.T_RESERVE_MOVEMENT.MOVE_ID" type="BIGINT">Movement identifier</field>
+            <field name="rsv_id" sourceColumn="CLR.T_RESERVE_MOVEMENT.RSV_ID" type="BIGINT">Reserve identifier (FK CLR.T_RESERVE)</field>
+            <field name="claim_id" sourceColumn="CLR.T_RESERVE_MOVEMENT.CLAIM_ID" type="CHAR">Claim reference</field>
+            <field name="move_ts" sourceColumn="CLR.T_RESERVE_MOVEMENT.MOVE_TS" type="TIMESTAMP">Movement timestamp</field>
+            <field name="move_type_cd" sourceColumn="CLR.T_RESERVE_MOVEMENT.MOVE_TYPE_CD" type="CHAR">IN initial, AD adjustment, IX indexation, RV review, ST settlement close, RC recovery</field>
+            <field name="move_amt" sourceColumn="CLR.T_RESERVE_MOVEMENT.MOVE_AMT" type="DECIMAL">Movement amount in reserve currency</field>
+            <field name="move_gbp_amt" sourceColumn="CLR.T_RESERVE_MOVEMENT.MOVE_GBP_AMT" type="DECIMAL">Movement amount in GBP</field>
+            <field name="reason_cd" sourceColumn="CLR.T_RESERVE_MOVEMENT.REASON_CD" type="CHAR">Reason code</field>
+            <field name="user_id" sourceColumn="CLR.T_RESERVE_MOVEMENT.USER_ID" type="CHAR">User or batch id</field>
+            <field name="pgm_id" sourceColumn="CLR.T_RESERVE_MOVEMENT.PGM_ID" type="CHAR">Program that created the movement</field>
+            <field name="extracted_flag" sourceColumn="CLR.T_RESERVE_MOVEMENT.EXTRACTED_FLAG" type="CHAR">Y once extracted by CLRRS170 for CLX-IF-042</field>
+            <field name="extract_run_id" sourceColumn="CLR.T_RESERVE_MOVEMENT.EXTRACT_RUN_ID" type="INTEGER">CLX-IF-042 extract run id</field>
+          </messageLayout>
+          <history>
+            <entry date="2008-11-01">Queue in service for CLX-IF-031 since 2008-11-01.</entry>
+          </history>
+          <operations>Where possible, support for CLR.LLN.OUT follows the service catalogue entry; first-line support sits with the service desk.</operations>
+          <interfaceOwner personId="P038" title="Reinsurance Manager">Per Øverland</interfaceOwner>
+          <runbook>
+            <step order="1">Escalate to the interface owner if the cause is not clear.</step>
+            <step order="2">Look for parked or rejected records and note their keys.</step>
+            <step order="3">Check the interface status on the integration dashboard.</step>
+            <step order="4">Check the channel or connection status between the two systems.</step>
+          </runbook>
+          <reconciliation>
+            <control>Amount totals are reconciled by currency rather than converted.</control>
+            <control>Reconciliation results are visible on the integration dashboard.</control>
+          </reconciliation>
+          <testCases>
+            <testCase id="CLR.LLN.OUT-T01">Nordic currency amounts keep their original currency code.</testCase>
+            <testCase id="CLR.LLN.OUT-T02">A restart after failure resumes without losing or repeating records.</testCase>
+            <testCase id="CLR.LLN.OUT-T03">Characters outside ASCII (æ, ø, å, ä, ö) survive the round trip.</testCase>
+          </testCases>
+        </queue>
+        <queue name="CLR.LLN.OUT.BOQ" type="QLOCAL" direction="backout">
+          <description>Backout queue for CLR.LLN.OUT.</description>
+          <mqsc>DEFINE QLOCAL('CLR.LLN.OUT.BOQ') DESCR('Backout for CLR.LLN.OUT') DEFPSIST(YES) REPLACE</mqsc>
+        </queue>
+        <queue name="CLR.RSVMOVE.OUT" type="QLOCAL" interface="CLX-IF-042" direction="outbound">
+          <description>RSVMOVE reserve movement extract (fixed width). Interface CLX-IF-042 Reserve Movement Daily Extract.</description>
+          <maxDepth>50000</maxDepth>
+          <mqsc>DEFINE QLOCAL('CLR.RSVMOVE.OUT') MAXDEPTH(50000) DESCR('RSVMOVE reserve movement extract (fixed width)') DEFPSIST(YES) BOQNAME('CLR.RSVMOVE.OUT.BOQ') SHARE REPLACE</mqsc>
+          <putBy>CLRRS170</putBy>
+          <consumingInterfaces>
+            <interfaceRef ref="CLX-IF-043" target="Group Ledger">GL Reserve Journal Feed</interfaceRef>
+            <interfaceRef ref="CLX-IF-044" target="Claims Data Warehouse">CDW Reserve Fact Load</interfaceRef>
+            <interfaceRef ref="CLX-IF-047" target="ReCede">Reserve Cession Feed</interfaceRef>
+            <interfaceRef ref="CLX-IF-049" target="Event Streaming Platform">Reserve Movement Kafka Bridge</interfaceRef>
+          </consumingInterfaces>
+          <messageLayout format="Fixed-width RSVMOVE records put to queue CLR.RSVMOVE.OUT" copybook="RSVMOVE">
+            <field name="RM-REC-TYPE" pic="X(2)"/>
+            <field name="RM-REC-VERSION" pic="9(2)"/>
+            <field name="RM-EXTRACT-DATE" pic="X(10)"/>
+            <field name="RM-CLAIM-ID" pic="X(12)"/>
+            <field name="RM-RSV-ID" pic="S9(18) COMP"/>
+            <field name="RM-MOVE-ID" pic="S9(18) COMP"/>
+            <field name="RM-MOVE-TYPE" pic="X(2)"/>
+            <field name="RM-CURRENCY" pic="X(3)"/>
+            <field name="RM-AMOUNT" pic="S9(9)V99 COMP-3"/>
+            <field name="RM-GBP-AMOUNT" pic="S9(9)V99 COMP-3"/>
+            <field name="RM-PRODUCT" pic="X(6)"/>
+            <field name="RM-PERIL" pic="X(4)"/>
+            <field name="RM-TIER" pic="X(1)"/>
+            <field name="RM-MOVE-TS" pic="X(26)"/>
+            <field name="FILLER" pic="X(20)"/>
+            <field name="move_id" sourceColumn="CLR.T_RESERVE_MOVEMENT.MOVE_ID" type="BIGINT">Movement identifier</field>
+            <field name="rsv_id" sourceColumn="CLR.T_RESERVE_MOVEMENT.RSV_ID" type="BIGINT">Reserve identifier (FK CLR.T_RESERVE)</field>
+            <field name="claim_id" sourceColumn="CLR.T_RESERVE_MOVEMENT.CLAIM_ID" type="CHAR">Claim reference</field>
+            <field name="move_ts" sourceColumn="CLR.T_RESERVE_MOVEMENT.MOVE_TS" type="TIMESTAMP">Movement timestamp</field>
+            <field name="move_type_cd" sourceColumn="CLR.T_RESERVE_MOVEMENT.MOVE_TYPE_CD" type="CHAR">IN initial, AD adjustment, IX indexation, RV review, ST settlement close, RC recovery</field>
+            <field name="move_amt" sourceColumn="CLR.T_RESERVE_MOVEMENT.MOVE_AMT" type="DECIMAL">Movement amount in reserve currency</field>
+            <field name="move_gbp_amt" sourceColumn="CLR.T_RESERVE_MOVEMENT.MOVE_GBP_AMT" type="DECIMAL">Movement amount in GBP</field>
+            <field name="reason_cd" sourceColumn="CLR.T_RESERVE_MOVEMENT.REASON_CD" type="CHAR">Reason code</field>
+            <field name="user_id" sourceColumn="CLR.T_RESERVE_MOVEMENT.USER_ID" type="CHAR">User or batch id</field>
+            <field name="pgm_id" sourceColumn="CLR.T_RESERVE_MOVEMENT.PGM_ID" type="CHAR">Program that created the movement</field>
+            <field name="extracted_flag" sourceColumn="CLR.T_RESERVE_MOVEMENT.EXTRACTED_FLAG" type="CHAR">Y once extracted by CLRRS170 for CLX-IF-042</field>
+            <field name="extract_run_id" sourceColumn="CLR.T_RESERVE_MOVEMENT.EXTRACT_RUN_ID" type="INTEGER">CLX-IF-042 extract run id</field>
+          </messageLayout>
+          <history>
+            <entry date="2015-02-02">Queue in service for CLX-IF-042 since 2015-02-02.</entry>
+          </history>
+          <operations>Where possible, delivery failures on CLR.RSVMOVE.OUT are logged and alerted and raised with the owning team.</operations>
+          <interfaceOwner personId="P031" title="Integration Platform Lead">Henrik Vestergaard</interfaceOwner>
+          <runbook>
+            <step order="1">Re-run the delivery once the cause is fixed; the process is safe to repeat.</step>
+            <step order="2">Check the channel or connection status between the two systems.</step>
+            <step order="3">Confirm the upstream delivery arrived and is complete.</step>
+            <step order="4">Inform the consuming teams if delivery will be late.</step>
+          </runbook>
+          <reconciliation>
+            <control>Amount totals are reconciled by currency rather than converted.</control>
+            <control>The receiving side confirms counts back to the sender through the interface log.</control>
+          </reconciliation>
+          <testCases>
+            <testCase id="CLR.RSVMOVE.OUT-T01">A restart after failure resumes without losing or repeating records.</testCase>
+            <testCase id="CLR.RSVMOVE.OUT-T02">A late upstream delivery holds the dependent processing until it arrives.</testCase>
+            <testCase id="CLR.RSVMOVE.OUT-T03">A field at its maximum length is carried without truncation.</testCase>
+          </testCases>
+        </queue>
+        <queue name="CLR.RSVMOVE.OUT.BOQ" type="QLOCAL" direction="backout">
+          <description>Backout queue for CLR.RSVMOVE.OUT.</description>
+          <mqsc>DEFINE QLOCAL('CLR.RSVMOVE.OUT.BOQ') DESCR('Backout for CLR.RSVMOVE.OUT') DEFPSIST(YES) REPLACE</mqsc>
+        </queue>
+        <queue name="HUBQM01" type="QLOCAL" usage="XMITQ" direction="transmission">
+          <description>Transmission queue to the distributed queue manager HUBQM01.</description>
+          <mqsc>DEFINE QLOCAL('HUBQM01') USAGE(XMITQ) TRIGGER TRIGTYPE(FIRST) INITQ('SYSTEM.CHANNEL.INITQ') REPLACE</mqsc>
+        </queue>
+      </queues>
+      <channels>
+        <channel name="CLRQM01.TO.HUBQM01" type="SDR">
+          <description>Sender to HUBQM01</description>
+          <mqsc>DEFINE CHANNEL('CLRQM01.TO.HUBQM01') CHLTYPE(SDR) TRPTYPE(TCP) XMITQ('HUBQM01') CONNAME('hubqm01.corvane.internal(1414)') SSLCIPH(ANY_TLS12_OR_HIGHER) REPLACE</mqsc>
+        </channel>
+        <channel name="HUBQM01.TO.CLRQM01" type="RCVR">
+          <description>Receiver from HUBQM01</description>
+          <mqsc>DEFINE CHANNEL('HUBQM01.TO.CLRQM01') CHLTYPE(RCVR) TRPTYPE(TCP) SSLCIPH(ANY_TLS12_OR_HIGHER) REPLACE</mqsc>
+        </channel>
+        <channel name="CLR.SVRCONN.ADAPTERS" type="SVRCONN">
+          <description>Client connections for integration adapters</description>
+          <mqsc>DEFINE CHANNEL('CLR.SVRCONN.ADAPTERS') CHLTYPE(SVRCONN) TRPTYPE(TCP) SSLCIPH(ANY_TLS12_OR_HIGHER) REPLACE</mqsc>
+        </channel>
+      </channels>
+      <deadLetter>
+        <mqsc>ALTER QMGR DEADQ('SYSTEM.DEAD.LETTER.QUEUE')</mqsc>
+        <description>Undeliverable messages go to the system dead-letter queue and are reviewed each morning.</description>
+      </deadLetter>
+      <listener name="CLRQM01.LISTENER.TCP" port="1414">
+        <mqsc>DEFINE LISTENER('CLRQM01.LISTENER.TCP') TRPTYPE(TCP) PORT(1414) CONTROL(QMGR) REPLACE</mqsc>
+      </listener>
+    </queueManager>
+    <queueManager name="HUBQM01" platform="distributed" host="Corvane private cloud" owner="Henrik Vestergaard">
+      <description>Distributed queue manager hosting the adapters for Group Ledger, CDW, ReCede and the Kafka bridge.</description>
+      <channels>
+        <channel name="HUBQM01.TO.CLRQM01" type="SDR">
+          <description>Sender to CLRQM01</description>
+          <mqsc>DEFINE CHANNEL('HUBQM01.TO.CLRQM01') CHLTYPE(SDR) TRPTYPE(TCP) SSLCIPH(ANY_TLS12_OR_HIGHER) REPLACE</mqsc>
+        </channel>
+        <channel name="CLRQM01.TO.HUBQM01" type="RCVR">
+          <description>Receiver from CLRQM01</description>
+          <mqsc>DEFINE CHANNEL('CLRQM01.TO.HUBQM01') CHLTYPE(RCVR) TRPTYPE(TCP) SSLCIPH(ANY_TLS12_OR_HIGHER) REPLACE</mqsc>
+        </channel>
+      </channels>
+      <adapters>
+        <adapter interface="CLX-IF-043" target="Group Ledger">
+          <description>GL Reserve Journal Feed: reads RSVMOVE records for Group Ledger. Records that fail validation are written to an exception queue and reported in the morning operations report.</description>
+        </adapter>
+        <adapter interface="CLX-IF-044" target="Claims Data Warehouse">
+          <description>CDW Reserve Fact Load: reads RSVMOVE records for Claims Data Warehouse. Schema violations are rejected at the boundary rather than corrected downstream.</description>
+        </adapter>
+        <adapter interface="CLX-IF-047" target="ReCede">
+          <description>Reserve Cession Feed: reads RSVMOVE records for ReCede. Where possible, partial deliveries are not forwarded; the consumer waits for a complete, reconciled set.</description>
+        </adapter>
+        <adapter interface="CLX-IF-049" target="Event Streaming Platform">
+          <description>Reserve Movement Kafka Bridge: reads RSVMOVE records for Event Streaming Platform. Schema violations are rejected at the boundary rather than corrected downstream.</description>
+        </adapter>
+      </adapters>
+    </queueManager>
+  </queueManagers>
+  <authorityRecords>
+    <authRec profile="CLR.FNOL.IN" group="CLRPORTL">SET AUTHREC PROFILE('CLR.FNOL.IN') OBJTYPE(QUEUE) GROUP('CLRPORTL') AUTHADD(PUT)</authRec>
+    <authRec profile="CLR.RSVMOVE.OUT" group="CLRBATCH">SET AUTHREC PROFILE('CLR.RSVMOVE.OUT') OBJTYPE(QUEUE) GROUP('CLRBATCH') AUTHADD(PUT)</authRec>
+    <authRec profile="CLR.RSVMOVE.OUT" group="INTADAPT">SET AUTHREC PROFILE('CLR.RSVMOVE.OUT') OBJTYPE(QUEUE) GROUP('INTADAPT') AUTHADD(GET,BROWSE,INQ)</authRec>
+    <authRec profile="CLR.SIUREF.OUT" group="CLRONLN">SET AUTHREC PROFILE('CLR.SIUREF.OUT') OBJTYPE(QUEUE) GROUP('CLRONLN') AUTHADD(PUT)</authRec>
+    <authRec profile="CLR.SIUOUT.IN" group="SIUCASE">SET AUTHREC PROFILE('CLR.SIUOUT.IN') OBJTYPE(QUEUE) GROUP('SIUCASE') AUTHADD(PUT)</authRec>
+    <authRec profile="CLR.LLN.OUT" group="CLRBATCH">SET AUTHREC PROFILE('CLR.LLN.OUT') OBJTYPE(QUEUE) GROUP('CLRBATCH') AUTHADD(PUT)</authRec>
+    <authRec profile="CLR.SANCTIONS.REQ.OUT" group="CLRBATCH">SET AUTHREC PROFILE('CLR.SANCTIONS.REQ.OUT') OBJTYPE(QUEUE) GROUP('CLRBATCH') AUTHADD(PUT)</authRec>
+    <authRec profile="CLR.SANCTIONS.RSP.IN" group="WSCREEN">SET AUTHREC PROFILE('CLR.SANCTIONS.RSP.IN') OBJTYPE(QUEUE) GROUP('WSCREEN') AUTHADD(PUT)</authRec>
+  </authorityRecords>
+  <operationalNotes>
+    <note>Keep the incident bridge informed at regular intervals while a critical job is down. Before restarting, confirm with the Batch Scheduler that no dependent job has started. Abends caused by data are handed to the development team with the failing key.</note>
+    <note>Schema violations are rejected at the boundary rather than corrected downstream. Operators should capture the job log and the input dataset name before escalating. Partial deliveries are not forwarded; the consumer waits for a complete, reconciled set.</note>
+    <note>Operators should capture the job log and the time of failure before escalating. Duplicate detection relies on the business key, so the target rejects repeated keys. Schema violations are rejected at the boundary rather than corrected downstream.</note>
+    <note>INC-2024-0243 (2024-04-01): the MQ channel to Group Ledger stopped after network maintenance when the channel retry limit was reached; channel status is now part of the morning checks.</note>
+  </operationalNotes>
+</mqDefinitions>

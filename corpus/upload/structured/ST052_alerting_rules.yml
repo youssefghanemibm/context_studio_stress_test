@@ -1,0 +1,183 @@
+# Corvane Mutual – Alerting Rules
+# Document SKR-OPS-ALR-052 version 1.0 (approved), 2026-07-20
+# Owner: Henrik Vestergaard, Integration Platform Lead
+# Classification: Internal – Programme Skerry
+# Change history:
+#   0.1  2026-05-11  Henrik Vestergaard: Initial draft for review
+#   0.2  2026-06-09  Henrik Vestergaard: Second review round
+#   1.0  2026-07-20  Henrik Vestergaard: Approved
+# PrometheusRule for Claims Hub and the CLARA integration estate. Routing: Alertmanager by team label.
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: claims-hub-alerts
+  namespace: chub-monitoring
+  labels:
+    prometheus: platform
+    role: alert-rules
+spec:
+  groups:
+  - name: integration-mq
+    rules:
+    - alert: MqRsvmoveQueueFilling
+      expr: ibmmq_queue_depth{queue="CLR.RSVMOVE.OUT"} / ibmmq_queue_max_depth{queue="CLR.RSVMOVE.OUT"} > 0.8
+      for: 15m
+      labels:
+        severity: critical
+        team: integration-platform
+        ref: CLX-IF-042
+      annotations:
+        summary: CLR.RSVMOVE.OUT above 80% of its maximum depth
+        description: Consumers of CLX-IF-042 (CLX-IF-043, CLX-IF-044, CLX-IF-047, CLX-IF-049) may be stalled.
+        runbook_url: https://wiki.corvane.internal/display/CHUB/CLX-IF-042
+    - alert: MqChannelStopped
+      expr: ibmmq_channel_status{channel=~"CLRQM01.TO.HUBQM01|HUBQM01.TO.CLRQM01"} != 3
+      for: 5m
+      labels:
+        severity: critical
+        team: integration-platform
+        ref: INC-2024-0243
+      annotations:
+        summary: MQ channel between CLRQM01 and HUBQM01 not running
+        description: Check channel status and retry count (see INC-2024-0243).
+        runbook_url: https://wiki.corvane.internal/display/CHUB/MQ-Channels
+    - alert: MqBackoutQueueNotEmpty
+      expr: ibmmq_queue_depth{queue=~"CLR\\..*\\.BOQ"} > 0
+      for: 30m
+      labels:
+        severity: warning
+        team: integration-platform
+      annotations:
+        summary: Messages parked on a backout queue
+        description: Review parked messages each morning.
+        runbook_url: https://wiki.corvane.internal/display/CHUB/MQ-Backout
+  - name: integration-kafka
+    rules:
+    - alert: Clx049BridgeConsumerLag
+      expr: sum(kafka_consumergroup_lag{group="reserve-engine",topic="claims.reserve.movement.v1"}) > 20000
+      for: 30m
+      labels:
+        severity: critical
+        team: hub-squad-reserve-finance
+        ref: INC-2026-0311
+      annotations:
+        summary: reserve-engine lagging on claims.reserve.movement.v1
+        description: Check the consumer count after restarts (INC-2026-0311).
+        runbook_url: https://wiki.corvane.internal/display/CHUB/CLX-IF-049
+    - alert: KafkaUnderReplicatedPartitions
+      expr: sum(kafka_server_replicamanager_underreplicatedpartitions) > 0
+      for: 10m
+      labels:
+        severity: warning
+        team: integration-platform
+      annotations:
+        summary: Under-replicated partitions on esp-prd
+        description: Check broker health.
+        runbook_url: https://wiki.corvane.internal/display/CHUB/ESP-Brokers
+  - name: reserve-engine
+    rules:
+    - alert: ReserveTier3ReviewsOverdue
+      expr: chub_reserve_tier3_reviews_overdue > 0
+      for: 1h
+      labels:
+        severity: warning
+        team: hub-squad-reserve-finance
+        ref: INC-2026-0702
+      annotations:
+        summary: Tier-3 reserve reviews overdue
+        description: Tier-3 reserves are reviewed every 14 days (BR-RSV-007 v3). Compare config tier3-review-days
+          with CLR.T_PARAM RSV_T3_REVIEW_DAYS (INC-2026-0702).
+        runbook_url: https://wiki.corvane.internal/display/CHUB/reserve-engine
+    - alert: ReserveLargeLossNotificationPending
+      expr: chub_reserve_large_loss_unnotified > 0
+      for: 2h
+      labels:
+        severity: critical
+        team: hub-squad-reserve-finance
+        ref: BR-RSV-011
+      annotations:
+        summary: Large loss movement not yet notified to Reinsurance
+        description: Movements above £250,000 must be notified within 24 hours (BR-RSV-011 v2).
+        runbook_url: https://wiki.corvane.internal/display/CHUB/reserve-engine
+  - name: fraud-referral-svc
+    rules:
+    - alert: FraudNoticeDeadlineAtRisk
+      expr: chub_fraud_notices_due_within_business_days{days="2",status="DUE"} > 0
+      for: 1h
+      labels:
+        severity: warning
+        team: hub-squad-fraud-settlement
+        ref: BR-FRD-032
+      annotations:
+        summary: Customer notices due within 2 business days
+        description: Notices are due 10 business days after referral (BR-FRD-032 v2) unless deferred (BR-FRD-036).
+        runbook_url: https://wiki.corvane.internal/display/CHUB/fraud-referral-svc
+    - alert: FraudSiuTriageOverdue
+      expr: chub_fraud_referrals_untriaged_over_business_days{days="3"} > 0
+      for: 1h
+      labels:
+        severity: warning
+        team: hub-squad-fraud-settlement
+        ref: BR-FRD-035
+      annotations:
+        summary: Referrals not triaged by SIU within 3 business days
+        description: BR-FRD-035 v2 requires SIU triage within 3 business days.
+        runbook_url: https://wiki.corvane.internal/display/CHUB/fraud-referral-svc
+    - alert: FraudAutoDeclineFlagOn
+      expr: chub_feature_flag{key="fraud.auto-decline"} == 1
+      for: 0m
+      labels:
+        severity: critical
+        team: hub-squad-fraud-settlement
+        ref: BR-FRD-033
+      annotations:
+        summary: Auto-decline flag switched on
+        description: Automatic decline on score is prohibited (BR-FRD-033, NISA Circular 2026/04 §3.1).
+        runbook_url: https://wiki.corvane.internal/display/CHUB/fraud-referral-svc
+  - name: clara-batch
+    rules:
+    - alert: ClaraBatchJobAbended
+      expr: bsch_job_status{system="CLARA",status="ABEND"} == 1
+      for: 0m
+      labels:
+        severity: critical
+        team: batch-ops
+      annotations:
+        summary: CLARA batch job abended
+        description: Follow the CLARA batch runbook restart table.
+        runbook_url: https://wiki.corvane.internal/display/CHUB/CLARA-Batch-Runbook
+    - alert: ClaraBatchWindowOverrun
+      expr: bsch_batch_window_remaining_minutes{system="CLARA"} < 30
+      for: 5m
+      labels:
+        severity: warning
+        team: batch-ops
+      annotations:
+        summary: CLARA batch close to the end of the window
+        description: The batch window is 23:30–05:30 UK time.
+        runbook_url: https://wiki.corvane.internal/display/CHUB/CLARA-Batch-Runbook
+  - name: slo-claims-hub
+    rules:
+    - alert: ApiErrorBudgetBurn
+      expr: sum(rate(http_server_requests_seconds_count{status=~"5.."}[1h])) by (service) / sum(rate(http_server_requests_seconds_count[1h]))
+        by (service) > 0.02
+      for: 15m
+      labels:
+        severity: warning
+        team: tech-delivery
+        ref: ADR-024
+      annotations:
+        summary: API error rate above SLO burn threshold
+        description: SLOs per ADR-024.
+        runbook_url: https://wiki.corvane.internal/display/CHUB/SLOs
+    - alert: ApiLatencyHigh
+      expr: histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket[5m])) by (le, service)) > 1.5
+      for: 15m
+      labels:
+        severity: warning
+        team: tech-delivery
+        ref: ADR-024
+      annotations:
+        summary: p95 latency above 1.5 s
+        description: SLOs per ADR-024.
+        runbook_url: https://wiki.corvane.internal/display/CHUB/SLOs

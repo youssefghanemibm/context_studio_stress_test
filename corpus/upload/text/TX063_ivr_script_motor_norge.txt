@@ -1,0 +1,56 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+IVR- OG SAMTALESKRIPT - MOTOR PRIVAT NORGE / IVR AND CALL SCRIPT - MOTOR NORWAY
+========================================================================================
+Document reference : CC-SCR-MOT-NO-002
+Version            : 2.1
+Date               : 1 October 2025
+Owner              : Mette Dahl, Claims Operations Lead – Nordics
+Approved by        : Rob Tennant, Head of Claims Operations (Group)
+Classification     : Internal
+Applies to      : Oslo claims line, Corvane Mutual Norge (telefon +47 555 01 420)
+
+Version history
+  2.0    2025-03-03  M. Dahl              Annual review
+  2.1    2025-10-01  M. Dahl              Owner and approver updated after the re-organisation
+========================================================================================
+
+1. IVR
+  [IVR-N1] NO: "Takk for at du ringer Corvane Mutual Norge, skadeavdelingen. Samtalen kan bli tatt opp."
+           EN: "Thank you for calling Corvane Mutual Norge, claims. The call may be recorded."
+  [IVR-N2] NO: "Trykk 1 for å melde en ny bilskade. Trykk 2 for en skade du allerede har meldt. Trykk 3 for glasskade."
+           EN: "Press 1 to report a new motor claim. Press 2 for an existing claim. Press 3 for glass damage."
+  [IVR-N3] NO: "For English, press 9."
+           EN: "For English, press 9."
+
+2. SAMTALESKRIPT / CALL SCRIPT
+  Åpning / Opening
+    - Hils og presenter deg. Bekreft at innringer er forsikringstaker eller har fullmakt.
+    - Greet the caller and confirm they are the policyholder or authorised.
+
+  Hva skjedde? / What happened?
+    - Dato, tid, sted, og om politiet var involvert.
+    - Date, time, place, and whether the police were involved.
+
+  Personskade / Injury
+    - Spør alltid om noen ble skadet. Personskade registreres på saken.
+    - Always ask whether anyone was hurt. Any injury is recorded on the claim.
+
+  Verksted / Repairs
+    - Tilby reparasjon hos et av våre samarbeidsverksteder (Vardholm Bilverksted).
+    - Offer repair at one of our partner workshops (Vardholm Bilverksted).
+
+  Takst / Assessment
+    - Ved behov sender vi en skadetakstmann for å se på bilen.
+    - If needed, we send a Claims Assessor (skadetakstmann) to inspect the vehicle.
+
+  Egenandel / Excess
+    - Egenandelen står i forsikringsbeviset. Ikke oppgi beløp på telefonen.
+    - The excess (egenandel) is shown on the policy certificate. Do not quote an amount on the call.
+
+  Avslutning / Closing
+    - Gi skadenummeret og les det tilbake. Vi bekrefter skademeldingen skriftlig innen 2 virkedager.
+    - Give the claim reference and read it back. We acknowledge the claim in writing within 2 business days.
+
+
+----------------------------------------------------------------------------------------
+End of document. Owner: Mette Dahl. Printed copies are uncontrolled.

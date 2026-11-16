@@ -1,0 +1,254 @@
+# Corvane Mutual – Data Contract – CLX-IF-049
+# Document SKR-INT-DC49-048 version 1.0 (approved), 2025-12-12
+# Owner: Marcus Oduya, Integration Architect
+# Classification: Internal – Programme Skerry
+# Change history:
+#   0.1  2025-10-04  Marcus Oduya: Initial draft for review
+#   0.2  2025-10-16  Marcus Oduya: Minor corrections
+#   1.0  2025-12-12  Marcus Oduya: Approved
+# Data contract between the MQ-to-Kafka bridge and its consumers.
+dataContractSpecification: 0.9.3
+id: urn:corvane:contract:clx-if-049
+schemaVersion: 3
+key: claim_id
+amounts: minor units
+info:
+  title: Reserve Movement Kafka Bridge (CLX-IF-049)
+  version: 3.0.0
+  status: approved
+  owner: Integration Platform
+  interfaceOwner: Henrik Vestergaard
+  author: Marcus Oduya
+  date: '2025-12-12'
+  description: Batch-to-event bridge (ADR-012); consumed by reserve-svc for parallel-run reconciliation and Wave
+    2 sync. In practice, structured logs carry a correlation identifier end to end.
+source:
+  interface: CLX-IF-042
+  name: Reserve Movement Daily Extract
+  layout: RSVMOVE copybook
+  queue: CLR.RSVMOVE.OUT
+  queueManager: CLRQM01
+  recordVersion: '02'
+  system: CLARA
+target:
+  topic: claims.reserve.movement.v1
+  cluster: esp-prd
+  format: Avro
+  subject: claims.reserve.movement.v1-value
+  compatibility: BACKWARD
+producer: MQ-to-Kafka bridge (CLX-IF-049)
+consumers:
+- reserve-svc
+schedule: daily 02:45
+decisions:
+- ADR-012 batch-to-event bridge
+- ADR-017 replaces CDC (ADR-005)
+- DEC-017 (Design Authority 2025-10-21)
+ticket: CHUB-188
+fields:
+- name: claim_id
+  type: string
+  source: RM-CLAIM-ID
+  description: Claim reference; message key
+  required: true
+- name: reserve_id
+  type: long
+  source: RM-RSV-ID
+  description: CLARA reserve identifier
+  required: true
+- name: movement_id
+  type: long
+  source: RM-MOVE-ID
+  description: CLARA movement identifier (idempotency key)
+  required: true
+- name: movement_type
+  type: enum
+  source: RM-MOVE-TYPE
+  description: IN, AD, IX, RV, ST or RC
+  required: true
+- name: currency
+  type: string
+  source: RM-CURRENCY
+  description: ISO 4217 currency of the reserve
+  required: true
+- name: amount_minor
+  type: long
+  source: RM-AMOUNT
+  description: Movement amount in minor units (RM-AMOUNT x 100)
+  required: true
+- name: gbp_amount_minor
+  type: long
+  source: RM-GBP-AMOUNT
+  description: GBP equivalent in pence (RM-GBP-AMOUNT x 100)
+  required: true
+- name: product
+  type: string
+  source: RM-PRODUCT
+  description: Product code
+  required: true
+- name: peril
+  type: string
+  source: RM-PERIL
+  description: Peril (claim type) code
+  required: true
+- name: tier
+  type: string
+  source: RM-TIER
+  description: Claim tier at extract time
+  required: true
+- name: movement_ts
+  type: timestamp-millis
+  source: RM-MOVE-TS
+  description: Movement time stamp converted to UTC
+  required: true
+- name: extract_date
+  type: date
+  source: RM-EXTRACT-DATE
+  description: Business date of the CLX-IF-042 extract
+  required: true
+- name: record_version
+  type: int
+  source: RM-REC-VERSION
+  description: RSVMOVE record version (02)
+  required: true
+quality:
+- Every message has a non-empty claim_id key.
+- amount_minor equals RM-AMOUNT multiplied by 100 with the sign preserved.
+- movement_id is unique per extract date; replays are de-duplicated by the consumer.
+- record_version is 02; any other value is rejected to the dead-letter topic.
+avroSchema: |-
+  {
+    "type": "record",
+    "name": "ReserveMovement",
+    "namespace": "com.corvane.claims.reserve",
+    "fields": [
+      {
+        "name": "claim_id",
+        "type": "string",
+        "doc": "Claim reference; message key"
+      },
+      {
+        "name": "reserve_id",
+        "type": "long",
+        "doc": "CLARA reserve identifier"
+      },
+      {
+        "name": "movement_id",
+        "type": "long",
+        "doc": "CLARA movement identifier (idempotency key)"
+      },
+      {
+        "name": "movement_type",
+        "type": "string",
+        "doc": "IN, AD, IX, RV, ST or RC"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "doc": "ISO 4217 currency of the reserve"
+      },
+      {
+        "name": "amount_minor",
+        "type": "long",
+        "doc": "Movement amount in minor units (RM-AMOUNT x 100)"
+      },
+      {
+        "name": "gbp_amount_minor",
+        "type": "long",
+        "doc": "GBP equivalent in pence (RM-GBP-AMOUNT x 100)"
+      },
+      {
+        "name": "product",
+        "type": "string",
+        "doc": "Product code"
+      },
+      {
+        "name": "peril",
+        "type": "string",
+        "doc": "Peril (claim type) code"
+      },
+      {
+        "name": "tier",
+        "type": "string",
+        "doc": "Claim tier at extract time"
+      },
+      {
+        "name": "movement_ts",
+        "type": {
+          "type": "long",
+          "logicalType": "timestamp-millis"
+        },
+        "doc": "Movement time stamp converted to UTC"
+      },
+      {
+        "name": "extract_date",
+        "type": {
+          "type": "int",
+          "logicalType": "date"
+        },
+        "doc": "Business date of the CLX-IF-042 extract"
+      },
+      {
+        "name": "record_version",
+        "type": "int",
+        "doc": "RSVMOVE record version (02)"
+      }
+    ]
+  }
+lineage:
+- step: 1
+  system: CLARA
+  what: CLRRS170 (job CLRNRSV3) extracts reserve movements from CLR.T_RESERVE_MOVEMENT
+- step: 2
+  system: MQ Backbone
+  what: RSVMOVE records are put to queue CLR.RSVMOVE.OUT on CLRQM01 (CLX-IF-042)
+- step: 3
+  system: Event Streaming Platform
+  what: The bridge converts each record to Avro and publishes it keyed by claim_id (CLX-IF-049)
+- step: 4
+  system: Claims Hub
+  what: reserve-svc consumes the topic and applies movements idempotently on movement_id
+examples:
+- key: CLM-UK-2025-470856
+  value:
+    claim_id: CLM-UK-2025-470856
+    reserve_id: 622998635
+    movement_id: 6069748988
+    movement_type: AD
+    currency: GBP
+    amount_minor: 960000
+    gbp_amount_minor: 960000
+    product: MOTUK
+    peril: COL
+    tier: '2'
+    movement_ts: '2025-12-11T09:25:47.000Z'
+    extract_date: '2025-12-11'
+    record_version: 2
+- key: CLM-NO-2025-499679
+  value:
+    claim_id: CLM-NO-2025-499679
+    reserve_id: 601324736
+    movement_id: 4116453864
+    movement_type: IN
+    currency: NOK
+    amount_minor: 23490000
+    gbp_amount_minor: 1740000
+    product: MOTNO
+    peril: COL
+    tier: '3'
+    movement_ts: '2025-12-11T16:48:53.000Z'
+    extract_date: '2025-12-11'
+    record_version: 2
+contacts:
+- role: Interface owner
+  name: Henrik Vestergaard
+  email: henrik.vestergaard@corvane-mutual.example
+- role: Contract author
+  name: Marcus Oduya
+  email: marcus.oduya@ibm-consulting.example
+- role: Consumer owner
+  name: Daniel Achebe
+  email: daniel.achebe@corvane-mutual.example
+changeManagement:
+  breakingChanges: New major schema version and a new topic; consumers sign off (CHUB-144).
+  lessonsLearned: 'INC-2025-0412: the RM-AMOUNT widening broke CLX-IF-043; layout changes now need consumer sign-off.'

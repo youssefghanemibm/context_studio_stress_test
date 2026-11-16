@@ -1,0 +1,105 @@
+From: Gemma Thornbury <gemma.thornbury@corvane-mutual.example>
+To: Siobhan Quill <siobhan.quill@corvane-mutual.example>
+Date: Wed, 11 Jun 2025 15:22:44 +0100
+Subject: Subrogation – minimum amount before we refer?
+Message-ID: <73316211452b.1@corvane-mutual.example>
+
+Hello Siobhan,
+
+A couple of my handlers have asked what the minimum recoverable amount
+is before we refer a claim to Recoveries for sub-ro. One of them thought
+it was still £500, which I am fairly sure is out of date.
+
+Could you confirm the current figure so I can brief the team at the next
+huddle?
+
+Ta,
+Gemma
+
+--
+Gemma Thornbury
+Property Claims Team Leader
+Corvane Mutual Insurance Society Limited
+Aire Point, 3 Wharfedge Way, Leeds LS11 9ZZ
+Mobile: 07700 900139
+gemma.thornbury@corvane-mutual.example
+
+CONFIDENTIALITY: The information in this message is private to Corvane
+Mutual and the intended recipient(s). If you are not an intended
+recipient, please tell the sender and delete the message; do not copy or
+forward it. Corvane Mutual Insurance Society Limited, Corvane House, 14
+Tallowgate, London EC3N 9ZZ. Supervised by NISA (NISA-FRN 40417).
+
+
+From: Siobhan Quill <siobhan.quill@corvane-mutual.example>
+To: Gemma Thornbury <gemma.thornbury@corvane-mutual.example>
+Cc: Recoveries Bristol <recoveries.bristol@corvane-mutual.example>
+Date: Thu, 12 Jun 2025 10:01:32 +0100
+Subject: RE: Subrogation – minimum amount before we refer?
+Message-ID: <0340ff1973f3.2@corvane-mutual.example>
+In-Reply-To: <73316211452b.1@corvane-mutual.example>
+
+Morning Gemma,
+
+The current threshold is £750: we pursue subrogation where the
+recoverable amount is £750 or more (BR-REC-003).
+
+The £500 figure was the old rule – it was replaced in 2022.
+
+If a case is borderline, or further costs are likely to come through,
+refer it anyway and we will take a view.
+
+Regards,
+Siobhan
+
+Siobhan Quill
+Acting Recoveries Manager
+Corvane Mutual Insurance Society Limited
+7 Quayhead Row, Bristol BS1 9ZZ
+M: 07700 900114
+siobhan.quill@corvane-mutual.example
+
+Corvane Mutual Insurance Society Limited | Corvane House, 14 Tallowgate,
+London EC3N 9ZZ | NISA-FRN 40417. This message may contain confidential
+information. If it reached you by mistake, please let the sender know
+and remove it from your system.
+
+On Wed 11 Jun 2025 at 15:22, Gemma Thornbury <gemma.thornbury@corvane-mutual.example> wrote:
+> Hello Siobhan,
+>
+> A couple of my handlers have asked what the minimum recoverable
+> amount is before we refer a claim to Recoveries for sub-ro. One of
+> them thought it was still £500, which I am fairly sure is out of
+> date.
+>
+> Could you confirm the current figure so I can brief the team at the
+> next huddle?
+>
+> Ta,
+> Gemma
+
+
+From: Gemma Thornbury <gemma.thornbury@corvane-mutual.example>
+To: Siobhan Quill <siobhan.quill@corvane-mutual.example>
+Date: Thu, 12 Jun 2025 11:06:59 +0100
+Subject: RE: Subrogation – minimum amount before we refer?
+Message-ID: <bba76c1e20a9.3@corvane-mutual.example>
+In-Reply-To: <0340ff1973f3.2@corvane-mutual.example>
+
+Thanks Siobhan, that is clear. I will pass it on at tomorrow's huddle.
+
+Gemma
+
+On Thu 12 Jun 2025 at 10:01, Siobhan Quill <siobhan.quill@corvane-mutual.example> wrote:
+> Morning Gemma,
+>
+> The current threshold is £750: we pursue subrogation where the
+> recoverable amount is £750 or more (BR-REC-003).
+>
+> The £500 figure was the old rule – it was replaced in 2022.
+>
+> If a case is borderline, or further costs are likely to come
+> through, refer it anyway and we will take a view.
+>
+> Regards,
+> Siobhan

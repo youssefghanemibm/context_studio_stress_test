@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="820" viewBox="0 0 1180 820" font-family="Arial, Helvetica, sans-serif">
+<title>CIS login flow – Claims Hub (draft)</title>
+<desc>Sequence of the sign-in flow between the browser, the Claims Hub web UI, Corvane Identity Service and the Claims Hub API. Draft by Tomasz Wójcik, Enterprise Architect, 2025-03-03.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/></marker></defs>
+<rect x="0" y="0" width="1180" height="820" fill="#ffffff"/>
+<text id="title" x="40" y="44" font-size="22" font-weight="bold" fill="#1f2933">CIS login flow – Claims Hub</text>
+<g id="actor-0"><rect x="10" y="80" width="220" height="54" rx="6" fill="#e7ecf3" stroke="#2f4f75" stroke-width="1.5"/><text x="120" y="113" font-size="15" text-anchor="middle" fill="#1f2933">User (browser)</text><line x1="120" y1="134" x2="120" y2="700" stroke="#9aa5b1" stroke-dasharray="6 5"/></g>
+<g id="actor-1"><rect x="290" y="80" width="220" height="54" rx="6" fill="#e7ecf3" stroke="#2f4f75" stroke-width="1.5"/><text x="400" y="113" font-size="15" text-anchor="middle" fill="#1f2933">Claims Hub web UI</text><line x1="400" y1="134" x2="400" y2="700" stroke="#9aa5b1" stroke-dasharray="6 5"/></g>
+<g id="actor-2"><rect x="590" y="80" width="220" height="54" rx="6" fill="#e7ecf3" stroke="#2f4f75" stroke-width="1.5"/><text x="700" y="113" font-size="15" text-anchor="middle" fill="#1f2933">Corvane Identity Service (CIS)</text><line x1="700" y1="134" x2="700" y2="700" stroke="#9aa5b1" stroke-dasharray="6 5"/></g>
+<g id="actor-3"><rect x="890" y="80" width="220" height="54" rx="6" fill="#e7ecf3" stroke="#2f4f75" stroke-width="1.5"/><text x="1000" y="113" font-size="15" text-anchor="middle" fill="#1f2933">Claims Hub API</text><line x1="1000" y1="134" x2="1000" y2="700" stroke="#9aa5b1" stroke-dasharray="6 5"/></g>
+<g id="step-1"><line x1="120" y1="180" x2="400" y2="180" stroke="#1f2933" stroke-width="1.6" marker-end="url(#arrow)"/><text x="260.0" y="172" font-size="13" text-anchor="middle" fill="#1f2933">1. Open Claims Hub</text></g>
+<g id="step-2"><line x1="400" y1="242" x2="700" y2="242" stroke="#1f2933" stroke-width="1.6" marker-end="url(#arrow)"/><text x="550.0" y="234" font-size="13" text-anchor="middle" fill="#1f2933">2. Redirect to CIS sign-in (OIDC authorisation request)</text></g>
+<g id="step-3"><line x1="120" y1="304" x2="700" y2="304" stroke="#1f2933" stroke-width="1.6" marker-end="url(#arrow)"/><text x="410.0" y="296" font-size="13" text-anchor="middle" fill="#1f2933">3. Sign in with Corvane credentials</text></g>
+<g id="step-4"><line x1="700" y1="366" x2="400" y2="366" stroke="#1f2933" stroke-width="1.6" marker-end="url(#arrow)"/><text x="550.0" y="358" font-size="13" text-anchor="middle" fill="#1f2933">4. Authorisation code (redirect back)</text></g>
+<g id="step-5"><line x1="400" y1="428" x2="700" y2="428" stroke="#1f2933" stroke-width="1.6" marker-end="url(#arrow)"/><text x="550.0" y="420" font-size="13" text-anchor="middle" fill="#1f2933">5. Exchange code for tokens</text></g>
+<g id="step-6"><line x1="700" y1="490" x2="400" y2="490" stroke="#1f2933" stroke-width="1.6" marker-end="url(#arrow)"/><text x="550.0" y="482" font-size="13" text-anchor="middle" fill="#1f2933">6. ID token + access token</text></g>
+<g id="step-7"><line x1="400" y1="552" x2="1000" y2="552" stroke="#1f2933" stroke-width="1.6" marker-end="url(#arrow)"/><text x="700.0" y="544" font-size="13" text-anchor="middle" fill="#1f2933">7. API call with bearer access token</text></g>
+<g id="step-8"><line x1="1000" y1="614" x2="400" y2="614" stroke="#1f2933" stroke-width="1.6" marker-end="url(#arrow)"/><text x="700.0" y="606" font-size="13" text-anchor="middle" fill="#1f2933">8. Response</text></g>
+<g id="note-token"><rect x="760" y="560" width="380" height="58" rx="4" fill="#fff6d6" stroke="#b08900"/><text id="lbl-token-lifetime" x="950" y="595" font-size="16" text-anchor="middle" fill="#1f2933">Access token lifetime: 15 minutes</text></g>
+<text id="footer" x="40" y="780" font-size="12" fill="#52606d">Draft – T. Wójcik, Enterprise Architect – 3 March 2025</text>
+</svg>

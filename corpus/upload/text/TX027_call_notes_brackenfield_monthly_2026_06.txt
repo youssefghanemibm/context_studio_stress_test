@@ -1,0 +1,41 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+CALL NOTES - BRACKENFIELD LOSS ADJUSTING MONTHLY ACCOUNT CALL (JUNE 2026)
+========================================================================================
+Document reference : ASM-VEN-BLA-2026-06
+Version            : 1.0
+Date               : 11 June 2026
+Owner              : Imran Talwar, Head of Claims Assessment (UK)
+Classification     : Internal
+Attendees       : Imran Talwar (Corvane), Kirsty Mowbray (Corvane), Colin Rudd (Brackenfield)
+
+Version history
+  1.0    2026-06-11  I. Talwar            Notes of the monthly call
+========================================================================================
+
+1. Open instructions transferred from Fellgate
+   - Fellgate Adjusting Partners left the assessor panel on 31 January 2026; their open instructions moved to Brackenfield at that point.
+   - Colin confirmed the transferred files are all now allocated to named loss adjusters.
+   - Kirsty asked for the major-loss files to keep the same adjuster through to settlement where possible.
+
+2. Assessor Portal
+   - Brackenfield adjusters are using the Assessor Portal for instructions and reports. No access issues this month.
+   - Colin asked whether the portal will change when assessment moves to Claims Hub. Imran: the portal stays; the appointment API behind it is being built.
+
+3. Claims Hub appointment API
+   - Corvane explained that the Claims Assessor appointment API (assessment-svc) is in development for Wave 1.
+   - Brackenfield will be invited to test with sample instructions before go-live.
+
+4. Report quality
+   - Imran thanked Brackenfield for the improvement in report turnaround.
+   - Two reports this month needed resubmission for missing photographs. Colin will remind the adjusters.
+
+5. AOB
+   - Next call in July. Colin to send the account summary in advance.
+
+Actions
+  - Colin Rudd: remind adjusters about photograph requirements.
+  - Imran Talwar: confirm test dates for the appointment API with the squad.
+  - Kirsty Mowbray: share the list of major-loss files that should keep the same adjuster.
+
+----------------------------------------------------------------------------------------
+End of document. Owner: Imran Talwar. Printed copies are uncontrolled.

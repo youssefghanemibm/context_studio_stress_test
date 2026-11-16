@@ -1,0 +1,1745 @@
+{
+  "documentControl": {
+    "documentId": "SKR-MIG-DQR-033",
+    "title": "Data Quality Report – Wave 1",
+    "version": "1.0",
+    "status": "final",
+    "date": "2026-09-20",
+    "owner": {
+      "name": "Callum Fairbairn",
+      "title": "Data Migration Lead"
+    },
+    "reviewers": [
+      {
+        "name": "Daniel Achebe",
+        "title": "Engineering Lead – Reserve & Finance Squad"
+      },
+      {
+        "name": "Callum Fairbairn",
+        "title": "Motor Claims Team Leader"
+      }
+    ],
+    "approvers": [
+      {
+        "name": "Arjun Kesavan",
+        "title": "Programme Delivery Lead",
+        "date": "2026-09-20"
+      },
+      {
+        "name": "Aisha Siddiqui",
+        "title": "Head of Claims Hub Product",
+        "date": "2026-09-20"
+      }
+    ],
+    "classification": "Internal",
+    "organisation": "Corvane Mutual Insurance Society Limited",
+    "programme": "Programme Skerry (CLARA to Claims Hub)",
+    "changeHistory": [
+      {
+        "version": "0.1",
+        "date": "2026-07-01",
+        "author": "Callum Fairbairn",
+        "change": "Initial draft for review"
+      },
+      {
+        "version": "0.2",
+        "date": "2026-07-08",
+        "author": "Callum Fairbairn",
+        "change": "Review comments incorporated"
+      },
+      {
+        "version": "1.0",
+        "date": "2026-09-20",
+        "author": "Callum Fairbairn",
+        "change": "Issued as final"
+      }
+    ]
+  },
+  "wave": {
+    "id": "MW-1",
+    "name": "Wave 1 – UK motor",
+    "scope": "PRD-MOT-UK",
+    "cutOverDate": "2026-09-14",
+    "freeze": "2026-09-11 18:00 to 2026-09-14 06:00",
+    "rehearsals": 3,
+    "status": "complete",
+    "goDecision": "DEC-009 (Wave 1 go/no-go, 2026-09-11)"
+  },
+  "method": {
+    "approach": "Region-wave migration (ADR-015); rules executed against the Claims Hub PostgreSQL databases after cut-over",
+    "rehearsalData": "Masked data for rehearsals (ADR-025); production data only in the cut-over run",
+    "tooling": "Data migration reconciliation workspace (IBM Programme Skerry team)",
+    "dimensions": [
+      "completeness",
+      "validity",
+      "uniqueness",
+      "referential_integrity",
+      "consistency",
+      "timeliness"
+    ],
+    "ownership": {
+      "report": "Callum Fairbairn (IBM, Data Migration Lead)",
+      "businessSignOff": "Aisha Siddiqui, Head of Claims Hub Product"
+    }
+  },
+  "summary": {
+    "checksExecuted": 74,
+    "pass": 63,
+    "warn": 9,
+    "fail": 2,
+    "overall": "Accepted with actions",
+    "openDefectsNote": "Open items are tracked in the CHUB project under the Wave 1 hypercare epic."
+  },
+  "checks": [
+    {
+      "checkId": "DQ-W1-001",
+      "dimension": "validity",
+      "targetTable": "claim_core.claim",
+      "targetDatabase": "chub_claim_core",
+      "sourceTable": "CLR.T_CLAIM",
+      "sourceColumns": [
+        "LAST_UPD_TS",
+        "NOTIFIED_TS"
+      ],
+      "rule": "Column legacy_claim_id holds a value allowed by the target domain",
+      "query": "SELECT COUNT(*) FROM claim_core.claim t LEFT JOIN allowed a ON a.code = t.legacy_claim_id WHERE a.code IS NULL",
+      "queryNote": "allowed = target domain list for the column",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "claim-core-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "The check compares the migrated value with the CLARA source after normalisation of currency and decimal places."
+    },
+    {
+      "checkId": "DQ-W1-002",
+      "dimension": "completeness",
+      "targetTable": "claim_core.claim",
+      "targetDatabase": "chub_claim_core",
+      "sourceTable": "CLR.T_CLAIM",
+      "sourceColumns": [
+        "LOSS_DT",
+        "CHANNEL_CD"
+      ],
+      "rule": "Mandatory column policy_no is populated for every migrated row",
+      "query": "SELECT COUNT(*) FROM claim_core.claim t WHERE t.policy_no IS NULL",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "claim-core-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "In practice, results are reproducible from the reconciliation workspace using the stored query."
+    },
+    {
+      "checkId": "DQ-W1-003",
+      "dimension": "uniqueness",
+      "targetTable": "claim_core.claim",
+      "targetDatabase": "chub_claim_core",
+      "sourceTable": "CLR.T_CLAIM",
+      "sourceColumns": [
+        "LAST_UPD_PGM",
+        "ASSESSOR_ID"
+      ],
+      "rule": "Primary key claim_id is unique in the target table",
+      "query": "SELECT claim_id, COUNT(*) FROM claim_core.claim GROUP BY claim_id HAVING COUNT(*) > 1",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "claim-core-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Operationally, the check compares the migrated value with the CLARA source after normalisation of currency and decimal places."
+    },
+    {
+      "checkId": "DQ-W1-004",
+      "dimension": "timeliness",
+      "targetTable": "claim_core.claim",
+      "targetDatabase": "chub_claim_core",
+      "sourceTable": "CLR.T_CLAIM",
+      "sourceColumns": [
+        "CLAIM_ID",
+        "HANDLER_USER_ID"
+      ],
+      "rule": "Column status carries the source time stamp converted to UTC",
+      "query": "SELECT COUNT(*) FROM claim_core.claim t WHERE t.status IS NOT NULL AND t.status > now()",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "claim-core-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Note that the check compares the migrated value with the CLARA source after normalisation of date formats and time zones."
+    },
+    {
+      "checkId": "DQ-W1-005",
+      "dimension": "referential_integrity",
+      "targetTable": "claim_core.claim",
+      "targetDatabase": "chub_claim_core",
+      "sourceTable": "CLR.T_CLAIM",
+      "sourceColumns": [
+        "CLAIM_STATUS",
+        "FRAUD_FLAG"
+      ],
+      "rule": "Every handler_id resolves to its parent record",
+      "query": "SELECT COUNT(*) FROM claim_core.claim t LEFT JOIN parent p ON p.key = t.handler_id WHERE p.key IS NULL",
+      "queryNote": "parent = keys of the parent record in the target model",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "claim-core-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Note that the check was first run in the rehearsals and kept unchanged for the production cut-over."
+    },
+    {
+      "checkId": "DQ-W1-006",
+      "dimension": "validity",
+      "targetTable": "claim_core.party",
+      "targetDatabase": "chub_claim_core",
+      "sourceTable": "CLR.T_CLAIMANT",
+      "sourceColumns": [
+        "CLAIMANT_ID",
+        "FAMILY_NAME"
+      ],
+      "rule": "Column role holds a value allowed by the target domain",
+      "query": "SELECT COUNT(*) FROM claim_core.party t LEFT JOIN allowed a ON a.code = t.role WHERE a.code IS NULL",
+      "queryNote": "allowed = target domain list for the column",
+      "status": "FAIL",
+      "exceptions": 38,
+      "owningService": "claim-core-svc",
+      "disposition": "open - assigned to squad",
+      "sampleExceptions": [
+        {
+          "claimRef": "CLM-UK-2025-196668",
+          "column": "role",
+          "issue": "time zone offset missing"
+        },
+        {
+          "claimRef": "CLM-UK-2019-257303",
+          "column": "role",
+          "issue": "value outside target domain"
+        },
+        {
+          "claimRef": "CLM-UK-2026-475699",
+          "column": "role",
+          "issue": "source/target mismatch after rounding"
+        }
+      ],
+      "comment": "In practice, the check compares the migrated value with the CLARA source after normalisation of date formats and time zones."
+    },
+    {
+      "checkId": "DQ-W1-007",
+      "dimension": "consistency",
+      "targetTable": "claim_core.party",
+      "targetDatabase": "chub_claim_core",
+      "sourceTable": "CLR.T_CLAIMANT",
+      "sourceColumns": [
+        "GIVEN_NAME",
+        "PHONE_NO"
+      ],
+      "rule": "Column phone equals the CLARA source value after transformation",
+      "query": "SELECT COUNT(*) FROM claim_core.party t JOIN src_extract s ON s.claim_key = t.claim_key WHERE t.phone <> s.mapped_value",
+      "queryNote": "src_extract = transformed unload of CLR.T_CLAIMANT",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "claim-core-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "For clarity, business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-008",
+      "dimension": "completeness",
+      "targetTable": "claim_core.party",
+      "targetDatabase": "chub_claim_core",
+      "sourceTable": "CLR.T_CLAIMANT",
+      "sourceColumns": [
+        "NI_NO",
+        "ADDR_LINE1"
+      ],
+      "rule": "Mandatory column family_name is populated for every migrated row",
+      "query": "SELECT COUNT(*) FROM claim_core.party t WHERE t.family_name IS NULL",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "claim-core-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "For clarity, the check was first run in the rehearsals and kept unchanged for the production cut-over."
+    },
+    {
+      "checkId": "DQ-W1-009",
+      "dimension": "referential_integrity",
+      "targetTable": "claim_core.party",
+      "targetDatabase": "chub_claim_core",
+      "sourceTable": "CLR.T_CLAIMANT",
+      "sourceColumns": [
+        "PARTY_ROLE_CD",
+        "PHONE_NO"
+      ],
+      "rule": "Every claim_id resolves to its parent record",
+      "query": "SELECT COUNT(*) FROM claim_core.party t LEFT JOIN parent p ON p.key = t.claim_id WHERE p.key IS NULL",
+      "queryNote": "parent = keys of the parent record in the target model",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "claim-core-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "The check compares the migrated value with the CLARA source after normalisation of case and whitespace."
+    },
+    {
+      "checkId": "DQ-W1-010",
+      "dimension": "uniqueness",
+      "targetTable": "claim_core.party",
+      "targetDatabase": "chub_claim_core",
+      "sourceTable": "CLR.T_CLAIMANT",
+      "sourceColumns": [
+        "EMAIL_ADDR",
+        "LAST_UPD_PGM"
+      ],
+      "rule": "Primary key party_id is unique in the target table",
+      "query": "SELECT party_id, COUNT(*) FROM claim_core.party GROUP BY party_id HAVING COUNT(*) > 1",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "claim-core-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Where an exception reflects a known CLARA data issue, the CLARA value is carried over unchanged."
+    },
+    {
+      "checkId": "DQ-W1-011",
+      "dimension": "timeliness",
+      "targetTable": "claim_core.party",
+      "targetDatabase": "chub_claim_core",
+      "sourceTable": "CLR.T_CLAIMANT",
+      "sourceColumns": [
+        "PHONE_NO",
+        "DOB"
+      ],
+      "rule": "Column claim_id carries the source time stamp converted to UTC",
+      "query": "SELECT COUNT(*) FROM claim_core.party t WHERE t.claim_id IS NOT NULL AND t.claim_id > now()",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "claim-core-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Note that business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-012",
+      "dimension": "consistency",
+      "targetTable": "fnol.notification",
+      "targetDatabase": "chub_fnol",
+      "sourceTable": "CLR.T_FNOL_EVENT",
+      "sourceColumns": [
+        "PAYLOAD_REF",
+        "ACK_SENT_TS"
+      ],
+      "rule": "Column payload equals the CLARA source value after transformation",
+      "query": "SELECT COUNT(*) FROM fnol.notification t JOIN src_extract s ON s.claim_key = t.claim_key WHERE t.payload <> s.mapped_value",
+      "queryNote": "src_extract = transformed unload of CLR.T_FNOL_EVENT",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "fnol-intake-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Note that where an exception reflects a known CLARA data issue, the CLARA value is carried over unchanged."
+    },
+    {
+      "checkId": "DQ-W1-013",
+      "dimension": "timeliness",
+      "targetTable": "fnol.notification",
+      "targetDatabase": "chub_fnol",
+      "sourceTable": "CLR.T_FNOL_EVENT",
+      "sourceColumns": [
+        "LAST_UPD_USER",
+        "PAYLOAD_REF"
+      ],
+      "rule": "Column claim_id carries the source time stamp converted to UTC",
+      "query": "SELECT COUNT(*) FROM fnol.notification t WHERE t.claim_id IS NOT NULL AND t.claim_id > now()",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "fnol-intake-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "As a rule, business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-014",
+      "dimension": "referential_integrity",
+      "targetTable": "fnol.notification",
+      "targetDatabase": "chub_fnol",
+      "sourceTable": "CLR.T_FNOL_EVENT",
+      "sourceColumns": [
+        "RECEIVED_TS",
+        "CHANNEL_CD"
+      ],
+      "rule": "Every claim_id resolves to its parent record",
+      "query": "SELECT COUNT(*) FROM fnol.notification t LEFT JOIN parent p ON p.key = t.claim_id WHERE p.key IS NULL",
+      "queryNote": "parent = keys of the parent record in the target model",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "fnol-intake-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "As a rule, the check compares the migrated value with the CLARA source after normalisation of case and whitespace."
+    },
+    {
+      "checkId": "DQ-W1-015",
+      "dimension": "uniqueness",
+      "targetTable": "fnol.notification",
+      "targetDatabase": "chub_fnol",
+      "sourceTable": "CLR.T_FNOL_EVENT",
+      "sourceColumns": [
+        "PAYLOAD_REF",
+        "CHANNEL_CD"
+      ],
+      "rule": "Primary key fnol_id is unique in the target table",
+      "query": "SELECT fnol_id, COUNT(*) FROM fnol.notification GROUP BY fnol_id HAVING COUNT(*) > 1",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "fnol-intake-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "For clarity, exceptions are listed by claim reference only; no personal data is reproduced in this report."
+    },
+    {
+      "checkId": "DQ-W1-016",
+      "dimension": "validity",
+      "targetTable": "fnol.notification",
+      "targetDatabase": "chub_fnol",
+      "sourceTable": "CLR.T_FNOL_EVENT",
+      "sourceColumns": [
+        "LAST_UPD_TS",
+        "LAST_UPD_PGM"
+      ],
+      "rule": "Column ack_sent_at holds a value allowed by the target domain",
+      "query": "SELECT COUNT(*) FROM fnol.notification t LEFT JOIN allowed a ON a.code = t.ack_sent_at WHERE a.code IS NULL",
+      "queryNote": "allowed = target domain list for the column",
+      "status": "WARN",
+      "exceptions": 16,
+      "owningService": "fnol-intake-svc",
+      "disposition": "open - assigned to squad",
+      "sampleExceptions": [
+        {
+          "claimRef": "CLM-UK-2019-193685",
+          "column": "ack_sent_at",
+          "issue": "value outside target domain"
+        },
+        {
+          "claimRef": "CLM-UK-2021-161702",
+          "column": "ack_sent_at",
+          "issue": "duplicate business key in source"
+        },
+        {
+          "claimRef": "CLM-UK-2019-238443",
+          "column": "ack_sent_at",
+          "issue": "source/target mismatch after rounding"
+        }
+      ],
+      "comment": "Exceptions were triaged by the data migration team and classified as fixed, accepted or open."
+    },
+    {
+      "checkId": "DQ-W1-017",
+      "dimension": "completeness",
+      "targetTable": "fnol.notification",
+      "targetDatabase": "chub_fnol",
+      "sourceTable": "CLR.T_FNOL_EVENT",
+      "sourceColumns": [
+        "LAST_UPD_USER",
+        "LAST_UPD_PGM"
+      ],
+      "rule": "Mandatory column received_at is populated for every migrated row",
+      "query": "SELECT COUNT(*) FROM fnol.notification t WHERE t.received_at IS NULL",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "fnol-intake-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "As a rule, exceptions were triaged by the data migration team and logged with a disposition."
+    },
+    {
+      "checkId": "DQ-W1-018",
+      "dimension": "referential_integrity",
+      "targetTable": "triage.triage_decision",
+      "targetDatabase": "chub_triage",
+      "sourceTable": "CLR.T_TRIAGE",
+      "sourceColumns": [
+        "CLAIM_ID",
+        "CREATED_TS"
+      ],
+      "rule": "Every claim_id resolves to its parent record",
+      "query": "SELECT COUNT(*) FROM triage.triage_decision t LEFT JOIN parent p ON p.key = t.claim_id WHERE p.key IS NULL",
+      "queryNote": "parent = keys of the parent record in the target model",
+      "status": "WARN",
+      "exceptions": 19,
+      "owningService": "triage-svc",
+      "disposition": "fixed in hypercare patch",
+      "sampleExceptions": [
+        {
+          "claimRef": "CLM-UK-2024-431690",
+          "column": "claim_id",
+          "issue": "value outside target domain"
+        },
+        {
+          "claimRef": "CLM-UK-2023-104259",
+          "column": "claim_id",
+          "issue": "time zone offset missing"
+        },
+        {
+          "claimRef": "CLM-UK-2019-105354",
+          "column": "claim_id",
+          "issue": "duplicate business key in source"
+        }
+      ],
+      "comment": "Note that exceptions were triaged by the data migration team and reviewed with the business data owner."
+    },
+    {
+      "checkId": "DQ-W1-019",
+      "dimension": "timeliness",
+      "targetTable": "triage.triage_decision",
+      "targetDatabase": "chub_triage",
+      "sourceTable": "CLR.T_TRIAGE",
+      "sourceColumns": [
+        "LAST_UPD_PGM",
+        "CLAIM_ID"
+      ],
+      "rule": "Column route carries the source time stamp converted to UTC",
+      "query": "SELECT COUNT(*) FROM triage.triage_decision t WHERE t.route IS NOT NULL AND t.route > now()",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "triage-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Where an exception reflects a known CLARA data issue, the business owner approved the carry-over."
+    },
+    {
+      "checkId": "DQ-W1-020",
+      "dimension": "validity",
+      "targetTable": "triage.triage_decision",
+      "targetDatabase": "chub_triage",
+      "sourceTable": "CLR.T_TRIAGE",
+      "sourceColumns": [
+        "LAST_UPD_USER",
+        "CREATED_TS"
+      ],
+      "rule": "Column route holds a value allowed by the target domain",
+      "query": "SELECT COUNT(*) FROM triage.triage_decision t LEFT JOIN allowed a ON a.code = t.route WHERE a.code IS NULL",
+      "queryNote": "allowed = target domain list for the column",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "triage-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "For clarity, the rule is evaluated on the full migrated population, not on a sample."
+    },
+    {
+      "checkId": "DQ-W1-021",
+      "dimension": "consistency",
+      "targetTable": "triage.triage_decision",
+      "targetDatabase": "chub_triage",
+      "sourceTable": "CLR.T_TRIAGE",
+      "sourceColumns": [
+        "SOURCE_SYS_CD",
+        "ROUTE_CD"
+      ],
+      "rule": "Column claim_id equals the CLARA source value after transformation",
+      "query": "SELECT COUNT(*) FROM triage.triage_decision t JOIN src_extract s ON s.claim_key = t.claim_key WHERE t.claim_id <> s.mapped_value",
+      "queryNote": "src_extract = transformed unload of CLR.T_TRIAGE",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "triage-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Exceptions were triaged by the data migration team and reviewed with the business data owner."
+    },
+    {
+      "checkId": "DQ-W1-022",
+      "dimension": "uniqueness",
+      "targetTable": "triage.triage_decision",
+      "targetDatabase": "chub_triage",
+      "sourceTable": "CLR.T_TRIAGE",
+      "sourceColumns": [
+        "FASTTRACK_FLAG",
+        "SCORE_AT_TRIAGE"
+      ],
+      "rule": "Primary key decision_id is unique in the target table",
+      "query": "SELECT decision_id, COUNT(*) FROM triage.triage_decision GROUP BY decision_id HAVING COUNT(*) > 1",
+      "queryNote": null,
+      "status": "WARN",
+      "exceptions": 3,
+      "owningService": "triage-svc",
+      "disposition": "fixed in hypercare patch",
+      "sampleExceptions": [
+        {
+          "claimRef": "CLM-UK-2025-292789",
+          "column": "decision_id",
+          "issue": "source/target mismatch after rounding"
+        },
+        {
+          "claimRef": "CLM-UK-2024-471331",
+          "column": "decision_id",
+          "issue": "value outside target domain"
+        },
+        {
+          "claimRef": "CLM-UK-2023-488415",
+          "column": "decision_id",
+          "issue": "null in source"
+        }
+      ],
+      "comment": "In practice, the rule is evaluated on the full migrated population, not on a sample."
+    },
+    {
+      "checkId": "DQ-W1-023",
+      "dimension": "completeness",
+      "targetTable": "triage.triage_decision",
+      "targetDatabase": "chub_triage",
+      "sourceTable": "CLR.T_TRIAGE",
+      "sourceColumns": [
+        "ROUTE_CD",
+        "FASTTRACK_FLAG"
+      ],
+      "rule": "Mandatory column sentinel_score is populated for every migrated row",
+      "query": "SELECT COUNT(*) FROM triage.triage_decision t WHERE t.sentinel_score IS NULL",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "triage-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "In practice, where an exception reflects a known CLARA data issue, the CLARA value is carried over unchanged."
+    },
+    {
+      "checkId": "DQ-W1-024",
+      "dimension": "referential_integrity",
+      "targetTable": "assessment.assessment",
+      "targetDatabase": "chub_assessment",
+      "sourceTable": "CLR.T_ASSESSMENT",
+      "sourceColumns": [
+        "COVER_DECISION_CD",
+        "ASSESS_TYPE_CD"
+      ],
+      "rule": "Every claim_id resolves to its parent record",
+      "query": "SELECT COUNT(*) FROM assessment.assessment t LEFT JOIN parent p ON p.key = t.claim_id WHERE p.key IS NULL",
+      "queryNote": "parent = keys of the parent record in the target model",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "assessment-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Where possible, the check was first run in the rehearsals and kept unchanged for the production cut-over."
+    },
+    {
+      "checkId": "DQ-W1-025",
+      "dimension": "uniqueness",
+      "targetTable": "assessment.assessment",
+      "targetDatabase": "chub_assessment",
+      "sourceTable": "CLR.T_ASSESSMENT",
+      "sourceColumns": [
+        "LAST_UPD_USER",
+        "COVER_DECISION_CD"
+      ],
+      "rule": "Primary key assessment_id is unique in the target table",
+      "query": "SELECT assessment_id, COUNT(*) FROM assessment.assessment GROUP BY assessment_id HAVING COUNT(*) > 1",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "assessment-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "The rule is evaluated on the full migrated population, not on a sample."
+    },
+    {
+      "checkId": "DQ-W1-026",
+      "dimension": "timeliness",
+      "targetTable": "assessment.assessment",
+      "targetDatabase": "chub_assessment",
+      "sourceTable": "CLR.T_ASSESSMENT",
+      "sourceColumns": [
+        "LAST_UPD_TS",
+        "CLAIM_ID"
+      ],
+      "rule": "Column assessment_id carries the source time stamp converted to UTC",
+      "query": "SELECT COUNT(*) FROM assessment.assessment t WHERE t.assessment_id IS NOT NULL AND t.assessment_id > now()",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "assessment-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Operationally, the rule is evaluated on the full migrated population, not on a sample."
+    },
+    {
+      "checkId": "DQ-W1-027",
+      "dimension": "consistency",
+      "targetTable": "assessment.assessment",
+      "targetDatabase": "chub_assessment",
+      "sourceTable": "CLR.T_ASSESSMENT",
+      "sourceColumns": [
+        "LAST_UPD_USER",
+        "CLAIM_ID"
+      ],
+      "rule": "Column type equals the CLARA source value after transformation",
+      "query": "SELECT COUNT(*) FROM assessment.assessment t JOIN src_extract s ON s.claim_key = t.claim_key WHERE t.type <> s.mapped_value",
+      "queryNote": "src_extract = transformed unload of CLR.T_ASSESSMENT",
+      "status": "WARN",
+      "exceptions": 1,
+      "owningService": "assessment-svc",
+      "disposition": "open - assigned to squad",
+      "sampleExceptions": [
+        {
+          "claimRef": "CLM-UK-2024-111371",
+          "column": "type",
+          "issue": "value outside target domain"
+        }
+      ],
+      "comment": "Operationally, where an exception reflects a known CLARA data issue, the business owner approved the carry-over."
+    },
+    {
+      "checkId": "DQ-W1-028",
+      "dimension": "completeness",
+      "targetTable": "assessment.assessment",
+      "targetDatabase": "chub_assessment",
+      "sourceTable": "CLR.T_ASSESSMENT",
+      "sourceColumns": [
+        "ASSESS_ID",
+        "ASSESS_TYPE_CD"
+      ],
+      "rule": "Mandatory column cover_decision is populated for every migrated row",
+      "query": "SELECT COUNT(*) FROM assessment.assessment t WHERE t.cover_decision IS NULL",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "assessment-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Where possible, the check was first run in the rehearsals and kept unchanged for the production cut-over."
+    },
+    {
+      "checkId": "DQ-W1-029",
+      "dimension": "validity",
+      "targetTable": "assessment.assessment",
+      "targetDatabase": "chub_assessment",
+      "sourceTable": "CLR.T_ASSESSMENT",
+      "sourceColumns": [
+        "COVER_DECISION_CD",
+        "CLAIM_ID"
+      ],
+      "rule": "Column type holds a value allowed by the target domain",
+      "query": "SELECT COUNT(*) FROM assessment.assessment t LEFT JOIN allowed a ON a.code = t.type WHERE a.code IS NULL",
+      "queryNote": "allowed = target domain list for the column",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "assessment-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Note that business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-030",
+      "dimension": "validity",
+      "targetTable": "assessment.assessor_assignment",
+      "targetDatabase": "chub_assessment",
+      "sourceTable": "CLR.T_ASSESSOR_ASSIGNMENT",
+      "sourceColumns": [
+        "ASSIGN_ID",
+        "VENDOR_CD"
+      ],
+      "rule": "Column sla_due holds a value allowed by the target domain",
+      "query": "SELECT COUNT(*) FROM assessment.assessor_assignment t LEFT JOIN allowed a ON a.code = t.sla_due WHERE a.code IS NULL",
+      "queryNote": "allowed = target domain list for the column",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "assessment-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Note that the rule is evaluated on the full migrated population, not on a sample."
+    },
+    {
+      "checkId": "DQ-W1-031",
+      "dimension": "timeliness",
+      "targetTable": "assessment.assessor_assignment",
+      "targetDatabase": "chub_assessment",
+      "sourceTable": "CLR.T_ASSESSOR_ASSIGNMENT",
+      "sourceColumns": [
+        "LAST_UPD_TS",
+        "VERSION_NO"
+      ],
+      "rule": "Column claims_assessor_id carries the source time stamp converted to UTC",
+      "query": "SELECT COUNT(*) FROM assessment.assessor_assignment t WHERE t.claims_assessor_id IS NOT NULL AND t.claims_assessor_id > now()",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "assessment-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Exceptions were triaged by the data migration team and logged with a disposition."
+    },
+    {
+      "checkId": "DQ-W1-032",
+      "dimension": "completeness",
+      "targetTable": "assessment.assessor_assignment",
+      "targetDatabase": "chub_assessment",
+      "sourceTable": "CLR.T_ASSESSOR_ASSIGNMENT",
+      "sourceColumns": [
+        "ASSIGN_ID",
+        "CLAIM_ID"
+      ],
+      "rule": "Mandatory column claim_id is populated for every migrated row",
+      "query": "SELECT COUNT(*) FROM assessment.assessor_assignment t WHERE t.claim_id IS NULL",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "assessment-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-033",
+      "dimension": "uniqueness",
+      "targetTable": "assessment.assessor_assignment",
+      "targetDatabase": "chub_assessment",
+      "sourceTable": "CLR.T_ASSESSOR_ASSIGNMENT",
+      "sourceColumns": [
+        "APPOINTED_TS",
+        "ASSIGN_ID"
+      ],
+      "rule": "Primary key assignment_id is unique in the target table",
+      "query": "SELECT assignment_id, COUNT(*) FROM assessment.assessor_assignment GROUP BY assignment_id HAVING COUNT(*) > 1",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "assessment-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "For clarity, the rule is evaluated on the full migrated population, not on a sample."
+    },
+    {
+      "checkId": "DQ-W1-034",
+      "dimension": "validity",
+      "targetTable": "reserve.reserve",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE",
+      "sourceColumns": [
+        "RSV_SET_BY_USER",
+        "CURRENCY_CD"
+      ],
+      "rule": "Column currency holds a value allowed by the target domain",
+      "query": "SELECT COUNT(*) FROM reserve.reserve t LEFT JOIN allowed a ON a.code = t.currency WHERE a.code IS NULL",
+      "queryNote": "allowed = target domain list for the column",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "In practice, exceptions are listed by claim reference only; no personal data is reproduced in this report."
+    },
+    {
+      "checkId": "DQ-W1-035",
+      "dimension": "consistency",
+      "targetTable": "reserve.reserve",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE",
+      "sourceColumns": [
+        "CLAIM_ID",
+        "RSV_TYPE_CD"
+      ],
+      "rule": "Column reserve_id equals the CLARA source value after transformation",
+      "query": "SELECT COUNT(*) FROM reserve.reserve t JOIN src_extract s ON s.claim_key = t.claim_key WHERE t.reserve_id <> s.mapped_value",
+      "queryNote": "src_extract = transformed unload of CLR.T_RESERVE",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Exceptions are listed by claim reference only; no personal data is reproduced in this report."
+    },
+    {
+      "checkId": "DQ-W1-036",
+      "dimension": "timeliness",
+      "targetTable": "reserve.reserve",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE",
+      "sourceColumns": [
+        "CLAIM_ID",
+        "RSV_OUTSTANDING_AMT"
+      ],
+      "rule": "Column currency carries the source time stamp converted to UTC",
+      "query": "SELECT COUNT(*) FROM reserve.reserve t WHERE t.currency IS NOT NULL AND t.currency > now()",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "The check compares the migrated value with the CLARA source after normalisation of case and whitespace."
+    },
+    {
+      "checkId": "DQ-W1-037",
+      "dimension": "completeness",
+      "targetTable": "reserve.reserve",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE",
+      "sourceColumns": [
+        "RSV_INDEX_FACTOR",
+        "RSV_SET_BY_USER"
+      ],
+      "rule": "Mandatory column reserve_type is populated for every migrated row",
+      "query": "SELECT COUNT(*) FROM reserve.reserve t WHERE t.reserve_type IS NULL",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "The check compares the migrated value with the CLARA source after normalisation of case and whitespace."
+    },
+    {
+      "checkId": "DQ-W1-038",
+      "dimension": "referential_integrity",
+      "targetTable": "reserve.reserve",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE",
+      "sourceColumns": [
+        "RSV_RECOVERY_EST_AMT",
+        "LAST_UPD_PGM"
+      ],
+      "rule": "Every claim_id resolves to its parent record",
+      "query": "SELECT COUNT(*) FROM reserve.reserve t LEFT JOIN parent p ON p.key = t.claim_id WHERE p.key IS NULL",
+      "queryNote": "parent = keys of the parent record in the target model",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Note that exceptions are listed by claim reference only; no personal data is reproduced in this report."
+    },
+    {
+      "checkId": "DQ-W1-039",
+      "dimension": "uniqueness",
+      "targetTable": "reserve.reserve",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE",
+      "sourceColumns": [
+        "RSV_INITIAL_AMT",
+        "RSV_PAID_TO_DATE_AMT"
+      ],
+      "rule": "Primary key reserve_id is unique in the target table",
+      "query": "SELECT reserve_id, COUNT(*) FROM reserve.reserve GROUP BY reserve_id HAVING COUNT(*) > 1",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Where possible, results are reproducible from the reconciliation workspace using the stored query."
+    },
+    {
+      "checkId": "DQ-W1-040",
+      "dimension": "validity",
+      "targetTable": "reserve.reserve_movement",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE_MOVEMENT",
+      "sourceColumns": [
+        "MOVE_AMT",
+        "REASON_CD"
+      ],
+      "rule": "Column movement_type holds a value allowed by the target domain",
+      "query": "SELECT COUNT(*) FROM reserve.reserve_movement t LEFT JOIN allowed a ON a.code = t.movement_type WHERE a.code IS NULL",
+      "queryNote": "allowed = target domain list for the column",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Results are reproducible from the reconciliation workspace using the stored query."
+    },
+    {
+      "checkId": "DQ-W1-041",
+      "dimension": "uniqueness",
+      "targetTable": "reserve.reserve_movement",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE_MOVEMENT",
+      "sourceColumns": [
+        "PGM_ID",
+        "MOVE_AMT"
+      ],
+      "rule": "Primary key movement_id is unique in the target table",
+      "query": "SELECT movement_id, COUNT(*) FROM reserve.reserve_movement GROUP BY movement_id HAVING COUNT(*) > 1",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "The check compares the migrated value with the CLARA source after normalisation of date formats and time zones."
+    },
+    {
+      "checkId": "DQ-W1-042",
+      "dimension": "completeness",
+      "targetTable": "reserve.reserve_movement",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE_MOVEMENT",
+      "sourceColumns": [
+        "MOVE_TYPE_CD",
+        "MOVE_TS"
+      ],
+      "rule": "Mandatory column source is populated for every migrated row",
+      "query": "SELECT COUNT(*) FROM reserve.reserve_movement t WHERE t.source IS NULL",
+      "queryNote": null,
+      "status": "WARN",
+      "exceptions": 5,
+      "owningService": "reserve-engine",
+      "disposition": "accepted (CLARA data issue)",
+      "sampleExceptions": [
+        {
+          "claimRef": "CLM-UK-2024-416668",
+          "column": "source",
+          "issue": "null in source"
+        },
+        {
+          "claimRef": "CLM-UK-2023-226608",
+          "column": "source",
+          "issue": "null in source"
+        },
+        {
+          "claimRef": "CLM-UK-2026-323425",
+          "column": "source",
+          "issue": "source/target mismatch after rounding"
+        }
+      ],
+      "comment": "Exceptions were triaged by the data migration team and logged with a disposition."
+    },
+    {
+      "checkId": "DQ-W1-043",
+      "dimension": "timeliness",
+      "targetTable": "reserve.reserve_movement",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE_MOVEMENT",
+      "sourceColumns": [
+        "RSV_ID",
+        "MOVE_ID"
+      ],
+      "rule": "Column movement_id carries the source time stamp converted to UTC",
+      "query": "SELECT COUNT(*) FROM reserve.reserve_movement t WHERE t.movement_id IS NOT NULL AND t.movement_id > now()",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "For clarity, exceptions were triaged by the data migration team and assigned to the owning squad."
+    },
+    {
+      "checkId": "DQ-W1-044",
+      "dimension": "validity",
+      "targetTable": "reserve.review_schedule",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE",
+      "sourceColumns": [
+        "RSV_AUTH_LEVEL",
+        "RSV_INITIAL_AMT"
+      ],
+      "rule": "Column next_review_date holds a value allowed by the target domain",
+      "query": "SELECT COUNT(*) FROM reserve.review_schedule t LEFT JOIN allowed a ON a.code = t.next_review_date WHERE a.code IS NULL",
+      "queryNote": "allowed = target domain list for the column",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "For clarity, business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-045",
+      "dimension": "timeliness",
+      "targetTable": "reserve.review_schedule",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE",
+      "sourceColumns": [
+        "RSV_INITIAL_AMT",
+        "RSV_ID"
+      ],
+      "rule": "Column cadence_days carries the source time stamp converted to UTC",
+      "query": "SELECT COUNT(*) FROM reserve.review_schedule t WHERE t.cadence_days IS NOT NULL AND t.cadence_days > now()",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "In practice, the rule is evaluated on the full migrated population, not on a sample."
+    },
+    {
+      "checkId": "DQ-W1-046",
+      "dimension": "referential_integrity",
+      "targetTable": "reserve.review_schedule",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE",
+      "sourceColumns": [
+        "RSV_RECOVERY_EST_AMT",
+        "RSV_INDEX_FACTOR"
+      ],
+      "rule": "Every claim_id resolves to its parent record",
+      "query": "SELECT COUNT(*) FROM reserve.review_schedule t LEFT JOIN parent p ON p.key = t.claim_id WHERE p.key IS NULL",
+      "queryNote": "parent = keys of the parent record in the target model",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "For clarity, business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-047",
+      "dimension": "consistency",
+      "targetTable": "reserve.review_schedule",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE",
+      "sourceColumns": [
+        "RSV_ID",
+        "LAST_UPD_TS"
+      ],
+      "rule": "Column claim_id equals the CLARA source value after transformation",
+      "query": "SELECT COUNT(*) FROM reserve.review_schedule t JOIN src_extract s ON s.claim_key = t.claim_key WHERE t.claim_id <> s.mapped_value",
+      "queryNote": "src_extract = transformed unload of CLR.T_RESERVE",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Exceptions are listed by claim reference only; no personal data is reproduced in this report."
+    },
+    {
+      "checkId": "DQ-W1-048",
+      "dimension": "uniqueness",
+      "targetTable": "reserve.review_schedule",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE",
+      "sourceColumns": [
+        "RSV_LAST_REVAL_DT",
+        "RSV_TYPE_CD"
+      ],
+      "rule": "Primary key claim_id is unique in the target table",
+      "query": "SELECT claim_id, COUNT(*) FROM reserve.review_schedule GROUP BY claim_id HAVING COUNT(*) > 1",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "As a rule, where an exception reflects a known CLARA data issue, a correction is scheduled after cut-over."
+    },
+    {
+      "checkId": "DQ-W1-049",
+      "dimension": "completeness",
+      "targetTable": "reserve.review_schedule",
+      "targetDatabase": "chub_reserve",
+      "sourceTable": "CLR.T_RESERVE",
+      "sourceColumns": [
+        "CLAIM_ID",
+        "RSV_ID"
+      ],
+      "rule": "Mandatory column next_review_date is populated for every migrated row",
+      "query": "SELECT COUNT(*) FROM reserve.review_schedule t WHERE t.next_review_date IS NULL",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "reserve-engine",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Note that the check compares the migrated value with the CLARA source after normalisation of date formats and time zones."
+    },
+    {
+      "checkId": "DQ-W1-050",
+      "dimension": "uniqueness",
+      "targetTable": "fraud.referral",
+      "targetDatabase": "chub_fraud",
+      "sourceTable": "CLR.T_FRAUD_REFERRAL",
+      "sourceColumns": [
+        "REF_THRESHOLD_APPLIED",
+        "OUTCOME_CD"
+      ],
+      "rule": "Primary key referral_id is unique in the target table",
+      "query": "SELECT referral_id, COUNT(*) FROM fraud.referral GROUP BY referral_id HAVING COUNT(*) > 1",
+      "queryNote": null,
+      "status": "WARN",
+      "exceptions": 17,
+      "owningService": "fraud-referral-svc",
+      "disposition": "open - assigned to squad",
+      "sampleExceptions": [
+        {
+          "claimRef": "CLM-UK-2019-164721",
+          "column": "referral_id",
+          "issue": "orphan child row"
+        },
+        {
+          "claimRef": "CLM-UK-2019-408756",
+          "column": "referral_id",
+          "issue": "value outside target domain"
+        },
+        {
+          "claimRef": "CLM-UK-2025-112674",
+          "column": "referral_id",
+          "issue": "time zone offset missing"
+        }
+      ],
+      "comment": "Business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-051",
+      "dimension": "consistency",
+      "targetTable": "fraud.referral",
+      "targetDatabase": "chub_fraud",
+      "sourceTable": "CLR.T_FRAUD_REFERRAL",
+      "sourceColumns": [
+        "LAST_UPD_USER",
+        "CLAIM_ID"
+      ],
+      "rule": "Column tier equals the CLARA source value after transformation",
+      "query": "SELECT COUNT(*) FROM fraud.referral t JOIN src_extract s ON s.claim_key = t.claim_key WHERE t.tier <> s.mapped_value",
+      "queryNote": "src_extract = transformed unload of CLR.T_FRAUD_REFERRAL",
+      "status": "FAIL",
+      "exceptions": 11,
+      "owningService": "fraud-referral-svc",
+      "disposition": "open - assigned to squad",
+      "sampleExceptions": [
+        {
+          "claimRef": "CLM-UK-2026-124845",
+          "column": "tier",
+          "issue": "legacy code without mapping"
+        },
+        {
+          "claimRef": "CLM-UK-2024-363040",
+          "column": "tier",
+          "issue": "source/target mismatch after rounding"
+        },
+        {
+          "claimRef": "CLM-UK-2024-423490",
+          "column": "tier",
+          "issue": "value outside target domain"
+        }
+      ],
+      "comment": "The check compares the migrated value with the CLARA source after normalisation of currency and decimal places."
+    },
+    {
+      "checkId": "DQ-W1-052",
+      "dimension": "referential_integrity",
+      "targetTable": "fraud.referral",
+      "targetDatabase": "chub_fraud",
+      "sourceTable": "CLR.T_FRAUD_REFERRAL",
+      "sourceColumns": [
+        "REF_SOURCE_CD",
+        "REF_ID"
+      ],
+      "rule": "Every claim_id resolves to its parent record",
+      "query": "SELECT COUNT(*) FROM fraud.referral t LEFT JOIN parent p ON p.key = t.claim_id WHERE p.key IS NULL",
+      "queryNote": "parent = keys of the parent record in the target model",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "fraud-referral-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Where possible, exceptions were triaged by the data migration team and assigned to the owning squad."
+    },
+    {
+      "checkId": "DQ-W1-053",
+      "dimension": "validity",
+      "targetTable": "fraud.referral",
+      "targetDatabase": "chub_fraud",
+      "sourceTable": "CLR.T_FRAUD_REFERRAL",
+      "sourceColumns": [
+        "OUTCOME_CD",
+        "TIER_CD"
+      ],
+      "rule": "Column referred_at holds a value allowed by the target domain",
+      "query": "SELECT COUNT(*) FROM fraud.referral t LEFT JOIN allowed a ON a.code = t.referred_at WHERE a.code IS NULL",
+      "queryNote": "allowed = target domain list for the column",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "fraud-referral-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Note that results are reproducible from the reconciliation workspace using the stored query."
+    },
+    {
+      "checkId": "DQ-W1-054",
+      "dimension": "uniqueness",
+      "targetTable": "settlement.settlement",
+      "targetDatabase": "chub_settlement",
+      "sourceTable": "CLR.T_SETTLEMENT",
+      "sourceColumns": [
+        "FINAL_FLAG",
+        "LAST_UPD_PGM"
+      ],
+      "rule": "Primary key settlement_id is unique in the target table",
+      "query": "SELECT settlement_id, COUNT(*) FROM settlement.settlement GROUP BY settlement_id HAVING COUNT(*) > 1",
+      "queryNote": null,
+      "status": "WARN",
+      "exceptions": 20,
+      "owningService": "settlement-svc",
+      "disposition": "fixed post cut-over",
+      "sampleExceptions": [
+        {
+          "claimRef": "CLM-UK-2025-436310",
+          "column": "settlement_id",
+          "issue": "source/target mismatch after rounding"
+        },
+        {
+          "claimRef": "CLM-UK-2021-148541",
+          "column": "settlement_id",
+          "issue": "null in source"
+        },
+        {
+          "claimRef": "CLM-UK-2026-243499",
+          "column": "settlement_id",
+          "issue": "null in source"
+        }
+      ],
+      "comment": "In practice, results are reproducible from the reconciliation workspace using the stored query."
+    },
+    {
+      "checkId": "DQ-W1-055",
+      "dimension": "validity",
+      "targetTable": "settlement.settlement",
+      "targetDatabase": "chub_settlement",
+      "sourceTable": "CLR.T_SETTLEMENT",
+      "sourceColumns": [
+        "LAST_UPD_TS",
+        "OFFER_DT"
+      ],
+      "rule": "Column excess_applied holds a value allowed by the target domain",
+      "query": "SELECT COUNT(*) FROM settlement.settlement t LEFT JOIN allowed a ON a.code = t.excess_applied WHERE a.code IS NULL",
+      "queryNote": "allowed = target domain list for the column",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "settlement-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Operationally, exceptions are listed by claim reference only; no personal data is reproduced in this report."
+    },
+    {
+      "checkId": "DQ-W1-056",
+      "dimension": "consistency",
+      "targetTable": "settlement.settlement",
+      "targetDatabase": "chub_settlement",
+      "sourceTable": "CLR.T_SETTLEMENT",
+      "sourceColumns": [
+        "SETTLE_ID",
+        "OFFER_DT"
+      ],
+      "rule": "Column settlement_id equals the CLARA source value after transformation",
+      "query": "SELECT COUNT(*) FROM settlement.settlement t JOIN src_extract s ON s.claim_key = t.claim_key WHERE t.settlement_id <> s.mapped_value",
+      "queryNote": "src_extract = transformed unload of CLR.T_SETTLEMENT",
+      "status": "WARN",
+      "exceptions": 17,
+      "owningService": "settlement-svc",
+      "disposition": "fixed in hypercare patch",
+      "sampleExceptions": [
+        {
+          "claimRef": "CLM-UK-2023-193306",
+          "column": "settlement_id",
+          "issue": "null in source"
+        },
+        {
+          "claimRef": "CLM-UK-2019-216920",
+          "column": "settlement_id",
+          "issue": "null in source"
+        },
+        {
+          "claimRef": "CLM-UK-2025-391229",
+          "column": "settlement_id",
+          "issue": "time zone offset missing"
+        }
+      ],
+      "comment": "In practice, business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-057",
+      "dimension": "referential_integrity",
+      "targetTable": "settlement.settlement",
+      "targetDatabase": "chub_settlement",
+      "sourceTable": "CLR.T_SETTLEMENT",
+      "sourceColumns": [
+        "FINAL_FLAG",
+        "CLAIM_ID"
+      ],
+      "rule": "Every claim_id resolves to its parent record",
+      "query": "SELECT COUNT(*) FROM settlement.settlement t LEFT JOIN parent p ON p.key = t.claim_id WHERE p.key IS NULL",
+      "queryNote": "parent = keys of the parent record in the target model",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "settlement-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "In practice, the check compares the migrated value with the CLARA source after normalisation of currency and decimal places."
+    },
+    {
+      "checkId": "DQ-W1-058",
+      "dimension": "referential_integrity",
+      "targetTable": "payment.payment_instruction",
+      "targetDatabase": "chub_payment",
+      "sourceTable": "CLR.T_PAYMENT",
+      "sourceColumns": [
+        "PAY_ID",
+        "AUTH_USER"
+      ],
+      "rule": "Every claim_id resolves to its parent record",
+      "query": "SELECT COUNT(*) FROM payment.payment_instruction t LEFT JOIN parent p ON p.key = t.claim_id WHERE p.key IS NULL",
+      "queryNote": "parent = keys of the parent record in the target model",
+      "status": "WARN",
+      "exceptions": 9,
+      "owningService": "payment-orchestrator",
+      "disposition": "fixed post cut-over",
+      "sampleExceptions": [
+        {
+          "claimRef": "CLM-UK-2021-451710",
+          "column": "claim_id",
+          "issue": "null in source"
+        },
+        {
+          "claimRef": "CLM-UK-2019-292746",
+          "column": "claim_id",
+          "issue": "time zone offset missing"
+        },
+        {
+          "claimRef": "CLM-UK-2023-330654",
+          "column": "claim_id",
+          "issue": "null in source"
+        }
+      ],
+      "comment": "Operationally, exceptions are listed by claim reference only; no personal data is reproduced in this report."
+    },
+    {
+      "checkId": "DQ-W1-059",
+      "dimension": "timeliness",
+      "targetTable": "payment.payment_instruction",
+      "targetDatabase": "chub_payment",
+      "sourceTable": "CLR.T_PAYMENT",
+      "sourceColumns": [
+        "COMMENT_TXT",
+        "LAST_UPD_USER"
+      ],
+      "rule": "Column idempotency_key carries the source time stamp converted to UTC",
+      "query": "SELECT COUNT(*) FROM payment.payment_instruction t WHERE t.idempotency_key IS NOT NULL AND t.idempotency_key > now()",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "payment-orchestrator",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Results are reproducible from the reconciliation workspace using the stored query."
+    },
+    {
+      "checkId": "DQ-W1-060",
+      "dimension": "uniqueness",
+      "targetTable": "payment.payment_instruction",
+      "targetDatabase": "chub_payment",
+      "sourceTable": "CLR.T_PAYMENT",
+      "sourceColumns": [
+        "LAST_UPD_PGM",
+        "COMMENT_TXT"
+      ],
+      "rule": "Primary key payment_id is unique in the target table",
+      "query": "SELECT payment_id, COUNT(*) FROM payment.payment_instruction GROUP BY payment_id HAVING COUNT(*) > 1",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "payment-orchestrator",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "As a rule, the check compares the migrated value with the CLARA source after normalisation of date formats and time zones."
+    },
+    {
+      "checkId": "DQ-W1-061",
+      "dimension": "consistency",
+      "targetTable": "payment.payment_instruction",
+      "targetDatabase": "chub_payment",
+      "sourceTable": "CLR.T_PAYMENT",
+      "sourceColumns": [
+        "PAY_AMT",
+        "PAY_ID"
+      ],
+      "rule": "Column currency equals the CLARA source value after transformation",
+      "query": "SELECT COUNT(*) FROM payment.payment_instruction t JOIN src_extract s ON s.claim_key = t.claim_key WHERE t.currency <> s.mapped_value",
+      "queryNote": "src_extract = transformed unload of CLR.T_PAYMENT",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "payment-orchestrator",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Where possible, the rule is evaluated on the full migrated population, not on a sample."
+    },
+    {
+      "checkId": "DQ-W1-062",
+      "dimension": "referential_integrity",
+      "targetTable": "recovery.recovery_case",
+      "targetDatabase": "chub_recovery",
+      "sourceTable": "CLR.T_SUBROGATION_CASE",
+      "sourceColumns": [
+        "LAST_UPD_USER",
+        "TP_INSURER_NAME"
+      ],
+      "rule": "Every claim_id resolves to its parent record",
+      "query": "SELECT COUNT(*) FROM recovery.recovery_case t LEFT JOIN parent p ON p.key = t.claim_id WHERE p.key IS NULL",
+      "queryNote": "parent = keys of the parent record in the target model",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "recovery-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Operationally, business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-063",
+      "dimension": "timeliness",
+      "targetTable": "recovery.recovery_case",
+      "targetDatabase": "chub_recovery",
+      "sourceTable": "CLR.T_SUBROGATION_CASE",
+      "sourceColumns": [
+        "LAST_UPD_USER",
+        "SUBRO_CASE_ID"
+      ],
+      "rule": "Column case_id carries the source time stamp converted to UTC",
+      "query": "SELECT COUNT(*) FROM recovery.recovery_case t WHERE t.case_id IS NOT NULL AND t.case_id > now()",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "recovery-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Exceptions were triaged by the data migration team and reviewed with the business data owner."
+    },
+    {
+      "checkId": "DQ-W1-064",
+      "dimension": "completeness",
+      "targetTable": "recovery.recovery_case",
+      "targetDatabase": "chub_recovery",
+      "sourceTable": "CLR.T_SUBROGATION_CASE",
+      "sourceColumns": [
+        "DEMAND_DT",
+        "LIMITATION_DT"
+      ],
+      "rule": "Mandatory column claim_id is populated for every migrated row",
+      "query": "SELECT COUNT(*) FROM recovery.recovery_case t WHERE t.claim_id IS NULL",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "recovery-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "As a rule, the rule is evaluated on the full migrated population, not on a sample."
+    },
+    {
+      "checkId": "DQ-W1-065",
+      "dimension": "validity",
+      "targetTable": "recovery.recovery_case",
+      "targetDatabase": "chub_recovery",
+      "sourceTable": "CLR.T_SUBROGATION_CASE",
+      "sourceColumns": [
+        "LIMITATION_DT",
+        "LAST_UPD_PGM"
+      ],
+      "rule": "Column type holds a value allowed by the target domain",
+      "query": "SELECT COUNT(*) FROM recovery.recovery_case t LEFT JOIN allowed a ON a.code = t.type WHERE a.code IS NULL",
+      "queryNote": "allowed = target domain list for the column",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "recovery-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "For clarity, business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-066",
+      "dimension": "timeliness",
+      "targetTable": "recovery.receipt",
+      "targetDatabase": "chub_recovery",
+      "sourceTable": "CLR.T_RECOVERY",
+      "sourceColumns": [
+        "SUBRO_CASE_ID",
+        "CLAIM_ID"
+      ],
+      "rule": "Column received_at carries the source time stamp converted to UTC",
+      "query": "SELECT COUNT(*) FROM recovery.receipt t WHERE t.received_at IS NOT NULL AND t.received_at > now()",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "recovery-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Where possible, results are reproducible from the reconciliation workspace using the stored query."
+    },
+    {
+      "checkId": "DQ-W1-067",
+      "dimension": "referential_integrity",
+      "targetTable": "recovery.receipt",
+      "targetDatabase": "chub_recovery",
+      "sourceTable": "CLR.T_RECOVERY",
+      "sourceColumns": [
+        "LAST_UPD_USER",
+        "SUBRO_CASE_ID"
+      ],
+      "rule": "Every case_id resolves to its parent record",
+      "query": "SELECT COUNT(*) FROM recovery.receipt t LEFT JOIN parent p ON p.key = t.case_id WHERE p.key IS NULL",
+      "queryNote": "parent = keys of the parent record in the target model",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "recovery-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Note that business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-068",
+      "dimension": "completeness",
+      "targetTable": "recovery.receipt",
+      "targetDatabase": "chub_recovery",
+      "sourceTable": "CLR.T_RECOVERY",
+      "sourceColumns": [
+        "LAST_UPD_USER",
+        "RCV_WRITE_OFF_AMT"
+      ],
+      "rule": "Mandatory column received_at is populated for every migrated row",
+      "query": "SELECT COUNT(*) FROM recovery.receipt t WHERE t.received_at IS NULL",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "recovery-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "In practice, business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-069",
+      "dimension": "consistency",
+      "targetTable": "recovery.receipt",
+      "targetDatabase": "chub_recovery",
+      "sourceTable": "CLR.T_RECOVERY",
+      "sourceColumns": [
+        "RCV_STATUS",
+        "WRITE_OFF_APPROVED_BY"
+      ],
+      "rule": "Column receipt_id equals the CLARA source value after transformation",
+      "query": "SELECT COUNT(*) FROM recovery.receipt t JOIN src_extract s ON s.claim_key = t.claim_key WHERE t.receipt_id <> s.mapped_value",
+      "queryNote": "src_extract = transformed unload of CLR.T_RECOVERY",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "recovery-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "Where possible, where an exception reflects a known CLARA data issue, the CLARA value is carried over unchanged."
+    },
+    {
+      "checkId": "DQ-W1-070",
+      "dimension": "uniqueness",
+      "targetTable": "document.document",
+      "targetDatabase": "chub_document",
+      "sourceTable": "CLR.T_DOCUMENT_REF",
+      "sourceColumns": [
+        "DOC_REF_ID",
+        "LAST_UPD_USER"
+      ],
+      "rule": "Primary key document_id is unique in the target table",
+      "query": "SELECT document_id, COUNT(*) FROM document.document GROUP BY document_id HAVING COUNT(*) > 1",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "document-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "As a rule, the check was first run in the rehearsals and kept unchanged for the production cut-over."
+    },
+    {
+      "checkId": "DQ-W1-071",
+      "dimension": "timeliness",
+      "targetTable": "document.document",
+      "targetDatabase": "chub_document",
+      "sourceTable": "CLR.T_DOCUMENT_REF",
+      "sourceColumns": [
+        "LAST_UPD_PGM",
+        "RECEIVED_TS"
+      ],
+      "rule": "Column vault_object_id carries the source time stamp converted to UTC",
+      "query": "SELECT COUNT(*) FROM document.document t WHERE t.vault_object_id IS NOT NULL AND t.vault_object_id > now()",
+      "queryNote": null,
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "document-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "In practice, business sign-off for this dimension sits with the product owner for the affected service."
+    },
+    {
+      "checkId": "DQ-W1-072",
+      "dimension": "validity",
+      "targetTable": "document.document",
+      "targetDatabase": "chub_document",
+      "sourceTable": "CLR.T_DOCUMENT_REF",
+      "sourceColumns": [
+        "VAULT_OBJECT_ID",
+        "LAST_UPD_TS"
+      ],
+      "rule": "Column doc_type holds a value allowed by the target domain",
+      "query": "SELECT COUNT(*) FROM document.document t LEFT JOIN allowed a ON a.code = t.doc_type WHERE a.code IS NULL",
+      "queryNote": "allowed = target domain list for the column",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "document-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "As a rule, exceptions were triaged by the data migration team and classified as fixed, accepted or open."
+    },
+    {
+      "checkId": "DQ-W1-073",
+      "dimension": "referential_integrity",
+      "targetTable": "document.document",
+      "targetDatabase": "chub_document",
+      "sourceTable": "CLR.T_DOCUMENT_REF",
+      "sourceColumns": [
+        "LAST_UPD_USER",
+        "CLAIM_ID"
+      ],
+      "rule": "Every claim_id resolves to its parent record",
+      "query": "SELECT COUNT(*) FROM document.document t LEFT JOIN parent p ON p.key = t.claim_id WHERE p.key IS NULL",
+      "queryNote": "parent = keys of the parent record in the target model",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "document-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "The rule is evaluated on the full migrated population, not on a sample."
+    },
+    {
+      "checkId": "DQ-W1-074",
+      "dimension": "consistency",
+      "targetTable": "document.document",
+      "targetDatabase": "chub_document",
+      "sourceTable": "CLR.T_DOCUMENT_REF",
+      "sourceColumns": [
+        "LAST_UPD_PGM",
+        "CLAIM_ID"
+      ],
+      "rule": "Column doc_type equals the CLARA source value after transformation",
+      "query": "SELECT COUNT(*) FROM document.document t JOIN src_extract s ON s.claim_key = t.claim_key WHERE t.doc_type <> s.mapped_value",
+      "queryNote": "src_extract = transformed unload of CLR.T_DOCUMENT_REF",
+      "status": "PASS",
+      "exceptions": 0,
+      "owningService": "document-svc",
+      "disposition": null,
+      "sampleExceptions": [],
+      "comment": "The check was first run in the rehearsals and kept unchanged for the production cut-over."
+    }
+  ],
+  "notes": [
+    "Where an exception reflects a known CLARA data issue, the CLARA value is carried over unchanged. Results are reproducible from the reconciliation workspace using the stored query. Exceptions were triaged by the data migration team and classified as fixed, accepted or open.",
+    "Comments should be raised with the document owner rather than edited in place. This document is controlled; printed copies are uncontrolled."
+  ]
+}

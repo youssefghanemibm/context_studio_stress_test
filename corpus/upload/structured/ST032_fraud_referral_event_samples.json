@@ -1,0 +1,747 @@
+{
+  "documentControl": {
+    "documentId": "SKR-FRD-EVT-032",
+    "title": "Fraud Referral Event Samples",
+    "version": "1.0",
+    "status": "final",
+    "date": "2026-10-09",
+    "owner": {
+      "name": "Linnea Sjöberg",
+      "title": "Engineering Lead – Fraud & Settlement Squad"
+    },
+    "reviewers": [
+      {
+        "name": "Hannah Lyle",
+        "title": "Business Analyst – Claims"
+      },
+      {
+        "name": "Rachel Dunmore",
+        "title": "SIU Investigations Manager (UK)"
+      }
+    ],
+    "approvers": [
+      {
+        "name": "Linnea Sjöberg",
+        "title": "Engineering Lead – Fraud & Settlement Squad",
+        "date": "2026-10-09"
+      }
+    ],
+    "classification": "Internal",
+    "organisation": "Corvane Mutual Insurance Society Limited",
+    "programme": "Programme Skerry (CLARA to Claims Hub)",
+    "changeHistory": [
+      {
+        "version": "0.1",
+        "date": "2026-08-15",
+        "author": "Linnea Sjöberg",
+        "change": "Initial draft for review"
+      },
+      {
+        "version": "0.2",
+        "date": "2026-08-19",
+        "author": "Linnea Sjöberg",
+        "change": "Review comments incorporated"
+      },
+      {
+        "version": "1.0",
+        "date": "2026-10-09",
+        "author": "Linnea Sjöberg",
+        "change": "Issued as final"
+      }
+    ]
+  },
+  "purpose": "Sample events for the fraud referral flow, for consumer contract tests (ADR-023). Values are synthetic.",
+  "topics": {
+    "triage.completed.v1": {
+      "producer": "triage-svc",
+      "consumers": [
+        "reserve-engine",
+        "fraud-referral-svc",
+        "assessment-svc"
+      ]
+    },
+    "fraud.score.received.v1": {
+      "producer": "triage-svc",
+      "consumers": [
+        "fraud-referral-svc"
+      ]
+    },
+    "fraud.referral.created.v1": {
+      "producer": "fraud-referral-svc",
+      "consumers": [
+        "reporting-feed-svc"
+      ]
+    },
+    "fraud.referral.notice-due.v1": {
+      "producer": "fraud-referral-svc",
+      "consumers": [
+        "notification-svc"
+      ]
+    }
+  },
+  "events": [
+    {
+      "topic": "triage.completed.v1",
+      "partitionKey": "CLM-UK-2026-471625",
+      "headers": {
+        "eventId": "7ef24a3669ff15b55fa6ed69fc9eea56",
+        "eventType": "triage.completed",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "03f6212f67a96ff5a16015ab2e04c921",
+        "occurredAt": "2026-10-06T06:29:03Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-471625",
+        "product": "PRD-MOT-UK",
+        "claimType": "CT-BIJ",
+        "tier": "Tier-3",
+        "tierRule": "BR-TRI-003 v3",
+        "route": "MAJOR_COMPLEX",
+        "triagedBy": "triage-svc"
+      }
+    },
+    {
+      "topic": "fraud.score.received.v1",
+      "partitionKey": "CLM-UK-2026-471625",
+      "headers": {
+        "eventId": "2d1f94c2f93f88b7bdb58c211e86f62a",
+        "eventType": "fraud.score.received",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "163b62f5adc6f13c85e7062425159aff",
+        "occurredAt": "2026-10-06T20:06:16Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-471625",
+        "score": 63,
+        "modelVersion": "SNT-4.2",
+        "tier": "Tier-3",
+        "thresholdApplied": 60,
+        "referralRecommended": true,
+        "scoringInterface": "CLX-IF-036"
+      }
+    },
+    {
+      "topic": "fraud.referral.created.v1",
+      "partitionKey": "CLM-UK-2026-471625",
+      "headers": {
+        "eventId": "d5cffe90089da340e8f2b1ef650c111d",
+        "eventType": "fraud.referral.created",
+        "schemaVersion": 1,
+        "producer": "fraud-referral-svc",
+        "correlationId": "13de9e4b3234f7635800c7780648382f",
+        "occurredAt": "2026-10-06T14:50:37Z"
+      },
+      "payload": {
+        "referralId": "FRF-2026-37649",
+        "claimId": "CLM-UK-2026-471625",
+        "referralDate": "2026-10-06",
+        "score": 63,
+        "tier": "Tier-3",
+        "thresholdApplied": 60,
+        "thresholdRule": "BR-FRD-031 v2",
+        "siuTriageDueBy": "2026-10-09",
+        "siuCaseInterface": "CLX-IF-041",
+        "createdBy": "fraud-referral-svc"
+      }
+    },
+    {
+      "topic": "fraud.referral.notice-due.v1",
+      "partitionKey": "CLM-UK-2026-471625",
+      "headers": {
+        "eventId": "657394537425463122718d5d37e21d2c",
+        "eventType": "fraud.referral.notice-due",
+        "schemaVersion": 1,
+        "producer": "fraud-referral-svc",
+        "correlationId": "64580c5d9684c9e24b3af580d4731c12",
+        "occurredAt": "2026-10-06T15:35:55Z"
+      },
+      "payload": {
+        "referralId": "FRF-2026-37649",
+        "claimId": "CLM-UK-2026-471625",
+        "referralDate": "2026-10-06",
+        "noticeDueDate": "2026-10-20",
+        "deadlineRule": "BR-FRD-032 v2 (referral date + 10 business days)",
+        "deferred": false,
+        "recipientChannel": "email"
+      }
+    },
+    {
+      "topic": "triage.completed.v1",
+      "partitionKey": "CLM-UK-2026-159271",
+      "headers": {
+        "eventId": "59e0b362bdcb83c09793c572e7ae7e8e",
+        "eventType": "triage.completed",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "fa73e92c4ab38d184e63c96e0de49e6f",
+        "occurredAt": "2026-10-06T10:42:39Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-159271",
+        "product": "PRD-HOM-UK",
+        "claimType": "CT-EOW",
+        "tier": "Tier-2",
+        "tierRule": "BR-TRI-003 v3",
+        "route": "SPECIALIST",
+        "triagedBy": "triage-svc"
+      }
+    },
+    {
+      "topic": "fraud.score.received.v1",
+      "partitionKey": "CLM-UK-2026-159271",
+      "headers": {
+        "eventId": "1f4ba69e0e6c35dd1fd9a17a07d17613",
+        "eventType": "fraud.score.received",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "f29c05c780bcec65e5d5a085ae088944",
+        "occurredAt": "2026-10-06T20:16:37Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-159271",
+        "score": 66,
+        "modelVersion": "SNT-4.2",
+        "tier": "Tier-2",
+        "thresholdApplied": 65,
+        "referralRecommended": true,
+        "scoringInterface": "CLX-IF-036"
+      }
+    },
+    {
+      "topic": "fraud.referral.created.v1",
+      "partitionKey": "CLM-UK-2026-159271",
+      "headers": {
+        "eventId": "34f59c228b557377bd640cfd93f1f3bc",
+        "eventType": "fraud.referral.created",
+        "schemaVersion": 1,
+        "producer": "fraud-referral-svc",
+        "correlationId": "19d514379f3833189f4f9874ca2dccd5",
+        "occurredAt": "2026-10-06T12:59:15Z"
+      },
+      "payload": {
+        "referralId": "FRF-2026-14624",
+        "claimId": "CLM-UK-2026-159271",
+        "referralDate": "2026-10-06",
+        "score": 66,
+        "tier": "Tier-2",
+        "thresholdApplied": 65,
+        "thresholdRule": "BR-FRD-031 v2",
+        "siuTriageDueBy": "2026-10-09",
+        "siuCaseInterface": "CLX-IF-041",
+        "createdBy": "fraud-referral-svc"
+      }
+    },
+    {
+      "topic": "fraud.referral.notice-due.v1",
+      "partitionKey": "CLM-UK-2026-159271",
+      "headers": {
+        "eventId": "d0bccdaf4eeca12acffe87935f94a6eb",
+        "eventType": "fraud.referral.notice-due",
+        "schemaVersion": 1,
+        "producer": "fraud-referral-svc",
+        "correlationId": "89c23a000eed885456995be8bbffc8eb",
+        "occurredAt": "2026-10-06T16:04:07Z"
+      },
+      "payload": {
+        "referralId": "FRF-2026-14624",
+        "claimId": "CLM-UK-2026-159271",
+        "referralDate": "2026-10-06",
+        "noticeDueDate": "2026-10-20",
+        "deadlineRule": "BR-FRD-032 v2 (referral date + 10 business days)",
+        "deferred": false,
+        "recipientChannel": "letter"
+      }
+    },
+    {
+      "topic": "triage.completed.v1",
+      "partitionKey": "CLM-UK-2026-392928",
+      "headers": {
+        "eventId": "21959e9170e3643096ee30e550701d10",
+        "eventType": "triage.completed",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "f3cd2a3562a3db24274390bc915ea461",
+        "occurredAt": "2026-10-07T19:10:23Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-392928",
+        "product": "PRD-COM-UK",
+        "claimType": "CT-FIR",
+        "tier": "Tier-3",
+        "tierRule": "BR-TRI-003 v3",
+        "route": "MAJOR_COMPLEX",
+        "triagedBy": "triage-svc"
+      }
+    },
+    {
+      "topic": "fraud.score.received.v1",
+      "partitionKey": "CLM-UK-2026-392928",
+      "headers": {
+        "eventId": "2a578c8a38c1b8cdace6b32e383ea87a",
+        "eventType": "fraud.score.received",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "4bce258fe5451d0462ba7e7abf355672",
+        "occurredAt": "2026-10-07T19:19:35Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-392928",
+        "score": 61,
+        "modelVersion": "SNT-4.2",
+        "tier": "Tier-3",
+        "thresholdApplied": 60,
+        "referralRecommended": true,
+        "scoringInterface": "CLX-IF-036"
+      }
+    },
+    {
+      "topic": "fraud.referral.created.v1",
+      "partitionKey": "CLM-UK-2026-392928",
+      "headers": {
+        "eventId": "aa658988ac559a9d7f65f81a14b3ef14",
+        "eventType": "fraud.referral.created",
+        "schemaVersion": 1,
+        "producer": "fraud-referral-svc",
+        "correlationId": "c369dcc49840a9ad481c754531c7b500",
+        "occurredAt": "2026-10-07T13:56:16Z"
+      },
+      "payload": {
+        "referralId": "FRF-2026-68696",
+        "claimId": "CLM-UK-2026-392928",
+        "referralDate": "2026-10-07",
+        "score": 61,
+        "tier": "Tier-3",
+        "thresholdApplied": 60,
+        "thresholdRule": "BR-FRD-031 v2",
+        "siuTriageDueBy": "2026-10-12",
+        "siuCaseInterface": "CLX-IF-041",
+        "createdBy": "fraud-referral-svc"
+      }
+    },
+    {
+      "topic": "fraud.referral.notice-due.v1",
+      "partitionKey": "CLM-UK-2026-392928",
+      "headers": {
+        "eventId": "b4f6f2b4c53382b7b6e0114b0cce1dd6",
+        "eventType": "fraud.referral.notice-due",
+        "schemaVersion": 1,
+        "producer": "fraud-referral-svc",
+        "correlationId": "92ad74cab038482a0e270bca9d094c2d",
+        "occurredAt": "2026-10-07T19:06:12Z"
+      },
+      "payload": {
+        "referralId": "FRF-2026-68696",
+        "claimId": "CLM-UK-2026-392928",
+        "referralDate": "2026-10-07",
+        "noticeDueDate": "2026-10-21",
+        "deadlineRule": "BR-FRD-032 v2 (referral date + 10 business days)",
+        "deferred": true,
+        "recipientChannel": "letter",
+        "deferralDays": 45,
+        "deferralRule": "BR-FRD-036 v2",
+        "deferralApprovedBy": {
+          "name": "Niall Brannigan",
+          "role": "Head of Counter-Fraud & SIU"
+        },
+        "complianceNotified": true,
+        "complianceNotifiedOn": "2026-10-07",
+        "deferredUntil": "2026-11-21"
+      }
+    },
+    {
+      "topic": "triage.completed.v1",
+      "partitionKey": "CLM-UK-2026-416563",
+      "headers": {
+        "eventId": "83d0337add124e6fc4afdbd701bcb689",
+        "eventType": "triage.completed",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "821ac312b6ec5acf57c04e8222e2da0e",
+        "occurredAt": "2026-10-07T15:57:24Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-416563",
+        "product": "PRD-MOT-UK",
+        "claimType": "CT-THF",
+        "tier": "Tier-2",
+        "tierRule": "BR-TRI-003 v3",
+        "route": "SPECIALIST",
+        "triagedBy": "triage-svc"
+      }
+    },
+    {
+      "topic": "fraud.score.received.v1",
+      "partitionKey": "CLM-UK-2026-416563",
+      "headers": {
+        "eventId": "41692036c0b94568d9f8b97ced9b466c",
+        "eventType": "fraud.score.received",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "fe11fedffd859fd118c4f5894f779159",
+        "occurredAt": "2026-10-07T20:31:27Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-416563",
+        "score": 70,
+        "modelVersion": "SNT-4.2",
+        "tier": "Tier-2",
+        "thresholdApplied": 65,
+        "referralRecommended": true,
+        "scoringInterface": "CLX-IF-036"
+      }
+    },
+    {
+      "topic": "fraud.referral.created.v1",
+      "partitionKey": "CLM-UK-2026-416563",
+      "headers": {
+        "eventId": "d7966a6bac20e7896f78895ada8dca13",
+        "eventType": "fraud.referral.created",
+        "schemaVersion": 1,
+        "producer": "fraud-referral-svc",
+        "correlationId": "7afad8ba22812437273463765fd73712",
+        "occurredAt": "2026-10-07T20:30:30Z"
+      },
+      "payload": {
+        "referralId": "FRF-2026-31724",
+        "claimId": "CLM-UK-2026-416563",
+        "referralDate": "2026-10-07",
+        "score": 70,
+        "tier": "Tier-2",
+        "thresholdApplied": 65,
+        "thresholdRule": "BR-FRD-031 v2",
+        "siuTriageDueBy": "2026-10-12",
+        "siuCaseInterface": "CLX-IF-041",
+        "createdBy": "fraud-referral-svc"
+      }
+    },
+    {
+      "topic": "fraud.referral.notice-due.v1",
+      "partitionKey": "CLM-UK-2026-416563",
+      "headers": {
+        "eventId": "b5be91f6c83545095526dc852d0f6791",
+        "eventType": "fraud.referral.notice-due",
+        "schemaVersion": 1,
+        "producer": "fraud-referral-svc",
+        "correlationId": "188bb7561dbf2b5eb80bfa46c20cdce6",
+        "occurredAt": "2026-10-07T08:55:59Z"
+      },
+      "payload": {
+        "referralId": "FRF-2026-31724",
+        "claimId": "CLM-UK-2026-416563",
+        "referralDate": "2026-10-07",
+        "noticeDueDate": "2026-10-21",
+        "deadlineRule": "BR-FRD-032 v2 (referral date + 10 business days)",
+        "deferred": false,
+        "recipientChannel": "letter"
+      }
+    },
+    {
+      "topic": "triage.completed.v1",
+      "partitionKey": "CLM-UK-2026-182556",
+      "headers": {
+        "eventId": "74a4ae7e30790b6fbb77a5c11c1349cc",
+        "eventType": "triage.completed",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "efc7407e476fe5454e048a6041501fd3",
+        "occurredAt": "2026-10-08T15:36:30Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-182556",
+        "product": "PRD-MOT-UK",
+        "claimType": "CT-COL",
+        "tier": "Tier-3",
+        "tierRule": "BR-TRI-003 v3",
+        "route": "MAJOR_COMPLEX",
+        "triagedBy": "triage-svc"
+      }
+    },
+    {
+      "topic": "fraud.score.received.v1",
+      "partitionKey": "CLM-UK-2026-182556",
+      "headers": {
+        "eventId": "53ab12c016ed32d974c0c408b64612a0",
+        "eventType": "fraud.score.received",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "fc20813455c4e0c53496568ee217e1b3",
+        "occurredAt": "2026-10-08T10:16:28Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-182556",
+        "score": 59,
+        "modelVersion": "SNT-4.2",
+        "tier": "Tier-3",
+        "thresholdApplied": 60,
+        "referralRecommended": false,
+        "scoringInterface": "CLX-IF-036"
+      }
+    },
+    {
+      "topic": "triage.completed.v1",
+      "partitionKey": "CLM-UK-2026-322261",
+      "headers": {
+        "eventId": "3c15ab2bc03631c0f025fa192c75d61c",
+        "eventType": "triage.completed",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "5543dc6e63c98b298b997d99c9be5cee",
+        "occurredAt": "2026-10-08T10:04:37Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-322261",
+        "product": "PRD-MOT-UK",
+        "claimType": "CT-WSC",
+        "tier": "Tier-1",
+        "tierRule": "BR-TRI-003 v3",
+        "route": "FAST_TRACK_CHECK",
+        "triagedBy": "triage-svc"
+      }
+    },
+    {
+      "topic": "fraud.score.received.v1",
+      "partitionKey": "CLM-UK-2026-322261",
+      "headers": {
+        "eventId": "2a1d72610dae2043908fe19a168455fc",
+        "eventType": "fraud.score.received",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "75843e7acec7c62d199f2d7f6e489bfd",
+        "occurredAt": "2026-10-08T15:41:18Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-322261",
+        "score": 22,
+        "modelVersion": "SNT-4.2",
+        "tier": "Tier-1",
+        "thresholdApplied": 65,
+        "referralRecommended": false,
+        "scoringInterface": "CLX-IF-036"
+      }
+    },
+    {
+      "topic": "triage.completed.v1",
+      "partitionKey": "CLM-UK-2026-490277",
+      "headers": {
+        "eventId": "70724532a0008d703f7fff0bbe0eb1ff",
+        "eventType": "triage.completed",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "811bc146b6f21bf9015462cfaff4fc18",
+        "occurredAt": "2026-10-08T10:32:02Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-490277",
+        "product": "PRD-MOT-UK",
+        "claimType": "CT-COL",
+        "tier": "Tier-2",
+        "tierRule": "BR-TRI-003 v3",
+        "route": "SPECIALIST",
+        "triagedBy": "triage-svc"
+      }
+    },
+    {
+      "topic": "fraud.score.received.v1",
+      "partitionKey": "CLM-UK-2026-490277",
+      "headers": {
+        "eventId": "e28d5b5a20f7bfead3b023b650bf0d3a",
+        "eventType": "fraud.score.received",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "b9ff2acf284918da66d26828e3d5b27e",
+        "occurredAt": "2026-10-08T06:26:38Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-490277",
+        "score": 68,
+        "modelVersion": "SNT-4.2",
+        "tier": "Tier-2",
+        "thresholdApplied": 65,
+        "referralRecommended": true,
+        "scoringInterface": "CLX-IF-036"
+      }
+    },
+    {
+      "topic": "fraud.referral.created.v1",
+      "partitionKey": "CLM-UK-2026-490277",
+      "headers": {
+        "eventId": "1b6b5e2d412eda73d1b74f1804fceb7b",
+        "eventType": "fraud.referral.created",
+        "schemaVersion": 1,
+        "producer": "fraud-referral-svc",
+        "correlationId": "0fd2f821e59cd9588f9cd73f00304b3c",
+        "occurredAt": "2026-10-08T16:15:03Z"
+      },
+      "payload": {
+        "referralId": "FRF-2026-82041",
+        "claimId": "CLM-UK-2026-490277",
+        "referralDate": "2026-10-08",
+        "score": 68,
+        "tier": "Tier-2",
+        "thresholdApplied": 65,
+        "thresholdRule": "BR-FRD-031 v2",
+        "siuTriageDueBy": "2026-10-13",
+        "siuCaseInterface": "CLX-IF-041",
+        "createdBy": "fraud-referral-svc"
+      }
+    },
+    {
+      "topic": "fraud.referral.notice-due.v1",
+      "partitionKey": "CLM-UK-2026-490277",
+      "headers": {
+        "eventId": "2ea156350b04328dc9ea26dfa5177914",
+        "eventType": "fraud.referral.notice-due",
+        "schemaVersion": 1,
+        "producer": "fraud-referral-svc",
+        "correlationId": "3967dbbda41ca99a75781866dc97d01f",
+        "occurredAt": "2026-10-08T14:50:15Z"
+      },
+      "payload": {
+        "referralId": "FRF-2026-82041",
+        "claimId": "CLM-UK-2026-490277",
+        "referralDate": "2026-10-08",
+        "noticeDueDate": "2026-10-22",
+        "deadlineRule": "BR-FRD-032 v2 (referral date + 10 business days)",
+        "deferred": false,
+        "recipientChannel": "letter"
+      }
+    },
+    {
+      "topic": "triage.completed.v1",
+      "partitionKey": "CLM-UK-2026-137366",
+      "headers": {
+        "eventId": "6474ff194995945b9f30c32b8c91bd51",
+        "eventType": "triage.completed",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "ffc6be6fe6f406a90a69de94d1f379b3",
+        "occurredAt": "2026-10-09T15:58:57Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-137366",
+        "product": "PRD-LIA-UK",
+        "claimType": "CT-BIJ",
+        "tier": "Tier-3",
+        "tierRule": "BR-TRI-003 v3",
+        "route": "MAJOR_COMPLEX",
+        "triagedBy": "triage-svc"
+      }
+    },
+    {
+      "topic": "fraud.score.received.v1",
+      "partitionKey": "CLM-UK-2026-137366",
+      "headers": {
+        "eventId": "b3e850a892e8328a74661738a20c4720",
+        "eventType": "fraud.score.received",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "4e06d907460f36edf797b48c9804117c",
+        "occurredAt": "2026-10-09T13:39:10Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-137366",
+        "score": 64,
+        "modelVersion": "SNT-4.2",
+        "tier": "Tier-3",
+        "thresholdApplied": 60,
+        "referralRecommended": true,
+        "scoringInterface": "CLX-IF-036"
+      }
+    },
+    {
+      "topic": "fraud.referral.created.v1",
+      "partitionKey": "CLM-UK-2026-137366",
+      "headers": {
+        "eventId": "87ba65f68ae44300255ad1b119219123",
+        "eventType": "fraud.referral.created",
+        "schemaVersion": 1,
+        "producer": "fraud-referral-svc",
+        "correlationId": "67b49b8fb386a3f1408e8444bfdad32d",
+        "occurredAt": "2026-10-09T20:18:21Z"
+      },
+      "payload": {
+        "referralId": "FRF-2026-14840",
+        "claimId": "CLM-UK-2026-137366",
+        "referralDate": "2026-10-09",
+        "score": 64,
+        "tier": "Tier-3",
+        "thresholdApplied": 60,
+        "thresholdRule": "BR-FRD-031 v2",
+        "siuTriageDueBy": "2026-10-14",
+        "siuCaseInterface": "CLX-IF-041",
+        "createdBy": "fraud-referral-svc"
+      }
+    },
+    {
+      "topic": "fraud.referral.notice-due.v1",
+      "partitionKey": "CLM-UK-2026-137366",
+      "headers": {
+        "eventId": "afc8eb541ac2997bcea7c5e166b37c42",
+        "eventType": "fraud.referral.notice-due",
+        "schemaVersion": 1,
+        "producer": "fraud-referral-svc",
+        "correlationId": "22ba5ab8cb05e1160a6202c4f1375d38",
+        "occurredAt": "2026-10-09T18:26:00Z"
+      },
+      "payload": {
+        "referralId": "FRF-2026-14840",
+        "claimId": "CLM-UK-2026-137366",
+        "referralDate": "2026-10-09",
+        "noticeDueDate": "2026-10-23",
+        "deadlineRule": "BR-FRD-032 v2 (referral date + 10 business days)",
+        "deferred": false,
+        "recipientChannel": "email"
+      }
+    },
+    {
+      "topic": "triage.completed.v1",
+      "partitionKey": "CLM-UK-2026-387208",
+      "headers": {
+        "eventId": "f77c276eaae786745fa06e2017ae5bc2",
+        "eventType": "triage.completed",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "3985c1de83a46411ca7cdd1e505dcd86",
+        "occurredAt": "2026-10-09T19:55:26Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-387208",
+        "product": "PRD-HOM-UK",
+        "claimType": "CT-THF",
+        "tier": "Tier-2",
+        "tierRule": "BR-TRI-003 v3",
+        "route": "SPECIALIST",
+        "triagedBy": "triage-svc"
+      }
+    },
+    {
+      "topic": "fraud.score.received.v1",
+      "partitionKey": "CLM-UK-2026-387208",
+      "headers": {
+        "eventId": "666e93eb33dfc0d79a872e3bb101c391",
+        "eventType": "fraud.score.received",
+        "schemaVersion": 1,
+        "producer": "triage-svc",
+        "correlationId": "a92e99ce2f4e0bc8d454e05e4252af1f",
+        "occurredAt": "2026-10-09T13:55:04Z"
+      },
+      "payload": {
+        "claimId": "CLM-UK-2026-387208",
+        "score": 55,
+        "modelVersion": "SNT-4.2",
+        "tier": "Tier-2",
+        "thresholdApplied": 65,
+        "referralRecommended": false,
+        "scoringInterface": "CLX-IF-036"
+      }
+    }
+  ],
+  "notes": [
+    "Events captured 2026-10-06 to 2026-10-08, after the Tier-3 threshold change and the triage-svc reload fix.",
+    "Business-day calculations use the UK calendar from the date utility.",
+    "Note that every endpoint is protected by CIS-issued tokens with role-based scopes.",
+    "For clarity, rate limits apply per client; clients receive 429 with a retry-after header."
+  ]
+}

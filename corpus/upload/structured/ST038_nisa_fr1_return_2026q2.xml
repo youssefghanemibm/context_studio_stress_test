@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NISA-FR1 Quarterly Fraud Referral Return - 2026Q2 - Corvane Mutual - submitted copy -->
+<fr1Return xmlns="urn:nisa:returns:fr1:2026" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" returnCode="NISA-FR1" period="2026Q2" schemaVersion="1.0">
+  <header>
+    <returnName>Quarterly Fraud Referral Return</returnName>
+    <firmName>Corvane Mutual Insurance Society Limited</firmName>
+    <firmReference>NISA-FRN 40417</firmReference>
+    <periodStart>2026-04-01</periodStart>
+    <periodEnd>2026-06-30</periodEnd>
+    <dueDate>2026-07-30</dueDate>
+    <submittedDate>2026-07-29</submittedDate>
+    <firstReturn>true</firstReturn>
+    <legalBasis>NISA Circular 2026/04 para 3.4</legalBasis>
+    <sourceInterfaces>
+      <interface id="CLX-IF-033">Fraud referral return (NISA-FR1)</interface>
+    </sourceInterfaces>
+    <preparedBy title="Regulatory Reporting Manager">Bjørn Aasheim</preparedBy>
+    <signedBy role="Compliance Manager – Conduct &amp; Counter-Fraud">Ruth Okafor</signedBy>
+  </header>
+  <figures currency="n/a">
+    <referralsTotal>1488</referralsTotal>
+    <referralThreshold rule="BR-FRD-031 v1" appliesTo="all tiers" effectiveFrom="2026-04-01">65</referralThreshold>
+    <byRegion>
+      <item key="UK">1104</item>
+      <item key="NO">148</item>
+      <item key="SE">133</item>
+      <item key="DK">103</item>
+    </byRegion>
+    <byLine>
+      <item key="Motor">811</item>
+      <item key="Home">497</item>
+      <item key="Commercial Property">105</item>
+      <item key="SME Liability">75</item>
+    </byLine>
+    <byTier>
+      <item key="Tier-1">270</item>
+      <item key="Tier-2">959</item>
+      <item key="Tier-3">259</item>
+    </byTier>
+    <bySource>
+      <item key="score-based">1205</item>
+      <item key="handler referral">179</item>
+      <item key="indicator review">104</item>
+    </bySource>
+    <byMonth>
+      <item key="2026-04">476</item>
+      <item key="2026-05">491</item>
+      <item key="2026-06">521</item>
+    </byMonth>
+    <customerNotices rule="BR-FRD-032 v2">
+      <issuedWithin10BusinessDays>1473</issuedWithin10BusinessDays>
+      <deferred rule="BR-FRD-036 v1">15</deferred>
+    </customerNotices>
+    <adverseDecisionsOnScoreAlone rule="BR-FRD-033">0</adverseDecisionsOnScoreAlone>
+    <detail>
+      <byProduct>
+        <item product="PRD-MOT-UK" name="Motor Private UK">595</item>
+        <item product="PRD-HOM-UK" name="Home Buildings &amp; Contents UK">372</item>
+        <item product="PRD-COM-UK" name="Commercial Property UK">89</item>
+        <item product="PRD-LIA-UK" name="SME Liability UK">60</item>
+        <item product="PRD-MOT-NO" name="Motor Privat Norge">89</item>
+        <item product="PRD-HOM-NO" name="Hjem Norge">60</item>
+        <item product="PRD-MOT-SE" name="Motor Privat Sverige">74</item>
+        <item product="PRD-HOM-SE" name="Hem Sverige">59</item>
+        <item product="PRD-MOT-DK" name="Motor Privat Danmark">45</item>
+        <item product="PRD-HOM-DK" name="Hjem Danmark">45</item>
+      </byProduct>
+      <byClaimType>
+        <item claimType="CT-COL" name="Collision">327</item>
+        <item claimType="CT-THF" name="Theft">238</item>
+        <item claimType="CT-WSC" name="Windscreen">45</item>
+        <item claimType="CT-FIR" name="Fire">89</item>
+        <item claimType="CT-EOW" name="Escape of Water">194</item>
+        <item claimType="CT-STM" name="Storm">60</item>
+        <item claimType="CT-ACD" name="Accidental Damage">134</item>
+        <item claimType="CT-VAN" name="Vandalism / Malicious Damage">74</item>
+        <item claimType="CT-BIJ" name="Bodily Injury">208</item>
+        <item claimType="CT-TPD" name="Third-Party Property Damage">74</item>
+        <item claimType="CT-FLD" name="Flood">45</item>
+      </byClaimType>
+      <byChannel>
+        <item key="telephone">699</item>
+        <item key="portal">327</item>
+        <item key="app">253</item>
+        <item key="broker">134</item>
+        <item key="telematics">45</item>
+        <item key="post">30</item>
+      </byChannel>
+      <noticeTiming>
+        <item key="within 5 business days">923</item>
+        <item key="6-10 business days">446</item>
+        <item key="deferred (BR-FRD-036)">89</item>
+        <item key="pending at period end">30</item>
+      </noticeTiming>
+      <byRegionAndMonth>
+        <row key="UK" total="1104">
+          <cell key="2026-04">353</cell>
+          <cell key="2026-05">364</cell>
+          <cell key="2026-06">387</cell>
+        </row>
+        <row key="NO" total="148">
+          <cell key="2026-04">47</cell>
+          <cell key="2026-05">49</cell>
+          <cell key="2026-06">52</cell>
+        </row>
+        <row key="SE" total="133">
+          <cell key="2026-04">42</cell>
+          <cell key="2026-05">44</cell>
+          <cell key="2026-06">47</cell>
+        </row>
+        <row key="DK" total="103">
+          <cell key="2026-04">34</cell>
+          <cell key="2026-05">34</cell>
+          <cell key="2026-06">35</cell>
+        </row>
+      </byRegionAndMonth>
+      <byLineAndTier>
+        <row key="Motor" total="811">
+          <cell key="Tier-1">147</cell>
+          <cell key="Tier-2">523</cell>
+          <cell key="Tier-3">141</cell>
+        </row>
+        <row key="Home" total="497">
+          <cell key="Tier-1">90</cell>
+          <cell key="Tier-2">320</cell>
+          <cell key="Tier-3">87</cell>
+        </row>
+        <row key="Commercial Property" total="105">
+          <cell key="Tier-1">19</cell>
+          <cell key="Tier-2">68</cell>
+          <cell key="Tier-3">18</cell>
+        </row>
+        <row key="SME Liability" total="75">
+          <cell key="Tier-1">14</cell>
+          <cell key="Tier-2">48</cell>
+          <cell key="Tier-3">13</cell>
+        </row>
+      </byLineAndTier>
+      <byWeek>
+        <item weekStart="2026-04-01" weekEnd="2026-04-05">87</item>
+        <item weekStart="2026-04-06" weekEnd="2026-04-12">107</item>
+        <item weekStart="2026-04-13" weekEnd="2026-04-19">115</item>
+        <item weekStart="2026-04-20" weekEnd="2026-04-26">113</item>
+        <item weekStart="2026-04-27" weekEnd="2026-05-03">104</item>
+        <item weekStart="2026-05-04" weekEnd="2026-05-10">111</item>
+        <item weekStart="2026-05-11" weekEnd="2026-05-17">124</item>
+        <item weekStart="2026-05-18" weekEnd="2026-05-24">121</item>
+        <item weekStart="2026-05-25" weekEnd="2026-05-31">123</item>
+        <item weekStart="2026-06-01" weekEnd="2026-06-07">106</item>
+        <item weekStart="2026-06-08" weekEnd="2026-06-14">109</item>
+        <item weekStart="2026-06-15" weekEnd="2026-06-21">112</item>
+        <item weekStart="2026-06-22" weekEnd="2026-06-28">124</item>
+        <item weekStart="2026-06-29" weekEnd="2026-06-30">32</item>
+      </byWeek>
+    </detail>
+  </figures>
+  <deferralAnnex rule="BR-FRD-036 v1" records="15" maxDeferralDays="60">
+    <record claimRef="CLM-SE-2026-219476" product="PRD-MOT-SE" tier="Tier-2">
+      <referralDate>2026-04-10</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-04-24</noticeDueDate>
+      <deferral days="53">2026-06-16</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-UK-2026-107183" product="PRD-COM-UK" tier="Tier-2">
+      <referralDate>2026-04-13</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-04-27</noticeDueDate>
+      <deferral days="34">2026-05-31</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-UK-2026-404096" product="PRD-LIA-UK" tier="Tier-2">
+      <referralDate>2026-04-14</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-04-28</noticeDueDate>
+      <deferral days="54">2026-06-21</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-NO-2026-324281" product="PRD-MOT-NO" tier="Tier-2">
+      <referralDate>2026-04-20</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-05-05</noticeDueDate>
+      <deferral days="31">2026-06-05</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-DK-2026-477217" product="PRD-MOT-DK" tier="Tier-2">
+      <referralDate>2026-05-04</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-05-18</noticeDueDate>
+      <deferral days="33">2026-06-20</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-SE-2026-427576" product="PRD-HOM-SE" tier="Tier-3">
+      <referralDate>2026-05-08</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-05-22</noticeDueDate>
+      <deferral days="56">2026-07-17</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-DK-2026-283117" product="PRD-HOM-DK" tier="Tier-3">
+      <referralDate>2026-05-15</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-06-01</noticeDueDate>
+      <deferral days="42">2026-07-13</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-SE-2026-490058" product="PRD-HOM-SE" tier="Tier-1">
+      <referralDate>2026-05-27</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-06-10</noticeDueDate>
+      <deferral days="13">2026-06-23</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-DK-2026-183818" product="PRD-HOM-DK" tier="Tier-2">
+      <referralDate>2026-06-08</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-06-22</noticeDueDate>
+      <deferral days="17">2026-07-09</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-SE-2026-309559" product="PRD-HOM-SE" tier="Tier-2">
+      <referralDate>2026-06-09</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-06-23</noticeDueDate>
+      <deferral days="21">2026-07-14</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-DK-2026-348790" product="PRD-MOT-DK" tier="Tier-2">
+      <referralDate>2026-06-10</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-06-24</noticeDueDate>
+      <deferral days="48">2026-08-11</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-DK-2026-257706" product="PRD-MOT-DK" tier="Tier-2">
+      <referralDate>2026-06-15</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-06-29</noticeDueDate>
+      <deferral days="12">2026-07-11</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-UK-2026-251429" product="PRD-MOT-UK" tier="Tier-3">
+      <referralDate>2026-06-16</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-06-30</noticeDueDate>
+      <deferral days="33">2026-08-02</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-NO-2026-151670" product="PRD-MOT-NO" tier="Tier-1">
+      <referralDate>2026-06-22</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-07-06</noticeDueDate>
+      <deferral days="26">2026-08-01</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+    <record claimRef="CLM-SE-2026-428602" product="PRD-MOT-SE" tier="Tier-3">
+      <referralDate>2026-06-25</referralDate>
+      <noticeDueDate rule="BR-FRD-032 v2">2026-07-09</noticeDueDate>
+      <deferral days="15">2026-07-24</deferral>
+      <reason>SIU certified tipping-off risk</reason>
+    </record>
+  </deferralAnnex>
+  <definitions>
+    <definition term="Fraud Referral" source="Programme glossary G-002">Referral of a claim to the Counter-Fraud &amp; SIU team for investigation.</definition>
+    <definition term="Tier-3 Claim" source="Programme glossary G-008">A claim meeting the Tier-3 definition in BR-TRI-003 (v3 from 2025-01-01).</definition>
+    <definition term="Fraud Score" source="Programme glossary G-009">Sentinel score from 0 to 100.</definition>
+    <definition term="Customer Referral Notice" source="Programme glossary G-021">Written notice to the customer that a claim is subject to additional checks (BR-FRD-032).</definition>
+    <definition term="Counter-Fraud &amp; SIU" source="Programme glossary G-012">The Special Investigations Unit (renamed Counter-Fraud &amp; SIU on 2025-09-01).</definition>
+    <definition term="BR-FRD-031 v1" source="NISA Circular 2026/04 §3.3; Claims Handling Manual v7.2 §28.3">Refer a claim to SIU when the Sentinel score is 65 or more (all tiers).</definition>
+    <definition term="BR-FRD-032 v2" source="NISA Circular 2026/04 §3.2; APPROVED BRD v1.0 (2026-03-12); Claims Handling Manual v7.2 §29.1">Notify the customer in writing within 10 business days of a fraud referral that the claim is subject to additional checks, unless the notice is deferred under BR-FRD-036.</definition>
+    <definition term="BR-FRD-033 v1" source="NISA Circular 2026/04 §3.1; Claims Handling Manual v7.2 §28.6">No claim may be declined, reduced or repudiated on the basis of an automated fraud score alone; every adverse outcome requires a documented human review by SIU.</definition>
+    <definition term="BR-FRD-034 v1" source="NISA Circular 2026/04 §3.4">Submit the NISA-FR1 fraud referral return within 30 calendar days after each quarter end; first return for Q2 2026 due 2026-07-30.</definition>
+    <definition term="BR-FRD-035 v2" source="Claims Handling Manual v7.2 §30.1">SIU must triage a new referral within 3 business days.</definition>
+  </definitions>
+  <contacts>
+    <contact role="Preparer" email="bjorn.aasheim@corvane-mutual.example" title="Regulatory Reporting Manager">Bjørn Aasheim</contact>
+    <contact role="Signatory" email="ruth.okafor@corvane-mutual.example" title="Compliance Manager – Conduct &amp; Counter-Fraud">Ruth Okafor</contact>
+    <contact role="Counter-Fraud &amp; SIU" email="niall.brannigan@corvane-mutual.example" title="Head of Counter-Fraud &amp; SIU">Niall Brannigan</contact>
+  </contacts>
+  <dataQualityNotes>
+    <note incident="INC-2026-0518">INC-2026-0518 (Sev2, 2026-05-12): the nightly CLARA batch fraud sweep used the pre-2026 referral threshold; the online referral path was correct. Status at submission: mitigated.</note>
+    <note>First FR1 return under NISA Circular 2026/04; extract program CLRFR090 delivered under CHUB-208.</note>
+  </dataQualityNotes>
+  <validation>
+    <check id="V01" description="breakdown totals equal referralsTotal">PASS</check>
+    <check id="V02" description="period dates match the return calendar">PASS</check>
+    <check id="V03" description="firm reference matches NRH registration">PASS</check>
+    <check id="V04" description="signatory role matches return definition">PASS</check>
+    <check id="V05" description="no negative values">PASS</check>
+    <check id="V06" description="region by month cells reconcile to both breakdowns">PASS</check>
+    <check id="V07" description="line by tier cells reconcile to both breakdowns">PASS</check>
+    <check id="V08" description="weekly counts sum to referralsTotal">PASS</check>
+    <check id="V09" description="deferral annex record count equals deferred notices">PASS</check>
+    <check id="V10" description="every deferral is within the maximum deferral period">PASS</check>
+    <check id="V11" description="schema validation against FR1 v1.0">PASS</check>
+  </validation>
+  <declaration>
+    <text>I confirm that this return has been prepared in accordance with NISA Circular 2026/04 and the return guidance, and that no claim was declined, reduced or repudiated on the basis of an automated score alone.</text>
+  </declaration>
+</fr1Return>

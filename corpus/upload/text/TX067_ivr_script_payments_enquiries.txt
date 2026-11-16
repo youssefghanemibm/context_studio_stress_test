@@ -1,0 +1,35 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+IVR AND AGENT SCRIPT - CLAIM PAYMENT ENQUIRIES
+========================================================================================
+Document reference : PAY-SCR-ENQ-004
+Version            : 4.0
+Date               : 1 October 2026
+Owner              : Alun Prothero, Payments Operations Manager
+Approved by        : Ewan Strachan, Contact Centre Manager
+Classification     : Internal
+Applies to      : payment enquiries queue (Glasgow) with escalation to Payments Operations (Bristol)
+
+Version history
+  3.3    2026-02-02  A. Prothero          Annual review
+  4.0    2026-10-01  A. Prothero          Updated after Wave 1: UK motor payments now made from Claims Hub
+========================================================================================
+
+1. IVR
+  [IVR-P1] "To check on a claim payment, please have your claim reference ready."
+  [IVR-P2] "For a motor claim payment, press 1. For a home or business claim payment, press 2."
+  [IVR-P3] "If you need to change the bank account for a payment, please stay on the line to speak to an adviser."
+
+2. AGENT GUIDANCE
+  - UK motor claims have been on Claims Hub since Wave 1. Check motor payment status on the Hub screens.
+  - Home, commercial and liability payments are still checked in CLARA until Wave 2.
+  - Payments go out through the Corvane Payments Gateway. If the status shows 'sent', the money has left us.
+  - Never take or change bank details on the enquiries line. Transfer to Payments Operations.
+  - If a customer says they have been paid twice, thank them, note the claim, and transfer to Payments Operations.
+
+3. WRAP CODES
+  PAY-STATUS  Payment status given
+  PAY-XFER    Transferred to Payments Operations
+  PAY-DUPL    Customer reports a possible duplicate payment
+
+----------------------------------------------------------------------------------------
+End of document. Owner: Alun Prothero. Printed copies are uncontrolled.

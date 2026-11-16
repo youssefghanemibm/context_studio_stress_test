@@ -1,0 +1,709 @@
+# Corvane Mutual – Helm Values – Claims Hub
+# Document SKR-PLT-HLM-047 version 1.0 (approved), 2026-10-20
+# Owner: Nadia Petrovic, Java Technical Lead
+# Classification: Internal – Programme Skerry
+# Change history:
+#   0.1  2026-06-27  Nadia Petrovic: Initial draft for review
+#   0.2  2026-07-03  Nadia Petrovic: Updated after design review
+#   0.3  2026-07-07  Nadia Petrovic: Clarified ownership fields
+#   0.4  2026-08-18  Nadia Petrovic: Added missing entries
+#   0.5  2026-10-10  Nadia Petrovic: Aligned names with the system catalogue
+#   1.0  2026-10-20  Nadia Petrovic: Approved
+# Helm values for the claims-hub umbrella chart (prod). Per-environment overrides live next to this file.
+global:
+  environment: prod
+  cluster: ocp-prd-lon1
+  drCluster: ocp-dr-lds1
+  imageRegistry: registry.corvane.internal/chub
+  imagePullPolicy: IfNotPresent
+  kafka:
+    bootstrapServers: esp-prd-kafka-bootstrap.esp.svc:9093
+    securityProtocol: SASL_SSL
+    schemaRegistry: https://schema-registry.esp.svc:8081
+  identity:
+    issuer: https://cis.corvane.internal
+    audience: claims-hub
+  observability:
+    tracing: true
+    metricsPath: /actuator/prometheus
+    logFormat: json
+  defaultResources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      memory: 1Gi
+  podDisruptionBudget:
+    minAvailable: 1
+  secrets:
+    provider: external-secrets
+    placeholder: <REDACTED>
+services:
+  claim-core-svc:
+    enabled: true
+    image:
+      repository: registry.corvane.internal/chub/claim-core-svc
+      tag: r2026.09.2
+    replicaCount: 3
+    namespace: chub-core
+    labels:
+      app.kubernetes.io/part-of: claims-hub
+      corvane.example/squad: Hub Squad – Intake & Triage
+    service:
+      port: 8080
+      managementPort: 8081
+    ingress:
+      enabled: true
+      host: claim-core-svc.apps.ocp-prd-lon1.corvane.internal
+      tls: true
+    database:
+      name: chub_claim_core
+      schemaTables:
+      - claim_core.claim
+      - claim_core.party
+      credentialsSecret: claim-core-svc-db
+    kafka:
+      produces:
+      - claim.created.v1
+      - claim.updated.v1
+      consumes:
+      - fnol.received.v1
+      - notification.sent.v1
+      consumerGroup: claim-core-svc
+    autoscaling:
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 6
+      targetCPUUtilizationPercentage: 70
+    probes:
+      readiness: /actuator/health/readiness
+      liveness: /actuator/health/liveness
+    env:
+      SPRING_PROFILES_ACTIVE: prod
+      MANAGEMENT_SERVER_PORT: '8081'
+      OTEL_SERVICE_NAME: claim-core-svc
+      TZ: UTC
+    networkPolicy:
+      allowIngressFrom:
+      - openshift-ingress
+      - chub-monitoring
+      allowEgressTo:
+      - esp
+      - cis
+      - chub-core-db
+  fnol-intake-svc:
+    enabled: true
+    image:
+      repository: registry.corvane.internal/chub/fnol-intake-svc
+      tag: r2026.09.4
+    replicaCount: 4
+    namespace: chub-intake
+    labels:
+      app.kubernetes.io/part-of: claims-hub
+      corvane.example/squad: Hub Squad – Intake & Triage
+    service:
+      port: 8080
+      managementPort: 8081
+    ingress:
+      enabled: true
+      host: fnol-intake-svc.apps.ocp-prd-lon1.corvane.internal
+      tls: true
+    database:
+      name: chub_fnol
+      schemaTables:
+      - fnol.notification
+      credentialsSecret: fnol-intake-svc-db
+    kafka:
+      produces:
+      - fnol.received.v1
+      consumes:
+      - eig.evidence.received.v1
+      - eig.telematics.alert.v1
+      consumerGroup: fnol-intake-svc
+    autoscaling:
+      enabled: true
+      minReplicas: 4
+      maxReplicas: 8
+      targetCPUUtilizationPercentage: 70
+    probes:
+      readiness: /actuator/health/readiness
+      liveness: /actuator/health/liveness
+    env:
+      SPRING_PROFILES_ACTIVE: prod
+      MANAGEMENT_SERVER_PORT: '8081'
+      OTEL_SERVICE_NAME: fnol-intake-svc
+      TZ: UTC
+    networkPolicy:
+      allowIngressFrom:
+      - openshift-ingress
+      - chub-monitoring
+      allowEgressTo:
+      - esp
+      - cis
+      - chub-intake-db
+  triage-svc:
+    enabled: true
+    image:
+      repository: registry.corvane.internal/chub/triage-svc
+      tag: r2026.09.1
+    replicaCount: 3
+    namespace: chub-intake
+    labels:
+      app.kubernetes.io/part-of: claims-hub
+      corvane.example/squad: Hub Squad – Intake & Triage
+    service:
+      port: 8080
+      managementPort: 8081
+    ingress:
+      enabled: true
+      host: triage-svc.apps.ocp-prd-lon1.corvane.internal
+      tls: true
+    database:
+      name: chub_triage
+      schemaTables:
+      - triage.triage_decision
+      credentialsSecret: triage-svc-db
+    kafka:
+      produces:
+      - triage.completed.v1
+      - fraud.score.received.v1
+      consumes:
+      - fnol.received.v1
+      consumerGroup: triage-svc
+    autoscaling:
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 6
+      targetCPUUtilizationPercentage: 70
+    probes:
+      readiness: /actuator/health/readiness
+      liveness: /actuator/health/liveness
+    env:
+      SPRING_PROFILES_ACTIVE: prod
+      MANAGEMENT_SERVER_PORT: '8081'
+      OTEL_SERVICE_NAME: triage-svc
+      TZ: UTC
+    networkPolicy:
+      allowIngressFrom:
+      - openshift-ingress
+      - chub-monitoring
+      allowEgressTo:
+      - esp
+      - cis
+      - chub-intake-db
+  assessment-svc:
+    enabled: true
+    image:
+      repository: registry.corvane.internal/chub/assessment-svc
+      tag: r2026.09.3
+    replicaCount: 2
+    namespace: chub-assess
+    labels:
+      app.kubernetes.io/part-of: claims-hub
+      corvane.example/squad: Hub Squad – Intake & Triage
+    service:
+      port: 8080
+      managementPort: 8081
+    ingress:
+      enabled: true
+      host: assessment-svc.apps.ocp-prd-lon1.corvane.internal
+      tls: true
+    database:
+      name: chub_assessment
+      schemaTables:
+      - assessment.assessment
+      - assessment.assessor_assignment
+      credentialsSecret: assessment-svc-db
+    kafka:
+      produces:
+      - assessment.completed.v1
+      consumes:
+      - triage.completed.v1
+      consumerGroup: assessment-svc
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 4
+      targetCPUUtilizationPercentage: 70
+    probes:
+      readiness: /actuator/health/readiness
+      liveness: /actuator/health/liveness
+    env:
+      SPRING_PROFILES_ACTIVE: prod
+      MANAGEMENT_SERVER_PORT: '8081'
+      OTEL_SERVICE_NAME: assessment-svc
+      TZ: UTC
+    networkPolicy:
+      allowIngressFrom:
+      - openshift-ingress
+      - chub-monitoring
+      allowEgressTo:
+      - esp
+      - cis
+      - chub-assess-db
+  reserve-engine:
+    enabled: true
+    image:
+      repository: registry.corvane.internal/chub/reserve-engine
+      tag: r2026.09.4
+    replicaCount: 4
+    namespace: chub-reserve
+    labels:
+      app.kubernetes.io/part-of: claims-hub
+      corvane.example/squad: Hub Squad – Reserve & Finance
+    service:
+      port: 8080
+      managementPort: 8081
+    ingress:
+      enabled: true
+      host: reserve-engine.apps.ocp-prd-lon1.corvane.internal
+      tls: true
+    database:
+      name: chub_reserve
+      schemaTables:
+      - reserve.reserve
+      - reserve.reserve_movement
+      - reserve.review_schedule
+      credentialsSecret: reserve-engine-db
+    kafka:
+      produces:
+      - reserve.changed.v2
+      consumes:
+      - claims.reserve.movement.v1
+      - triage.completed.v1
+      consumerGroup: reserve-engine
+    resources:
+      requests:
+        cpu: 500m
+      limits:
+        memory: 2Gi
+    config:
+      tier3-review-days: 14
+      large-loss-threshold-gbp: 250000
+    autoscaling:
+      enabled: true
+      minReplicas: 4
+      maxReplicas: 8
+      targetCPUUtilizationPercentage: 70
+    probes:
+      readiness: /actuator/health/readiness
+      liveness: /actuator/health/liveness
+    env:
+      SPRING_PROFILES_ACTIVE: prod
+      MANAGEMENT_SERVER_PORT: '8081'
+      OTEL_SERVICE_NAME: reserve-engine
+      TZ: UTC
+    networkPolicy:
+      allowIngressFrom:
+      - openshift-ingress
+      - chub-monitoring
+      allowEgressTo:
+      - esp
+      - cis
+      - chub-reserve-db
+  fraud-referral-svc:
+    enabled: true
+    image:
+      repository: registry.corvane.internal/chub/fraud-referral-svc
+      tag: r2026.09.6
+    replicaCount: 3
+    namespace: chub-fraud
+    labels:
+      app.kubernetes.io/part-of: claims-hub
+      corvane.example/squad: Hub Squad – Fraud & Settlement
+    service:
+      port: 8080
+      managementPort: 8081
+    ingress:
+      enabled: true
+      host: fraud-referral-svc.apps.ocp-prd-lon1.corvane.internal
+      tls: true
+    database:
+      name: chub_fraud
+      schemaTables:
+      - fraud.referral
+      - fraud.customer_notice
+      credentialsSecret: fraud-referral-svc-db
+    kafka:
+      produces:
+      - fraud.referral.created.v1
+      - fraud.referral.notice-due.v1
+      consumes:
+      - fraud.score.received.v1
+      - triage.completed.v1
+      consumerGroup: fraud-referral-svc
+    config:
+      referral.threshold.default: 65
+      referral.threshold.tier3: 60
+      referral.threshold.tier3.effective-from: '2026-10-01'
+      notice.business-days: 10
+      notice.max-deferral-days: 60
+      auto-decline.enabled: false
+    autoscaling:
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 6
+      targetCPUUtilizationPercentage: 70
+    probes:
+      readiness: /actuator/health/readiness
+      liveness: /actuator/health/liveness
+    env:
+      SPRING_PROFILES_ACTIVE: prod
+      MANAGEMENT_SERVER_PORT: '8081'
+      OTEL_SERVICE_NAME: fraud-referral-svc
+      TZ: UTC
+    networkPolicy:
+      allowIngressFrom:
+      - openshift-ingress
+      - chub-monitoring
+      allowEgressTo:
+      - esp
+      - cis
+      - chub-fraud-db
+  settlement-svc:
+    enabled: true
+    image:
+      repository: registry.corvane.internal/chub/settlement-svc
+      tag: r2026.09.3
+    replicaCount: 2
+    namespace: chub-settle
+    labels:
+      app.kubernetes.io/part-of: claims-hub
+      corvane.example/squad: Hub Squad – Fraud & Settlement
+    service:
+      port: 8080
+      managementPort: 8081
+    ingress:
+      enabled: true
+      host: settlement-svc.apps.ocp-prd-lon1.corvane.internal
+      tls: true
+    database:
+      name: chub_settlement
+      schemaTables:
+      - settlement.settlement
+      credentialsSecret: settlement-svc-db
+    kafka:
+      produces:
+      - settlement.agreed.v1
+      consumes:
+      - assessment.completed.v1
+      consumerGroup: settlement-svc
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 4
+      targetCPUUtilizationPercentage: 70
+    probes:
+      readiness: /actuator/health/readiness
+      liveness: /actuator/health/liveness
+    env:
+      SPRING_PROFILES_ACTIVE: prod
+      MANAGEMENT_SERVER_PORT: '8081'
+      OTEL_SERVICE_NAME: settlement-svc
+      TZ: UTC
+    networkPolicy:
+      allowIngressFrom:
+      - openshift-ingress
+      - chub-monitoring
+      allowEgressTo:
+      - esp
+      - cis
+      - chub-settle-db
+  payment-orchestrator:
+    enabled: true
+    image:
+      repository: registry.corvane.internal/chub/payment-orchestrator
+      tag: r2026.09.3
+    replicaCount: 3
+    namespace: chub-settle
+    labels:
+      app.kubernetes.io/part-of: claims-hub
+      corvane.example/squad: Hub Squad – Fraud & Settlement
+    service:
+      port: 8080
+      managementPort: 8081
+    ingress:
+      enabled: true
+      host: payment-orchestrator.apps.ocp-prd-lon1.corvane.internal
+      tls: true
+    database:
+      name: chub_payment
+      schemaTables:
+      - payment.payment_instruction
+      credentialsSecret: payment-orchestrator-db
+    kafka:
+      produces:
+      - payment.requested.v1
+      consumes:
+      - settlement.agreed.v1
+      - payment.confirmed.v1
+      consumerGroup: payment-orchestrator
+    autoscaling:
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 6
+      targetCPUUtilizationPercentage: 70
+    probes:
+      readiness: /actuator/health/readiness
+      liveness: /actuator/health/liveness
+    env:
+      SPRING_PROFILES_ACTIVE: prod
+      MANAGEMENT_SERVER_PORT: '8081'
+      OTEL_SERVICE_NAME: payment-orchestrator
+      TZ: UTC
+    networkPolicy:
+      allowIngressFrom:
+      - openshift-ingress
+      - chub-monitoring
+      allowEgressTo:
+      - esp
+      - cis
+      - chub-settle-db
+  recovery-svc:
+    enabled: true
+    image:
+      repository: registry.corvane.internal/chub/recovery-svc
+      tag: r2026.09.6
+    replicaCount: 2
+    namespace: chub-recovery
+    labels:
+      app.kubernetes.io/part-of: claims-hub
+      corvane.example/squad: Hub Squad – Fraud & Settlement
+    service:
+      port: 8080
+      managementPort: 8081
+    ingress:
+      enabled: true
+      host: recovery-svc.apps.ocp-prd-lon1.corvane.internal
+      tls: true
+    database:
+      name: chub_recovery
+      schemaTables:
+      - recovery.recovery_case
+      - recovery.receipt
+      credentialsSecret: recovery-svc-db
+    kafka:
+      produces:
+      - recovery.receipt.v1
+      consumes:
+      - settlement.agreed.v1
+      consumerGroup: recovery-svc
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 4
+      targetCPUUtilizationPercentage: 70
+    probes:
+      readiness: /actuator/health/readiness
+      liveness: /actuator/health/liveness
+    env:
+      SPRING_PROFILES_ACTIVE: prod
+      MANAGEMENT_SERVER_PORT: '8081'
+      OTEL_SERVICE_NAME: recovery-svc
+      TZ: UTC
+    networkPolicy:
+      allowIngressFrom:
+      - openshift-ingress
+      - chub-monitoring
+      allowEgressTo:
+      - esp
+      - cis
+      - chub-recovery-db
+  document-svc:
+    enabled: true
+    image:
+      repository: registry.corvane.internal/chub/document-svc
+      tag: r2026.09.4
+    replicaCount: 2
+    namespace: chub-docs
+    labels:
+      app.kubernetes.io/part-of: claims-hub
+      corvane.example/squad: Hub Squad – Intake & Triage
+    service:
+      port: 8080
+      managementPort: 8081
+    ingress:
+      enabled: true
+      host: document-svc.apps.ocp-prd-lon1.corvane.internal
+      tls: true
+    database:
+      name: chub_document
+      schemaTables:
+      - document.document
+      credentialsSecret: document-svc-db
+    kafka:
+      produces:
+      - document.stored.v1
+      consumes:
+      - eig.evidence.received.v1
+      consumerGroup: document-svc
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 4
+      targetCPUUtilizationPercentage: 70
+    probes:
+      readiness: /actuator/health/readiness
+      liveness: /actuator/health/liveness
+    env:
+      SPRING_PROFILES_ACTIVE: prod
+      MANAGEMENT_SERVER_PORT: '8081'
+      OTEL_SERVICE_NAME: document-svc
+      TZ: UTC
+    networkPolicy:
+      allowIngressFrom:
+      - openshift-ingress
+      - chub-monitoring
+      allowEgressTo:
+      - esp
+      - cis
+      - chub-docs-db
+  notification-svc:
+    enabled: true
+    image:
+      repository: registry.corvane.internal/chub/notification-svc
+      tag: r2026.09.1
+    replicaCount: 2
+    namespace: chub-notify
+    labels:
+      app.kubernetes.io/part-of: claims-hub
+      corvane.example/squad: Hub Squad – Intake & Triage
+    service:
+      port: 8080
+      managementPort: 8081
+    ingress:
+      enabled: true
+      host: notification-svc.apps.ocp-prd-lon1.corvane.internal
+      tls: true
+    database:
+      name: chub_notification
+      schemaTables:
+      - notification.message
+      credentialsSecret: notification-svc-db
+    kafka:
+      produces:
+      - notification.sent.v1
+      consumes:
+      - fnol.received.v1
+      - fraud.referral.notice-due.v1
+      consumerGroup: notification-svc
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 4
+      targetCPUUtilizationPercentage: 70
+    probes:
+      readiness: /actuator/health/readiness
+      liveness: /actuator/health/liveness
+    env:
+      SPRING_PROFILES_ACTIVE: prod
+      MANAGEMENT_SERVER_PORT: '8081'
+      OTEL_SERVICE_NAME: notification-svc
+      TZ: UTC
+    networkPolicy:
+      allowIngressFrom:
+      - openshift-ingress
+      - chub-monitoring
+      allowEgressTo:
+      - esp
+      - cis
+      - chub-notify-db
+  gl-posting-svc:
+    enabled: true
+    image:
+      repository: registry.corvane.internal/chub/gl-posting-svc
+      tag: r2026.09.5
+    replicaCount: 2
+    namespace: chub-finance
+    labels:
+      app.kubernetes.io/part-of: claims-hub
+      corvane.example/squad: Hub Squad – Reserve & Finance
+    service:
+      port: 8080
+      managementPort: 8081
+    ingress:
+      enabled: true
+      host: gl-posting-svc.apps.ocp-prd-lon1.corvane.internal
+      tls: true
+    database:
+      name: chub_gl
+      schemaTables:
+      - gl.journal_line
+      credentialsSecret: gl-posting-svc-db
+    kafka:
+      produces: []
+      consumes:
+      - reserve.changed.v2
+      - payment.confirmed.v1
+      - recovery.receipt.v1
+      consumerGroup: gl-posting-svc
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 4
+      targetCPUUtilizationPercentage: 70
+    probes:
+      readiness: /actuator/health/readiness
+      liveness: /actuator/health/liveness
+    env:
+      SPRING_PROFILES_ACTIVE: prod
+      MANAGEMENT_SERVER_PORT: '8081'
+      OTEL_SERVICE_NAME: gl-posting-svc
+      TZ: UTC
+    networkPolicy:
+      allowIngressFrom:
+      - openshift-ingress
+      - chub-monitoring
+      allowEgressTo:
+      - esp
+      - cis
+      - chub-finance-db
+  reporting-feed-svc:
+    enabled: false
+    image:
+      repository: registry.corvane.internal/chub/reporting-feed-svc
+      tag: r2026.09.6
+    replicaCount: 1
+    namespace: chub-finance
+    labels:
+      app.kubernetes.io/part-of: claims-hub
+      corvane.example/squad: Hub Squad – Reserve & Finance
+    service:
+      port: 8080
+      managementPort: 8081
+    ingress:
+      enabled: true
+      host: reporting-feed-svc.apps.ocp-prd-lon1.corvane.internal
+      tls: true
+    database:
+      name: chub_reporting
+      schemaTables:
+      - reporting.return_extract
+      credentialsSecret: reporting-feed-svc-db
+    kafka:
+      produces: []
+      consumes:
+      - reserve.changed.v2
+      - fraud.referral.created.v1
+      consumerGroup: reporting-feed-svc
+    autoscaling:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 2
+      targetCPUUtilizationPercentage: 70
+    probes:
+      readiness: /actuator/health/readiness
+      liveness: /actuator/health/liveness
+    env:
+      SPRING_PROFILES_ACTIVE: prod
+      MANAGEMENT_SERVER_PORT: '8081'
+      OTEL_SERVICE_NAME: reporting-feed-svc
+      TZ: UTC
+    networkPolicy:
+      allowIngressFrom:
+      - openshift-ingress
+      - chub-monitoring
+      allowEgressTo:
+      - esp
+      - cis
+      - chub-finance-db

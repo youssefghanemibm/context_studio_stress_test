@@ -1,0 +1,348 @@
+{
+  "documentControl": {
+    "documentId": "SKR-PLT-FLG-028",
+    "title": "Claims Hub Feature Flags",
+    "version": "1.0",
+    "status": "final",
+    "date": "2026-10-30",
+    "owner": {
+      "name": "Nadia Petrovic",
+      "title": "Java Technical Lead"
+    },
+    "reviewers": [
+      {
+        "name": "Elin Fosse",
+        "title": "Lead Solution Architect"
+      },
+      {
+        "name": "Daniel Achebe",
+        "title": "Engineering Lead – Reserve & Finance Squad"
+      },
+      {
+        "name": "Linnea Sjöberg",
+        "title": "Engineering Lead – Fraud & Settlement Squad"
+      }
+    ],
+    "approvers": [
+      {
+        "name": "Neil Haworth",
+        "title": "Head of Technology Delivery",
+        "date": "2026-10-30"
+      }
+    ],
+    "classification": "Internal",
+    "organisation": "Corvane Mutual Insurance Society Limited",
+    "programme": "Programme Skerry (CLARA to Claims Hub)",
+    "changeHistory": [
+      {
+        "version": "0.1",
+        "date": "2026-08-11",
+        "author": "Nadia Petrovic",
+        "change": "Initial draft for review"
+      },
+      {
+        "version": "0.2",
+        "date": "2026-08-18",
+        "author": "Nadia Petrovic",
+        "change": "Cross-checked against the source systems"
+      },
+      {
+        "version": "0.3",
+        "date": "2026-09-14",
+        "author": "Nadia Petrovic",
+        "change": "Structure agreed with reviewers"
+      },
+      {
+        "version": "0.4",
+        "date": "2026-09-29",
+        "author": "Nadia Petrovic",
+        "change": "Formatting and typo fixes"
+      },
+      {
+        "version": "0.5",
+        "date": "2026-10-03",
+        "author": "Nadia Petrovic",
+        "change": "Minor corrections"
+      },
+      {
+        "version": "1.0",
+        "date": "2026-10-30",
+        "author": "Nadia Petrovic",
+        "change": "Issued as final"
+      }
+    ]
+  },
+  "platform": {
+    "system": "Claims Hub",
+    "flagStore": "Spring Cloud Config backed by the platform config repository",
+    "environments": [
+      "dev",
+      "test",
+      "preprod",
+      "prod"
+    ],
+    "evaluation": "Flags are read at start-up and refreshed by the config bus."
+  },
+  "flags": [
+    {
+      "key": "fraud.tier3-referral-threshold",
+      "service": "fraud-referral-svc",
+      "description": "Apply the Tier-3 referral threshold (BR-FRD-031 v2).",
+      "owner": "Hub Squad – Fraud & Settlement",
+      "type": "release",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": true
+      },
+      "enabledSince": "2026-10-01",
+      "ticket": "CHUB-388",
+      "rule": "BR-FRD-031 v2",
+      "lastChanged": "2026-10-01"
+    },
+    {
+      "key": "fraud.auto-decline",
+      "service": "fraud-referral-svc",
+      "description": "Automatic decline on score. Must stay off (BR-FRD-033, NISA Circular 2026/04 §3.1).",
+      "owner": "Hub Squad – Fraud & Settlement",
+      "type": "release",
+      "states": {
+        "dev": false,
+        "test": false,
+        "preprod": false,
+        "prod": false
+      },
+      "disabledSince": "2026-04-01",
+      "ticket": "CHUB-204",
+      "rule": "BR-FRD-033",
+      "lastChanged": "2026-04-01"
+    },
+    {
+      "key": "fraud.customer-notice-deadline",
+      "service": "fraud-referral-svc",
+      "description": "Track the customer-notice deadline of 10 business days (BR-FRD-032 v2).",
+      "owner": "Hub Squad – Fraud & Settlement",
+      "type": "release",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": true
+      },
+      "enabledSince": "2026-04-01",
+      "ticket": "CHUB-209",
+      "rule": "BR-FRD-032 v2",
+      "lastChanged": "2026-04-01"
+    },
+    {
+      "key": "triage.tier3-threshold-reload",
+      "service": "triage-svc",
+      "description": "Reload referral thresholds from configuration without restart.",
+      "owner": "Hub Squad – Intake & Triage",
+      "type": "release",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": true
+      },
+      "enabledSince": "2026-10-05",
+      "ticket": "CHUB-392",
+      "lastChanged": "2026-10-05"
+    },
+    {
+      "key": "reserve.tier3-review-14-days",
+      "service": "reserve-engine",
+      "description": "Schedule Tier-3 reserve reviews every 14 days (BR-RSV-007 v3).",
+      "owner": "Hub Squad – Reserve & Finance",
+      "type": "release",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": true
+      },
+      "enabledSince": "2026-07-03",
+      "ticket": "CHUB-322",
+      "rule": "BR-RSV-007 v3",
+      "lastChanged": "2026-07-03"
+    },
+    {
+      "key": "reserve.revaluation-run",
+      "service": "reserve-engine",
+      "description": "Use the reserve-engine revaluation run instead of CLRGL090 (ADR-028); planned for Wave 2.",
+      "owner": "Hub Squad – Reserve & Finance",
+      "type": "experiment",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": false
+      },
+      "lastChanged": "2026-10-30"
+    },
+    {
+      "key": "reserve.parallel-run-reconciliation",
+      "service": "reserve-engine",
+      "description": "Daily reconciliation against CLARA during the reserve parallel run (ended 2026-08-28).",
+      "owner": "Hub Squad – Reserve & Finance",
+      "type": "release",
+      "states": {
+        "dev": false,
+        "test": false,
+        "preprod": false,
+        "prod": false
+      },
+      "disabledSince": "2026-08-28",
+      "ticket": "CHUB-241",
+      "lastChanged": "2026-08-28"
+    },
+    {
+      "key": "payments.idempotency-key",
+      "service": "payment-orchestrator",
+      "description": "Send an idempotency key with every CPG payment instruction (ADR-021).",
+      "owner": "Hub Squad – Fraud & Settlement",
+      "type": "release",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": true
+      },
+      "enabledSince": "2026-09-16",
+      "ticket": "CHUB-371",
+      "lastChanged": "2026-09-16"
+    },
+    {
+      "key": "assessment.motor-uk-wave1",
+      "service": "assessment-svc",
+      "description": "Route UK motor assessments to Claims Hub after the Wave 1 cut-over.",
+      "owner": "Hub Squad – Intake & Triage",
+      "type": "release",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": true
+      },
+      "enabledSince": "2026-09-14",
+      "ticket": "CHUB-340",
+      "lastChanged": "2026-09-14"
+    },
+    {
+      "key": "recovery.write-off-approval",
+      "service": "recovery-svc",
+      "description": "Require Head of Recoveries & Subrogation approval for write-offs above £10,000 (BR-REC-011 v2).",
+      "owner": "Hub Squad – Fraud & Settlement",
+      "type": "release",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": true
+      },
+      "enabledSince": "2026-09-14",
+      "ticket": "CHUB-409",
+      "rule": "BR-REC-011 v2",
+      "lastChanged": "2026-09-14"
+    },
+    {
+      "key": "documents.evidence-vault-endpoint",
+      "service": "document-svc",
+      "description": "Use the Evidence Vault base URL (DOCSTOR retired at the rename).",
+      "owner": "Hub Squad – Intake & Triage",
+      "type": "release",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": true
+      },
+      "enabledSince": "2025-11-03",
+      "ticket": "CHUB-219",
+      "lastChanged": "2025-11-03"
+    },
+    {
+      "key": "intake.telematics-draft-fnol",
+      "service": "fnol-intake-svc",
+      "description": "Create draft FNOLs from telematics crash alerts (BR-FNOL-009).",
+      "owner": "Hub Squad – Intake & Triage",
+      "type": "release",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": true
+      },
+      "enabledSince": "2025-11-03",
+      "rule": "BR-FNOL-009",
+      "lastChanged": "2025-11-03"
+    },
+    {
+      "key": "intake.portal-fnol-to-hub",
+      "service": "fnol-intake-svc",
+      "description": "Send portal FNOLs to Claims Hub (CLX-IF-035).",
+      "owner": "Hub Squad – Intake & Triage",
+      "type": "release",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": true
+      },
+      "enabledSince": "2026-09-14",
+      "lastChanged": "2026-09-14"
+    },
+    {
+      "key": "migration.wave2-readonly-clara",
+      "service": "claim-core-svc",
+      "description": "Read-only CLARA enquiry after cut-over (ADR-026, proposed).",
+      "owner": "Hub Squad – Intake & Triage",
+      "type": "experiment",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": false
+      },
+      "lastChanged": "2026-10-30"
+    },
+    {
+      "key": "reporting.dual-run-extracts",
+      "service": "reporting-feed-svc",
+      "description": "Dual-run regulatory extracts for two quarters (ADR-027, proposed).",
+      "owner": "Hub Squad – Reserve & Finance",
+      "type": "experiment",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": false
+      },
+      "lastChanged": "2026-10-30"
+    },
+    {
+      "key": "notification.nordic-language-preference",
+      "service": "notification-svc",
+      "description": "Use the customer's language preference (BR-FNOL-013).",
+      "owner": "Hub Squad – Intake & Triage",
+      "type": "release",
+      "states": {
+        "dev": true,
+        "test": true,
+        "preprod": true,
+        "prod": true
+      },
+      "enabledSince": "2025-11-03",
+      "rule": "BR-FNOL-013",
+      "lastChanged": "2025-11-03"
+    }
+  ],
+  "conventions": [
+    "Flag keys use <domain>.<feature> in kebab case.",
+    "Release flags are removed one release after they reach 100% in prod.",
+    "Business-rule values are not flags; they live in the effective-dated rules configuration (ADR-010).",
+    "Read models used for enquiries are rebuilt from events rather than shared tables."
+  ]
+}

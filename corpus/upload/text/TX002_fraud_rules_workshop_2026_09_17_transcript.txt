@@ -1,0 +1,739 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+TRANSCRIPT - FRAUD RULES WORKSHOP 17 SEP 2026
+============================================================================================
+
+DOCUMENT CONTROL
+  Document reference : CFS-WKS-TRN-2026-09
+  Title              : Transcript - Fraud Rules Workshop 17 Sep 2026
+  Meeting            : Fraud Rules Workshop
+  Forum              : Claims Fraud Forum - extended workshop session
+  Date and time      : Thursday 17 September 2026, 09:30-11:30 UK time (120 minutes)
+  Venue              : Leeds Claims Centre (Wharfe meeting room) and video bridge
+  Chair              : Niall Brannigan, Head of Counter-Fraud & SIU
+  Prepared by        : Hannah Lyle, Business Analyst – Claims (IBM Consulting)
+  Approved by        : Niall Brannigan
+  Status             : Final
+  Classification     : Internal
+
+VERSION HISTORY
+  Version  Date        Author / approver         Change
+  0.1      2026-09-17  H. Lyle                   Automated transcript from the bridge recording
+  0.2      2026-09-17  H. Lyle                   Speaker labels and rule references checked
+  1.0      2026-09-17  N. Brannigan (chair)      Approved; minutes to follow separately
+
+ATTENDEES
+  Niall Brannigan              Head of Counter-Fraud & SIU
+  Ingrid Ashby                 Claims Director
+  Oskar Lindgren               Senior Fraud Analyst
+  Rachel Dunmore               SIU Investigations Manager (UK)
+  Ruth Okafor                  Compliance Manager – Conduct & Counter-Fraud
+  Linnea Sjoberg               Engineering Lead – Fraud & Settlement Squad
+  Hannah Lyle                  Business Analyst – Claims, IBM Consulting
+  Aisha Siddiqui               Head of Claims Hub Product
+
+NOTES ON THIS TRANSCRIPT
+  - Timestamps are elapsed time from the start of the recording (hh:mm:ss).
+  - Speaker labels follow the display names on the bridge and were checked by hand.
+  - [inaudible] and [crosstalk] mark passages the transcription could not resolve.
+  - Rule references (BR-FRD-xxx, BR-TRI-003) are as spoken; see the rule catalogue for wording.
+  - The formal minutes of this workshop are issued as a separate document.
+
+-------------------------------------- TRANSCRIPT ------------------------------------------
+
+[00:00:00] Niall Brannigan: Morning, everyone. Let's make a start. Thanks for coming over, those of you who've travelled. This is the Fraud Rules Workshop we agreed at the last forum.
+[00:00:10] Niall Brannigan: Two things today. First, whether we change the referral threshold for Tier-3 claims, and second, how we handle longer deferrals of the customer notice. Hannah's taking notes and will do the minutes.
+[00:00:22] Hannah Lyle: Morning. Yes, I'm recording, and I'll read back the decisions at the end.
+[00:00:28] Niall Brannigan: This is a working session, so I'd like people to challenge. If you think something's wrong, say so now rather than after it's in production. I think the agenda for today is a good-news story, actually, and we don't say that often enough.
+[00:00:44] Hannah Lyle: Can I ask what's changed on the referral process since we last discussed it?
+[00:00:50] Aisha Siddiqui: The detail's firmer. The direction is the same. Okay, so I think the [inaudible] process is a good-news story, actually, and we don't say that often enough.
+[00:01:00] Niall Brannigan: Who else needs to be involved in the referral process?
+[00:01:04] Ruth Okafor: The squads, obviously, but also the people on the floor. Compliance will want an audit trail for the referral process, so let's design that in rather than bolt it on.
+[00:01:16] Niall Brannigan: Is there anything we can do to unblock the rule catalogue?
+[00:01:20] Aisha Siddiqui: Nothing specific. Keep asking about it, that's helpful in itself. We've had mixed messages on the rule catalogue, so a clear statement would help.
+[00:01:30] Niall Brannigan: Perfect.
+[00:01:32] Aisha Siddiqui: The adjusters out in the field have opinions on the referral process, and they're usually right about the patterns. From the SIU side, the referral process matters because every extra referral lands on an investigator's desk. Again, what would really help on the referral process is a single view that everyone works from.
+[00:01:51] Linnea Sjoberg: Personally I'd go a bit further on the rule catalogue, but I can live with what's proposed. Well, what we don't want with the rule catalogue is a referral sitting in a queue that nobody owns. Picking up on that, let's keep the rule catalogue simple and not try to solve every edge case in one go.
+[00:02:12] Ruth Okafor: And mine is that we can evidence every change to NISA if they ask. Which they will. The detail on the referral process is in the appendix, so I won't walk through it line by line.
+[00:02:25] Hannah Lyle: Linnea, is there anything on the rule catalogue you need from this group?
+[00:02:31] Linnea Sjoberg: Not today, thanks. If that changes, I'll shout. The adjusters out in the field have opinions on the rule catalogue, and they're usually right about the patterns.
+[00:02:42] Rachel Dunmore: My only ask on the referral process is that we keep the business teams close.
+[00:02:48] Niall Brannigan: Great.
+[00:03:00] Niall Brannigan: Oskar, can you start us off with where the model is, and then Ruth can take us through the review of the last six months?
+[00:03:10] Oskar Lindgren: Sure. Let me share a couple of charts.
+[00:03:14] Ruth Okafor: I've not seen anything on the score distribution that changes the overall picture. The bit of the scoring model that worries me is the hand-off between teams. We can't decline on the score alone, so the scoring feed is always going to need a human in the loop. If we change the score distribution, the triage queue changes shape, and we need the investigators ready for that.
+[00:03:39] Oskar Lindgren: The model hasn't changed since the spring. What's changed is the mix of claims coming through, with motor now on the Hub. The adjusters out in the field have opinions on the score bands, and they're usually right about the patterns.
+[00:03:54] Rachel Dunmore: I'd push back slightly on that. Part of the issue with the false-positive rate is that [inaudible] documentation lags behind what people actually do. On the false-positive rate, the case notes need to say why a claim was referred, not just that it was.
+[00:04:11] Hannah Lyle: Ingrid, what's your gut feel on the score bands?
+[00:04:15] Ingrid Ashby: Fairly comfortable. I'd flag it as watch rather than worry. We've had mixed messages on the score bands, so a clear statement would help.
+[00:04:24] Rachel Dunmore: What we don't want with the false-positive rate is a referral sitting in a queue that nobody owns. What would really help on the scoring model is a single view that everyone works from. From the investigators' side, the quality of the referrals since April has been decent. Fewer obvious false positives.
+[00:04:44] Ruth Okafor: Right, okay.
+[00:04:46] Niall Brannigan: Yeah, um, tipping-off is the thing that keeps me awake on the scoring model. Oskar's team have done a lot of quiet work on monitoring, which we don't talk about enough. From the SIU side, the calibration work matters because every extra referral lands on an investigator's desk. We're not starting from scratch on the score bands; a lot of the groundwork is already there.
+[00:05:09] Oskar Lindgren: What we don't want with the score distribution is a referral sitting in a queue that nobody owns. I'd split the score distribution into what we have to do now and what can wait. We probably need to separate the facts on the scoring model from the folklore.
+[00:05:28] Niall Brannigan: Rachel, where are we on the calibration work?
+[00:05:31] Rachel Dunmore: It's progressing. I'll have a fuller picture by the next meeting. The adjusters out in the field have opinions on the calibration work, and they're usually right about the patterns.
+[00:05:43] Linnea Sjoberg: Oskar, what's your gut feel on the false-positive rate?
+[00:05:47] Oskar Lindgren: Reasonably. I've seen worse at this stage. The false-positive rate is where the false positives hurt most, because they slow down genuine claims.
+[00:05:57] Linnea Sjoberg: Fine by me.
+[00:05:59] Oskar Lindgren: I'd push back slightly on that. If we're short of capacity, the calibration work is the thing I'd protect. Yeah. Personally I'd go a bit further on the scoring model, but I can live with what's proposed.
+[00:06:12] Niall Brannigan: Sorry, can I just check what we mean by the model monitoring? I think people are using it in different ways.
+[00:06:21] Rachel Dunmore: You're right, we're using it loosely. Let me tighten up the wording. The model monitoring is where the false positives hurt most, because they slow down genuine claims.
+[00:06:32] Linnea Sjoberg: Well, the bit of the score distribution that worries me is the hand-off between teams. On the Hub side the score comes back from Sentinel in real time and triage-svc applies the threshold, so it's a configuration question for us, not a code change. Sentinel isn't the only signal; the score distribution has to sit alongside what the handler actually sees on the claim.
+[00:06:56] Rachel Dunmore: Sentinel isn't the only signal; the score bands have to sit alongside what the handler actually sees on the claim. I mean, if I'm honest, the score bands have had less attention than it deserves over the last few weeks. We've got good people looking at the score distribution; I'm less sure we've given them enough time. There's a temptation to treat the scoring feed as a technical problem, and it really isn't.
+[00:07:23] Hannah Lyle: Has anything moved on the scoring feed since last time?
+[00:07:28] Oskar Lindgren: Mostly that more people are involved now, which is good. On the scoring feed, we have to think about the customer letter as much as the referral.
+[00:07:38] Linnea Sjoberg: I'd push back slightly on that. We should acknowledge the work that's gone into the score distribution, because it's been a slog.
+[00:07:47] Oskar Lindgren: Has anything moved on the model monitoring since last time?
+[00:07:52] Niall Brannigan: Not much, other than we understand it better.
+[00:07:56] Niall Brannigan: Anything else on that before we move on?
+[00:07:59] Oskar Lindgren: I look at the score distribution every week. It's stable. There's no drift that worries me. For the score distribution, I'd like the investigators' view as well as the analysts' view.
+[00:08:11] Ingrid Ashby: Is it just me or is this room freezing?
+[00:08:15] Aisha Siddiqui: It's always like this on this floor.
+[00:08:18] Ingrid Ashby: I'll bring a jumper next time.
+[00:08:21] Niall Brannigan: On the score bands, the case notes need to say why a claim was referred, not just that it was. I don't think the score bands are controversial, it's just fiddly. If we change the score bands, the triage queue changes shape, and we need the investigators ready for that. Look, I'd want to see the score bands working end to end before I'd put my name to it.
+[00:08:47] Aisha Siddiqui: Rachel, did you get a chance to look at the model monitoring?
+[00:08:51] Rachel Dunmore: I did, briefly. I've got a couple of comments, I'll send them over. Sure. The trouble with the model monitoring is that the people who know it best are also the busiest.
+[00:09:04] Aisha Siddiqui: We're probably overthinking the scoring feed, but I'd rather overthink it than underthink it. Tipping-off is the thing that keeps me awake on the scoring feed.
+[00:09:14] Oskar Lindgren: I see it a bit differently, actually. From the SIU side, the score bands matter because every extra referral lands on an investigator's desk.
+[00:09:23] Niall Brannigan: The handlers don't see the score itself, they just see the referral, so the model monitoring is invisible to them until it isn't. If there's one thing I'd take away on the false-positive rate, it's that we need to keep it visible.
+[00:09:39] Rachel Dunmore: We did a walk-through of the scoring model with the team leaders and it generated some good questions. In fairness, I'd challenge us a bit on the referral volume; I'm not sure we've tested the assumptions. To be fair, on the model monitoring, we have to think about the customer letter as much as the referral. From the SIU side, the scoring model matters because every extra referral lands on an investigator's desk.
+[00:10:05] Niall Brannigan: Can I just [crosstalk]
+[00:10:07] Oskar Lindgren: Sorry, after you.
+[00:10:09] Niall Brannigan: Thanks. It was a small point.
+[00:10:11] Oskar Lindgren: Again, Sentinel isn't the only signal; the false-positive rate has to sit alongside what the handler actually sees on the claim, in my view. It's fair to say the false-positive rate took longer than any of us wanted, for what it's worth.
+[00:10:27] Aisha Siddiqui: If we change the false-positive rate, the triage queue changes shape, and we need the investigators ready for that. The model behaves differently at the margins, so the scoring model needs watching for the first few weeks. If we get the false-positive rate right, a lot of the noise we've had recently goes away, as far as I can tell.
+[00:10:49] Ruth Okafor: Ingrid, is there anything on the model monitoring you need from this group?
+[00:10:54] Ingrid Ashby: Probably a bit of time from the business side, but I'll ask offline. On the model monitoring, the case notes need to say why a claim was referred, not just that it was.
+[00:11:06] Oskar Lindgren: If the calibration work is going to need more people, we should flag that early rather than late. I think the main thing on the calibration work is that we don't let it drift without someone looking at it properly. The scores in the low sixties are where it gets interesting, and that's really what today is about.
+[00:11:28] Niall Brannigan: Sorry, just so I'm clear: when you say the calibration work, do you mean the UK piece or the whole thing?
+[00:11:36] Aisha Siddiqui: Good challenge. I'll make sure the next version defines it properly.
+[00:11:40] Oskar Lindgren: What's the biggest risk on the false-positive rate, in your view?
+[00:11:45] Linnea Sjoberg: Knock-on effects. If it moves, other things move with it. The adjusters out in the field have opinions on the false-positive rate, and they're usually right about the patterns.
+[00:12:04] Oskar Lindgren: So, a bit of background for anyone who's newer. Sentinel, what we used to call FRAUDNET until the rename last year, scores every claim at notification and again when certain things change. The model is SNT-4.2, and I own it on the analytics side.
+[00:12:20] Oskar Lindgren: Since the first of April the referral threshold has been 65 for every claim, under BR-FRD-031. Before that it was 70 under the old rule, BR-FRD-012.
+[00:12:31] Niall Brannigan: If anyone's got concerns about the false-positive rate, I'd rather hear them now than in the corridor afterwards. We can't decline on the score alone, so the scoring model is always going to need a human in the loop. Actually, I'd like the false-positive rate closed down properly, not just quietly dropped.
+[00:12:50] Rachel Dunmore: Makes sense to me.
+[00:12:52] Oskar Lindgren: Can everyone see my screen?
+[00:12:55] Niall Brannigan: Yes, we can see it.
+[00:12:57] Oskar Lindgren: Great.
+[00:12:58] Niall Brannigan: Has anything moved on the scoring model since last time?
+[00:13:03] Ingrid Ashby: Honestly, less than I'd like. For the scoring model, I'd like the investigators' view as well as the analysts' view.
+[00:13:10] Niall Brannigan: My sense is that the referral volume is moving in the right direction, just slowly. It might be worth a separate session on the referral volume, because we won't do it justice in a few minutes here. On the referral volume, the case notes need to say why a claim was referred, not just that it was.
+[00:13:31] Oskar Lindgren: Have we taken the false-positive rate through the team leaders yet?
+[00:13:36] Linnea Sjoberg: We've walked them through it, yes, and they had some useful challenge.
+[00:13:41] Niall Brannigan: Whatever we, we land on for the scoring model, people need to hear it from their own managers first. I think the scoring feed is a good-news story, actually, and we don't say that often enough. To be honest, Compliance will want an audit trail for the score bands, so let's design that in rather than bolt it on.
+[00:14:03] Ingrid Ashby: Hannah, does the scoring model affect your area at all?
+[00:14:07] Hannah Lyle: A bit. We'll need some notice, but it's nothing we can't absorb. The handlers don't see the score itself, they just see the referral, so the scoring model is invisible to them until it isn't.
+[00:14:20] Niall Brannigan: Same view here. We can talk about the referral volume all day, but at some point someone has to make a call. The conversation on the false-positive rate has been constructive, which wasn't always the case.
+[00:14:34] Rachel Dunmore: Whatever we land on for the referral volume, people need to hear it from their own managers first. My instinct on the referral volume is to wait a little and see how things settle. Compliance will want an audit trail for the referral volume, so let's design that in rather than bolt it on.
+[00:14:55] Oskar Lindgren: Mm. Compliance will want an audit trail for the scoring feed, so let's design that in rather than bolt it on, to be honest. Speaking for my area, on the scoring feed, the case notes need to say why a claim was referred, not just that it was. Kestwick license the engine, but the model monitoring is ours. That's an important distinction.
+[00:15:17] Niall Brannigan: Rachel, are you comfortable with the false-positive rate as it stands?
+[00:15:22] Rachel Dunmore: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. I'd want the false-positive rate reflected in the referral reason codes, so the data is clean for the return.
+[00:15:34] Niall Brannigan: Where have we got to with the score bands, Oskar?
+[00:15:39] Oskar Lindgren: Steady. No drama, which is what you want. Tipping-off is the thing that keeps me awake on the score bands.
+[00:15:46] Niall Brannigan: Aisha, any concerns from your side on the referral volume?
+[00:15:51] Aisha Siddiqui: A few, mostly about timing rather than substance. The referral volume is one of those things that looks easy on a slide and isn't, I'd say.
+[00:16:01] Rachel Dunmore: Yeah, um, the handlers don't see the score itself, they just see the referral, so the calibration work is invisible to them until it isn't. Let's keep the score distribution simple and not try to solve every edge case in one go. To be fair, we probably need to separate the facts on the calibration work from the folklore. I think the calibration work needs a bit of tidying up rather than a rethink, for what it's worth.
+[00:16:30] Hannah Lyle: The short version on the scoring model is that it's in hand; the longer version is in the pack. If we change the scoring model, the triage queue changes shape, and we need the investigators ready for that. I'm reassured on the scoring model, mostly because the team have been very open about the gaps, as far as I can tell.
+[00:16:52] Rachel Dunmore: Have we taken the model monitoring through the team leaders yet?
+[00:16:57] Linnea Sjoberg: Partly. We've done the UK team leaders; the Nordics are next.
+[00:17:02] Oskar Lindgren: Niall, what's your gut feel on the calibration work?
+[00:17:06] Niall Brannigan: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it. We don't need to solve the calibration work here; we just need to agree who goes away and looks at it.
+[00:17:20] Linnea Sjoberg: Yep, makes sense.
+[00:17:30] Niall Brannigan: Thanks, Oskar. Ruth, the review.
+[00:17:32] Ruth Okafor: Thanks, Niall. So, six months of the Circular. Referral volumes are up, as we expected: 1,488 referrals in the second quarter. The customer notice within 10 business days is working, and triage within 3 business days is being met most weeks.
+[00:17:48] Ruth Okafor: The one real problem was the CLARA batch sweep. CLRFR040 still had the old threshold hard-coded, so 37 claims that scored 65 to 69 between April and the 12th of May weren't referred by the batch path. They were referred manually on the 13th, and Compliance now run a daily query for unreferred claims in that band.
+[00:18:09] Ruth Okafor: The fix is CHUB-298, and it's still open. So any change we make today has the same problem on the batch path until that's fixed.
+[00:18:18] Ruth Okafor: And the first FR1 return, for Q2, went in on the 29th of July, a day ahead of the deadline on the 30th.
+[00:18:28] Niall Brannigan: Same view here. Sentinel isn't the only signal; the FR1 return has to sit alongside what the handler actually sees on the claim. The bit of the Compliance [inaudible] query that worries me is the hand-off between teams.
+[00:18:42] Hannah Lyle: I'm not sure I'd go quite that far, Niall. On the FR1 return, the case notes need to say why a claim was referred, not just that it was. There's a temptation to treat the customer notice process as a technical problem, and it really isn't.
+[00:18:59] Ruth Okafor: To be fair, the handlers don't see the score itself, they just see the referral, so the Compliance daily query is invisible to them until it isn't. It's the knock-on effect of the Compliance daily query that I'm most interested in.
+[00:19:15] Rachel Dunmore: We should check whether the referral letters land differently for the Nordic teams than for the UK. We probably need to separate the facts on the referral letters from the folklore. Tipping-off is the thing that keeps me awake on the referral letters. Triage within three days is tight but doable. We've had to reorganise the queue a bit to make it work.
+[00:19:38] Ruth Okafor: I'd rather have an honest amber on the batch sweep defect than a green that turns red later.
+[00:19:46] Rachel Dunmore: The investigators would like the referral reason to be clearer on the case. They sometimes have to dig to see why a claim was referred. What we don't want with the April changes is a referral sitting in a queue that nobody owns.
+[00:20:01] Niall Brannigan: From my side, I'd like the next update on the April changes to come with evidence rather than a status colour. I think the Compliance daily query is a good-news story, actually, and we don't say that often enough. The customer letters have generated fewer calls than we feared. The contact centre script helped.
+[00:20:22] Ruth Okafor: Are we expecting any pushback on the customer notice process?
+[00:20:26] Rachel Dunmore: Some, probably, but nothing we can't work through. Tipping-off is the thing that keeps me awake on the customer notice process.
+[00:20:34] Oskar Lindgren: Let's capture the Compliance daily query as a follow-up rather than try to close it today. The Compliance daily query is where the false positives hurt most, because they slow down genuine claims. If I can come in here, can we make sure the batch sweep defect is visible on the RAID log, so it doesn't fall between the cracks?
+[00:20:56] Ruth Okafor: Overall the April changes landed well. The notice letters are going out, and the auto-decline is gone, which was the big one for NISA.
+[00:21:06] Niall Brannigan: Rachel, how is the triage queue looking this week?
+[00:21:10] Rachel Dunmore: Under control. We're inside the three days most weeks, but there's not a lot of slack.
+[00:21:16] Ruth Okafor: Niall, what's your gut feel on the SIU triage queue?
+[00:21:20] Niall Brannigan: Short answer, yes. Long answer, it depends how the next few weeks go. From my side, I'd like the SIU triage queue closed down properly, not just quietly dropped.
+[00:21:31] Hannah Lyle: That chimes with what I'm hearing, and if I can come in here, there's no silver bullet on the batch sweep defect; it's just steady work.
+[00:21:41] Linnea Sjoberg: I'd like the April changes closed down properly, not just quietly dropped. For the April changes, I'd rather we under-promise and deliver than the other way round. To be clear, nobody's saying the April changes are broken. It's more that we haven't tested it the way we'd test anything else.
+[00:22:00] Aisha Siddiqui: Yeah, I'd agree with that.
+[00:22:02] Rachel Dunmore: Is there anything we can do to unblock the referral letters?
+[00:22:07] Niall Brannigan: Just air cover, really. People are stretched, so it helps if the message comes from here. I'd want the referral letters reflected in the referral reason codes, so the data is clean for the return.
+[00:22:20] Linnea Sjoberg: Ruth, did you get a chance to look at the Compliance daily query?
+[00:22:26] Ruth Okafor: Yes. It reads well. One or two questions, but nothing major.
+[00:22:31] Rachel Dunmore: Who else needs to be involved in the Compliance daily query?
+[00:22:35] Niall Brannigan: Someone from the business side, ideally a team leader who's lived with it. From my side, we shouldn't confuse the Compliance daily query with the wider change; they're related but not the same.
+[00:22:48] Rachel Dunmore: That works.
+[00:22:50] Ruth Okafor: My worry with the referral letters is less the technology and more whether people on the floor actually know what's changed. The FR1 process worked first time, which I wasn't sure it would. I'd be interested in how other teams have handled the Compliance daily query, because we can't be the first to hit it.
+[00:23:10] Linnea Sjoberg: Speaking for my area, what we don't want with the FR1 return is a referral sitting in a queue that nobody owns. The thing about the FR1 return is that everyone agrees with it in principle and nobody wants to do the work. From the SIU side, the SIU triage queue matters because every extra referral lands on an investigator's desk. We should be honest that the FR1 return is partly a capacity problem.
+[00:23:38] Ruth Okafor: The daily query is a sticking plaster. It works, but nobody wants it forever. On the Compliance daily query, the case notes need to say why a claim was referred, not just that it was, I'd say.
+[00:23:52] Niall Brannigan: I'd echo that, I don't think the investigator workload is controversial, it's just fiddly. Just quickly, the handlers don't see the score itself, they just see the referral, so the referral letters are invisible to them until it isn't.
+[00:24:07] Aisha Siddiqui: The thing is [crosstalk]
+[00:24:09] Niall Brannigan: Sorry, one at a time, please.
+[00:24:11] Aisha Siddiqui: Sorry. Go on, Ruth.
+[00:24:14] Ruth Okafor: No, it's fine, carry on.
+[00:24:16] Oskar Lindgren: Is the SIU triage queue in the pack, or is that coming separately?
+[00:24:21] Aisha Siddiqui: It's in the appendix, towards the back. I think the SIU triage queue needs a bit of tidying up rather than a rethink.
+[00:24:30] Niall Brannigan: Linnea, is there anything on the batch sweep defect you need from this group?
+[00:24:36] Linnea Sjoberg: Probably a bit of time from the business side, but I'll ask offline. From the SIU side, the batch sweep defect matters because every extra referral lands on an investigator's desk.
+[00:24:48] Niall Brannigan: Sure. Everything I've seen on the investigator workload says the approach is right; it's the pace I'd question. Part of the issue with the batch sweep defect is that the documentation lags behind what people actually do. Actually, I'd rather have an honest amber on the investigator workload than a green that turns red later.
+[00:25:08] Ruth Okafor: Yeah, go on.
+[00:25:10] Niall Brannigan: Tipping-off is the thing that keeps me awake on the investigator workload. What's changed on the investigator workload since the last update is mainly the level of detail, not the direction. I think the Compliance daily query needs a bit of tidying up rather than a rethink. It's the knock-on effect of the referral letters that I'm most interested in.
+[00:25:33] Ingrid Ashby: I'd want the FR1 return reflected in the referral reason codes, so the data is clean for the return. The FR1 return keeps getting squeezed by more urgent things. We've got good people looking at the FR1 return; I'm less sure we've given them enough time.
+[00:25:50] Ruth Okafor: For what it's worth, Compliance will want an audit trail for the FR1 return, so let's design that in rather than bolt it on. Can we make sure the FR1 return is visible on the RAID log, so it doesn't fall between the cracks? If we change the Compliance daily query, the triage queue changes shape, and we need the investigators ready for that. From the SIU side, the referral letters matter because every extra referral lands on an investigator's desk.
+[00:26:20] Niall Brannigan: Rachel, is there anything on the batch sweep defect you need from this group?
+[00:26:26] Rachel Dunmore: Just air cover, really. People are stretched, so it helps if the message comes from here. Honestly, if we're going to change anything about the batch sweep defect, now's the time rather than later, for what it's worth.
+[00:26:40] Niall Brannigan: On that point, we've been here before with the SIU triage queue, and the lesson last time was to get the business in the room early. If the SIU triage queue slips, it doesn't just slip on its own; it drags a couple of other things with it.
+[00:26:59] Rachel Dunmore: Okay. We should be honest that the SIU triage queue is partly a capacity problem.
+[00:27:05] Ingrid Ashby: Tipping-off is the thing that keeps me awake on the April changes. I'd rather the April changes were boring. Boring is good, if that makes sense. What we don't want with the Compliance daily query is a referral sitting in a queue that nobody owns. Honestly, what would really help on the April changes is a single view that everyone works from.
+[00:27:28] Hannah Lyle: Understood.
+[00:27:30] Oskar Lindgren: I'd push back slightly on that. Mm. The adjusters out in the field have opinions on the referral letters, and they're usually right about the patterns.
+[00:27:40] Rachel Dunmore: If the customer notice process needs more time, I'd rather we said so now. Just quickly, from a customer point of view, the SIU triage queue should be invisible, and that's the test I'd apply. What we don't want with the SIU triage queue is a referral sitting in a queue that nobody owns.
+[00:28:00] Hannah Lyle: Sure.
+[00:28:01] Rachel Dunmore: Uh, if we change the April changes, the triage queue changes shape, and we need the investigators ready for that. Well, can we make sure the April changes are visible on the RAID log, so it doesn't fall between the cracks? Yeah. My instinct on the April changes is to wait a little and see how things settle.
+[00:28:23] Niall Brannigan: We can't decline on the score alone, so the Compliance daily query is always going to need a human in the loop. Sure. My only ask on the batch sweep defect is that we keep the business teams close.
+[00:28:38] Niall Brannigan: Let's come back to that at the end.
+[00:28:42] Rachel Dunmore: Are we expecting any pushback on the investigator workload?
+[00:28:46] Ingrid Ashby: One or two. I'll pick them up offline rather than take time here. The model behaves differently at the margins, so the investigator workload needs watching for the first few weeks.
+[00:28:57] Rachel Dunmore: Do we need a decision on the FR1 return from this group, or is it just for awareness?
+[00:29:05] Ruth Okafor: Noting only. If it needs a decision, it'll come back with a paper. I had a look at the FR1 return over the weekend and nothing jumped out as a showstopper.
+[00:29:17] Ingrid Ashby: The April changes are where the false positives hurt most, because they slow down genuine claims. The model behaves differently at the margins, so the April changes need watching for the first few weeks.
+[00:29:30] Aisha Siddiqui: On the referral letters, we have to think about the customer letter as much as the referral. If we change the FR1 return, the triage queue changes shape, and we need the investigators ready for that. The Compliance daily query keeps getting squeezed by more urgent things, I think.
+[00:29:49] Hannah Lyle: Where have we got to with the batch sweep defect, Rachel?
+[00:29:54] Rachel Dunmore: We're waiting on one input, and then it's fairly straightforward. The people side of the batch sweep defect is going to be harder than the system side.
+[00:30:05] Niall Brannigan: Has anything moved on the Compliance daily query since last time?
+[00:30:09] Hannah Lyle: The detail's firmer. The direction is the same.
+[00:30:13] Niall Brannigan: How confident are we on the referral letters, honestly?
+[00:30:18] Rachel Dunmore: Fairly comfortable. I'd flag it as watch rather than worry.
+[00:30:22] Aisha Siddiqui: Are we expecting any pushback on the referral letters?
+[00:30:26] Niall Brannigan: Not really. The team have been very open about the gaps, which helps. Part of the issue with the referral letters is that the documentation lags behind what people actually do.
+[00:30:38] Aisha Siddiqui: Makes sense to me.
+[00:30:40] Niall Brannigan: What's the biggest risk on the batch sweep defect, in your view?
+[00:30:45] Rachel Dunmore: Timing more than anything. It's not hard, it's just competing with everything else. What we don't want with the batch sweep defect is a referral sitting in a queue that nobody owns.
+[00:30:58] Niall Brannigan: That's helpful, thanks.
+[00:30:59] Ruth Okafor: Ingrid, is the investigator workload a resourcing question or a decision question?
+[00:31:04] Ingrid Ashby: Resourcing. Nobody disagrees on what to do. The trouble with the investigator workload is that the people who know it best are also the busiest.
+[00:31:14] Rachel Dunmore: Sorry, I'm in a car park, so if I drop, that's why.
+[00:31:19] Ruth Okafor: Understood, thanks.
+[00:31:21] Linnea Sjoberg: Tipping-off is the thing that keeps me awake on the SIU triage queue. The honest answer on the Compliance daily query is that we know what good looks like, we're just not there yet. We should probably sanity-check the FR1 return with someone who wasn't involved in designing it.
+[00:31:39] Ingrid Ashby: Is the FR1 return something we need to decide today, or is it for noting?
+[00:31:45] Rachel Dunmore: For noting, I think. Nothing we need to decide today. For the FR1 return, I'd like the investigators' view as well as the analysts' view.
+[00:31:55] Ruth Okafor: Has anything moved on the customer notice process since last time?
+[00:31:59] Oskar Lindgren: Not much, other than we understand it better. For the customer notice process, I'd like the investigators' view as well as the analysts' view.
+[00:32:09] Niall Brannigan: The April changes keep getting squeezed by more urgent things. I think the April changes need a bit of tidying up rather than a rethink. The model behaves differently at the margins, so the referral letters need watching for the first few weeks.
+[00:32:25] Ruth Okafor: Tipping-off is the thing that keeps me awake on the batch sweep defect. We've had mixed messages on the April changes, so a clear statement would help. The model behaves differently at the margins, so the batch sweep defect needs watching for the first few weeks. Picking up on that, I'd want the batch sweep defect reflected in the referral reason codes, so the data is clean for the return.
+[00:32:51] Ingrid Ashby: Sorry, just so I'm clear: when you say the Compliance daily query, do you mean the UK piece or the whole thing?
+[00:33:00] Niall Brannigan: Fair point. I mean the whole thing, end to end.
+[00:33:05] Rachel Dunmore: Compliance will want an audit trail for the Compliance daily query, so let's design that in rather than bolt it on. For the Compliance daily query, I'd like the investigators' view as well as the analysts' view. From where I sit, the Compliance daily query is the thing most likely to catch us out, simply because it touches so many teams. It's the knock-on effect of the April changes that I'm most interested in.
+[00:33:32] Aisha Siddiqui: Okay, so I'd rather the Compliance daily query was boring. Boring is good. My sense is that the batch sweep defect is moving in the right direction, just slowly.
+[00:33:43] Ruth Okafor: On the, the batch sweep defect, we have to think about the customer letter as much as the referral. I'd rather the batch sweep defect was boring. Boring is good. For what it's worth, the batch sweep defect is where the false positives hurt most, because they slow down genuine claims. If we get the batch sweep defect right, a lot of the noise we've had recently goes away.
+[00:34:09] Ingrid Ashby: Are we expecting any pushback on the Compliance daily query?
+[00:34:14] Hannah Lyle: One or two. I'll pick them up offline rather than take time here. For what it's worth, the people closest to the Compliance daily query are fairly confident.
+[00:34:25] Linnea Sjoberg: Where have we got to with the investigator workload, Niall?
+[00:34:29] Niall Brannigan: In better shape than it was. I wouldn't call it done, but the direction is right. There's no silver bullet on the investigator workload; it's just steady work.
+[00:34:40] Linnea Sjoberg: Thanks.
+[00:34:41] Ingrid Ashby: Okay, noted.
+[00:34:50] Niall Brannigan: Thanks, Ruth. Let's go to the options. Oskar, you've modelled three.
+[00:34:54] Oskar Lindgren: Yes. Option A is to lower the threshold to 60 for all claims. Option B is to lower it to 60 for Tier-3 claims only and keep 65 for everything else. Option C is to change nothing.
+[00:35:08] Niall Brannigan: Mm. On option B, we have to think about the customer letter as much as the referral.
+[00:35:14] Hannah Lyle: Linnea, is there anything on the SIU capacity you need from this group?
+[00:35:20] Linnea Sjoberg: Not today, thanks. If that changes, I'll shout. I'm happy with the SIU capacity as long as we're clear about what's in and what's out.
+[00:35:30] Niall Brannigan: Let's be disciplined and go through the options in order, and then decide. For the investigator capacity, I'd like the investigators' view as well as the analysts' view, in my view.
+[00:35:42] Ingrid Ashby: Tier-3 claims are where the money is. If we're going to be more sensitive anywhere, that's where.
+[00:35:49] Niall Brannigan: Is there anything we can do to unblock option B?
+[00:35:53] Oskar Lindgren: Nothing specific. Keep asking about it, that's helpful in itself. What's changed on option B since the last update is mainly the level of detail, not the direction.
+[00:36:05] Rachel Dunmore: Following on from Oskar, Compliance will want an audit trail for the SIU capacity, so let's design that in rather than bolt it on, if that makes sense. The adjusters out in the field have opinions on option B, and they're usually right about the patterns, as far as I can tell.
+[00:36:24] Hannah Lyle: I've got the three options captured. I'll put the rationale for each in the minutes.
+[00:36:31] Oskar Lindgren: Is option A in the pack, or is that coming separately?
+[00:36:36] Ruth Okafor: Not in this pack, no. It'll come separately once it's been through the working group. Okay, so from where I sit, option A is the thing most likely to catch us out, simply because it touches so many teams.
+[00:36:50] Rachel Dunmore: I'd like the Tier-3 population closed down properly, not just quietly dropped. We did a walk-through of the do-nothing option with the team leaders and it generated some good questions.
+[00:37:02] Oskar Lindgren: I'm conscious the SIU capacity keeps coming up and we keep deferring it. Let's not lose the do-nothing option in the detail; it needs to come back here with a clear recommendation. From the SIU side, the impact on genuine customers matter because every extra referral lands on an investigator's desk.
+[00:37:21] Ruth Okafor: I'd want to see the Tier-3 population working end to end before I'd put my name to it.
+[00:37:28] Rachel Dunmore: Is there a simpler version of option B than what's on the slide?
+[00:37:33] Ingrid Ashby: Possibly. Let me take that away and see what we could strip out. We can't decline on the score alone, so option B is always going to need a human in the loop.
+[00:37:46] Linnea Sjoberg: Have we taken the do-nothing option through the team leaders yet?
+[00:37:50] Aisha Siddiqui: Not yet, but it's planned. I'd want the do-nothing option reflected in the referral reason codes, so the data is clean for the return.
+[00:37:59] Ingrid Ashby: Has anything moved on option A since last time?
+[00:38:04] Niall Brannigan: Mostly that more people are involved now, which is good. If we change option A, the triage queue changes shape, and we need the investigators ready for that.
+[00:38:15] Ingrid Ashby: Good.
+[00:38:16] Niall Brannigan: I mean, one thing on the impact on genuine customers: we should check we're not double-counting effort with the other workstream. We need a bit more rigour around the SIU capacity, particularly on the testing side. We've got good people looking at the impact on genuine customers; I'm less sure we've given them enough time.
+[00:38:36] Ruth Okafor: Compliance will want an audit trail for option B, so let's design that in rather than bolt it on. Sentinel isn't the only signal; option A has to sit alongside what the handler actually sees on the claim.
+[00:38:51] Oskar Lindgren: The forecasts are based on the last two quarters, so they're as good as the data we've got. I suspect the impact on genuine customers will come back to this group at some point, so let's not close it off.
+[00:39:06] Ingrid Ashby: Niall, what keeps you awake about the investigator capacity?
+[00:39:10] Niall Brannigan: That we assume it's done because nobody's complaining.
+[00:39:13] Rachel Dunmore: Picking up on that, Compliance will want an audit trail for option A, so let's design that in rather than bolt it on.
+[00:39:22] Ingrid Ashby: Okay. We've been here before with the SIU capacity, and the lesson last time was to get the business in the room early. The people side of the SIU capacity is going to be harder than the system side. I don't want us to over-engineer the do-nothing option. A one-page note would do the job, I think.
+[00:39:44] Niall Brannigan: Sorry, there's a bit of an echo in the room. Is that better?
+[00:39:50] Hannah Lyle: Much better, thanks.
+[00:39:51] Rachel Dunmore: Just to build on what Hannah said, on the SIU capacity, there's been a lot of [inaudible] but not a lot of change, if you see what I mean. Let's be careful not to let the referral forecast turn into a bigger piece of work than it needs to be.
+[00:40:10] Ingrid Ashby: I'm with Rachel on that. Right. The adjusters out in the field have opinions on the investigator capacity, and they're usually right about the patterns.
+[00:40:19] Oskar Lindgren: We also have to remember the model is less certain in the sixties. More referrals there means more false positives as well. The short version on the do-nothing option is that it's in hand; the longer version is in the pack.
+[00:40:34] Hannah Lyle: Same here.
+[00:40:36] Ingrid Ashby: On the do-nothing option, the case notes need to say why a claim was referred, not just that it was. Again, can I suggest we park the do-nothing option for now and pick it up under any other business?
+[00:40:51] Rachel Dunmore: On the SIU capacity, I'd like us to agree the principle and let the team sort out the detail. Let's not lose the SIU capacity in the detail; it needs to come back here with a clear recommendation.
+[00:41:06] Oskar Lindgren: Niall, are you comfortable with the impact on genuine customers as it stands?
+[00:41:11] Niall Brannigan: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. Yeah. For the impact on genuine customers, the question isn't whether, it's how and in what order.
+[00:41:22] Oskar Lindgren: If the do-nothing option is going to need more people, we should flag that early rather than late. If the do-nothing option needs more time, I'd rather we said so now. In fairness, the adjusters out in the field have opinions on the do-nothing option, and they're usually right about the patterns.
+[00:41:41] Ruth Okafor: Is there a simpler version of the referral forecast than what's on the slide?
+[00:41:48] Rachel Dunmore: There probably is, and I'd be open to it. On the referral forecast, the case notes need to say why a claim was referred, not just that it was.
+[00:41:59] Linnea Sjoberg: [crosstalk] sorry, we both started at once.
+[00:42:03] Aisha Siddiqui: Go on, Linnea.
+[00:42:05] Linnea Sjoberg: Thanks.
+[00:42:06] Ingrid Ashby: For option B, I'd like the investigators' view as well as the analysts' view, at least from where I sit. For option B, I'd rather we under-promise and deliver than the other way round.
+[00:42:19] Linnea Sjoberg: I don't want us to over-engineer the investigator capacity. A one-page note would do the job. Yeah. We need to be careful how we talk about the investigator capacity outside this room until it's settled. We can't decline on the score alone, so option A is always going to need a human in the loop. My only ask on the investigator capacity is that we keep the business teams close.
+[00:42:46] Rachel Dunmore: My worry with any change is the queue. If it doubles overnight, triage in three days becomes fiction. What's changed on the do-nothing option since the last update is mainly the level of detail, not the direction.
+[00:43:00] Ingrid Ashby: Niall, are you comfortable with option A as it stands?
+[00:43:05] Niall Brannigan: Reasonably. I've seen worse at this stage. On option A, we have to think about the customer letter as much as the referral.
+[00:43:14] Hannah Lyle: Ruth, can you give us a quick update on the investigator capacity?
+[00:43:19] Ruth Okafor: It's with the working group at the moment; I'll chase and come back.
+[00:43:24] Oskar Lindgren: From where I sit, the referral forecast is the thing most likely to catch us out, simply because it touches so many teams. What we don't want with the do-nothing option is a referral sitting in a queue that nobody owns.
+[00:43:39] Ingrid Ashby: Sorry, can I just check what we mean by the Tier-3 population? I think people are using it in different ways.
+[00:43:48] Ruth Okafor: Good challenge. I'll make sure the next version defines it properly. I'd want the Tier-3 population reflected in the referral reason codes, so the data is clean for the return.
+[00:44:00] Rachel Dunmore: So, on the do-nothing option, there's been a lot of activity but not a lot of change, if you see what I mean, at least from where I sit. I had a look at option B over the weekend and nothing jumped out as a showstopper. The do-nothing option keeps getting squeezed by more urgent things, to be honest. For Tier-3, the investigators would rather see the claim early. It's a lot harder to unpick once it's been paid.
+[00:44:29] Ruth Okafor: Ingrid, where are we on the impact on genuine customers?
+[00:44:33] Ingrid Ashby: It's moving. Not as fast as I'd like, but it's moving. My only ask on the impact on genuine customers is that we keep the business teams close, if I'm honest.
+[00:44:45] Rachel Dunmore: On that point, for the impact on genuine customers, I'd like the investigators' view as well as the analysts' view. I'd want option B reflected in the referral reason codes, so the data is clean for the return. There's a temptation to treat the impact on genuine customers as a technical problem, and it really isn't. Everything I've seen on the impact on genuine customers says the approach is right; it's the pace I'd question.
+[00:45:13] Linnea Sjoberg: Same view here. From my side, if we change the Tier-3 population, the triage queue changes shape, and we need the investigators ready for that. If we change the SIU capacity, the triage queue changes shape, and we need the investigators ready for that.
+[00:45:29] Niall Brannigan: How confident are we on the do-nothing option, honestly?
+[00:45:34] Rachel Dunmore: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it.
+[00:45:41] Oskar Lindgren: Can I just add to that? We need to be careful how we talk about the referral forecast outside this room until it's settled.
+[00:45:50] Niall Brannigan: Sorry, just so I'm clear: when you say the Tier-3 population, do you mean the UK piece or the whole thing?
+[00:45:58] Ingrid Ashby: Fair point. I mean the whole thing, end to end. Yeah. On the Tier-3 population, we have to think about the customer letter as much as the referral.
+[00:46:09] Niall Brannigan: I mean, we're probably overthinking the investigator capacity, but I'd rather overthink it than underthink it.
+[00:46:15] Rachel Dunmore: Hannah, what's your gut feel on option B?
+[00:46:19] Hannah Lyle: Short answer, yes. Long answer, it depends how the next few weeks go.
+[00:46:25] Niall Brannigan: I wouldn't want the SIU capacity to become the reason we lose momentum elsewhere. The SIU capacity is where the false positives hurt most, because they slow down genuine claims. Tipping-off is the thing that keeps me awake on option B. My instinct on the SIU capacity is to wait a little and see how things settle.
+[00:46:46] Ingrid Ashby: Are we expecting any pushback on the referral forecast?
+[00:46:50] Linnea Sjoberg: Some, probably, but nothing we can't work through. The quality of the conversation on the referral forecast has improved a lot.
+[00:46:59] Hannah Lyle: On option A, the risk isn't that it fails outright, it's that it half works and nobody notices, if that makes sense. The handlers don't see the score itself, they just see the referral, so the Tier-3 population is invisible to them until it isn't. On option A, there's been a lot of activity but not a lot of change, if you see what I mean, in my view. It's the knock-on effect of the do-nothing option that I'm most interested in, to be honest.
+[00:47:30] Rachel Dunmore: If I'm honest, the investigator capacity has had less attention than it deserves over the last few weeks. If there's one thing I'd take away on the investigator capacity, it's that we need to keep it visible.
+[00:47:43] Ruth Okafor: Has anything moved on the SIU capacity since last time?
+[00:47:48] Oskar Lindgren: Honestly, less than I'd like. Tipping-off is the thing that keeps me awake on the SIU capacity, as far as I can tell.
+[00:47:57] Niall Brannigan: Mm. Tipping-off is the thing that keeps me awake on the do-nothing option. I suspect option B will come back to this group at some point, so let's not close it off. I think the investigator capacity needs a bit of tidying up rather than a rethink. Look, the model behaves differently at the margins, so the do-nothing option needs watching for the first few weeks.
+[00:48:22] Rachel Dunmore: If anyone's got concerns about the referral forecast, I'd rather hear them now than in the corridor afterwards.
+[00:48:29] Oskar Lindgren: Understood.
+[00:48:29] Ruth Okafor: Whatever we choose, I need a clear rationale written down, because NISA will ask why we treat Tier-3 differently. We can't decline on the score alone, so the SIU capacity is always going to need a human in the loop.
+[00:48:45] Oskar Lindgren: Sorry, just so I'm clear: when you say the investigator capacity, do you mean the UK piece or the whole thing?
+[00:48:53] Niall Brannigan: You're right, we're using it loosely. Let me tighten up the wording.
+[00:48:58] Oskar Lindgren: Okay.
+[00:48:59] Niall Brannigan: The short version on the Tier-3 population is that it's in hand; the longer version is in the pack, I'd say. For the Tier-3 population, the question isn't whether, it's how and in what order. The model behaves differently at the margins, so the referral forecast needs watching for the first few weeks. Option B is one of those things that looks easy on a slide and isn't.
+[00:49:24] Rachel Dunmore: What's the biggest risk on the SIU capacity, in your view?
+[00:49:29] Ingrid Ashby: The hand-offs between teams. That's where things usually drop. For the SIU capacity, the question isn't whether, it's how and in what order.
+[00:49:38] Rachel Dunmore: Agreed.
+[00:49:39] Niall Brannigan: Oskar, is option A a resourcing question or a decision question?
+[00:49:44] Oskar Lindgren: Probably both, if I'm honest. The adjusters out in the field have opinions on option A, and they're usually right about the patterns, at least from where I sit.
+[00:49:55] Rachel Dunmore: Where does the investigator capacity sit on the list of priorities right now?
+[00:50:00] Aisha Siddiqui: It's up there. It just keeps getting bumped by urgent things.
+[00:50:06] Niall Brannigan: Ingrid, where are we on the SIU capacity?
+[00:50:10] Ingrid Ashby: Broadly on track. There are a couple of loose ends, but nothing that worries me. I mean, on the SIU capacity, we have to think about the customer letter as much as the referral.
+[00:50:22] Niall Brannigan: Perfect.
+[00:50:24] Ingrid Ashby: There's a temptation to treat the referral forecast as a technical problem, and it really isn't, if that makes sense. There are two schools of thought on the impact on genuine customers, and both have some merit. On the investigator capacity, the case notes need to say why a claim was referred, not just that it was.
+[00:50:45] Aisha Siddiqui: Where have we got to with the Tier-3 population, Hannah?
+[00:50:49] Hannah Lyle: Steady. No drama, which is what you want. We should probably sanity-check the Tier-3 population with someone who wasn't involved in designing it.
+[00:50:58] Niall Brannigan: The model behaves differently at the margins, so option B needs watching for the first few weeks. If anyone's got concerns about the Tier-3 population, I'd rather hear them now than in the corridor afterwards.
+[00:51:11] Rachel Dunmore: We can't decline on the score alone, so the investigator capacity is always going to need a human in the loop. I wouldn't want the impact on genuine customers to become the reason we lose momentum elsewhere. I'd like the next update on the investigator capacity to come with evidence rather than a status colour. I suppose we can't decline on the score alone, so the impact on genuine customers are always going to need a human in the loop.
+[00:51:41] Oskar Lindgren: Are we expecting any pushback on option B?
+[00:51:45] Niall Brannigan: Not really. The team have been very open about the gaps, which helps. The feedback from the teams on option B is that they want fewer surprises and more notice, at least from where I sit.
+[00:51:58] Rachel Dunmore: Hannah, what keeps you awake about the impact on genuine customers?
+[00:52:03] Hannah Lyle: Honestly, people. The people who know it best are also the busiest. If there's one thing I'd take away on the impact on genuine customers, it's that we need to keep it visible.
+[00:52:16] Ingrid Ashby: Is there a simpler version of the SIU capacity than what's on the slide?
+[00:52:22] Oskar Lindgren: Not without losing something important, I think. But I'm happy to look. The trouble with the SIU capacity [inaudible] that the people who know it best are also the busiest.
+[00:52:33] Ingrid Ashby: Mm.
+[00:52:34] Ruth Okafor: Can I suggest we park option B for now and pick it up under any other business? On option B, the case notes need to say why a claim was referred, not just that it was.
+[00:52:48] Niall Brannigan: How confident are we on option B, honestly?
+[00:52:51] Linnea Sjoberg: Short answer, yes. Long answer, it depends how the next few weeks go. Can we make sure option B is visible on the RAID log, so it doesn't fall between the cracks?
+[00:53:04] Niall Brannigan: Sorry, can I just check what we mean by the impact on genuine customers? I think people are using it in different ways.
+[00:53:13] Ingrid Ashby: Good challenge. I'll make sure the next version defines it properly.
+[00:53:18] Niall Brannigan: Understood.
+[00:53:19] Oskar Lindgren: I see it a bit differently, actually. Option B is where the false positives hurt most, because they slow down genuine claims.
+[00:53:27] Rachel Dunmore: Niall, where are we on the do-nothing option?
+[00:53:31] Niall Brannigan: It's moving. Not as fast as I'd like, but it's moving. I keep coming back to the do-nothing option, because it's the area that's had the least scrutiny.
+[00:53:42] Oskar Lindgren: Hold on, the slides have jumped ahead. Can you go back?
+[00:53:47] Rachel Dunmore: Sorry, clicker's got a mind of its own.
+[00:53:51] Niall Brannigan: [laughter]
+[00:53:52] Rachel Dunmore: Ingrid, what's your gut feel on option B?
+[00:53:56] Ingrid Ashby: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it. My worry with option B is less the technology and more whether people on the floor actually know what's changed.
+[00:54:10] Niall Brannigan: I'd echo that, we can talk about option A all day, but at some point someone has to make a call, I'd say. For what it's worth, what we don't want with the investigator capacity is a referral sitting in a queue that nobody owns.
+[00:54:27] Rachel Dunmore: On the Tier-3 population, there's been a lot of activity but not a lot of change, if you see what I mean. I'm happy with the Tier-3 population as long as we're clear about what's in and what's out.
+[00:54:42] Niall Brannigan: Linnea, did you get a chance to look at the do-nothing option?
+[00:54:48] Linnea Sjoberg: Not properly yet. It's on my list for this week. Just quickly, we probably need to separate the facts on the do-nothing option from the folklore, for what it's worth.
+[00:55:02] Oskar Lindgren: So, option A. If we applied 60 to all claims, my estimate is that referrals would go up by about 41% on the current run-rate. That's the headline number.
+[00:55:12] Rachel Dunmore: We can't absorb that. Not with triage in three business days. We'd be breaching the rule within a fortnight.
+[00:55:21] Ingrid Ashby: And it would mean a lot of genuine customers getting a letter saying their claim is subject to additional checks, for no good reason.
+[00:55:30] Niall Brannigan: Then I think option A is off the table. Let's record that we've considered lowering the general threshold to 60 for all claims and rejected it.
+[00:55:40] Hannah Lyle: Got it. Option A rejected, with the rationale being SIU capacity and customer impact.
+[00:55:46] Ingrid Ashby: Is the SIU capacity something we need to decide today, or is it for noting?
+[00:55:52] Oskar Lindgren: Not today. We'll bring options when we've done the analysis. The model behaves differently at the margins, so the SIU capacity needs watching for the first few weeks.
+[00:56:03] Rachel Dunmore: I think we've got consensus on the referral forecast, broadly. Mm. I'd rather have an honest amber on the referral forecast than a green that turns red later. For the referral forecast, I'd rather we under-promise and deliver than the other way round.
+[00:56:19] Hannah Lyle: Yes.
+[00:56:20] Niall Brannigan: Speaking for my area, what we don't want with the impact on genuine customers is a referral sitting in a queue that nobody owns. I'd rather the impact on genuine customers were boring. Boring is good. From the SIU side, option B matters because every extra referral lands on an investigator's desk. We need a bit more rigour around the referral forecast, particularly on the testing side.
+[00:56:44] Oskar Lindgren: Is option B something we need to decide today, or is it for noting?
+[00:56:50] Ingrid Ashby: Awareness for now. There may be a decision next time. The handlers don't see the score itself, they just see the referral, so option B is invisible to them until it isn't.
+[00:57:03] Niall Brannigan: Is there anything we can do to unblock the impact on genuine customers?
+[00:57:08] Rachel Dunmore: Just air cover, really. People are stretched, so it helps if the message comes from here.
+[00:57:14] Niall Brannigan: Do we need a decision on the Tier-3 population from this group, or is it just for awareness?
+[00:57:21] Ingrid Ashby: Awareness for now. There may be a decision next time. We should acknowledge the work that's gone into the Tier-3 population, because it's been a slog.
+[00:57:31] Oskar Lindgren: There are two schools of thought on the do-nothing option, and both have some merit. My worry with the Tier-3 population is less the technology and more whether people on the floor actually know what's changed. The sticking point on the do-nothing option has been agreeing the scope, not the build.
+[00:57:50] Rachel Dunmore: If we change the do-nothing option, the triage queue changes shape, and we need the investigators ready for that. I mean, if we change option B, the triage queue changes shape, and we need the investigators ready for that.
+[00:58:05] Ingrid Ashby: Sentinel isn't the only signal; the impact on genuine customers have to sit alongside what the handler actually sees on the claim. I'll be honest, the impact on genuine customers weren't really on my radar until this week.
+[00:58:19] Rachel Dunmore: I'd echo that, I'm conscious option A keeps coming up and we keep deferring it.
+[00:58:25] Oskar Lindgren: Niall, can you give us a quick update on the do-nothing option?
+[00:58:30] Niall Brannigan: In better shape than it was. I wouldn't call it done, but the direction is right.
+[00:58:37] Hannah Lyle: Well, I've not seen anything on the, the investigator capacity that changes the overall picture, as far as I can tell. There's a temptation to treat the investigator capacity as a technical problem, and it really isn't. The conversation on the investigator capacity has been constructive, which wasn't always the case.
+[00:58:56] Rachel Dunmore: Same view here. On the do-nothing option, we have to think about the customer letter as much as the referral.
+[00:59:04] Ingrid Ashby: Niall, did you get a chance to look at the do-nothing option?
+[00:59:09] Niall Brannigan: Yes. It reads well. One or two questions, but nothing major. Okay. We've had mixed messages on the do-nothing option, so a clear statement would help.
+[00:59:18] Rachel Dunmore: The quality of the conversation on the investigator capacity has improved a lot. Compliance will want an audit trail for the investigator capacity, so let's design that in rather than bolt it on. Let's be careful not to let the investigator capacity turn into a bigger piece of work than it needs to be. Sentinel isn't the only signal; option B has to sit alongside what the handler actually sees on the claim.
+[00:59:45] Ruth Okafor: Niall, are you comfortable with the do-nothing option as it stands?
+[00:59:49] Niall Brannigan: Fairly comfortable. I'd flag it as watch rather than worry. To be fair, I've not seen anything on the do-nothing option that changes the overall picture.
+[01:00:00] Rachel Dunmore: I mean, Sentinel isn't the only signal; the Tier-3 population has to sit alongside what the handler actually sees on the claim.
+[01:00:09] Oskar Lindgren: If the do-nothing option slips, it doesn't just slip on its own; it drags a couple of other things with it. What we don't want with option A is a referral sitting in a queue that nobody owns. The thing about the do-nothing option is that everyone agrees with it in principle and nobody wants to do the work.
+[01:00:31] Niall Brannigan: Rachel, does the investigator capacity affect your area at all?
+[01:00:35] Rachel Dunmore: Only at the edges. I'll flag it if that changes. Tipping-off is the thing that keeps me awake on the investigator capacity.
+[01:00:44] Niall Brannigan: Sorry, just so I'm clear: when you say option B, do you mean the UK piece or the whole thing?
+[01:00:52] Ingrid Ashby: You're right, we're using it loosely. Let me tighten up the wording. I'd keep option B separate from the rest of it, because it involves different people and a different set of risks.
+[01:01:05] Linnea Sjoberg: Where does the referral forecast sit on the list of priorities right now?
+[01:01:10] Rachel Dunmore: Near the top, but not at the top. Compliance will want an audit trail for the referral forecast, so let's design that in rather than bolt it on.
+[01:01:21] Niall Brannigan: I suppose I don't have strong views on option B, other than wanting it done properly. Option B is where the false positives hurt most, because they slow down genuine claims. If option B slips, it doesn't just slip on its own; it drags a couple of other things with it. Okay. I'm keen we don't just tick a box on the referral forecast, for what it's worth.
+[01:01:46] Linnea Sjoberg: Ingrid, any concerns from your side on the do-nothing option?
+[01:01:50] Ingrid Ashby: A few, mostly about timing rather than substance. The handlers don't see the score itself, they just see the referral, so the do-nothing option is invisible to them until it isn't.
+[01:02:02] Niall Brannigan: Can someone note that for the minutes?
+[01:02:06] Rachel Dunmore: Sorry, I think you're on mute, Hannah.
+[01:02:10] Hannah Lyle: Sorry, sorry. Can you hear me now?
+[01:02:13] Rachel Dunmore: Yes, we've got you.
+[01:02:15] Niall Brannigan: The SIU capacity is a good example of where a bit of early testing saves a lot of pain later. My sense is that [inaudible] SIU capacity is moving in the right direction, just slowly. In fairness, I'd challenge us a bit on the SIU capacity; I'm not sure we've tested the assumptions.
+[01:02:35] Ingrid Ashby: Have we taken the referral forecast through the team leaders yet?
+[01:02:40] Hannah Lyle: Not yet, but it's planned. The handlers don't see the score itself, they just see the referral, so the referral forecast is invisible to them until it isn't.
+[01:02:51] Niall Brannigan: What I'd like to avoid with the referral forecast is finding out about a problem the week before, when there's nothing we can do about it. Mm. The handlers don't see the score itself, they just see the referral, so the investigator capacity is invisible to them until it isn't. I mean, I'd challenge us a bit on the referral forecast; I'm not sure we've tested the assumptions. I'm happy with the referral forecast as long as we're clear about what's in and what's out.
+[01:03:22] Ingrid Ashby: Noted.
+[01:03:23] Ruth Okafor: I'd want the impact on genuine customers reflected in the referral reason codes, so the data is clean for the return. There's no silver bullet on the impact on genuine customers; it's just steady work. So, there's a dependency on the impact on genuine customers that I don't think everyone's aware of, so it's worth calling out. We've done the thinking on the impact on genuine customers; now it's about execution.
+[01:03:49] Oskar Lindgren: Understood.
+[01:03:50] Niall Brannigan: Is the Tier-3 population in the pack, or is that coming separately?
+[01:03:55] Rachel Dunmore: It's in there, but only at summary level. Compliance will want an audit trail for the Tier-3 population, so let's design that in rather than bolt it on.
+[01:04:05] Aisha Siddiqui: Ingrid, can you give us a quick update on the referral forecast?
+[01:04:10] Ingrid Ashby: We're waiting on one input, and then it's fairly straightforward. We've done the thinking on the referral forecast; now it's about execution, I think.
+[01:04:20] Niall Brannigan: Rachel, does option B affect your area at all?
+[01:04:24] Rachel Dunmore: Yes, and we're already talking to the team about it. One thing on option B: we should check we're not double-counting effort with the other workstream.
+[01:04:35] Niall Brannigan: How confident are we on the referral forecast, honestly?
+[01:04:38] Ruth Okafor: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. The adjusters out in the field have opinions on the referral forecast, and they're usually right about the patterns.
+[01:04:50] Niall Brannigan: Do we need a decision on the referral forecast from this group, or is it just for awareness?
+[01:04:57] Rachel Dunmore: Not today. We'll bring options when we've done the analysis. I think the referral forecast needs a bit of tidying up rather than a rethink.
+[01:05:07] Ingrid Ashby: Agreed.
+[01:05:18] Niall Brannigan: Option B, then. Tier-3 only. Ruth, can you remind us what we mean by Tier-3, so we're all using the same definition?
+[01:05:26] Ruth Okafor: Sure. Tier-3 is BR-TRI-003, version 3, since January 2025. A claim is Tier-3 if any of these apply: estimated incurred of £50,000 or more, or the Nordic equivalents, NOK 650,000, SEK 680,000 or DKK 430,000; any bodily injury; solicitor or litigation involvement at notification; or a property total loss.
+[01:05:44] Oskar Lindgren: And on that population, a threshold of 60 adds a manageable number of referrals, and those are the claims where the investigators say they'd rather see them early.
+[01:05:55] Rachel Dunmore: That I can work with.
+[01:05:57] Linnea Sjoberg: In fairness, what we don't want with the test plan is a referral sitting in a queue that nobody owns. On the Hub, thresholds are effective-dated configuration under ADR-020, so we can load the new value ahead of time and it switches on the right day. Testing is straightforward: we score some test claims either side of the line and check the referral is created.
+[01:06:21] Ruth Okafor: We'll need to update the referral reason so the FR1 data shows which threshold applied. If we change the release plan, the triage queue changes shape, and we need the investigators ready for that.
+[01:06:34] Aisha Siddiqui: Niall, is the handler briefing a resourcing question or a decision question?
+[01:06:40] Niall Brannigan: Mostly resourcing, to be honest. The decision's been made; it's the doing. There are two schools of thought on the handler briefing, and both have some merit.
+[01:06:49] Aisha Siddiqui: Perfect.
+[01:06:50] Niall Brannigan: Well, we've had mixed messages on the handler briefing, so a clear statement would help. Let's keep the Tier-3 definition simple and not try to solve every edge case in one go. We can talk about the handler briefing all day, but at some point someone has to make a call. Actually, the adjusters out in the field have opinions on the handler briefing, and they're usually right about the patterns.
+[01:07:17] Ingrid Ashby: Agreed.
+[01:07:18] Linnea Sjoberg: Triage-svc reads the threshold from configuration. We'll make sure the Tier-3 value is there before the first of the month. Picking up on that, Sentinel isn't the only signal; the test plan has to sit alongside what the handler actually sees on the claim.
+[01:07:34] Aisha Siddiqui: We can't decline on the score alone, so the CLARA parameter change is always going to need a human in the loop. On the handler briefing, the case notes need to say why a claim was referred, not just that it was. Yeah, so it might be worth a separate session on the configuration change, because we won't do it justice in a few minutes here, broadly. We'll raise the stories straight after this, one for the Hub and one for CLARA.
+[01:08:04] Ingrid Ashby: Whatever happens with the release plan, the communication needs to be joined up. On the effective-dated configuration, we have to think about the customer letter as much as the referral.
+[01:08:16] Rachel Dunmore: Can I ask what's changed on the test plan since we last discussed it?
+[01:08:23] Hannah Lyle: Honestly, less than I'd like. The thing about the test plan is that everyone agrees with it in principle and nobody wants to do the work.
+[01:08:33] Rachel Dunmore: Makes sense to me.
+[01:08:34] Ingrid Ashby: The handlers won't see any difference, but the team leaders should know, in case SIU start asking about Tier-3 claims they didn't expect.
+[01:08:44] Oskar Lindgren: Yeah, fair.
+[01:08:45] Aisha Siddiqui: CLARA still handles UK home, commercial and liability, and the Norway and Sweden claims, so the change has to go in both places at the same time. The trouble with the CLARA parameter change is that the people who know it best are also the busiest.
+[01:09:02] Niall Brannigan: I'm conscious of time, so can we move on?
+[01:09:06] Ruth Okafor: Rachel, is there anything on the release plan you need from this group?
+[01:09:11] Rachel Dunmore: Nothing specific. Keep asking about it, that's helpful in itself. There are two schools of thought on the release plan, and both have some merit.
+[01:09:21] Linnea Sjoberg: Who else needs to be involved in the go-live date?
+[01:09:26] Ingrid Ashby: Finance, and probably Compliance as well. I'll set something up. If we're going to change anything about the go-live date, now's the time rather than later.
+[01:09:36] Linnea Sjoberg: Yes.
+[01:09:37] Rachel Dunmore: Is anyone else's laptop doing the update thing every five minutes?
+[01:09:42] Ingrid Ashby: Mine did it this morning in the middle of a call.
+[01:09:46] Rachel Dunmore: Brilliant. Okay.
+[01:09:48] Ruth Okafor: Honestly, the adjusters out in the field have opinions on the triage rules, and they're usually right about the patterns. Mm. One thing on the Tier-3 definition: we should check we're not double-counting effort with the other workstream.
+[01:10:02] Linnea Sjoberg: Where does the CLARA parameter change sit on the list of priorities right now?
+[01:10:08] Aisha Siddiqui: Top of the second tier, if that makes sense. I'm reassured on the CLARA parameter change, mostly because the team have been very open about the gaps.
+[01:10:19] Linnea Sjoberg: Understood.
+[01:10:21] Ingrid Ashby: So, um, I suppose I'd be interested in how other teams have handled the configuration change, because we can't be the first to hit it. We've got good people looking at the configuration change; I'm less sure we've given them enough time. To be fair, the CLARA parameter change is where the false positives hurt most, because they slow down genuine claims.
+[01:10:44] Aisha Siddiqui: Do we need a decision on the handler briefing from this group, or is it just for awareness?
+[01:10:51] Ruth Okafor: For noting, I think. Nothing we need to decide today. In fairness, we're not starting from scratch on the handler briefing; a lot of the groundwork is already there.
+[01:11:03] Aisha Siddiqui: Is there a simpler version of the effective-dated configuration than what's on the slide?
+[01:11:08] Rachel Dunmore: Not without losing something important, I think. But I'm happy to look. If anyone's got concerns about the effective-dated configuration, I'd rather hear them now than in the corridor afterwards.
+[01:11:20] Niall Brannigan: I'd like the effective-dated configuration closed down properly, not just quietly dropped, if I'm honest. Tipping-off is the thing that keeps me awake on the effective-dated configuration. It's fair to say the effective-dated configuration took longer than any of us wanted.
+[01:11:36] Ingrid Ashby: For what it's worth, I'm keen we don't just tick a box on the test plan. On the test plan, the case notes need to say why a claim was referred, not just that it was. If I'm honest, the test plan has had less attention than it deserves over the last few weeks, in my view. The test plan is where the false positives hurt most, because they slow down genuine claims.
+[01:12:02] Rachel Dunmore: I think we've got consensus on the handler briefing, broadly.
+[01:12:07] Oskar Lindgren: Is the CLARA parameter change something we need to decide today, or is it for noting?
+[01:12:13] Ingrid Ashby: Noting only. If it needs a decision, it'll come back with a paper.
+[01:12:19] Oskar Lindgren: Right.
+[01:12:19] Ruth Okafor: Linnea, can you give us a quick update on the CLARA parameter change?
+[01:12:24] Linnea Sjoberg: It's progressing. I'll have a fuller picture by the next meeting. The adjusters out in the field have opinions on the CLARA parameter change, and they're usually right about the patterns.
+[01:12:36] Oskar Lindgren: Has anything moved on the triage rules since last time?
+[01:12:40] Rachel Dunmore: The detail's firmer. The direction is the same. Part of the issue with the triage rules is that the documentation lags behind what people actually do, to be honest.
+[01:12:51] Aisha Siddiqui: Where does the Tier-3 definition sit on the list of priorities right now?
+[01:12:57] Linnea Sjoberg: Near the top, but not at the top. We can talk about the Tier-3 definition all day, but at some point someone has to make a call.
+[01:13:07] Aisha Siddiqui: I'm not sure I'd go quite that far, Linnea. On the CLARA parameter change, the case notes need to say why a claim was referred, not just that it was.
+[01:13:19] Ingrid Ashby: Is there a simpler version of the triage rules than what's on the slide?
+[01:13:24] Ruth Okafor: There probably is, and I'd be open to it. I don't want us to over-engineer the triage rules. A one-page note would do the job.
+[01:13:33] Linnea Sjoberg: Rachel, what's your gut feel on the effective-dated configuration?
+[01:13:37] Rachel Dunmore: Reasonably. I've seen worse at this stage.
+[01:13:40] Linnea Sjoberg: Where have we got to with the triage rules, Ruth?
+[01:13:44] Ruth Okafor: Broadly on track. There are a couple of loose ends, but nothing that worries me. I suppose we've had mixed messages on the triage rules, so a clear statement would help.
+[01:13:56] Linnea Sjoberg: On the go-live date, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room. On the go-live date, we have to think about the customer letter as much as the referral. The adjusters out in the field have opinions on the go-live date, and they're usually right about the patterns. I'd challenge us a bit on the Tier-3 definition; I'm not sure we've tested the assumptions.
+[01:14:24] Hannah Lyle: I'll update the BRD and the rule catalogue entry so the wording matches what we've agreed.
+[01:14:31] Ingrid Ashby: Just to build on what Hannah said, the trouble with the configuration change is that the people who know it best are also the busiest.
+[01:14:40] Aisha Siddiqui: Rachel, are you comfortable with the handler briefing as it stands?
+[01:14:45] Rachel Dunmore: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. I'm keen we don't just tick a box on the handler briefing, to be honest.
+[01:14:55] Linnea Sjoberg: Who else needs to be involved in the configuration change?
+[01:15:00] Niall Brannigan: Finance, and probably Compliance as well. I'll set something up. I think the configuration change needs a bit of tidying up rather than a rethink, at least from where I sit.
+[01:15:11] Oskar Lindgren: Same view here. On that point, I'd ask that we don't make promises on the test plan until we've seen the impact assessment, if I'm honest. What we don't want with the release plan is a referral sitting in a queue that nobody owns.
+[01:15:28] Aisha Siddiqui: Tipping-off is the thing that keeps me awake on the triage rules. We should be honest that the configuration change is partly a capacity problem. The conversation on the triage rules has been constructive, which wasn't always the case.
+[01:15:43] Ruth Okafor: Niall, did you get a chance to look at the configuration change?
+[01:15:48] Niall Brannigan: Not properly yet. It's on my list for this week. The adjusters out in the field have opinions on the configuration change, and they're usually right about the patterns.
+[01:15:59] Ingrid Ashby: Is there a simpler version of the go-live date than what's on the slide?
+[01:16:05] Linnea Sjoberg: Possibly. Let me take that away and see what we could strip out.
+[01:16:10] Ingrid Ashby: Perfect.
+[01:16:12] Aisha Siddiqui: Is the Tier-3 definition in the pack, or is that coming separately?
+[01:16:17] Linnea Sjoberg: It's in there, but only at summary level. We don't need to solve the Tier-3 definition here; we just need to agree who goes away and looks at it.
+[01:16:28] Aisha Siddiqui: Sounds sensible.
+[01:16:30] Niall Brannigan: I was going to say [crosstalk]
+[01:16:33] Linnea Sjoberg: Sorry, go ahead.
+[01:16:35] Niall Brannigan: No, you go.
+[01:16:37] Linnea Sjoberg: I was only going to say I agree.
+[01:16:40] Niall Brannigan: Ingrid, any concerns from your side on the effective-dated configuration?
+[01:16:45] Ingrid Ashby: Not really. The team have been very open about the gaps, which helps. My worry with the effective-dated configuration is less the technology and more whether people on the floor actually know what's changed.
+[01:16:58] Linnea Sjoberg: Is the share working? I'm just seeing a black screen.
+[01:17:02] Aisha Siddiqui: Hang on, let me stop and restart it.
+[01:17:06] Aisha Siddiqui: Any better?
+[01:17:08] Linnea Sjoberg: Yes, that's it now.
+[01:17:10] Aisha Siddiqui: On the effective-dated configuration, there's been a lot of activity but not a lot of change, if you see what I mean. On the effective-dated configuration, the case notes need to say why a claim was referred, not just that it was. There's a dependency on the effective-dated configuration that I don't think everyone's aware of, so it's worth calling out.
+[01:17:32] Ruth Okafor: Linnea, what's your gut feel on the effective-dated configuration?
+[01:17:37] Linnea Sjoberg: Reasonably. I've seen worse at this stage. The model behaves differently at the margins, so the effective-dated configuration needs watching for the first few weeks.
+[01:17:46] Ruth Okafor: Who else needs to be involved in the CLARA parameter change?
+[01:17:51] Aisha Siddiqui: The squads, obviously, but also the people on the floor.
+[01:17:56] Ruth Okafor: The effective-dated configuration is where the false positives hurt most, because they slow down genuine claims.
+[01:18:02] Linnea Sjoberg: Ingrid, does the test plan affect your area at all?
+[01:18:07] Ingrid Ashby: Not directly. There's an indirect impact, but it's manageable. Tipping-off is the thing that keeps me awake on the test plan.
+[01:18:17] Niall Brannigan: Linnea, Aisha, what does option B mean for the systems?
+[01:18:21] Linnea Sjoberg: On the Hub it's configuration. Thresholds are effective-dated config under ADR-020, so we load a Tier-3 value of 60 with an effective date of the first of October, alongside the general value of 65.
+[01:18:34] Aisha Siddiqui: And on CLARA, Pauline's team would add a separate Tier-3 parameter in CLR.T_PARAM next to FRD_REFER_THRESH, valid from the same date. Online referral in CLRFR030 reads T_PARAM, so it would pick it up.
+[01:18:46] Ruth Okafor: But the batch sweep won't, because of CHUB-298. So until that's fixed, the daily Compliance query has to cover 60 to 64 for Tier-3 claims as well as 65 to 69 for everything.
+[01:18:59] Ingrid Ashby: Oskar, where are we on the CLARA parameter change?
+[01:19:03] Oskar Lindgren: It's with the working group at the moment; I'll chase and come back.
+[01:19:08] Ingrid Ashby: From the SIU side, the go-live date matters because every extra referral lands on an investigator's desk. I keep coming back to the go-live date, because it's the area that's had the least scrutiny.
+[01:19:21] Ruth Okafor: On the configuration change, the case notes need to say why a claim was referred, not just that it was. If we change the configuration change, the triage queue changes shape, and we need the investigators ready for that. We shouldn't confuse the configuration change with the wider change; they're related but not the same. The thing about the configuration change is that everyone agrees with it in principle and nobody wants to do the work.
+[01:19:49] Aisha Siddiqui: Compliance will want an audit trail for the go-live date, so let's design that in rather than bolt it on. Sentinel isn't the only signal; the go-live date has to sit alongside what the handler actually sees on the claim. Whatever happens with the handler briefing, the communication needs to be joined up. Well, I'd rather have an honest amber on the CLARA parameter change than a green that turns red later.
+[01:20:16] Niall Brannigan: Are we expecting any pushback on the CLARA parameter change?
+[01:20:20] Oskar Lindgren: A few, mostly about timing rather than substance.
+[01:20:25] Niall Brannigan: The handlers don't see the score itself, they just see the referral, so the handler briefing is invisible to them until it isn't. Can we make sure the handler briefing is visible on the RAID log, so it doesn't fall between the cracks? Let's keep the handler briefing simple and not try to solve every edge case in one go.
+[01:20:47] Ruth Okafor: On the Tier-3 definition, the risk isn't that [inaudible] fails outright, it's that it half works and nobody notices. We should acknowledge the work that's gone into the test plan, because it's been a slog, if I'm honest.
+[01:21:02] Linnea Sjoberg: If we change the test plan, the triage queue changes shape, and we need the investigators ready for that.
+[01:21:09] Hannah Lyle: Same view here. The handlers don't see the score itself, they just see the referral, so the release plan is invisible to them until it isn't, as far as I can tell. Sure. We did a walk-through of the release plan with the team leaders and it generated some good questions.
+[01:21:28] Niall Brannigan: If I can come in here, I wouldn't want the triage rules to become the reason we lose momentum elsewhere.
+[01:21:37] Ruth Okafor: I think the CLARA parameter change is a good-news story, actually, and we don't say that often enough. On the CLARA parameter change, we have to think about the customer letter as much as the referral. If we change the CLARA parameter change, the triage queue changes shape, and we need the investigators ready for that. What would really help on the handler briefing is a single view that everyone works from.
+[01:22:03] Ingrid Ashby: Right. Tipping-off is the thing that keeps me awake on the handler briefing.
+[01:22:09] Linnea Sjoberg: Sorry, can I just check what we mean by the triage rules? I think people are using it in different ways.
+[01:22:18] Ruth Okafor: Fair point. I mean the whole thing, end to end. I mean, I keep coming back to the triage rules, because it's the area that's had the least scrutiny.
+[01:22:29] Niall Brannigan: Can someone note that for the minutes?
+[01:22:33] Linnea Sjoberg: Yeah, and to add to that, on the configuration change, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room. For the CLARA parameter change, I'd like the investigators' view as well as the analysts' view.
+[01:22:50] Ingrid Ashby: If I'm honest, the go-live date has had less attention than it deserves over the last few weeks. Honestly, the model behaves differently at the margins, so the CLARA parameter change needs watching for the first few weeks.
+[01:23:04] Aisha Siddiqui: Okay.
+[01:23:05] Niall Brannigan: What we don't want with the CLARA parameter change is a referral sitting in a queue that nobody owns. Compliance will want an audit trail for the CLARA parameter change, so let's design that in rather than bolt it on. In fairness, I'm conscious the CLARA parameter change keeps coming up and we keep deferring it. The honest answer on the CLARA parameter change is that we know what good looks like, we're just not there yet.
+[01:23:34] Linnea Sjoberg: The model behaves differently at the margins, so the configuration change needs watching for the first few weeks. The go-live date is where the false positives hurt most, because they slow down genuine claims. From the SIU side, the configuration change matters because every extra referral lands on an investigator's desk.
+[01:23:52] Rachel Dunmore: Oskar, any concerns from your side on the handler briefing?
+[01:23:56] Oskar Lindgren: Some, probably, but nothing we can't work through. I'd like the next update on the handler briefing to come with evidence rather than a status colour.
+[01:24:06] Ingrid Ashby: Sorry, just so I'm clear: when you say the test plan, do you mean the UK piece or the whole thing?
+[01:24:15] Hannah Lyle: Good challenge. I'll make sure the next version defines it properly. I suppose the conversation on the test plan has been constructive, which wasn't always the case.
+[01:24:25] Rachel Dunmore: Ruth, what's your gut feel on the go-live date?
+[01:24:29] Ruth Okafor: Short answer, yes. Long answer, it depends how the next few weeks go. We should probably sanity-check the go-live date with someone who wasn't involved in designing it.
+[01:24:40] Aisha Siddiqui: For the triage rules, I'd rather we under-promise and deliver than the other way round. I'm not going to pretend the triage rules are exciting, but it's exactly the sort of thing that bites you if you ignore it. Sentinel isn't the only signal; the configuration change has to sit alongside what the handler actually sees on the claim.
+[01:25:02] Ruth Okafor: If we get the configuration change right, a lot of the noise we've had recently goes away. I'd ask that we don't make promises on the configuration change until we've seen the impact assessment.
+[01:25:16] Rachel Dunmore: Are the triage rules in the pack, or are they coming separately?
+[01:25:21] Aisha Siddiqui: Not in this pack, no. It'll come separately once it's been through the working group. On the triage rules, the risk isn't that it fails outright, it's that it half works and nobody notices.
+[01:25:34] Linnea Sjoberg: Same view here. My sense is that the go-live date is moving in the right direction, just slowly.
+[01:25:41] Niall Brannigan: I'd echo that, for the handler briefing, I'd like the investigators' view as well as the analysts' view. What's changed on the handler briefing since the last update is mainly the level of detail, not the direction.
+[01:25:56] Linnea Sjoberg: Let me be a bit provocative on the triage rules: are we sure we need it in its current form? Honestly, I don't have strong views on the test plan, other than wanting it done properly. I'd want the triage rules reflected in the referral reason codes, so the data is clean for the return.
+[01:26:16] Ingrid Ashby: I'd echo that, we should be honest that the release plan is partly a capacity problem.
+[01:26:23] Oskar Lindgren: Is there a simpler version of the Tier-3 definition than what's on the slide?
+[01:26:29] Linnea Sjoberg: Not without losing something important, I think. But I'm happy to look. From the SIU side, the Tier-3 definition matters because every extra referral lands on an investigator's desk.
+[01:26:41] Oskar Lindgren: Great.
+[01:26:42] Linnea Sjoberg: Have we taken the CLARA parameter change through the team leaders yet?
+[01:26:47] Ruth Okafor: Partly. We've done the UK team leaders; the Nordics are next. I mean, if the CLARA parameter change is going to need [inaudible] people, we should flag that early rather than late.
+[01:27:00] Rachel Dunmore: Right. I've had a couple of conversations about the triage rules this week and the feedback was broadly positive. Yeah. There's a dependency on the triage rules that I don't think everyone's aware of, so it's worth calling out. On the configuration change, we have to think about the customer letter as much as the referral.
+[01:27:21] Linnea Sjoberg: Where have we got to with the configuration change, Niall?
+[01:27:25] Niall Brannigan: It's moving. Not as fast as I'd like, but it's moving. We did a walk-through of the configuration change with the team leaders and it generated some good questions.
+[01:27:37] Linnea Sjoberg: To be fair, if the release plan needs more time, I'd rather we said so now. On the Tier-3 definition, we have to think about the customer letter as much as the referral. Mm. For the triage rules, I'd like the investigators' view as well as the analysts' view.
+[01:27:55] Niall Brannigan: Rachel, where are we on the Tier-3 definition?
+[01:27:59] Rachel Dunmore: Broadly on track. There are a couple of loose ends, but nothing that worries me. To be fair, part of the issue with the Tier-3 definition is that the documentation lags behind what people actually do.
+[01:28:13] Linnea Sjoberg: I'd want the CLARA parameter change reflected in the referral reason codes, so the data is clean for the return. I'd split the CLARA parameter change into what we have [inaudible] do now and what can wait. The handlers don't see the score itself, they just see the referral, so the effective-dated configuration is invisible to them until it isn't. For the CLARA parameter change, the question isn't whether, it's how and in what order.
+[01:28:41] Niall Brannigan: Is the test plan something we need to decide today, or is it for noting?
+[01:28:47] Ingrid Ashby: Noting only. If it needs a decision, it'll come back with a paper. I don't want us to over-engineer the test plan. A one-page note would do the job.
+[01:28:59] Niall Brannigan: Is the release plan something we need to decide today, or is it for noting?
+[01:29:06] Oskar Lindgren: Awareness for now. There may be a decision next time. I suspect the release plan will come back to this group at some point, so let's not close it off.
+[01:29:17] Hannah Lyle: I'm not sure I'd go quite that far, Oskar. For what it's worth, there are two schools of thought on the CLARA parameter change, and both have some merit. We can't decline on the score alone, so the go-live date is always going to need a human in the loop.
+[01:29:36] Aisha Siddiqui: Are we expecting any pushback on the go-live date?
+[01:29:40] Ingrid Ashby: One or two. I'll pick them up offline rather than take time here. If anyone's got concerns about the go-live date, I'd rather hear them now than in the corridor afterwards.
+[01:29:51] Ruth Okafor: Let me be a bit provocative on the release plan: are we sure we need it in its current form? The handlers don't see the score itself, they just see the referral, so the test plan is invisible to them until it isn't. I think we've got consensus on the triage rules, broadly.
+[01:30:11] Aisha Siddiqui: Rachel, can you give us a quick update on the triage rules?
+[01:30:16] Rachel Dunmore: We're waiting on one input, and then it's fairly straightforward.
+[01:30:20] Ingrid Ashby: I think we've got consensus on the configuration change, broadly. We shouldn't confuse the test plan with the wider change; they're related but not the same. We can't decline on the score alone, so the handler briefing is always going to need a human in the loop.
+[01:30:38] Rachel Dunmore: Linnea, can you give us a quick update on the handler briefing?
+[01:30:43] Linnea Sjoberg: It's progressing. I'll have a fuller picture by the next meeting. It's the knock-on effect of the handler briefing that I'm most interested in.
+[01:30:53] Ingrid Ashby: The model behaves differently at the margins, so the go-live date needs watching for the first few weeks. To be honest, Sentinel isn't the only signal; the handler briefing has to sit alongside what the handler actually sees on the claim.
+[01:31:09] Linnea Sjoberg: The adjusters out in the field have opinions on the effective-dated configuration, and they're usually right about the patterns. From my side, if we change the effective-dated configuration, the triage queue changes shape, and we need the investigators ready for that.
+[01:31:25] Hannah Lyle: Aisha, did you get a chance to look at the handler briefing?
+[01:31:30] Aisha Siddiqui: I did, briefly. I've got a couple of comments, I'll send them over. I think the handler briefing needs a bit of tidying up rather than a rethink.
+[01:31:41] Hannah Lyle: Thanks.
+[01:31:42] Oskar Lindgren: Following on from Hannah, if I can come in here, whatever we land on for the configuration change, people need to hear it from their own managers first.
+[01:31:54] Ruth Okafor: Linnea, is the handler briefing a resourcing question or a decision question?
+[01:31:59] Linnea Sjoberg: Resourcing. Nobody disagrees on what to do. The model behaves differently at the margins, so the handler briefing needs watching for the first few weeks.
+[01:32:08] Niall Brannigan: To be honest, from where I sit, the triage rules are the thing most likely to catch us out, simply because it touches so many teams. If we're short of capacity, the release plan [inaudible] the thing I'd protect. Whatever we land on for the triage rules, people need to hear it from their own managers first. On the triage rules, we have to think about the customer letter as much as the referral, if I'm honest.
+[01:32:36] Linnea Sjoberg: My worry with the go-live date is less the technology and more whether people on the floor actually know what's changed. On the go-live date, the case notes need to say why a claim was referred, not just that it was. If the go-live date slips, it doesn't just slip on its own; it drags a couple of other things with it.
+[01:33:00] Ruth Okafor: I'm not sure I'd go quite that far, Linnea. Let me be a bit provocative on the handler briefing: are we sure we need it in its current form? We need a bit more rigour around the go-live date, particularly on the testing side.
+[01:33:16] Linnea Sjoberg: Hannah, is the handler briefing a resourcing question or a decision question?
+[01:33:21] Hannah Lyle: Mostly resourcing, to be honest. The decision's been made; it's the doing.
+[01:33:27] Ruth Okafor: Tipping-off is the thing that keeps me awake on the release plan. From the SIU side, the release plan matters because every extra referral lands on an investigator's desk. On that point, we need to be careful how we talk about the release plan outside this room until it's settled, I'd say. Tipping-off is the thing that keeps me awake on the configuration change.
+[01:33:50] Rachel Dunmore: Are we expecting any pushback on the triage rules?
+[01:33:54] Linnea Sjoberg: One or two. I'll pick them up offline rather than take time here.
+[01:33:59] Aisha Siddiqui: I'm not sure I'd go quite that far, Linnea. On the test plan, we have to think about the customer letter as much as the referral.
+[01:34:09] Rachel Dunmore: Ingrid, is there anything on the Tier-3 definition you need from this group?
+[01:34:14] Ingrid Ashby: Not today, thanks. If that changes, I'll shout. On the Tier-3 definition, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room.
+[01:34:26] Linnea Sjoberg: Compliance will want an audit trail for the triage rules, so let's design that in rather than bolt it on.
+[01:34:35] Ingrid Ashby: Rachel, does the effective-dated configuration affect your area at all?
+[01:34:40] Rachel Dunmore: A bit. We'll need some notice, but it's nothing we can't absorb. I'd want the effective-dated configuration reflected in the referral reason codes, so the data is clean for the return.
+[01:34:51] Ruth Okafor: I'm conscious the handler briefing keeps coming up and we keep deferring it.
+[01:35:04] Niall Brannigan: Okay. Then the decision is option B. From the first of October 2026, Tier-3 claims are referred at a Sentinel score of 60 or more, and the general threshold stays at 65. Ingrid, are you happy to co-approve?
+[01:35:18] Ingrid Ashby: Yes, I'm happy. Approved from my side as Claims Director.
+[01:35:23] Hannah Lyle: Noted. That becomes BR-FRD-031 version 2, effective the first of October.
+[01:35:28] Oskar Lindgren: Following on from Hannah, can I suggest we park the test plan for now and pick it up under any other business? We can talk about the effective-dated configuration all day, but at some point someone has to make a call.
+[01:35:43] Linnea Sjoberg: Where do the triage rules sit on the list of priorities right now?
+[01:35:49] Ruth Okafor: It's up there. It just keeps getting bumped by urgent things. Yeah, so what we don't want with the triage rules is a referral sitting in a queue that nobody owns.
+[01:36:01] Hannah Lyle: Have we taken the handler briefing through the team leaders yet?
+[01:36:06] Oskar Lindgren: We've walked them through it, yes, and they had some useful challenge. I don't have strong views on the handler briefing, other than wanting it done properly.
+[01:36:16] Rachel Dunmore: Ingrid, did you get a chance to look at the configuration change?
+[01:36:21] Ingrid Ashby: Yes. It reads well. One or two questions, but nothing major. What we don't want with the configuration change is a referral sitting in a queue that nobody owns.
+[01:36:32] Linnea Sjoberg: Aisha, is the CLARA parameter change a resourcing question or a decision question?
+[01:36:37] Aisha Siddiqui: Probably both, if I'm honest. Let's keep the CLARA parameter change simple and not try to solve every edge case in one go.
+[01:36:46] Linnea Sjoberg: Okay, noted.
+[01:36:47] Ruth Okafor: Has anything moved on the test plan since last time?
+[01:36:52] Oskar Lindgren: Not much, other than we understand it better. It's fair to say the test plan took longer than any of us wanted.
+[01:37:00] Linnea Sjoberg: That chimes with what I'm hearing, and the triage rules keep getting squeezed by more urgent things.
+[01:37:07] Niall Brannigan: Rachel, does the configuration change affect your area at all?
+[01:37:11] Rachel Dunmore: Only at the edges. I'll flag it if that changes. Let me be a bit provocative on the configuration change: are we sure we need it in its current form?
+[01:37:22] Ingrid Ashby: The trouble with the Tier-3 definition is that the people who know it best are also the busiest, as far as I can tell. The handlers don't see the score itself, they just see the referral, so the CLARA parameter change is invisible to them until it isn't. Let me be a bit provocative on the go-live date: are we sure we need it in its current form? The handlers don't see the score itself, they just see the referral, so the Tier-3 definition is invisible to them until it isn't.
+[01:37:55] Ruth Okafor: Niall, did you get a chance to look at the release plan?
+[01:38:00] Niall Brannigan: Not properly yet. It's on my list for this week.
+[01:38:04] Ruth Okafor: The configuration change is where the false positives hurt most, because they slow down genuine claims. On that point, for the configuration change, I'd like the investigators' view as well as the analysts' view. Mm. I'd rather have an honest amber on the configuration change than a green that turns red later. From the SIU side, the CLARA parameter change matters because every extra referral lands on an investigator's desk.
+[01:38:38] Niall Brannigan: Right, second topic: deferrals of the customer notice. Rachel, can you set it up?
+[01:38:44] Rachel Dunmore: Sure. Under BR-FRD-036 we can defer the customer notice for up to 60 days where we've certified a tipping-off risk. Most deferrals are short. The question is what extra control we want on the long ones.
+[01:38:58] Oskar Lindgren: If we change the tipping-off assessment, the triage queue changes shape, and we need the investigators ready for that. It's fair to say the tipping-off assessment took longer than any of us wanted.
+[01:39:11] Ingrid Ashby: Part of the issue with the deferral log is that the documentation lags behind what people actually do. The deferral log is where the false positives hurt most, because they slow down genuine claims. The handlers don't see the score itself, they just see the referral, so the tipping-off assessment is invisible to them until it isn't. The audit trail is where the false positives hurt most, because they slow down genuine claims.
+[01:39:38] Niall Brannigan: Longer deferrals should be rare. If they're not, that tells us something about how we're running investigations.
+[01:39:45] Ruth Okafor: My concern is visibility. A long deferral is exactly the sort of thing NISA will look at. I don't think the audit trail is controversial, it's just fiddly.
+[01:39:56] Ingrid Ashby: Okay. I'd want the tipping-off assessment reflected in the referral reason codes, so the data is clean for the return. There's a dependency on the tipping-off assessment that I don't think everyone's aware of, so it's worth calling out. From the customer side, a deferral means someone's waiting longer without being told why. We need to respect that.
+[01:40:18] Linnea Sjoberg: We don't need to solve the deferral log here; we just need to agree who goes away and looks at it, if I'm honest. My worry with the deferral process is less the technology and more whether people on the floor actually know what's changed. I think the main thing on the deferral log is that we don't let it drift without someone looking at it properly. We've done the thinking on the deferral log; now it's about execution.
+[01:40:47] Rachel Dunmore: The investigators understand the tipping-off risk; what they need is a quick answer when they ask for an extension. Yeah, so we've had mixed messages on the approval route, so a clear statement would help.
+[01:41:00] Linnea Sjoberg: What we don't want with the tipping-off assessment is a referral sitting in a queue that nobody owns. The adjusters out in the field have opinions on the Compliance notification, and they're usually right about the patterns.
+[01:41:15] Rachel Dunmore: Do we need a decision on the approval route from this group, or is it just for awareness?
+[01:41:21] Aisha Siddiqui: Not today. We'll bring options when we've done the analysis. We can't decline on the score alone, so the approval route is always going to need a human in the loop.
+[01:41:33] Niall Brannigan: Is there a simpler version of the tipping-off assessment than what's on the slide?
+[01:41:39] Ruth Okafor: There probably is, and I'd be open to it. I'm reassured on the tipping-off assessment, mostly because the team have been very open about the gaps.
+[01:41:49] Rachel Dunmore: It's fair to say the deferral process took longer than any of us wanted, if I'm honest. We should write the deferral process up properly, if only so the next person doesn't have to work it all out again. We should probably sanity-check the audit trail with someone who wasn't involved in designing it. Personally I'd go a bit further on the [inaudible] process, but I can live with what's proposed, if I'm honest.
+[01:42:16] Niall Brannigan: For what it's worth, I'm not going to pretend the deferral process is exciting, but it's exactly the sort of thing that bites you if you ignore it. From the SIU side, the Compliance notification matters because every extra referral lands on an investigator's desk.
+[01:42:32] Ruth Okafor: From the SIU side, the deferral process matters because every extra referral lands on an investigator's desk. The handlers don't see the score itself, they just see the referral, so the deferral process is invisible to them until it isn't.
+[01:42:47] Ingrid Ashby: Niall, what's your gut feel on the tipping-off assessment?
+[01:42:52] Niall Brannigan: Fairly comfortable. I'd flag it as watch rather than worry. We shouldn't confuse the tipping-off assessment with the wider change; they're related but [inaudible] the same, I think.
+[01:43:03] Ingrid Ashby: Makes sense to me.
+[01:43:05] Rachel Dunmore: What's the biggest risk on the deferral log, in your view?
+[01:43:10] Oskar Lindgren: The hand-offs between teams. That's where things usually drop.
+[01:43:14] Rachel Dunmore: Hannah, is the Compliance notification a resourcing question or a decision question?
+[01:43:19] Hannah Lyle: Resourcing. Nobody disagrees on what to do. So, can I suggest we park the Compliance notification for now and pick it up under any other business?
+[01:43:29] Niall Brannigan: Do we need a decision on the customer impact from this group, or is it just for awareness?
+[01:43:36] Rachel Dunmore: For noting, I think. Nothing we need to decide today.
+[01:43:41] Hannah Lyle: Let's capture the deferral log as a follow-up rather than try to close it today. Compliance will want an audit trail for the deferral log, so let's design that in rather than bolt it on. I'd keep the deferral log separate from the rest of it, because it involves different people and a different set of risks.
+[01:44:02] Niall Brannigan: Let's keep the audit trail simple and not try to solve every edge case in one go. Just quickly, on the approval route, the case notes need to say why a claim was referred, not just that it was.
+[01:44:17] Aisha Siddiqui: Where have we got to with the approval route, Linnea?
+[01:44:21] Linnea Sjoberg: Steady. No drama, which is what you want. I'm happy with the approval route as long as we're clear about what's in and what's out.
+[01:44:31] Ruth Okafor: I don't want a monthly report. I want to know on the day. My only ask on the tipping-off assessment is that we keep the business teams close.
+[01:44:42] Niall Brannigan: Ingrid, is there anything on the deferral process you need from this group?
+[01:44:48] Ingrid Ashby: Probably a bit of time from the business side, but I'll ask offline. To be fair, let's not lose the deferral process in the detail; it needs to come back here with a clear recommendation.
+[01:45:02] Rachel Dunmore: Niall, did you get a chance to look at the customer impact?
+[01:45:06] Niall Brannigan: I did, briefly. I've got a couple of comments, I'll send them over. From my side, whatever we land on for the customer impact, people need to hear it from their own managers first.
+[01:45:20] Rachel Dunmore: Hannah, is the deferral log a resourcing question or a decision question?
+[01:45:25] Hannah Lyle: Mostly resourcing, to be honest. The decision's been made; it's the doing. Whatever we land on for the deferral log, people need to hear it from their own managers first.
+[01:45:37] Ruth Okafor: Sentinel isn't the only signal; the approval route has to sit alongside what the handler actually sees on the claim, to be honest. Let's not lose the Compliance notification in the detail; it needs to come back here with a clear recommendation. The model behaves differently at the margins, so the approval route needs watching for the first few weeks.
+[01:45:59] Aisha Siddiqui: What I'd like to avoid with the approval route is finding out about a problem the week before, when there's nothing we can do about it. Whatever happens with the tipping-off assessment, the communication needs to be joined up, if I'm honest.
+[01:46:15] Niall Brannigan: Rachel, where are we on the deferral process?
+[01:46:18] Rachel Dunmore: In better shape than it was. I wouldn't call it done, but the direction is right. We should acknowledge the work that's gone into the deferral process, because it's been a slog.
+[01:46:30] Ruth Okafor: Sorry, someone's just come into the room. Two seconds.
+[01:46:35] Oskar Lindgren: No problem.
+[01:46:36] Ruth Okafor: Rachel, is there anything on the tipping-off assessment you need from this group?
+[01:46:42] Rachel Dunmore: Just air cover, really. People are stretched, so it helps if the message comes from here. We've been here before with the tipping-off assessment, and the lesson last time was to get the business in the room early.
+[01:46:56] Niall Brannigan: There's a dependency on the Compliance notification that I don't think everyone's aware of, so it's worth calling out. Tipping-off is the thing that keeps me awake on the Compliance notification. Can we make sure the Compliance notification is visible on the RAID log, so it doesn't fall between the cracks?
+[01:47:15] Oskar Lindgren: Has anything moved on the deferral log since last time?
+[01:47:20] Ruth Okafor: Mostly that more people are involved now, which is good. The quality of the conversation on the deferral log has improved a lot.
+[01:47:29] Niall Brannigan: How confident are we on the approval route, honestly?
+[01:47:33] Rachel Dunmore: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it. Honestly, I suspect the approval route will come back to this group at some point, so let's not close it off.
+[01:47:48] Ruth Okafor: I had a look at the customer impact over the weekend and nothing jumped out as a showstopper. I'm conscious the tipping-off assessment keeps coming up and we keep deferring it.
+[01:48:00] Linnea Sjoberg: Okay, thank you.
+[01:48:01] Ruth Okafor: I don't have strong views on the approval route, other than wanting it done properly. We should be honest that the approval route is partly a capacity problem.
+[01:48:16] Niall Brannigan: Proposal, then. From the first of October, deferrals beyond 30 days need the Head of Counter-Fraud & SIU, which is me, and Compliance is notified the same day. Ruth, does that work?
+[01:48:27] Ruth Okafor: That works. Same day is the important bit.
+[01:48:31] Ingrid Ashby: Agreed. Approved.
+[01:48:33] Hannah Lyle: So that's BR-FRD-036 version 2 from the first of October: the 60-day maximum stays, and anything over 30 days goes to Niall, with Compliance notified the same day.
+[01:48:45] Niall Brannigan: The handlers don't see the score itself, they just see the referral, so the audit trail is invisible to them until it isn't. We can't decline on the score alone, so the deferral process is always going to need a human in the loop. I'd want the audit trail reflected in the referral reason codes, so the data is clean for the return.
+[01:49:08] Rachel Dunmore: Honestly, the model behaves differently at the margins, so the tipping-off assessment needs watching for the first few weeks. On the tipping-off assessment, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room. I'd ask that we don't make promises on the audit trail until we've seen the impact assessment.
+[01:49:30] Oskar Lindgren: What I'd like to avoid with the customer impact is finding out about a problem the week before, when there's nothing we can do about it. From a customer point of view, the customer impact should be invisible, and that's the test I'd apply. On that point, I'd challenge us a bit on the customer impact; I'm not sure we've tested the assumptions. Right. On the customer impact, we have to think about the customer letter as much as the referral.
+[01:50:00] Niall Brannigan: The approval route is where the false positives hurt most, because they slow down genuine claims. From the SIU side, the deferral log matters because every extra referral lands on an investigator's desk. Tipping-off is the thing that keeps me awake on the approval route.
+[01:50:16] Rachel Dunmore: From the SIU side, the audit trail matters because every extra referral lands on an investigator's desk. On that point, I'd rather have an honest amber on the audit trail than a green that turns red later. I keep coming back to the audit trail, because it's the area that's had the least scrutiny. I'm conscious the audit trail keeps coming up and we keep deferring it.
+[01:50:41] Oskar Lindgren: Sorry, just so I'm clear: when you say the tipping-off assessment, do you mean the UK piece or the whole thing?
+[01:50:49] Ingrid Ashby: Fair point. I mean the whole thing, end to end. I'm not going to pretend the tipping-off assessment is exciting, but it's exactly the sort of thing that bites you if you ignore it.
+[01:51:03] Hannah Lyle: Who else needs to be involved in the deferral process?
+[01:51:07] Ruth Okafor: Someone from the business side, ideally a team leader who's lived with it. I'm happy with the deferral process as long as we're clear about what's in and what's out.
+[01:51:19] Rachel Dunmore: Niall, any concerns from your side on the Compliance notification?
+[01:51:24] Niall Brannigan: Some, probably, but nothing we can't work through. It might be worth a separate session on the Compliance notification, because we won't do it justice in a few minutes here.
+[01:51:36] Oskar Lindgren: Rachel, is there anything on the deferral process you need from this group?
+[01:51:41] Rachel Dunmore: Probably a bit of time from the business side, but I'll ask offline. If we get the deferral process right, a lot of the noise we've had recently goes away.
+[01:51:53] Linnea Sjoberg: Can I just add to that? The deferral process is where the false positives hurt most, because they slow down genuine claims. What we don't want with the audit trail is a referral sitting in a queue that nobody owns.
+[01:52:08] Niall Brannigan: There's no silver bullet on the deferral log; it's just steady work.
+[01:52:12] Rachel Dunmore: The handlers don't see the score itself, they just see the referral, so the customer impact is invisible to them until it isn't. The trouble with the customer impact is that the people who know it best are [inaudible] the busiest. We're probably overthinking the customer impact, but I'd rather overthink it than underthink it.
+[01:52:34] Niall Brannigan: Hannah, can you read back the decisions and actions?
+[01:52:37] Hannah Lyle: Decisions. One: option A, 60 for all claims, considered and rejected. Two: from the first of October, Tier-3 claims referred at a Sentinel score of 60 or more; general threshold stays 65; approved by Niall and Ingrid. Three: from the first of October, notice deferrals beyond 30 days need the Head of Counter-Fraud & SIU, and Compliance is notified the same day.
+[01:53:00] Hannah Lyle: Actions. Linnea: Hub configuration for the Tier-3 threshold, effective the first of October. Aisha: raise the CLARA parameter story with Pauline's team. Ruth: extend the daily query to Tier-3 claims scoring 60 to 64. Oskar: weekly referral volumes for the first month. Niall: brief the SIU teams. Me: update the BRD and the rule catalogue. And Ruth, the Q3 FR1 return is due thirty days after quarter end, so by the 30th of October.
+[01:53:28] Ruth Okafor: Yes, that's in hand.
+[01:53:30] Niall Brannigan: Anything I've missed? Hannah, anything else for the minutes?
+[01:53:35] Hannah Lyle: I see it a bit differently, actually. Again, we've been here before with the minutes, and the lesson last time was to get the business in the room early.
+[01:53:46] Ingrid Ashby: What we don't want with the action list is a referral sitting in a queue that nobody owns. I think the main thing on the action list is that we don't let it drift without someone looking at it properly.
+[01:54:00] Niall Brannigan: Let's capture the comms to SIU as a follow-up rather than try to close it today. Good session. Thank you all for the challenge. If we change the comms to SIU, the triage queue changes shape, and we need the investigators ready for that. I'd want the comms to SIU reflected in the referral reason codes, so the data is clean for the return.
+[01:54:24] Oskar Lindgren: On the minutes, we have to think about the customer letter as much as the referral. I'm conscious the minutes keep coming up and we keep deferring it. There's a temptation to treat the action list as a technical problem, and it really isn't.
+[01:54:41] Niall Brannigan: Let me be a bit provocative on the action list: are we sure we need it in its current form? I'd rather have an honest amber on the comms to SIU than a green that turns red later.
+[01:54:55] Ingrid Ashby: I'd echo that, if we get the minutes right, a lot of the noise we've had recently goes away. My read on the action list is that the hard part is behind us, but there's still a long tail.
+[01:55:10] Aisha Siddiqui: For the action list, I'd like the investigators' view as well as the analysts' view. The model behaves differently at the margins, so the action list needs watching for the first few weeks.
+[01:55:23] Hannah Lyle: I'll drop the link in the chat.
+[01:55:26] Oskar Lindgren: Thanks.
+[01:55:28] Aisha Siddiqui: Niall, does the next forum affect your area at all?
+[01:55:31] Niall Brannigan: Not directly. There's an indirect impact, but it's manageable.
+[01:55:35] Rachel Dunmore: Ruth, can you give us a quick update on the next forum?
+[01:55:40] Ruth Okafor: It's with the working group at the moment; I'll chase and come back. My worry with the next forum is less the technology and more whether people on the floor actually know what's changed.
+[01:55:53] Rachel Dunmore: Thanks.
+[01:55:54] Ingrid Ashby: On the minutes, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room. Personally I'd go a bit further on the comms to SIU, but I can live with what's proposed. Speaking for my area, one thing on the next forum: we should check we're not double-counting effort with the other workstream.
+[01:56:17] Niall Brannigan: Uh, Look, I'd want to see the next forum working end to end before I'd put my name to it.
+[01:56:26] Aisha Siddiqui: From my side, I suspect the next forum will come back to this group at some point, so let's not close it off. I mean, Compliance will want an audit trail for the minutes, so let's design that in rather than bolt it on. Whatever we land on for the next forum, people need to hear it from their own managers first. On the minutes, the case notes need to say why a claim was referred, not just that it was, if I'm honest.
+[01:56:56] Niall Brannigan: On the comms to SIU, the case notes need to say why a claim was referred, not just that it was. On the comms to SIU, we have to think about the customer letter as much as the referral. I'd challenge us a bit on the minutes; I'm not sure we've tested the assumptions.
+[01:57:17] Hannah Lyle: Mm.
+[01:57:19] Oskar Lindgren: Are we expecting any pushback on the minutes?
+[01:57:23] Niall Brannigan: Not really. The team have been very open about the gaps, which helps.
+[01:57:28] Hannah Lyle: I'll have the minutes out tomorrow.
+[01:57:32] Niall Brannigan: Let's not solve it here. Can we set up a separate session?
+[01:57:37] Linnea Sjoberg: Can I ask what's changed on the comms to SIU since we last discussed it?
+[01:57:43] Aisha Siddiqui: Mostly that more people are involved now, which is good. Okay, so the sticking point on the comms to SIU has been agreeing the scope, not the build.
+[01:57:54] Niall Brannigan: We've got good people looking at the comms to SIU; I'm less sure we've given them enough time.
+[01:58:10] Niall Brannigan: Thanks, everyone. Good session.
+[01:58:12] Oskar Lindgren: Thanks, Niall.
+[01:58:13] Rachel Dunmore: Thanks, all.
+[01:58:15] Recording stopped.
+
+-------------------------------------- END OF TRANSCRIPT -----------------------------------
+Recording length 02:00:00. Transcript reviewed by Hannah Lyle. Corvane Mutual - Internal.

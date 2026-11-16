@@ -1,0 +1,755 @@
+# Corvane Mutual – Business Rules Configuration
+# Document SKR-CFG-RUL-045 version 1.0 (approved), 2026-10-01
+# Owner: Linnea Sjöberg, Engineering Lead – Fraud & Settlement Squad
+# Classification: Internal – Programme Skerry
+# Change history:
+#   0.1  2026-06-21  Linnea Sjöberg: Initial draft for review
+#   0.2  2026-08-23  Linnea Sjöberg: Cross-checked against the source systems
+#   1.0  2026-10-01  Linnea Sjöberg: Approved
+# Business rules as versioned configuration (ADR-010). Values are effective-dated.
+apiVersion: rules.corvane.internal/v1
+kind: RuleSet
+metadata:
+  name: claims-business-rules
+  effectiveAsOf: '2026-10-01'
+  documentId: SKR-CFG-RUL-045
+  version: '1.0'
+  status: approved
+  date: '2026-10-01'
+  owner: Linnea Sjöberg
+  approvers:
+  - Niall Brannigan (Head of Counter-Fraud & SIU)
+  - Ingrid Ashby (Claims Director)
+  decisionRefs:
+  - DEC-014
+  - DEC-015
+  adr: ADR-010, ADR-020
+spec:
+  evaluation: Services read the version whose effective window contains the business date of the event.
+  areas:
+    frd:
+      BR-FRD-031:
+        title: Fraud referral threshold (NISA Circular 2026/04)
+        owner: Niall Brannigan
+        inForce: 2
+        implementedIn:
+          services:
+          - fraud-referral-svc
+          - triage-svc
+          programs:
+          - CLRFR030
+          - CLRFR040
+        versions:
+        - version: 2
+          status: approved
+          effectiveFrom: '2026-10-01'
+          effectiveTo: null
+          parameters:
+            threshold: 65
+            tier3_threshold: 60
+          text: Refer a claim to SIU when the Sentinel score is 65 or more; for Tier-3 claims (BR-TRI-003) refer
+            at a Sentinel score of 60 or more.
+          approvedOn: '2026-09-17'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2026-04-01'
+          effectiveTo: '2026-09-30'
+          parameters:
+            threshold: 65
+          text: Refer a claim to SIU when the Sentinel score is 65 or more (all tiers).
+          approvedOn: '2026-03-12'
+      BR-FRD-032:
+        title: Customer notification of fraud referral
+        owner: Niall Brannigan
+        inForce: 2
+        implementedIn:
+          services:
+          - fraud-referral-svc
+          - notification-svc
+          programs:
+          - CLRFR060
+        versions:
+        - version: 2
+          status: approved
+          effectiveFrom: '2026-04-01'
+          effectiveTo: null
+          parameters:
+            notice_business_days: 10
+          text: Notify the customer in writing within 10 business days of a fraud referral that the claim is subject
+            to additional checks, unless the notice is deferred under BR-FRD-036.
+          approvedOn: '2026-03-12'
+      BR-FRD-033:
+        title: No adverse decision on fraud score alone
+        owner: Niall Brannigan
+        inForce: 1
+        implementedIn:
+          services:
+          - fraud-referral-svc
+          programs: []
+        versions:
+        - version: 1
+          status: approved
+          effectiveFrom: '2026-04-01'
+          effectiveTo: null
+          parameters:
+            auto_decline_allowed: false
+          text: No claim may be declined, reduced or repudiated on the basis of an automated fraud score alone;
+            every adverse outcome requires a documented human review by SIU.
+          approvedOn: '2026-03-12'
+      BR-FRD-034:
+        title: Quarterly fraud referral return (NISA-FR1)
+        owner: Ruth Okafor
+        inForce: 1
+        implementedIn:
+          services:
+          - reporting-feed-svc
+          programs:
+          - CLRFR090
+        versions:
+        - version: 1
+          status: approved
+          effectiveFrom: '2026-04-01'
+          effectiveTo: null
+          parameters:
+            due_days_after_quarter: 30
+            first_period: 2026Q2
+            first_due: '2026-07-30'
+          text: Submit the NISA-FR1 fraud referral return within 30 calendar days after each quarter end; first
+            return for Q2 2026 due 2026-07-30.
+          approvedOn: '2026-03-12'
+      BR-FRD-035:
+        title: SIU triage of new referrals
+        owner: Niall Brannigan
+        inForce: 2
+        implementedIn:
+          services:
+          - fraud-referral-svc
+          programs: []
+        versions:
+        - version: 2
+          status: approved
+          effectiveFrom: '2026-04-01'
+          effectiveTo: null
+          parameters:
+            business_days: 3
+          text: SIU must triage a new referral within 3 business days.
+          approvedOn: '2026-03-12'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2019-06-01'
+          effectiveTo: '2026-03-31'
+          parameters:
+            business_days: 5
+          text: SIU must triage a new referral within 5 business days.
+          approvedOn: '2019-05-16'
+      BR-FRD-036:
+        title: Deferral of customer notice (tipping-off risk)
+        owner: Niall Brannigan
+        inForce: 2
+        implementedIn:
+          services:
+          - fraud-referral-svc
+          programs:
+          - CLRFR120
+        versions:
+        - version: 2
+          status: approved
+          effectiveFrom: '2026-10-01'
+          effectiveTo: null
+          parameters:
+            max_deferral_days: 60
+            head_approval_after_days: 30
+            notify: Compliance
+          text: The customer notice may be deferred for up to 60 days where SIU certifies a tipping-off risk; deferrals
+            beyond 30 days require the Head of Counter-Fraud & SIU and Compliance must be notified the same day.
+          approvedOn: '2026-09-17'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2026-04-01'
+          effectiveTo: '2026-09-30'
+          parameters:
+            max_deferral_days: 60
+          approvedOn: '2026-03-12'
+      BR-FRD-005:
+        title: Linked-claims indicator
+        owner: Niall Brannigan
+        inForce: 3
+        implementedIn:
+          services:
+          - fraud-referral-svc
+          programs:
+          - CLRFR080
+        versions:
+        - version: 3
+          status: approved
+          effectiveFrom: '2026-04-01'
+          effectiveTo: null
+          parameters:
+            min_claims: 2
+            months: 12
+            shared_identifiers:
+            - bank_account
+            - phone
+          text: Flag a linked-claims indicator when the claimant has 2 or more claims in 12 months, or when a bank
+            account or telephone number is shared with another claimant.
+          approvedOn: '2026-03-12'
+        - version: 2
+          status: superseded
+          effectiveFrom: '2021-01-01'
+          effectiveTo: '2026-03-31'
+          parameters:
+            min_claims: 2
+            months: 12
+          text: Flag a linked-claims indicator when the claimant has 2 or more claims in 12 months.
+          approvedOn: '2020-11-26'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2017-01-01'
+          effectiveTo: '2020-12-31'
+          parameters:
+            min_claims: 3
+            months: 24
+          text: Flag a linked-claims indicator when the claimant has 3 or more claims in 24 months.
+          approvedOn: '2016-12-01'
+      BR-FRD-012:
+        title: Fraud referral threshold (pre-2026)
+        owner: Niall Brannigan
+        inForce: null
+        implementedIn:
+          services: []
+          programs:
+          - CLRFR030
+          - CLRFR040
+        versions:
+        - version: 2
+          status: superseded
+          effectiveFrom: '2023-04-01'
+          effectiveTo: '2026-03-31'
+          parameters:
+            threshold: 70
+          text: Refer a claim to SIU when the FRAUDNET/Sentinel score is 70 or more.
+          approvedOn: '2023-03-09'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2019-01-01'
+          effectiveTo: '2023-03-31'
+          parameters:
+            threshold: 75
+          text: Refer a claim to SIU when the FRAUDNET score is 75 or more.
+          approvedOn: '2018-12-06'
+        supersededBy: BR-FRD-031
+      BR-FRD-019:
+        title: Automatic decline on very high fraud score
+        owner: Niall Brannigan
+        inForce: null
+        implementedIn:
+          services: []
+          programs:
+          - CLRFR140
+        versions:
+        - version: 2
+          status: withdrawn
+          effectiveFrom: '2023-01-01'
+          effectiveTo: '2026-03-31'
+          parameters:
+            threshold: 90
+          text: 'Automatically decline a claim when the FRAUDNET/Sentinel score is 90 or more. Withdrawn from 2026-04-01:
+            NISA Circular 2026/04 §3.1 prohibits adverse decisions on an automated score alone.'
+          approvedOn: '2022-12-01'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2019-06-01'
+          effectiveTo: '2022-12-31'
+          parameters:
+            threshold: 95
+          text: Automatically decline a claim when the FRAUDNET score is 95 or more.
+          approvedOn: '2019-05-16'
+        supersededBy: BR-FRD-033
+    tri:
+      BR-TRI-003:
+        title: Claim tier classification (Tier-1 / Tier-2 / Tier-3)
+        owner: Rob Tennant
+        inForce: 3
+        implementedIn:
+          services:
+          - triage-svc
+          programs:
+          - CLRTR020
+          - CLRTR030
+        versions:
+        - version: 3
+          status: approved
+          effectiveFrom: '2025-01-01'
+          effectiveTo: null
+          parameters:
+            tier3_min_gbp: 50000
+            tier3_min_nok: 650000
+            tier3_min_sek: 680000
+            tier3_min_dkk: 430000
+            tier2_min_gbp: 5000
+            tier3_triggers:
+            - incurred_threshold
+            - bodily_injury
+            - litigation_at_notification
+            - property_total_loss
+          text: 'A claim is Tier-3 if any of: estimated incurred ≥ £50,000 (NOK 650,000 / SEK 680,000 / DKK 430,000);
+            any bodily injury; solicitor or litigation involvement at notification; property total loss. Tier-2:
+            £5,000–£49,999 or any third-party involvement. Tier-1: below £5,000, no injury, no third party.'
+          approvedOn: '2024-11-26'
+        - version: 2
+          status: superseded
+          effectiveFrom: '2022-01-01'
+          effectiveTo: '2024-12-31'
+          parameters:
+            tier3_min_gbp: 40000
+            tier3_min_nok: 500000
+            tier3_min_sek: 500000
+            tier3_min_dkk: 340000
+            tier2_min_gbp: 5000
+          text: 'Tier-3: estimated incurred ≥ £40,000 (NOK 500,000 / SEK 500,000 / DKK 340,000) or any bodily injury.
+            Tier-2: £5,000–£39,999 or any third-party involvement. Tier-1: otherwise.'
+          approvedOn: '2021-11-16'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2016-01-01'
+          effectiveTo: '2021-12-31'
+          parameters:
+            tier3_min_gbp: 25000
+            tier2_min_gbp: 5000
+          text: 'Tier-3: estimated incurred ≥ £25,000 or any bodily injury. Tier-2: £5,000–£24,999. Tier-1: below
+            £5,000 with no injury.'
+          approvedOn: '2015-11-20'
+      BR-TRI-004:
+        title: Routing by tier
+        owner: Rob Tennant
+        inForce: 1
+        implementedIn:
+          services:
+          - triage-svc
+          programs:
+          - CLRTR050
+          - CLRTR090
+        versions:
+        - version: 1
+          status: approved
+          effectiveFrom: '2019-01-01'
+          effectiveTo: null
+          parameters:
+            tier3_alert_hours: 4
+          text: Tier-3 claims route to Major & Complex Loss within 4 hours; Tier-2 to specialist Claims Handlers;
+            Tier-1 to the fast-track queue when BR-TRI-006 is met.
+          approvedOn: '2018-12-04'
+      BR-TRI-006:
+        title: Fast-track eligibility and cap
+        owner: Rob Tennant
+        inForce: 3
+        implementedIn:
+          services:
+          - triage-svc
+          - settlement-svc
+          programs:
+          - CLRTR060
+          - CLRST080
+        versions:
+        - version: 3
+          status: approved
+          effectiveFrom: '2026-07-01'
+          effectiveTo: null
+          parameters:
+            max_score: 29
+            cap_gbp: 2000
+            cap_nok: 26000
+            cap_sek: 27000
+            cap_dkk: 17000
+          text: Fast-track if Tier-1, Sentinel score below 30 and no injury; cap £2,000 (NOK 26,000 / SEK 27,000
+            / DKK 17,000).
+          approvedOn: '2026-06-30'
+        - version: 2
+          status: superseded
+          effectiveFrom: '2024-01-01'
+          effectiveTo: '2026-06-30'
+          parameters:
+            max_score: 29
+            cap_gbp: 1500
+          text: Fast-track if Tier-1, Sentinel score below 30 and no injury; cap £1,500.
+          approvedOn: '2023-11-28'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2018-03-01'
+          effectiveTo: '2023-12-31'
+          parameters:
+            max_score: 24
+            cap_gbp: 1000
+          text: Fast-track if Tier-1, Sentinel score below 25 and no injury; cap £1,000.
+          approvedOn: '2018-02-13'
+      BR-TRI-007:
+        title: Sentinel pre-screen at triage
+        owner: Niall Brannigan
+        inForce: 1
+        implementedIn:
+          services:
+          - triage-svc
+          programs:
+          - CLRFR020
+          - CLRTR040
+        versions:
+        - version: 1
+          status: approved
+          effectiveFrom: '2019-06-01'
+          effectiveTo: null
+          parameters:
+            score_within_minutes: 15
+          text: Every new claim is scored by Sentinel (FRAUDNET before 2025-03-01) within 15 minutes of FNOL.
+          approvedOn: '2019-05-16'
+    rsv:
+      BR-RSV-003:
+        title: Reserve authority limits
+        owner: Lena Kristiansen
+        inForce: 3
+        implementedIn:
+          services:
+          - reserve-engine
+          programs:
+          - CLRRS015
+          - CLRRS040
+        versions:
+        - version: 3
+          status: approved
+          effectiveFrom: '2025-09-01'
+          effectiveTo: null
+          parameters:
+            claims_handler: 25000
+            team_leader: 100000
+            claims_manager: 500000
+            claims_director: 2000000
+          text: 'Reserve authority: Claims Handler £25,000; Team Leader £100,000; Claims Manager £500,000; Claims
+            Director £2,000,000; above that the Reserving Committee. Nordic reserves are tested at the GBP equivalent
+            at the GL month-end rate.'
+          approvedOn: '2025-08-12'
+        - version: 2
+          status: superseded
+          effectiveFrom: '2023-01-01'
+          effectiveTo: '2025-08-31'
+          parameters:
+            claims_handler: 20000
+            team_leader: 75000
+            claims_manager: 400000
+            claims_director: 1500000
+          text: 'Reserve authority: Claims Handler £20,000; Team Leader £75,000; Claims Manager £400,000; Claims
+            Director £1,500,000; above that the Reserving Committee.'
+          approvedOn: '2022-12-13'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2017-01-01'
+          effectiveTo: '2022-12-31'
+          parameters:
+            claims_handler: 10000
+            team_leader: 50000
+            claims_manager: 250000
+            claims_director: 1000000
+          text: 'Reserve authority: Claims Handler £10,000; Team Leader £50,000; Claims Manager £250,000; Claims
+            Director £1,000,000; above that the Reserving Committee.'
+          approvedOn: '2016-12-13'
+      BR-RSV-007:
+        title: Tier-3 reserve review cadence
+        owner: Lena Kristiansen
+        inForce: 3
+        implementedIn:
+          services:
+          - reserve-engine
+          programs:
+          - CLRRS110
+          - CLRRS120
+        versions:
+        - version: 3
+          status: approved
+          effectiveFrom: '2026-07-01'
+          effectiveTo: null
+          parameters:
+            review_days: 14
+          text: Reserves on Tier-3 claims must be reviewed at least every 14 days.
+          approvedOn: '2026-06-09'
+        - version: 2
+          status: superseded
+          effectiveFrom: '2024-01-01'
+          effectiveTo: '2026-06-30'
+          parameters:
+            review_days: 21
+          text: Reserves on Tier-3 claims must be reviewed at least every 21 days.
+          approvedOn: '2023-11-14'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2015-01-01'
+          effectiveTo: '2023-12-31'
+          parameters:
+            review_days: 30
+          text: Reserves on Tier-3 claims must be reviewed at least every 30 days.
+          approvedOn: '2014-11-11'
+      BR-RSV-011:
+        title: Large loss notification to Reinsurance
+        owner: Per Øverland
+        inForce: 2
+        implementedIn:
+          services:
+          - reserve-engine
+          programs:
+          - CLRRS160
+        versions:
+        - version: 2
+          status: approved
+          effectiveFrom: '2024-01-01'
+          effectiveTo: null
+          parameters:
+            threshold_gbp: 250000
+            notify_hours: 24
+            name: Large Loss Notification Threshold (LLNT)
+          text: Notify Reinsurance (ReCede) within 24 hours of any reserve movement exceeding the Large Loss Notification
+            Threshold (LLNT) of £250,000.
+          approvedOn: '2023-12-12'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2018-01-01'
+          effectiveTo: '2023-12-31'
+          parameters:
+            threshold_gbp: 200000
+            notify_hours: 48
+          text: Notify Reinsurance within 48 hours of any reserve movement of £200,000 or more.
+          approvedOn: '2017-12-12'
+    stl:
+      BR-STL-002:
+        title: Payment authority limits
+        owner: Rob Tennant
+        inForce: 3
+        implementedIn:
+          services:
+          - payment-orchestrator
+          programs:
+          - CLRST020
+        versions:
+        - version: 3
+          status: approved
+          effectiveFrom: '2025-09-01'
+          effectiveTo: null
+          parameters:
+            claims_handler: 15000
+            team_leader: 75000
+            claims_manager: 350000
+            claims_director: 1500000
+          text: 'Payment authority: Claims Handler £15,000; Team Leader £75,000; Claims Manager £350,000; Claims
+            Director £1,500,000.'
+          approvedOn: '2025-08-12'
+        - version: 2
+          status: superseded
+          effectiveFrom: '2023-01-01'
+          effectiveTo: '2025-08-31'
+          parameters:
+            claims_handler: 10000
+            team_leader: 50000
+            claims_manager: 250000
+            claims_director: 1000000
+          text: 'Payment authority: Claims Handler £10,000; Team Leader £50,000; Claims Manager £250,000; Claims
+            Director £1,000,000.'
+          approvedOn: '2022-11-29'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2017-01-01'
+          effectiveTo: '2022-12-31'
+          parameters:
+            claims_handler: 5000
+            team_leader: 25000
+            claims_manager: 150000
+            claims_director: 750000
+          text: 'Payment authority: Claims Handler £5,000; Team Leader £25,000; Claims Manager £150,000; Claims
+            Director £750,000.'
+          approvedOn: '2016-12-01'
+      BR-STL-014:
+        title: Interest on late payment
+        owner: Rob Tennant
+        inForce: 1
+        implementedIn:
+          services:
+          - payment-orchestrator
+          programs:
+          - CLRST100
+        versions:
+        - version: 1
+          status: approved
+          effectiveFrom: '2021-01-01'
+          effectiveTo: null
+          parameters:
+            days: 30
+            interest_pct_pa: 3.5
+          text: Where payment is made more than 30 days after settlement is agreed, add simple interest at 3.5%
+            per annum from day 31.
+          approvedOn: '2020-12-01'
+    rec:
+      BR-REC-003:
+        title: Subrogation pursuit threshold
+        owner: Freya Lindahl
+        inForce: 3
+        implementedIn:
+          services:
+          - recovery-svc
+          programs:
+          - CLRRC020
+        versions:
+        - version: 3
+          status: approved
+          effectiveFrom: '2025-09-01'
+          effectiveTo: null
+          parameters:
+            min_gbp: 1000
+            min_nok: 13000
+            min_sek: 13500
+            min_dkk: 8600
+          text: Pursue subrogation where the recoverable amount is £1,000 or more (NOK 13,000 / SEK 13,500 / DKK
+            8,600).
+          approvedOn: '2025-08-20'
+        - version: 2
+          status: superseded
+          effectiveFrom: '2022-07-01'
+          effectiveTo: '2025-08-31'
+          parameters:
+            min_gbp: 750
+          text: Pursue subrogation where the recoverable amount is £750 or more.
+          approvedOn: '2022-06-14'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2016-01-01'
+          effectiveTo: '2022-06-30'
+          parameters:
+            min_gbp: 500
+          text: Pursue subrogation where the recoverable amount is £500 or more.
+          approvedOn: '2015-12-01'
+      BR-REC-005:
+        title: Solicitor referral for recoveries
+        owner: Freya Lindahl
+        inForce: 2
+        implementedIn:
+          services:
+          - recovery-svc
+          programs:
+          - CLRRC060
+        versions:
+        - version: 2
+          status: approved
+          effectiveFrom: '2025-09-01'
+          effectiveTo: null
+          parameters:
+            min_gbp: 25000
+          text: Refer a recovery to Quarryhill Solicitors when the recoverable amount is £25,000 or more or liability
+            is defended.
+          approvedOn: '2025-08-20'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2019-01-01'
+          effectiveTo: '2025-08-31'
+          parameters:
+            min_gbp: 15000
+          text: Refer a recovery to Quarryhill Solicitors when the recoverable amount is £15,000 or more or liability
+            is defended.
+          approvedOn: '2018-12-04'
+      BR-REC-011:
+        title: Recovery write-off authority
+        owner: Freya Lindahl
+        inForce: 2
+        implementedIn:
+          services:
+          - recovery-svc
+          programs:
+          - CLRRC090
+        versions:
+        - version: 2
+          status: approved
+          effectiveFrom: '2025-09-01'
+          effectiveTo: null
+          parameters:
+            min_gbp: 10000
+            approver: Head of Recoveries & Subrogation
+          text: Write-offs of recoveries above £10,000 require approval by the Head of Recoveries & Subrogation.
+          approvedOn: '2025-08-20'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2019-01-01'
+          effectiveTo: '2025-08-31'
+          parameters:
+            min_gbp: 5000
+            approver: Recoveries Manager
+          text: Write-offs of recoveries above £5,000 require approval by the Recoveries Manager.
+          approvedOn: '2018-12-04'
+    fnol:
+      BR-FNOL-001:
+        title: FNOL acknowledgement SLA
+        owner: Rob Tennant
+        inForce: 3
+        implementedIn:
+          services:
+          - notification-svc
+          - fnol-intake-svc
+          programs:
+          - CLRFN070
+        versions:
+        - version: 3
+          status: approved
+          effectiveFrom: '2026-07-01'
+          effectiveTo: null
+          parameters:
+            ack_business_days_digital: 1
+            ack_business_days_other: 2
+          text: Acknowledge digital FNOLs (portal, app, telematics) within 1 business day and all other channels
+            (telephone, broker, post) within 2 business days.
+          approvedOn: '2026-06-30'
+        - version: 2
+          status: superseded
+          effectiveFrom: '2024-10-01'
+          effectiveTo: '2026-06-30'
+          parameters:
+            ack_business_days: 2
+          text: Acknowledge every first notice of loss within 2 business days (NISA Circular 2024/07).
+          approvedOn: '2024-07-15'
+        - version: 1
+          status: superseded
+          effectiveFrom: '2012-01-01'
+          effectiveTo: '2024-09-30'
+          parameters:
+            ack_business_days: 5
+          text: Acknowledge every first notice of loss within 5 business days.
+          approvedOn: '2011-11-30'
+      BR-FNOL-003:
+        title: Late notification review
+        owner: Rob Tennant
+        inForce: 1
+        implementedIn:
+          services:
+          - fnol-intake-svc
+          programs:
+          - CLRFN080
+        versions:
+        - version: 1
+          status: approved
+          effectiveFrom: '2016-01-01'
+          effectiveTo: null
+          parameters:
+            late_days: 30
+          text: Claims notified more than 30 days after the date of loss are flagged for late-notification review
+            at triage and the policy notification condition is checked.
+          approvedOn: '2015-11-20'
+      BR-FNOL-004:
+        title: Duplicate claim check
+        owner: Rob Tennant
+        inForce: 1
+        implementedIn:
+          services:
+          - fnol-intake-svc
+          programs:
+          - CLRFN060
+        versions:
+        - version: 1
+          status: approved
+          effectiveFrom: '2017-04-01'
+          effectiveTo: null
+          parameters:
+            window_days: 3
+          text: Before a claim is created, check for an existing claim on the same policy with a date of loss within
+            ±3 days; a match must be confirmed or rejected by the Claims Handler.
+          approvedOn: '2017-03-14'

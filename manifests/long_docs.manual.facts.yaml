@@ -1,0 +1,5232 @@
+- fact_id: LD001-F001
+  world_ref: ANCHOR:LD001#status
+  kind: header
+  statement: 'Every page header of manual v7.2 reads ''Claims Handling Manual v7.2 — Approved 30 June 2026 — Owner: Claims
+    Director''.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_header
+    section_index: 0
+    page_hint: 1
+  needle: 'Claims Handling Manual v7.2 — Approved 30 June 2026 — Owner: Claims Director'
+  exclusive: false
+  also_in:
+  - LD002-F005
+  placement: PL-009
+  placement_key: ld_header
+  notes: Header defined in section 0; section 1 (appendices) links to it.
+- fact_id: LD001-F002
+  world_ref: ANCHOR:LD001#doc_id
+  kind: footer
+  statement: 'Every page footer of manual v7.2 shows document ID CS-MAN-007 rev 7.2 and ''Classification: Internal''.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_footer
+    section_index: 0
+    page_hint: 1
+  needle: CS-MAN-007 rev 7.2
+  exclusive: true
+  also_in:
+  - LD002-F006
+  placement: PL-010
+  placement_key: ld_footer_docid
+  notes: 'Exclusive: the document ID appears only in the footer (never in the body).'
+- fact_id: LD001-F003
+  world_ref: ANCHOR:LD001#status
+  kind: header
+  statement: The appendices section (section 1) inherits the same header text.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_header
+    section_index: 1
+    page_hint: 1
+  needle: 'Claims Handling Manual v7.2 — Approved 30 June 2026 — Owner: Claims Director'
+  exclusive: false
+  also_in: []
+  notes: Header defined in section 0; section 1 (appendices) links to it.
+- fact_id: LD001-F004
+  world_ref: ANCHOR:LD001
+  kind: footer
+  statement: 'The footer carries ''Classification: Internal'' and a Page N of M field.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_footer
+    section_index: 1
+    page_hint: 1
+  needle: 'Classification: Internal'
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F005
+  world_ref: ANCHOR:LD001#date
+  kind: approved
+  statement: Claims Handling Manual v7.2 was approved on 30 June 2026.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 4
+    col: 1
+    page_hint: 2
+  needle: 30 June 2026
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F006
+  world_ref: ANCHOR:LD012#date
+  kind: general
+  statement: Manual v7.2 supersedes Claims Handling Manual v6.1, approved 15 May 2023.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 7
+    col: 1
+    page_hint: 2
+  needle: Claims Handling Manual v6.1 (approved 15 May 2023)
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F007
+  world_ref: PERSON:P013#titles
+  kind: general
+  statement: The v7.2 manual approvals include Freya Lindahl, Head of Recoveries & Subrogation.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 1
+    row: 5
+    col: 0
+    page_hint: 2
+  needle: Freya Lindahl
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F008
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: LD001 §2.2 defines Claims Assessor and states that 'loss adjuster' in the manual means an external (panel) Claims
+    Assessor.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 68
+    section: 2.2 Claims Assessor and loss adjuster
+    page_hint: 11
+  needle: '''loss adjuster'' means an external (panel) Claims Assessor'
+  exclusive: false
+  also_in:
+  - LD002-F007
+  placement: PL-018
+  placement_key: ld_term_assessor
+- fact_id: LD001-F009
+  world_ref: GLOSSARY:G-005
+  kind: definition
+  statement: 'LD001 §2.3 defines First Notice of Loss (FNOL): The first notification of a claim by any channel.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 71
+    section: 2.3 Core claim terms
+    page_hint: 11
+  needle: The first notification of a claim by any channel
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F010
+  world_ref: GLOSSARY:G-006
+  kind: definition
+  statement: 'LD001 §2.3 defines Peril (Claim Type): The peril or cause of loss classifying a claim (e.g. Escape of Water).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 72
+    section: 2.3 Core claim terms
+    page_hint: 11
+  needle: The peril or cause of loss classifying a claim (e.g. Escape
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F011
+  world_ref: GLOSSARY:G-007
+  kind: definition
+  statement: 'LD001 §2.3 defines Claims Handler: Employee who manages a claim day to day.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 73
+    section: 2.3 Core claim terms
+    page_hint: 11
+  needle: Employee who manages a claim day to day
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F012
+  world_ref: GLOSSARY:G-011
+  kind: definition
+  statement: 'LD001 §2.3 defines Policyholder (member): Holder of the policy (a member of the mutual).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 74
+    section: 2.3 Core claim terms
+    page_hint: 11
+  needle: Holder of the policy (a member of the mutual)
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F013
+  world_ref: GLOSSARY:G-010
+  kind: definition
+  statement: 'LD001 §2.3 defines Excess: The amount the policyholder bears on each claim.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 75
+    section: 2.3 Core claim terms
+    page_hint: 11
+  needle: The amount the policyholder bears on each claim
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F014
+  world_ref: GLOSSARY:G-014
+  kind: definition
+  statement: 'LD001 §2.3 defines Incurred: Paid to date plus outstanding reserve.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 76
+    section: 2.3 Core claim terms
+    page_hint: 11
+  needle: Paid to date plus outstanding reserve
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F015
+  world_ref: GLOSSARY:G-018
+  kind: definition
+  statement: 'LD001 §2.3 defines Settlement: Agreement and payment of the claim.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 77
+    section: 2.3 Core claim terms
+    page_hint: 11
+  needle: Agreement and payment of the claim
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F016
+  world_ref: RULE:BR-TRI-003@v3#parameters
+  kind: definition
+  statement: A Tier-3 claim is one with estimated incurred of £50,000 or more (NOK 650,000 / SEK 680,000 / DKK 430,000), any
+    bodily injury, solicitor or litigation involvement at notification, or a property total loss (BR-TRI-003 v3, from 2025-01-01).
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 122
+    section: 2.4 Claim tiers
+    page_hint: 15
+  needle: estimated incurred of £50,000 or more
+  exclusive: false
+  also_in:
+  - LD002-F008
+  placement: PL-001
+  placement_key: ld_t3_def
+  notes: 'Long-range definition: used ~256 pages later in §19.4 (LD001 PL-002) without restating it.'
+- fact_id: LD001-F017
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier3_triggers
+  kind: definition
+  statement: Tier-3 triggers include solicitor or litigation involvement at notification and a property total loss.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 122
+    section: 2.4 Claim tiers
+    page_hint: 15
+  needle: solicitor or litigation involvement at notification
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F018
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier2_min_gbp
+  kind: definition
+  statement: 'Tier-2: estimated incurred £5,000 to £49,999 or any third-party involvement (BR-TRI-003 v3).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 123
+    section: 2.4 Claim tiers
+    page_hint: 15
+  needle: £5,000 to £49,999
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F019
+  world_ref: RULE:BR-TRI-003@v3#text
+  kind: definition
+  statement: 'Tier-1: below £5,000 with no injury and no third party (BR-TRI-003 v3).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 124
+    section: 2.4 Claim tiers
+    page_hint: 15
+  needle: below £5,000 with no injury and no third party
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F020
+  world_ref: GLOSSARY:G-003
+  kind: definition
+  statement: 'LD001 §2.5 defines Case reserve: Case reserve: the estimated outstanding cost of a claim, per reserve type.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 127
+    section: 2.5 Reserve terms
+    page_hint: 15
+  needle: 'Case reserve: the estimated outstanding cost of a claim'
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F021
+  world_ref: GLOSSARY:G-013
+  kind: definition
+  statement: 'LD001 §2.5 defines Reserve movement: A change to a reserve, recorded in CLR.T_RESERVE_MOVEMENT / reserve.reserve_movement.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 128
+    section: 2.5 Reserve terms
+    page_hint: 15
+  needle: A change to a reserve, recorded in CLR.T_RESERVE_MOVEME
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F022
+  world_ref: GLOSSARY:G-016
+  kind: definition
+  statement: 'LD001 §2.5 defines Technical provisions: Claims outstanding provisions reported to NISA in the TP2 return.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 129
+    section: 2.5 Reserve terms
+    page_hint: 15
+  needle: Claims outstanding provisions reported to NISA in the T
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F023
+  world_ref: GLOSSARY:G-017
+  kind: definition
+  statement: 'LD001 §2.5 defines Bordereau: Periodic listing of claims ceded to reinsurers.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 130
+    section: 2.5 Reserve terms
+    page_hint: 15
+  needle: Periodic listing of claims ceded to reinsurers
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F024
+  world_ref: RULE:BR-RSV-011@v2#parameters.threshold_gbp
+  kind: definition
+  statement: Large Loss Notification Threshold (LLNT) = a reserve movement of £250,000 (BR-RSV-011 v2).
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 152
+    section: 2.6 Large loss terms
+    page_hint: 18
+  needle: a reserve movement of £250,000
+  exclusive: false
+  also_in:
+  - LD002-F009
+  placement: PL-016
+  placement_key: ld_llnt_def
+  notes: 'Long-range definition: used in §22.3 (~p.300) without restating the amount.'
+- fact_id: LD001-F025
+  world_ref: GLOSSARY:G-009
+  kind: definition
+  statement: 'LD001 §2.7 defines Sentinel score: Sentinel score from 0 to 100.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 156
+    section: 2.7 Fraud terms
+    page_hint: 18
+  needle: Sentinel score from 0 to 100
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F026
+  world_ref: GLOSSARY:G-002
+  kind: definition
+  statement: 'LD001 §2.7 defines Referral to SIU: Referral of a claim to the Counter-Fraud & SIU team for investigation.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 157
+    section: 2.7 Fraud terms
+    page_hint: 18
+  needle: Referral of a claim to the Counter-Fraud & SIU tea
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F027
+  world_ref: GLOSSARY:G-021
+  kind: definition
+  statement: 'LD001 §2.7 defines Customer Referral Notice: Written notice to the customer that a claim is subject to additional
+    checks (BR-FRD-032).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 158
+    section: 2.7 Fraud terms
+    page_hint: 18
+  needle: Written notice to the customer that a claim is sub
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F028
+  world_ref: GLOSSARY:G-012
+  kind: definition
+  statement: 'LD001 §2.7 defines Counter-Fraud & SIU: The Special Investigations Unit (renamed Counter-Fraud & SIU on 2025-09-01).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 159
+    section: 2.7 Fraud terms
+    page_hint: 18
+  needle: The Special Investigations Unit (renamed Counter-F
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F029
+  world_ref: CLAIMTYPE:CT-FLD#local_names
+  kind: general
+  statement: The Swedish name for the Flood peril is Översvämning.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 4
+    row: 7
+    col: 3
+    page_hint: 18
+  needle: Översvämning
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F030
+  world_ref: SYSTEM:SYS05#renames
+  kind: alias_use
+  statement: Evidence Vault was formerly DOCSTOR.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 5
+    row: 5
+    col: 1
+    page_hint: 19
+  needle: Formerly DOCSTOR
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F031
+  world_ref: PROCESS:S4#owner_history
+  kind: general
+  statement: The Reserving stage is owned by Lena Kristiansen (Head of Reserving).
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 9
+    row: 4
+    col: 1
+    page_hint: 31
+  needle: Lena Kristiansen
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F032
+  world_ref: PROCESS:S7#owner_history
+  kind: general
+  statement: The Recovery & Subrogation stage is owned by Freya Lindahl (Head of Recoveries & Subrogation).
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 9
+    row: 7
+    col: 1
+    page_hint: 31
+  needle: Freya Lindahl
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F033
+  world_ref: TEAM:T11#department_history
+  kind: general
+  statement: Counter-Fraud & SIU sits in the Risk & Compliance department (as of 2026-06-30).
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 10
+    row: 10
+    col: 2
+    page_hint: 32
+  needle: Risk & Compliance
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F034
+  world_ref: COMMITTEE:COM-01#chair_history
+  kind: general
+  statement: The Reserving Committee is chaired by Lena Kristiansen.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 304
+    section: 3.4 Committees and forums
+    page_hint: 32
+  needle: chaired by the Head of Reserving, Lena Kristiansen
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F035
+  world_ref: GLOSSARY:G-012
+  kind: tracked_delete
+  statement: 'Tracked deletion in §3.4: the old team name ''Special Investigations Unit''.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_tracked
+    type: del
+    index: 0
+    page_hint: 18
+  needle: Special Investigations Unit
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F036
+  world_ref: TEAM:T11#name_history
+  kind: tracked_insert
+  statement: 'Tracked insertion in §3.4: the current team name ''Counter-Fraud & SIU''.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_tracked
+    type: ins
+    index: 0
+    page_hint: 32
+  needle: Counter-Fraud & SIU
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F037
+  world_ref: COMMITTEE:COM-02#cadence
+  kind: general
+  statement: The Claims Fraud Forum meets fortnightly on Thursday at 14:00.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 305
+    section: 3.4 Committees and forums
+    page_hint: 32
+  needle: fortnightly, Thursday 14:00
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F038
+  world_ref: RULE:BR-GEN-001@v1
+  kind: general
+  statement: 'BR-GEN-001 v1 (LD001): Any authority override needs a second approver at the next level.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 308
+    section: 3.5 Delegated authority
+    page_hint: 32
+  needle: Any authority override needs a second approver
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F039
+  world_ref: RULE:BR-GEN-007@v1
+  kind: general
+  statement: 'BR-GEN-007 v1 (LD001): Material claim decisions are recorded in claim notes with the decision maker''s id.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 310
+    section: 3.5 Delegated authority
+    page_hint: 32
+  needle: Material claim decisions are recorded in claim
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F040
+  world_ref: CIRCULAR:CIRC-2026-04#effective
+  kind: general
+  statement: NISA Circular 2026/04 (Fair Treatment in Fraud Referral) is effective from 1 April 2026.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 11
+    row: 4
+    col: 2
+    page_hint: 32
+  needle: 1 April 2026
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F041
+  world_ref: RULE:BR-FNOL-014@v1
+  kind: general
+  statement: 'BR-FNOL-014 v1 (LD001): Capture a vulnerability indicator at FNOL and route flagged customers to a trained handler.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 494
+    section: 4.2 Identifying vulnerability
+    page_hint: 46
+  needle: Capture a vulnerability indicator at FNOL and
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F042
+  world_ref: RULE:BR-GEN-005@v1
+  kind: general
+  statement: 'BR-GEN-005 v1 (LD001): Offer large-print, braille or audio formats on request.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 497
+    section: 4.3 Communication and accessibility
+    page_hint: 46
+  needle: Offer large-print, braille or audio formats on
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F043
+  world_ref: RULE:BR-GEN-009@v1
+  kind: general
+  statement: 'BR-GEN-009 v1 (LD001): Interpreters are offered to claimants on request in any language.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 498
+    section: 4.3 Communication and accessibility
+    page_hint: 46
+  needle: Interpreters are offered to claimants on request
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F044
+  world_ref: RULE:BR-FNOL-013@v1
+  kind: general
+  statement: 'BR-FNOL-013 v1 (LD001): Record the claimant''s language preference (NO, SV, DA or EN) at FNOL.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 499
+    section: 4.3 Communication and accessibility
+    page_hint: 46
+  needle: Record the claimant's language preference (NO, SV
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F045
+  world_ref: RULE:BR-GEN-003@v1
+  kind: general
+  statement: 'BR-GEN-003 v1 (LD001): Acknowledge complaints within 3 business days.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 501
+    section: 4.4 Complaints
+    page_hint: 46
+  needle: within 3 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F046
+  world_ref: PROCESS:PS-FNOL-03#sla
+  kind: image_text
+  statement: 'FNOL diagram: the claim and default reserve are created within 15 minutes of notification.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_image
+    ocr: true
+    image_name: word/media/image1.png
+    page_hint: 59
+  needle: Create claim and default reserve
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F047
+  world_ref: PROCESS:PS-FNOL-02#sla
+  kind: alt_text
+  statement: 'Alt text of the FNOL diagram: policy and cover validated within 1 hour of notification.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_alt_text
+    image_index: 0
+    page_hint: 59
+  needle: validate policy and cover within 1 hour
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F048
+  world_ref: RULE:BR-FNOL-002@v1
+  kind: general
+  statement: 'BR-FNOL-002 v1 (LD001): An FNOL must capture policy number, date of loss, Claim Type (peril), loss location,
+    contact details and a description of loss before a claim number is issued.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 673
+    section: 5.3 Taking the notification
+    page_hint: 59
+  needle: before a claim number is issued
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F049
+  world_ref: RULE:BR-FNOL-007@v1
+  kind: general
+  statement: 'BR-FNOL-007 v1 (LD001): Theft FNOLs must capture a police crime reference within 7 days.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 674
+    section: 5.3 Taking the notification
+    page_hint: 59
+  needle: crime reference within 7 days
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F050
+  world_ref: RULE:BR-FNOL-008@v1
+  kind: general
+  statement: 'BR-FNOL-008 v1 (LD001): Where a third party is involved, capture name, vehicle or address and insurer if known.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 675
+    section: 5.3 Taking the notification
+    page_hint: 59
+  needle: Where a third party is involved, capture
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F051
+  world_ref: CIRCULAR:CIRC-2024-07#effective
+  kind: footnote
+  statement: 'Footnote: BR-FNOL-001 v2 implemented NISA Circular 2024/07 §2.1 from 1 October 2024.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_footnote
+    footnote_id: 1
+    page_hint: 63
+  needle: NISA Circular 2024/07 §2.1 from 1 October 2024
+  exclusive: false
+  also_in:
+  - LD002-F010
+- fact_id: LD001-F052
+  world_ref: RULE:BR-FNOL-001@v3#parameters
+  kind: contradiction_new
+  statement: 'FNOL acknowledgement: within 1 business day for digital channels (portal, app, telematics) and 2 business days
+    for other channels (BR-FNOL-001 v3, effective 2026-07-01).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 728
+    section: 5.4 Acknowledgement
+    page_hint: 63
+  needle: within 1 business day and all other channels (telephone, broker, post) within 2 business days
+  exclusive: false
+  also_in:
+  - LD002-F011
+  placement: PL-019
+  placement_key: ld_fnol_ack
+- fact_id: LD001-F053
+  world_ref: RULE:BR-FNOL-004@v1
+  kind: general
+  statement: 'BR-FNOL-004 v1 (LD001): Before a claim is created, check for an existing claim on the same policy with a date
+    of loss within ±3 days; a match must be confirmed or rejected by the Claims Handler.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 732
+    section: 5.5 Duplicate and late notifications
+    page_hint: 63
+  needle: within ±3 days
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F054
+  world_ref: RULE:BR-FNOL-003@v1
+  kind: general
+  statement: 'BR-FNOL-003 v1 (LD001): Claims notified more than 30 days after the date of loss are flagged for late-notification
+    review at triage and the policy notification condition is checked.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 733
+    section: 5.5 Duplicate and late notifications
+    page_hint: 63
+  needle: more than 30 days after the date of loss
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F055
+  world_ref: RULE:BR-FNOL-019@v1
+  kind: general
+  statement: 'BR-FNOL-019 v1 (LD001): Contact centre staff may authorise emergency make-safe work up to £500 at FNOL.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 736
+    section: 5.6 Emergencies and out-of-hours notifications
+    page_hint: 63
+  needle: up to £500 at FNOL
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F056
+  world_ref: RULE:BR-FNOL-012@v1
+  kind: general
+  statement: 'BR-FNOL-012 v1 (LD001): Out-of-hours telephone FNOLs receive a callback by 10:00 the next business day.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 737
+    section: 5.6 Emergencies and out-of-hours notifications
+    page_hint: 63
+  needle: by 10:00 the next business day
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F057
+  world_ref: RULE:BR-FNOL-009@v1
+  kind: general
+  statement: 'BR-FNOL-009 v1 (LD001): A telematics crash alert creates a draft FNOL within 5 minutes.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 739
+    section: 5.7 Telematics and digital notifications
+    page_hint: 63
+  needle: within 5 minutes
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F058
+  world_ref: RULE:BR-FNOL-011@v1
+  kind: general
+  statement: 'BR-FNOL-011 v1 (LD001): Portal and app FNOLs accept up to 20 photos of at most 15 MB each.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 740
+    section: 5.7 Telematics and digital notifications
+    page_hint: 63
+  needle: up to 20 photos of at most 15 MB each
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F059
+  world_ref: RULE:BR-FNOL-010@v1
+  kind: general
+  statement: 'BR-FNOL-010 v1 (LD001): Broker-submitted FNOLs must carry the broker reference.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 742
+    section: 5.8 Broker and third-party notifications
+    page_hint: 63
+  needle: Broker-submitted FNOLs must carry the broker reference
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F060
+  world_ref: RULE:BR-FNOL-021@v1
+  kind: general
+  statement: 'BR-FNOL-021 v1 (LD001): FNOLs reported by a third party need policyholder confirmation within 5 business days.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 743
+    section: 5.8 Broker and third-party notifications
+    page_hint: 64
+  needle: policyholder confirmation within 5 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F061
+  world_ref: RULE:BR-FNOL-020@v1
+  kind: general
+  statement: 'BR-FNOL-020 v1 (LD001): Storm FNOLs are tagged with the weather event code issued by Claims Operations.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 745
+    section: 5.9 Weather events
+    page_hint: 64
+  needle: Storm FNOLs are tagged with the weather
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F062
+  world_ref: RULE:BR-FNOL-006@v1
+  kind: general
+  statement: 'BR-FNOL-006 v1 (LD001): Motor FNOLs must capture the vehicle registration.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 940
+    section: 6.2 Line-specific fields
+    page_hint: 79
+  needle: Motor FNOLs must capture the vehicle registration
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F063
+  world_ref: RULE:BR-FNOL-015@v1
+  kind: general
+  statement: 'BR-FNOL-015 v1 (LD001): Fire FNOLs must record whether the fire service attended.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 941
+    section: 6.2 Line-specific fields
+    page_hint: 79
+  needle: Fire FNOLs must record whether the fire
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F064
+  world_ref: RULE:BR-FNOL-018@v1
+  kind: general
+  statement: 'BR-FNOL-018 v1 (LD001): Motor FNOLs record whether a foreign-registered vehicle is involved.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 942
+    section: 6.2 Line-specific fields
+    page_hint: 79
+  needle: Motor FNOLs record whether a foreign-registered vehicle
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F065
+  world_ref: RULE:BR-FNOL-016@v1
+  kind: general
+  statement: 'BR-FNOL-016 v1 (LD001): Loss locations are geocoded to postcode / postnummer level.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 944
+    section: 6.3 Location data
+    page_hint: 79
+  needle: Loss locations are geocoded to postcode /
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F066
+  world_ref: RULE:BR-FNOL-017@v1
+  kind: general
+  statement: 'BR-FNOL-017 v1 (LD001): Nordic FNOLs show the personal number masked (last 4 digits only) outside production.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 946
+    section: 6.4 Personal data and masking
+    page_hint: 79
+  needle: last 4 digits only
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F067
+  world_ref: RULE:BR-GEN-006@v1
+  kind: general
+  statement: 'BR-GEN-006 v1 (LD001): Production personal data must not be used in test or development environments; migration
+    rehearsals use masked extracts (NISA Circular 2025/11 §4).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 947
+    section: 6.4 Personal data and masking
+    page_hint: 79
+  needle: extracts (NISA Circular 2025/11 §4)
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F068
+  world_ref: BMS:CLRM010
+  kind: general
+  statement: CLARA FNOL capture uses map CLRM010, transaction FN01, program CLRFN010.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 949
+    section: 6.5 CLARA FNOL capture screen
+    page_hint: 79
+  needle: transaction FN01, program CLRFN010
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F069
+  world_ref: RULE:BR-FNOL-005@v2
+  kind: general
+  statement: 'BR-FNOL-005 v2 (LD001): Create a default indemnity reserve at FNOL from the default-reserve table (2025 values).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1035
+    section: 7.1 Purpose
+    page_hint: 88
+  needle: from the default-reserve table (2025 values)
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F070
+  world_ref: RULE:BR-FNOL-005@v2#parameters.default_reserve.HOMUK/EOW
+  kind: multipage_table
+  statement: 'Default reserve table 7-1: Home UK / Escape of Water default reserve £4,200 (BR-FNOL-005 v2).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 28
+    row: 34
+    col: 4
+    page_hint: 90
+  needle: £4,200
+  exclusive: false
+  also_in:
+  - LD002-F012
+  placement: PL-007
+  placement_key: ld_default_rsv_table
+  notes: Table 7-1 spans pages 88-92; the header row appears only on the first page of the table (no repeating header row);
+    the Escape of Water row is on the third page of the table (p.90).
+- fact_id: LD001-F071
+  world_ref: RULE:BR-FNOL-005@v2#parameters.default_reserve.MOTUK/COL
+  kind: multipage_table
+  statement: 'Default reserve table 7-1: Motor Private UK / Collision default reserve £2,750 (BR-FNOL-005 v2).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 28
+    row: 1
+    col: 4
+    page_hint: 88
+  needle: £2,750
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F072
+  world_ref: RULE:BR-FNOL-005@v2#parameters.default_reserve.LIAUK/BIJ
+  kind: multipage_table
+  statement: 'Default reserve table 7-1: SME Liability UK / Bodily Injury default reserve £12,500 (BR-FNOL-005 v2).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 28
+    row: 29
+    col: 4
+    page_hint: 90
+  needle: £12,500
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F073
+  world_ref: RULE:BR-FNOL-005@v2#parameters.default_reserve.HOMSE/EOW
+  kind: multipage_table
+  statement: 'Default reserve table 7-1: Hem Sverige / Escape of Water default reserve SEK 45,000 (BR-FNOL-005 v2).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 28
+    row: 51
+    col: 4
+    page_hint: 91
+  needle: SEK 45,000
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F074
+  world_ref: RULE:BR-FNOL-005@v2#parameters.default_reserve.MOTNO/COL
+  kind: multipage_table
+  statement: 'Default reserve table 7-1: Motor Privat Norge / Collision default reserve NOK 32,000 (BR-FNOL-005 v2).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 28
+    row: 8
+    col: 4
+    page_hint: 89
+  needle: NOK 32,000
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F075
+  world_ref: RULE:BR-RSV-001@v1
+  kind: general
+  statement: 'BR-RSV-001 v1 (LD001): A claim-specific initial reserve must replace the FNOL default reserve within 2 business
+    days of FNOL.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1041
+    section: 7.3 Replacing the default reserve
+    page_hint: 93
+  needle: within 2 business days of FNOL
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F076
+  world_ref: PROGRAM:CLRFN030
+  kind: general
+  statement: CLARA program CLRFN030 creates the claim record and default reserve.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1044
+    section: 7.4 System behaviour
+    page_hint: 93
+  needle: program CLRFN030
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F077
+  world_ref: WAVE:MW-0#date
+  kind: temporal
+  statement: Danish claims have been handled in Claims Hub since Wave 0 on 1 June 2026.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1044
+    section: 7.4 System behaviour
+    page_hint: 93
+  needle: since Wave 0 on 1 June 2026
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F078
+  world_ref: RULE:BR-TRI-004@v1
+  kind: image_text
+  statement: 'Triage diagram: Tier-3 claims route to Major & Complex Loss.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_image
+    ocr: true
+    image_name: word/media/image2.png
+    page_hint: 97
+  needle: Major & Complex Loss
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F079
+  world_ref: PROCESS:PS-TRI-02#sla
+  kind: alt_text
+  statement: 'Alt text: tier classification within 4 hours.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_alt_text
+    image_index: 1
+    page_hint: 97
+  needle: tier classification within 4 hours
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F080
+  world_ref: RULE:BR-TRI-007@v1
+  kind: general
+  statement: 'BR-TRI-007 v1 (LD001): Every new claim is scored by Sentinel (FRAUDNET before 2025-03-01) within 15 minutes
+    of FNOL.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1091
+    section: 8.2 Sentinel pre-screen
+    page_hint: 97
+  needle: within 15 minutes of FNOL
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F081
+  world_ref: VENDOR:VEN-15#role
+  kind: general
+  statement: Sentinel is licensed from Kestwick Analytics Ltd.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1092
+    section: 8.2 Sentinel pre-screen
+    page_hint: 97
+  needle: Kestwick Analytics Ltd
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F082
+  world_ref: RULE:BR-TRI-008@v1
+  kind: general
+  statement: 'BR-TRI-008 v1 (LD001): Re-run tier classification when the estimate crosses a tier boundary.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1095
+    section: 8.3 Applying the tier definitions
+    page_hint: 97
+  needle: Re-run tier classification when the estimate crosses
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F083
+  world_ref: RULE:BR-TRI-015@v1
+  kind: general
+  statement: 'BR-TRI-015 v1 (LD001): Nordic claims are tiered on the local-currency amount using the BR-TRI-003 equivalents.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1096
+    section: 8.3 Applying the tier definitions
+    page_hint: 97
+  needle: Nordic claims are tiered on the local-currency
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F084
+  world_ref: RULE:BR-TRI-009@v2
+  kind: general
+  statement: 'BR-TRI-009 v2 (LD001): A manual tier override needs a reason code and Team Leader approval within 24 hours.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1098
+    section: 8.4 Tier overrides
+    page_hint: 97
+  needle: Team Leader approval within 24 hours
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F085
+  world_ref: RULE:BR-TRI-017@v1
+  kind: general
+  statement: 'BR-TRI-017: flood claims above £30000 route to Major & Complex Loss.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 29
+    row: 8
+    col: 2
+    page_hint: 98
+  needle: Flood claims above £30000
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F086
+  world_ref: RULE:BR-TRI-004@v1
+  kind: general
+  statement: 'BR-TRI-004: Tier-3 claims route to Major & Complex Loss within 4 hours.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 29
+    row: 3
+    col: 2
+    page_hint: 98
+  needle: Major & Complex Loss within 4 hours
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F087
+  world_ref: RULE:BR-TRI-012@v1
+  kind: general
+  statement: 'BR-TRI-012 v1 (LD001): When daily storm FNOLs exceed 1500, triage switches to surge mode with simplified routing.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1104
+    section: 8.6 Surge mode
+    page_hint: 98
+  needle: exceed 1500
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F088
+  world_ref: RULE:BR-TRI-014@v1
+  kind: general
+  statement: 'BR-TRI-014 v1 (LD001): Triage records a note when the policyholder has an open claim.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1106
+    section: 8.7 Repeat claimants and theft without a police reference
+    page_hint: 98
+  needle: Triage records a note when the policyholder
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F089
+  world_ref: RULE:BR-TRI-010@v1
+  kind: general
+  statement: 'BR-TRI-010 v1 (LD001): Theft claims over £5000 without a police reference after 7 days go to SIU pre-screen
+    review.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1107
+    section: 8.7 Repeat claimants and theft without a police reference
+    page_hint: 98
+  needle: over £5000 without a police reference
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F090
+  world_ref: RULE:BR-TRI-006@v3
+  kind: general
+  statement: 'BR-TRI-006 v3 (LD001): Fast-track if Tier-1, Sentinel score below 30 and no injury; cap £2,000 (NOK 26,000 /
+    SEK 27,000 / DKK 17,000).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1336
+    section: 9.1 Eligibility
+    page_hint: 119
+  needle: cap £2,000 (NOK 26,000 / SEK 27,000 / DKK 17,000)
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F091
+  world_ref: RULE:BR-STL-009@v1
+  kind: general
+  statement: 'BR-STL-009 v1 (LD001): Fast-track claims meeting BR-TRI-006 are paid straight through without Claims Handler
+    approval up to the BR-TRI-006 cap.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1340
+    section: 9.2 Straight-through payment
+    page_hint: 119
+  needle: Fast-track claims meeting BR-TRI-006 are paid straight
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F092
+  world_ref: RULE:BR-ASM-016@v1
+  kind: image_text
+  statement: 'Assessor appointment diagram: Nordic external instructions go to Norrvik.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_image
+    ocr: true
+    image_name: word/media/image3.png
+    page_hint: 129
+  needle: Norrvik
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F093
+  world_ref: RULE:BR-ASM-002@v1
+  kind: alt_text
+  statement: 'Alt text: panel loss adjuster appointed within 2 business days of triage.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_alt_text
+    image_index: 2
+    page_hint: 129
+  needle: appointed within 2 business days of triage
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F094
+  world_ref: RULE:BR-ASM-002@v1
+  kind: general
+  statement: 'BR-ASM-002 v1 (LD001): Tier-2 property claims above £10,000 require an external Claims Assessor (loss adjuster)
+    from the panel, appointed within 2 business days of triage.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1458
+    section: 10.2 When to appoint a loss adjuster
+    page_hint: 129
+  needle: above £10,000 require an external Claims Assessor
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F095
+  world_ref: RULE:BR-ASM-015@v1
+  kind: general
+  statement: 'BR-ASM-015 v1 (LD001): Panel instructions are allocated by postcode area and current vendor load.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1461
+    section: 10.3 Panel and allocation
+    page_hint: 129
+  needle: Panel instructions are allocated by postcode area
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F096
+  world_ref: VENDOR:VEN-01#role
+  kind: general
+  statement: Brackenfield Loss Adjusting Ltd provides external Claims Assessors (loss adjusters) for UK property and motor.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 34
+    row: 1
+    col: 0
+    page_hint: 129
+  needle: Brackenfield Loss Adjusting Ltd
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F097
+  world_ref: RULE:BR-ASM-016@v1
+  kind: general
+  statement: 'BR-ASM-016 v1 (LD001): All external Nordic instructions go to Norrvik Skadetaxering.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1465
+    section: 10.4 Nordic instructions
+    page_hint: 129
+  needle: All external Nordic instructions go to Norrvik
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F098
+  world_ref: RULE:BR-ASM-010@v1
+  kind: general
+  statement: 'BR-ASM-010 v1 (LD001): A Claims Assessor may not assess a claim involving a relative or a prior employer within
+    3 years.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1467
+    section: 10.5 Conflicts of interest
+    page_hint: 129
+  needle: within 3 years
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F099
+  world_ref: SYSTEM:SYS17#renames
+  kind: footnote
+  statement: 'Footnote: the Assessor Portal was called the Adjuster Extranet until 1 September 2025.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_footnote
+    footnote_id: 2
+    page_hint: 130
+  needle: called the Adjuster Extranet until 1 September 2025
+  exclusive: false
+  also_in:
+  - LD002-F013
+- fact_id: LD001-F100
+  world_ref: RULE:BR-ASM-001@v1
+  kind: general
+  statement: 'BR-ASM-001 v1 (LD001): Windscreen claims are always desk-assessed.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1745
+    section: 11.1 Choosing the assessment method
+    page_hint: 151
+  needle: Windscreen claims are always desk-assessed
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F101
+  world_ref: RULE:BR-ASM-003@v2
+  kind: general
+  statement: 'BR-ASM-003 v2 (LD001): Escape of Water claims below £7500 may be assessed by video call.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1746
+    section: 11.1 Choosing the assessment method
+    page_hint: 151
+  needle: below £7500
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F102
+  world_ref: RULE:BR-ASM-008@v1
+  kind: general
+  statement: 'BR-ASM-008 v1 (LD001): Motor claims with an estimate below £3,000 may be desk-assessed from photos received
+    through the Evidence Intake Gateway (minimum 6 photos).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1747
+    section: 11.1 Choosing the assessment method
+    page_hint: 151
+  needle: below £3,000
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F103
+  world_ref: RULE:BR-ASM-005@v3
+  kind: general
+  statement: 'BR-ASM-005 v3 (LD001): Site inspection within 5 business days of appointment (Tier-3: 48 hours).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1749
+    section: 11.2 Inspection timescales
+    page_hint: 151
+  needle: 'Tier-3: 48 hours'
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F104
+  world_ref: RULE:BR-ASM-004@v2
+  kind: general
+  statement: 'BR-ASM-004 v2 (LD001): Claims Assessor reports must include at least 6 photos.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1751
+    section: 11.3 Assessor reports
+    page_hint: 151
+  needle: at least 6 photos
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F105
+  world_ref: RULE:BR-ASM-006@v1
+  kind: general
+  statement: 'BR-ASM-006 v1 (LD001): A Claims Assessor report is due within 5 business days of inspection.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1752
+    section: 11.3 Assessor reports
+    page_hint: 151
+  needle: within 5 business days of inspection
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F106
+  world_ref: RULE:BR-ASM-013@v1
+  kind: general
+  statement: 'BR-ASM-013 v1 (LD001): The coverage decision is sent within 3 business days of the assessor report.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1754
+    section: 11.4 Coverage decision
+    page_hint: 151
+  needle: within 3 business days of the assessor report
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F107
+  world_ref: RULE:BR-ASM-014@v1
+  kind: general
+  statement: 'BR-ASM-014 v1 (LD001): Re-inspection is required when the estimate rises by more than 25%.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1756
+    section: 11.5 Re-inspection and drying
+    page_hint: 151
+  needle: more than 25%
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F108
+  world_ref: RULE:BR-ASM-019@v1
+  kind: general
+  statement: 'BR-ASM-019 v1 (LD001): Drying contractors report moisture readings every 7 days.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1757
+    section: 11.5 Re-inspection and drying
+    page_hint: 151
+  needle: every 7 days
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F109
+  world_ref: RULE:BR-ASM-018@v1
+  kind: general
+  statement: 'BR-ASM-018 v1 (LD001): Contents items above £1500 need proof of ownership.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1759
+    section: 11.6 Contents and total loss
+    page_hint: 151
+  needle: above £1500
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F110
+  world_ref: RULE:BR-ASM-017@v2
+  kind: general
+  statement: 'BR-ASM-017 v2 (LD001): A vehicle is a total loss when repair cost exceeds 65% of market value.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1760
+    section: 11.6 Contents and total loss
+    page_hint: 151
+  needle: exceeds 65% of market value
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F111
+  world_ref: RULE:BR-ASM-009@v1
+  kind: general
+  statement: 'BR-ASM-009 v1 (LD001): Nordic home claims above NOK 120000 require an on-site takst (assessment).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1762
+    section: 11.7 Nordic takst
+    page_hint: 151
+  needle: above NOK 120000
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F112
+  world_ref: RULE:BR-TRI-005@v1
+  kind: general
+  statement: 'BR-TRI-005 v1 (LD001): Claims in NO, SE and DK route to Claims Operations Nordics.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1963
+    section: 12.1 Scope
+    page_hint: 166
+  needle: Claims in NO, SE and DK route
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F113
+  world_ref: WAVE:MW-0#date
+  kind: footnote
+  statement: 'Footnote: Wave 0 (Denmark) cut over to Claims Hub on 1 June 2026.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_footnote
+    footnote_id: 3
+    page_hint: 166
+  needle: Wave 0 (Denmark) cut over to Claims Hub on 1 June 2026
+  exclusive: false
+  also_in:
+  - LD002-F014
+- fact_id: LD001-F114
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier3_min_nok
+  kind: use_of_definition
+  statement: Nordic Tier-3 equivalents NOK 650,000 / SEK 680,000 / DKK 430,000 repeated in §12.2.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1980
+    section: 12.2 Tiering in local currency
+    page_hint: 168
+  needle: NOK 650,000 / SEK 680,000 / DKK 430,000
+  exclusive: false
+  also_in:
+  - LD002-F015
+  placement: PL-021
+  placement_key: ld_t3_tier3_nok
+- fact_id: LD001-F115
+  world_ref: RULE:BR-STL-020@v1
+  kind: general
+  statement: 'Hem Sverige självrisk deducted: SEK 2,000 (BR-STL-020).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 41
+    row: 5
+    col: 2
+    page_hint: 168
+  needle: SEK 2,000
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F116
+  world_ref: RULE:BR-REC-017@v1
+  kind: general
+  statement: 'BR-REC-017 v1 (LD001): Nordic recovery demands are issued in the counterparty''s national language.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1986
+    section: 12.4 Language and correspondence
+    page_hint: 168
+  needle: Nordic recovery demands are issued in the
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F117
+  world_ref: RULE:BR-STL-003@v1
+  kind: general
+  statement: 'BR-STL-003 v1 (LD001): Nordic claim payments use SEPA or domestic instant transfer in local currency.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1989
+    section: 12.5 Payments and currency
+    page_hint: 168
+  needle: Nordic claim payments use SEPA or domestic
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F118
+  world_ref: RULE:BR-RSV-012@v1
+  kind: general
+  statement: 'BR-RSV-012 v1 (LD001): Nordic reserves are held in NOK, SEK or DKK; GBP equivalents use the Group Ledger month-end
+    rate and a full revaluation runs at year-end (CLRGL090; reserve-engine revaluation runs from Wave 2).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1990
+    section: 12.5 Payments and currency
+    page_hint: 168
+  needle: Group Ledger month-end rate
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F119
+  world_ref: RULE:BR-REC-008@v1
+  kind: general
+  statement: 'BR-REC-008 v1 (LD001): Nordic recoveries follow the regress process with the counterparty insurer.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 1992
+    section: 12.6 Regress
+    page_hint: 168
+  needle: Nordic recoveries follow the regress process with
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F120
+  world_ref: RULE:BR-TRI-005@v1
+  kind: alt_text
+  statement: 'Alt text: Nordic claims route to Claims Operations Nordics.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_alt_text
+    image_index: 3
+    page_hint: 169
+  needle: route to Claims Operations Nordics
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F121
+  world_ref: RULE:BR-ASM-007@v1
+  kind: general
+  statement: 'BR-ASM-007 v1 (LD001): Offer a repair-network repair before a cash settlement for motor own-damage.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2156
+    section: 13.2 Repair network
+    page_hint: 183
+  needle: Offer a repair-network repair before a cash
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F122
+  world_ref: VENDOR:VEN-04#role
+  kind: general
+  statement: Thistlecombe Repair Network has 212 approved bodyshops and handles UK windscreen.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2157
+    section: 13.2 Repair network
+    page_hint: 183
+  needle: 212 approved bodyshops
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F123
+  world_ref: RULE:BR-REC-007@v1
+  kind: alt_text
+  statement: 'Alt text: total-loss vehicles released to Salvanta Salvage within 5 business days.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_alt_text
+    image_index: 4
+    page_hint: 183
+  needle: Salvanta Salvage within 5 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F124
+  world_ref: RULE:BR-TRI-011@v1
+  kind: general
+  statement: 'BR-TRI-011 v1 (LD001): Windscreen claims route to the glass network (Thistlecombe in the UK, Lyngholm Glass
+    in Denmark).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2163
+    section: 13.4 Windscreen
+    page_hint: 183
+  needle: Windscreen claims route to the glass network
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F125
+  world_ref: RULE:BR-STL-013@v1
+  kind: general
+  statement: 'BR-STL-013 v1 (LD001): Deduct the Motor Private UK compulsory excess of £250 from own-damage settlements.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2165
+    section: 13.5 Excess
+    page_hint: 183
+  needle: excess of £250
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F126
+  world_ref: PRODUCT:PRD-MOT-UK#excess
+  kind: general
+  statement: Motor Private UK windscreen excess is £95.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 43
+    row: 1
+    col: 2
+    page_hint: 183
+  needle: £95
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F127
+  world_ref: RULE:BR-REC-002@v1
+  kind: general
+  statement: 'BR-REC-002 v1 (LD001): Collision claims with a third party at fault are pursued for the full outlay including
+    excess.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2169
+    section: 13.6 Liability and recoveries
+    page_hint: 183
+  needle: Collision claims with a third party at
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F128
+  world_ref: RULE:BR-STL-015@v1
+  kind: general
+  statement: 'BR-STL-015 v1 (LD001): Deduct the Home UK escape of water excess of £400.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2403
+    section: 14.2 Escape of water
+    page_hint: 201
+  needle: excess of £400
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F129
+  world_ref: RULE:BR-REC-016@v1
+  kind: general
+  statement: 'BR-REC-016 v1 (LD001): Escape of water from a neighbouring property is pursued against the neighbour''s insurer.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2404
+    section: 14.2 Escape of water
+    page_hint: 201
+  needle: Escape of water from a neighbouring property
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F130
+  world_ref: RULE:BR-TRI-016@v1
+  kind: general
+  statement: 'BR-TRI-016 v1 (LD001): Subsidence claims route to Property Claims – Leeds with an external Claims Assessor.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2410
+    section: 14.4 Subsidence
+    page_hint: 201
+  needle: Subsidence claims route to Property Claims –
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F131
+  world_ref: RULE:BR-STL-008@v2
+  kind: general
+  statement: 'BR-STL-008 v2 (LD001): Where the customer declines a repair-network replacement, cash settlement is limited
+    to 75% of replacement cost.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2414
+    section: 14.6 Contents and cash settlement
+    page_hint: 201
+  needle: 75% of replacement cost
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F132
+  world_ref: PRODUCT:PRD-HOM-UK#excess
+  kind: general
+  statement: Home UK subsidence excess is £1,000.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 45
+    row: 3
+    col: 1
+    page_hint: 202
+  needle: £1,000
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F133
+  world_ref: RULE:BR-TRI-013@v1
+  kind: general
+  statement: 'BR-TRI-013 v1 (LD001): Business Interruption claims are always Tier-2 or above.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2666
+    section: 15.2 Tiering of business interruption claims
+    page_hint: 219
+  needle: claims are always Tier-2 or above
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F134
+  world_ref: RULE:BR-RSV-021@v1
+  kind: general
+  statement: 'BR-RSV-021 v1 (LD001): Business Interruption reserves above £100000 are reviewed monthly with a forensic accountant.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2668
+    section: 15.3 Forensic review
+    page_hint: 219
+  needle: above £100000
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F135
+  world_ref: RULE:BR-RSV-005@v1
+  kind: general
+  statement: 'BR-RSV-005 v1 (LD001): Set an expense reserve of 10% on commercial property claims.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2670
+    section: 15.4 Expense reserves
+    page_hint: 219
+  needle: 10% on commercial property
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F136
+  world_ref: RULE:BR-STL-010@v1
+  kind: general
+  statement: 'BR-STL-010 v1 (LD001): Interim payments are allowed once cover is confirmed.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2672
+    section: 15.5 Interim payments
+    page_hint: 219
+  needle: Interim payments are allowed once cover is
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F137
+  world_ref: RULE:BR-TRI-019@v1
+  kind: general
+  statement: 'BR-TRI-019 v1 (LD001): Public liability claims involving injury are always Tier-3.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2861
+    section: 16.2 Routing
+    page_hint: 233
+  needle: injury are always Tier-3
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F138
+  world_ref: VENDOR:VEN-08#role
+  kind: general
+  statement: Ravensworth Pike LLP are the defence solicitors for liability and bodily-injury claims.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2864
+    section: 16.3 Defence solicitors
+    page_hint: 233
+  needle: Ravensworth Pike LLP
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F139
+  world_ref: RULE:BR-RSV-004@v1
+  kind: general
+  statement: 'BR-RSV-004 v1 (LD001): Set an expense reserve of 15% of the indemnity reserve on bodily-injury claims.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2866
+    section: 16.4 Reserving bodily-injury claims
+    page_hint: 233
+  needle: 15% of the indemnity reserve
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F140
+  world_ref: RULE:BR-RSV-018@v1
+  kind: general
+  statement: 'BR-RSV-018 v1 (LD001): BI reserves open for more than 12 months are reviewed by the Reserving team quarterly.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 2867
+    section: 16.4 Reserving bodily-injury claims
+    page_hint: 233
+  needle: more than 12 months
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F141
+  world_ref: RULE:BR-RSV-008@v1
+  kind: general
+  statement: 'BR-RSV-008 v1 (LD001): Review the reserve within 2 business days of receiving an assessor report.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3041
+    section: 17.2 Reviewing on new information
+    page_hint: 249
+  needle: within 2 business days of receiving an assessor report
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F142
+  world_ref: RULE:BR-RSV-015@v1
+  kind: general
+  statement: 'BR-RSV-015 v1 (LD001): Every reserve movement carries a reason code from the RSNC code list.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3043
+    section: 17.3 Reason codes
+    page_hint: 249
+  needle: Every reserve movement carries a reason code
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F143
+  world_ref: RULE:BR-RSV-013@v1
+  kind: general
+  statement: 'BR-RSV-013 v1 (LD001): A reserve increase of more than 50% in one movement requires Team Leader review.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3045
+    section: 17.4 Large increases
+    page_hint: 249
+  needle: more than 50%
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F144
+  world_ref: RULE:BR-RSV-016@v1
+  kind: general
+  statement: 'BR-RSV-016 v1 (LD001): Expected recoveries are recorded separately and netted only when received.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3047
+    section: 17.5 Recoveries
+    page_hint: 249
+  needle: Expected recoveries are recorded separately and netted
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F145
+  world_ref: RULE:BR-RSV-002@v1
+  kind: general
+  statement: 'BR-RSV-002 v1 (LD001): Set an expense reserve of 8% of the indemnity reserve on Escape of Water claims.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3049
+    section: 17.6 Expense and legal reserves
+    page_hint: 249
+  needle: 8% of the indemnity reserve
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F146
+  world_ref: RULE:BR-RSV-020@v1
+  kind: general
+  statement: 'BR-RSV-020 v1 (LD001): Reserves are held to 2 decimal places and shown to whole currency units in reports.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3053
+    section: 17.7 Rounding and snapshots
+    page_hint: 250
+  needle: are held to 2 decimal places
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F147
+  world_ref: RULE:BR-RSV-019@v1
+  kind: general
+  statement: 'BR-RSV-019 v1 (LD001): A month-end reserve snapshot is retained for 10 years.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3054
+    section: 17.7 Rounding and snapshots
+    page_hint: 250
+  needle: retained for 10 years
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F148
+  world_ref: RULE:BR-RSV-003@v3#parameters
+  kind: split_boundary
+  statement: 'Reserve authority (first half, before the page break): Claims Handler £25,000; Team Leader £100,000.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3157
+    section: 18.1 Reserve authority limits
+    page_hint: 260
+  needle: Team Leader £100,000;
+  exclusive: false
+  also_in:
+  - LD002-F016
+  placement: PL-006
+  placement_key: ld_rsv_auth_split
+  notes: 'Split across a page break immediately after ''Team Leader £100,000;''. Combined statement: Reserve authority (BR-RSV-003
+    v3): Claims Handler £25,000; Team Leader £100,000; Claims Manager £500,000; Claims Director £2,000,000; above that the
+    Reserving Committee.'
+- fact_id: LD001-F149
+  world_ref: RULE:BR-RSV-003@v3#parameters
+  kind: split_boundary
+  statement: 'Reserve authority (second half, after the page break): Claims Manager £500,000; Claims Director £2,000,000.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3157
+    section: 18.1 Reserve authority limits
+    page_hint: 261
+  needle: Claims Manager £500,000; Claims Director £2,000,000
+  exclusive: false
+  also_in:
+  - LD002-F017
+  placement: PL-006
+  placement_key: ld_rsv_auth_split
+  notes: 'Second half of the split sentence. Combined statement: Reserve authority (BR-RSV-003 v3): Claims Handler £25,000;
+    Team Leader £100,000; Claims Manager £500,000; Claims Director £2,000,000; above that the Reserving Committee.'
+- fact_id: LD001-F150
+  world_ref: RULE:BR-RSV-003@v3#text
+  kind: alt_text
+  statement: 'Alt text: reserve authority escalates from Claims Director to the Reserving Committee.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_alt_text
+    image_index: 5
+    page_hint: 261
+  needle: Claims Director, Reserving Committee
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F151
+  world_ref: RULE:BR-RSV-017@v1
+  kind: general
+  statement: 'BR-RSV-017 v1 (LD001): A reopened claim needs a new reserve within 2 business days.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3169
+    section: 18.5 Reopened claims
+    page_hint: 261
+  needle: new reserve within 2 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F152
+  world_ref: RULE:BR-RSV-022@v1
+  kind: general
+  statement: 'BR-RSV-022 v1 (LD001): Litigated claims are re-reserved at every court milestone.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3231
+    section: 19.2 Event-driven reviews
+    page_hint: 267
+  needle: Litigated claims are re-reserved at every court
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F153
+  world_ref: RULE:BR-RSV-007@v3#parameters.review_days
+  kind: use_of_definition
+  statement: Reserves on Tier-3 claims must be reviewed at least every 14 days (BR-RSV-007 v3, effective 2026-07-01).
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3269
+    section: 19.4 Tier-3 reserve reviews
+    page_hint: 271
+  needle: reviewed at least every 14 days
+  exclusive: false
+  also_in:
+  - LD002-F018
+  placement: PL-002
+  placement_key: ld_t3_use
+  notes: Uses 'Tier-3' without restating the definition, which is in §2.4 about 256 pages earlier (LD001 PL-001).
+- fact_id: LD001-F154
+  world_ref: RULE:BR-RSV-009@v3#parameters.index_pct_pa
+  kind: comment
+  statement: 'Reviewer comment by Lena Kristiansen on §20.2: bodily-injury reserve indexation for 2026 is 3.1% per annum,
+    confirmed with Actuarial.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_comment
+    comment_id: 0
+    page_hint: 279
+  needle: 3.1% per annum
+  exclusive: true
+  also_in: []
+  placement: PL-011
+  placement_key: ld_comment_index
+  notes: 'Exclusive: the rate appears only in this Word comment, never in the LD001 body or in LD002.'
+- fact_id: LD001-F155
+  world_ref: RULE:BR-RSV-012@v1
+  kind: general
+  statement: CLRGL090 runs the year-end currency revaluation in CLARA.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3350
+    section: 20.4 Year-end revaluation
+    page_hint: 279
+  needle: program CLRGL090
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F156
+  world_ref: RULE:BR-RSV-024@v1
+  kind: general
+  statement: 'BR-RSV-024 v1 (LD001): Ceded reserves are recalculated monthly by CLRGL040.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3352
+    section: 20.5 Ceded reserves
+    page_hint: 279
+  needle: recalculated monthly by CLRGL040
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F157
+  world_ref: COMMITTEE:COM-01#cadence
+  kind: needle
+  statement: The Reserving Committee meets on the second Tuesday of each month at 10:00.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3474
+    section: 21.1 Constitution and meetings
+    page_hint: 290
+  needle: second Tuesday of each month at 10:00
+  exclusive: true
+  also_in:
+  - LD002-F019
+  placement: PL-020
+  placement_key: ld_rc_cadence
+- fact_id: LD001-F158
+  world_ref: COMMITTEE:COM-01#members
+  kind: general
+  statement: Reserving Committee members include the Chief Actuary and the Major & Complex Loss Manager.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3475
+    section: 21.1 Constitution and meetings
+    page_hint: 290
+  needle: Sebastian Moreau-Clarke (Chief Actuary)
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F159
+  world_ref: RULE:BR-RSV-011@v2#parameters.notify_hours
+  kind: use_of_definition
+  statement: Reinsurance must be notified within 24 hours of any reserve movement exceeding the LLNT (amount not restated).
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3597
+    section: 22.3 Notifying Reinsurance
+    page_hint: 300
+  needle: notified within 24 hours of any reserve movement exceeding the LLNT
+  exclusive: false
+  also_in:
+  - LD002-F020
+  placement: PL-017
+  placement_key: ld_llnt_use
+  notes: The LLNT amount (£250,000) is defined only in §2.6 (~p.18).
+- fact_id: LD001-F160
+  world_ref: PROCESS:PS-RSV-04#raci
+  kind: general
+  statement: The large loss notification step is accountable to the Reinsurance Manager, Per Øverland.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3598
+    section: 22.3 Notifying Reinsurance
+    page_hint: 300
+  needle: Per Øverland
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F161
+  world_ref: RULE:BR-RSV-011@v2#parameters.notify_hours
+  kind: image_text
+  statement: 'Large loss diagram: notify Reinsurance (ReCede) within 24 hours.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_image
+    ocr: true
+    image_name: word/media/image7.png
+    page_hint: 300
+  needle: within 24 hours
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F162
+  world_ref: RULE:BR-TRI-004@v1
+  kind: general
+  statement: 'BR-TRI-004 v1 (LD001): Tier-3 claims route to Major & Complex Loss within 4 hours; Tier-2 to specialist Claims
+    Handlers; Tier-1 to the fast-track queue when BR-TRI-006 is met.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3735
+    section: 23.2 Referral to Major & Complex Loss
+    page_hint: 311
+  needle: within 4 hours
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F163
+  world_ref: RULE:BR-RSV-006@v1
+  kind: general
+  statement: 'BR-RSV-006 v1 (LD001): Set a legal reserve of £15000 when proceedings are issued.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 3863
+    section: 24.2 Legal reserve
+    page_hint: 323
+  needle: £15000 when proceedings are issued
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F164
+  world_ref: RULE:BR-STL-002@v2#parameters.team_leader
+  kind: tracked_delete
+  statement: 'Tracked deletion in §25.2: the superseded Team Leader payment authority ''£50,000'' (BR-STL-002 v2).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_tracked
+    type: del
+    index: 1
+    page_hint: 15
+  needle: £50,000
+  exclusive: false
+  also_in: []
+  placement: PL-013
+  placement_key: ld_tracked_del
+  notes: Deleted text; superseded by the tracked insertion '£75,000' (BR-STL-002 v3).
+- fact_id: LD001-F165
+  world_ref: RULE:BR-STL-002@v3#parameters.team_leader
+  kind: tracked_insert
+  statement: 'Tracked insertion in §25.2: the Team Leader payment authority is ''£75,000'' (BR-STL-002 v3).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_tracked
+    type: ins
+    index: 1
+    page_hint: 334
+  needle: £75,000
+  exclusive: false
+  also_in: []
+  placement: PL-012
+  placement_key: ld_tracked_ins
+  notes: Inserted by tracked change next to the deleted '£50,000' (LD001 PL-013).
+- fact_id: LD001-F166
+  world_ref: DECISION:DEC-020
+  kind: comment
+  statement: 'Reviewer comment on §25.2: payment limits approved under DEC-020 on 12 August 2025.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_comment
+    comment_id: 1
+    page_hint: 334
+  needle: DEC-020 (12 August 2025)
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F167
+  world_ref: RULE:BR-STL-002@v3#parameters
+  kind: general
+  statement: 'Payment authority: Claims Manager £350,000; Claims Director £1,500,000 (BR-STL-002 v3).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 4026
+    section: 25.2 Payment authority limits
+    page_hint: 334
+  needle: Claims Manager £350,000; Claims Director £1,500,000
+  exclusive: false
+  also_in:
+  - LD002-F021
+- fact_id: LD001-F168
+  world_ref: RULE:BR-STL-001@v1
+  kind: general
+  statement: 'BR-STL-001 v1 (LD001): UK claim payments use Faster Payments; cheques were withdrawn on 2024-06-30.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 4029
+    section: 25.3 Payment methods
+    page_hint: 334
+  needle: cheques were withdrawn on 2024-06-30
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F169
+  world_ref: RULE:BR-STL-005@v1
+  kind: general
+  statement: 'BR-STL-005 v1 (LD001): A new payee requires account-name verification before the first payment.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 4033
+    section: 25.4 Payee verification
+    page_hint: 334
+  needle: A new payee requires account-name verification before
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F170
+  world_ref: RULE:BR-STL-012@v2
+  kind: general
+  statement: 'BR-STL-012 v2 (LD001): Payments with the same payee, amount and claim within 7 days are held for review.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 4035
+    section: 25.5 Duplicate payment control
+    page_hint: 334
+  needle: within 7 days are held for review
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F171
+  world_ref: RULE:BR-STL-011@v1
+  kind: general
+  statement: 'BR-STL-011 v1 (LD001): Vendor invoices are paid within 30 days of matching.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 4037
+    section: 25.6 Vendor invoices
+    page_hint: 334
+  needle: within 30 days of matching
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F172
+  world_ref: CIRCULAR:CIRC-2025-02#requirements
+  kind: general
+  statement: 'NISA Circular 2025/02 §3.1: impact tolerance of 48 hours for disruption to claims payments.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 4039
+    section: 25.7 Payment resilience
+    page_hint: 334
+  needle: impact tolerance of 48 hours
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F173
+  world_ref: RULE:BR-STL-007@v1
+  kind: general
+  statement: 'BR-STL-007 v1 (LD001): Every payee must pass WatchScreen sanctions screening before any claim payment is released.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 4156
+    section: 26.1 Requirement
+    page_hint: 345
+  needle: Every payee must pass WatchScreen sanctions screening
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F174
+  world_ref: CIRCULAR:CIRC-2026-04#requirements
+  kind: general
+  statement: 'NISA Circular 2026/04 §3.5: retain referral records for 7 years.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 69
+    row: 5
+    col: 1
+    page_hint: 351
+  needle: Retain referral records for 7 years
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F175
+  world_ref: SYSTEM:SYS03#renames
+  kind: footnote
+  statement: 'Footnote: Sentinel was known as FRAUDNET until 1 March 2025.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_footnote
+    footnote_id: 4
+    page_hint: 351
+  needle: known as FRAUDNET until 1 March 2025
+  exclusive: false
+  also_in:
+  - LD002-F022
+- fact_id: LD001-F176
+  world_ref: RULE:BR-FRD-009@v1
+  kind: general
+  statement: 'BR-FRD-009: add 20 pre-screen points when the payee bank account is linked to 2 or more claimants.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 70
+    row: 8
+    col: 2
+    page_hint: 352
+  needle: Add 20 pre-screen points
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F177
+  world_ref: RULE:BR-FRD-008@v2
+  kind: general
+  statement: 'BR-FRD-008 v2: add 14 pre-screen points when photo metadata dates differ from the date of loss.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 70
+    row: 7
+    col: 2
+    page_hint: 352
+  needle: Add 14 pre-screen points
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F178
+  world_ref: RULE:BR-FRD-005@v3
+  kind: general
+  statement: 'BR-FRD-005 v3 (LD001): Flag a linked-claims indicator when the claimant has 2 or more claims in 12 months, or
+    when a bank account or telephone number is shared with another claimant.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 4252
+    section: 27.4 Linked claims
+    page_hint: 352
+  needle: 2 or more claims in 12 months
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F179
+  world_ref: RULE:BR-FRD-018@v1
+  kind: general
+  statement: 'BR-FRD-018 v1 (LD001): Claims Handlers complete counter-fraud training every 12 months.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 4259
+    section: 27.7 Training
+    page_hint: 352
+  needle: every 12 months
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F180
+  world_ref: RULE:BR-FRD-013@v1
+  kind: general
+  statement: 'BR-FRD-013 v1 (LD001): Record the avoided payment as the fraud saving on CF outcomes.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 4261
+    section: 27.8 Fraud savings
+    page_hint: 352
+  needle: Record the avoided payment as the fraud
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F181
+  world_ref: RULE:BR-FRD-034@v1
+  kind: general
+  statement: NISA-FR1 is due within 30 calendar days after each quarter end; first return Q2 2026 due 2026-07-30.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 4263
+    section: 27.9 Regulatory returns
+    page_hint: 353
+  needle: first return for Q2 2026 due 2026-07-30
+  exclusive: false
+  also_in:
+  - LD002-F023
+- fact_id: LD001-F182
+  world_ref: RULE:BR-FRD-010@v1
+  kind: general
+  statement: 'BR-FRD-010 v1 (LD001): Surveillance by Greyfold Investigations requires written approval by the SIU Investigations
+    Manager.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 4265
+    section: 27.10 SIU partner
+    page_hint: 353
+  needle: Surveillance by Greyfold Investigations requires written approval
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F183
+  world_ref: RULE:BR-FRD-031@v1#parameters.threshold
+  kind: contradiction_old
+  statement: Refer a claim to SIU when the Sentinel score is 65 or more, for all tiers (BR-FRD-031 v1).
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5028
+    section: 28.3 Referral threshold
+    page_hint: 411
+  needle: Sentinel score is 65 or more, for all tiers
+  exclusive: false
+  also_in:
+  - LD002-F024
+  placement: PL-003
+  placement_key: ld_frd_65
+  notes: Superseded for Tier-3 claims from 2026-10-01 (threshold 60, BR-FRD-031 v2; DEC-014) - see C01.
+- fact_id: LD001-F184
+  world_ref: RULE:BR-FRD-031@v1#parameters.threshold
+  kind: image_text
+  statement: 'Referral diagram: Sentinel score of 65 or more leads to Referral to SIU.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_image
+    ocr: true
+    image_name: word/media/image8.png
+    page_hint: 411
+  needle: Referral to SIU
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F185
+  world_ref: RULE:BR-FRD-031@v1
+  kind: alt_text
+  statement: 'Alt text: a Sentinel score of 65 or more leads to referral to SIU.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_alt_text
+    image_index: 7
+    page_hint: 411
+  needle: Sentinel score of 65 or more leads to referral to SIU
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F186
+  world_ref: PROGRAM:CLRFR030
+  kind: general
+  statement: CLARA program CLRFR030 creates fraud referrals online and reads the threshold from CLR.T_PARAM.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5032
+    section: 28.4 Making the referral
+    page_hint: 411
+  needle: reads the threshold from CLR.T_PARAM
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F187
+  world_ref: RULE:BR-FRD-033@v1
+  kind: needle
+  statement: No claim may be declined, reduced or repudiated on an automated fraud score alone; SIU must document a human
+    review (BR-FRD-033).
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5087
+    section: 28.6 No adverse decision on the score alone
+    page_hint: 416
+  needle: declined, reduced or repudiated on an automated fraud score alone
+  exclusive: false
+  also_in:
+  - LD002-F025
+  placement: PL-005
+  placement_key: ld_no_autodecline
+- fact_id: LD001-F188
+  world_ref: PROCESS:PS-FRD-05#sla
+  kind: general
+  statement: Human review of an adverse outcome within 5 business days of the SIU outcome.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5089
+    section: 28.7 Human review
+    page_hint: 416
+  needle: within 5 business days of the SIU outcome
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F189
+  world_ref: RULE:BR-FRD-032@v2#parameters.notice_business_days
+  kind: needle
+  statement: The customer must be told in writing within 10 business days of a fraud referral that the claim is subject to
+    additional checks (BR-FRD-032 v2).
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5156
+    section: 29.1 The customer notice
+    page_hint: 421
+  needle: within 10 business days of a fraud referral
+  exclusive: false
+  also_in:
+  - LD002-F026
+  placement: PL-004
+  placement_key: ld_notice_10
+- fact_id: LD001-F190
+  world_ref: RULE:BR-FRD-032@v2
+  kind: alt_text
+  statement: 'Alt text: written notice within 10 business days unless deferred.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_alt_text
+    image_index: 8
+    page_hint: 421
+  needle: within 10 business days unless deferred
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F191
+  world_ref: RULE:BR-FRD-036@v1#parameters.approvers
+  kind: footnote
+  statement: A deferral of the customer notice must be approved by the SIU Investigations Manager (UK) or the Head of Counter-Fraud
+    & SIU (BR-FRD-036 v1).
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_footnote
+    footnote_id: 5
+    page_hint: 424
+  needle: SIU Investigations Manager (UK) or the Head of Counter-Fraud & SIU
+  exclusive: true
+  also_in:
+  - LD002-F027
+  placement: PL-008
+  placement_key: ld_deferral_approvers
+  notes: 'Exclusive: approvers stated only in this footnote (and its scan LD002).'
+- fact_id: LD001-F192
+  world_ref: BMS:CLRM420
+  kind: general
+  statement: Customer-notice deferrals are recorded in CLARA on map CLRM420, transaction FR12.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5186
+    section: 29.4 Recording deferrals
+    page_hint: 424
+  needle: transaction FR12
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F193
+  world_ref: RULE:BR-FRD-035@v2
+  kind: general
+  statement: 'BR-FRD-035 v2 (LD001): SIU must triage a new referral within 3 business days.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5223
+    section: 30.1 Triage of new referrals
+    page_hint: 427
+  needle: within 3 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F194
+  world_ref: RULE:BR-FRD-011@v1
+  kind: general
+  statement: 'BR-FRD-011 v1 (LD001): SIU cases close with NF (no fraud), CF (confirmed fraud) or WD (withdrawn).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5229
+    section: 30.4 Outcomes
+    page_hint: 427
+  needle: NF (no fraud), CF (confirmed fraud) or WD (withdrawn)
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F195
+  world_ref: RULE:BR-FRD-017@v1
+  kind: general
+  statement: 'BR-FRD-017 v1 (LD001): Claims Handlers receive the SIU outcome within 2 business days of case closure.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5231
+    section: 30.5 Feedback to handlers
+    page_hint: 427
+  needle: within 2 business days of case closure
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F196
+  world_ref: PROCESS:PS-STL-01#sla
+  kind: alt_text
+  statement: 'Alt text: settlement offer within 5 business days of the coverage decision.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_alt_text
+    image_index: 9
+    page_hint: 435
+  needle: within 5 business days of the coverage decision
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F197
+  world_ref: RULE:BR-STL-004@v1
+  kind: split_boundary
+  statement: 'Settlement offer validity, first half (before the heading 31.3): the offer remains open for a fixed period under
+    BR-STL-004.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5341
+    section: 31.2 Settlement offers
+    page_hint: 435
+  needle: remains open for acceptance for a fixed period, which under BR-STL-004 is
+  exclusive: false
+  also_in:
+  - LD002-F028
+  notes: 'Split across two paragraphs separated by the heading ''31.3 Offer validity''. Combined statement: A settlement offer
+    remains valid for 30 days from the offer date (BR-STL-004).'
+- fact_id: LD001-F198
+  world_ref: RULE:BR-STL-004@v1#parameters.validity_days
+  kind: split_boundary
+  statement: 'Settlement offer validity, second half (after the heading 31.3): 30 days from the offer date.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5343
+    section: 31.3 Offer validity
+    page_hint: 435
+  needle: 30 days from the offer date
+  exclusive: false
+  also_in:
+  - LD002-F029
+  notes: 'Continues the sentence split by the heading. Combined statement: A settlement offer remains valid for 30 days from
+    the offer date (BR-STL-004).'
+- fact_id: LD001-F199
+  world_ref: RULE:BR-STL-006@v1
+  kind: general
+  statement: 'BR-STL-006 v1 (LD001): Settlement letters use template codes STL01 to STL09.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5347
+    section: 31.5 Settlement letters
+    page_hint: 435
+  needle: STL01 to STL09
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F200
+  world_ref: RULE:BR-STL-014@v1
+  kind: general
+  statement: 'BR-STL-014 v1 (LD001): Where payment is made more than 30 days after settlement is agreed, add simple interest
+    at 3.5% per annum from day 31.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5349
+    section: 31.6 Interest on late payment
+    page_hint: 435
+  needle: 3.5% per annum from day 31
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F201
+  world_ref: RULE:BR-RSV-014@v1
+  kind: general
+  statement: 'BR-RSV-014 v1 (LD001): On final settlement the outstanding reserve is reduced to zero within 1 business day
+    and a settlement close movement (type ST) is recorded.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5494
+    section: 32.1 Closing the claim
+    page_hint: 447
+  needle: within 1 business day
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F202
+  world_ref: RULE:BR-RSV-010@v1
+  kind: general
+  statement: 'BR-RSV-010 v1 (LD001): Claims with a nil reserve and no open payments close within 5 business days.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5496
+    section: 32.2 Nil reserves
+    page_hint: 447
+  needle: close within 5 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F203
+  world_ref: RULE:BR-RSV-023@v1
+  kind: general
+  statement: 'BR-RSV-023 v1 (LD001): On a nil settlement the reserve is released in full within 1 business day.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5497
+    section: 32.2 Nil reserves
+    page_hint: 447
+  needle: in full within 1 business day
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F204
+  world_ref: DECISION:DEC-004
+  kind: footnote
+  statement: 'Footnote: Recoveries & Subrogation became a Group function on 1 September 2025 (DEC-004).'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_footnote
+    footnote_id: 6
+    page_hint: 451
+  needle: became a Group function on 1 September 2025
+  exclusive: false
+  also_in:
+  - LD002-F030
+- fact_id: LD001-F205
+  world_ref: PROCESS:S7#owner_history
+  kind: needle
+  statement: The recovery & subrogation process is owned by the Head of Recoveries & Subrogation, Freya Lindahl, since 2025-09-01.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5539
+    section: 33.1 Ownership and scope
+    page_hint: 451
+  needle: Head of Recoveries & Subrogation, Freya Lindahl
+  exclusive: false
+  also_in:
+  - LD002-F031
+  placement: PL-015
+  placement_key: ld_subro_owner
+- fact_id: LD001-F206
+  world_ref: RULE:BR-REC-001@v1
+  kind: general
+  statement: 'BR-REC-001 v1 (LD001): Where a third party is wholly or partly at fault, the Claims Assessor or Claims Handler
+    flags recovery potential and a subrogation case is opened within 10 business days.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5541
+    section: 33.2 Identifying recovery potential
+    page_hint: 451
+  needle: within 10 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F207
+  world_ref: RULE:BR-REC-005@v2
+  kind: image_text
+  statement: 'Recovery diagram: solicitor referral at £25,000 or more or where liability is defended.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_image
+    ocr: true
+    image_name: word/media/image11.png
+    page_hint: 451
+  needle: Solicitor referral
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F208
+  world_ref: SYSTEM:SYS24
+  kind: general
+  statement: The Subrogation Tracker has a retirement target of 31 December 2026.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5545
+    section: 33.3 Systems
+    page_hint: 451
+  needle: retirement target 31 December 2026
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F209
+  world_ref: RULE:BR-REC-003@v3#parameters.min_gbp
+  kind: needle
+  statement: Subrogation is pursued where the recoverable amount is £1,000 or more (BR-REC-003 v3, from 2025-09-01).
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5606
+    section: 34.1 Pursuit threshold
+    page_hint: 458
+  needle: recoverable amount is £1,000 or more
+  exclusive: false
+  also_in:
+  - LD002-F032
+  placement: PL-014
+  placement_key: ld_subro_1000
+- fact_id: LD001-F210
+  world_ref: RULE:BR-REC-003@v3#parameters.min_sek
+  kind: general
+  statement: 'Subrogation threshold in Sweden: SEK 13,500.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 102
+    row: 3
+    col: 1
+    page_hint: 458
+  needle: SEK 13,500
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F211
+  world_ref: RULE:BR-REC-012@v1
+  kind: general
+  statement: 'BR-REC-012 v1 (LD001): Unanswered subrogation demands are chased at 28 days.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5610
+    section: 34.2 Demands and chasing
+    page_hint: 458
+  needle: chased at 28 days
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F212
+  world_ref: RULE:BR-REC-005@v2
+  kind: general
+  statement: 'BR-REC-005 v2 (LD001): Refer a recovery to Quarryhill Solicitors when the recoverable amount is £25,000 or more
+    or liability is defended.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5612
+    section: 34.3 Solicitor referral
+    page_hint: 458
+  needle: £25,000 or more
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F213
+  world_ref: RULE:BR-REC-006@v1
+  kind: general
+  statement: 'BR-REC-006 v1 (LD001): Use a tracing agent when an uninsured third party has not responded after 60 days.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5614
+    section: 34.4 Uninsured third parties
+    page_hint: 458
+  needle: after 60 days
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F214
+  world_ref: RULE:BR-REC-009@v1
+  kind: general
+  statement: 'BR-REC-009 v1 (LD001): Set a limitation diary at 30 months for bodily-injury recoveries and at 66 months for
+    property recoveries.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5616
+    section: 34.5 Limitation
+    page_hint: 458
+  needle: 30 months for bodily-injury recoveries
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F215
+  world_ref: RULE:BR-REC-013@v1
+  kind: general
+  statement: 'BR-REC-013 v1 (LD001): Claims covered by a knock-for-knock arrangement are not pursued.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5618
+    section: 34.6 Knock-for-knock
+    page_hint: 458
+  needle: Claims covered by a knock-for-knock arrangement are
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F216
+  world_ref: RULE:BR-REC-004@v1
+  kind: general
+  statement: 'BR-REC-004 v1 (LD001): Refund the customer''s excess within 10 business days of a full recovery.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5620
+    section: 34.7 Excess refunds
+    page_hint: 458
+  needle: within 10 business days of a full recovery
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F217
+  world_ref: RULE:BR-REC-011@v2
+  kind: general
+  statement: 'BR-REC-011 v2 (LD001): Write-offs of recoveries above £10,000 require approval by the Head of Recoveries & Subrogation.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5622
+    section: 34.8 Write-offs
+    page_hint: 458
+  needle: above £10,000 require approval by the Head of Recoveries & Subrogation
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F218
+  world_ref: RULE:BR-REC-014@v1
+  kind: general
+  statement: 'BR-REC-014 v1 (LD001): Recovery rate is reported monthly as receipts over recoverable outlay.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5624
+    section: 34.9 Recovery MI
+    page_hint: 458
+  needle: Recovery rate is reported monthly as receipts
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F219
+  world_ref: RULE:BR-REC-007@v1
+  kind: general
+  statement: 'BR-REC-007 v1 (LD001): Total-loss vehicles are released to Salvanta Salvage within 5 business days of the total-loss
+    decision.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5730
+    section: 35.1 Salvage agent
+    page_hint: 467
+  needle: within 5 business days of the total-loss decision
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F220
+  world_ref: RULE:BR-REC-010@v1
+  kind: general
+  statement: 'BR-REC-010 v1 (LD001): Salvage categories A and B are scrapped; S and N may be sold for repair.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5732
+    section: 35.2 Salvage categories
+    page_hint: 467
+  needle: A and B are scrapped
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F221
+  world_ref: RULE:BR-REC-015@v2
+  kind: general
+  statement: 'BR-REC-015 v2 (LD001): Salvage proceeds are posted within 3 business days of receipt.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5734
+    section: 35.3 Salvage proceeds
+    page_hint: 467
+  needle: within 3 business days of receipt
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F222
+  world_ref: RULE:BR-GEN-004@v3
+  kind: general
+  statement: 'BR-GEN-004 v3 (LD001): Retain claim records for 7 years after closure; bodily-injury claims for 15 years after
+    closure.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5810
+    section: 36.1 Retention periods
+    page_hint: 473
+  needle: 15 years after closure
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F223
+  world_ref: RULE:BR-GEN-002@v1
+  kind: general
+  statement: 'BR-GEN-002 v1 (LD001): Respond to data subject access requests within 30 calendar days.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5814
+    section: 36.2 Subject access requests
+    page_hint: 473
+  needle: within 30 calendar days
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F224
+  world_ref: RULE:BR-GEN-008@v1
+  kind: general
+  statement: 'BR-GEN-008 v1 (LD001): Every insert, update or delete on claim data writes an audit record.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5818
+    section: 36.4 Audit trail
+    page_hint: 473
+  needle: Every insert, update or delete on claim
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F225
+  world_ref: RULE:BR-GEN-010@v1
+  kind: general
+  statement: 'BR-GEN-010 v1 (LD001): Telephone FNOL recordings are kept for 24 months.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_para
+    para_index: 5820
+    section: 36.5 Call recordings
+    page_hint: 473
+  needle: kept for 24 months
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F226
+  world_ref: RULE:BR-FRD-031#owner
+  kind: general
+  statement: 'Rule register: BR-FRD-031 owner is Niall Brannigan.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 109
+    row: 58
+    col: 4
+    page_hint: 482
+  needle: Niall Brannigan
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F227
+  world_ref: RULE:BR-RSV-007@v3#effective_from
+  kind: general
+  statement: 'Rule register: BR-RSV-007 is at version 3, effective 2026-07-01.'
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 109
+    row: 97
+    col: 3
+    page_hint: 481
+  needle: '2026-07-01'
+  exclusive: false
+  also_in: []
+- fact_id: LD001-F228
+  world_ref: BMS:CLRM620
+  kind: general
+  statement: CLARA map CLRM620 (transaction RC02, program CLRRC020) is the subrogation case screen.
+  file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx
+  locator:
+    kind: docx_table
+    table_index: 114
+    row: 13
+    col: 3
+    page_hint: 487
+  needle: Subrogation case
+  exclusive: false
+  also_in: []
+- fact_id: LD002-F001
+  world_ref: ANCHOR:LD002#received_stamp
+  kind: image_text
+  statement: The scanned copy carries a 'RECEIVED — Claims Standards Office — 03 JUL 2026' stamp on page 1.
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 1
+    ocr: true
+  needle: Claims Standards Office
+  exclusive: true
+  also_in: []
+  placement: PL-022
+  placement_key: ld2_stamp
+  notes: 'Rubber-stamp image drawn into the page-1 scan only; full stamp text: RECEIVED / Claims Standards Office / 03 JUL
+    2026.'
+- fact_id: LD002-F002
+  world_ref: ANCHOR:LD002#received_stamp
+  kind: image_text
+  statement: 'Page-1 received stamp date: 03 JUL 2026.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 1
+    ocr: true
+  needle: 03 JUL 2026
+  exclusive: false
+  also_in: []
+- fact_id: LD002-F003
+  world_ref: DECISION:DEC-008
+  kind: image_text
+  statement: 'Handwritten margin note on page 271: ''T3 review 14d from 01/07 — agreed RC 09/06 — LK''.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 271
+    ocr: true
+  needle: T3 review 14d from 01/07
+  exclusive: false
+  also_in: []
+  placement: PL-023
+  placement_key: ld2_margin
+  notes: 'Handwriting-style note in the blank area below §19.4 (only in the scan). Second line: ''agreed RC 09/06 — LK''.'
+- fact_id: LD002-F004
+  world_ref: DECISION:DEC-008
+  kind: image_text
+  statement: 'Second line of the handwritten note: ''agreed RC 09/06 — LK'' (the Reserving Committee of 9 June 2026, DEC-008).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 271
+    ocr: true
+  needle: agreed RC 09/06
+  exclusive: false
+  also_in: []
+- fact_id: LD002-F005
+  world_ref: ANCHOR:LD001#status
+  kind: image_text
+  statement: 'Scanned copy (p.2): Every page header of manual v7.2 reads ''Claims Handling Manual v7.2 — Approved 30 June
+    2026 — Owner: Claims Director''.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 2
+    ocr: true
+  needle: Claims Handling Manual v7.2
+  exclusive: false
+  also_in:
+  - LD001-F001
+  placement: PL-009
+  placement_key: ld_header
+  notes: OCR mirror of header fact in LD001. Header defined in section 0; section 1 (appendices) links to it.
+- fact_id: LD002-F006
+  world_ref: ANCHOR:LD001#doc_id
+  kind: image_text
+  statement: 'Scanned copy (p.2): Every page footer of manual v7.2 shows document ID CS-MAN-007 rev 7.2 and ''Classification:
+    Internal''.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 2
+    ocr: true
+  needle: CS-MAN-007 rev 7.2
+  exclusive: true
+  also_in:
+  - LD001-F002
+  placement: PL-010
+  placement_key: ld_footer_docid
+  notes: 'OCR mirror of footer fact in LD001. Exclusive: the document ID appears only in the footer (never in the body).'
+- fact_id: LD002-F007
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: 'Scanned copy (p.11): LD001 §2.2 defines Claims Assessor and states that ''loss adjuster'' in the manual means
+    an external (panel) Claims Assessor.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 11
+    ocr: true
+  needle: '''loss adjuster'' means an external (panel) Claims Assessor'
+  exclusive: false
+  also_in:
+  - LD001-F008
+  placement: PL-018
+  placement_key: ld_term_assessor
+  notes: OCR mirror of terminology fact in LD001.
+- fact_id: LD002-F008
+  world_ref: RULE:BR-TRI-003@v3#parameters
+  kind: definition
+  statement: 'Scanned copy (p.15): A Tier-3 claim is one with estimated incurred of £50,000 or more (NOK 650,000 / SEK 680,000
+    / DKK 430,000), any bodily injury, solicitor or litigation involvement at notification, or a property total loss (BR-TRI-003
+    v3, from 2025-01-01).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 15
+    ocr: true
+  needle: estimated incurred of £50,000 or more
+  exclusive: false
+  also_in:
+  - LD001-F016
+  placement: PL-001
+  placement_key: ld_t3_def
+  notes: 'OCR mirror of definition fact in LD001. Long-range definition: used ~256 pages later in §19.4 (LD001 PL-002) without
+    restating it.'
+- fact_id: LD002-F009
+  world_ref: RULE:BR-RSV-011@v2#parameters.threshold_gbp
+  kind: definition
+  statement: 'Scanned copy (p.18): Large Loss Notification Threshold (LLNT) = a reserve movement of £250,000 (BR-RSV-011 v2).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 18
+    ocr: true
+  needle: a reserve movement of £250,000
+  exclusive: false
+  also_in:
+  - LD001-F024
+  placement: PL-016
+  placement_key: ld_llnt_def
+  notes: 'OCR mirror of definition fact in LD001. Long-range definition: used in §22.3 (~p.300) without restating the amount.'
+- fact_id: LD002-F010
+  world_ref: CIRCULAR:CIRC-2024-07#effective
+  kind: image_text
+  statement: 'Scanned copy (p.63): Footnote: BR-FNOL-001 v2 implemented NISA Circular 2024/07 §2.1 from 1 October 2024.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 63
+    ocr: true
+  needle: NISA Circular 2024/07 §2.1 from 1 October 2024
+  exclusive: false
+  also_in:
+  - LD001-F051
+  notes: OCR mirror of footnote fact in LD001.
+- fact_id: LD002-F011
+  world_ref: RULE:BR-FNOL-001@v3#parameters
+  kind: contradiction_new
+  statement: 'Scanned copy (p.63): FNOL acknowledgement: within 1 business day for digital channels (portal, app, telematics)
+    and 2 business days for other channels (BR-FNOL-001 v3, effective 2026-07-01).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 63
+    ocr: true
+  needle: within 1 business day
+  exclusive: false
+  also_in:
+  - LD001-F052
+  placement: PL-019
+  placement_key: ld_fnol_ack
+  notes: OCR mirror of contradiction_new fact in LD001.
+- fact_id: LD002-F012
+  world_ref: RULE:BR-FNOL-005@v2#parameters.default_reserve.HOMUK/EOW
+  kind: multipage_table
+  statement: 'Scanned copy (p.90): Default reserve table 7-1: Home UK / Escape of Water default reserve £4,200 (BR-FNOL-005
+    v2).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 90
+    ocr: true
+  needle: £4,200
+  exclusive: false
+  also_in:
+  - LD001-F070
+  placement: PL-007
+  placement_key: ld_default_rsv_table
+  notes: OCR mirror of multipage_table fact in LD001. Table 7-1 spans pages 88-92; the header row appears only on the first
+    page of the table (no repeating header row); the Escape of Water row is on the third page of the table (p.90).
+- fact_id: LD002-F013
+  world_ref: SYSTEM:SYS17#renames
+  kind: image_text
+  statement: 'Scanned copy (p.130): Footnote: the Assessor Portal was called the Adjuster Extranet until 1 September 2025.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 130
+    ocr: true
+  needle: called the Adjuster Extranet until 1 September 2025
+  exclusive: false
+  also_in:
+  - LD001-F099
+  notes: OCR mirror of footnote fact in LD001.
+- fact_id: LD002-F014
+  world_ref: WAVE:MW-0#date
+  kind: image_text
+  statement: 'Scanned copy (p.166): Footnote: Wave 0 (Denmark) cut over to Claims Hub on 1 June 2026.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 166
+    ocr: true
+  needle: Wave 0 (Denmark) cut over to Claims Hub on 1 June 2026
+  exclusive: false
+  also_in:
+  - LD001-F113
+  notes: OCR mirror of footnote fact in LD001.
+- fact_id: LD002-F015
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier3_min_nok
+  kind: use_of_definition
+  statement: 'Scanned copy (p.168): Nordic Tier-3 equivalents NOK 650,000 / SEK 680,000 / DKK 430,000 repeated in §12.2.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 168
+    ocr: true
+  needle: NOK 650,000 / SEK 680,000 / DKK 430,000
+  exclusive: false
+  also_in:
+  - LD001-F114
+  placement: PL-021
+  placement_key: ld_t3_tier3_nok
+  notes: OCR mirror of use_of_definition fact in LD001.
+- fact_id: LD002-F016
+  world_ref: RULE:BR-RSV-003@v3#parameters
+  kind: split_boundary
+  statement: 'Scanned copy (p.260): Reserve authority (first half, before the page break): Claims Handler £25,000; Team Leader
+    £100,000.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 260
+    ocr: true
+  needle: Team Leader £100,000
+  exclusive: false
+  also_in:
+  - LD001-F148
+  placement: PL-006
+  placement_key: ld_rsv_auth_split
+  notes: 'OCR mirror of split_boundary fact in LD001. Split across a page break immediately after ''Team Leader £100,000;''.
+    Combined statement: Reserve authority (BR-RSV-003 v3): Claims Handler £25,000; Team Leader £100,000; Claims Manager £500,000;
+    Claims Director £2,000,000; above that the Reserving Committee.'
+- fact_id: LD002-F017
+  world_ref: RULE:BR-RSV-003@v3#parameters
+  kind: split_boundary
+  statement: 'Scanned copy (p.261): Reserve authority (second half, after the page break): Claims Manager £500,000; Claims
+    Director £2,000,000.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 261
+    ocr: true
+  needle: Claims Manager £500,000
+  exclusive: false
+  also_in:
+  - LD001-F149
+  placement: PL-006
+  placement_key: ld_rsv_auth_split
+  notes: 'OCR mirror of split_boundary fact in LD001. Second half of the split sentence. Combined statement: Reserve authority
+    (BR-RSV-003 v3): Claims Handler £25,000; Team Leader £100,000; Claims Manager £500,000; Claims Director £2,000,000; above
+    that the Reserving Committee.'
+- fact_id: LD002-F018
+  world_ref: RULE:BR-RSV-007@v3#parameters.review_days
+  kind: use_of_definition
+  statement: 'Scanned copy (p.271): Reserves on Tier-3 claims must be reviewed at least every 14 days (BR-RSV-007 v3, effective
+    2026-07-01).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 271
+    ocr: true
+  needle: reviewed at least every 14 days
+  exclusive: false
+  also_in:
+  - LD001-F153
+  placement: PL-002
+  placement_key: ld_t3_use
+  notes: OCR mirror of use_of_definition fact in LD001. Uses 'Tier-3' without restating the definition, which is in §2.4 about
+    256 pages earlier (LD001 PL-001).
+- fact_id: LD002-F019
+  world_ref: COMMITTEE:COM-01#cadence
+  kind: needle
+  statement: 'Scanned copy (p.290): The Reserving Committee meets on the second Tuesday of each month at 10:00.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 290
+    ocr: true
+  needle: second Tuesday of each month at 10:00
+  exclusive: true
+  also_in:
+  - LD001-F157
+  placement: PL-020
+  placement_key: ld_rc_cadence
+  notes: OCR mirror of needle fact in LD001.
+- fact_id: LD002-F020
+  world_ref: RULE:BR-RSV-011@v2#parameters.notify_hours
+  kind: use_of_definition
+  statement: 'Scanned copy (p.300): Reinsurance must be notified within 24 hours of any reserve movement exceeding the LLNT
+    (amount not restated).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 300
+    ocr: true
+  needle: notified within 24 hours of any reserve movement exceeding the LLNT
+  exclusive: false
+  also_in:
+  - LD001-F159
+  placement: PL-017
+  placement_key: ld_llnt_use
+  notes: OCR mirror of use_of_definition fact in LD001. The LLNT amount (£250,000) is defined only in §2.6 (~p.18).
+- fact_id: LD002-F021
+  world_ref: RULE:BR-STL-002@v3#parameters
+  kind: general
+  statement: 'Scanned copy (p.334): Payment authority: Claims Manager £350,000; Claims Director £1,500,000 (BR-STL-002 v3).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 334
+    ocr: true
+  needle: Claims Manager £350,000; Claims Director £1,500,000
+  exclusive: false
+  also_in:
+  - LD001-F167
+  notes: OCR mirror of general fact in LD001.
+- fact_id: LD002-F022
+  world_ref: SYSTEM:SYS03#renames
+  kind: image_text
+  statement: 'Scanned copy (p.351): Footnote: Sentinel was known as FRAUDNET until 1 March 2025.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 351
+    ocr: true
+  needle: known as FRAUDNET until 1 March 2025
+  exclusive: false
+  also_in:
+  - LD001-F175
+  notes: OCR mirror of footnote fact in LD001.
+- fact_id: LD002-F023
+  world_ref: RULE:BR-FRD-034@v1
+  kind: general
+  statement: 'Scanned copy (p.353): NISA-FR1 is due within 30 calendar days after each quarter end; first return Q2 2026 due
+    2026-07-30.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 353
+    ocr: true
+  needle: first return for Q2 2026 due 2026-07-30
+  exclusive: false
+  also_in:
+  - LD001-F181
+  notes: OCR mirror of general fact in LD001.
+- fact_id: LD002-F024
+  world_ref: RULE:BR-FRD-031@v1#parameters.threshold
+  kind: contradiction_old
+  statement: 'Scanned copy (p.411): Refer a claim to SIU when the Sentinel score is 65 or more, for all tiers (BR-FRD-031
+    v1).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 411
+    ocr: true
+  needle: Sentinel score is 65 or more, for all tiers
+  exclusive: false
+  also_in:
+  - LD001-F183
+  placement: PL-003
+  placement_key: ld_frd_65
+  notes: OCR mirror of contradiction_old fact in LD001. Superseded for Tier-3 claims from 2026-10-01 (threshold 60, BR-FRD-031
+    v2; DEC-014) - see C01.
+- fact_id: LD002-F025
+  world_ref: RULE:BR-FRD-033@v1
+  kind: needle
+  statement: 'Scanned copy (p.416): No claim may be declined, reduced or repudiated on an automated fraud score alone; SIU
+    must document a human review (BR-FRD-033).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 416
+    ocr: true
+  needle: declined, reduced or repudiated on an automated fraud score alone
+  exclusive: false
+  also_in:
+  - LD001-F187
+  placement: PL-005
+  placement_key: ld_no_autodecline
+  notes: OCR mirror of needle fact in LD001.
+- fact_id: LD002-F026
+  world_ref: RULE:BR-FRD-032@v2#parameters.notice_business_days
+  kind: needle
+  statement: 'Scanned copy (p.421): The customer must be told in writing within 10 business days of a fraud referral that
+    the claim is subject to additional checks (BR-FRD-032 v2).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 421
+    ocr: true
+  needle: within 10 business days of a fraud referral
+  exclusive: false
+  also_in:
+  - LD001-F189
+  placement: PL-004
+  placement_key: ld_notice_10
+  notes: OCR mirror of needle fact in LD001.
+- fact_id: LD002-F027
+  world_ref: RULE:BR-FRD-036@v1#parameters.approvers
+  kind: image_text
+  statement: 'Scanned copy (p.424): A deferral of the customer notice must be approved by the SIU Investigations Manager (UK)
+    or the Head of Counter-Fraud & SIU (BR-FRD-036 v1).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 424
+    ocr: true
+  needle: SIU Investigations Manager (UK) or the Head of Counter-Fraud & SIU
+  exclusive: true
+  also_in:
+  - LD001-F191
+  placement: PL-008
+  placement_key: ld_deferral_approvers
+  notes: 'OCR mirror of footnote fact in LD001. Exclusive: approvers stated only in this footnote (and its scan LD002).'
+- fact_id: LD002-F028
+  world_ref: RULE:BR-STL-004@v1
+  kind: split_boundary
+  statement: 'Scanned copy (p.435): Settlement offer validity, first half (before the heading 31.3): the offer remains open
+    for a fixed period under BR-STL-004.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 435
+    ocr: true
+  needle: for a fixed period, which under BR-STL-004 is
+  exclusive: false
+  also_in:
+  - LD001-F197
+  notes: 'OCR mirror of split_boundary fact in LD001. Split across two paragraphs separated by the heading ''31.3 Offer validity''.
+    Combined statement: A settlement offer remains valid for 30 days from the offer date (BR-STL-004).'
+- fact_id: LD002-F029
+  world_ref: RULE:BR-STL-004@v1#parameters.validity_days
+  kind: split_boundary
+  statement: 'Scanned copy (p.435): Settlement offer validity, second half (after the heading 31.3): 30 days from the offer
+    date.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 435
+    ocr: true
+  needle: 30 days from the offer date
+  exclusive: false
+  also_in:
+  - LD001-F198
+  notes: 'OCR mirror of split_boundary fact in LD001. Continues the sentence split by the heading. Combined statement: A settlement
+    offer remains valid for 30 days from the offer date (BR-STL-004).'
+- fact_id: LD002-F030
+  world_ref: DECISION:DEC-004
+  kind: image_text
+  statement: 'Scanned copy (p.451): Footnote: Recoveries & Subrogation became a Group function on 1 September 2025 (DEC-004).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 451
+    ocr: true
+  needle: became a Group function on 1 September 2025
+  exclusive: false
+  also_in:
+  - LD001-F204
+  notes: OCR mirror of footnote fact in LD001.
+- fact_id: LD002-F031
+  world_ref: PROCESS:S7#owner_history
+  kind: needle
+  statement: 'Scanned copy (p.451): The recovery & subrogation process is owned by the Head of Recoveries & Subrogation, Freya
+    Lindahl, since 2025-09-01.'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 451
+    ocr: true
+  needle: Head of Recoveries & Subrogation, Freya Lindahl
+  exclusive: false
+  also_in:
+  - LD001-F205
+  placement: PL-015
+  placement_key: ld_subro_owner
+  notes: OCR mirror of needle fact in LD001.
+- fact_id: LD002-F032
+  world_ref: RULE:BR-REC-003@v3#parameters.min_gbp
+  kind: needle
+  statement: 'Scanned copy (p.458): Subrogation is pursued where the recoverable amount is £1,000 or more (BR-REC-003 v3,
+    from 2025-09-01).'
+  file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf
+  locator:
+    kind: pdf_page
+    page: 458
+    ocr: true
+  needle: recoverable amount is £1,000 or more
+  exclusive: false
+  also_in:
+  - LD001-F209
+  placement: PL-014
+  placement_key: ld_subro_1000
+  notes: OCR mirror of needle fact in LD001.
+- fact_id: LD012-F001
+  world_ref: PERSON:P005#name_history
+  kind: alias_use
+  statement: 'Manual v6.1 header: ''Approved 15 May 2023 — Owner: Ingrid Sørensen, Claims Director''.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_header
+    section_index: 0
+    page_hint: 1
+  needle: 'Approved 15 May 2023 — Owner: Ingrid Sørensen, Claims Director'
+  exclusive: false
+  also_in: []
+  placement: PL-039
+  placement_key: ld12_header
+  notes: Uses the Claims Director's pre-2025-08-23 name (Ingrid Sørensen, now Ingrid Ashby).
+- fact_id: LD012-F002
+  world_ref: ANCHOR:LD012#doc_id
+  kind: footer
+  statement: Manual v6.1 footer shows document ID CS-MAN-006 rev 6.1.
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_footer
+    section_index: 0
+    page_hint: 1
+  needle: CS-MAN-006 rev 6.1
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F003
+  world_ref: PERSON:P005#name_history
+  kind: temporal
+  statement: Manual v6.1 owner shown as Ingrid Sørensen, Claims Director (2023).
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 4
+    col: 1
+    page_hint: 2
+  needle: Ingrid Sørensen
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F004
+  world_ref: PERSON:P015#titles
+  kind: temporal
+  statement: In May 2023 Martin Calloway was the Recoveries Manager and signed off manual v6.1.
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_table
+    table_index: 2
+    row: 7
+    col: 0
+    page_hint: 2
+  needle: Martin Calloway
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F005
+  world_ref: GLOSSARY:G-007
+  kind: terminology
+  statement: 'Manual v6.1 defines ''Case handler'': The member of staff responsible for the day-to-day handling of a claim.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 51
+    section: 2.2 Terms used in this manual
+    page_hint: 7
+  needle: The member of staff responsible for the day-to-day hand
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F006
+  world_ref: null
+  kind: terminology
+  statement: 'Manual v6.1 defines ''FRAUDNET score'': The fraud risk score from 0 to 100 produced by FRAUDNET for every new
+    claim.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 54
+    section: 2.2 Terms used in this manual
+    page_hint: 7
+  needle: The fraud risk score from 0 to 100 produced by FRAUDNET
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F007
+  world_ref: RULE:BR-TRI-003@v2#parameters
+  kind: temporal
+  statement: 'Manual v6.1 (2023): Tier-3 threshold £40,000 (BR-TRI-003 v2, 2022-01-01 to 2024-12-31).'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 60
+    section: 2.3 Claim tiers
+    page_hint: 7
+  needle: estimated incurred is £40,000 or more
+  exclusive: false
+  also_in: []
+  notes: Superseded by BR-TRI-003 v3 (£50,000) from 2025-01-01.
+- fact_id: LD012-F008
+  world_ref: PROCESS:S7#owner_history
+  kind: temporal
+  statement: In 2023 the Recovery & Subrogation stage was owned by Martin Calloway (Recoveries Manager).
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_table
+    table_index: 6
+    row: 7
+    col: 2
+    page_hint: 17
+  needle: Recoveries Manager
+  exclusive: false
+  also_in: []
+  notes: Owner from 2025-09-01 is Freya Lindahl; this 2023 manual is superseded.
+- fact_id: LD012-F009
+  world_ref: RULE:BR-GEN-001@v1
+  kind: general
+  statement: 'BR-GEN-001 v1 (LD012): Any authority override needs a second approver at the next level.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 177
+    section: 3.4 Override of authority
+    page_hint: 17
+  needle: Any authority override needs a second approver
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F010
+  world_ref: RULE:BR-GEN-007@v1
+  kind: general
+  statement: 'BR-GEN-007 v1 (LD012): Material claim decisions are recorded in claim notes with the decision maker''s id.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 178
+    section: 3.4 Override of authority
+    page_hint: 17
+  needle: Material claim decisions are recorded in claim
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F011
+  world_ref: RULE:BR-GEN-009@v1
+  kind: general
+  statement: 'BR-GEN-009 v1 (LD012): Interpreters are offered to claimants on request in any language.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 320
+    section: 4.2 Interpreters and language
+    page_hint: 26
+  needle: Interpreters are offered to claimants on request
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F012
+  world_ref: RULE:BR-FNOL-013@v1
+  kind: general
+  statement: 'BR-FNOL-013 v1 (LD012): Record the claimant''s language preference (NO, SV, DA or EN) at FNOL.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 321
+    section: 4.2 Interpreters and language
+    page_hint: 26
+  needle: Record the claimant's language preference (NO, SV
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F013
+  world_ref: RULE:BR-FNOL-002@v1
+  kind: general
+  statement: 'BR-FNOL-002 v1 (LD012): An FNOL must capture policy number, date of loss, Claim Type (peril), loss location,
+    contact details and a description of loss before a claim number is issued.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 423
+    section: 5.1 Receiving the notification
+    page_hint: 33
+  needle: before a claim number is issued
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F014
+  world_ref: RULE:BR-FNOL-001@v1
+  kind: temporal
+  statement: 'BR-FNOL-001 v1 (LD012): Acknowledge every first notice of loss within 5 business days.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 425
+    section: 5.2 Acknowledgement
+    page_hint: 33
+  needle: within 5 business days
+  exclusive: false
+  also_in: []
+  notes: v1 (2012-01-01 to 2024-09-30). Superseded by v2 (2 business days, NISA Circular 2024/07) and v3 (1/2 business days).
+- fact_id: LD012-F015
+  world_ref: RULE:BR-FNOL-007@v1
+  kind: general
+  statement: 'BR-FNOL-007 v1 (LD012): Theft FNOLs must capture a police crime reference within 7 days.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 427
+    section: 5.3 Theft and third parties
+    page_hint: 33
+  needle: crime reference within 7 days
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F016
+  world_ref: RULE:BR-FNOL-008@v1
+  kind: general
+  statement: 'BR-FNOL-008 v1 (LD012): Where a third party is involved, capture name, vehicle or address and insurer if known.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 428
+    section: 5.3 Theft and third parties
+    page_hint: 33
+  needle: Where a third party is involved, capture
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F017
+  world_ref: RULE:BR-FNOL-004@v1
+  kind: general
+  statement: 'BR-FNOL-004 v1 (LD012): Before a claim is created, check for an existing claim on the same policy with a date
+    of loss within ±3 days; a match must be confirmed or rejected by the case handler.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 430
+    section: 5.4 Duplicate claims
+    page_hint: 33
+  needle: within ±3 days
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F018
+  world_ref: RULE:BR-FNOL-003@v1
+  kind: general
+  statement: 'BR-FNOL-003 v1 (LD012): Claims notified more than 30 days after the date of loss are flagged for late-notification
+    review at triage and the policy notification condition is checked.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 432
+    section: 5.5 Late notification
+    page_hint: 33
+  needle: more than 30 days after the date of loss
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F019
+  world_ref: RULE:BR-FNOL-010@v1
+  kind: general
+  statement: 'BR-FNOL-010 v1 (LD012): Broker-submitted FNOLs must carry the broker reference.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 434
+    section: 5.6 Brokers
+    page_hint: 33
+  needle: Broker-submitted FNOLs must carry the broker reference
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F020
+  world_ref: RULE:BR-FNOL-019@v1
+  kind: general
+  statement: 'BR-FNOL-019 v1 (LD012): Contact centre staff may authorise emergency make-safe work up to £500 at FNOL.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 436
+    section: 5.7 Emergency work
+    page_hint: 33
+  needle: up to £500 at FNOL
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F021
+  world_ref: RULE:BR-FNOL-009@v1
+  kind: general
+  statement: 'BR-FNOL-009 v1 (LD012): A telematics crash alert creates a draft FNOL within 5 minutes.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 438
+    section: 5.8 Telematics alerts and online notification
+    page_hint: 33
+  needle: draft FNOL within 5 minutes
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F022
+  world_ref: RULE:BR-FNOL-011@v1
+  kind: general
+  statement: 'BR-FNOL-011 v1 (LD012): Portal and app FNOLs accept up to 20 photos of at most 15 MB each.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 439
+    section: 5.8 Telematics alerts and online notification
+    page_hint: 33
+  needle: accept up to 20 photos of
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F023
+  world_ref: SYSTEM:SYS04#renames
+  kind: alias_use
+  statement: In 2023 the customer portal was ClaimLine Web.
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 440
+    section: 5.8 Telematics alerts and online notification
+    page_hint: 33
+  needle: ClaimLine Web
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F024
+  world_ref: RULE:BR-FNOL-020@v1
+  kind: general
+  statement: 'BR-FNOL-020 v1 (LD012): Storm FNOLs are tagged with the weather event code issued by Claims Operations.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 442
+    section: 5.9 Storm events
+    page_hint: 33
+  needle: Storm FNOLs are tagged with the weather
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F025
+  world_ref: RULE:BR-FNOL-001@v1
+  kind: alt_text
+  statement: 'v6.1 alt text (2023): acknowledge within 5 business days.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_alt_text
+    image_index: 0
+    page_hint: 34
+  needle: acknowledge within 5 business days
+  exclusive: false
+  also_in: []
+  notes: 'Temporal: BR-FNOL-001 v1, superseded from 2024-10-01.'
+- fact_id: LD012-F026
+  world_ref: RULE:BR-FNOL-006@v1
+  kind: general
+  statement: 'BR-FNOL-006 v1 (LD012): Motor FNOLs must capture the vehicle registration.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 556
+    section: 6.1 Mandatory information
+    page_hint: 46
+  needle: Motor FNOLs must capture the vehicle registration
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F027
+  world_ref: RULE:BR-FNOL-015@v1
+  kind: general
+  statement: 'BR-FNOL-015 v1 (LD012): Fire FNOLs must record whether the fire service attended.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 557
+    section: 6.1 Mandatory information
+    page_hint: 46
+  needle: Fire FNOLs must record whether the fire
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F028
+  world_ref: RULE:BR-FNOL-018@v1
+  kind: general
+  statement: 'BR-FNOL-018 v1 (LD012): Motor FNOLs record whether a foreign-registered vehicle is involved.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 558
+    section: 6.1 Mandatory information
+    page_hint: 46
+  needle: Motor FNOLs record whether a foreign-registered vehicle
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F029
+  world_ref: RULE:BR-FNOL-016@v1
+  kind: general
+  statement: 'BR-FNOL-016 v1 (LD012): Loss locations are geocoded to postcode / postnummer level.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 560
+    section: 6.2 Locations and personal numbers
+    page_hint: 46
+  needle: Loss locations are geocoded to postcode /
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F030
+  world_ref: RULE:BR-FNOL-017@v1
+  kind: general
+  statement: 'BR-FNOL-017 v1 (LD012): Nordic FNOLs show the personal number masked (last 4 digits only) outside production.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 561
+    section: 6.2 Locations and personal numbers
+    page_hint: 46
+  needle: number masked (last 4 digits only)
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F031
+  world_ref: RULE:BR-TRI-007@v1
+  kind: general
+  statement: 'BR-TRI-007 v1 (LD012): Every new claim is scored by FRAUDNET within 15 minutes of FNOL.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 659
+    section: 7.2 FRAUDNET pre-screen
+    page_hint: 53
+  needle: within 15 minutes of FNOL
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F032
+  world_ref: RULE:BR-TRI-009@v1
+  kind: temporal
+  statement: 'BR-TRI-009 v1 (LD012): A manual tier override needs a reason code and Team Leader approval within 14 hours.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 662
+    section: 7.3 Tiering
+    page_hint: 53
+  needle: Team Leader approval within 14 hours
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F033
+  world_ref: RULE:BR-TRI-004@v1
+  kind: general
+  statement: 'BR-TRI-004 v1 (LD012): Tier-3 claims route to Major & Complex Loss within 4 hours; Tier-2 to specialist case
+    handlers; Tier-1 to the fast-track queue when BR-TRI-006 is met.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 664
+    section: 7.4 Allocation
+    page_hint: 53
+  needle: Tier-3 claims route
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F034
+  world_ref: RULE:BR-TRI-001@v1
+  kind: general
+  statement: 'BR-TRI-001 v1 (LD012): Tier-2 Escape of Water claims route to Property Claims – Leeds.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 665
+    section: 7.4 Allocation
+    page_hint: 53
+  needle: Tier-2 Escape of
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F035
+  world_ref: RULE:BR-TRI-002@v1
+  kind: general
+  statement: 'BR-TRI-002 v1 (LD012): Any claim with bodily injury routes to Major & Complex Loss regardless of amount.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 666
+    section: 7.4 Allocation
+    page_hint: 53
+  needle: Any claim with bodily injury routes to
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F036
+  world_ref: RULE:BR-TRI-005@v1
+  kind: general
+  statement: 'BR-TRI-005 v1 (LD012): Claims in NO, SE and DK route to Claims Operations Nordics.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 667
+    section: 7.4 Allocation
+    page_hint: 53
+  needle: Claims in NO, SE and DK route
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F037
+  world_ref: RULE:BR-TRI-016@v1
+  kind: general
+  statement: 'BR-TRI-016 v1 (LD012): Subsidence claims route to Property Claims – Leeds with an external loss adjuster.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 668
+    section: 7.4 Allocation
+    page_hint: 53
+  needle: Subsidence claims route to Property Claims –
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F038
+  world_ref: RULE:BR-TRI-017@v1
+  kind: general
+  statement: 'BR-TRI-017 v1 (LD012): Flood claims above £30000 route to Major & Complex Loss.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 669
+    section: 7.4 Allocation
+    page_hint: 53
+  needle: Flood claims above £30000 route to
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F039
+  world_ref: RULE:BR-TRI-018@v1
+  kind: general
+  statement: 'BR-TRI-018 v1 (LD012): Fire claims with suspected arson go to SIU pre-screen review.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 670
+    section: 7.4 Allocation
+    page_hint: 53
+  needle: Fire claims with suspected arson go to
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F040
+  world_ref: RULE:BR-TRI-011@v1
+  kind: general
+  statement: 'BR-TRI-011 v1 (LD012): Windscreen claims route to the glass network (Thistlecombe in the UK, Lyngholm Glass
+    in Denmark).'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 671
+    section: 7.4 Allocation
+    page_hint: 53
+  needle: Windscreen claims route to the glass network
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F041
+  world_ref: RULE:BR-TRI-012@v1
+  kind: general
+  statement: 'BR-TRI-012 v1 (LD012): When daily storm FNOLs exceed 1500, triage switches to surge mode with simplified routing.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 673
+    section: 7.5 Storm surge
+    page_hint: 53
+  needle: storm FNOLs exceed 1500, triage switches
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F042
+  world_ref: RULE:BR-TRI-006@v1
+  kind: temporal
+  statement: 'BR-TRI-006 v1 (LD012): Fast-track if Tier-1, FRAUDNET score below 25 and no injury; cap £1,000.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 808
+    section: 8.1 Eligibility
+    page_hint: 65
+  needle: FRAUDNET score below 25 and no injury; cap £1,000
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F043
+  world_ref: RULE:BR-STL-009@v1
+  kind: general
+  statement: 'BR-STL-009 v1 (LD012): Fast-track claims meeting BR-TRI-006 are paid straight through without case handler approval
+    up to the BR-TRI-006 cap.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 810
+    section: 8.2 Payment without referral
+    page_hint: 65
+  needle: Fast-track claims meeting BR-TRI-006 are paid straight
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F044
+  world_ref: RULE:BR-ASM-002@v1
+  kind: general
+  statement: 'BR-ASM-002 v1 (LD012): Tier-2 property claims above £10,000 require an external loss adjuster from the panel,
+    appointed within 2 business days of triage.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 888
+    section: 9.1 When a loss adjuster is instructed
+    page_hint: 71
+  needle: above £10,000 require an external loss adjuster
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F045
+  world_ref: RULE:BR-ASM-015@v1
+  kind: general
+  statement: 'BR-ASM-015 v1 (LD012): Panel instructions are allocated by postcode area and current vendor load.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 890
+    section: 9.2 Panel allocation
+    page_hint: 71
+  needle: Panel instructions are allocated by postcode area
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F046
+  world_ref: RULE:BR-ASM-016@v1
+  kind: general
+  statement: 'BR-ASM-016 v1 (LD012): All external Nordic instructions go to Norrvik Skadetaxering.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 894
+    section: 9.3 Nordic instructions
+    page_hint: 71
+  needle: All external Nordic instructions go to Norrvik
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F047
+  world_ref: RULE:BR-ASM-010@v1
+  kind: general
+  statement: 'BR-ASM-010 v1 (LD012): A loss adjuster may not assess a claim involving a relative or a prior employer within
+    3 years.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 896
+    section: 9.4 Conflicts
+    page_hint: 71
+  needle: prior employer within 3 years
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F048
+  world_ref: SYSTEM:SYS17#renames
+  kind: alias_use
+  statement: In 2023 the assessor extranet was called the Adjuster Extranet.
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 898
+    section: 9.5 Instructions
+    page_hint: 71
+  needle: Adjuster Extranet
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F049
+  world_ref: RULE:BR-ASM-001@v1
+  kind: general
+  statement: 'BR-ASM-001 v1 (LD012): Windscreen claims are always desk-assessed.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1045
+    section: 10.1 Method
+    page_hint: 84
+  needle: Windscreen claims are always desk-assessed
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F050
+  world_ref: RULE:BR-ASM-003@v1
+  kind: temporal
+  statement: 'BR-ASM-003 v1 (LD012): Escape of Water claims below £4500 may be assessed by video call.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1046
+    section: 10.1 Method
+    page_hint: 84
+  needle: below £4500
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F051
+  world_ref: RULE:BR-ASM-005@v2
+  kind: temporal
+  statement: 'BR-ASM-005 v2 (LD012): Site inspection within 5 business days of appointment (Tier-3: 72 hours).'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1048
+    section: 10.2 Timescales
+    page_hint: 84
+  needle: 'Tier-3: 72 hours'
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F052
+  world_ref: RULE:BR-ASM-004@v1
+  kind: temporal
+  statement: 'BR-ASM-004 v1 (LD012): Loss adjuster reports must include at least 4 photos.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1050
+    section: 10.3 Reports
+    page_hint: 84
+  needle: at least 4 photos
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F053
+  world_ref: RULE:BR-ASM-018@v1
+  kind: general
+  statement: 'BR-ASM-018 v1 (LD012): Contents items above £1500 need proof of ownership.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1052
+    section: 10.4 Contents
+    page_hint: 84
+  needle: Contents items above £1500 need proof
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F054
+  world_ref: RULE:BR-ASM-009@v1
+  kind: general
+  statement: 'BR-ASM-009 v1 (LD012): Nordic home claims above NOK 120000 require an on-site takst (assessment).'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1054
+    section: 10.5 Nordic takst
+    page_hint: 84
+  needle: claims above NOK 120000 require an
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F055
+  world_ref: RULE:BR-ASM-007@v1
+  kind: general
+  statement: 'BR-ASM-007 v1 (LD012): Offer a repair-network repair before a cash settlement for motor own-damage.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1186
+    section: 11.1 Repairs
+    page_hint: 93
+  needle: Offer a repair-network repair before a cash
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F056
+  world_ref: RULE:BR-ASM-017@v1
+  kind: temporal
+  statement: 'BR-ASM-017 v1 (LD012): A vehicle is a total loss when repair cost exceeds 48% of market value.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1188
+    section: 11.2 Total loss
+    page_hint: 93
+  needle: exceeds 48% of market value
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F057
+  world_ref: RULE:BR-REC-007@v1
+  kind: general
+  statement: 'BR-REC-007 v1 (LD012): Total-loss vehicles are released to Salvanta Salvage within 5 business days of the total-loss
+    decision.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1189
+    section: 11.2 Total loss
+    page_hint: 93
+  needle: Salvanta Salvage within 5 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F058
+  world_ref: RULE:BR-REC-002@v1
+  kind: general
+  statement: 'BR-REC-002 v1 (LD012): Collision claims with a third party at fault are pursued for the full outlay including
+    excess.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1191
+    section: 11.3 Collisions
+    page_hint: 93
+  needle: Collision claims with a third party at
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F059
+  world_ref: RULE:BR-RSV-002@v1
+  kind: general
+  statement: 'BR-RSV-002 v1 (LD012): Set an expense reserve of 8% of the indemnity reserve on Escape of Water claims.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1321
+    section: 12.1 Escape of water
+    page_hint: 103
+  needle: expense reserve of 8% of the
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F060
+  world_ref: RULE:BR-REC-016@v1
+  kind: general
+  statement: 'BR-REC-016 v1 (LD012): Escape of water from a neighbouring property is pursued against the neighbour''s insurer.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1322
+    section: 12.1 Escape of water
+    page_hint: 103
+  needle: Escape of water from a neighbouring property
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F061
+  world_ref: RULE:BR-STL-008@v1
+  kind: temporal
+  statement: 'BR-STL-008 v1 (LD012): Where the customer declines a repair-network replacement, cash settlement is limited
+    to 56% of replacement cost.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1324
+    section: 12.2 Cash settlement of contents
+    page_hint: 103
+  needle: 56% of replacement cost
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F062
+  world_ref: RULE:BR-RSV-005@v1
+  kind: general
+  statement: 'BR-RSV-005 v1 (LD012): Set an expense reserve of 10% on commercial property claims.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1451
+    section: 13.1 Commercial property
+    page_hint: 113
+  needle: expense reserve of 10% on commercial
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F063
+  world_ref: RULE:BR-RSV-021@v1
+  kind: general
+  statement: 'BR-RSV-021 v1 (LD012): Business Interruption reserves above £100000 are reviewed monthly with a forensic accountant.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1452
+    section: 13.1 Commercial property
+    page_hint: 113
+  needle: Interruption reserves above £100000 are reviewed
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F064
+  world_ref: RULE:BR-RSV-006@v1
+  kind: general
+  statement: 'BR-RSV-006 v1 (LD012): Set a legal reserve of £15000 when proceedings are issued.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1454
+    section: 13.2 Liability and bodily injury
+    page_hint: 113
+  needle: legal reserve of £15000 when proceedings
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F065
+  world_ref: RULE:BR-STL-010@v1
+  kind: general
+  statement: 'BR-STL-010 v1 (LD012): Interim payments are allowed once cover is confirmed.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1456
+    section: 13.3 Interim payments
+    page_hint: 113
+  needle: Interim payments are allowed once cover is
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F066
+  world_ref: RULE:BR-STL-016@v1
+  kind: general
+  statement: 'BR-STL-016 v1 (LD012): Deduct the Motor Privat Norge egenandel of NOK 6,000.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1589
+    section: 14.2 Excess
+    page_hint: 124
+  needle: egenandel of NOK 6,000
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F067
+  world_ref: RULE:BR-STL-017@v1
+  kind: general
+  statement: 'BR-STL-017 v1 (LD012): Deduct the Motor Privat Sverige självrisk of SEK 3,000.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1590
+    section: 14.2 Excess
+    page_hint: 124
+  needle: självrisk of SEK 3,000
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F068
+  world_ref: RULE:BR-STL-018@v1
+  kind: general
+  statement: 'BR-STL-018 v1 (LD012): Deduct the Motor Privat Danmark selvrisiko of DKK 5,000.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1591
+    section: 14.2 Excess
+    page_hint: 124
+  needle: selvrisiko of DKK 5,000
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F069
+  world_ref: RULE:BR-STL-019@v1
+  kind: general
+  statement: 'BR-STL-019 v1 (LD012): Deduct the Hjem Norge egenandel of NOK 6,000.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1592
+    section: 14.2 Excess
+    page_hint: 124
+  needle: egenandel of NOK 6,000
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F070
+  world_ref: RULE:BR-STL-020@v1
+  kind: general
+  statement: 'BR-STL-020 v1 (LD012): Deduct the Hem Sverige självrisk of SEK 2,000.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1593
+    section: 14.2 Excess
+    page_hint: 124
+  needle: självrisk of SEK 2,000
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F071
+  world_ref: RULE:BR-RSV-012@v1
+  kind: general
+  statement: 'BR-RSV-012 v1 (LD012): Nordic reserves are held in NOK, SEK or DKK; GBP equivalents use the Group Ledger month-end
+    rate and a full revaluation runs at year-end (CLRGL090).'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1595
+    section: 14.3 Currency
+    page_hint: 124
+  needle: Group Ledger month-end rate
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F072
+  world_ref: RULE:BR-REC-008@v1
+  kind: general
+  statement: 'BR-REC-008 v1 (LD012): Nordic recoveries follow the regress process with the counterparty insurer.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1597
+    section: 14.4 Regress and correspondence
+    page_hint: 124
+  needle: Nordic recoveries follow the regress process with
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F073
+  world_ref: RULE:BR-REC-017@v1
+  kind: general
+  statement: 'BR-REC-017 v1 (LD012): Nordic recovery demands are issued in the counterparty''s national language.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1598
+    section: 14.4 Regress and correspondence
+    page_hint: 124
+  needle: Nordic recovery demands are issued in the
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F074
+  world_ref: RULE:BR-FNOL-005@v1
+  kind: general
+  statement: 'BR-FNOL-005 v1 (LD012): Create a default indemnity reserve at FNOL from the default-reserve table.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1714
+    section: 15.1 Default reserve
+    page_hint: 134
+  needle: Create a default indemnity reserve at FNOL
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F075
+  world_ref: RULE:BR-RSV-001@v1
+  kind: general
+  statement: 'BR-RSV-001 v1 (LD012): A claim-specific initial reserve must replace the FNOL default reserve within 2 business
+    days of FNOL.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1716
+    section: 15.2 Initial reserve
+    page_hint: 134
+  needle: default reserve within 2 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F076
+  world_ref: RULE:BR-RSV-015@v1
+  kind: general
+  statement: 'BR-RSV-015 v1 (LD012): Every reserve movement carries a reason code from the RSNC code list.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1795
+    section: 16.1 General standards
+    page_hint: 140
+  needle: Every reserve movement carries a reason code
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F077
+  world_ref: RULE:BR-RSV-008@v1
+  kind: general
+  statement: 'BR-RSV-008 v1 (LD012): Review the reserve within 2 business days of receiving an assessor report.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1796
+    section: 16.1 General standards
+    page_hint: 140
+  needle: the reserve within 2 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F078
+  world_ref: RULE:BR-RSV-013@v1
+  kind: general
+  statement: 'BR-RSV-013 v1 (LD012): A reserve increase of more than 50% in one movement requires Team Leader review.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1797
+    section: 16.1 General standards
+    page_hint: 140
+  needle: of more than 50% in one
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F079
+  world_ref: RULE:BR-RSV-016@v1
+  kind: general
+  statement: 'BR-RSV-016 v1 (LD012): Expected recoveries are recorded separately and netted only when received.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1798
+    section: 16.1 General standards
+    page_hint: 140
+  needle: Expected recoveries are recorded separately and netted
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F080
+  world_ref: RULE:BR-RSV-020@v1
+  kind: general
+  statement: 'BR-RSV-020 v1 (LD012): Reserves are held to 2 decimal places and shown to whole currency units in reports.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1799
+    section: 16.1 General standards
+    page_hint: 140
+  needle: are held to 2 decimal places
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F081
+  world_ref: RULE:BR-RSV-023@v1
+  kind: general
+  statement: 'BR-RSV-023 v1 (LD012): On a nil settlement the reserve is released in full within 1 business day.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1800
+    section: 16.1 General standards
+    page_hint: 140
+  needle: in full within 1 business day
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F082
+  world_ref: RULE:BR-RSV-009@v1
+  kind: temporal
+  statement: 'BR-RSV-009 v1 (LD012): Index open bodily-injury reserves monthly at 2.5% per annum.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1802
+    section: 16.2 Bodily-injury indexation
+    page_hint: 140
+  needle: 2.5% per annum
+  exclusive: false
+  also_in: []
+  notes: BR-RSV-009 v1 (2019-2023); later versions changed the rate.
+- fact_id: LD012-F083
+  world_ref: RULE:BR-RSV-024@v1
+  kind: general
+  statement: 'BR-RSV-024 v1 (LD012): Ceded reserves are recalculated monthly by CLRGL040.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1804
+    section: 16.3 Ceded reserves
+    page_hint: 140
+  needle: recalculated monthly by CLRGL040
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F084
+  world_ref: RULE:BR-RSV-003@v2
+  kind: temporal
+  statement: 'BR-RSV-003 v2 (LD012): Reserve authority: case handler £20,000; Team Leader £75,000; Claims Manager £400,000;
+    Claims Director £1,500,000; above that the Reserving Committee.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1910
+    section: 17.1 Limits
+    page_hint: 150
+  needle: Team Leader £75,000; Claims Manager £400,000
+  exclusive: false
+  also_in: []
+  notes: BR-RSV-003 v2 (2023-01-01 to 2025-08-31); v3 limits apply from 2025-09-01.
+- fact_id: LD012-F085
+  world_ref: RULE:BR-RSV-011@v1
+  kind: temporal
+  statement: 'BR-RSV-011 v1 (LD012): Notify Reinsurance within 48 hours of any reserve movement of £200,000 or more.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 1990
+    section: 18.1 Large reserve movements
+    page_hint: 155
+  needle: within 48 hours of any reserve movement of £200,000 or more
+  exclusive: false
+  also_in: []
+  notes: BR-RSV-011 v1 (2018-2023); replaced by the LLNT rule (v2) from 2024-01-01.
+- fact_id: LD012-F086
+  world_ref: RULE:BR-RSV-022@v1
+  kind: general
+  statement: 'BR-RSV-022 v1 (LD012): Litigated claims are re-reserved at every court milestone.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2076
+    section: 19.2 Litigated claims
+    page_hint: 162
+  needle: Litigated claims are re-reserved at every court
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F087
+  world_ref: RULE:BR-RSV-017@v1
+  kind: general
+  statement: 'BR-RSV-017 v1 (LD012): A reopened claim needs a new reserve within 2 business days.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2078
+    section: 19.3 Reopened claims
+    page_hint: 162
+  needle: new reserve within 2 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F088
+  world_ref: RULE:BR-RSV-007@v1#parameters.review_days
+  kind: contradiction_old
+  statement: 'Manual v6.1: reserves on Tier-3 claims must be reviewed at least every 30 days (BR-RSV-007 v1).'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2080
+    section: 19.4 Tier-3 reserve review
+    page_hint: 162
+  needle: reviewed at least every 30 days
+  exclusive: false
+  also_in: []
+  placement: PL-038
+  placement_key: ld12_cadence30
+  notes: 'Superseded: 21 days from 2024-01-01 (v2) and 14 days from 2026-07-01 (v3, LD001 §19.4). See C04.'
+- fact_id: LD012-F089
+  world_ref: RULE:BR-RSV-010@v1
+  kind: general
+  statement: 'BR-RSV-010 v1 (LD012): Claims with a nil reserve and no open payments close within 5 business days.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2082
+    section: 19.5 Nil reserves
+    page_hint: 162
+  needle: payments close within 5 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F090
+  world_ref: RULE:BR-STL-004@v1
+  kind: general
+  statement: 'BR-STL-004 v1 (LD012): A settlement offer remains valid for 30 days from the offer date.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2296
+    section: 21.1 Offers
+    page_hint: 177
+  needle: remains valid for 30 days from
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F091
+  world_ref: RULE:BR-STL-006@v1
+  kind: general
+  statement: 'BR-STL-006 v1 (LD012): Settlement letters use template codes STL01 to STL09.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2298
+    section: 21.2 Letters
+    page_hint: 177
+  needle: use template codes STL01 to STL09
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F092
+  world_ref: RULE:BR-STL-014@v1
+  kind: general
+  statement: 'BR-STL-014 v1 (LD012): Where payment is made more than 30 days after settlement is agreed, add simple interest
+    at 3.5% per annum from day 31.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2300
+    section: 21.3 Interest
+    page_hint: 177
+  needle: made more than 30 days after
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F093
+  world_ref: RULE:BR-RSV-014@v1
+  kind: general
+  statement: 'BR-RSV-014 v1 (LD012): On final settlement the outstanding reserve is reduced to zero within 1 business day
+    and a settlement close movement (type ST) is recorded.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2302
+    section: 21.4 Closing the reserve
+    page_hint: 177
+  needle: to zero within 1 business day
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F094
+  world_ref: RULE:BR-STL-002@v2
+  kind: temporal
+  statement: 'BR-STL-002 v2 (LD012): Payment authority: case handler £10,000; Team Leader £50,000; Claims Manager £250,000;
+    Claims Director £1,000,000.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2430
+    section: 22.1 Payment authority
+    page_hint: 187
+  needle: Team Leader £50,000; Claims Manager £250,000
+  exclusive: false
+  also_in: []
+  notes: BR-STL-002 v2 (2023-01-01 to 2025-08-31); Team Leader £75,000 from 2025-09-01 (v3).
+- fact_id: LD012-F095
+  world_ref: RULE:BR-STL-005@v1
+  kind: general
+  statement: 'BR-STL-005 v1 (LD012): A new payee requires account-name verification before the first payment.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2432
+    section: 22.2 Payees
+    page_hint: 187
+  needle: A new payee requires account-name verification before
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F096
+  world_ref: RULE:BR-STL-012@v2
+  kind: general
+  statement: 'BR-STL-012 v2 (LD012): Payments with the same payee, amount and claim within 7 days are held for review.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2433
+    section: 22.2 Payees
+    page_hint: 187
+  needle: and claim within 7 days are
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F097
+  world_ref: RULE:BR-STL-011@v1
+  kind: general
+  statement: 'BR-STL-011 v1 (LD012): Vendor invoices are paid within 30 days of matching.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2435
+    section: 22.3 Vendor invoices
+    page_hint: 187
+  needle: are paid within 30 days of
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F098
+  world_ref: RULE:BR-STL-007@v1
+  kind: general
+  statement: 'BR-STL-007 v1 (LD012): Every payee must pass WatchScreen sanctions screening before any claim payment is released.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2533
+    section: 23.1 Screening
+    page_hint: 195
+  needle: Every payee must pass WatchScreen sanctions screening
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F099
+  world_ref: RULE:BR-FRD-017@v1
+  kind: general
+  statement: 'BR-FRD-017 v1 (LD012): Case handlers receive the SIU outcome within 2 business days of case closure.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2586
+    section: 24.3 Feedback
+    page_hint: 199
+  needle: SIU outcome within 2 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F100
+  world_ref: RULE:BR-FRD-005@v2
+  kind: temporal
+  statement: 'BR-FRD-005 v2 (LD012): Flag a linked-claims indicator when the claimant has 2 or more claims in 12 months.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2754
+    section: 25.3 Linked claims
+    page_hint: 211
+  needle: 2 or more claims in 12 months
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F101
+  world_ref: RULE:BR-FRD-035@v1
+  kind: temporal
+  statement: 'BR-FRD-035 v1 (LD012): SIU must triage a new referral within 5 business days.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2964
+    section: 26.2 Triage of referrals
+    page_hint: 225
+  needle: within 5 business days
+  exclusive: false
+  also_in: []
+  notes: BR-FRD-035 v1; v2 (2026-04-01) reduced this to 3 business days.
+- fact_id: LD012-F102
+  world_ref: RULE:BR-FRD-011@v1
+  kind: general
+  statement: 'BR-FRD-011 v1 (LD012): SIU cases close with NF (no fraud), CF (confirmed fraud) or WD (withdrawn).'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2966
+    section: 26.3 Outcomes
+    page_hint: 225
+  needle: SIU cases close with NF (no fraud)
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F103
+  world_ref: RULE:BR-FRD-013@v1
+  kind: general
+  statement: 'BR-FRD-013 v1 (LD012): Record the avoided payment as the fraud saving on CF outcomes.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 2967
+    section: 26.3 Outcomes
+    page_hint: 225
+  needle: Record the avoided payment as the fraud
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F104
+  world_ref: RULE:BR-FRD-010@v1
+  kind: general
+  statement: 'BR-FRD-010 v1 (LD012): Surveillance by Greyfold Investigations requires written approval by the SIU Investigations
+    Manager.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3049
+    section: 27.1 Authorisation
+    page_hint: 233
+  needle: Surveillance by Greyfold Investigations requires written approval
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F105
+  world_ref: RULE:BR-FRD-012@v2#parameters.threshold
+  kind: temporal
+  statement: 'Manual v6.1: refer to SIU when the FRAUDNET score is 70 or more (BR-FRD-012 v2, from 2023-04-01).'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3133
+    section: 28.3 Referral threshold
+    page_hint: 239
+  needle: FRAUDNET score is 70 or more
+  exclusive: false
+  also_in: []
+  placement: PL-040
+  placement_key: ld12_frd70
+  notes: Superseded by BR-FRD-031 (Sentinel score 65, from 2026-04-01); Tier-3 at 60 from 2026-10-01.
+- fact_id: LD012-F106
+  world_ref: RULE:BR-FRD-019@v2
+  kind: temporal
+  statement: 'BR-FRD-019 v2 (LD012): Automatically decline a claim when the FRAUDNET score is 90 or more.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3135
+    section: 28.4 Automatic decline
+    page_hint: 239
+  needle: FRAUDNET score is 90 or more
+  exclusive: false
+  also_in: []
+  notes: BR-FRD-019 v2 was withdrawn from 2026-04-01 (NISA Circular 2026/04 §3.1 prohibits adverse decisions on a score alone).
+- fact_id: LD012-F107
+  world_ref: RULE:BR-FRD-012@v2
+  kind: image_text
+  statement: 'v6.1 referral diagram (2023): FRAUDNET score of 70 or more is referred to SIU.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_image
+    ocr: true
+    image_name: word/media/image2.png
+    page_hint: 239
+  needle: Refer to SIU
+  exclusive: false
+  also_in: []
+  notes: 'Temporal: superseded by BR-FRD-031 from 2026-04-01.'
+- fact_id: LD012-F108
+  world_ref: RULE:BR-REC-001@v1
+  kind: general
+  statement: 'BR-REC-001 v1 (LD012): Where a third party is wholly or partly at fault, the loss adjuster or case handler flags
+    recovery potential and a subrogation case is opened within 10 business days.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3272
+    section: 29.2 Identifying recoveries
+    page_hint: 249
+  needle: is opened within 10 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F109
+  world_ref: RULE:BR-REC-003@v2
+  kind: temporal
+  statement: 'BR-REC-003 v2 (LD012): Pursue subrogation where the recoverable amount is £750 or more.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3274
+    section: 29.3 Pursuit threshold
+    page_hint: 249
+  needle: £750 or more
+  exclusive: false
+  also_in: []
+  notes: BR-REC-003 v2 (2022-07-01 to 2025-08-31); £1,000 from 2025-09-01.
+- fact_id: LD012-F110
+  world_ref: RULE:BR-REC-005@v1
+  kind: temporal
+  statement: 'BR-REC-005 v1 (LD012): Refer a recovery to Quarryhill Solicitors when the recoverable amount is £15,000 or more
+    or liability is defended.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3276
+    section: 29.4 Solicitors
+    page_hint: 249
+  needle: £15,000 or more
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F111
+  world_ref: RULE:BR-REC-006@v1
+  kind: general
+  statement: 'BR-REC-006 v1 (LD012): Use a tracing agent when an uninsured third party has not responded after 60 days.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3278
+    section: 29.5 Tracing and limitation
+    page_hint: 249
+  needle: not responded after 60 days
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F112
+  world_ref: RULE:BR-REC-009@v1
+  kind: general
+  statement: 'BR-REC-009 v1 (LD012): Set a limitation diary at 30 months for bodily-injury recoveries and at 66 months for
+    property recoveries.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3279
+    section: 29.5 Tracing and limitation
+    page_hint: 249
+  needle: limitation diary at 30 months for
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F113
+  world_ref: RULE:BR-REC-011@v1
+  kind: temporal
+  statement: 'BR-REC-011 v1 (LD012): Write-offs of recoveries above £5,000 require approval by the Recoveries Manager.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3281
+    section: 29.6 Write-offs and excess refunds
+    page_hint: 249
+  needle: above £5,000 require approval by the Recoveries Manager
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F114
+  world_ref: RULE:BR-REC-004@v1
+  kind: general
+  statement: 'BR-REC-004 v1 (LD012): Refund the customer''s excess within 10 business days of a full recovery.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3282
+    section: 29.6 Write-offs and excess refunds
+    page_hint: 249
+  needle: customer's excess within 10 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F115
+  world_ref: RULE:BR-REC-013@v1
+  kind: general
+  statement: 'BR-REC-013 v1 (LD012): Claims covered by a knock-for-knock arrangement are not pursued.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3283
+    section: 29.6 Write-offs and excess refunds
+    page_hint: 249
+  needle: Claims covered by a knock-for-knock arrangement are
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F116
+  world_ref: RULE:BR-REC-014@v1
+  kind: general
+  statement: 'BR-REC-014 v1 (LD012): Recovery rate is reported monthly as receipts over recoverable outlay.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3284
+    section: 29.6 Write-offs and excess refunds
+    page_hint: 249
+  needle: Recovery rate is reported monthly as receipts
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F117
+  world_ref: RULE:BR-REC-015@v2
+  kind: general
+  statement: 'BR-REC-015 v2 (LD012): Salvage proceeds are posted within 3 business days of receipt.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3480
+    section: 30.1 Disposal
+    page_hint: 264
+  needle: are posted within 3 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F118
+  world_ref: RULE:BR-GEN-003@v1
+  kind: general
+  statement: 'BR-GEN-003 v1 (LD012): Acknowledge complaints within 3 business days.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3528
+    section: 31.1 Acknowledging complaints
+    page_hint: 269
+  needle: Acknowledge complaints within 3 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F119
+  world_ref: RULE:BR-GEN-004@v2
+  kind: temporal
+  statement: 'BR-GEN-004 v2 (LD012): Retain claim records for 7 years after closure.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3686
+    section: 33.1 Retention
+    page_hint: 281
+  needle: 7 years after closure
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F120
+  world_ref: RULE:BR-GEN-010@v1
+  kind: general
+  statement: 'BR-GEN-010 v1 (LD012): Telephone FNOL recordings are kept for 24 months.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3687
+    section: 33.1 Retention
+    page_hint: 281
+  needle: are kept for 24 months
+  exclusive: false
+  also_in: []
+- fact_id: LD012-F121
+  world_ref: RULE:BR-GEN-002@v1
+  kind: general
+  statement: 'BR-GEN-002 v1 (LD012): Respond to data subject access requests within 30 calendar days.'
+  file: corpus/upload/long_docs/LD012_claims_handling_manual_v6_1.docx
+  locator:
+    kind: docx_para
+    para_index: 3689
+    section: 33.2 Access requests
+    page_hint: 281
+  needle: access requests within 30 calendar days
+  exclusive: false
+  also_in: []

@@ -1,0 +1,32 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+CONTACT CENTRE SHIFT HANDOVER - GLASGOW (LATE SHIFT, THURSDAY 24 SEPTEMBER 2026)
+========================================================================================
+Document reference : CC-HND-2026-09-24L
+Version            : 1.0
+Date               : 24 September 2026
+Owner              : Ewan Strachan, Contact Centre Manager
+Classification     : Internal
+Distribution    : early shift team leaders, duty manager
+
+Version history
+  1.0    2026-09-24  E. Strachan          Late shift handover
+========================================================================================
+
+1. HEADLINES
+  - Photo uploads are delayed. Since about 17:05 the Evidence Intake Gateway has a backlog of photos after the storm; INC-2026-0604 is open.
+  - Call volumes were higher than usual from mid-afternoon, mostly new home claims (storm damage) and photo queries.
+  - No system outage on Harbour CRM or Claims Hub. Calls are being handled normally apart from the photo delay.
+
+2. WHAT TO TELL CUSTOMERS
+  - "We've received your photos and they'll appear on your claim shortly. There's no need to send them again."
+  - If a customer has already sent photos twice, reassure them; duplicates are not a problem.
+  - Do not promise a time for the photos to appear.
+
+3. FOR THE EARLY SHIFT
+  - Check the incident status on the service desk before the morning huddle.
+  - Brief agents on the photo wording above if the incident is still open.
+  - Expect more storm-related home claims in the morning. Make-safe advice first, as per the home script.
+  - Team leaders: keep an eye on wrap-up times, they crept up this evening.
+
+----------------------------------------------------------------------------------------
+End of document. Owner: Ewan Strachan. Printed copies are uncontrolled.

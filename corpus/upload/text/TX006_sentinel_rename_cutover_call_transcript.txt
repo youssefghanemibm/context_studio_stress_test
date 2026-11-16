@@ -1,0 +1,316 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+TRANSCRIPT - SENTINEL RENAME CUT-OVER CALL
+============================================================================================
+
+DOCUMENT CONTROL
+  Document reference : INC-2025-0233-CALL-01
+  Title              : Transcript - Sentinel Rename Cut-over Call
+  Meeting            : Sentinel rename cut-over call (INC-2025-0233)
+  Forum              : Cut-over call, raised to incident INC-2025-0233 (Sev 2)
+  Date and time      : Monday 3 March 2025, 09:30-10:20 UK time (50 minutes)
+  Venue              : Conference bridge (Leeds, Stockholm, Copenhagen)
+  Chair              : Graham Pocock, CLARA Platform Manager
+  Prepared by        : Graham Pocock, CLARA Platform Manager (Corvane Mutual)
+  Approved by        : Graham Pocock
+  Status             : Final
+  Classification     : Internal
+
+VERSION HISTORY
+  Version  Date        Author / approver         Change
+  0.1      2025-03-03  G. Pocock                 Call recording transcribed
+  1.0      2025-03-03  G. Pocock                 Checked and attached to INC-2025-0233
+
+ATTENDEES
+  Graham Pocock                CLARA Platform Manager
+  Pauline Ashworth             Mainframe Developer
+  Oskar Lindgren               Senior Fraud Analyst
+  Henrik Vestergaard           Integration Platform Lead
+  Niall Brannigan              Head of SIU
+
+NOTES ON THIS TRANSCRIPT
+  - Timestamps are elapsed time from the start of the recording (hh:mm:ss).
+  - Speaker labels follow the display names on the bridge and were checked by hand.
+  - [inaudible] and [crosstalk] mark passages the transcription could not resolve.
+  - The FRAUDNET to Sentinel rename took effect on Saturday 1 March 2025 (CHUB-117).
+
+-------------------------------------- TRANSCRIPT ------------------------------------------
+
+[00:00:00] Graham Pocock: Morning, all. Thanks for joining at short notice. We've been seeing Sentinel scoring failures from CLARA since ten past eight, so I've raised it as a Sev 2, INC-2025-0233. Let's work out what's going on.
+[00:00:13] Graham Pocock: Henrik, can you start with what you're seeing?
+[00:00:17] Niall Brannigan: For the rename checklist, the certificate side is what bites, more than the DNS side. From SIU, I'm less worried about the technology and more about which claims we've missed. I'd rather the rename checklist was boring. Boring is good. We've had mixed messages on the rename checklist, so a clear statement would help.
+[00:00:38] Pauline Ashworth: Everything I've seen on the online scoring path says the approach is right; it's the pace I'd question. Personally I'd go a bit further on the online scoring path, but I can live with what's proposed.
+[00:00:52] Henrik Vestergaard: The gateway logs show every request from CLARA failing the TLS handshake. It's not timing out, it's being refused.
+[00:01:00] Graham Pocock: The rename checklist covered the interfaces we knew about. This one slipped through. The scoring side of the rename checklist matters to SIU, so they need to know what's been missed.
+[00:01:13] Henrik Vestergaard: The short version on the gateway logs is that it's in hand; the longer version is in the pack. On the online scoring path, I'd want the vendor's support desk on standby, just in case.
+[00:01:27] Pauline Ashworth: I'd push back slightly on that. There's no silver bullet on the certificate; it's just steady work. I think the gateway logs are a good-news story, actually, and we don't say that often enough.
+[00:01:41] Graham Pocock: Oskar, what's your gut feel on the online scoring path?
+[00:01:45] Oskar Lindgren: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it.
+[00:01:52] Graham Pocock: The trouble with the rename checklist is that the people who know it best are also the busiest, if that makes sense. Okay. For the rename checklist, the question isn't whether, it's how and in what order. If we're going to change anything about the failed requests, now's the time rather than later.
+[00:02:13] Henrik Vestergaard: The quality of the conversation on the scoring failures has improved a lot. The new certificate only has the new name on it. So anything still using the old name fails, even though the DNS still resolves. The failed requests are the sort of thing a config search would have caught. I'd keep the rename checklist separate from the rest of it, because it involves different people and a different set of risks.
+[00:02:41] Pauline Ashworth: I'll be honest, the online scoring path wasn't really on my radar until this week. I suppose we did a walk-through of the online scoring path with the team leaders and it generated some good questions. For the online scoring path, the certificate side is what bites, more than the DNS side. Whatever happens with the online scoring path, the communication needs to be joined up.
+[00:03:06] Niall Brannigan: The thing is [crosstalk]
+[00:03:09] Graham Pocock: Sorry, one at a time, please.
+[00:03:12] Niall Brannigan: Sorry. Go on, Henrik.
+[00:03:14] Henrik Vestergaard: No, it's fine, carry on.
+[00:03:17] Pauline Ashworth: I'd echo that, the online scoring path is the sort of thing a config search would have caught.
+[00:03:25] Henrik Vestergaard: From my side, let's make sure the scoring failures are on the checklist for the next rename, whatever that turns out to be. Okay. We've done the thinking on the scoring failures; now it's about execution, at least from where I sit. Can we check the certificate in the batch as well as online? The batch always gets forgotten.
+[00:03:48] Graham Pocock: Are the DNS records in the pack, or are they coming separately?
+[00:03:53] Niall Brannigan: It's in the appendix, towards the back. The DNS records are exactly why we do inventories before renames, and why the inventory is never complete.
+[00:04:10] Henrik Vestergaard: Sure. When we renamed FRAUDNET to Sentinel on Saturday, the TLS certificate was reissued only for sentinel.corvane.internal. But CLRFR020 is still calling fraudnet.corvane.internal, so every online scoring request from CLARA fails the handshake.
+[00:04:22] Pauline Ashworth: That's the online path, CLX-IF-008. CLRFR020 calls the mainframe API gateway with the SENTREQ1 request and reads SENTRSP1 back. The host name is in the program.
+[00:04:33] Graham Pocock: Are people in the room able to hear the people on the line?
+[00:04:38] Niall Brannigan: We can hear you fine.
+[00:04:40] Graham Pocock: Good, thank you.
+[00:04:42] Pauline Ashworth: For what it's worth, the people closest to the online scoring path are fairly confident. My read on the gateway logs is that the hard part is behind us, but there's still a long tail.
+[00:04:56] Graham Pocock: For what it's worth, whatever happens with the scoring failures, the communication needs to be joined up. In fairness, the scoring failures are exactly why we do inventories before renames, and why the inventory is never complete, I'd say.
+[00:05:11] Henrik Vestergaard: The bit of the online scoring path that worries me is the hand-off between teams. I'd want to see the online scoring path working end to end before I'd put my name to it.
+[00:05:24] Graham Pocock: Is there anything we can do to unblock the online scoring path?
+[00:05:29] Pauline Ashworth: Not today, thanks. If that changes, I'll shout. The scoring side of the online scoring path matters to SIU, so they need to know what's been missed.
+[00:05:41] Henrik Vestergaard: I'd split the online scoring path into what we have to do now and what can wait. The online scoring path is exactly why we do inventories before renames, and why the inventory is never complete, if I'm honest.
+[00:05:56] Graham Pocock: For the, the online scoring path, I'd rather we under-promise and deliver than the other way round. My instinct on the rename checklist is to wait a little and see how things settle. My sense is that the scoring failures are moving in the right direction, just slowly. Picking up on that, I'd frame the scoring failures as a risk rather than an issue at this stage.
+[00:06:22] Pauline Ashworth: Henrik, are you comfortable with the failed requests as it stands?
+[00:06:26] Henrik Vestergaard: Reasonably. I've seen worse at this stage. The failed requests are one of those things that looks easy on a slide and isn't.
+[00:06:36] Pauline Ashworth: We need to be careful how we talk about the scoring failures outside this room until it's settled.
+[00:06:43] Henrik Vestergaard: Oskar, are you comfortable with the failed requests as it stands?
+[00:06:48] Oskar Lindgren: Fairly comfortable. I'd flag it as watch rather than worry. If I can come in here, there's no silver bullet on the failed requests; it's just steady work.
+[00:06:59] Henrik Vestergaard: So, let's make sure the certificate is on the checklist for the next rename, whatever that turns out to be. There are two schools of thought on the [inaudible] failures, and both have some merit. For what it's worth, if the certificate is still pointing at the old endpoint, it'll fail quietly until someone notices.
+[00:07:20] Pauline Ashworth: Has anything moved on the endpoint configuration since last time?
+[00:07:25] Graham Pocock: The detail's firmer. The direction is the same. If I can come in here, on the endpoint configuration, I'd like us to agree the principle and let the team sort out the detail.
+[00:07:38] Henrik Vestergaard: The honest answer on the DNS records is that we know what good looks like, we're just not there yet. It's the knock-on effect of the DNS records that I'm most interested in. On the DNS records, I'd want the vendor's support desk on standby, just in case.
+[00:07:56] Pauline Ashworth: Who else needs to be involved in the rename checklist?
+[00:08:01] Niall Brannigan: The squads, obviously, but also the people on the floor. If I can come in here, the bit of the rename checklist that worries me is the hand-off between teams.
+[00:08:13] Henrik Vestergaard: Where have we got to with the gateway logs, Pauline?
+[00:08:17] Pauline Ashworth: In better shape than it was. I wouldn't call it done, but the direction is right. I'm not going to pretend the gateway logs are exciting, but it's exactly the sort of thing that bites you if you ignore it.
+[00:08:32] Henrik Vestergaard: Oskar, did you get a chance to look at the failed requests?
+[00:08:38] Oskar Lindgren: Yes. It reads well. One or two questions, but nothing major. On the failed requests, the problem is all the places the old name is hard-wired that nobody remembers.
+[00:08:49] Graham Pocock: Pauline, what keeps you awake about the failed requests?
+[00:08:54] Pauline Ashworth: Honestly, people. The people who know it best are also the busiest. Can we make sure the failed requests are visible on the RAID log, so it doesn't fall between the cracks?
+[00:09:07] Henrik Vestergaard: Is there a simpler version of the online scoring path than what's on the slide?
+[00:09:13] Oskar Lindgren: There probably is, and I'd be open to it. It might be worth a separate session on the online scoring path, because we won't do it justice in a few minutes here.
+[00:09:26] Pauline Ashworth: Henrik, any concerns from your side on the online scoring path?
+[00:09:30] Henrik Vestergaard: Some, probably, but nothing we can't work through. Well, if the online scoring path [inaudible] still pointing at the old endpoint, it'll fail quietly until someone notices.
+[00:09:42] Graham Pocock: Sorry, can I just check what we mean by the gateway logs? I think people are using it in different ways.
+[00:09:50] Niall Brannigan: Good challenge. I'll make sure the next version defines it properly. The gateway logs are exactly why we do inventories before renames, and why the inventory is never complete.
+[00:10:01] Pauline Ashworth: CLRFR020 builds the request with the old host name. It's in the program, not in a config table, which is why nobody caught it. If the DNS records need more time, I'd rather we said so now.
+[00:10:15] Henrik Vestergaard: Fair enough.
+[00:10:17] Pauline Ashworth: I'd echo that, on the certificate, the problem is all the places the old name is hard-wired that nobody remembers. What would really help on the certificate is a single view that everyone works from, at least from where I sit.
+[00:10:33] Henrik Vestergaard: I'd push back slightly on that. The endpoint configuration is exactly why we do inventories before renames, and why the inventory is never complete.
+[00:10:42] Graham Pocock: We can talk about the endpoint configuration all day, but at some point someone has to make a call. Speaking for my area, let's keep the rename checklist simple and not try to solve every edge case in one go.
+[00:10:58] Oskar Lindgren: Just quickly, on the online scoring path, there's been a lot of activity but not a lot of change, if you see what I mean. There's a dependency on the endpoint configuration that I don't think everyone's aware of, so it's worth calling out. If the DNS records are going to need more people, we should flag that early rather than late.
+[00:11:22] Graham Pocock: From my side, let's make sure the online scoring path is on the checklist for the next rename, whatever that turns out to be. Right. On the endpoint configuration, the teams have been brilliant, frankly, given everything else going on. I had a look at the certificate over the weekend and nothing jumped out as a showstopper, if I'm honest.
+[00:11:45] Pauline Ashworth: I can change the host name in CLRFR020 and have it in test within the hour. Well, can we check the rename checklist in the batch as well as online? The batch always gets forgotten.
+[00:11:59] Graham Pocock: Henrik, did you get a chance to look at the scoring failures?
+[00:12:05] Henrik Vestergaard: I did, briefly. I've got a couple of comments, I'll send them over. Personally I'd go a bit further on the scoring failures, but I can live with what's proposed.
+[00:12:16] Graham Pocock: We can talk about the gateway logs all day, but at some point someone has to make a call. The short version on the endpoint configuration [inaudible] that it's in hand; the longer version is in the pack.
+[00:12:32] Pauline Ashworth: What I'd like to avoid with the DNS records is finding out about a problem the week before, when there's nothing we can do about it. The trouble with the endpoint configuration is that the people who know it best are also the busiest. I'd rather have an honest amber on the scoring failures than a green that turns red later, I'd say.
+[00:12:56] Henrik Vestergaard: Sorry, can I just check what we mean by the DNS records? I think people are using it in different ways.
+[00:13:05] Oskar Lindgren: You're right, we're using it loosely. Let me tighten up the wording. So, the scoring side of the DNS records matters to SIU, so they need to know what's been missed.
+[00:13:17] Pauline Ashworth: On the DNS records, the problem is all the places the old name is hard-wired that nobody remembers. The scoring side of the scoring failures matters to SIU, so they need to know what's been missed.
+[00:13:31] Oskar Lindgren: Can we check the DNS records in the batch as well as online? The batch always gets forgotten. The DNS records are the sort of thing a config search would have caught. Let's make sure the DNS records are on the checklist for the next rename, whatever that turns out to be. Can we check the gateway logs in the batch as well as online?
+[00:13:56] Henrik Vestergaard: Pauline, any concerns from your side on the rename checklist?
+[00:14:00] Pauline Ashworth: Not really. The team have been very open about the gaps, which helps. To be fair, the rename checklist is the sort of thing a config search would have caught.
+[00:14:11] Henrik Vestergaard: I'll be honest, the certificate wasn't really on my radar until this week. If I can come in here, if the online scoring path is going to need more people, we should flag that early rather than late. Honestly, we need to be careful how we talk about the certificate outside this room until it's settled.
+[00:14:33] Graham Pocock: I'll drop the link in the chat.
+[00:14:36] Pauline Ashworth: Thanks.
+[00:14:37] Graham Pocock: On the, the scoring failures, I'd want the vendor's support desk on standby, just in case. If I can come in here, I wouldn't want the scoring failures to become the reason we lose momentum elsewhere. On the scoring failures, the problem is all the places the old name is hard-wired that nobody remembers. Actually, the scoring failures are the sort of thing a config search would have caught.
+[00:15:03] Pauline Ashworth: I'm with Graham on that. I don't have strong views on the scoring failures, other than wanting it done properly.
+[00:15:11] Graham Pocock: My read on the DNS records is that the hard part is behind us, but there's still a long tail. On the DNS records, there's been a lot of activity but not a lot of change, if you see what I mean. Whatever we land on for the DNS records, people need to hear it from their own managers first, as far as I can tell. Actually, the thing about the DNS records is that everyone agrees with it in principle and nobody wants to do the work.
+[00:15:44] Henrik Vestergaard: To be fair, let's make sure the rename checklist is on the checklist for the next rename, whatever that turns out to be.
+[00:15:54] Pauline Ashworth: Right, okay.
+[00:15:55] Graham Pocock: The rename checklist is exactly why we do inventories before renames, and why the inventory is never complete, if I'm honest. The honest answer on the gateway logs is that we know what good looks like, we're just not there yet. My instinct on the endpoint configuration is to wait a little and see how things settle. If I can come in here, if we're going to change anything about the rename checklist, now's the time rather than later.
+[00:16:25] Henrik Vestergaard: I was going to say [crosstalk]
+[00:16:28] Pauline Ashworth: Sorry, go ahead.
+[00:16:30] Henrik Vestergaard: No, you go.
+[00:16:31] Pauline Ashworth: I was only going to say I agree.
+[00:16:35] Henrik Vestergaard: Graham, any concerns from your side on the certificate?
+[00:16:39] Graham Pocock: One or two. I'll pick them up offline rather than take time here. If we're going to change anything about the certificate, now's the time rather than later.
+[00:16:50] Oskar Lindgren: Henrik, any concerns from your side on the DNS records?
+[00:16:55] Henrik Vestergaard: A few, mostly about timing rather than substance.
+[00:16:58] Oskar Lindgren: Yeah, fair.
+[00:17:00] Pauline Ashworth: On the failed requests, I'd want the vendor's support desk on standby, just in case. On the rename checklist, the problem is all the places the old name is hard-wired that nobody remembers, at least from where I sit.
+[00:17:15] Henrik Vestergaard: I'd push back slightly on that. I suppose can we check the failed requests in the batch as well as online? The batch always gets forgotten.
+[00:17:26] Oskar Lindgren: Personally I'd go a bit further on the certificate, but I can live with what's proposed. If the certificate needs more time, I'd rather we said so now. On the certificate, I'd want the vendor's support desk on standby, just in case, in my view.
+[00:17:43] Pauline Ashworth: Uh, what would really help on the failed requests is a single view that everyone works from. We should check whether the gateway logs land differently for the Nordic teams than for the UK. Look, for the endpoint configuration, the certificate side is what bites, more than the DNS side.
+[00:18:03] Graham Pocock: Henrik, is there anything on the DNS records you need from this group?
+[00:18:09] Henrik Vestergaard: Nothing specific. Keep asking about it, that's helpful in itself. Can I suggest we park the DNS records for now and pick it up under any other business?
+[00:18:19] Graham Pocock: Who else needs to be involved in the scoring failures?
+[00:18:23] Pauline Ashworth: Finance, and probably Compliance as well. I'll set something up. Actually, the scoring failures are one of those things that looks easy on a slide and isn't.
+[00:18:34] Graham Pocock: Yeah, fair.
+[00:18:36] Pauline Ashworth: To be fair, I'm reassured on the endpoint configuration, mostly because the team have been very open about the gaps. Can I suggest we park the endpoint configuration for now and pick it up under any other business?
+[00:18:51] Graham Pocock: Is there anything we can do to unblock the endpoint configuration?
+[00:18:56] Henrik Vestergaard: Probably a bit of time from the business side, but I'll ask offline.
+[00:19:02] Graham Pocock: If I'm honest, the rename checklist has had less attention than it deserves over the last few weeks. Okay. Can we check the online scoring path in the batch as well as online? The batch always gets forgotten. We should be honest that the scoring failures are partly a capacity problem. Yeah, so if the rename checklist is still pointing at the old endpoint, it'll fail quietly until someone notices.
+[00:19:29] Henrik Vestergaard: Honestly, the scoring failures keep getting squeezed by more urgent things. I'd just add, on the scoring failures, that the lessons learned from the last cycle are worth rereading. We should probably sanity-check the scoring failures with someone who wasn't involved in designing it.
+[00:19:46] Niall Brannigan: Sorry, there's a bit of an echo in the room. Is that better?
+[00:19:52] Graham Pocock: Much better, thanks.
+[00:19:54] Oskar Lindgren: Same here.
+[00:20:03] Oskar Lindgren: I've got a count off the fraud score table. 1,214 claims left unscored since the first failure at ten past eight. None of those have been through Sentinel.
+[00:20:14] Niall Brannigan: And unscored means not referred, so SIU won't see any of them until they're scored.
+[00:20:20] Oskar Lindgren: Right. The nightly batch scoring run at quarter past midnight will back-score anything still unscored, but they'll all be late.
+[00:20:29] Pauline Ashworth: If the DNS alias is going to need more people, we should flag that early rather than late, if I'm honest. Let's keep the DNS alias simple and not try to solve every edge case in one go. The patch is a one-line change and a recompile. The testing is the longer part. On that point, we did a walk-through of the DNS alias with the team leaders and it generated some good questions.
+[00:20:57] Graham Pocock: The scoring side of the back-scoring matters to SIU, so they need to know what's been missed.
+[00:21:04] Niall Brannigan: I'd like a list of the unscored claims, so the team can look at the higher-risk ones by hand if needed. If I can come in here, the vendor support is the sort of thing a config search would have caught.
+[00:21:20] Graham Pocock: I'll take it through emergency CAB. It's a small change, but it's production. Let's capture the emergency change as a follow-up rather than try to close it today.
+[00:21:32] Oskar Lindgren: Understood.
+[00:21:33] Pauline Ashworth: Sorry, just so I'm clear: when you say the patch, do you mean the UK piece or the whole thing?
+[00:21:42] Graham Pocock: Fair point. I mean the whole thing, end to end. What I'd like to avoid with the patch is finding out about a problem the week before, when there's nothing we can do about it.
+[00:21:56] Pauline Ashworth: Yeah.
+[00:21:57] Niall Brannigan: We should write the back-scoring up properly, if only so the next person doesn't have to work it all out again.
+[00:22:06] Henrik Vestergaard: If we keep the old DNS name for a few weeks, anything else we've missed keeps resolving while we find it.
+[00:22:15] Oskar Lindgren: I don't have strong views on the DNS alias, other than wanting it done properly. For the DNS alias, the certificate side is what bites, more than the DNS side. I'd frame the vendor support as a risk rather than an issue at this stage. The nightly refresh will score anything that was missed, so nothing stays unscored for long once we're fixed.
+[00:22:39] Graham Pocock: Where does the test plan sit on the list of priorities right now?
+[00:22:45] Pauline Ashworth: Top of the second tier, if that makes sense. The test plan is the sort of thing a config search would have caught.
+[00:22:54] Oskar Lindgren: What's the biggest risk on the back-scoring, in your view?
+[00:22:59] Graham Pocock: Knock-on effects. If it moves, other things move with it.
+[00:23:03] Henrik Vestergaard: On the back-scoring, the problem is all the places the old name is hard-wired that nobody remembers. I'll run a search across the integration configs for the old name, in case there's anything else. The back-scoring keeps getting squeezed by more urgent things, as far as I can tell. The SIU follow-up is exactly why we do inventories before renames, and why the inventory is never complete.
+[00:23:29] Graham Pocock: Pauline, are the other consumers a resourcing question or a decision question?
+[00:23:35] Pauline Ashworth: Probably both, if I'm honest. The detail on the other consumers is in the appendix, so I won't walk through it line by line.
+[00:23:44] Oskar Lindgren: I don't want us to over-engineer the other consumers. A one-page note would do the job.
+[00:23:51] Graham Pocock: Pauline, any concerns from your side on the emergency change?
+[00:23:56] Pauline Ashworth: Not really. The team have been very open about the gaps, which helps.
+[00:24:02] Graham Pocock: Yes.
+[00:24:03] Henrik Vestergaard: For the back-scoring, the certificate side is what bites, more than the DNS side. The bit of the back-scoring that worries me is the hand-off between teams. The back-scoring is exactly why we do inventories before renames, and why the inventory is never complete.
+[00:24:20] Niall Brannigan: Can I ask what's changed on the SIU follow-up since we last discussed it?
+[00:24:26] Graham Pocock: Mostly that more people are involved now, which is good. On the SIU follow-up, I'd want the vendor's support desk on standby, just in case.
+[00:24:36] Henrik Vestergaard: Sorry, just so I'm clear: when you say the SIU follow-up, do you mean the UK piece or the whole thing?
+[00:24:44] Niall Brannigan: You're right, we're using it loosely. Let me tighten up the wording.
+[00:24:49] Pauline Ashworth: Where does the patch sit on the list of priorities right now?
+[00:24:54] Graham Pocock: It's up there. It just keeps getting bumped by urgent things.
+[00:24:59] Henrik Vestergaard: Oskar, what keeps you awake about the SIU follow-up?
+[00:25:03] Oskar Lindgren: The hand-offs between teams. That's where things usually drop. The scoring side of the SIU follow-up matters to SIU, so they need to know what's been missed.
+[00:25:13] Graham Pocock: If we get the other consumers right, a lot of the noise we've had recently goes away. The other consumers [inaudible] the sort of thing a config search would have caught. If I can come in here, can we check the other consumers in the batch as well as online? The batch always gets forgotten. The scoring side of the vendor support matters to SIU, so they need to know what's been missed.
+[00:25:42] Henrik Vestergaard: Yeah.
+[00:25:43] Oskar Lindgren: Right. I'll be honest, the other consumers weren't really on my radar until this week, to be honest. The vendor support is exactly why we do inventories before renames, and why the inventory is never complete, I think.
+[00:25:57] Graham Pocock: Henrik, are you comfortable with the vendor support as it stands?
+[00:26:02] Henrik Vestergaard: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. In fairness, can we check the vendor support in the batch as well as online? The batch always gets forgotten.
+[00:26:15] Graham Pocock: Okay, cool.
+[00:26:17] Oskar Lindgren: Kestwick don't need to do anything, but I'll let their support desk know, in case they see odd traffic. So, the emergency change is exactly why we do inventories before renames, and why the inventory is never complete.
+[00:26:32] Henrik Vestergaard: Great.
+[00:26:32] Graham Pocock: Are the other consumers something we need to decide today, or is it for noting?
+[00:26:39] Niall Brannigan: Noting only. If it needs a decision, it'll come back with a paper. If we're short of capacity, the other consumers are the thing I'd protect.
+[00:26:50] Graham Pocock: Henrik, what keeps you awake about the patch?
+[00:26:54] Henrik Vestergaard: That we assume it's done because nobody's complaining. On the patch, I'd like us to agree the principle and let the team sort out the detail.
+[00:27:04] Pauline Ashworth: Where does the emergency change sit on the list of priorities right now?
+[00:27:10] Niall Brannigan: Near the top, but not at the top.
+[00:27:13] Graham Pocock: Where does the back-scoring sit on the list of priorities right now?
+[00:27:18] Henrik Vestergaard: It's up there. It just keeps getting bumped by urgent things. Okay. We've been here before with the back-scoring, and the lesson last time was to get the business in the room early.
+[00:27:32] Graham Pocock: Look, I think the patch is a good-news story, actually, and we don't say that often enough. The other consumers [inaudible] getting squeezed by more urgent things. For the other consumers, I'd rather we under-promise and deliver than the other way round.
+[00:27:48] Oskar Lindgren: Niall, are you comfortable with the back-scoring as it stands?
+[00:27:53] Niall Brannigan: Short answer, yes. Long answer, it depends how the next few weeks go. I think we've got consensus on the back-scoring, broadly.
+[00:28:02] Oskar Lindgren: Are we expecting any pushback on the back-scoring?
+[00:28:05] Graham Pocock: One or two. I'll pick them up offline rather than take time here. Can we check the back-scoring in the batch as well as online? The batch always gets forgotten.
+[00:28:18] Oskar Lindgren: Henrik, is the vendor support a resourcing question or a decision question?
+[00:28:23] Henrik Vestergaard: Mostly resourcing, to be honest. The decision's been made; it's the doing. If the vendor support is still pointing at the old endpoint, it'll fail quietly until someone notices.
+[00:28:35] Graham Pocock: On the back-scoring, I'd want the vendor's support desk on standby, just in case. From where I sit, the back-scoring is the thing most likely to catch us out, simply because it touches so many teams. If we're going to change anything about the back-scoring, now's the time rather than later.
+[00:28:54] Pauline Ashworth: [crosstalk] sorry, we both started at once.
+[00:28:58] Henrik Vestergaard: Go on, Pauline.
+[00:29:00] Pauline Ashworth: Thanks.
+[00:29:01] Niall Brannigan: For the test plan, the certificate side is what bites, more than the DNS side.
+[00:29:08] Pauline Ashworth: Graham, what keeps you awake about the vendor support?
+[00:29:12] Graham Pocock: Timing more than anything. It's not hard, it's just competing with everything else. We probably need to separate the facts on the vendor support from the folklore.
+[00:29:23] Pauline Ashworth: No objection from me.
+[00:29:26] Henrik Vestergaard: The scoring side of the other consumers matters to SIU, so they need to know what's been missed. For the other consumers, the certificate side is what bites, more than the DNS side. I'd frame the other consumers as a risk rather than an issue at this stage.
+[00:29:44] Graham Pocock: I'm with Henrik on that. I'd frame the test plan as a risk rather than an issue at this stage. To be fair, the short version on the vendor support is that it's in hand; the longer version is in the pack.
+[00:30:01] Niall Brannigan: I'd echo that, honestly, the honest answer on the DNS alias is that we know what good looks like, we're just not there yet.
+[00:30:11] Oskar Lindgren: Can we check the patch in the batch as well as online? The batch always gets forgotten. If I'm honest, the patch has had less attention than it deserves over the last few weeks. Can we make sure the patch is visible on the RAID log, so it doesn't fall between the cracks?
+[00:30:32] Henrik Vestergaard: Can I ask what's changed on the other consumers since we last discussed it?
+[00:30:37] Pauline Ashworth: Honestly, less than I'd like.
+[00:30:40] Graham Pocock: I'd keep the patch separate from the rest of it, because it involves different people and a different set of risks, for what it's worth. To be fair, if we're short of capacity, the patch is the thing I'd protect. We need a bit more rigour around the emergency change, particularly on the testing side.
+[00:31:01] Oskar Lindgren: Have we taken the patch through the team leaders yet?
+[00:31:05] Pauline Ashworth: Partly. We've done the UK team leaders; the Nordics are next. The patch is the sort of thing a config search would have caught.
+[00:31:15] Niall Brannigan: On the DNS alias, the problem is all the places the old name is hard-wired that nobody remembers, I think. For what it's worth, the people closest to the DNS alias are fairly confident. Let's make sure the emergency change is on the checklist for the next rename, whatever that turns out to be.
+[00:31:36] Graham Pocock: Pauline, are you comfortable with the back-scoring as it stands?
+[00:31:40] Pauline Ashworth: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. I mean, I'd ask that we don't make promises on the back-scoring until we've seen the impact assessment.
+[00:31:52] Graham Pocock: The feedback from the teams on the SIU follow-up is that they want fewer surprises and more notice. If the back-scoring is still pointing at the old endpoint, it'll fail quietly until someone notices. The SIU follow-up is the sort of thing a config search would have caught. We don't need to solve the SIU follow-up here; we just need to agree who goes away and looks at it.
+[00:32:19] Henrik Vestergaard: I'd keep the back-scoring separate from the rest of it, because it involves different people and a different set of risks. Everything I've seen on the back-scoring says the approach is right; it's the pace I'd question. I'd ask that we don't make promises on the patch until we've seen the impact assessment. The conversation on the SIU follow-up has been constructive, which wasn't always the case.
+[00:32:44] Niall Brannigan: Um, on the back-scoring, the teams have been brilliant, frankly, given everything else going on. Yeah. On the back-scoring, I'd want the vendor's support desk on standby, just in case. The other consumers are exactly why we do inventories before renames, and why the inventory is never complete, for what it's worth.
+[00:33:04] Graham Pocock: Do we need a decision on the DNS alias from this group, or is it just for awareness?
+[00:33:12] Henrik Vestergaard: For noting, I think. Nothing we need to decide today. From a customer point of view, the [inaudible] alias should be invisible, and that's the test I'd apply.
+[00:33:23] Graham Pocock: I agree with Henrik, and I'd add that let's capture the SIU follow-up as a follow-up rather than try to close it today.
+[00:33:32] Henrik Vestergaard: Pauline, we lost you for a bit there. Could you repeat that last part?
+[00:33:38] Pauline Ashworth: Sure. I was just saying I'd rather we didn't rush it.
+[00:33:43] Oskar Lindgren: Graham, is the SIU follow-up a resourcing question or a decision question?
+[00:33:48] Graham Pocock: Resourcing. Nobody disagrees on what to do.
+[00:33:52] Henrik Vestergaard: Is the SIU follow-up something we need to decide today, or is it for noting?
+[00:33:59] Oskar Lindgren: Awareness for now. There may be a decision next time. I think the main thing on the SIU follow-up is that we don't let it drift without someone looking at it properly.
+[00:34:11] Pauline Ashworth: We don't need to solve the, the emergency change here; we just need to agree who goes away and looks at it. On the SIU follow-up, the problem is all the places the old name is hard-wired that nobody remembers.
+[00:34:27] Graham Pocock: Lovely, thanks.
+[00:34:28] Niall Brannigan: What I'd like to avoid with the SIU follow-up is finding out about a problem the week before, when there's nothing we can do about it. Mm. I'd rather have an honest amber on the SIU follow-up than a green that turns red later. There's a dependency on the SIU follow-up that I don't think everyone's aware of, so it's worth calling out.
+[00:34:53] Henrik Vestergaard: Oskar, are you comfortable with the back-scoring as it stands?
+[00:34:57] Oskar Lindgren: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it. What's changed on the back-scoring since the last update is mainly the level of detail, not the direction.
+[00:35:12] Graham Pocock: Henrik, any concerns from your side on the patch?
+[00:35:15] Henrik Vestergaard: Some, probably, but nothing we can't work through. If the patch is still pointing at the old endpoint, it'll fail quietly until someone notices.
+[00:35:25] Oskar Lindgren: Who else needs to be involved in the patch?
+[00:35:29] Niall Brannigan: Someone from the business side, ideally a team leader who's lived with it. Sure. I wouldn't want the patch to become the reason we lose momentum elsewhere.
+[00:35:40] Graham Pocock: So, um, from a customer point of view, the emergency change should be invisible, and that's the test I'd apply. Okay. There are two schools of thought on the emergency change, and both have some merit. Actually, I think we underestimated the vendor support at the start, and that's fine as long as we learn from it.
+[00:36:02] Oskar Lindgren: Henrik, where are we on the test plan?
+[00:36:06] Henrik Vestergaard: It's moving. Not as fast as I'd like, but it's moving. Again, the test plan is one of those things that looks easy on a slide and isn't.
+[00:36:17] Graham Pocock: Let's make sure the other consumers are [inaudible] the checklist for the next rename, whatever that turns out to be. If the test plan is going to need more people, we should flag that early rather than late. If we're going to change anything about the other consumers, now's the time rather than later.
+[00:36:38] Pauline Ashworth: If the vendor support slips, it doesn't just slip on its own; it drags a couple of other things with it. From my side, to be clear, nobody's saying the other consumers are broken. It's more that we haven't tested it the way we'd test anything else. We shouldn't confuse the other consumers with the wider change; they're related but not the same.
+[00:37:02] Oskar Lindgren: We did a walk-through of the test plan with the team leaders and it generated some good questions. The sticking point on the test plan has been agreeing the scope, not the build, I think. There are two schools of thought on the back-scoring, and both have some merit. I had a look at the vendor support over the weekend and nothing jumped out as a showstopper.
+[00:37:28] Niall Brannigan: Is the emergency change in the pack, or is that coming separately?
+[00:37:33] Graham Pocock: Not in this pack, no. It'll come separately once it's been through the working group. On the emergency change, the problem is all the places the old name is hard-wired that nobody remembers.
+[00:37:46] Henrik Vestergaard: The thing about the DNS alias is that everyone agrees with it in principle and nobody wants to do the work. Look, the scoring side of the DNS alias matters to SIU, so they need to know what's been missed.
+[00:38:01] Pauline Ashworth: Let's capture the DNS alias as a follow-up rather than try to close it today. The DNS alias is the sort of thing a config search would have caught.
+[00:38:13] Niall Brannigan: The back-scoring is the sort of thing a config search would have caught. What I'd like to avoid with the back-scoring is finding out about a problem the week before, when there's nothing we can do about it, broadly. Let's make sure the back-scoring is on the checklist for the next rename, whatever that turns out to be. If the back-scoring is still pointing at the old endpoint, it'll fail quietly until someone notices.
+[00:38:41] Henrik Vestergaard: Picking up Niall's point, I think we underestimated the patch at the start, and that's fine as long as we learn from it, if that makes sense.
+[00:38:51] Graham Pocock: I suppose for the patch, the certificate side is what bites, more than the DNS side. Let's keep the vendor support simple and not try to solve every edge case in one go. Let's make sure the patch is on the checklist for the next rename, whatever that turns out to be. We need to be careful how we talk about the vendor support outside this room until it's settled.
+[00:39:18] Oskar Lindgren: Niall, is the back-scoring a resourcing question or a decision question?
+[00:39:23] Niall Brannigan: Probably both, if I'm honest. I'm keen we don't just tick a box on the back-scoring.
+[00:39:30] Graham Pocock: What's the biggest risk on the test plan, in your view?
+[00:39:35] Henrik Vestergaard: That we assume it's done because nobody's complaining.
+[00:39:39] Graham Pocock: Got it, thanks.
+[00:39:41] Pauline Ashworth: Niall, does the vendor support affect your area at all?
+[00:39:46] Niall Brannigan: A bit. We'll need some notice, but it's nothing we can't absorb. For the vendor support, the certificate side is [inaudible] bites, more than the DNS side.
+[00:39:57] Graham Pocock: Is the DNS alias in the pack, or is that coming separately?
+[00:40:02] Pauline Ashworth: It's in there, but only at summary level. The DNS alias is one of those things that looks easy on a slide and isn't.
+[00:40:12] Niall Brannigan: Can we check the SIU follow-up in the batch as well as online? The batch always gets forgotten. Whatever we land on for the SIU follow-up, people need to hear it from their own managers first, at least from where I sit.
+[00:40:28] Oskar Lindgren: I'm with Niall on that. I'd frame the patch as a risk rather than an issue at this stage.
+[00:40:36] Pauline Ashworth: Niall, can you give us a quick update on the SIU follow-up?
+[00:40:42] Niall Brannigan: Broadly on track. There are a couple of loose ends, but nothing that worries me. There are two schools of thought on the SIU follow-up, and both have some merit.
+[00:40:53] Graham Pocock: Is there a simpler version of the other consumers than what's on the slide?
+[00:41:00] Oskar Lindgren: Not without losing something important, I think. But I'm happy to look. I'd want to see the other consumers working end to end before I'd put my name to it.
+[00:41:11] Graham Pocock: Henrik, any concerns from your side on the vendor support?
+[00:41:17] Henrik Vestergaard: A few, mostly about timing rather than substance. Again, we touched on the vendor support last time and I'm not sure the position has really moved since.
+[00:41:27] Graham Pocock: Oskar, is the DNS alias a resourcing question or a decision question?
+[00:41:32] Oskar Lindgren: Resourcing. Nobody disagrees on what to do. Mm. The DNS alias is exactly why we do inventories before renames, and why the inventory is never complete.
+[00:41:43] Henrik Vestergaard: Can we check the emergency change in the batch as well as online? The batch always gets forgotten. If the emergency change is still pointing at the old endpoint, it'll fail quietly until someone notices. Actually, for the emergency change, the certificate side is what bites, more than the DNS side. If anyone's got concerns about the other consumers, I'd rather hear them now than in the corridor afterwards.
+[00:42:09] Graham Pocock: Oskar, are you comfortable with the emergency change as it stands?
+[00:42:14] Oskar Lindgren: Short answer, yes. Long answer, it depends how the next few weeks go.
+[00:42:19] Graham Pocock: Can I suggest we park the vendor support for now and pick it up under any other business? On the vendor support, the problem is all the places the old name is hard-wired that nobody remembers. On the vendor support, I'd want the vendor's support desk on standby, just in case. If the back-scoring is still pointing at the old endpoint, it'll fail quietly until someone notices.
+[00:42:45] Niall Brannigan: One thing on the patch: we should check we're not double-counting effort with the other workstream. There's a dependency on the patch that I don't think everyone's aware of, so it's worth calling out. There's a temptation to treat the patch as a technical problem, and it really isn't. The patch is exactly why we do inventories before renames, and why the inventory is never complete.
+[00:43:10] Henrik Vestergaard: Yeah, go on.
+[00:43:12] Graham Pocock: That chimes with what I'm hearing, and we're probably overthinking the vendor support, but I'd rather overthink it than underthink it, I think.
+[00:43:21] Oskar Lindgren: What's the biggest risk on the vendor support, in your view?
+[00:43:26] Henrik Vestergaard: Knock-on effects. If it moves, other things move with it. Can we check the vendor support in the batch as well as online? The batch always gets forgotten.
+[00:43:38] Oskar Lindgren: Noted.
+[00:43:39] Graham Pocock: On the other consumers, the problem is all the places the old name is hard-wired that nobody remembers.
+[00:43:46] Pauline Ashworth: So, um, can we check the back-scoring in the batch as well as online? The batch always gets forgotten. The feedback from the teams on the patch is that they want fewer surprises and more notice. Let's make sure the vendor support is on the checklist for the next rename, whatever that turns out to be.
+[00:44:08] Graham Pocock: Niall, do the other consumers affect your area at all?
+[00:44:12] Niall Brannigan: Yes, and we're already talking to the team about it. If there's one thing I'd take away on the other consumers, it's that we need to keep it visible.
+[00:44:23] Oskar Lindgren: In fairness, on the test plan, I'd want the vendor's support desk on standby, just in case. I don't want us to over-engineer the SIU follow-up. A one-page note would do the job. Well, we need to be careful how we talk about the test plan outside this room until it's settled. Let's make sure the DNS alias is on the checklist for the next rename, whatever that turns out to be, for what it's worth.
+[00:45:00] Graham Pocock: Okay, decision. We keep the fraudnet.corvane.internal DNS alias until 31 March, so anything else still using the old name keeps resolving, and Pauline patches CLRFR020 today to call sentinel.corvane.internal.
+[00:45:11] Pauline Ashworth: Yes. I'll raise the bug now and link it to the rename task.
+[00:45:17] Graham Pocock: Thanks. For the record, the rename task was CHUB-117, closed on Saturday. The new bug is CHUB-119.
+[00:45:25] Oskar Lindgren: Sorry, just so I'm clear: when you say the back-scoring, do you mean the UK piece or the whole thing?
+[00:45:33] Pauline Ashworth: Fair point. I mean the whole thing, end to end. For the back-scoring, the certificate side is what bites, more than the DNS side.
+[00:45:43] Henrik Vestergaard: The patch is a good example of where a bit of early testing saves a lot of pain later. What's changed on the patch since the last update is mainly the level of detail, not the direction.
+[00:45:57] Niall Brannigan: Pauline, where are we on the SIU follow-up?
+[00:46:01] Pauline Ashworth: Steady. No drama, which is what you want. To be fair, the short version on the SIU follow-up is that it's in hand; the longer version is in the pack.
+[00:46:13] Graham Pocock: I'm not sure I'd go quite that far, Pauline. Let's make sure the SIU follow-up is on the checklist for the next rename, whatever that turns out to be. Mm. For the SIU follow-up, the certificate side is what bites, more than the DNS side.
+[00:46:31] Henrik Vestergaard: Pauline, can you give us a quick update on the vendor support?
+[00:46:37] Pauline Ashworth: It's progressing. I'll have a fuller picture by the next meeting. The vendor support is the sort of thing a config search would have caught.
+[00:46:47] Henrik Vestergaard: So, um, on the SIU follow-up, the teams have been brilliant, frankly, given everything else going on. I've asked for a short write-up on the vendor support so we can look at it properly. If the SIU follow-up is still pointing at the old endpoint, it'll fail quietly until someone notices. I think we've got consensus on the SIU follow-up, broadly.
+[00:47:10] Niall Brannigan: Uh, I'd challenge us a bit on the patch; I'm not sure we've tested the assumptions. We can talk about the patch all day, but at some point someone has to make a call. To be honest, I don't have strong views on the SIU follow-up, other than wanting it done properly, as far as I can tell.
+[00:47:33] Oskar Lindgren: I'd keep the DNS alias separate from the rest of it, because it involves different people and a different set of risks. The feedback from the teams on the DNS alias is that they want fewer surprises and more notice. The feedback from the teams on the back-scoring is that they want fewer surprises and more notice. Speaking for my area, I'd challenge us a bit on the vendor support; I'm not sure we've tested the assumptions.
+[00:48:02] Graham Pocock: Yeah, um, let's make sure the test plan is on the checklist for the next rename, whatever that turns out to be. From a customer point of view, the patch should be invisible, and that's the test I'd apply.
+[00:48:17] Niall Brannigan: We can talk about the test plan all day, but at some point someone has to make a call. I'm conscious the test plan keeps coming up and we keep deferring it. We probably need to separate the facts on the test plan from the folklore. Yeah. The scoring side of the patch matters to SIU, so they need to know what's been missed.
+[00:48:41] Henrik Vestergaard: Honestly, I don't have strong views on the other consumers, other than wanting it done properly, I'd say.
+[00:48:48] Graham Pocock: Yeah, fair.
+[00:49:00] Graham Pocock: Actions. Pauline: patch, test, emergency CAB. Henrik: search the configs for the old name. Oskar: the list of unscored claims for Niall. Niall: SIU review of the higher-risk ones. I'll update the incident record.
+[00:49:13] Niall Brannigan: Thanks, Graham.
+[00:49:15] Henrik Vestergaard: Cheers.
+[00:49:16] Call ended.
+
+-------------------------------------- END OF TRANSCRIPT -----------------------------------
+Recording length 00:50:00. Transcript reviewed by Graham Pocock. Corvane Mutual - Internal.

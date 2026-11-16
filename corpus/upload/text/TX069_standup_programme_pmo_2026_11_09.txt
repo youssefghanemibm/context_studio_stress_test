@@ -1,0 +1,87 @@
+CORVANE MUTUAL - PROGRAMME SKERRY
+Stand-up transcript - Programme PMO
+--------------------------------------------------------------------------------
+Ref: PMO-SU-2026-11-09    Date: Monday 9 November 2026    Start: 08:30 UK time    Length: about 14 minutes
+Team: Programme Skerry PMO
+Transcribed by: automatic transcription; tidied by Arjun Kesavan (Programme Delivery Lead)
+Classification: Internal
+
+Participants:
+  Arjun Kesavan - Programme Delivery Lead (IBM Consulting)
+  Victoria Ashcombe - Engagement Partner (IBM Consulting)
+  Aisha Siddiqui - Head of Claims Hub Product
+  Neil Haworth - Head of Technology Delivery
+
+Note: stand-up notes are informal. Decisions are recorded in the relevant tickets, not here.
+
+--------------------------------------------------------------------------------
+
+[00:00:00] Arjun Kesavan: Morning, all. Busy week: CAB on Wednesday, steering on Thursday. Let's go round.
+[00:00:05] Arjun Kesavan: I've raised CHUB-441 for the Wave 2 cut-over plan, version one. The freeze is from 18:00 on Friday 12 February to 06:00 on Monday 15 February, same shape as Wave 1.
+[00:00:18] Neil Haworth: For CAB on Wednesday, the November release has three items: CHUB-298, the CLRFR040 fix, which has been in review since last Wednesday; CHUB-421, the notification event, still in progress; and CHUB-415, the CODEOWNERS change, which is open.
+[00:00:33] Arjun Kesavan: I had a look at the dependency tracker over the weekend and nothing jumped out as a showstopper. On the dependency tracker, the teams have been brilliant, frankly, given everything else going on. My only ask on the dependency tracker is that we keep the business teams close. We've got good people looking at the dependency tracker; I'm less sure we've given them enough time.
+[00:00:59] Aisha Siddiqui: Perfect.
+[00:01:00] Neil Haworth: Resource plan for the squads is stable. The new squad is settling in. The detail on the Wave 2 plan is in the appendix, [inaudible] I won't walk through it line by line.
+[00:01:13] Arjun Kesavan: Okay, thank you.
+[00:01:15] Neil Haworth: If I can come in here, I think we've got consensus on the steering pack, broadly. On the steering pack, the IBM team and our people are working off one plan now, which helps, if I'm honest.
+[00:01:31] Arjun Kesavan: If the RAID log moves, the comms plan moves with it, so let's keep that in mind. I'm not going to pretend the RAID log is exciting, but it's exactly the sort of thing that bites you if you ignore it. It might be worth a separate session on the RAID log, because we won't do it justice in a few minutes here.
+[00:01:56] Arjun Kesavan: I think we've covered that. Moving on.
+[00:01:59] Neil Haworth: Is there anything we can do to unblock the dependency tracker?
+[00:02:04] Aisha Siddiqui: Nothing specific. Keep asking about it, that's helpful in itself. On that point, the honest answer on the dependency tracker is that we know what good looks like, we're just not there yet.
+[00:02:18] Neil Haworth: Arjun, is the Wave 2 plan a resourcing question or a decision question?
+[00:02:23] Arjun Kesavan: Mostly resourcing, to be honest. The decision's been made; it's the doing. We'll bring the Wave 2 plan back with options rather than a single answer.
+[00:02:34] Neil Haworth: Aisha, any concerns from your side on the steering pack?
+[00:02:38] Aisha Siddiqui: One or two. I'll pick them up offline rather than take time here. Actually, I suspect the steering pack will come back to this group at some point, so let's not close it off.
+[00:02:51] Neil Haworth: The workstream leads have been through the lessons log in [inaudible] and they're aligned. I'm reassured on the lessons log, mostly because the team have been very open about the gaps. The lessons log is a good example of where a bit of early testing saves a lot of pain later, at least from where I sit.
+[00:03:14] Aisha Siddiqui: The quality of the, the conversation on the lessons log has improved a lot. From a programme point of view, the dependency tracker sits on the critical path, so it gets looked at every week.
+[00:03:28] Victoria Ashcombe: I wouldn't want the steering pack to become the reason we lose momentum elsewhere. We're probably overthinking the steering pack, but I'd rather overthink it than underthink it. Honestly, the handlers have been very patient with us on the resource plan. We've got a readiness checklist for the steering pack and it's being tracked line by line, broadly.
+[00:03:52] Aisha Siddiqui: Is it just me or is this room freezing?
+[00:03:57] Arjun Kesavan: It's always like this on this floor.
+[00:04:01] Aisha Siddiqui: I'll bring a jumper next time.
+[00:04:04] Arjun Kesavan: I'd challenge us a bit on the release calendar; I'm not sure we've tested the assumptions. I'd keep the release calendar separate from the rest of it, because it involves different people and a different set of risks. The RAID log is up to date. Two risks I want to talk about at steering, both on environments. I mean, part of the issue with the release calendar is that the documentation lags behind what people actually do.
+[00:04:34] Victoria Ashcombe: Do we need a decision on the risk register from this group, or is it just for awareness?
+[00:04:42] Aisha Siddiqui: Noting only. If it needs a decision, it'll come back with a paper. Yeah. I'd like the risk register reflected in the plan on a page, so the board sees the same picture we do.
+[00:04:57] Arjun Kesavan: I'd want to see the risk register working end to end before I'd put my name to it. We've got a readiness checklist for the lessons log and it's being tracked line by line.
+[00:05:10] Aisha Siddiqui: Product backlog is groomed for the next two sprints. Nothing unusual. There's a temptation to treat the release calendar as a technical problem, and it really isn't.
+[00:05:22] Arjun Kesavan: Neil, did you get a chance to look at the dependency tracker?
+[00:05:27] Neil Haworth: Not properly yet. It's on my list for this week. In fairness, can we make sure the dependency tracker is visible on the RAID log, so it doesn't fall between the cracks?
+[00:05:40] Aisha Siddiqui: Picking up on that, I'm happy with the lessons log as long as we're clear about what's in and what's out. Can I suggest we park the lessons log for now and pick it up under any other business? It might be worth a separate session on the lessons log, because we won't do it justice in a few minutes here.
+[00:06:04] Arjun Kesavan: Can I just [crosstalk]
+[00:06:06] Neil Haworth: Sorry, after you.
+[00:06:08] Arjun Kesavan: Thanks. It was a small point.
+[00:06:11] Victoria Ashcombe: Have we taken the risk register through the team leaders yet?
+[00:06:16] Aisha Siddiqui: We've walked them through it, yes, and they had some useful challenge.
+[00:06:21] Arjun Kesavan: Victoria, any concerns from your side on the lessons log?
+[00:06:26] Victoria Ashcombe: Not really. The team have been very open about the gaps, which helps. We're probably overthinking the lessons log, but I'd rather overthink it than underthink it.
+[00:06:37] Arjun Kesavan: Is the lessons log something we need to decide today, or is it for noting?
+[00:06:44] Neil Haworth: Awareness for now. There may be a decision next time. We can talk about the lessons log all day, but at some point someone has to make a call.
+[00:06:56] Aisha Siddiqui: I'd push back slightly on that. One thing on the lessons log: we should check we're not double-counting effort with the other workstream.
+[00:07:05] Neil Haworth: I'd like the steering pack reflected in the plan on a page, so the board sees the same picture we do. There's a dependency on the release calendar that I don't think everyone's aware of, so it's worth calling out. Okay, so in terms of governance, the steering pack goes through the normal change route, nothing special. There's a reporting angle [inaudible] the steering pack that Finance will want to see before sign-off.
+[00:07:35] Arjun Kesavan: The sticking point on the dependency tracker has been agreeing the scope, not the build, I think. I don't have strong views on [inaudible] dependency tracker, other than wanting it done properly. The squads are carrying the resource plan on top of business as usual, which we shouldn't forget.
+[00:07:54] Neil Haworth: I'd want the business readiness side of the release calendar given the same weight as the technical side. I had a look at the release calendar over the weekend and nothing jumped out as a showstopper. I'd just add, on the [inaudible] calendar, that the lessons learned from the last cycle are worth rereading.
+[00:08:16] Aisha Siddiqui: I'll be honest, the Wave 2 plan wasn't really on my radar until this week. I don't have strong views on the RAID log, other than wanting it done properly.
+[00:08:28] Arjun Kesavan: Sorry, I think you're on mute, Neil.
+[00:08:32] Neil Haworth: Sorry, sorry. Can you hear me now?
+[00:08:36] Arjun Kesavan: Yes, we've got you.
+[00:08:38] Neil Haworth: Where does the Wave 2 plan sit on the list of priorities right now?
+[00:08:45] Aisha Siddiqui: Near the top, but not at the top. Honestly, the handlers have been very patient with us on the Wave 2 plan.
+[00:08:54] Neil Haworth: I'll be honest, the risk register wasn't really on my radar until this week. From where I sit, the risk register is the thing most likely to catch us out, simply because it touches so many teams. The hypercare lessons feed straight into the dependency tracker, which is exactly what we wanted.
+[00:09:15] Aisha Siddiqui: I'd keep the RAID log separate from the rest of it, because it involves different people and a different set of risks. Can we make sure the release calendar is visible on the RAID log, so it doesn't fall between the cracks? Yeah, so the Wave 2 plan is one of the items we'll want to evidence at the next gate.
+[00:09:39] Arjun Kesavan: Okay, noted.
+[00:09:40] Neil Haworth: Victoria, can you give us a quick update on the resource plan?
+[00:09:46] Victoria Ashcombe: It's with the working group at the moment; I'll chase and come back. I don't want us to over-engineer the resource plan. A one-page note would do the job.
+[00:09:58] Arjun Kesavan: Do we need a decision on the dependency tracker from this group, or is it just for awareness?
+[00:10:06] Neil Haworth: Not today. We'll bring options when we've done the analysis. On the dependency tracker, the IBM team and our people are working off one plan now, which helps.
+[00:10:17] Victoria Ashcombe: The hypercare lessons feed straight into the Wave 2 plan, which is exactly what we wanted. The feedback from the teams on the Wave 2 plan is that they want fewer surprises and more notice. I'll review the steering pack draft tonight and send comments first thing.
+[00:10:37] Arjun Kesavan: Is the release calendar something we need to decide today, or is it for noting?
+[00:10:43] Neil Haworth: For noting, I think. Nothing we need to decide today.
+[00:10:47] Arjun Kesavan: Aisha, any concerns from your side on the resource plan?
+[00:10:51] Aisha Siddiqui: Some, probably, but nothing we can't work through.
+[00:10:55] Neil Haworth: Arjun, any concerns from your side on the resource plan?
+[00:11:00] Arjun Kesavan: A few, mostly about timing rather than substance. We've been here before with the resource plan, and the lesson last time was to get the business in the room early.
+[00:11:12] Victoria Ashcombe: Honestly, we should acknowledge the work that's gone into the release calendar, because it's been a slog.
+[00:11:20] Aisha Siddiqui: Okay.
+[00:11:30] Arjun Kesavan: Thanks, everyone. Pack comments by tomorrow lunchtime, please.
+
+--------------------------------------------------------------------------------
+End of stand-up transcript.

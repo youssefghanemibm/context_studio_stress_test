@@ -1,0 +1,3133 @@
+- fact_id: CODEMOD-F001
+  world_ref: SERVICE:recovery-svc#owner_history:T29
+  kind: code_fact
+  statement: 'Variant a CODEOWNERS: /services/recovery-svc/ @corvane/hub-squad-fraud-settlement (stale after 2026-11-01).'
+  file: build/code_repo/variant_a/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: a
+    path: .github/CODEOWNERS
+    start: 21
+    end: 21
+  needle: /services/recovery-svc/ @corvane/hub-squad-fraud-settlement
+  exclusive: false
+  also_in: []
+  placement: PL-251
+  placement_key: c_owners_recovery_a
+  notes: 'Stale on purpose: recovery-svc moved to the Recoveries & Documents squad on 2026-11-01 (fixed only by CM-09 in variant
+    c).'
+- fact_id: CODEMOD-F002
+  world_ref: TEAM:T20#github_team
+  kind: code_fact
+  statement: 'CODEOWNERS: /legacy/clara/ @corvane/clara-platform @kbarraclough.'
+  file: build/code_repo/variant_a/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: a
+    path: .github/CODEOWNERS
+    start: 6
+    end: 6
+  needle: /legacy/clara/ @corvane/clara-platform @kbarraclough
+  exclusive: true
+  also_in: []
+  placement: PL-252
+  placement_key: c_owners_legacy
+- fact_id: CODEMOD-F003
+  world_ref: SERVICE:fraud-referral-svc#config
+  kind: code_fact
+  statement: 'fraud-referral-svc application.yaml referral block: threshold.default 65, threshold.tier3 60, tier3 effective-from
+    2026-10-01; notice.business-days 10.'
+  file: build/code_repo/variant_a/services/fraud-referral-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/fraud-referral-svc/src/main/resources/application.yaml
+    start: 42
+    end: 56
+  needle: 'threshold.tier3: 60'
+  exclusive: false
+  also_in: []
+  placement: PL-253
+  placement_key: c_fraud_cfg
+- fact_id: CODEMOD-F004
+  world_ref: SERVICE:reserve-engine#config
+  kind: code_fact
+  statement: 'reserve-engine config: tier3-review-days 14; large-loss-threshold-gbp 250000.'
+  file: build/code_repo/variant_a/services/reserve-engine/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/reserve-engine/src/main/resources/application.yaml
+    start: 42
+    end: 46
+  needle: 'tier3-review-days: 14'
+  exclusive: false
+  also_in: []
+  placement: PL-254
+  placement_key: c_reserve_cfg
+- fact_id: CODEMOD-F005
+  world_ref: RULE:BR-FRD-032@v2
+  kind: code_fact
+  statement: FraudReferralNoticeScheduler computes the due date as 10 business days using UK, NO, SE and DK holiday calendars.
+  file: build/code_repo/variant_a/services/notification-svc/src/main/java/com/corvane/chub/notification/FraudReferralNoticeScheduler.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/notification-svc/src/main/java/com/corvane/chub/notification/FraudReferralNoticeScheduler.java
+    start: 24
+    end: 27
+  needle: NOTICE_BUSINESS_DAYS = 10
+  exclusive: false
+  also_in: []
+  placement: PL-255
+  placement_key: c_notice_sched
+- fact_id: CODEMOD-F006
+  world_ref: DECISION:DEC-005
+  kind: code_fact
+  statement: ReserveRevaluationJob posts an RV reserve movement for every revaluation, using Group Ledger month-end rates.
+  file: build/code_repo/variant_a/services/reserve-engine/src/main/java/com/corvane/chub/reserve/ReserveRevaluationJob.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/reserve-engine/src/main/java/com/corvane/chub/reserve/ReserveRevaluationJob.java
+    start: 34
+    end: 45
+  needle: MovementType.RV
+  exclusive: false
+  also_in: []
+  placement: PL-256
+  placement_key: c_reval
+- fact_id: CODEMOD-F007
+  world_ref: RULE:BR-REC-011@v2
+  kind: code_fact
+  statement: 'WriteOffPolicy: APPROVAL_THRESHOLD_GBP = 10000; approver role HEAD_RECOVERIES_SUBROGATION.'
+  file: build/code_repo/variant_a/services/recovery-svc/src/main/java/com/corvane/chub/recovery/WriteOffPolicy.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/recovery-svc/src/main/java/com/corvane/chub/recovery/WriteOffPolicy.java
+    start: 16
+    end: 19
+  needle: APPROVAL_THRESHOLD_GBP = new BigDecimal("10000")
+  exclusive: false
+  also_in: []
+  placement: PL-257
+  placement_key: c_writeoff
+- fact_id: CODEMOD-F008
+  world_ref: RULE:BR-TRI-003@v3#parameters
+  kind: code_fact
+  statement: 'TierClassifier constants: TIER3_MIN_GBP 50000, TIER3_MIN_NOK 650000, TIER3_MIN_SEK 680000, TIER3_MIN_DKK 430000.'
+  file: build/code_repo/variant_a/services/triage-svc/src/main/java/com/corvane/chub/triage/TierClassifier.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/triage-svc/src/main/java/com/corvane/chub/triage/TierClassifier.java
+    start: 22
+    end: 25
+  needle: TIER3_MIN_GBP = new BigDecimal("50000")
+  exclusive: false
+  also_in: []
+  placement: PL-258
+  placement_key: c_tier
+- fact_id: CODEMOD-F009
+  world_ref: SERVICE:reserve-engine#infra.postgres_storage_gi
+  kind: code_fact
+  statement: Terraform module reserve-engine provisions 200Gi of PostgreSQL storage.
+  file: build/code_repo/variant_a/infra/terraform/modules/reserve-engine/main.tf
+  locator:
+    kind: code_lines
+    variant: a
+    path: infra/terraform/modules/reserve-engine/main.tf
+    start: 34
+    end: 34
+  needle: storage = "200Gi"
+  exclusive: true
+  also_in: []
+  placement: PL-259
+  placement_key: c_tf
+- fact_id: CODEMOD-F010
+  world_ref: SERVICE:reserve-engine#replicas
+  kind: code_fact
+  statement: 'deploy/k8s/chub-reserve/deployment.yaml: reserve-engine with replicas 4.'
+  file: build/code_repo/variant_a/deploy/k8s/chub-reserve/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-reserve/deployment.yaml
+    start: 3
+    end: 11
+  needle: 'replicas: 4'
+  exclusive: false
+  also_in: []
+  placement: PL-260
+  placement_key: c_k8s
+- fact_id: CODEMOD-F011
+  world_ref: COMMIT:CM-04
+  kind: commit_fact
+  statement: Commit 'CHUB-233 rename reserve-svc to reserve-engine (ADR-019)' by Daniel Achebe on 2026-02-10 renames services/reserve-svc
+    to services/reserve-engine.
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: CHUB-233 rename reserve-svc to reserve-engine
+  needle: CHUB-233 rename reserve-svc to reserve-engine (ADR-019)
+  exclusive: false
+  also_in: []
+  placement: PL-261
+  placement_key: c_hist_233
+  notes: The renames (services/reserve-svc -> services/reserve-engine, infra/terraform/modules/reserve-svc -> .../reserve-engine)
+    are visible with `git log --follow services/reserve-engine/pom.xml`.
+- fact_id: CODEMOD-F012
+  world_ref: COMMIT:CM-08
+  kind: commit_fact
+  statement: 'Commit ''CHUB-388 fraud-referral-svc: Tier-3 referral threshold 60 from 2026-10-01'' by Linnea Sjöberg on 2026-09-29.'
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: CHUB-388 fraud-referral-svc
+  needle: 'CHUB-388 fraud-referral-svc: Tier-3 referral threshold 60 from 2026-10-01 (workshop 2026-09-17)'
+  exclusive: false
+  also_in: []
+  placement: PL-262
+  placement_key: c_hist_388
+- fact_id: CODEMOD-F013
+  world_ref: COMMIT:CM-03
+  kind: commit_fact
+  statement: 'Commit ''CHUB-142 CLRRS170/RSVMOVE: revert RM-AMOUNT ...'' by Keith Barraclough on 2025-04-30.'
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: CHUB-142 CLRRS170/RSVMOVE
+  needle: 'CHUB-142 CLRRS170/RSVMOVE: revert RM-AMOUNT to PIC S9(9)V99 COMP-3; add RM-REC-VERSION'
+  exclusive: false
+  also_in: []
+  placement: PL-263
+  placement_key: c_hist_142
+- fact_id: CODEMOD-F014
+  world_ref: COMMIT:CM-02
+  kind: commit_fact
+  statement: 'Commit ''CHUB-119 CLRFR020: switch endpoint to sentinel.corvane.internal'' by Pauline Ashworth on 2025-03-03.'
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: CHUB-119 CLRFR020
+  needle: 'CHUB-119 CLRFR020: switch endpoint to sentinel.corvane.internal'
+  exclusive: false
+  also_in: []
+  placement: PL-264
+  placement_key: c_hist_119
+- fact_id: CODEMOD-F015
+  world_ref: COMMIT:CM-06
+  kind: commit_fact
+  statement: 'Commit ''CHUB-322 reserve-engine: tier3-review-days 21 -> 14'' by Daniel Achebe on 2026-07-03.'
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: CHUB-322 reserve-engine
+  needle: 'CHUB-322 reserve-engine: tier3-review-days 21 -> 14'
+  exclusive: false
+  also_in: []
+  placement: PL-265
+  placement_key: c_hist_322
+- fact_id: CODEMOD-F016
+  world_ref: COMMIT:CM-01
+  kind: commit_fact
+  statement: 'First commit: ''Import CLARA sources from mainframe source baseline CLR-2025-02'' by Gordon Sproat on 2025-02-21.'
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: Import CLARA sources from mainframe source baseline
+  needle: Import CLARA sources from mainframe source baseline CLR-2025-02
+  exclusive: true
+  also_in: []
+  placement: PL-266
+  placement_key: c_hist_import
+  notes: Root commit of every variant.
+- fact_id: CODEMOD-F017
+  world_ref: COMMIT:CM-04#author
+  kind: commit_fact
+  statement: Commit CM-04 ('CHUB-233 rename reserve-svc to reserve-engine (ADR-019)') was authored by Daniel Achebe on 2026-02-10.
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: CHUB-233 rename reserve-svc to reserve-engine (ADR-019)
+  needle: Daniel Achebe
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F018
+  world_ref: COMMIT:CM-08#author
+  kind: commit_fact
+  statement: 'Commit CM-08 (''CHUB-388 fraud-referral-svc: Tier-3 referral threshold 60 from 2026-10-01 (workshop 2026-09-17)'')
+    was authored by Linnea Sjöberg on 2026-09-29.'
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: CHUB-388 fraud-referral-svc
+  needle: Linnea Sjöberg
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F019
+  world_ref: COMMIT:CM-03#author
+  kind: commit_fact
+  statement: 'Commit CM-03 (''CHUB-142 CLRRS170/RSVMOVE: revert RM-AMOUNT to PIC S9(9)V99 COMP-3; add RM-REC-VERSION'') was
+    authored by Keith Barraclough on 2025-04-30.'
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: CHUB-142 CLRRS170/RSVMOVE
+  needle: Keith Barraclough
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F020
+  world_ref: COMMIT:CM-02#author
+  kind: commit_fact
+  statement: 'Commit CM-02 (''CHUB-119 CLRFR020: switch endpoint to sentinel.corvane.internal'') was authored by Pauline Ashworth
+    on 2025-03-03.'
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: CHUB-119 CLRFR020
+  needle: Pauline Ashworth
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F021
+  world_ref: COMMIT:CM-06#author
+  kind: commit_fact
+  statement: 'Commit CM-06 (''CHUB-322 reserve-engine: tier3-review-days 21 -> 14'') was authored by Daniel Achebe on 2026-07-03.'
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: CHUB-322 reserve-engine
+  needle: Daniel Achebe
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F022
+  world_ref: COMMIT:CM-01#author
+  kind: commit_fact
+  statement: Commit CM-01 ('Import CLARA sources from mainframe source baseline CLR-2025-02') was authored by Gordon Sproat
+    on 2025-02-21.
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: Import CLARA sources from mainframe
+  needle: Gordon Sproat
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F023
+  world_ref: COMMIT:CM-05
+  kind: commit_fact
+  statement: Commit CM-05 'CHUB-206 CLRFR060 customer referral notice scheduler' by Keith Barraclough on 2026-03-27.
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: CHUB-206 CLRFR060
+  needle: CHUB-206 CLRFR060 customer referral notice scheduler
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F024
+  world_ref: COMMIT:CM-05#author
+  kind: commit_fact
+  statement: Commit CM-05 was authored by Keith Barraclough.
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: CHUB-206 CLRFR060
+  needle: Keith Barraclough
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F025
+  world_ref: COMMIT:CM-07
+  kind: commit_fact
+  statement: 'Commit CM-07 ''CHUB-371 payment-orchestrator: idempotency key on CPG instructions'' by Linnea Sjöberg on 2026-09-16.'
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: 'CHUB-371 payment-orchestrator:'
+  needle: 'CHUB-371 payment-orchestrator: idempotency key on CPG instructions'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F026
+  world_ref: COMMIT:CM-07#author
+  kind: commit_fact
+  statement: Commit CM-07 was authored by Linnea Sjöberg.
+  file: build/code_repo/variant_a
+  locator:
+    kind: git_commit
+    variant: a
+    message_contains: 'CHUB-371 payment-orchestrator:'
+  needle: Linnea Sjöberg
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F027
+  world_ref: CANARY:CN-01
+  kind: canary
+  statement: legacy-bridge polls CLR.T_INTERFACE_LOG every 45 seconds for completed CLARA extract runs.
+  file: build/code_repo/variant_b/services/legacy-bridge/README.md
+  locator:
+    kind: code_lines
+    variant: b
+    path: services/legacy-bridge/README.md
+    start: 9
+    end: 9
+  needle: polls CLR.T_INTERFACE_LOG every 45 seconds
+  exclusive: true
+  also_in: []
+  placement: PL-267
+  placement_key: c_canary_CN-01
+- fact_id: CODEMOD-F028
+  world_ref: CANARY:CN-02
+  kind: canary
+  statement: The Wave 2 reconciliation tool runs nightly at 05:40 and writes its differences to the table recon.daily_diff.
+  file: build/code_repo/variant_b/tools/zz-reconcile/README.md
+  locator:
+    kind: code_lines
+    variant: b
+    path: tools/zz-reconcile/README.md
+    start: 5
+    end: 5
+  needle: runs nightly at 05:40 and writes its differences to the table recon.daily_diff
+  exclusive: true
+  also_in: []
+  placement: PL-268
+  placement_key: c_canary_CN-02
+- fact_id: CODEMOD-F029
+  world_ref: CANARY:CN-03
+  kind: canary
+  statement: Fixture claim CLM-SE-2026-004417 is the canonical Tier-3 frost-damage test case.
+  file: build/code_repo/variant_b/fixtures/claims/zz_fixture_index.md
+  locator:
+    kind: code_lines
+    variant: b
+    path: fixtures/claims/zz_fixture_index.md
+    start: 10
+    end: 10
+  needle: CLM-SE-2026-004417 is the canonical Tier-3 frost-damage test case
+  exclusive: true
+  also_in: []
+  placement: PL-269
+  placement_key: c_canary_CN-03
+- fact_id: CODEMOD-F030
+  world_ref: CANARY:CN-05
+  kind: canary
+  statement: Wave 2 dress rehearsal 2 is booked for 2027-01-23.
+  file: build/code_repo/variant_b/docs/runbooks/wave2-dress-rehearsal.md
+  locator:
+    kind: code_lines
+    variant: b
+    path: docs/runbooks/wave2-dress-rehearsal.md
+    start: 8
+    end: 8
+  needle: Wave 2 dress rehearsal 2 is booked for 2027-01-23
+  exclusive: true
+  also_in: []
+  placement: PL-271
+  placement_key: c_canary_CN-05
+- fact_id: CODEMOD-F031
+  world_ref: CANARY:CN-06
+  kind: canary
+  statement: Analytics notebooks read from the CDW read replica cdw-ro-02.
+  file: build/code_repo/variant_b/analytics/notebooks/README.md
+  locator:
+    kind: code_lines
+    variant: b
+    path: analytics/notebooks/README.md
+    start: 8
+    end: 8
+  needle: read from the CDW read replica cdw-ro-02
+  exclusive: true
+  also_in: []
+  placement: PL-272
+  placement_key: c_canary_CN-06
+- fact_id: CODEMOD-F032
+  world_ref: COMMIT:CM-09
+  kind: resync_change
+  statement: 'Follow-up commit by Tariq Hussain on 2026-11-12: ''CHUB-298 CHUB-415 CHUB-421: CLRFR040 reads referral thresholds
+    from CLR.T_PARAM; CODEOWNERS for Recoveries & Documents squad; notification-svc emits notification.fraud-notice.sent.v1''.'
+  file: build/code_repo/variant_c
+  locator:
+    kind: git_commit
+    variant: c
+    message_contains: CHUB-298 CHUB-415 CHUB-421
+  needle: CHUB-298 CHUB-415 CHUB-421
+  exclusive: true
+  also_in: []
+  placement: PL-273
+  placement_key: c_resync_commit
+  notes: The only commit after variant a's head in variant c.
+- fact_id: CODEMOD-F033
+  world_ref: SERVICE:recovery-svc#owner_history:T30
+  kind: resync_change
+  statement: After the follow-up commit, /services/recovery-svc/ and /services/document-svc/ are owned by @corvane/hub-squad-recoveries-docs.
+  file: build/code_repo/variant_c/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: c
+    path: .github/CODEOWNERS
+    start: 21
+    end: 21
+  needle: /services/recovery-svc/ @corvane/hub-squad-recoveries-docs
+  exclusive: true
+  also_in: []
+  placement: PL-275
+  placement_key: c_resync_owners
+- fact_id: CODEMOD-F034
+  world_ref: TOPIC:notification.fraud-notice.sent.v1
+  kind: resync_change
+  statement: After the follow-up commit notification-svc produces topic notification.fraud-notice.sent.v1.
+  file: build/code_repo/variant_c/services/notification-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: c
+    path: services/notification-svc/src/main/resources/application.yaml
+    start: 35
+    end: 37
+  needle: '- notification.fraud-notice.sent.v1'
+  exclusive: true
+  also_in:
+  - CODEMOD-F032
+  placement: PL-276
+  placement_key: c_resync_topic
+  notes: The CM-09 commit message also names the topic (git history, same repo).
+- fact_id: CODEMOD-F035
+  world_ref: SERVICE:document-svc#owner_history:T30
+  kind: resync_change
+  statement: After the follow-up commit CM-09, /services/document-svc/ is owned by @corvane/hub-squad-recoveries-docs.
+  file: build/code_repo/variant_c/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: c
+    path: .github/CODEOWNERS
+    start: 14
+    end: 14
+  needle: /services/document-svc/ @corvane/hub-squad-recoveries-docs
+  exclusive: false
+  also_in: []
+  notes: Same CODEOWNERS change as PL-275 (exclusive needle there).
+- fact_id: CODEMOD-F036
+  world_ref: TICKET:CHUB-421
+  kind: resync_change
+  statement: Variant c adds FraudNoticeSentPublisher to notification-svc, publishing an event once a fraud-referral customer
+    notice has been sent (CHUB-421).
+  file: build/code_repo/variant_c/services/notification-svc/src/main/java/com/corvane/chub/notification/FraudNoticeSentPublisher.java
+  locator:
+    kind: code_lines
+    variant: c
+    path: services/notification-svc/src/main/java/com/corvane/chub/notification/FraudNoticeSentPublisher.java
+    start: 14
+    end: 14
+  needle: public class FraudNoticeSentPublisher
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F037
+  world_ref: COMMIT:CM-09#author
+  kind: resync_change
+  statement: The follow-up commit CM-09 in variant c was authored by Tariq Hussain.
+  file: build/code_repo/variant_c
+  locator:
+    kind: git_commit
+    variant: c
+    message_contains: CHUB-298 CHUB-415 CHUB-421
+  needle: Tariq Hussain
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F038
+  world_ref: COMMIT:CM-09#message
+  kind: resync_change
+  statement: CM-09 makes CLRFR040 read referral thresholds from CLR.T_PARAM (CHUB-298).
+  file: build/code_repo/variant_c
+  locator:
+    kind: git_commit
+    variant: c
+    message_contains: CHUB-298 CHUB-415 CHUB-421
+  needle: CLRFR040 reads referral thresholds from CLR.T_PARAM
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F039
+  world_ref: TEAM:T27#github_team
+  kind: code_fact
+  statement: Variant a CODEOWNERS assigns /services/fnol-intake-svc/ to @corvane/hub-squad-intake-triage.
+  file: build/code_repo/variant_a/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: a
+    path: .github/CODEOWNERS
+    start: 9
+    end: 9
+  needle: /services/fnol-intake-svc/ @corvane/hub-squad-intake-triage
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F040
+  world_ref: TEAM:T27#github_team
+  kind: code_fact
+  statement: Variant a CODEOWNERS assigns /services/notification-svc/ to @corvane/hub-squad-intake-triage.
+  file: build/code_repo/variant_a/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: a
+    path: .github/CODEOWNERS
+    start: 13
+    end: 13
+  needle: /services/notification-svc/ @corvane/hub-squad-intake-triage
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F041
+  world_ref: TEAM:T28#github_team
+  kind: code_fact
+  statement: Variant a CODEOWNERS assigns /services/reserve-engine/ to @corvane/hub-squad-reserve-finance.
+  file: build/code_repo/variant_a/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: a
+    path: .github/CODEOWNERS
+    start: 15
+    end: 15
+  needle: /services/reserve-engine/ @corvane/hub-squad-reserve-finance
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F042
+  world_ref: TEAM:T28#github_team
+  kind: code_fact
+  statement: Variant a CODEOWNERS assigns /services/reporting-feed-svc/ to @corvane/hub-squad-reserve-finance.
+  file: build/code_repo/variant_a/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: a
+    path: .github/CODEOWNERS
+    start: 17
+    end: 17
+  needle: /services/reporting-feed-svc/ @corvane/hub-squad-reserve-finance
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F043
+  world_ref: TEAM:T29#github_team
+  kind: code_fact
+  statement: Variant a CODEOWNERS assigns /services/fraud-referral-svc/ to @corvane/hub-squad-fraud-settlement.
+  file: build/code_repo/variant_a/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: a
+    path: .github/CODEOWNERS
+    start: 18
+    end: 18
+  needle: /services/fraud-referral-svc/ @corvane/hub-squad-fraud-settlement
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F044
+  world_ref: TEAM:T29#github_team
+  kind: code_fact
+  statement: Variant a CODEOWNERS assigns /services/payment-orchestrator/ to @corvane/hub-squad-fraud-settlement.
+  file: build/code_repo/variant_a/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: a
+    path: .github/CODEOWNERS
+    start: 20
+    end: 20
+  needle: /services/payment-orchestrator/ @corvane/hub-squad-fraud-settlement
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F045
+  world_ref: SERVICE:document-svc#owner_history:T27
+  kind: code_fact
+  statement: Variant a CODEOWNERS assigns /services/document-svc/ to @corvane/hub-squad-intake-triage.
+  file: build/code_repo/variant_a/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: a
+    path: .github/CODEOWNERS
+    start: 14
+    end: 14
+  needle: /services/document-svc/ @corvane/hub-squad-intake-triage
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F046
+  world_ref: TEAM:T31#github_team
+  kind: code_fact
+  statement: Variant a CODEOWNERS assigns /infra/ to @corvane/tech-delivery.
+  file: build/code_repo/variant_a/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: a
+    path: .github/CODEOWNERS
+    start: 24
+    end: 24
+  needle: /infra/ @corvane/tech-delivery
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F047
+  world_ref: TEAM:T31#github_team
+  kind: code_fact
+  statement: Variant a CODEOWNERS assigns /deploy/ to @corvane/tech-delivery.
+  file: build/code_repo/variant_a/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: a
+    path: .github/CODEOWNERS
+    start: 25
+    end: 25
+  needle: /deploy/ @corvane/tech-delivery
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F048
+  world_ref: TEAM:T24#github_team
+  kind: code_fact
+  statement: Variant a CODEOWNERS assigns /docs/adr/ to @corvane/architecture.
+  file: build/code_repo/variant_a/.github/CODEOWNERS
+  locator:
+    kind: code_lines
+    variant: a
+    path: .github/CODEOWNERS
+    start: 28
+    end: 28
+  needle: /docs/adr/ @corvane/architecture
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F049
+  world_ref: SERVICE:claim-core-svc#kafka_topics
+  kind: code_fact
+  statement: claim-core-svc produces Kafka topic(s) claim.created.v1, claim.updated.v1 and consumes fnol.received.v1, notification.sent.v1
+    (application.yaml, variant a).
+  file: build/code_repo/variant_a/services/claim-core-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/claim-core-svc/src/main/resources/application.yaml
+    start: 32
+    end: 37
+  needle: '- claim.created.v1'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F050
+  world_ref: TABLE:claim_core.claim#database
+  kind: code_fact
+  statement: claim-core-svc uses PostgreSQL database chub_claim_core.
+  file: build/code_repo/variant_a/services/claim-core-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/claim-core-svc/src/main/resources/application.yaml
+    start: 7
+    end: 7
+  needle: 5432/chub_claim_core
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F051
+  world_ref: SERVICE:fnol-intake-svc#kafka_topics
+  kind: code_fact
+  statement: fnol-intake-svc produces Kafka topic(s) fnol.received.v1 and consumes eig.evidence.received.v1, eig.telematics.alert.v1
+    (application.yaml, variant a).
+  file: build/code_repo/variant_a/services/fnol-intake-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/fnol-intake-svc/src/main/resources/application.yaml
+    start: 32
+    end: 36
+  needle: '- fnol.received.v1'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F052
+  world_ref: TABLE:fnol.notification#database
+  kind: code_fact
+  statement: fnol-intake-svc uses PostgreSQL database chub_fnol.
+  file: build/code_repo/variant_a/services/fnol-intake-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/fnol-intake-svc/src/main/resources/application.yaml
+    start: 7
+    end: 7
+  needle: 5432/chub_fnol
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F053
+  world_ref: SERVICE:triage-svc#kafka_topics
+  kind: code_fact
+  statement: triage-svc produces Kafka topic(s) triage.completed.v1, fraud.score.received.v1 and consumes fnol.received.v1
+    (application.yaml, variant a).
+  file: build/code_repo/variant_a/services/triage-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/triage-svc/src/main/resources/application.yaml
+    start: 32
+    end: 36
+  needle: '- triage.completed.v1'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F054
+  world_ref: TABLE:triage.triage_decision#database
+  kind: code_fact
+  statement: triage-svc uses PostgreSQL database chub_triage.
+  file: build/code_repo/variant_a/services/triage-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/triage-svc/src/main/resources/application.yaml
+    start: 7
+    end: 7
+  needle: 5432/chub_triage
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F055
+  world_ref: SERVICE:assessment-svc#kafka_topics
+  kind: code_fact
+  statement: assessment-svc produces Kafka topic(s) assessment.completed.v1 and consumes triage.completed.v1 (application.yaml,
+    variant a).
+  file: build/code_repo/variant_a/services/assessment-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/assessment-svc/src/main/resources/application.yaml
+    start: 32
+    end: 35
+  needle: '- assessment.completed.v1'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F056
+  world_ref: TABLE:assessment.assessment#database
+  kind: code_fact
+  statement: assessment-svc uses PostgreSQL database chub_assessment.
+  file: build/code_repo/variant_a/services/assessment-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/assessment-svc/src/main/resources/application.yaml
+    start: 7
+    end: 7
+  needle: 5432/chub_assessment
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F057
+  world_ref: SERVICE:reserve-engine#kafka_topics
+  kind: code_fact
+  statement: reserve-engine produces Kafka topic(s) reserve.changed.v2 and consumes claims.reserve.movement.v1, triage.completed.v1
+    (application.yaml, variant a).
+  file: build/code_repo/variant_a/services/reserve-engine/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/reserve-engine/src/main/resources/application.yaml
+    start: 32
+    end: 36
+  needle: '- reserve.changed.v2'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F058
+  world_ref: TABLE:reserve.reserve#database
+  kind: code_fact
+  statement: reserve-engine uses PostgreSQL database chub_reserve.
+  file: build/code_repo/variant_a/services/reserve-engine/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/reserve-engine/src/main/resources/application.yaml
+    start: 7
+    end: 7
+  needle: 5432/chub_reserve
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F059
+  world_ref: SERVICE:fraud-referral-svc#kafka_topics
+  kind: code_fact
+  statement: fraud-referral-svc produces Kafka topic(s) fraud.referral.created.v1, fraud.referral.notice-due.v1 and consumes
+    fraud.score.received.v1, triage.completed.v1 (application.yaml, variant a).
+  file: build/code_repo/variant_a/services/fraud-referral-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/fraud-referral-svc/src/main/resources/application.yaml
+    start: 32
+    end: 37
+  needle: '- fraud.referral.created.v1'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F060
+  world_ref: TABLE:fraud.referral#database
+  kind: code_fact
+  statement: fraud-referral-svc uses PostgreSQL database chub_fraud.
+  file: build/code_repo/variant_a/services/fraud-referral-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/fraud-referral-svc/src/main/resources/application.yaml
+    start: 7
+    end: 7
+  needle: 5432/chub_fraud
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F061
+  world_ref: SERVICE:settlement-svc#kafka_topics
+  kind: code_fact
+  statement: settlement-svc produces Kafka topic(s) settlement.agreed.v1 and consumes assessment.completed.v1 (application.yaml,
+    variant a).
+  file: build/code_repo/variant_a/services/settlement-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/settlement-svc/src/main/resources/application.yaml
+    start: 32
+    end: 35
+  needle: '- settlement.agreed.v1'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F062
+  world_ref: TABLE:settlement.settlement#database
+  kind: code_fact
+  statement: settlement-svc uses PostgreSQL database chub_settlement.
+  file: build/code_repo/variant_a/services/settlement-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/settlement-svc/src/main/resources/application.yaml
+    start: 7
+    end: 7
+  needle: 5432/chub_settlement
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F063
+  world_ref: SERVICE:payment-orchestrator#kafka_topics
+  kind: code_fact
+  statement: payment-orchestrator produces Kafka topic(s) payment.requested.v1 and consumes settlement.agreed.v1, payment.confirmed.v1
+    (application.yaml, variant a).
+  file: build/code_repo/variant_a/services/payment-orchestrator/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/payment-orchestrator/src/main/resources/application.yaml
+    start: 32
+    end: 36
+  needle: '- payment.requested.v1'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F064
+  world_ref: TABLE:payment.payment_instruction#database
+  kind: code_fact
+  statement: payment-orchestrator uses PostgreSQL database chub_payment.
+  file: build/code_repo/variant_a/services/payment-orchestrator/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/payment-orchestrator/src/main/resources/application.yaml
+    start: 7
+    end: 7
+  needle: 5432/chub_payment
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F065
+  world_ref: SERVICE:recovery-svc#kafka_topics
+  kind: code_fact
+  statement: recovery-svc produces Kafka topic(s) recovery.receipt.v1 and consumes settlement.agreed.v1 (application.yaml,
+    variant a).
+  file: build/code_repo/variant_a/services/recovery-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/recovery-svc/src/main/resources/application.yaml
+    start: 32
+    end: 35
+  needle: '- recovery.receipt.v1'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F066
+  world_ref: TABLE:recovery.recovery_case#database
+  kind: code_fact
+  statement: recovery-svc uses PostgreSQL database chub_recovery.
+  file: build/code_repo/variant_a/services/recovery-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/recovery-svc/src/main/resources/application.yaml
+    start: 7
+    end: 7
+  needle: 5432/chub_recovery
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F067
+  world_ref: SERVICE:document-svc#kafka_topics
+  kind: code_fact
+  statement: document-svc produces Kafka topic(s) document.stored.v1 and consumes eig.evidence.received.v1 (application.yaml,
+    variant a).
+  file: build/code_repo/variant_a/services/document-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/document-svc/src/main/resources/application.yaml
+    start: 32
+    end: 35
+  needle: '- document.stored.v1'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F068
+  world_ref: TABLE:document.document#database
+  kind: code_fact
+  statement: document-svc uses PostgreSQL database chub_document.
+  file: build/code_repo/variant_a/services/document-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/document-svc/src/main/resources/application.yaml
+    start: 7
+    end: 7
+  needle: 5432/chub_document
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F069
+  world_ref: SERVICE:notification-svc#kafka_topics
+  kind: code_fact
+  statement: notification-svc produces Kafka topic(s) notification.sent.v1 and consumes fnol.received.v1, fraud.referral.notice-due.v1
+    (application.yaml, variant a).
+  file: build/code_repo/variant_a/services/notification-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/notification-svc/src/main/resources/application.yaml
+    start: 32
+    end: 36
+  needle: '- notification.sent.v1'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F070
+  world_ref: TABLE:notification.message#database
+  kind: code_fact
+  statement: notification-svc uses PostgreSQL database chub_notification.
+  file: build/code_repo/variant_a/services/notification-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/notification-svc/src/main/resources/application.yaml
+    start: 7
+    end: 7
+  needle: 5432/chub_notification
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F071
+  world_ref: SERVICE:gl-posting-svc#kafka_topics
+  kind: code_fact
+  statement: gl-posting-svc produces no Kafka topics and consumes reserve.changed.v2, payment.confirmed.v1, recovery.receipt.v1.
+  file: build/code_repo/variant_a/services/gl-posting-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/gl-posting-svc/src/main/resources/application.yaml
+    start: 32
+    end: 36
+  needle: '- reserve.changed.v2'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F072
+  world_ref: TABLE:gl.journal_line#database
+  kind: code_fact
+  statement: gl-posting-svc uses PostgreSQL database chub_gl.
+  file: build/code_repo/variant_a/services/gl-posting-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/gl-posting-svc/src/main/resources/application.yaml
+    start: 7
+    end: 7
+  needle: 5432/chub_gl
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F073
+  world_ref: SERVICE:reporting-feed-svc#kafka_topics
+  kind: code_fact
+  statement: reporting-feed-svc produces no Kafka topics and consumes reserve.changed.v2, fraud.referral.created.v1.
+  file: build/code_repo/variant_a/services/reporting-feed-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/reporting-feed-svc/src/main/resources/application.yaml
+    start: 32
+    end: 35
+  needle: '- reserve.changed.v2'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F074
+  world_ref: TABLE:reporting.return_extract#database
+  kind: code_fact
+  statement: reporting-feed-svc uses PostgreSQL database chub_reporting.
+  file: build/code_repo/variant_a/services/reporting-feed-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/reporting-feed-svc/src/main/resources/application.yaml
+    start: 7
+    end: 7
+  needle: 5432/chub_reporting
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F075
+  world_ref: ADR:ADR-013#consequences
+  kind: code_fact
+  statement: triage-svc calls Sentinel at https://sentinel.corvane.internal with an 800 ms timeout (ADR-013).
+  file: build/code_repo/variant_a/services/triage-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/triage-svc/src/main/resources/application.yaml
+    start: 41
+    end: 43
+  needle: 'timeout-ms: 800'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F076
+  world_ref: SERVICE:reserve-engine#config.large-loss-threshold-gbp
+  kind: code_fact
+  statement: reserve-engine config large-loss-threshold-gbp is 250000.
+  file: build/code_repo/variant_a/services/reserve-engine/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/reserve-engine/src/main/resources/application.yaml
+    start: 45
+    end: 45
+  needle: 'large-loss-threshold-gbp: 250000'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F077
+  world_ref: ADR:ADR-028
+  kind: code_fact
+  statement: 'reserve-engine revaluation config: movement-type RV, rate-source GROUP_LEDGER_MONTH_END (ADR-028, DEC-005).'
+  file: build/code_repo/variant_a/services/reserve-engine/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/reserve-engine/src/main/resources/application.yaml
+    start: 47
+    end: 49
+  needle: 'movement-type: RV'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F078
+  world_ref: SERVICE:fraud-referral-svc#config.notice.max-deferral-days
+  kind: code_fact
+  statement: fraud-referral-svc config notice.max-deferral-days is 60 (BR-FRD-036).
+  file: build/code_repo/variant_a/services/fraud-referral-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/fraud-referral-svc/src/main/resources/application.yaml
+    start: 55
+    end: 55
+  needle: 'max-deferral-days: 60'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F079
+  world_ref: RULE:BR-FRD-035@v2#parameters.business_days
+  kind: code_fact
+  statement: fraud-referral-svc config referral.siu.triage-business-days is 3 (BR-FRD-035 v2).
+  file: build/code_repo/variant_a/services/fraud-referral-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/fraud-referral-svc/src/main/resources/application.yaml
+    start: 49
+    end: 49
+  needle: 'triage-business-days: 3'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F080
+  world_ref: SERVICE:fraud-referral-svc#config.referral.threshold.tier3.effective-from
+  kind: code_fact
+  statement: The Tier-3 referral threshold in fraud-referral-svc takes effect from 2026-10-01.
+  file: build/code_repo/variant_a/services/fraud-referral-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/fraud-referral-svc/src/main/resources/application.yaml
+    start: 46
+    end: 46
+  needle: 'threshold.tier3.effective-from: 2026-10-01'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F081
+  world_ref: SERVICE:fraud-referral-svc#config.auto-decline.enabled
+  kind: code_fact
+  statement: fraud-referral-svc has auto-decline disabled (auto-decline.enabled false, BR-FRD-033).
+  file: build/code_repo/variant_a/services/fraud-referral-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/fraud-referral-svc/src/main/resources/application.yaml
+    start: 57
+    end: 59
+  needle: 'enabled: false'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F082
+  world_ref: ADR:ADR-014#consequences
+  kind: code_fact
+  statement: notification-svc uses Notify templates FRN01 (letter) and FRN02 (SMS) for fraud-referral notices (ADR-014).
+  file: build/code_repo/variant_a/services/notification-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/notification-svc/src/main/resources/application.yaml
+    start: 44
+    end: 45
+  needle: 'fraud-notice-sms: FRN02'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F083
+  world_ref: ADR:ADR-021
+  kind: code_fact
+  statement: payment-orchestrator sends every CPG instruction with an Idempotency-Key header (ADR-021, CHUB-371).
+  file: build/code_repo/variant_a/services/payment-orchestrator/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/payment-orchestrator/src/main/resources/application.yaml
+    start: 46
+    end: 46
+  needle: 'header: Idempotency-Key'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F084
+  world_ref: INTERFACE:CLX-IF-050#schedule
+  kind: code_fact
+  statement: gl-posting-svc posts journals to Group Ledger hourly (CLX-IF-050).
+  file: build/code_repo/variant_a/services/gl-posting-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/gl-posting-svc/src/main/resources/application.yaml
+    start: 43
+    end: 43
+  needle: 'posting-schedule: hourly'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F085
+  world_ref: SERVICE:reporting-feed-svc#apis
+  kind: code_fact
+  statement: reporting-feed-svc builds the TP2, FR1 and CT1 return extracts for NISA Reporting Hub.
+  file: build/code_repo/variant_a/services/reporting-feed-svc/src/main/resources/application.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/reporting-feed-svc/src/main/resources/application.yaml
+    start: 41
+    end: 41
+  needle: 'returns: [TP2, FR1, CT1]'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F086
+  world_ref: COMMIT:CM-07
+  kind: code_fact
+  statement: PaymentInstructionService derives the idempotency key as 'PAY-' plus the payment id (CM-07, ADR-021).
+  file: build/code_repo/variant_a/services/payment-orchestrator/src/main/java/com/corvane/chub/payment/PaymentInstructionService.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/payment-orchestrator/src/main/java/com/corvane/chub/payment/PaymentInstructionService.java
+    start: 35
+    end: 35
+  needle: return "PAY-" + instruction.getPaymentId();
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F087
+  world_ref: TOPIC:claims.reserve.movement.v1#consumers
+  kind: code_fact
+  statement: ReserveMovementListener in reserve-engine consumes claims.reserve.movement.v1 (the CLX-IF-049 bridge, ADR-012).
+  file: build/code_repo/variant_a/services/reserve-engine/src/main/java/com/corvane/chub/reserve/ReserveMovementListener.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/reserve-engine/src/main/java/com/corvane/chub/reserve/ReserveMovementListener.java
+    start: 20
+    end: 20
+  needle: topics = "claims.reserve.movement.v1"
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F088
+  world_ref: RULE:BR-RSV-007@v3
+  kind: code_fact
+  statement: Tier3ReviewScheduler reads the Tier-3 review cadence from reserve.tier3-review-days; CLRRS110 reads RSV_T3_REVIEW_DAYS
+    from CLR.T_PARAM.
+  file: build/code_repo/variant_a/services/reserve-engine/src/main/java/com/corvane/chub/reserve/Tier3ReviewScheduler.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/reserve-engine/src/main/java/com/corvane/chub/reserve/Tier3ReviewScheduler.java
+    start: 22
+    end: 22
+  needle: '@Value("${reserve.tier3-review-days}")'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F089
+  world_ref: RULE:BR-FRD-031@v2
+  kind: code_fact
+  statement: ReferralThresholdPolicy applies the Tier-3 threshold only to Tier-3 claims scored on or after the effective date.
+  file: build/code_repo/variant_a/services/fraud-referral-svc/src/main/java/com/corvane/chub/fraud/ReferralThresholdPolicy.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/fraud-referral-svc/src/main/java/com/corvane/chub/fraud/ReferralThresholdPolicy.java
+    start: 30
+    end: 30
+  needle: if (tier == 3 && !scoredOn.isBefore(tier3EffectiveFrom))
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F090
+  world_ref: SERVICE:fraud-referral-svc#apis
+  kind: code_fact
+  statement: fraud-referral-svc exposes POST /referrals/{referralId}/customer-notice to record or defer the customer notice.
+  file: build/code_repo/variant_a/services/fraud-referral-svc/src/main/java/com/corvane/chub/fraud/CustomerNoticeController.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/fraud-referral-svc/src/main/java/com/corvane/chub/fraud/CustomerNoticeController.java
+    start: 24
+    end: 24
+  needle: '@PostMapping("/referrals/{referralId}/customer-notice")'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F091
+  world_ref: SERVICE:claim-core-svc#apis
+  kind: code_fact
+  statement: ClaimController in claim-core-svc serves GET/POST/PATCH under /claims.
+  file: build/code_repo/variant_a/services/claim-core-svc/src/main/java/com/corvane/chub/claimcore/ClaimController.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/claim-core-svc/src/main/java/com/corvane/chub/claimcore/ClaimController.java
+    start: 17
+    end: 17
+  needle: '@RequestMapping("/claims")'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F092
+  world_ref: SERVICE:fnol-intake-svc#apis
+  kind: code_fact
+  statement: fnol-intake-svc accepts first notices of loss on POST /fnol.
+  file: build/code_repo/variant_a/services/fnol-intake-svc/src/main/java/com/corvane/chub/fnol/FnolController.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/fnol-intake-svc/src/main/java/com/corvane/chub/fnol/FnolController.java
+    start: 24
+    end: 24
+  needle: '@PostMapping("/fnol")'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F093
+  world_ref: RULE:BR-REC-011@v2
+  kind: code_fact
+  statement: WriteOffPolicy requires approval only for write-offs strictly above GBP 10,000.
+  file: build/code_repo/variant_a/services/recovery-svc/src/main/java/com/corvane/chub/recovery/WriteOffPolicy.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/recovery-svc/src/main/java/com/corvane/chub/recovery/WriteOffPolicy.java
+    start: 26
+    end: 26
+  needle: return amountGbp.compareTo(APPROVAL_THRESHOLD_GBP) > 0;
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F094
+  world_ref: TABLE:fraud.referral
+  kind: code_fact
+  statement: The Referral JPA entity in fraud-referral-svc maps table fraud.referral (database chub_fraud), including the
+    threshold_applied column.
+  file: build/code_repo/variant_a/services/fraud-referral-svc/src/main/java/com/corvane/chub/fraud/Referral.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/fraud-referral-svc/src/main/java/com/corvane/chub/fraud/Referral.java
+    start: 14
+    end: 14
+  needle: '@Table(schema = "fraud", name = "referral")'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F095
+  world_ref: TABLE:reserve.reserve#columns:gbp_equivalent
+  kind: code_fact
+  statement: The Reserve entity (reserve.reserve) holds the outstanding amount in original currency and a GBP equivalent (ADR-016).
+  file: build/code_repo/variant_a/services/reserve-engine/src/main/java/com/corvane/chub/reserve/Reserve.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/reserve-engine/src/main/java/com/corvane/chub/reserve/Reserve.java
+    start: 40
+    end: 40
+  needle: '@Column(name = "gbp_equivalent", nullable = false'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F096
+  world_ref: RULE:BR-TRI-003@v3
+  kind: code_fact
+  statement: TierClassifierTest checks that a GBP 49,999 claim without other triggers is Tier-2.
+  file: build/code_repo/variant_a/services/triage-svc/src/test/java/com/corvane/chub/triage/TierClassifierTest.java
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/triage-svc/src/test/java/com/corvane/chub/triage/TierClassifierTest.java
+    start: 23
+    end: 23
+  needle: gbpClaimJustBelowTheFloorIsTier2
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F097
+  world_ref: SERVICE:claim-core-svc#replicas
+  kind: code_fact
+  statement: claim-core-svc runs in OpenShift namespace chub-core with 3 replicas.
+  file: build/code_repo/variant_a/deploy/k8s/chub-core/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-core/deployment.yaml
+    start: 5
+    end: 11
+  needle: 'replicas: 3'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F098
+  world_ref: SERVICE:fnol-intake-svc#replicas
+  kind: code_fact
+  statement: fnol-intake-svc runs in OpenShift namespace chub-intake with 4 replicas.
+  file: build/code_repo/variant_a/deploy/k8s/chub-intake/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-intake/deployment.yaml
+    start: 5
+    end: 11
+  needle: 'replicas: 4'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F099
+  world_ref: SERVICE:triage-svc#replicas
+  kind: code_fact
+  statement: triage-svc runs in OpenShift namespace chub-intake with 3 replicas.
+  file: build/code_repo/variant_a/deploy/k8s/chub-intake/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-intake/deployment.yaml
+    start: 52
+    end: 58
+  needle: 'replicas: 3'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F100
+  world_ref: SERVICE:assessment-svc#replicas
+  kind: code_fact
+  statement: assessment-svc runs in OpenShift namespace chub-assess with 2 replicas.
+  file: build/code_repo/variant_a/deploy/k8s/chub-assess/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-assess/deployment.yaml
+    start: 5
+    end: 11
+  needle: 'replicas: 2'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F101
+  world_ref: SERVICE:fraud-referral-svc#replicas
+  kind: code_fact
+  statement: fraud-referral-svc runs in OpenShift namespace chub-fraud with 3 replicas.
+  file: build/code_repo/variant_a/deploy/k8s/chub-fraud/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-fraud/deployment.yaml
+    start: 5
+    end: 11
+  needle: 'replicas: 3'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F102
+  world_ref: SERVICE:settlement-svc#replicas
+  kind: code_fact
+  statement: settlement-svc runs in OpenShift namespace chub-settle with 2 replicas.
+  file: build/code_repo/variant_a/deploy/k8s/chub-settle/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-settle/deployment.yaml
+    start: 5
+    end: 11
+  needle: 'replicas: 2'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F103
+  world_ref: SERVICE:payment-orchestrator#replicas
+  kind: code_fact
+  statement: payment-orchestrator runs in OpenShift namespace chub-settle with 3 replicas.
+  file: build/code_repo/variant_a/deploy/k8s/chub-settle/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-settle/deployment.yaml
+    start: 52
+    end: 58
+  needle: 'replicas: 3'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F104
+  world_ref: SERVICE:recovery-svc#replicas
+  kind: code_fact
+  statement: recovery-svc runs in OpenShift namespace chub-recovery with 2 replicas.
+  file: build/code_repo/variant_a/deploy/k8s/chub-recovery/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-recovery/deployment.yaml
+    start: 5
+    end: 11
+  needle: 'replicas: 2'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F105
+  world_ref: SERVICE:document-svc#replicas
+  kind: code_fact
+  statement: document-svc runs in OpenShift namespace chub-docs with 2 replicas.
+  file: build/code_repo/variant_a/deploy/k8s/chub-docs/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-docs/deployment.yaml
+    start: 5
+    end: 11
+  needle: 'replicas: 2'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F106
+  world_ref: SERVICE:notification-svc#replicas
+  kind: code_fact
+  statement: notification-svc runs in OpenShift namespace chub-notify with 2 replicas.
+  file: build/code_repo/variant_a/deploy/k8s/chub-notify/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-notify/deployment.yaml
+    start: 5
+    end: 11
+  needle: 'replicas: 2'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F107
+  world_ref: SERVICE:gl-posting-svc#replicas
+  kind: code_fact
+  statement: gl-posting-svc runs in OpenShift namespace chub-finance with 2 replicas.
+  file: build/code_repo/variant_a/deploy/k8s/chub-finance/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-finance/deployment.yaml
+    start: 5
+    end: 11
+  needle: 'replicas: 2'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F108
+  world_ref: SERVICE:reporting-feed-svc#replicas
+  kind: code_fact
+  statement: reporting-feed-svc runs in OpenShift namespace chub-finance with 1 replicas.
+  file: build/code_repo/variant_a/deploy/k8s/chub-finance/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-finance/deployment.yaml
+    start: 52
+    end: 58
+  needle: 'replicas: 1'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F109
+  world_ref: SERVICE:reserve-engine#infra.cpu_request
+  kind: code_fact
+  statement: reserve-engine requests 500m CPU and has a 2Gi memory limit.
+  file: build/code_repo/variant_a/deploy/k8s/chub-reserve/deployment.yaml
+  locator:
+    kind: code_lines
+    variant: a
+    path: deploy/k8s/chub-reserve/deployment.yaml
+    start: 35
+    end: 39
+  needle: 'cpu: 500m'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F110
+  world_ref: ADR:ADR-006#consequences
+  kind: code_fact
+  statement: 'The Terraform prod root targets OpenShift cluster ocp-prd-lon1 (DR: ocp-dr-lds1, ADR-006).'
+  file: build/code_repo/variant_a/infra/terraform/envs/prod/main.tf
+  locator:
+    kind: code_lines
+    variant: a
+    path: infra/terraform/envs/prod/main.tf
+    start: 18
+    end: 18
+  needle: config_context = "ocp-prd-lon1"
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F111
+  world_ref: SERVICE:reserve-engine#terraform_module
+  kind: code_fact
+  statement: The prod Terraform root uses module infra/terraform/modules/reserve-engine (renamed from reserve-svc by CM-04).
+  file: build/code_repo/variant_a/infra/terraform/envs/prod/main.tf
+  locator:
+    kind: code_lines
+    variant: a
+    path: infra/terraform/envs/prod/main.tf
+    start: 125
+    end: 125
+  needle: source = "../../modules/reserve-engine"
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F112
+  world_ref: ADR:ADR-001#status
+  kind: general
+  statement: ADR-001 'Strangler-fig migration from CLARA to Claims Hub' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-001.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-001.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F113
+  world_ref: ADR:ADR-001#deciders
+  kind: general
+  statement: 'ADR-001 deciders: Elin Fosse, Tomasz Wójcik, Adaeze Nwosu.'
+  file: build/code_repo/variant_a/docs/adr/adr-001.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-001.md
+    start: 5
+    end: 5
+  needle: Elin Fosse
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F114
+  world_ref: ADR:ADR-001#consequences
+  kind: general
+  statement: 'ADR-001 consequences: Migrate by capability and region in waves; CLARA remains the system of record for unmigrated
+    claims until 2027-09-30.'
+  file: build/code_repo/variant_a/docs/adr/adr-001.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-001.md
+    start: 20
+    end: 20
+  needle: Migrate by capability and region in waves; CLARA remains the system of record for unmigrated claims until 2027-09-30.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F115
+  world_ref: ADR:ADR-002#status
+  kind: general
+  statement: ADR-002 'Kafka (Event Streaming Platform) as the Claims Hub event backbone' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-002.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-002.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F116
+  world_ref: ADR:ADR-002#deciders
+  kind: general
+  statement: 'ADR-002 deciders: Elin Fosse, Henrik Vestergaard, Tomasz Wójcik.'
+  file: build/code_repo/variant_a/docs/adr/adr-002.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-002.md
+    start: 5
+    end: 5
+  needle: Elin Fosse
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F117
+  world_ref: ADR:ADR-002#consequences
+  kind: general
+  statement: 'ADR-002 consequences: All Claims Hub services publish domain events; topic naming <domain>.<event>.v<n>.'
+  file: build/code_repo/variant_a/docs/adr/adr-002.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-002.md
+    start: 20
+    end: 20
+  needle: All Claims Hub services publish domain events; topic naming <domain>.<event>.v<n>.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F118
+  world_ref: ADR:ADR-003#status
+  kind: general
+  statement: ADR-003 'One PostgreSQL database per service' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-003.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-003.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F119
+  world_ref: ADR:ADR-003#deciders
+  kind: general
+  statement: 'ADR-003 deciders: Elin Fosse, Nadia Petrovic.'
+  file: build/code_repo/variant_a/docs/adr/adr-003.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-003.md
+    start: 5
+    end: 5
+  needle: Elin Fosse
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F120
+  world_ref: ADR:ADR-003#consequences
+  kind: general
+  statement: 'ADR-003 consequences: No shared schemas; reporting via events and CDW.'
+  file: build/code_repo/variant_a/docs/adr/adr-003.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-003.md
+    start: 20
+    end: 20
+  needle: No shared schemas; reporting via events and CDW.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F121
+  world_ref: ADR:ADR-004#status
+  kind: general
+  statement: ADR-004 'Retain MQ for mainframe integration until CLARA decommissioning' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-004.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-004.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F122
+  world_ref: ADR:ADR-004#deciders
+  kind: general
+  statement: 'ADR-004 deciders: Marcus Oduya, Henrik Vestergaard.'
+  file: build/code_repo/variant_a/docs/adr/adr-004.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-004.md
+    start: 5
+    end: 5
+  needle: Marcus Oduya
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F123
+  world_ref: ADR:ADR-004#consequences
+  kind: general
+  statement: 'ADR-004 consequences: CLARA interfaces stay on MQ Backbone until 2027-09-30; no new MQ flows from Claims Hub.'
+  file: build/code_repo/variant_a/docs/adr/adr-004.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-004.md
+    start: 20
+    end: 20
+  needle: CLARA interfaces stay on MQ Backbone until 2027-09-30; no new MQ flows from Claims Hub.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F124
+  world_ref: ADR:ADR-005#status
+  kind: general
+  statement: ADR-005 'Change data capture from DB2 for reserve synchronisation' has status superseded.
+  file: build/code_repo/variant_a/docs/adr/adr-005.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-005.md
+    start: 1
+    end: 3
+  needle: 'Status: Superseded'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F125
+  world_ref: ADR:ADR-005#superseded_by
+  kind: general
+  statement: ADR-005 is superseded by ADR-017.
+  file: build/code_repo/variant_a/docs/adr/adr-005.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-005.md
+    start: 8
+    end: 8
+  needle: 'Superseded by: ADR-017'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F126
+  world_ref: ADR:ADR-005#deciders
+  kind: general
+  statement: 'ADR-005 deciders: Marcus Oduya, Derek Ollerton.'
+  file: build/code_repo/variant_a/docs/adr/adr-005.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-005.md
+    start: 5
+    end: 5
+  needle: Marcus Oduya
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F127
+  world_ref: ADR:ADR-005#consequences
+  kind: general
+  statement: 'ADR-005 consequences: Proposed CDC on CLR.T_RESERVE_MOVEMENT; superseded by ADR-017 because CLRGL090 updates
+    bypass the movement table.'
+  file: build/code_repo/variant_a/docs/adr/adr-005.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-005.md
+    start: 20
+    end: 20
+  needle: Proposed CDC on CLR.T_RESERVE_MOVEMENT; superseded by ADR-017 because CLRGL090 updates bypass the movement table.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F128
+  world_ref: ADR:ADR-006#status
+  kind: general
+  statement: ADR-006 'OpenShift as the runtime platform' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-006.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-006.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F129
+  world_ref: ADR:ADR-006#deciders
+  kind: general
+  statement: 'ADR-006 deciders: Elin Fosse, Neil Haworth.'
+  file: build/code_repo/variant_a/docs/adr/adr-006.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-006.md
+    start: 5
+    end: 5
+  needle: Elin Fosse
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F130
+  world_ref: ADR:ADR-006#consequences
+  kind: general
+  statement: 'ADR-006 consequences: Clusters ocp-prd-lon1 (primary) and ocp-dr-lds1 (DR).'
+  file: build/code_repo/variant_a/docs/adr/adr-006.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-006.md
+    start: 20
+    end: 20
+  needle: Clusters ocp-prd-lon1 (primary) and ocp-dr-lds1 (DR).
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F131
+  world_ref: ADR:ADR-007#status
+  kind: general
+  statement: ADR-007 'Terraform modules per service' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-007.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-007.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F132
+  world_ref: ADR:ADR-007#deciders
+  kind: general
+  statement: 'ADR-007 deciders: Nadia Petrovic, Elin Fosse.'
+  file: build/code_repo/variant_a/docs/adr/adr-007.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-007.md
+    start: 5
+    end: 5
+  needle: Nadia Petrovic
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F133
+  world_ref: ADR:ADR-007#consequences
+  kind: general
+  statement: 'ADR-007 consequences: Module path infra/terraform/modules/<service>.'
+  file: build/code_repo/variant_a/docs/adr/adr-007.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-007.md
+    start: 20
+    end: 20
+  needle: Module path infra/terraform/modules/<service>.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F134
+  world_ref: ADR:ADR-008#status
+  kind: general
+  statement: ADR-008 'Workforce and partner identity through CIS (OIDC)' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-008.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-008.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F135
+  world_ref: ADR:ADR-008#deciders
+  kind: general
+  statement: 'ADR-008 deciders: Tomasz Wójcik, Neil Haworth.'
+  file: build/code_repo/variant_a/docs/adr/adr-008.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-008.md
+    start: 5
+    end: 5
+  needle: Tomasz Wójcik
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F136
+  world_ref: ADR:ADR-008#consequences
+  kind: general
+  statement: 'ADR-008 consequences: Assessor Portal and Claims Hub use CIS.'
+  file: build/code_repo/variant_a/docs/adr/adr-008.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-008.md
+    start: 20
+    end: 20
+  needle: Assessor Portal and Claims Hub use CIS.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F137
+  world_ref: ADR:ADR-009#status
+  kind: general
+  statement: ADR-009 'Store documents in DOCSTOR (now Evidence Vault) behind document-svc' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-009.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-009.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F138
+  world_ref: ADR:ADR-009#deciders
+  kind: general
+  statement: 'ADR-009 deciders: Elin Fosse, Tariq Hussain.'
+  file: build/code_repo/variant_a/docs/adr/adr-009.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-009.md
+    start: 5
+    end: 5
+  needle: Elin Fosse
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F139
+  world_ref: ADR:ADR-009#consequences
+  kind: general
+  statement: 'ADR-009 consequences: Binary content never stored in service databases.'
+  file: build/code_repo/variant_a/docs/adr/adr-009.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-009.md
+    start: 20
+    end: 20
+  needle: Binary content never stored in service databases.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F140
+  world_ref: ADR:ADR-010#status
+  kind: general
+  statement: ADR-010 'Business rules as versioned configuration, not a rules engine' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-010.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-010.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F141
+  world_ref: ADR:ADR-010#deciders
+  kind: general
+  statement: 'ADR-010 deciders: Nadia Petrovic, Elin Fosse, Aisha Siddiqui.'
+  file: build/code_repo/variant_a/docs/adr/adr-010.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-010.md
+    start: 5
+    end: 5
+  needle: Nadia Petrovic
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F142
+  world_ref: ADR:ADR-010#consequences
+  kind: general
+  statement: 'ADR-010 consequences: Thresholds such as fraud referral cut-offs live in application.yaml with effective dates.'
+  file: build/code_repo/variant_a/docs/adr/adr-010.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-010.md
+    start: 20
+    end: 20
+  needle: Thresholds such as fraud referral cut-offs live in application.yaml with effective dates.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F143
+  world_ref: ADR:ADR-011#status
+  kind: general
+  statement: ADR-011 'Reserve calculations owned by a single reserve service' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-011.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-011.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F144
+  world_ref: ADR:ADR-011#deciders
+  kind: general
+  statement: 'ADR-011 deciders: Nadia Petrovic, Daniel Achebe.'
+  file: build/code_repo/variant_a/docs/adr/adr-011.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-011.md
+    start: 5
+    end: 5
+  needle: Nadia Petrovic
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F145
+  world_ref: ADR:ADR-011#consequences
+  kind: general
+  statement: 'ADR-011 consequences: Only reserve-engine (then reserve-svc) writes reserves in Claims Hub.'
+  file: build/code_repo/variant_a/docs/adr/adr-011.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-011.md
+    start: 20
+    end: 20
+  needle: Only reserve-engine (then reserve-svc) writes reserves in Claims Hub.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F146
+  world_ref: ADR:ADR-012#status
+  kind: general
+  statement: ADR-012 'Batch-to-event bridge for the reserve movement extract (CLX-IF-049)' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-012.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-012.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F147
+  world_ref: ADR:ADR-012#deciders
+  kind: general
+  statement: 'ADR-012 deciders: Marcus Oduya, Henrik Vestergaard, Tomasz Wójcik.'
+  file: build/code_repo/variant_a/docs/adr/adr-012.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-012.md
+    start: 5
+    end: 5
+  needle: Marcus Oduya
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F148
+  world_ref: ADR:ADR-012#consequences
+  kind: general
+  statement: 'ADR-012 consequences: CLX-IF-042 records are republished to claims.reserve.movement.v1; reserve-engine consumes
+    them for parallel run and Wave 2 sync.'
+  file: build/code_repo/variant_a/docs/adr/adr-012.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-012.md
+    start: 20
+    end: 20
+  needle: CLX-IF-042 records are republished to claims.reserve.movement.v1; reserve-engine consumes them for parallel run
+    and Wave 2 sync.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F149
+  world_ref: ADR:ADR-013#status
+  kind: general
+  statement: ADR-013 'Synchronous REST scoring with Sentinel' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-013.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-013.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F150
+  world_ref: ADR:ADR-013#deciders
+  kind: general
+  statement: 'ADR-013 deciders: Elin Fosse, Oskar Lindgren.'
+  file: build/code_repo/variant_a/docs/adr/adr-013.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-013.md
+    start: 5
+    end: 5
+  needle: Elin Fosse
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F151
+  world_ref: ADR:ADR-013#consequences
+  kind: general
+  statement: 'ADR-013 consequences: Timeout 800 ms; fall back to batch scoring.'
+  file: build/code_repo/variant_a/docs/adr/adr-013.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-013.md
+    start: 20
+    end: 20
+  needle: Timeout 800 ms; fall back to batch scoring.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F152
+  world_ref: ADR:ADR-014#status
+  kind: general
+  statement: ADR-014 'Customer notifications through notification-svc and Notify' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-014.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-014.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F153
+  world_ref: ADR:ADR-014#deciders
+  kind: general
+  statement: 'ADR-014 deciders: Elin Fosse, Sofie Bak, Ruth Okafor.'
+  file: build/code_repo/variant_a/docs/adr/adr-014.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-014.md
+    start: 5
+    end: 5
+  needle: Elin Fosse
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F154
+  world_ref: ADR:ADR-014#consequences
+  kind: general
+  statement: 'ADR-014 consequences: Fraud-referral notices use Notify templates FRN01 (letter) and FRN02 (SMS).'
+  file: build/code_repo/variant_a/docs/adr/adr-014.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-014.md
+    start: 20
+    end: 20
+  needle: Fraud-referral notices use Notify templates FRN01 (letter) and FRN02 (SMS).
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F155
+  world_ref: ADR:ADR-015#status
+  kind: general
+  statement: ADR-015 'Region-wave data migration' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-015.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-015.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F156
+  world_ref: ADR:ADR-015#deciders
+  kind: general
+  statement: 'ADR-015 deciders: Callum Fairbairn, Elin Fosse, Aisha Siddiqui.'
+  file: build/code_repo/variant_a/docs/adr/adr-015.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-015.md
+    start: 5
+    end: 5
+  needle: Callum Fairbairn
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F157
+  world_ref: ADR:ADR-015#consequences
+  kind: general
+  statement: 'ADR-015 consequences: Wave 0 Denmark, Wave 1 UK motor, Wave 2 the rest.'
+  file: build/code_repo/variant_a/docs/adr/adr-015.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-015.md
+    start: 20
+    end: 20
+  needle: Wave 0 Denmark, Wave 1 UK motor, Wave 2 the rest.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F158
+  world_ref: ADR:ADR-016#status
+  kind: general
+  statement: ADR-016 'Store Nordic amounts in original currency and GBP' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-016.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-016.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F159
+  world_ref: ADR:ADR-016#deciders
+  kind: general
+  statement: 'ADR-016 deciders: Nadia Petrovic, Lena Kristiansen.'
+  file: build/code_repo/variant_a/docs/adr/adr-016.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-016.md
+    start: 5
+    end: 5
+  needle: Nadia Petrovic
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F160
+  world_ref: ADR:ADR-016#consequences
+  kind: general
+  statement: 'ADR-016 consequences: Minor units (øre/pence) in events.'
+  file: build/code_repo/variant_a/docs/adr/adr-016.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-016.md
+    start: 20
+    end: 20
+  needle: Minor units (øre/pence) in events.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F161
+  world_ref: ADR:ADR-017#status
+  kind: general
+  statement: ADR-017 'Replace CDC with the batch bridge for reserve synchronisation' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-017.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-017.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F162
+  world_ref: ADR:ADR-017#supersedes
+  kind: general
+  statement: ADR-017 supersedes ADR-005.
+  file: build/code_repo/variant_a/docs/adr/adr-017.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-017.md
+    start: 7
+    end: 7
+  needle: 'Supersedes: ADR-005'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F163
+  world_ref: ADR:ADR-017#deciders
+  kind: general
+  statement: 'ADR-017 deciders: Marcus Oduya, Tomasz Wójcik.'
+  file: build/code_repo/variant_a/docs/adr/adr-017.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-017.md
+    start: 5
+    end: 5
+  needle: Marcus Oduya
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F164
+  world_ref: ADR:ADR-017#consequences
+  kind: general
+  statement: 'ADR-017 consequences: Supersedes ADR-005.'
+  file: build/code_repo/variant_a/docs/adr/adr-017.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-017.md
+    start: 20
+    end: 20
+  needle: Supersedes ADR-005.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F165
+  world_ref: ADR:ADR-018#status
+  kind: general
+  statement: ADR-018 'Tier calculation as a shared library' has status deprecated.
+  file: build/code_repo/variant_a/docs/adr/adr-018.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-018.md
+    start: 1
+    end: 3
+  needle: 'Status: Deprecated'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F166
+  world_ref: ADR:ADR-018#superseded_by
+  kind: general
+  statement: ADR-018 is superseded by ADR-030.
+  file: build/code_repo/variant_a/docs/adr/adr-018.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-018.md
+    start: 8
+    end: 8
+  needle: 'Superseded by: ADR-030'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F167
+  world_ref: ADR:ADR-018#deciders
+  kind: general
+  statement: 'ADR-018 deciders: Nadia Petrovic.'
+  file: build/code_repo/variant_a/docs/adr/adr-018.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-018.md
+    start: 5
+    end: 5
+  needle: Nadia Petrovic
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F168
+  world_ref: ADR:ADR-018#consequences
+  kind: general
+  statement: 'ADR-018 consequences: Deprecated 2026-01: tiering centralised in triage-svc.'
+  file: build/code_repo/variant_a/docs/adr/adr-018.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-018.md
+    start: 20
+    end: 20
+  needle: 'Deprecated 2026-01: tiering centralised in triage-svc.'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F169
+  world_ref: ADR:ADR-019#status
+  kind: general
+  statement: ADR-019 'Rename reserve-svc to reserve-engine' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-019.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-019.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F170
+  world_ref: ADR:ADR-019#deciders
+  kind: general
+  statement: 'ADR-019 deciders: Tomasz Wójcik, Daniel Achebe, Nadia Petrovic.'
+  file: build/code_repo/variant_a/docs/adr/adr-019.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-019.md
+    start: 5
+    end: 5
+  needle: Tomasz Wójcik
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F171
+  world_ref: ADR:ADR-019#consequences
+  kind: general
+  statement: 'ADR-019 consequences: Effective 2026-02-10: repo path services/reserve-engine, Terraform module reserve-engine,
+    event reserve.changed.v2.'
+  file: build/code_repo/variant_a/docs/adr/adr-019.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-019.md
+    start: 20
+    end: 20
+  needle: 'Effective 2026-02-10: repo path services/reserve-engine, Terraform module reserve-engine, event reserve.changed.v2.'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F172
+  world_ref: ADR:ADR-020#status
+  kind: general
+  statement: ADR-020 'Fraud referral thresholds as effective-dated configuration' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-020.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-020.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F173
+  world_ref: ADR:ADR-020#deciders
+  kind: general
+  statement: 'ADR-020 deciders: Elin Fosse, Linnea Sjöberg, Niall Brannigan.'
+  file: build/code_repo/variant_a/docs/adr/adr-020.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-020.md
+    start: 5
+    end: 5
+  needle: Elin Fosse
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F174
+  world_ref: ADR:ADR-020#consequences
+  kind: general
+  statement: 'ADR-020 consequences: referral.threshold.default and referral.threshold.tier3 with effective-from dates.'
+  file: build/code_repo/variant_a/docs/adr/adr-020.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-020.md
+    start: 20
+    end: 20
+  needle: referral.threshold.default and referral.threshold.tier3 with effective-from dates.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F175
+  world_ref: ADR:ADR-021#status
+  kind: general
+  statement: ADR-021 'Idempotency keys for all payment instructions' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-021.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-021.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F176
+  world_ref: ADR:ADR-021#deciders
+  kind: general
+  statement: 'ADR-021 deciders: Linnea Sjöberg, Elin Fosse.'
+  file: build/code_repo/variant_a/docs/adr/adr-021.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-021.md
+    start: 5
+    end: 5
+  needle: Linnea Sjöberg
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F177
+  world_ref: ADR:ADR-021#consequences
+  kind: general
+  statement: 'ADR-021 consequences: Introduced after INC-2026-0914.'
+  file: build/code_repo/variant_a/docs/adr/adr-021.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-021.md
+    start: 20
+    end: 20
+  needle: Introduced after INC-2026-0914.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F178
+  world_ref: ADR:ADR-022#status
+  kind: general
+  statement: ADR-022 'Retire SUBTRAK after Wave 1' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-022.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-022.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F179
+  world_ref: ADR:ADR-022#deciders
+  kind: general
+  statement: 'ADR-022 deciders: Freya Lindahl, Elin Fosse.'
+  file: build/code_repo/variant_a/docs/adr/adr-022.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-022.md
+    start: 5
+    end: 5
+  needle: Freya Lindahl
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F180
+  world_ref: ADR:ADR-022#consequences
+  kind: general
+  statement: 'ADR-022 consequences: Target 2026-12-31.'
+  file: build/code_repo/variant_a/docs/adr/adr-022.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-022.md
+    start: 20
+    end: 20
+  needle: Target 2026-12-31.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F181
+  world_ref: ADR:ADR-023#status
+  kind: general
+  statement: ADR-023 'Contract tests for all Kafka topics' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-023.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-023.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F182
+  world_ref: ADR:ADR-023#deciders
+  kind: general
+  statement: 'ADR-023 deciders: Nadia Petrovic.'
+  file: build/code_repo/variant_a/docs/adr/adr-023.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-023.md
+    start: 5
+    end: 5
+  needle: Nadia Petrovic
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F183
+  world_ref: ADR:ADR-023#consequences
+  kind: general
+  statement: 'ADR-023 consequences: Schema registry compatibility BACKWARD.'
+  file: build/code_repo/variant_a/docs/adr/adr-023.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-023.md
+    start: 20
+    end: 20
+  needle: Schema registry compatibility BACKWARD.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F184
+  world_ref: ADR:ADR-024#status
+  kind: general
+  statement: ADR-024 'Observability stack and SLOs' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-024.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-024.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F185
+  world_ref: ADR:ADR-024#deciders
+  kind: general
+  statement: 'ADR-024 deciders: Elin Fosse, Neil Haworth.'
+  file: build/code_repo/variant_a/docs/adr/adr-024.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-024.md
+    start: 5
+    end: 5
+  needle: Elin Fosse
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F186
+  world_ref: ADR:ADR-024#consequences
+  kind: general
+  statement: 'ADR-024 consequences: SLO 99.5% for claim-core-svc.'
+  file: build/code_repo/variant_a/docs/adr/adr-024.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-024.md
+    start: 20
+    end: 20
+  needle: SLO 99.5% for claim-core-svc.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F187
+  world_ref: ADR:ADR-025#status
+  kind: general
+  statement: ADR-025 'Masked data for migration rehearsals' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-025.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-025.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F188
+  world_ref: ADR:ADR-025#deciders
+  kind: general
+  statement: 'ADR-025 deciders: Callum Fairbairn, Morag Duthie.'
+  file: build/code_repo/variant_a/docs/adr/adr-025.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-025.md
+    start: 5
+    end: 5
+  needle: Callum Fairbairn
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F189
+  world_ref: ADR:ADR-025#consequences
+  kind: general
+  statement: 'ADR-025 consequences: Required by NISA Circular 2025/11 §4.'
+  file: build/code_repo/variant_a/docs/adr/adr-025.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-025.md
+    start: 20
+    end: 20
+  needle: Required by NISA Circular 2025/11 §4.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F190
+  world_ref: ADR:ADR-026#status
+  kind: general
+  statement: ADR-026 'Read-only CLARA enquiry after cut-over' has status proposed.
+  file: build/code_repo/variant_a/docs/adr/adr-026.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-026.md
+    start: 1
+    end: 3
+  needle: 'Status: Proposed'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F191
+  world_ref: ADR:ADR-026#deciders
+  kind: general
+  statement: 'ADR-026 deciders: Graham Pocock, Elin Fosse.'
+  file: build/code_repo/variant_a/docs/adr/adr-026.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-026.md
+    start: 5
+    end: 5
+  needle: Graham Pocock
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F192
+  world_ref: ADR:ADR-026#consequences
+  kind: general
+  statement: 'ADR-026 consequences: CICS enquiry transactions kept read-only until decommissioning.'
+  file: build/code_repo/variant_a/docs/adr/adr-026.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-026.md
+    start: 20
+    end: 20
+  needle: CICS enquiry transactions kept read-only until decommissioning.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F193
+  world_ref: ADR:ADR-027#status
+  kind: general
+  statement: ADR-027 'Dual-run regulatory extracts for two quarters' has status proposed.
+  file: build/code_repo/variant_a/docs/adr/adr-027.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-027.md
+    start: 1
+    end: 3
+  needle: 'Status: Proposed'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F194
+  world_ref: ADR:ADR-027#deciders
+  kind: general
+  statement: 'ADR-027 deciders: Bjørn Aasheim, Daniel Achebe.'
+  file: build/code_repo/variant_a/docs/adr/adr-027.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-027.md
+    start: 5
+    end: 5
+  needle: Bjørn Aasheim
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F195
+  world_ref: ADR:ADR-027#consequences
+  kind: general
+  statement: 'ADR-027 consequences: Compare CLRRP030 with reporting-feed-svc for 2026Q4 and 2027Q1.'
+  file: build/code_repo/variant_a/docs/adr/adr-027.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-027.md
+    start: 20
+    end: 20
+  needle: Compare CLRRP030 with reporting-feed-svc for 2026Q4 and 2027Q1.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F196
+  world_ref: ADR:ADR-028#status
+  kind: general
+  statement: ADR-028 'Use the reserve-engine revaluation run instead of CLRGL090 from Wave 2' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-028.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-028.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F197
+  world_ref: ADR:ADR-028#deciders
+  kind: general
+  statement: 'ADR-028 deciders: Daniel Achebe, Lena Kristiansen, Nadia Petrovic.'
+  file: build/code_repo/variant_a/docs/adr/adr-028.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-028.md
+    start: 5
+    end: 5
+  needle: Daniel Achebe
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F198
+  world_ref: ADR:ADR-028#consequences
+  kind: general
+  statement: 'ADR-028 consequences: Revaluations post RV movements, closing audit finding IA-25-07 in the target.'
+  file: build/code_repo/variant_a/docs/adr/adr-028.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-028.md
+    start: 20
+    end: 20
+  needle: Revaluations post RV movements, closing audit finding IA-25-07 in the target.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F199
+  world_ref: ADR:ADR-029#status
+  kind: general
+  statement: ADR-029 'API gateway rate limits for partner traffic' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-029.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-029.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F200
+  world_ref: ADR:ADR-029#deciders
+  kind: general
+  statement: 'ADR-029 deciders: Tomasz Wójcik, Marcus Oduya.'
+  file: build/code_repo/variant_a/docs/adr/adr-029.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-029.md
+    start: 5
+    end: 5
+  needle: Tomasz Wójcik
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F201
+  world_ref: ADR:ADR-029#consequences
+  kind: general
+  statement: 'ADR-029 consequences: Assessor Portal partners limited to 50 requests per second.'
+  file: build/code_repo/variant_a/docs/adr/adr-029.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-029.md
+    start: 20
+    end: 20
+  needle: Assessor Portal partners limited to 50 requests per second.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F202
+  world_ref: ADR:ADR-030#status
+  kind: general
+  statement: ADR-030 'Shared tier library (ADR-018) replaced by triage-svc API' has status accepted.
+  file: build/code_repo/variant_a/docs/adr/adr-030.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-030.md
+    start: 1
+    end: 3
+  needle: 'Status: Accepted'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F203
+  world_ref: ADR:ADR-030#supersedes
+  kind: general
+  statement: ADR-030 supersedes ADR-018.
+  file: build/code_repo/variant_a/docs/adr/adr-030.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-030.md
+    start: 7
+    end: 7
+  needle: 'Supersedes: ADR-018'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F204
+  world_ref: ADR:ADR-030#deciders
+  kind: general
+  statement: 'ADR-030 deciders: Nadia Petrovic, Sofie Bak.'
+  file: build/code_repo/variant_a/docs/adr/adr-030.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-030.md
+    start: 5
+    end: 5
+  needle: Nadia Petrovic
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F205
+  world_ref: ADR:ADR-030#consequences
+  kind: general
+  statement: 'ADR-030 consequences: Supersedes ADR-018.'
+  file: build/code_repo/variant_a/docs/adr/adr-030.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/adr/adr-030.md
+    start: 20
+    end: 20
+  needle: Supersedes ADR-018.
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F206
+  world_ref: TOPIC:fraud.referral.notice-due.v1
+  kind: general
+  statement: 'Event-flow diagram: topic fraud.referral.notice-due.v1 flows from fraud-referral-svc to notification-svc.'
+  file: build/code_repo/variant_a/docs/diagrams/event-flows.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/diagrams/event-flows.md
+    start: 38
+    end: 38
+  needle: fraud_referral_svc -->|fraud.referral.notice-due.v1| notification_svc
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F207
+  world_ref: TOPIC:reserve.changed.v2
+  kind: general
+  statement: 'Event-flow diagram: topic reserve.changed.v2 flows from reserve-engine to gl-posting-svc.'
+  file: build/code_repo/variant_a/docs/diagrams/event-flows.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/diagrams/event-flows.md
+    start: 41
+    end: 41
+  needle: reserve_engine -->|reserve.changed.v2| gl_posting_svc
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F208
+  world_ref: TOPIC:claims.reserve.movement.v1
+  kind: general
+  statement: 'Event-flow diagram: topic claims.reserve.movement.v1 flows from MQ-to-Kafka-bridge--CLX-IF-049- to reserve-engine.'
+  file: build/code_repo/variant_a/docs/diagrams/event-flows.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/diagrams/event-flows.md
+    start: 40
+    end: 40
+  needle: MQ_to_Kafka_bridge__CLX_IF_049_ -->|claims.reserve.movement.v1| reserve_engine
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F209
+  world_ref: TOPIC:fraud.score.received.v1
+  kind: general
+  statement: 'Event-flow diagram: topic fraud.score.received.v1 flows from triage-svc to fraud-referral-svc.'
+  file: build/code_repo/variant_a/docs/diagrams/event-flows.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/diagrams/event-flows.md
+    start: 36
+    end: 36
+  needle: triage_svc -->|fraud.score.received.v1| fraud_referral_svc
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F210
+  world_ref: TOPIC:settlement.agreed.v1
+  kind: general
+  statement: 'Event-flow diagram: topic settlement.agreed.v1 flows from settlement-svc to recovery-svc.'
+  file: build/code_repo/variant_a/docs/diagrams/event-flows.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/diagrams/event-flows.md
+    start: 45
+    end: 45
+  needle: settlement_svc -->|settlement.agreed.v1| recovery_svc
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F211
+  world_ref: INTERFACE:CLX-IF-049#schedule
+  kind: general
+  statement: 'Sequence diagram: the CLX-IF-049 bridge reads RSVMOVE records from MQ daily at 02:45.'
+  file: build/code_repo/variant_a/docs/diagrams/sequences.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/diagrams/sequences.md
+    start: 16
+    end: 16
+  needle: 'BR->>MQ: daily 02:45 read RSVMOVE records'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F212
+  world_ref: RULE:BR-FRD-031@v2
+  kind: general
+  statement: 'Sequence diagram: fraud-referral-svc refers at Sentinel score 65, or 60 for Tier-3 claims from 2026-10-01.'
+  file: build/code_repo/variant_a/docs/diagrams/sequences.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: docs/diagrams/sequences.md
+    start: 36
+    end: 36
+  needle: 'FR->>FR: refer if score >= 65; Tier-3 claims >= 60 from 2026-10-01'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F213
+  world_ref: SERVICE:reporting-feed-svc#status
+  kind: general
+  statement: reporting-feed-svc (namespace chub-finance) is in development, go-live 2027-01-11.
+  file: build/code_repo/variant_a/README.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: README.md
+    start: 32
+    end: 32
+  needle: '| `reporting-feed-svc` | `chub-finance` | in development | 2027-01-11 |'
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F214
+  world_ref: SERVICE:reserve-engine#replaces_programs
+  kind: general
+  statement: reserve-engine replaces CLARA programs including CLRFN030, CLRGL090, CLRRS010, CLRRS110, CLRRS130, CLRRS150 and
+    CLRRS170.
+  file: build/code_repo/variant_a/services/reserve-engine/README.md
+  locator:
+    kind: code_lines
+    variant: a
+    path: services/reserve-engine/README.md
+    start: 37
+    end: 37
+  needle: CLRFN030, CLRGL090, CLRRS010
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F215
+  world_ref: SERVICE:reserve-engine#replicas
+  kind: image_text
+  statement: 'Namespace diagram (PNG): chub-reserve runs reserve-engine with 4 replicas.'
+  file: build/code_repo/variant_a/docs/diagrams/namespaces.png
+  locator:
+    kind: image_ocr
+    ocr: true
+  needle: reserve-engine x4
+  exclusive: false
+  also_in: []
+  notes: text rendered inside a PNG diagram (OCR)
+- fact_id: CODEMOD-F216
+  world_ref: INTERFACE:CLX-IF-049#kafka_topic
+  kind: image_text
+  statement: 'Reserve sync diagram (PNG): the bridge CLX-IF-049 publishes to claims.reserve.movement.v1.'
+  file: build/code_repo/variant_a/docs/diagrams/reserve-sync.png
+  locator:
+    kind: image_ocr
+    ocr: true
+  needle: claims.reserve.movement.v1
+  exclusive: false
+  also_in: []
+  notes: text rendered inside a PNG diagram (OCR)
+- fact_id: CODEMOD-F217
+  world_ref: INTERFACE:CLX-IF-038
+  kind: image_text
+  statement: System context diagram (PNG) shows Claims Hub connected to the Corvane Payments Gateway (CLX-IF-038).
+  file: build/code_repo/variant_a/docs/diagrams/system-context.png
+  locator:
+    kind: image_ocr
+    ocr: true
+  needle: Corvane Payments Gateway
+  exclusive: false
+  also_in: []
+  notes: text rendered inside a PNG diagram (OCR)
+- fact_id: CODEMOD-F218
+  world_ref: CANARY:CN-03
+  kind: general
+  statement: The variant-b fixture index lists 100 claim fixtures.
+  file: build/code_repo/variant_b/fixtures/claims/zz_fixture_index.md
+  locator:
+    kind: code_lines
+    variant: b
+    path: fixtures/claims/zz_fixture_index.md
+    start: 3
+    end: 3
+  needle: holds 100 claim fixtures
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F219
+  world_ref: CANARY:CN-02
+  kind: general
+  statement: zz-reconcile compares CLR.T_RESERVE.RSV_OUTSTANDING_AMT with reserve.reserve.outstanding_amount per claim.
+  file: build/code_repo/variant_b/tools/zz-reconcile/README.md
+  locator:
+    kind: code_lines
+    variant: b
+    path: tools/zz-reconcile/README.md
+    start: 8
+    end: 8
+  needle: (`CLR.T_RESERVE.RSV_OUTSTANDING_AMT`)
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F220
+  world_ref: INTERFACE:CLX-IF-049#schedule
+  kind: general
+  statement: 'Runbook: the CLX-IF-049 bridge reads RSVMOVE records from CLR.RSVMOVE.OUT daily at 02:45.'
+  file: build/code_repo/variant_b/docs/runbooks/reserve-bridge-clx-if-049.md
+  locator:
+    kind: code_lines
+    variant: b
+    path: docs/runbooks/reserve-bridge-clx-if-049.md
+    start: 3
+    end: 3
+  needle: from MQ queue CLR.RSVMOVE.OUT daily at 02:45
+  exclusive: false
+  also_in: []
+- fact_id: CODEMOD-F221
+  world_ref: CODE:b
+  kind: general
+  statement: Variant b has one extra commit on 2026-11-06 adding the legacy bridge, reconciliation tooling, fixtures and archived
+    CLARA sources.
+  file: build/code_repo/variant_b
+  locator:
+    kind: git_commit
+    variant: b
+    message_contains: Add legacy bridge, reconciliation tooling, fixtures and archived CLARA sources
+  needle: Add legacy bridge, reconciliation tooling, fixtures and archived CLARA sources
+  exclusive: false
+  also_in: []

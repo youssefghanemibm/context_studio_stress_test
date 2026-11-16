@@ -1,0 +1,129 @@
+From: Whitcombe, Gareth <gareth.whitcombe@corvane-mutual.example>
+Sent: Monday, 18 November 2024 11:28 AM
+To: Ferrier, Duncan <duncan.ferrier@corvane-mutual.example>
+Cc: Strandberg, Helena <helena.strandberg@corvane-mutual.example>; Sørensen, Ingrid <ingrid.sorensen@corvane-mutual.example>; Nwosu, Adaeze <adaeze.nwosu@corvane-mutual.example>
+Subject: RE: Programme Skerry – business case v1.0 for CFO approval
+
+Duncan,
+
+Thank you, and thanks to Ingrid and Adaeze for the supporting notes. I
+have been through the final version, including the revised benefits
+profile.
+
+I approve the Programme Skerry business case with a total budget of
+£48.6m.
+
+Finance will track spend against the approved budget through the programme
+governance, and I would like the first quarterly view once the delivery
+partner is mobilised.
+
+Approved and signed for Finance,
+the CFO
+
+Gareth Whitcombe
+Chief Financial Officer
+Corvane Mutual Insurance Society Limited
+Corvane House, 14 Tallowgate, London EC3N 9ZZ
+T: 07700 900102
+gareth.whitcombe@corvane-mutual.example
+
+Corvane Mutual Insurance Society Limited | Corvane House, 14 Tallowgate,
+London EC3N 9ZZ | NISA-FRN 40417. This message may contain confidential
+information. If it reached you by mistake, please let the sender know and
+remove it from your system.
+
+-----Original Message-----
+From: Nwosu, Adaeze <adaeze.nwosu@corvane-mutual.example>
+Sent: Friday, 15 November 2024 11:58 AM
+To: Ferrier, Duncan <duncan.ferrier@corvane-mutual.example>; Whitcombe, Gareth <gareth.whitcombe@corvane-mutual.example>
+Cc: Strandberg, Helena <helena.strandberg@corvane-mutual.example>; Sørensen, Ingrid <ingrid.sorensen@corvane-mutual.example>
+Subject: RE: Programme Skerry – business case v1.0 for CFO approval
+
+All,
+
+Technology view: supportive. The target architecture in the appendix
+matches what the architecture team reviewed, and the phasing keeps CLARA
+running alongside the new platform until each migration wave is complete.
+
+I will keep you posted as things move.
+
+Kind regards,
+Adaeze
+
+--
+Adaeze Nwosu
+Chief Information Officer
+
+CONFIDENTIALITY: The information in this message is private to Corvane
+Mutual and the intended recipient(s). If you are not an intended
+recipient, please tell the sender and delete the message; do not copy or
+forward it. Corvane Mutual Insurance Society Limited, Corvane House, 14
+Tallowgate, London EC3N 9ZZ. Supervised by NISA (NISA-FRN 40417).
+
+From: Sørensen, Ingrid <ingrid.sorensen@corvane-mutual.example>
+Sent: Thursday, 14 November 2024 8:43 AM
+To: Ferrier, Duncan <duncan.ferrier@corvane-mutual.example>; Whitcombe, Gareth <gareth.whitcombe@corvane-mutual.example>
+Cc: Strandberg, Helena <helena.strandberg@corvane-mutual.example>; Nwosu, Adaeze <adaeze.nwosu@corvane-mutual.example>
+Subject: RE: Programme Skerry – business case v1.0 for CFO approval
+
+Duncan, Gareth,
+
+From the Claims side we fully support this. CLARA has been our system of
+record since it went live in 1994, and the handling teams in Leeds and the
+Nordic branches feel the cost of working around it every day.
+
+I am comfortable with the phasing in section 6 and will make my operations
+leads available for the design work from the start.
+
+Thanks,
+Ingrid
+
+Ingrid Sørensen
+Claims Director
+Corvane Mutual
+Corvane House, 14 Tallowgate, London EC3N 9ZZ
+Tel: 07700 900105
+ingrid.sorensen@corvane-mutual.example
+
+Corvane Mutual Insurance Society Limited | Corvane House, 14 Tallowgate,
+London EC3N 9ZZ | NISA-FRN 40417. This message may contain confidential
+information. If it reached you by mistake, please let the sender know and
+remove it from your system.
+
+From: Ferrier, Duncan <duncan.ferrier@corvane-mutual.example>
+Sent: Wednesday, 13 November 2024 4:38 PM
+To: Whitcombe, Gareth <gareth.whitcombe@corvane-mutual.example>
+Cc: Strandberg, Helena <helena.strandberg@corvane-mutual.example>; Nwosu, Adaeze <adaeze.nwosu@corvane-mutual.example>; Sørensen, Ingrid <ingrid.sorensen@corvane-mutual.example>
+Subject: Programme Skerry – business case v1.0 for CFO approval
+Attachments: Programme_Skerry_Business_Case_v1.0.pdf
+
+Gareth,
+
+Attached is the final Programme Skerry business case (v1.0) for your
+approval as CFO. It sets out the replacement of CLARA by Claims Hub
+through a phased migration and asks for a total programme budget of
+£48.6m.
+
+Comments from your team on the draft have been worked in, and the benefits
+section now follows the format Finance asked for. Helena and Adaeze are
+copied, as is Ingrid for the Claims view.
+
+Once it is signed we can confirm the delivery partner and plan
+mobilisation for January.
+
+Let me know if you need anything else from me.
+
+Many thanks,
+Duncan
+
+Duncan Ferrier
+Chief Operating Officer
+Corvane Mutual
+Corvane House, 14 Tallowgate, London EC3N 9ZZ
+Tel: 07700 900104
+duncan.ferrier@corvane-mutual.example
+
+Corvane Mutual Insurance Society Limited | Corvane House, 14 Tallowgate,
+London EC3N 9ZZ | NISA-FRN 40417. This message may contain confidential
+information. If it reached you by mistake, please let the sender know and
+remove it from your system.

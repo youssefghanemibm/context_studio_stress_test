@@ -1,0 +1,89 @@
+CORVANE MUTUAL - PROGRAMME SKERRY
+Stand-up transcript - Data Migration workstream
+--------------------------------------------------------------------------------
+Ref: DMG-SU-2026-10-20    Date: Tuesday 20 October 2026    Start: 08:45 UK time    Length: about 13 minutes
+Team: Data Migration (IBM and Corvane)
+Transcribed by: automatic transcription; tidied by Callum Fairbairn (Data Migration Lead)
+Classification: Internal
+
+Participants:
+  Callum Fairbairn (IBM) - Data Migration Lead (IBM Consulting)
+  Gordon Sproat - Mainframe Modernisation SME (IBM Consulting)
+  Derek Ollerton - DB2 Database Administrator
+  Arjun Kesavan - Programme Delivery Lead (IBM Consulting)
+
+Note: stand-up notes are informal. Decisions are recorded in the relevant tickets, not here.
+
+--------------------------------------------------------------------------------
+
+[00:00:00] Callum Fairbairn (IBM): Morning, everyone. Quick round, then I need ten minutes with Gordon on the mappings.
+[00:00:05] Callum Fairbairn (IBM): Reminder of the scope: Wave 2 is UK home, commercial and liability, plus Norway and Sweden, cutting over on the 15th of February. Same approach as Wave 1, migrating region by region per ADR-015.
+[00:00:19] Derek Ollerton: And rehearsal data stays masked, per ADR-025. The masked refresh for the Nordic products is running this week.
+[00:00:26] Callum Fairbairn (IBM): The reconciliation scripts from Wave 1 carry over. The Nordic products just add currency checks. We should be able to replay the mapping review from the movements alone; that's the test.
+[00:00:39] Gordon Sproat: Picking up on that, on the Nordic mappings, the copybook is the contract, whether we like it or not. On the masked data refresh, the question is always whether the reserve table and the movement history tell the same story. If the masked data refresh is wrong, it doesn't show up on the day; it shows up at month-end, which is worse.
+[00:01:04] Callum Fairbairn (IBM): I'd echo that, if the extract jobs need more time, I'd rather we said so now. On the load scripts, the copybook is the contract, whether we like it or not.
+[00:01:17] Derek Ollerton: The DB2 unloads for the next rehearsal are scripted. I just need the go-ahead on the environment.
+[00:01:24] Callum Fairbairn (IBM): If the Nordic mappings changes the case estimate a handler sees, we need to tell them why. I'd rather have an honest amber on the Nordic mappings than a green that turns red later.
+[00:01:38] Arjun Kesavan: The steering confirmed the date, so the plan is fixed now. I'll circulate the updated version today.
+[00:01:46] Gordon Sproat: Sure. From a reserving point of view, the reconciliation scripts matter because every movement has to land in the right period. We need the load scripts to be explainable to Finance in plain English, not just in COBOL paragraphs. I'm working through the Norwegian product mappings. A couple of code values need confirming with the Oslo team.
+[00:02:09] Callum Fairbairn (IBM): On the DB2 unloads, the question is always whether the reserve table and the movement history tell the same story. There's a temptation to treat the masked data refresh as a technical problem, and it really isn't. To be honest, on the DB2 unloads, I'd like us to agree the principle and let the team sort out the detail.
+[00:02:32] Derek Ollerton: How confident are we on the masked data refresh, honestly?
+[00:02:37] Gordon Sproat: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it.
+[00:02:44] Callum Fairbairn (IBM): If the extract jobs are wrong, it doesn't show up on the day; it shows up at month-end, which is worse. We shouldn't confuse the Nordic mappings with the wider change; they're related but not the same. The Nordic reserves always make the extract jobs more interesting because of the currency side.
+[00:03:05] Arjun Kesavan: Let's keep the reconciliation scripts simple and not try to solve every edge case in one go. We probably need to separate the facts on the mapping review from the folklore. On the rehearsal environment, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room. If the reconciliation scripts are wrong, it doesn't show up on the day; it shows up at month-end, which is worse.
+[00:03:35] Callum Fairbairn (IBM): Where does the mapping review sit on the list of priorities right now?
+[00:03:41] Derek Ollerton: It's up there. It just keeps getting bumped by urgent things. I'd want the actuaries to see the mapping review before we lock anything down, for what it's worth.
+[00:03:53] Gordon Sproat: The Swedish home product has a few fields that don't exist anywhere else. I've flagged them.
+[00:04:00] Callum Fairbairn (IBM): I'd push back slightly on that. If the mapping review changes the case estimate a handler sees, we need to tell them why. It might be worth a separate session on the rehearsal environment, because we won't do it justice in a few minutes here.
+[00:04:18] Derek Ollerton: I'd echo that, I don't think the DB2 unloads are controversial, it's just fiddly. If I can come in here, I'm conscious the extract jobs keep coming up and we keep deferring it.
+[00:04:32] Callum Fairbairn (IBM): We shouldn't confuse the DB2 unloads with the wider change; they're related but not the same.
+[00:04:38] Derek Ollerton: Do we need a decision on the rehearsal environment from this group, or is it just for awareness?
+[00:04:46] Gordon Sproat: Not today. We'll bring options when we've done the analysis. What's changed on the rehearsal environment since the last update is mainly the level of detail, not the direction.
+[00:04:58] Callum Fairbairn (IBM): The load scripts are exactly where the parallel run earns its keep. I'd like the load scripts traced through to the general ledger, not just checked at the service boundary.
+[00:05:11] Derek Ollerton: Housekeeping on the unload datasets is done, so we've got the space back. It might be worth a separate session on the mapping review, because we won't do it justice in a few minutes here.
+[00:05:25] Gordon Sproat: Um, personally I'd go a bit further on the masked data refresh, but I can live with what's proposed, I'd say. Let's keep the masked data refresh simple and not try to solve every edge case in one go.
+[00:05:41] Derek Ollerton: We should be able to replay the rehearsal environment from the movements alone; that's the test. We've done the thinking on the rehearsal environment; now it's about execution.
+[00:06:00] Callum Fairbairn (IBM): How confident are we on the rehearsal environment, honestly?
+[00:06:04] Gordon Sproat: Short answer, yes. Long answer, it depends how the next few weeks go. From where I sit, the rehearsal environment is the thing most likely to catch us out, simply because it touches so many teams, to be honest.
+[00:06:20] Callum Fairbairn (IBM): That's helpful, thanks.
+[00:06:22] Gordon Sproat: Yeah, and to add to that, if there's one thing I'd take away on the extract jobs, it's that we need to keep it visible.
+[00:06:33] Callum Fairbairn (IBM): Derek, where are we on the DB2 unloads?
+[00:06:37] Derek Ollerton: We're waiting on one input, and then it's fairly straightforward.
+[00:06:42] Callum Fairbairn (IBM): Actually, we need a bit more rigour around the rehearsal environment, particularly on the testing side. We don't need to solve the rehearsal environment here; we just need to agree who goes away and looks at it.
+[00:06:57] Derek Ollerton: Where do the extract jobs sit on the list of priorities right now?
+[00:07:04] Arjun Kesavan: Near the top, but not at the top. The people side of the extract jobs is going to be harder than the system side.
+[00:07:14] Gordon Sproat: Callum, can you give us a quick update on the load scripts?
+[00:07:19] Callum Fairbairn (IBM): It's with the working group at the moment; I'll chase and come back. What I'd like to avoid with the load scripts is finding out about a problem the week before, when there's nothing we can do about it.
+[00:07:35] Gordon Sproat: Are the reconciliation scripts in the pack, or are they coming separately?
+[00:07:41] Derek Ollerton: Not in this pack, no. It'll come separately once it's been through the working group. Again, there's no silver bullet on the reconciliation scripts; it's just steady work, if I'm honest.
+[00:07:54] Gordon Sproat: Is the share working? I'm just seeing a black screen.
+[00:07:59] Arjun Kesavan: Hang on, let me stop and restart it.
+[00:08:02] Arjun Kesavan: Any better?
+[00:08:04] Gordon Sproat: Yes, that's it now.
+[00:08:06] Derek Ollerton: Has anything moved on the rehearsal environment since last time?
+[00:08:11] Callum Fairbairn (IBM): Mostly that more people are involved now, which is good.
+[00:08:16] Gordon Sproat: Derek, where are we on the rehearsal environment?
+[00:08:20] Derek Ollerton: Steady. No drama, which is what you want. I don't think the rehearsal environment is controversial, it's just fiddly, broadly.
+[00:08:29] Gordon Sproat: Where does the masked data refresh sit on the list of priorities right now?
+[00:08:35] Callum Fairbairn (IBM): Top of the second tier, if that makes sense.
+[00:08:39] Derek Ollerton: For what it's worth, for the load scripts, the movement type matters as much as the amount. We need the masked data refresh to be explainable to [inaudible] in plain English, not just in COBOL paragraphs. We've had mixed messages on the load scripts, so a clear statement would help.
+[00:08:59] Gordon Sproat: Okay, I'm with you.
+[00:09:01] Derek Ollerton: Sorry, I'm in a car park, so if I drop, that's why.
+[00:09:06] Callum Fairbairn (IBM): Understood, thanks.
+[00:09:07] Derek Ollerton: Are we expecting any pushback on the DB2 unloads?
+[00:09:12] Gordon Sproat: One or two. I'll pick them up offline rather than take time here. Every time we've touched the DB2 unloads in the past, there's been a surprise in the reconciliation.
+[00:09:24] Callum Fairbairn (IBM): I'd want the actuaries to see the extract jobs before we lock anything down. From a reserving point of view, the extract jobs matter because every movement has to land in the right period. If the extract jobs slips, it doesn't just slip on its own; it drags a couple of other things with it.
+[00:09:46] Arjun Kesavan: Yeah, go on.
+[00:09:48] Gordon Sproat: Is there a simpler version of the rehearsal environment than what's on the slide?
+[00:09:55] Callum Fairbairn (IBM): Possibly. Let me take that away and see what we could strip out. To be honest, for the rehearsal environment, the movement type matters as much as the amount.
+[00:10:07] Arjun Kesavan: Who else needs to be involved in the DB2 unloads?
+[00:10:11] Derek Ollerton: Someone from the business side, ideally a team leader who's lived with it. The thing about the DB2 unloads is that everyone agrees with it in principle and nobody wants to do the work, I'd say.
+[00:10:26] Callum Fairbairn (IBM): From my side, the extract jobs touch the audit trail, so internal audit will want to look at it eventually.
+[00:10:35] Gordon Sproat: Let's capture the extract jobs as a follow-up rather than try to close it today. Yeah, so let's capture the masked data refresh as a follow-up rather than try to close it today.
+[00:10:49] Callum Fairbairn (IBM): Can I just [crosstalk]
+[00:10:51] Arjun Kesavan: Sorry, after you.
+[00:10:54] Callum Fairbairn (IBM): Thanks. It was a small point.
+[00:11:00] Callum Fairbairn (IBM): Thanks, all. Gordon, stay on.
+
+--------------------------------------------------------------------------------
+End of stand-up transcript.

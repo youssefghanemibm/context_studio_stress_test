@@ -1,0 +1,3391 @@
+- fact_id: VS001-F001
+  world_ref: PROCESS:PS-TRI-03#decision
+  kind: arrow_only
+  statement: Connector 'Route claim' → 'Fast-track settlement' is labelled 'Tier-1 & score < 30 & no injury'.
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+  needle: 'Route claim -> Fast-track settlement [label: Tier-1 & score < 30 & no injury]'
+  exclusive: false
+  also_in: []
+  placement: PL-075
+  placement_key: vs1_arrow_fast
+  notes: Branch label sits in a text box named 'label:route-fasttrack'; no slide text states the condition.
+- fact_id: VS001-F002
+  world_ref: PROCESS:PS-TRI-03#decision
+  kind: arrow_only
+  statement: In the triage flow, Tier-3 claims are routed from 'Route claim' to 'Major loss alert'.
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+  needle: 'Route claim -> Major loss alert [label: Tier-3]'
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F003
+  world_ref: PROCESS:PS-TRI-03#decision
+  kind: arrow_only
+  statement: Claims whose Sentinel score reaches the referral threshold are routed to the referral decision.
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+  needle: 'Route claim -> Referral decision [label: Score ≥ referral threshold]'
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F004
+  world_ref: RULE:BR-TRI-006@v3#parameters.cap_gbp
+  kind: speaker_notes
+  statement: 'Speaker notes: since 2026-07-01 the fast-track payment cap is £2,000 (NOK 26,000 / SEK 27,000 / DKK 17,000),
+    BR-TRI-006 v3.'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: notes
+  needle: fast-track payment cap is £2,000
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F005
+  world_ref: PROCESS:PS-TRI-01#raci.R
+  kind: lane_only
+  statement: On the FNOL and triage swimlane, 'Sentinel pre-screen' sits in the 'Hub Squad – Intake & Triage' lane (RACI R
+    = T27).
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: text
+  needle: Sentinel pre-screen
+  exclusive: false
+  also_in: []
+  notes: 'verification: manual-lane; geometry (inches): step box x=9.00-10.18, y=4.93-5.71 lies inside lane ''Hub Squad –
+    Intake & Triage'' band x=0.50-12.83, y=4.55-6.10'
+- fact_id: VS001-F006
+  world_ref: PROCESS:PS-FNOL-05#raci.R
+  kind: lane_only
+  statement: On the FNOL and triage swimlane, 'Acknowledge customer' sits in the 'Contact Centre' lane (RACI R = T10).
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: text
+  needle: Acknowledge customer
+  exclusive: false
+  also_in: []
+  notes: 'verification: manual-lane; geometry (inches): step box x=7.68-8.86, y=1.83-2.62 lies inside lane ''Contact Centre''
+    band x=0.50-12.83, y=1.45-3.00'
+- fact_id: VS001-F007
+  world_ref: RULE:BR-TRI-007@v1
+  kind: speaker_notes
+  statement: 'Speaker notes: every new claim is scored by Sentinel within 15 minutes of FNOL (BR-TRI-007).'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: notes
+  needle: scored by Sentinel within 15 minutes of FNOL
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F008
+  world_ref: RULE:BR-FNOL-001@v3
+  kind: speaker_notes
+  statement: 'Speaker notes: FNOL acknowledgement is due within 1 business day (digital) or 2 business days (other channels),
+    BR-FNOL-001 v3.'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: notes
+  needle: 1 business day for digital claims and 2 business days for other channels
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F009
+  world_ref: PROCESS:PS-REC-02#raci.R
+  kind: lane_only
+  statement: '''Open subrogation case and demand'' sits in the ''Recoveries & Subrogation (Group)'' swimlane.'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: group
+    shape_name: 'Lane: Recoveries & Subrogation (Group)'
+  needle: Open subrogation case and demand
+  exclusive: false
+  also_in: []
+  placement: PL-074
+  placement_key: vs1_lane_subro
+  notes: 'Lane membership via group shape ''Lane: Recoveries & Subrogation (Group)'' (lane header + steps); geometry (inches):
+    step box x=6.10-7.70, y=2.78-3.56 lies inside lane ''Recoveries & Subrogation (Group)'' band x=0.50-12.83, y=2.60-4.90'
+- fact_id: VS001-F010
+  world_ref: PROCESS:PS-ASM-04#raci.R
+  kind: lane_only
+  statement: '''Estimate and recovery potential'' sits in the ''Claims Assessment UK'' lane on the Recovery & Subrogation
+    swimlane (RACI R = T06).'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: group
+    shape_name: 'Lane: Claims Assessment UK'
+  needle: Estimate and recovery potential
+  exclusive: false
+  also_in: []
+  notes: 'group-geometry: geometry (inches): step box x=2.40-4.00, y=1.63-2.41 lies inside lane ''Claims Assessment UK'' band
+    x=0.50-12.83, y=1.45-2.60'
+- fact_id: VS001-F011
+  world_ref: RULE:BR-REC-001@v1
+  kind: speaker_notes
+  statement: 'Speaker notes: a subrogation case is opened within 10 business days of the recovery flag (BR-REC-001).'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: notes
+  needle: opened within 10 business days of the recovery flag
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F012
+  world_ref: PROCESS:PS-FRD-03#raci.R
+  kind: lane_only
+  statement: '''Notify customer of referral'' sits in the ''Claims Operations'' lane, below the SIU lane.'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: text
+  needle: Notify customer of referral
+  exclusive: false
+  also_in: []
+  placement: PL-076
+  placement_key: vs1_lane_notice
+  notes: 'verification: manual-lane; lane order top-to-bottom: Counter-Fraud & SIU, Claims Operations, Compliance; geometry
+    (inches): step box x=6.60-8.30, y=3.68-4.46 lies inside lane ''Claims Operations'' band x=0.50-12.83, y=3.35-4.80'
+- fact_id: VS001-F013
+  world_ref: PROCESS:PS-FRD-05#raci.R
+  kind: lane_only
+  statement: '''Human review of adverse outcome'' sits in the ''Counter-Fraud & SIU'' lane of the fraud referral swimlane
+    (RACI R = T11).'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: text
+  needle: Human review of adverse outcome
+  exclusive: false
+  also_in: []
+  notes: 'verification: manual-lane; geometry (inches): step box x=10.80-12.50, y=2.01-2.79 lies inside lane ''Counter-Fraud
+    & SIU'' band x=0.50-12.83, y=1.45-3.35'
+- fact_id: VS001-F014
+  world_ref: RULE:BR-FRD-032@v2
+  kind: speaker_notes
+  statement: 'Speaker notes: the customer referral notice is due within 10 business days of referral unless deferred (BR-FRD-032
+    v2).'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: notes
+  needle: within 10 business days of referral unless a deferral is certified
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F015
+  world_ref: PROCESS:PS-RSV-04#raci.R
+  kind: lane_only
+  statement: '''Large loss notification'' sits in the ''Major & Complex Loss'' lane of the reserving swimlane (RACI R = T09).'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: Large loss notification
+  exclusive: false
+  also_in: []
+  notes: 'verification: manual-lane; geometry (inches): step box x=7.00-8.70, y=3.46-4.24 lies inside lane ''Major & Complex
+    Loss'' band x=0.50-12.83, y=3.05-4.65'
+- fact_id: VS001-F016
+  world_ref: RULE:BR-RSV-007@v3
+  kind: speaker_notes
+  statement: 'Speaker notes: Tier-3 reserves are reviewed at least every 14 days from 2026-07-01 (BR-RSV-007 v3).'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: notes
+  needle: reviewed at least every 14 days from 1 July 2026
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F017
+  world_ref: PROCESS:PS-STL-03#raci.R
+  kind: lane_only
+  statement: '''Sanctions screening and payment'' sits in the ''Payments Operations'' lane (RACI R = T16).'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: text
+  needle: Sanctions screening and payment
+  exclusive: false
+  also_in: []
+  notes: 'verification: manual-lane; geometry (inches): step box x=6.90-8.80, y=4.16-4.94 lies inside lane ''Payments Operations''
+    band x=0.50-12.83, y=3.75-5.35'
+- fact_id: VS001-F018
+  world_ref: RULE:BR-RSV-014@v1
+  kind: speaker_notes
+  statement: 'Speaker notes: on final settlement the reserve is zeroed within 1 business day with a settlement close movement
+    (type ST), BR-RSV-014.'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: notes
+  needle: settlement close movement of type ST
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F019
+  world_ref: PROCESS:S7#owner_history
+  kind: general
+  statement: Stage S7 Recovery & Subrogation is owned by Freya Lindahl, Head of Recoveries & Subrogation (as at 2026-10-02).
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: table
+  needle: Freya Lindahl
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F020
+  world_ref: PROCESS:S4#owner_history
+  kind: general
+  statement: Stage S4 Reserving is owned by Lena Kristiansen, Head of Reserving (as at 2026-10-02).
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: table
+  needle: Lena Kristiansen
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F021
+  world_ref: PROCESS:PS-ASM-02#sla
+  kind: general
+  statement: 'Inspection or desk assessment (PS-ASM-02): 5 business days; Tier-3 within 48 hours (BR-ASM-005 v3).'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: 5 business days; Tier-3 within 48 hours (BR-ASM-005 v3)
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F022
+  world_ref: PROCESS:PS-FRD-04#sla
+  kind: image_table
+  statement: 'Image table: PS-FRD-04 SIU investigation and outcome – SIU triage within 3 business days (BR-FRD-035 v2).'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: image
+    ocr: true
+  needle: SIU triage within 3 business days
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F023
+  world_ref: PROCESS:PS-REC-02#sla
+  kind: image_table
+  statement: 'Image table: PS-REC-02 Open subrogation case and demand – demand within 10 business days.'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: image
+    ocr: true
+  needle: demand within 10 business days
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F024
+  world_ref: RULE:BR-RSV-001@v1
+  kind: screenshot
+  statement: 'Claims Hub claim overview screen shows the field ''Initial reserve due: 2 business days after FNOL'' (BR-RSV-001).'
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 13
+    where: image
+    ocr: true
+  needle: Initial reserve due
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F025
+  world_ref: PROCESS:S5#systems
+  kind: visual_only
+  statement: Stage S5 Fraud Referral is supported by Sentinel, CLARA, Claims Hub, SIU Case Manager and Notify.
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 14
+    where: group
+    shape_name: Stage S5 systems
+  needle: S5 · Fraud Referral Sentinel CLARA Claims Hub SIU Case Manager Notify
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F026
+  world_ref: PROCESS:S7#systems
+  kind: visual_only
+  statement: Stage S7 Recovery & Subrogation is supported by CLARA, Subrogation Tracker and Claims Hub.
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 14
+    where: group
+    shape_name: Stage S7 systems
+  needle: S7 · Recovery & Subrogation CLARA Subrogation Tracker Claims Hub
+  exclusive: false
+  also_in: []
+- fact_id: VS001-F027
+  world_ref: RULE:BR-FRD-036@v2
+  kind: general
+  statement: From 2026-10-01 customer-notice deferrals beyond 30 days need the Head of Counter-Fraud & SIU and Compliance
+    is notified the same day (BR-FRD-036 v2).
+  file: corpus/upload/visuals/VS001_claims_lifecycle_swimlane.pptx
+  locator:
+    kind: pptx_slide
+    slide: 15
+    where: text
+  needle: deferrals beyond 30 days now need the Head of Counter-Fraud & SIU
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F001
+  world_ref: ADR:ADR-004
+  kind: general
+  statement: 'ADR-004: retain MQ for mainframe integration until CLARA decommissioning.'
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: text
+  needle: Retain MQ for mainframe integration until CLARA decommissioning
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F002
+  world_ref: INTERFACE:CLX-IF-036
+  kind: image_text
+  statement: 'Context diagram: Claims Hub calls Sentinel over REST via CLX-IF-036 (arrow label in the image).'
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: image
+    ocr: true
+  needle: CLX-IF-036 REST
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F003
+  world_ref: INTERFACE:CLX-IF-036
+  kind: alt_text
+  statement: 'Alt text of the context diagram: Claims Hub calls Sentinel (CLX-IF-036).'
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: alt_text
+  needle: Claims Hub calls Sentinel (CLX-IF-036)
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F004
+  world_ref: INTERFACE:CLX-IF-041
+  kind: image_text
+  statement: 'Context diagram: Claims Hub sends fraud referrals to SIU Case Manager via CLX-IF-041 (REST).'
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: image
+    ocr: true
+  needle: CLX-IF-041 REST
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F005
+  world_ref: SERVICE:fraud-referral-svc#k8s_namespace
+  kind: visual_only
+  statement: Grouped shape 'chub-fraud' contains fraud-referral-svc and the Sentinel adapter.
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: group
+    shape_name: chub-fraud
+  needle: chub-fraud fraud-referral-svc Sentinel adapter
+  exclusive: false
+  also_in: []
+  placement: PL-080
+  placement_key: vs2_group_fraud
+  notes: 'Nested group ''chub-fraud'' inside ''Claims Hub – OpenShift cluster (prod)''; group lines: header, then members.'
+- fact_id: VS002-F006
+  world_ref: SERVICE:reserve-engine#k8s_namespace
+  kind: visual_only
+  statement: Group 'chub-reserve' contains reserve-engine.
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: group
+    shape_name: chub-reserve
+  needle: chub-reserve reserve-engine
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F007
+  world_ref: SERVICE:gl-posting-svc#k8s_namespace
+  kind: visual_only
+  statement: Group 'chub-finance' contains gl-posting-svc and reporting-feed-svc.
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: group
+    shape_name: chub-finance
+  needle: chub-finance gl-posting-svc reporting-feed-svc
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F008
+  world_ref: SERVICE:fraud-referral-svc#kafka_topics.produces
+  kind: arrow_only
+  statement: Arrow fraud-referral-svc → notification-svc labelled 'fraud.referral.notice-due.v1'.
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: connector
+  needle: 'fraud-referral-svc -> notification-svc [label: fraud.referral.notice-due.v1]'
+  exclusive: false
+  also_in: []
+  placement: PL-077
+  placement_key: vs2_arrow_notice
+  notes: Label in text box 'label:evt-notice'.
+- fact_id: VS002-F009
+  world_ref: TOPIC:fraud.referral.created.v1#consumers
+  kind: arrow_only
+  statement: Arrow fraud-referral-svc → reporting-feed-svc labelled with topic fraud.referral.created.v1.
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: connector
+  needle: 'fraud-referral-svc -> reporting-feed-svc [label: fraud.referral.created.v1]'
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F010
+  world_ref: TOPIC:fraud.score.received.v1#producer
+  kind: arrow_only
+  statement: Arrow triage-svc → fraud-referral-svc labelled with topic fraud.score.received.v1.
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: connector
+  needle: 'triage-svc -> fraud-referral-svc [label: fraud.score.received.v1]'
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F011
+  world_ref: SERVICE:fraud-referral-svc#apis
+  kind: speaker_notes
+  statement: 'Speaker notes: fraud-referral-svc calculates the customer-notice deadline as referral date plus 10 business
+    days.'
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: notes
+  needle: referral date plus 10 business days
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F012
+  world_ref: INTERFACE:CLX-IF-049
+  kind: arrow_only
+  statement: Arrow MQ Backbone → Event Streaming Platform → reserve-engine labelled 'CLX-IF-049 claims.reserve.movement.v1'.
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: 'MQ Backbone -> Event Streaming Platform [label: CLX-IF-049]'
+  exclusive: false
+  also_in: []
+  placement: PL-078
+  placement_key: vs2_arrow_049
+  notes: First of the two connectors (MQ Backbone → Event Streaming Platform).
+- fact_id: VS002-F013
+  world_ref: INTERFACE:CLX-IF-049
+  kind: arrow_only
+  statement: Arrow Event Streaming Platform → reserve-engine labelled with topic claims.reserve.movement.v1 (second connector
+    of the CLX-IF-049 path).
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: 'Event Streaming Platform -> reserve-engine [label: claims.reserve.movement.v1]'
+  exclusive: false
+  also_in: []
+  placement: PL-078
+  placement_key: vs2_arrow_049
+  notes: Second of the two connectors (Event Streaming Platform → reserve-engine).
+- fact_id: VS002-F014
+  world_ref: INTERFACE:CLX-IF-043
+  kind: arrow_only
+  statement: Arrow MQ Backbone → Group Ledger labelled CLX-IF-043.
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: 'MQ Backbone -> Group Ledger [label: CLX-IF-043]'
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F015
+  world_ref: EVENT:EV-023
+  kind: speaker_notes
+  statement: 'Speaker notes: the CLX-IF-049 bridge went live on 2025-12-12 (CHUB-188) and feeds the reserve parallel run from
+    2026-03-02.'
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: notes
+  needle: went live on 12 December 2025 under CHUB-188
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F016
+  world_ref: TIMELINE:programme#wave2
+  kind: speaker_notes
+  statement: 'Speaker notes: Wave 2 cut-over is planned for 2027-02-15 and CLARA decommissioning for 2027-09-30.'
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: notes
+  needle: Wave 2 cut-over is planned for 2027-02-15 and CLARA decommissioning for 2027-09-30
+  exclusive: false
+  also_in: []
+  placement: PL-079
+  placement_key: vs2_notes_wave2
+- fact_id: VS002-F017
+  world_ref: SERVICE:recovery-svc#owner_history:T29
+  kind: general
+  statement: 'Service catalogue (2026-03-16): recovery-svc is owned by Hub Squad – Fraud & Settlement.'
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: Hub Squad – Fraud & Settlement
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F018
+  world_ref: SERVICE:reserve-engine#renames
+  kind: speaker_notes
+  statement: 'Speaker notes: reserve-engine was renamed from reserve-svc on 2026-02-10 (ADR-019, CHUB-233).'
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: notes
+  needle: renamed from reserve-svc on 10 February 2026
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F019
+  world_ref: TOPIC:reserve.changed.v2
+  kind: image_table
+  statement: 'Topic table: reserve.changed.v2 is produced by reserve-engine and consumed by gl-posting-svc and reporting-feed-svc.'
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: image
+    ocr: true
+  needle: reserve.changed.v2
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F020
+  world_ref: INTERFACE:CLX-IF-050
+  kind: general
+  statement: CLX-IF-050 'Claims Hub journals to GL' (Claims Hub → Group Ledger, REST, hourly) is planned at 2026-03-16.
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 13
+    where: table
+  needle: Claims Hub journals to GL
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F021
+  world_ref: SYSTEM:SYS15#tech
+  kind: image_text
+  statement: 'Deployment view image: Event Streaming Platform is Kafka on OpenShift (Strimzi) with 6 brokers.'
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 14
+    where: image
+    ocr: true
+  needle: 6 brokers
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F022
+  world_ref: SYSTEM:SYS14#tech
+  kind: alt_text
+  statement: 'Deployment view alt text: the MQ Backbone comprises queue managers HUBQM01 and CLRQM01.'
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 14
+    where: alt_text
+  needle: HUBQM01 and CLRQM01
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F023
+  world_ref: ADR:ADR-020
+  kind: general
+  statement: 'ADR-020 (2026-02-16): fraud referral thresholds as effective-dated configuration.'
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 15
+    where: table
+  needle: Fraud referral thresholds as effective-dated configuration
+  exclusive: false
+  also_in: []
+- fact_id: VS002-F024
+  world_ref: ADR:ADR-028
+  kind: general
+  statement: CLRGL090 revaluation stays in CLARA until the reserve-engine revaluation run takes over from Wave 2 (ADR-028).
+  file: corpus/upload/visuals/VS002_claims_hub_target_architecture_deck.pptx
+  locator:
+    kind: pptx_slide
+    slide: 16
+    where: text
+  needle: until the reserve-engine revaluation run takes over from Wave 2 (ADR-028)
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F001
+  world_ref: INTERFACE:*
+  kind: aggregate_source
+  statement: The interface catalogue holds 60 interfaces, CLX-IF-001 to CLX-IF-060.
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: The catalogue holds 60 interfaces, CLX-IF-001 to CLX-IF-060
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F002
+  world_ref: INTERFACE:CLX-IF-043#depends_on
+  kind: arrow_only
+  statement: Connector MQ Backbone → Group Ledger labelled 'CLX-IF-043'.
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: connector
+  needle: 'MQ Backbone -> Group Ledger [label: CLX-IF-043]'
+  exclusive: false
+  also_in: []
+  placement: PL-081
+  placement_key: vs3_043
+- fact_id: VS003-F003
+  world_ref: INTERFACE:CLX-IF-051#depends_on
+  kind: arrow_only
+  statement: Connector Group Ledger → NISA Reporting Hub labelled 'CLX-IF-051 (TP2)'.
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: connector
+  needle: 'Group Ledger -> NISA Reporting Hub [label: CLX-IF-051 (TP2)]'
+  exclusive: false
+  also_in: []
+  placement: PL-082
+  placement_key: vs3_051
+- fact_id: VS003-F004
+  world_ref: INTERFACE:CLX-IF-047#depends_on
+  kind: arrow_only
+  statement: Connector MQ Backbone → ReCede labelled 'CLX-IF-047'.
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: connector
+  needle: 'MQ Backbone -> ReCede [label: CLX-IF-047]'
+  exclusive: false
+  also_in: []
+  placement: PL-083
+  placement_key: vs3_047
+- fact_id: VS003-F005
+  world_ref: INTERFACE:CLX-IF-055#depends_on
+  kind: arrow_only
+  statement: Connector ReCede → Bordereaux Exchange labelled 'CLX-IF-055 monthly'.
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: connector
+  needle: 'ReCede -> Bordereaux Exchange [label: CLX-IF-055 monthly]'
+  exclusive: false
+  also_in: []
+  placement: PL-084
+  placement_key: vs3_055
+- fact_id: VS003-F006
+  world_ref: INTERFACE:CLX-IF-058#depends_on
+  kind: arrow_only
+  statement: Arrow Claims Data Warehouse → Actuarial Reserving Workbench labelled CLX-IF-058.
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: connector
+  needle: 'Claims Data Warehouse -> Actuarial Reserving Workbench [label: CLX-IF-058]'
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F007
+  world_ref: INTERFACE:CLX-IF-044#depends_on
+  kind: arrow_only
+  statement: Arrow MQ Backbone → Claims Data Warehouse labelled CLX-IF-044.
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: connector
+  needle: 'MQ Backbone -> Claims Data Warehouse [label: CLX-IF-044]'
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F008
+  world_ref: INTERFACE:CLX-IF-042
+  kind: arrow_only
+  statement: Arrow CLARA → MQ Backbone labelled CLX-IF-042 (the reserve movement daily extract).
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: connector
+  needle: 'CLARA -> MQ Backbone [label: CLX-IF-042]'
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F009
+  world_ref: INTERFACE:CLX-IF-042#owner
+  kind: speaker_notes
+  statement: 'Speaker notes: Henrik Vestergaard owns CLX-IF-042 and CLX-IF-049.'
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: notes
+  needle: Henrik Vestergaard owns both the reserve movement extract and the Kafka bridge
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F010
+  world_ref: INTERFACE:CLX-IF-019#schedule
+  kind: image_text
+  statement: 'Payments map image: the UK payment batch CLX-IF-019 runs over SFTP Mon-Fri 16:30.'
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: image
+    ocr: true
+  needle: CLX-IF-019 SFTP Mon-Fri 16:30
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F011
+  world_ref: INTERFACE:CLX-IF-017#schedule
+  kind: alt_text
+  statement: 'Alt text: sanctions screening requests go from CLARA to WatchScreen via CLX-IF-017 (MQ, Mon-Fri 16:15).'
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: alt_text
+  needle: CLX-IF-017, MQ, Mon-Fri 16:15
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F012
+  world_ref: INTERFACE:CLX-IF-049
+  kind: general
+  statement: 'CLX-IF-049 Reserve Movement Kafka Bridge: Kafka, daily 02:45, owner Henrik Vestergaard, criticality High.'
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: Reserve Movement Kafka Bridge
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F013
+  world_ref: INTERFACE:CLX-IF-043#schedule_history
+  kind: general
+  statement: CLX-IF-043 GL Reserve Journal Feed is catalogued with schedule daily 03:45 (as at 2026-08-24), owner Hamish Gilchrist.
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: table
+  needle: GL Reserve Journal Feed
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F014
+  world_ref: INTERFACE:CLX-IF-033
+  kind: general
+  statement: 'CLX-IF-033 Fraud referral return (NISA-FR1): SFTP, quarterly on the 5th business day after quarter end, owner
+    Ruth Okafor.'
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: table
+  needle: Fraud referral return (NISA-FR1)
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F015
+  world_ref: INTERFACE:CLX-IF-042#dependents
+  kind: visual_only
+  statement: 'Impact path of CLX-IF-042: hop 2 interfaces are CLX-IF-051, CLX-IF-055 and CLX-IF-058.'
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: group
+    shape_name: Impact Hop 2
+  needle: Hop 2 CLX-IF-051 CLX-IF-055 CLX-IF-058
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F016
+  world_ref: INTERFACE:CLX-IF-042#dependents
+  kind: visual_only
+  statement: 'Impact path of CLX-IF-042: hop 1 interfaces are CLX-IF-043, CLX-IF-044, CLX-IF-047 and CLX-IF-049.'
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: group
+    shape_name: Impact Hop 1
+  needle: Hop 1 CLX-IF-043 CLX-IF-044 CLX-IF-047 CLX-IF-049
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F017
+  world_ref: INTERFACE:CLX-IF-042#impact
+  kind: visual_only
+  statement: 'Teams to notify for a CLX-IF-042 change: Reserving, Financial Control, Regulatory Reporting, Reinsurance, Data
+    & Analytics and Hub Squad – Reserve & Finance.'
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: group
+    shape_name: Impacted teams
+  needle: Teams to notify Reserving Financial Control Regulatory Reporting Reinsurance Data & Analytics Hub Squad – Reserve
+    & Finance
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F018
+  world_ref: INCIDENT:INC-2025-0412
+  kind: speaker_notes
+  statement: 'Speaker notes: INC-2025-0412 – a layout change to CLX-IF-042 broke the GL reserve journals.'
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: notes
+  needle: INC-2025-0412, when a layout change to CLX-IF-042 broke the GL reserve journals
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F019
+  world_ref: INTERFACE:*#protocol
+  kind: chart_only
+  statement: 27 of the 60 catalogued interfaces use SFTP.
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 13
+    where: chart
+  needle: 'Interfaces: SFTP=27'
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F020
+  world_ref: INTERFACE:*#protocol
+  kind: chart_only
+  statement: 5 of the 60 catalogued interfaces use Kafka.
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 13
+    where: chart
+  needle: 'Interfaces: Kafka=5'
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F021
+  world_ref: INTERFACE:*#criticality
+  kind: chart_only
+  statement: 12 interfaces are rated Critical.
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 14
+    where: chart
+  needle: 'Interfaces: Critical=12'
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F022
+  world_ref: INTERFACE:CLX-IF-033#since
+  kind: general
+  statement: CLX-IF-033 (NISA-FR1 fraud referral return) has been live since 2026-07-07.
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 15
+    where: text
+  needle: CLX-IF-033 Fraud referral return (NISA-FR1) added; live since 7 July 2026
+  exclusive: false
+  also_in: []
+- fact_id: VS003-F023
+  world_ref: INTERFACE:*#owner
+  kind: aggregate_source
+  statement: Ewan Strachan owns 7 interfaces, the most of any owner.
+  file: corpus/upload/visuals/VS003_interface_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 16
+    where: table
+  needle: Ewan Strachan
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F001
+  world_ref: PERSON:P002#titles
+  kind: temporal
+  statement: 'March 2024 chart: Gareth Whitcombe, Chief Financial Officer, reports to the CEO Helena Strandberg.'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+  needle: Helena Strandberg Chief Executive Officer -> Gareth Whitcombe Chief Financial Officer
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F002
+  world_ref: PERSON:P005#reports_to
+  kind: speaker_notes
+  statement: 'Speaker notes (2024): the Claims Director reports to the Chief Operating Officer.'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: notes
+  needle: The Claims Director reports to the Chief Operating Officer.
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F003
+  world_ref: PERSON:P005#name_history
+  kind: alias_use
+  statement: '2024 org chart: ''Ingrid Sørensen — Claims Director''; Niall Brannigan ''Head of SIU'' reports to her.'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: connector
+  needle: Ingrid Sørensen Claims Director -> Niall Brannigan Head of SIU
+  exclusive: false
+  also_in: []
+  placement: PL-086
+  placement_key: vs4_sorensen
+  notes: Boxes read 'Ingrid Sørensen / Claims Director' and 'Niall Brannigan / Head of SIU'; the connector carries the reporting
+    line.
+- fact_id: VS004-F004
+  world_ref: PERSON:P005#name_history
+  kind: alias_use
+  statement: 'March 2024 chart box: ''Ingrid Sørensen — Claims Director'' (now Ingrid Ashby).'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: text
+  needle: Ingrid Sørensen Claims Director
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F005
+  world_ref: PERSON:P012#reports_to
+  kind: temporal
+  statement: 'March 2024 chart: Mette Dahl, Head of Claims Operations Nordics, reports to the Claims Director.'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: connector
+  needle: Ingrid Sørensen Claims Director -> Mette Dahl Head of Claims Operations Nordics
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F006
+  world_ref: PERSON:P008#titles
+  kind: speaker_notes
+  statement: 'Speaker notes: Niall Brannigan has headed the SIU since 2020-01-01.'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: notes
+  needle: has led the SIU since 1 January 2020
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F007
+  world_ref: PERSON:P015#titles
+  kind: contradiction_old
+  statement: '2024 org chart: Martin Calloway, Recoveries Manager, reporting to Rob Tennant.'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: Rob Tennant Head of Claims Operations UK -> Martin Calloway Recoveries Manager
+  exclusive: false
+  also_in: []
+  placement: PL-085
+  placement_key: vs4_calloway
+  notes: 'Stale (C02): Calloway left on 2024-12-31; Freya Lindahl owns the process from 2025-09-01.'
+- fact_id: VS004-F008
+  world_ref: PERSON:P015#titles
+  kind: contradiction_old
+  statement: 'March 2024 chart box: ''Martin Calloway — Recoveries Manager'' (stale: he left Corvane on 2024-12-31).'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: text
+  needle: Martin Calloway Recoveries Manager
+  exclusive: false
+  also_in: []
+  placement: PL-085
+  placement_key: vs4_calloway
+- fact_id: VS004-F009
+  world_ref: PERSON:P014#reports_to
+  kind: temporal
+  statement: 'March 2024 chart: Siobhan Quill, Recoveries Team Leader, reports to Martin Calloway.'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: Martin Calloway Recoveries Manager -> Siobhan Quill Recoveries Team Leader
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F010
+  world_ref: PERSON:P022#reports_to
+  kind: temporal
+  statement: Callum Fairbairn (Corvane, Motor Claims Team Leader, Leeds) reports to Rob Tennant.
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: Rob Tennant Head of Claims Operations UK -> Callum Fairbairn Motor Claims Team Leader
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F011
+  world_ref: PROCESS:S7#owner_history
+  kind: contradiction_old
+  statement: 'March 2024 team profile: the Recoveries team under Martin Calloway owns stage S7 Recovery & Subrogation (stale).'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: table
+  needle: Stage S7 – Recovery & Subrogation
+  exclusive: false
+  also_in: []
+  contradictions:
+  - C02
+- fact_id: VS004-F012
+  world_ref: PROCESS:S7#owner_history
+  kind: contradiction_old
+  statement: 'Speaker notes (2024, stale): Martin Calloway is the accountable owner of the recovery and subrogation process.'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: notes
+  needle: Martin Calloway is the accountable owner of the recovery and subrogation process
+  exclusive: false
+  also_in: []
+  contradictions:
+  - C02
+- fact_id: VS004-F013
+  world_ref: PERSON:P013#titles
+  kind: temporal
+  statement: 'March 2024 chart: Freya Lindahl is Senior Recoveries Manager – Nordics, reporting to Mette Dahl.'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: connector
+  needle: Mette Dahl Head of Claims Operations Nordics -> Freya Lindahl Senior Recoveries Manager – Nordics
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F014
+  world_ref: SYSTEM:SYS03#renames
+  kind: alias_use
+  statement: 'Speaker notes (2024): Oskar Lindgren owns the FRAUDNET scoring model (FRAUDNET was renamed Sentinel on 2025-03-01).'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: notes
+  needle: owns the FRAUDNET scoring model
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F015
+  world_ref: TEAM:T09#lead_history
+  kind: visual_only
+  statement: Major & Complex Loss is led by Kirsty Mowbray (London) and handles Tier-3 claims.
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: group
+    shape_name: 'Team card: Major & Complex Loss'
+  needle: 'Major & Complex Loss Lead: Kirsty Mowbray'
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F016
+  world_ref: PROCESS:S7#owner_history
+  kind: contradiction_old
+  statement: 'March 2024 process owners: S7 Recovery & Subrogation is owned by Martin Calloway (stale).'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: table
+  needle: Martin Calloway
+  exclusive: false
+  also_in: []
+  contradictions:
+  - C02
+- fact_id: VS004-F017
+  world_ref: PROCESS:S1#owner_history
+  kind: temporal
+  statement: 'March 2024 process owners: S1 First Notice of Loss is owned by Ewan Strachan, Contact Centre Manager.'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: table
+  needle: Ewan Strachan
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F018
+  world_ref: PROCESS:S4#owner_history
+  kind: temporal
+  statement: 'March 2024 process owners: S4 Reserving is owned by Sebastian Moreau-Clarke, Chief Actuary.'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: table
+  needle: Sebastian Moreau-Clarke
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F019
+  world_ref: COMMITTEE:COM-01#chair_history
+  kind: temporal
+  statement: 'March 2024: the Reserving Committee is chaired by Sebastian Moreau-Clarke.'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: table
+  needle: Sebastian Moreau-Clarke
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F020
+  world_ref: COMMITTEE:COM-02#cadence
+  kind: general
+  statement: The Claims Fraud Forum meets fortnightly on Thursdays at 14:00 UK time, chaired by Niall Brannigan.
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: table
+  needle: fortnightly, Thursday 14:00 UK time
+  exclusive: false
+  also_in: []
+- fact_id: VS004-F021
+  world_ref: PERSON:P005#email_history
+  kind: alias_use
+  statement: 'March 2024 contact list: Ingrid Sørensen''s email is ingrid.sorensen@corvane-mutual.example.'
+  file: corpus/upload/visuals/VS004_org_chart_2024.pptx
+  locator:
+    kind: pptx_slide
+    slide: 13
+    where: table
+  needle: ingrid.sorensen@corvane-mutual.example
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F001
+  world_ref: PERSON:P013#titles
+  kind: temporal
+  statement: Freya Lindahl was Senior Recoveries Manager – Nordics until 2025-08-31 and Head of Recoveries & Subrogation from
+    2025-09-01.
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: table
+  needle: Senior Recoveries Manager – Nordics
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F002
+  world_ref: PERSON:P014#titles
+  kind: temporal
+  statement: Siobhan Quill was Acting Recoveries Manager until 2025-08-31 and is Recoveries Team Leader – UK from 2025-09-01.
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: table
+  needle: Acting Recoveries Manager
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F003
+  world_ref: TEAM:T11#department_history
+  kind: general
+  statement: From 2025-09-01 the Special Investigations Unit was renamed Counter-Fraud & SIU and moved to Risk & Compliance.
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: moved to Risk & Compliance
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F004
+  world_ref: PERSON:P001#reports_to
+  kind: visual_only
+  statement: 'October 2025 chart: Priya Raman, Chief Financial Officer, reports to the CEO Helena Strandberg.'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: connector
+  needle: Helena Strandberg Chief Executive Officer -> Priya Raman Chief Financial Officer
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F005
+  world_ref: PERSON:P001#titles
+  kind: speaker_notes
+  statement: 'Speaker notes: Priya Raman has been CFO since 2025-07-01.'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: notes
+  needle: Priya Raman has been Chief Financial Officer since 1 July 2025
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F006
+  world_ref: PERSON:P013#reports_to
+  kind: contradiction_new
+  statement: 'October 2025 org chart: Freya Lindahl, Head of Recoveries & Subrogation, reports to Ingrid Ashby (Claims Director).'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: Ingrid Ashby Claims Director -> Freya Lindahl Head of Recoveries & Subrogation
+  exclusive: false
+  also_in: []
+  placement: PL-087
+  placement_key: vs5_freya
+  notes: Reporting line carried by the connector from the Claims Director box.
+- fact_id: VS005-F007
+  world_ref: PERSON:P013#reports_to
+  kind: contradiction_new
+  statement: 'October 2025 chart box: ''Freya Lindahl — Head of Recoveries & Subrogation''.'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: text
+  needle: Freya Lindahl Head of Recoveries & Subrogation
+  exclusive: false
+  also_in: []
+  placement: PL-087
+  placement_key: vs5_freya
+- fact_id: VS005-F008
+  world_ref: PERSON:P005#name_history
+  kind: alias_use
+  statement: 'October 2025 chart box: ''Ingrid Ashby — Claims Director'' (formerly Ingrid Sørensen).'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: text
+  needle: Ingrid Ashby Claims Director
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F009
+  world_ref: PERSON:P017#reports_to
+  kind: visual_only
+  statement: 'October 2025 chart: Aisha Siddiqui, Head of Claims Hub Product, reports to the Claims Director.'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: Ingrid Ashby Claims Director -> Aisha Siddiqui Head of Claims Hub Product
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F010
+  world_ref: PERSON:P012#reports_to
+  kind: visual_only
+  statement: 'October 2025 chart: Mette Dahl, Claims Operations Lead – Nordics, reports to Rob Tennant.'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: Rob Tennant Head of Claims Operations (Group) -> Mette Dahl Claims Operations Lead – Nordics
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F011
+  world_ref: PROCESS:S1#owner_history
+  kind: speaker_notes
+  statement: 'Speaker notes: Rob Tennant became FNOL process owner on 2025-09-01.'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: notes
+  needle: owner of the FNOL process on 1 September 2025
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F012
+  world_ref: PERSON:P014#reports_to
+  kind: visual_only
+  statement: Siobhan Quill (Recoveries Team Leader – UK) reports to Freya Lindahl.
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: connector
+  needle: Freya Lindahl Head of Recoveries & Subrogation -> Siobhan Quill Recoveries Team Leader – UK
+  exclusive: false
+  also_in: []
+  placement: PL-089
+  placement_key: vs5_siobhan
+- fact_id: VS005-F013
+  world_ref: PERSON:P013#reports_to
+  kind: visual_only
+  statement: Recoveries & Subrogation page repeats the reporting line Freya Lindahl → Claims Director.
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: connector
+  needle: Ingrid Ashby Claims Director -> Freya Lindahl Head of Recoveries & Subrogation
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F014
+  world_ref: PROCESS:S7#owner_history
+  kind: contradiction_new
+  statement: Freya Lindahl owns stage S7 Recovery & Subrogation from 2025-09-01.
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: table
+  needle: from 1 September 2025
+  exclusive: false
+  also_in: []
+  contradictions:
+  - C02
+- fact_id: VS005-F015
+  world_ref: MEETING:MTG-004
+  kind: speaker_notes
+  statement: 'Speaker notes: the subrogation ownership handover was agreed at the meeting on 2025-09-03 (MTG-004).'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: notes
+  needle: ownership meeting on 3 September 2025
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F016
+  world_ref: PERSON:P008#reports_to
+  kind: visual_only
+  statement: Niall Brannigan, Head of Counter-Fraud & SIU, reports to Karin Holmberg (CRO).
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: Karin Holmberg Chief Risk Officer -> Niall Brannigan Head of Counter-Fraud & SIU
+  exclusive: false
+  also_in: []
+  placement: PL-088
+  placement_key: vs5_niall
+- fact_id: VS005-F017
+  world_ref: PERSON:P028#reports_to
+  kind: visual_only
+  statement: Rachel Dunmore, SIU Investigations Manager (UK), reports to Niall Brannigan.
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: Niall Brannigan Head of Counter-Fraud & SIU -> Rachel Dunmore SIU Investigations Manager (UK)
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F018
+  world_ref: PERSON:P009#reports_to
+  kind: visual_only
+  statement: 'October 2025 chart: Lena Kristiansen, Head of Reserving, reports to the CFO Priya Raman.'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: connector
+  needle: Priya Raman Chief Financial Officer -> Lena Kristiansen Head of Reserving
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F019
+  world_ref: PERSON:P020#reports_to
+  kind: visual_only
+  statement: Bjørn Aasheim, Regulatory Reporting Manager, reports to Hamish Gilchrist.
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: connector
+  needle: Hamish Gilchrist Financial Controller -> Bjørn Aasheim Regulatory Reporting Manager
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F020
+  world_ref: TEAM:T21#lead_history
+  kind: visual_only
+  statement: 'Claims Hub Product team card: lead Aisha Siddiqui (Head of Claims Hub Product), London.'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: group
+    shape_name: 'Team card: Claims Hub Product'
+  needle: 'Claims Hub Product Lead: Aisha Siddiqui'
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F021
+  world_ref: PROCESS:S7#owner_history
+  kind: contradiction_new
+  statement: 'October 2025 process owners: S7 Recovery & Subrogation – Freya Lindahl, Head of Recoveries & Subrogation.'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: Freya Lindahl
+  exclusive: false
+  also_in: []
+  contradictions:
+  - C02
+- fact_id: VS005-F022
+  world_ref: PROCESS:S4#owner_history
+  kind: temporal
+  statement: 'October 2025 process owners: S4 Reserving – Lena Kristiansen, Head of Reserving.'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: Lena Kristiansen
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F023
+  world_ref: COMMITTEE:COM-03#cadence
+  kind: general
+  statement: The Programme Skerry Steering Committee is chaired by Duncan Ferrier and meets monthly on the second Thursday
+    at 14:00.
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: table
+  needle: Programme Skerry Steering Committee
+  exclusive: false
+  also_in: []
+- fact_id: VS005-F024
+  world_ref: PERSON:P005#email_history
+  kind: alias_use
+  statement: 'October 2025 contacts: the Claims Director''s email is ingrid.ashby@corvane-mutual.example.'
+  file: corpus/upload/visuals/VS005_org_chart_current.pptx
+  locator:
+    kind: pptx_slide
+    slide: 13
+    where: table
+  needle: ingrid.ashby@corvane-mutual.example
+  exclusive: false
+  also_in: []
+- fact_id: VS006-F001
+  world_ref: MEETING:MTG-008#attendees
+  kind: general
+  statement: The October 2026 Steering Committee invite list includes Priya Raman, Chief Financial Officer.
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: table
+  needle: Priya Raman
+  exclusive: false
+  also_in: []
+- fact_id: VS006-F002
+  world_ref: EVENT:EV-031
+  kind: general
+  statement: The reserve parallel run closed on 2026-08-28 (CHUB-241).
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: table
+  needle: Closed on 28 August 2026 (CHUB-241)
+  exclusive: false
+  also_in: []
+- fact_id: VS006-F003
+  world_ref: TIMELINE:metrics#programme_spend_cumulative_gbp_m.2026Q3
+  kind: chart_only
+  statement: 'Programme spend to 2026-09-30: £31.2m of the £48.6m budget.'
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: chart
+  needle: 'Cumulative spend (£m): 2026 Q3=31.2'
+  exclusive: true
+  also_in: []
+  placement: PL-090
+  placement_key: vs6_spend
+  notes: Value only in the chart cache (line series); the slide text gives no figures.
+- fact_id: VS006-F004
+  world_ref: TIMELINE:metrics#programme_budget_gbp_m
+  kind: chart_only
+  statement: Programme Skerry approved budget is £48.6m (chart series).
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: chart
+  needle: 'Approved budget (£m): 2026 Q3=48.6'
+  exclusive: false
+  also_in: []
+- fact_id: VS006-F005
+  world_ref: TIMELINE:metrics#programme_spend_cumulative_gbp_m.2026Q2
+  kind: chart_only
+  statement: Programme spend to 2026-06-30 was £26.8m (chart series).
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: chart
+  needle: 'Cumulative spend (£m): 2026 Q2=26.8'
+  exclusive: false
+  also_in: []
+- fact_id: VS006-F006
+  world_ref: TIMELINE:metrics#wave1_open_defects
+  kind: chart_only
+  statement: 'Wave 1 open defects on 2026-10-05: 0 severity 1, 14 severity 2, 57 severity 3.'
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: chart
+  needle: 'Open defects at 5 Oct 2026: Severity 2=14'
+  exclusive: false
+  also_in: []
+- fact_id: VS006-F007
+  world_ref: DECISION:DEC-010
+  kind: speaker_notes
+  statement: 'Speaker notes: ''PR asked for a £1.8m contingency drawdown for Wave 2.'''
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: notes
+  needle: PR asked for a £1.8m contingency drawdown for Wave 2
+  exclusive: false
+  also_in: []
+  placement: PL-091
+  placement_key: vs6_notes_pr
+  notes: '''PR'' = Priya Raman, CFO since 2025-07-01 (alias trap).'
+- fact_id: VS006-F008
+  world_ref: PERSON:P001#responsibilities
+  kind: speaker_notes
+  statement: 'Speaker notes: programme budget drawdowns above £500,000 need the CFO''s approval.'
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: notes
+  needle: Drawdowns above £500,000 need the CFO's approval
+  exclusive: false
+  also_in: []
+- fact_id: VS006-F009
+  world_ref: WAVE:MW-2#date
+  kind: general
+  statement: 'Steering pack (2026-10-07): Wave 2 cut-over planned for 2027-02-15, for confirmation at the meeting.'
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: text
+  needle: 'Planned cut-over: 15 February 2027'
+  exclusive: false
+  also_in: []
+- fact_id: VS006-F010
+  world_ref: WAVE:MW-2#freeze
+  kind: general
+  statement: Wave 2 freeze window planned from 2027-02-12 18:00 to 2027-02-15 06:00.
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: 2027-02-12 18:00 → 2027-02-15 06:00
+  exclusive: false
+  also_in: []
+- fact_id: VS006-F011
+  world_ref: RULE:BR-FRD-031@v2
+  kind: general
+  statement: From 2026-10-01 Tier-3 claims are referred to SIU at a Sentinel score of 60 or more; the general threshold stays
+    65 (BR-FRD-031 v2).
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: text
+  needle: Tier-3 claims are referred to SIU at a Sentinel score of 60 or more; the general threshold stays at 65
+  exclusive: false
+  also_in: []
+- fact_id: VS006-F012
+  world_ref: TIMELINE:programme#parallel_run.from
+  kind: general
+  statement: The reserve parallel run (CLARA vs reserve-engine) ran from 2026-03-02 to 2026-08-28.
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: text
+  needle: ran in parallel from 2 March to 28 August 2026
+  exclusive: false
+  also_in: []
+- fact_id: VS006-F013
+  world_ref: SERVICE:reporting-feed-svc#go_live
+  kind: general
+  statement: reporting-feed-svc go-live is planned for 2027-01-11.
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: table
+  needle: reporting-feed-svc go-live planned 11 January 2027
+  exclusive: false
+  also_in: []
+- fact_id: VS006-F014
+  world_ref: TIMELINE:programme#clara_decommission_target
+  kind: image_table
+  statement: 'Milestone table image: CLARA decommissioning target 30 Sep 2027.'
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: image
+    ocr: true
+  needle: CLARA decommissioning
+  exclusive: false
+  also_in: []
+- fact_id: VS006-F015
+  world_ref: EVENT:EV-010
+  kind: speaker_notes
+  statement: 'Speaker notes: the business case was signed by the then CFO, Gareth Whitcombe, on 2024-11-18.'
+  file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: notes
+  needle: signed by the then CFO, Gareth Whitcombe, on 18 November 2024
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F001
+  world_ref: RULE:BR-FRD-031@v2#parameters.threshold
+  kind: arrow_only
+  statement: Decision 'Sentinel score ≥ 65?' → 'Refer to SIU' [Yes].
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: connector
+  needle: 'Sentinel score ≥ 65? -> Refer to SIU [label: Yes]'
+  exclusive: false
+  also_in: []
+  placement: PL-092
+  placement_key: vs7_65
+  notes: Threshold in the diamond text; meaning only in the 'Yes' connector (label box 'label:frd-yes-65').
+- fact_id: VS007-F002
+  world_ref: RULE:BR-FRD-031@v2#parameters.tier3_threshold
+  kind: arrow_only
+  statement: Decision 'Tier-3 and score ≥ 60?' → 'Refer to SIU' [Yes] (from 2026-10-01).
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: connector
+  needle: 'Tier-3 and score ≥ 60? -> Refer to SIU [label: Yes]'
+  exclusive: false
+  also_in: []
+  placement: PL-093
+  placement_key: vs7_60
+  notes: Second decision reached via the 'No' branch of the 65 diamond (label box 'label:frd-yes-60').
+- fact_id: VS007-F003
+  world_ref: PROCESS:PS-FRD-01#decision
+  kind: arrow_only
+  statement: A claim scoring below 65 goes on to the Tier-3 check (score ≥ 60).
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: connector
+  needle: 'Sentinel score ≥ 65? -> Tier-3 and score ≥ 60? [label: No]'
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F004
+  world_ref: PROCESS:PS-FRD-01#decision
+  kind: arrow_only
+  statement: Claims failing both checks continue normal handling.
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: connector
+  needle: 'Tier-3 and score ≥ 60? -> Continue normal handling [label: No]'
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F005
+  world_ref: RULE:BR-TRI-003@v3
+  kind: speaker_notes
+  statement: 'Speaker notes: Tier-3 (BR-TRI-003 v3) = estimated incurred ≥ £50,000 (NOK 650,000 / SEK 680,000 / DKK 430,000),
+    any bodily injury, litigation at notification or property total loss.'
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: notes
+  needle: estimated incurred of £50,000 or more (NOK 650,000 / SEK 680,000 / DKK 430,000)
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F006
+  world_ref: RULE:BR-FRD-033@v1
+  kind: lane_only
+  statement: '''Human review before any decline'' sits in the SIU lane.'
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: Human review before any decline
+  exclusive: false
+  also_in: []
+  placement: PL-094
+  placement_key: vs7_lane_review
+  notes: 'verification: manual-lane; geometry (inches): step box x=9.50-11.10, y=3.61-4.39 lies inside lane ''Counter-Fraud
+    & SIU'' band x=0.50-12.83, y=2.50-4.50'
+- fact_id: VS007-F007
+  world_ref: PROCESS:PS-FRD-03#raci.R
+  kind: lane_only
+  statement: '''Send referral notice or record deferral'' sits in the Claims Operations lane of the fraud referral swimlane.'
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: Send referral notice or record deferral
+  exclusive: false
+  also_in: []
+  notes: 'verification: manual-lane; geometry (inches): step box x=6.00-8.00, y=4.63-5.42 lies inside lane ''Claims Operations''
+    band x=0.50-12.83, y=4.50-5.55'
+- fact_id: VS007-F008
+  world_ref: RULE:BR-FRD-036@v2#parameters.notify
+  kind: lane_only
+  statement: '''Same-day notification of long deferrals'' sits in the Compliance lane (BR-FRD-036 v2).'
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: Same-day notification of long deferrals
+  exclusive: false
+  also_in: []
+  notes: 'verification: manual-lane; geometry (inches): step box x=8.40-10.60, y=5.66-6.44 lies inside lane ''Compliance''
+    band x=0.50-12.83, y=5.55-6.55'
+- fact_id: VS007-F009
+  world_ref: RULE:BR-FRD-034@v1
+  kind: general
+  statement: 'BR-FRD-034: the NISA-FR1 return is due within 30 calendar days after each quarter end (owner Ruth Okafor).'
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: table
+  needle: within 30 calendar days after quarter end
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F010
+  world_ref: RULE:BR-FRD-019
+  kind: general
+  statement: BR-FRD-019 (automatic decline) was withdrawn from 2026-04-01; BR-FRD-012 was superseded.
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: 'Withdrawn: BR-FRD-019 (auto-decline) from 1 April 2026'
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F011
+  world_ref: RULE:BR-FRD-032@v2
+  kind: image_text
+  statement: 'Timeline image: written customer notice within 10 business days of referral (BR-FRD-032 v2).'
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: image
+    ocr: true
+  needle: Written notice within 10 business days
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F012
+  world_ref: RULE:BR-FRD-036@v2
+  kind: alt_text
+  statement: 'Alt text: deferral up to 60 days where a tipping-off risk is certified; beyond 30 days needs the Head of Counter-Fraud
+    & SIU.'
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: alt_text
+  needle: deferral up to 60 days where a tipping-off risk is certified
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F013
+  world_ref: SERVICE:fraud-referral-svc#config.auto-decline.enabled
+  kind: screenshot
+  statement: 'Claims Hub referral screen shows ''Auto-decline: Disabled'' (fraud-referral-svc auto-decline.enabled = false).'
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: image
+    ocr: true
+  needle: Auto-decline
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F014
+  world_ref: SERVICE:fraud-referral-svc#config.notice.business-days
+  kind: screenshot
+  statement: 'Claims Hub referral screen deadline panel: notice due at referral + 10 business days; triage at referral + 3
+    business days.'
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: image
+    ocr: true
+  needle: 'Notice: referral + 10 BD'
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F015
+  world_ref: RULE:BR-FRD-013@v1
+  kind: visual_only
+  statement: 'SIU outcome CF (confirmed fraud): the avoided payment is recorded as the fraud saving (BR-FRD-013).'
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: group
+    shape_name: Outcome CF
+  needle: CF Confirmed fraud Avoided payment recorded as the fraud saving
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F016
+  world_ref: RULE:BR-FRD-017@v1
+  kind: visual_only
+  statement: 'SIU outcome NF: claim handlers receive the SIU outcome within 2 business days of case closure (BR-FRD-017).'
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: group
+    shape_name: Outcome NF
+  needle: NF No fraud Claim continues; handler told within 2 business days of closure
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F017
+  world_ref: PROCESS:PS-FRD-04#raci.A
+  kind: general
+  statement: 'PS-FRD-04 SIU investigation and outcome: accountable Rachel Dunmore, SIU Investigations Manager (UK).'
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: Rachel Dunmore
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F018
+  world_ref: TIMELINE:metrics#fraud_referrals_count
+  kind: chart_only
+  statement: 'SIU referrals: 1488 in Q2 2026 and 1530 in Q3 2026.'
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: chart
+  needle: 'SIU referrals: Q3 2026=1530'
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F019
+  world_ref: REPORT:NISA-FR1#submissions.2026Q2
+  kind: general
+  statement: The first NISA-FR1 return (Q2 2026) was due 2026-07-30 and submitted 2026-07-29.
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 13
+    where: table
+  needle: submitted 29 July 2026
+  exclusive: false
+  also_in: []
+- fact_id: VS007-F020
+  world_ref: SYSTEM:SYS03#model_version
+  kind: visual_only
+  statement: Sentinel scores claims 0–100 using model SNT-4.2.
+  file: corpus/upload/visuals/VS007_fraud_referral_process_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 14
+    where: group
+    shape_name: 'System card: Sentinel'
+  needle: Sentinel Scores 0–100; model SNT-4.2
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F001
+  world_ref: RULE:BR-RSV-011@v2
+  kind: arrow_only
+  statement: Arrow 'Reserve movement > £250,000' → 'Notify ReCede within 24h'.
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+  needle: Reserve movement > £250,000 -> Notify ReCede within 24h
+  exclusive: false
+  also_in: []
+  placement: PL-095
+  placement_key: vs8_llnt
+  notes: Arrow labelled 'Yes' (label box 'label:rsv-llnt-yes'); no slide text states the LLNT rule.
+- fact_id: VS008-F002
+  world_ref: PROCESS:PS-RSV-02#decision
+  kind: arrow_only
+  statement: A reserve movement above the holder's authority is escalated to the next authority level.
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+  needle: 'Within holder authority? -> Escalate to next authority level [label: No]'
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F003
+  world_ref: PROCESS:PS-RSV-02#decision
+  kind: arrow_only
+  statement: Movements not above £250,000 go straight to periodic reserve review.
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+  needle: 'Reserve movement > £250,000 -> Periodic reserve review [label: No]'
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F004
+  world_ref: PROCESS:PS-RSV-04#raci.R
+  kind: visual_only
+  statement: '''Large loss notification'' sits in the Major & Complex Loss lane (RACI R = T09).'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: group
+    shape_name: 'Lane: Major & Complex Loss'
+  needle: Large loss notification
+  exclusive: false
+  also_in: []
+  notes: 'lane group; R is also listed in the RACI table on slide 13. group-geometry: geometry (inches): step box x=8.40-10.10,
+    y=3.81-4.59 lies inside lane ''Major & Complex Loss'' band x=0.50-12.83, y=3.60-4.80'
+- fact_id: VS008-F005
+  world_ref: PROCESS:PS-RSV-01#raci.R
+  kind: visual_only
+  statement: '''Set initial reserve'' sits in the Claims Operations lane (RACI R = T02).'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: group
+    shape_name: 'Lane: Claims Operations'
+  needle: Set initial reserve
+  exclusive: false
+  also_in: []
+  notes: 'lane group; R is also listed in the RACI table on slide 13. group-geometry: geometry (inches): step box x=4.50-6.10,
+    y=2.61-3.39 lies inside lane ''Claims Operations'' band x=0.50-12.83, y=2.40-3.60'
+- fact_id: VS008-F006
+  world_ref: RULE:BR-RSV-001@v1
+  kind: speaker_notes
+  statement: 'Speaker notes: the initial reserve replaces the FNOL default reserve within 2 business days (BR-RSV-001).'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: notes
+  needle: within 2 business days of FNOL (BR-RSV-001)
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F007
+  world_ref: COMMITTEE:COM-01#chair_history
+  kind: speaker_notes
+  statement: 'Speaker notes: the Reserving Committee has been chaired by Lena Kristiansen since 2025-09-01.'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: notes
+  needle: chaired by Lena Kristiansen since 1 September 2025
+  exclusive: false
+  also_in: []
+  placement: PL-096
+  placement_key: vs8_notes_chair
+- fact_id: VS008-F008
+  world_ref: DECISION:DEC-008
+  kind: general
+  statement: The Reserving Committee approved the 14-day Tier-3 review cadence at its June 2026 meeting (DEC-008, 2026-06-09).
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: text
+  needle: Approved the shorter Tier-3 review interval at its June 2026 meeting (DEC-008)
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F009
+  world_ref: RULE:BR-RSV-003@v3#parameters.team_leader
+  kind: image_table
+  statement: 'Image table: reserve authority for a Team Leader is £100,000 (BR-RSV-003 v3); the value sits in the Team Leader
+    row.'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: image
+    ocr: true
+  needle: £100,000
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F010
+  world_ref: RULE:BR-RSV-003@v3#parameters.claims_director
+  kind: alt_text
+  statement: 'Alt text: Claims Director reserve authority £2,000,000; above that the Reserving Committee.'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: alt_text
+  needle: Claims Director £2,000,000
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F011
+  world_ref: RULE:BR-RSV-007@v3#parameters.review_days
+  kind: chart_only
+  statement: Tier-3 reserves must be reviewed at least every 14 days from 2026-07-01 (BR-RSV-007 v3); 21 days before that,
+    30 days until 2023.
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: chart
+  needle: 'Maximum days between reviews: v3 (from 1 Jul 2026)=14'
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F012
+  world_ref: TICKET:CHUB-322
+  kind: speaker_notes
+  statement: 'Speaker notes: reserve-engine review scheduling was corrected under CHUB-322 (resolved 2026-07-03).'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: notes
+  needle: CHUB-322, resolved on 3 July 2026
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F013
+  world_ref: PROGRAM:CLRGL090#writes_tables:CLR.T_RESERVE
+  kind: visual_only
+  statement: CLRGL090 is one of the eight programs that write CLR.T_RESERVE.
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: group
+    shape_name: CLR.T_RESERVE writers
+  needle: CLRGL090
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F014
+  world_ref: PROGRAM:CLRFN030#writes_tables:CLR.T_RESERVE
+  kind: visual_only
+  statement: CLRFN030 writes CLR.T_RESERVE (first of the eight writers).
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: group
+    shape_name: CLR.T_RESERVE writers
+  needle: Write CLR.T_RESERVE CLRFN030 Create claim record and default reserve…
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F015
+  world_ref: PROGRAM:CLRRS150#writes_tables
+  kind: visual_only
+  statement: CLRRS150 writes CLR.T_RESERVE_MOVEMENT only, not CLR.T_RESERVE.
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: group
+    shape_name: Movement-only writer
+  needle: Write CLR.T_RESERVE_MOVEMENT only CLRRS150
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F016
+  world_ref: PROGRAM:CLRGL090#notes
+  kind: speaker_notes
+  statement: 'Speaker notes: CLRGL090 updates CLR.T_RESERVE without writing CLR.T_RESERVE_MOVEMENT (IA-25-07); the data dictionary
+    omits it.'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: notes
+  needle: without writing CLR.T_RESERVE_MOVEMENT (internal audit finding IA-25-07)
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F017
+  world_ref: TOPIC:reserve.changed.v2
+  kind: image_text
+  statement: 'Target-state image: reserve-engine publishes reserve.changed.v2 to gl-posting-svc and reporting-feed-svc.'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: image
+    ocr: true
+  needle: reserve.changed.v2
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F018
+  world_ref: INTERFACE:CLX-IF-050
+  kind: alt_text
+  statement: 'Alt text: gl-posting-svc posts journals to Group Ledger via CLX-IF-050.'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: alt_text
+  needle: gl-posting-svc posts journals to Group Ledger via CLX-IF-050
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F019
+  world_ref: DECISION:DEC-005
+  kind: speaker_notes
+  statement: 'Speaker notes: reserve-engine will record currency revaluations as RV movements (DEC-005).'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: notes
+  needle: record currency revaluations as RV movements
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F020
+  world_ref: TIMELINE:programme#parallel_run.from
+  kind: general
+  statement: 'Reserve parallel run CLARA vs reserve-engine: 2026-03-02 to 2026-08-28 (CHUB-241).'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: text
+  needle: from 2 March to 28 August 2026 (CHUB-241)
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F021
+  world_ref: RULE:BR-RSV-014@v1
+  kind: general
+  statement: 'BR-RSV-014: on final settlement the reserve is reduced to zero within 1 business day with movement type ST.'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: table
+  needle: movement type ST
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F022
+  world_ref: PROCESS:PS-RSV-04#raci.A
+  kind: general
+  statement: 'PS-RSV-04 Large loss notification: accountable Per Øverland, Reinsurance Manager.'
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 13
+    where: table
+  needle: Per Øverland
+  exclusive: false
+  also_in: []
+- fact_id: VS008-F023
+  world_ref: INTERFACE:CLX-IF-058#schedule
+  kind: general
+  statement: CLX-IF-058 Reserve Triangles Extract runs monthly on the 3rd business day (owner Lena Kristiansen).
+  file: corpus/upload/visuals/VS008_reserving_process.pptx
+  locator:
+    kind: pptx_slide
+    slide: 14
+    where: table
+  needle: Reserve Triangles Extract, monthly, 3rd business day
+  exclusive: false
+  also_in: []
+- fact_id: VS009-F001
+  world_ref: PROCESS:PS-REC-06#raci.A
+  kind: lane_only
+  statement: '''Approve write-off > £10,000'' sits in the ''Head of Recoveries & Subrogation'' lane.'
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: group
+    shape_name: 'Lane: Head of Recoveries & Subrogation'
+  needle: Approve write-off > £10,000
+  exclusive: false
+  also_in: []
+  placement: PL-097
+  placement_key: vs9_lane_wo
+  notes: 'Lane membership via group ''Lane: Head of Recoveries & Subrogation''; geometry (inches): step box x=7.40-9.30, y=5.33-6.12
+    lies inside lane ''Head of Recoveries & Subrogation'' band x=0.50-12.83, y=5.25-6.20'
+- fact_id: VS009-F002
+  world_ref: RULE:BR-REC-005@v2
+  kind: arrow_only
+  statement: Connector 'Recoverable ≥ £25,000 or defended' → 'Instruct Quarryhill Solicitors'.
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: connector
+  needle: Recoverable ≥ £25,000 or defended -> Instruct Quarryhill Solicitors
+  exclusive: false
+  also_in: []
+  placement: PL-098
+  placement_key: vs9_solicitor
+  notes: Connector labelled 'Yes' (label box 'label:rec-solicitor').
+- fact_id: VS009-F003
+  world_ref: PROCESS:PS-REC-06#decision
+  kind: lane_only
+  statement: '''Approve write-off ≤ £10,000'' sits in the ''Recoveries Team Leader'' lane (BR-REC-011 v2).'
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: group
+    shape_name: 'Lane: Recoveries Team Leader'
+  needle: Approve write-off ≤ £10,000
+  exclusive: false
+  also_in: []
+  notes: 'group-geometry: geometry (inches): step box x=4.40-6.30, y=4.38-5.17 lies inside lane ''Recoveries Team Leader''
+    band x=0.50-12.83, y=4.30-5.25'
+- fact_id: VS009-F004
+  world_ref: RULE:BR-REC-003@v3
+  kind: arrow_only
+  statement: 'Recoveries below £1,000 are not pursued: the ''No'' branch goes to ''Close or write off'' (BR-REC-003 v3).'
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: connector
+  needle: 'Recoverable ≥ £1,000? -> Close or write off [label: No]'
+  exclusive: false
+  also_in: []
+- fact_id: VS009-F005
+  world_ref: RULE:BR-REC-012@v1
+  kind: speaker_notes
+  statement: 'Speaker notes: unanswered subrogation demands are chased at 28 days (BR-REC-012).'
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: notes
+  needle: chased at 28 days (BR-REC-012)
+  exclusive: false
+  also_in: []
+- fact_id: VS009-F006
+  world_ref: PROCESS:S7#owner_history
+  kind: temporal
+  statement: 'Recovery & Subrogation process owners: Martin Calloway (Recoveries Manager) until 2024-12-31; Siobhan Quill
+    (acting) 2025-01-01 to 2025-08-31; Freya Lindahl from 2025-09-01.'
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: Martin Calloway
+  exclusive: false
+  also_in: []
+- fact_id: VS009-F007
+  world_ref: DECISION:DEC-004
+  kind: general
+  statement: DEC-004 set the SUBTRAK retirement target to 2026-12-31.
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: text
+  needle: SUBTRAK retirement target set to 31 December 2026
+  exclusive: false
+  also_in: []
+- fact_id: VS009-F008
+  world_ref: PROCESS:S7#steps
+  kind: visual_only
+  statement: The Recovery & Subrogation stage has six steps, from 'Identify recovery potential' to 'Write-off approval'.
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: group
+    shape_name: Recovery stages
+  needle: Open subrogation case and demand
+  exclusive: false
+  also_in: []
+- fact_id: VS009-F009
+  world_ref: RULE:BR-REC-003@v3
+  kind: image_table
+  statement: 'Image table: pursue subrogation where the recoverable amount is £1,000 or more (NOK 13,000 / SEK 13,500 / DKK
+    8,600), BR-REC-003 v3.'
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: image
+    ocr: true
+  needle: £1,000 or more (NOK 13,000 / SEK 13,500 / DKK 8,600)
+  exclusive: false
+  also_in: []
+  contradictions:
+  - C13
+- fact_id: VS009-F010
+  world_ref: RULE:BR-REC-009@v1
+  kind: image_table
+  statement: 'Image table: limitation diary at 30 months (bodily injury) and 66 months (property), BR-REC-009.'
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: image
+    ocr: true
+  needle: 66 months (property)
+  exclusive: false
+  also_in: []
+- fact_id: VS009-F011
+  world_ref: RULE:BR-REC-003@v3
+  kind: speaker_notes
+  statement: 'Speaker notes: the subrogation pursuit threshold rose to £1,000 on 2025-09-01.'
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: notes
+  needle: The pursuit threshold rose to £1,000 on 1 September 2025.
+  exclusive: false
+  also_in: []
+  contradictions:
+  - C13
+- fact_id: VS009-F012
+  world_ref: RULE:BR-REC-017@v1
+  kind: general
+  statement: Nordic recovery demands are issued in the counterparty's national language (BR-REC-017).
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: issued in the counterparty's national language
+  exclusive: false
+  also_in: []
+- fact_id: VS009-F013
+  world_ref: RULE:BR-REC-010@v1
+  kind: visual_only
+  statement: Salvage categories S and N may be sold for repair; A and B are scrapped (BR-REC-010).
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: group
+    shape_name: Category S
+  needle: Category S May be sold for repair
+  exclusive: false
+  also_in: []
+- fact_id: VS009-F014
+  world_ref: RULE:BR-REC-003@v3
+  kind: screenshot
+  statement: Claims Hub recovery case mock-up shows the pursuit check 'Recoverable ≥ £1,000 – pursue'.
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: image
+    ocr: true
+  needle: Recoverable ≥ £1,000 – pursue
+  exclusive: false
+  also_in: []
+- fact_id: VS009-F015
+  world_ref: INTERFACE:CLX-IF-026#schedule
+  kind: general
+  statement: CLX-IF-026 Subrogation demand letters (CLARA → Notify, SFTP) run Tuesday and Thursday at 05:00.
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: table
+  needle: Tue,Thu 05:00
+  exclusive: false
+  also_in: []
+- fact_id: VS009-F016
+  world_ref: INTERFACE:CLX-IF-022#schedule
+  kind: general
+  statement: CLX-IF-022 SUBTRAK synchronisation (CLARA → Subrogation Tracker, DB2 unload) runs daily 22:00.
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: table
+  needle: SUBTRAK synchronisation
+  exclusive: false
+  also_in: []
+- fact_id: VS009-F017
+  world_ref: RULE:BR-REC-014@v1
+  kind: general
+  statement: Recovery rate is reported monthly as receipts over recoverable outlay (BR-REC-014).
+  file: corpus/upload/visuals/VS009_subrogation_process_flow.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: text
+  needle: receipts over recoverable outlay (BR-REC-014)
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F001
+  world_ref: SERVICE:recovery-svc#owner_history:T29
+  kind: visual_only
+  statement: Group 'chub-recovery' shows recovery-svc with owner label 'Squad Fraud & Settlement' (map dated 2026-10-15).
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: group
+    shape_name: chub-recovery
+  needle: chub-recovery recovery-svc Squad Fraud & Settlement
+  exclusive: false
+  also_in: []
+  placement: PL-099
+  placement_key: vs10_recovery_owner
+  notes: Owner label is a text box inside the nested group; valid at 2026-10-15 (owner changes 2026-11-01).
+- fact_id: VS010-F002
+  world_ref: SERVICE:reserve-engine#renames
+  kind: alias_use
+  statement: Rotated label 'reserve-engine (formerly reserve-svc)'.
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: reserve-engine (formerly reserve-svc)
+  exclusive: false
+  also_in: []
+  placement: PL-100
+  placement_key: vs10_rotated
+  notes: Text box 'Rename note' rotated 270 degrees beside the chub-reserve group.
+- fact_id: VS010-F003
+  world_ref: SERVICE:document-svc#owner_history:T27
+  kind: visual_only
+  statement: 'Service map (2026-10-15): document-svc in chub-docs is owned by Squad Intake & Triage.'
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: group
+    shape_name: chub-docs
+  needle: chub-docs document-svc Squad Intake & Triage
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F004
+  world_ref: SERVICE:settlement-svc#k8s_namespace
+  kind: visual_only
+  statement: chub-settle contains settlement-svc and payment-orchestrator, owned by Squad Fraud & Settlement.
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: group
+    shape_name: chub-settle
+  needle: chub-settle settlement-svc payment-orchestrator Squad Fraud & Settlement
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F005
+  world_ref: TOPIC:assessment.completed.v1
+  kind: image_text
+  statement: 'Request-flow image: assessment-svc publishes assessment.completed.v1, consumed by settlement-svc.'
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: image
+    ocr: true
+  needle: assessment.completed.v1
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F006
+  world_ref: TOPIC:settlement.agreed.v1#consumers
+  kind: alt_text
+  statement: 'Alt text: settlement.agreed.v1 is consumed by payment-orchestrator and recovery-svc.'
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: alt_text
+  needle: settlement.agreed.v1 goes to payment-orchestrator and recovery-svc
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F007
+  world_ref: SERVICE:recovery-svc#owner_history:T29
+  kind: general
+  statement: 'Service catalogue (2026-10-15): recovery-svc is owned by Hub Squad – Fraud & Settlement, engineering lead Linnea
+    Sjöberg.'
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: table
+  needle: Hub Squad – Fraud & Settlement
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F008
+  world_ref: TOPIC:recovery.receipt.v1
+  kind: arrow_only
+  statement: Arrow recovery-svc → gl-posting-svc labelled recovery.receipt.v1.
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'recovery-svc -> gl-posting-svc [label: recovery.receipt.v1]'
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F009
+  world_ref: TOPIC:reserve.changed.v2#consumers
+  kind: arrow_only
+  statement: Arrow reserve-engine → gl-posting-svc labelled reserve.changed.v2.
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'reserve-engine -> gl-posting-svc [label: reserve.changed.v2]'
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F010
+  world_ref: TOPIC:settlement.agreed.v1#consumers
+  kind: arrow_only
+  statement: Arrow settlement-svc → recovery-svc labelled settlement.agreed.v1.
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'settlement-svc -> recovery-svc [label: settlement.agreed.v1]'
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F011
+  world_ref: SERVICE:reserve-engine#apis
+  kind: image_table
+  statement: 'API table image: reserve-engine POST /revaluation-runs triggers a currency revaluation run (replaces CLRGL090).'
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: image
+    ocr: true
+  needle: Trigger a currency revaluation run (replaces CLRGL090)
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F012
+  world_ref: SERVICE:recovery-svc#apis
+  kind: image_table
+  statement: 'API table image: recovery-svc write-off endpoint – approval above £10,000 by the Head of Recoveries & Subrogation.'
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: image
+    ocr: true
+  needle: approval above £10,000 by Head of Recoveries & Subrogation
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F013
+  world_ref: SERVICE:reserve-engine#postgres_tables
+  kind: visual_only
+  statement: reserve-engine owns the PostgreSQL tables reserve.reserve, reserve.reserve_movement and reserve.review_schedule.
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: group
+    shape_name: 'Data card: reserve-engine'
+  needle: 'reserve-engine Tables: reserve.reserve, reserve.reserve_movement, reserve.review_schedule'
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F014
+  world_ref: TEAM:T29
+  kind: general
+  statement: Hub Squad – Fraud & Settlement (lead Linnea Sjöberg, GitHub team @corvane/hub-squad-fraud-settlement) owns fraud-referral-svc,
+    settlement-svc, payment-orchestrator and recovery-svc at 2026-10-15.
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: table
+  needle: '@corvane/hub-squad-fraud-settlement'
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F015
+  world_ref: SERVICE:reserve-engine#replaces_programs
+  kind: chart_only
+  statement: reserve-engine replaces 16 CLARA programs, the most of any service.
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: chart
+  needle: 'CLARA programs replaced: reserve-engine=16'
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F016
+  world_ref: TOPIC:claims.reserve.movement.v1#producer
+  kind: general
+  statement: Topic claims.reserve.movement.v1 is produced by the MQ-to-Kafka bridge (CLX-IF-049) and consumed by reserve-engine.
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: MQ-to-Kafka bridge (CLX-IF-049)
+  exclusive: false
+  also_in: []
+- fact_id: VS010-F017
+  world_ref: SERVICE:reserve-engine#path_history
+  kind: speaker_notes
+  statement: 'Speaker notes: the reserve-engine Terraform module moved from infra/terraform/modules/reserve-svc with the 2026-02
+    rename.'
+  file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: notes
+  needle: changed from infra/terraform/modules/reserve-svc
+  exclusive: false
+  also_in: []
+- fact_id: VS011-F001
+  world_ref: WAVE:MW-1#claims_migrated
+  kind: chart_only
+  statement: 'Claims migrated: Wave 0 Denmark 41,250; Wave 1 UK motor 186,400.'
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: chart
+  needle: 'Claims migrated: Wave 1 UK motor=186400'
+  exclusive: true
+  also_in:
+  - corpus/upload/text/TX011_email_wave1_reconciliation.txt
+  placement: PL-101
+  placement_key: vs11_waves
+  notes: Second chart point; first point is 'Wave 0 Denmark=41250'. Numbers appear only in the chart cache.
+- fact_id: VS011-F002
+  world_ref: WAVE:MW-1#claims_migrated
+  kind: chart_only
+  statement: 'Claims migrated: Wave 0 Denmark 41,250 (chart only).'
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: chart
+  needle: 'Claims migrated: Wave 0 Denmark=41250'
+  exclusive: true
+  also_in:
+  - corpus/upload/text/TX011_email_wave1_reconciliation.txt
+  placement: PL-101
+  placement_key: vs11_waves
+- fact_id: VS011-F003
+  world_ref: WAVE:MW-2#status
+  kind: general
+  statement: Wave 2 (UK home, commercial, liability; Norway; Sweden) is planned for 2027-02-15.
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: Planned
+  exclusive: false
+  also_in: []
+- fact_id: VS011-F004
+  world_ref: WAVE:MW-1#scope
+  kind: general
+  statement: Wave 1 – UK motor (cut-over 2026-09-14) migrated product PRD-MOT-UK, Motor Private UK, after 3 rehearsals.
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: Motor Private UK
+  exclusive: false
+  also_in: []
+- fact_id: VS011-F005
+  world_ref: WAVE:MW-2#freeze
+  kind: image_text
+  statement: 'Timeline image: Wave 2 freeze planned 12 Feb 2027 18:00 to 15 Feb 2027 06:00.'
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: image
+    ocr: true
+  needle: freeze 12 Feb 18:00 to 15 Feb 06:00
+  exclusive: false
+  also_in: []
+- fact_id: VS011-F006
+  world_ref: WAVE:MW-1#freeze
+  kind: alt_text
+  statement: 'Alt text: Wave 1 freeze 2026-09-11 18:00 to 2026-09-14 06:00.'
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: alt_text
+  needle: freeze 2026-09-11 18:00 to 2026-09-14 06:00
+  exclusive: false
+  also_in: []
+- fact_id: VS011-F007
+  world_ref: ADR:ADR-016
+  kind: general
+  statement: 'ADR-016: Nordic amounts are stored in the original currency and in GBP.'
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: text
+  needle: Store Nordic amounts in original currency and GBP
+  exclusive: false
+  also_in: []
+- fact_id: VS011-F008
+  world_ref: DECISION:DEC-001
+  kind: speaker_notes
+  statement: 'Speaker notes: the strangler-fig, wave-based migration was agreed at the kick-off on 2025-01-13 (DEC-001).'
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: notes
+  needle: agreed at the programme kick-off on 13 January 2025 (DEC-001)
+  exclusive: false
+  also_in: []
+- fact_id: VS011-F009
+  world_ref: WAVE:MW-2#scope
+  kind: general
+  statement: Wave 2 scope includes PRD-HOM-SE Hem Sverige (SEK).
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: table
+  needle: Hem Sverige
+  exclusive: false
+  also_in: []
+- fact_id: VS011-F010
+  world_ref: PRODUCT:PRD-HOM-UK#policies_in_force
+  kind: general
+  statement: Home Buildings & Contents UK (PRD-HOM-UK) has 448,000 policies in force.
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: table
+  needle: 448,000
+  exclusive: false
+  also_in: []
+- fact_id: VS011-F011
+  world_ref: WAVE:MW-1#rehearsals
+  kind: chart_only
+  statement: Wave 1 – UK motor had 3 full rehearsals; Wave 0 – Denmark had 2.
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: chart
+  needle: 'Full rehearsals: Wave 1 UK motor=3'
+  exclusive: false
+  also_in: []
+- fact_id: VS011-F012
+  world_ref: SERVICE:claim-core-svc#postgres_tables
+  kind: visual_only
+  statement: Migrated claim headers land in claim_core.claim and claim_core.party (claim-core-svc).
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: group
+    shape_name: 'Domain card: claim-core-svc'
+  needle: 'claim-core-svc Target tables: claim_core.claim, claim_core.party'
+  exclusive: false
+  also_in: []
+- fact_id: VS011-F013
+  world_ref: PERSON:P051#titles
+  kind: general
+  statement: Callum Fairbairn (IBM Consulting) is the Data Migration Lead.
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: table
+  needle: Data Migration Lead
+  exclusive: false
+  also_in: []
+- fact_id: VS011-F014
+  world_ref: PERSON:P051#notes
+  kind: speaker_notes
+  statement: 'Speaker notes: the IBM Data Migration Lead Callum Fairbairn is a different person from the Corvane Motor Claims
+    Team Leader Callum Fairbairn (Leeds).'
+  file: corpus/upload/visuals/VS011_data_migration_waves.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: notes
+  needle: not the Corvane Motor Claims Team Leader of the same name in Leeds
+  exclusive: false
+  also_in: []
+- fact_id: VS012-F001
+  world_ref: DECISION:DEC-009
+  kind: speaker_notes
+  statement: 'Speaker notes: Wave 1 freeze from 2026-09-11 18:00 to 2026-09-14 06:00.'
+  file: corpus/upload/visuals/VS012_wave1_cutover_plan.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: notes
+  needle: Wave 1 freeze from 2026-09-11 18:00 to 2026-09-14 06:00
+  exclusive: false
+  also_in: []
+  placement: PL-102
+  placement_key: vs12_freeze
+- fact_id: VS012-F002
+  world_ref: SERVICE:payment-orchestrator#go_live
+  kind: general
+  statement: 'Services going live with Wave 1 on 2026-09-14: assessment-svc, reserve-engine, settlement-svc, payment-orchestrator,
+    recovery-svc, gl-posting-svc.'
+  file: corpus/upload/visuals/VS012_wave1_cutover_plan.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: text
+  needle: payment-orchestrator
+  exclusive: false
+  also_in: []
+- fact_id: VS012-F003
+  world_ref: INTERFACE:CLX-IF-050#since
+  kind: general
+  statement: CLX-IF-050 Claims Hub journals to GL is switched on with Wave 1 (since 2026-09-14).
+  file: corpus/upload/visuals/VS012_wave1_cutover_plan.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: text
+  needle: CLX-IF-050 – Claims Hub journals to GL
+  exclusive: false
+  also_in: []
+- fact_id: VS012-F004
+  world_ref: PRODUCT:PRD-MOT-UK#policies_in_force
+  kind: general
+  statement: Motor Private UK (PRD-MOT-UK) has 612,000 policies in force.
+  file: corpus/upload/visuals/VS012_wave1_cutover_plan.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: 612,000
+  exclusive: false
+  also_in: []
+- fact_id: VS012-F005
+  world_ref: MEETING:MTG-011#attendees
+  kind: general
+  statement: The Wave 1 go/no-go meeting (2026-09-11) invite includes Callum Fairbairn, Data Migration Lead (IBM).
+  file: corpus/upload/visuals/VS012_wave1_cutover_plan.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: table
+  needle: Callum Fairbairn
+  exclusive: false
+  also_in: []
+- fact_id: VS012-F006
+  world_ref: WAVE:MW-1#rehearsals
+  kind: general
+  statement: Wave 1 was preceded by 3 full dress rehearsals on masked data (ADR-025).
+  file: corpus/upload/visuals/VS012_wave1_cutover_plan.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: 3 full dress rehearsals on masked data (ADR-025)
+  exclusive: false
+  also_in: []
+- fact_id: VS012-F007
+  world_ref: SERVICE:recovery-svc#k8s_namespace
+  kind: screenshot
+  statement: Cut-over console image lists recovery-svc in namespace chub-recovery with 2 replicas among the Wave 1 services.
+  file: corpus/upload/visuals/VS012_wave1_cutover_plan.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: image
+    ocr: true
+  needle: chub-recovery
+  exclusive: false
+  also_in: []
+- fact_id: VS012-F008
+  world_ref: PERSON:P022#notes
+  kind: general
+  statement: 'Wave 1 roles: Callum Fairbairn (Corvane, Motor Claims Team Leader, Leeds) does business verification; Callum
+    Fairbairn (IBM, Data Migration Lead) runs extract, load and reconciliation.'
+  file: corpus/upload/visuals/VS012_wave1_cutover_plan.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: table
+  needle: Motor Claims Team Leader
+  exclusive: false
+  also_in: []
+- fact_id: VS012-F009
+  world_ref: PERSON:P051#notes
+  kind: speaker_notes
+  statement: 'Speaker notes: two different people named Callum Fairbairn are on the Wave 1 roster (IBM London; Corvane Leeds).'
+  file: corpus/upload/visuals/VS012_wave1_cutover_plan.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: notes
+  needle: two people called Callum Fairbairn on this list
+  exclusive: false
+  also_in: []
+- fact_id: VS012-F010
+  world_ref: ADR:ADR-026
+  kind: general
+  statement: ADR-026 (proposed) covers read-only CLARA enquiry after cut-over.
+  file: corpus/upload/visuals/VS012_wave1_cutover_plan.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: text
+  needle: Read-only CLARA enquiry after cut-over is proposed in ADR-026
+  exclusive: false
+  also_in: []
+- fact_id: VS012-F011
+  world_ref: COMMITTEE:COM-04#cadence
+  kind: general
+  statement: Production fixes go through the weekly Change Advisory Board on Wednesdays at 11:00.
+  file: corpus/upload/visuals/VS012_wave1_cutover_plan.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: text
+  needle: weekly Change Advisory Board (Wednesday 11:00)
+  exclusive: false
+  also_in: []
+- fact_id: VS013-F001
+  world_ref: ORG:company#financials.fy2025.fraud_referrals
+  kind: general
+  statement: 'FY2025: 4,812 SIU referrals and 1,109 confirmed fraud cases.'
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: 4,812
+  exclusive: false
+  also_in: []
+- fact_id: VS013-F002
+  world_ref: ORG:company#financials.fy2025.fraud_savings_gbp_m
+  kind: general
+  statement: FY2025 fraud savings were £38.7m.
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: £38.7m
+  exclusive: false
+  also_in: []
+- fact_id: VS013-F003
+  world_ref: TIMELINE:metrics#fraud_referral_rate_pct_of_scored
+  kind: chart_only
+  statement: 'Fraud referral rate (% of scored claims): Q1 2026 2.3%, Q2 2026 2.8%, Q3 2026 2.8% (threshold 65 from 2026-04-01).'
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: chart
+  needle: 'Referral rate (% of scored claims): 2026 Q3=2.8'
+  exclusive: true
+  also_in: []
+  placement: PL-103
+  placement_key: vs13_referral_rate
+  notes: Q1 2026 = 2.3 and Q2 2026 = 2.8 are the preceding points; the threshold note is in the chart title.
+- fact_id: VS013-F004
+  world_ref: TIMELINE:metrics#fraud_referral_rate_pct_of_scored
+  kind: chart_only
+  statement: 'Fraud referral rate Q1 2026: 2.3% of scored claims (chart only).'
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: chart
+  needle: 'Referral rate (% of scored claims): 2026 Q1=2.3'
+  exclusive: true
+  also_in: []
+  placement: PL-103
+  placement_key: vs13_referral_rate
+- fact_id: VS013-F005
+  world_ref: RULE:BR-FRD-031@v1#parameters.threshold
+  kind: chart_only
+  statement: Chart title notes the referral threshold of 65 from 2026-04-01.
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: chart
+  needle: 'title: Fraud referral rate (% of scored claims) – threshold 65 from 1 Apr 2026'
+  exclusive: false
+  also_in: []
+- fact_id: VS013-F006
+  world_ref: TIMELINE:metrics#avg_settlement_days_2026H1
+  kind: chart_only
+  statement: 'Average settlement days 2026 H1: motor 31, home 47.'
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: chart
+  needle: '2026 H1: Motor=31'
+  exclusive: true
+  also_in: []
+  placement: PL-104
+  placement_key: vs13_settle_days
+  notes: Second series of the clustered column chart; Home = 47.
+- fact_id: VS013-F007
+  world_ref: TIMELINE:metrics#avg_settlement_days_2026H1
+  kind: chart_only
+  statement: 'Average settlement days 2026 H1: home 47 (chart only).'
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: chart
+  needle: '2026 H1: Home=47'
+  exclusive: true
+  also_in: []
+  placement: PL-104
+  placement_key: vs13_settle_days
+- fact_id: VS013-F008
+  world_ref: ORG:company#financials.fy2025.avg_settlement_days_motor
+  kind: chart_only
+  statement: 'FY2025 average settlement days: motor 34, home 51.'
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: chart
+  needle: 'FY2025: Motor=34'
+  exclusive: false
+  also_in: []
+- fact_id: VS013-F009
+  world_ref: TIMELINE:metrics#claims_notified
+  kind: chart_only
+  statement: 'Claims notified: 53,140 in Q2 2026 and 55,180 in Q3 2026.'
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: chart
+  needle: 'Claims notified: Q3 2026=55180'
+  exclusive: false
+  also_in: []
+- fact_id: VS013-F010
+  world_ref: TIMELINE:metrics#fraud_referrals_count
+  kind: chart_only
+  statement: 'SIU referrals: 1,488 in Q2 2026 and 1,530 in Q3 2026.'
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: chart
+  needle: 'SIU referrals: Q2 2026=1488'
+  exclusive: false
+  also_in: []
+- fact_id: VS013-F011
+  world_ref: TIMELINE:metrics#tier3_share_pct
+  kind: general
+  statement: Tier-3 claims were 4.1% of claims in 2025.
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: text
+  needle: 4.1%
+  exclusive: false
+  also_in: []
+- fact_id: VS013-F012
+  world_ref: INTERFACE:CLX-IF-030#schedule
+  kind: general
+  statement: CLX-IF-030 Daily claims MI to CDW (CLARA → Claims Data Warehouse) runs daily 04:30.
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: Daily claims MI to CDW
+  exclusive: false
+  also_in: []
+- fact_id: VS013-F013
+  world_ref: TIMELINE:metrics#claims_notified.2026Q3
+  kind: screenshot
+  statement: Dashboard screenshot shows 55,180 claims notified in Q3 2026.
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: image
+    ocr: true
+  needle: 55,180
+  exclusive: false
+  also_in: []
+- fact_id: VS013-F014
+  world_ref: TIMELINE:metrics#fraud_referral_rate_pct_of_scored
+  kind: chart_only
+  statement: 'Fraud referral rate Q2 2026: 2.8% of scored claims, the first quarter at the 65 threshold (chart only).'
+  file: corpus/upload/visuals/VS013_claims_kpi_dashboard_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: chart
+  needle: 'Referral rate (% of scored claims): 2026 Q2=2.8'
+  exclusive: true
+  also_in: []
+  placement: PL-103
+  placement_key: vs13_referral_rate
+- fact_id: VS014-F001
+  world_ref: CIRCULAR:CIRC-2026-04#effective
+  kind: alt_text
+  statement: 'Alt text of the timeline image: ''Circular published 20 Nov 2025, effective 1 Apr 2026''.'
+  file: corpus/upload/visuals/VS014_nisa_circular_2026_04_briefing.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: alt_text
+  needle: Circular published 20 Nov 2025, effective 1 Apr 2026
+  exclusive: false
+  also_in: []
+  placement: PL-106
+  placement_key: vs14_alt
+- fact_id: VS014-F002
+  world_ref: CIRCULAR:CIRC-2026-04#effective
+  kind: image_text
+  statement: 'Timeline image: NISA Circular 2026/04 effective 1 Apr 2026 (published 20 Nov 2025).'
+  file: corpus/upload/visuals/VS014_nisa_circular_2026_04_briefing.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: image
+    ocr: true
+  needle: Circular effective
+  exclusive: false
+  also_in: []
+- fact_id: VS014-F003
+  world_ref: CIRCULAR:CIRC-2026-04#requirements
+  kind: general
+  statement: 'NISA Circular 2026/04 §3.3: score-based referral cut-offs must be calibrated and documented; on a 0–100 scale
+    the cut-off must not exceed 65.'
+  file: corpus/upload/visuals/VS014_nisa_circular_2026_04_briefing.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: on a 0–100 scale the cut-off must not exceed 65
+  exclusive: false
+  also_in: []
+- fact_id: VS014-F004
+  world_ref: CIRCULAR:CIRC-2026-04#requirements
+  kind: general
+  statement: 'NISA Circular 2026/04 §3.5: retain referral records for 7 years.'
+  file: corpus/upload/visuals/VS014_nisa_circular_2026_04_briefing.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: Retain referral records for 7 years
+  exclusive: false
+  also_in: []
+- fact_id: VS014-F005
+  world_ref: RULE:BR-FRD-019@v2
+  kind: temporal
+  statement: 'January 2026 gap analysis: BR-FRD-019 v2 automatically declines claims scoring 90 or more, which §3.1 prohibits.'
+  file: corpus/upload/visuals/VS014_nisa_circular_2026_04_briefing.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: table
+  needle: automatic decline at score 90 or more
+  exclusive: false
+  also_in: []
+- fact_id: VS014-F006
+  world_ref: RULE:BR-FRD-012@v2
+  kind: temporal
+  statement: 'January 2026 gap analysis: the referral threshold in force is BR-FRD-012 v2, score 70 or more.'
+  file: corpus/upload/visuals/VS014_nisa_circular_2026_04_briefing.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: table
+  needle: refer at score 70 or more
+  exclusive: false
+  also_in: []
+- fact_id: VS014-F007
+  world_ref: RULE:BR-FRD-012@v2
+  kind: speaker_notes
+  statement: 'Speaker notes: the referral cut-off of 70 has applied since 2023-04-01 (previously 75).'
+  file: corpus/upload/visuals/VS014_nisa_circular_2026_04_briefing.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: notes
+  needle: since 1 April 2023, when it came down from 75
+  exclusive: false
+  also_in: []
+- fact_id: VS014-F008
+  world_ref: DECISION:DEC-013
+  kind: speaker_notes
+  statement: 'Speaker notes: NISA (Petter Ulvestad) confirmed on 2026-01-14 that an SMS counts as written notice if followed
+    by a letter within 2 business days.'
+  file: corpus/upload/visuals/VS014_nisa_circular_2026_04_briefing.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: notes
+  needle: confirmed on 2026-01-14 that an SMS counts as written notice if followed by a letter within 2 business days
+  exclusive: true
+  also_in:
+  - TX043-F003
+  placement: PL-105
+  placement_key: vs14_sms
+  notes: Exclusive (also in TX043 call notes). No slide text mentions the clarification.
+- fact_id: VS014-F009
+  world_ref: RULE:BR-FRD-031@v1
+  kind: temporal
+  statement: 'January 2026 proposal: refer to SIU at a Sentinel score of 65 or more, replacing BR-FRD-012 v2 (70).'
+  file: corpus/upload/visuals/VS014_nisa_circular_2026_04_briefing.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: table
+  needle: Refer to SIU at a Sentinel score of 65 or more
+  exclusive: false
+  also_in: []
+- fact_id: VS014-F010
+  world_ref: SERVICE:fraud-referral-svc#go_live
+  kind: visual_only
+  statement: fraud-referral-svc (Claims Hub) is planned to go live on 2026-04-01 for the circular.
+  file: corpus/upload/visuals/VS014_nisa_circular_2026_04_briefing.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: group
+    shape_name: 'Impact card: fraud-referral-svc'
+  needle: fraud-referral-svc Claims Hub service Planned go-live 1 April 2026
+  exclusive: false
+  also_in: []
+- fact_id: VS014-F011
+  world_ref: CIRCULAR:CIRC-2026-04#requirements
+  kind: arrow_only
+  statement: 'Proposed flow: when an adverse outcome is proposed on a referred claim, a documented human review is required.'
+  file: corpus/upload/visuals/VS014_nisa_circular_2026_04_briefing.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: connector
+  needle: 'Refer to SIU -> Documented human review [label: Adverse outcome proposed]'
+  exclusive: false
+  also_in: []
+- fact_id: VS014-F012
+  world_ref: RULE:BR-FRD-031@v1
+  kind: arrow_only
+  statement: 'Proposed flow (January 2026): a Sentinel score of 65 or more leads to SIU referral.'
+  file: corpus/upload/visuals/VS014_nisa_circular_2026_04_briefing.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: connector
+  needle: 'Score ≥ 65? -> Refer to SIU [label: Yes]'
+  exclusive: false
+  also_in: []
+- fact_id: VS014-F013
+  world_ref: REPORT:NISA-FR1#first_due
+  kind: general
+  statement: The first NISA-FR1 return covers Q2 2026 and is due 2026-07-30.
+  file: corpus/upload/visuals/VS014_nisa_circular_2026_04_briefing.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: Q2 2026, due 30 July 2026
+  exclusive: false
+  also_in: []

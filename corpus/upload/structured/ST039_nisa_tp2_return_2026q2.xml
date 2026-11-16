@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NISA-TP2 Quarterly Technical Provisions Return - 2026Q2 - Corvane Mutual - submitted copy -->
+<tp2Return xmlns="urn:nisa:returns:tp2:2026" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" returnCode="NISA-TP2" period="2026Q2" schemaVersion="3.2" unit="GBP thousands">
+  <header>
+    <returnName>Quarterly Technical Provisions Return</returnName>
+    <firmName>Corvane Mutual Insurance Society Limited</firmName>
+    <firmReference>NISA-FRN 40417</firmReference>
+    <periodEnd>2026-06-30</periodEnd>
+    <dueDate>2026-08-04</dueDate>
+    <dueRule>35 calendar days after quarter end</dueRule>
+    <submittedDate>2026-08-04</submittedDate>
+    <sourceInterfaces>
+      <interface id="CLX-IF-051" source="Group Ledger" target="NISA Reporting Hub">Technical Provisions Feed</interface>
+    </sourceInterfaces>
+    <reportingSystem systemId="SYS10">NISA Reporting Hub</reportingSystem>
+    <preparedBy title="Regulatory Reporting Manager">Bjørn Aasheim</preparedBy>
+    <signedBy role="Chief Financial Officer">Priya Raman</signedBy>
+  </header>
+  <dataLineage>
+    <step order="1" interface="CLX-IF-042">Reserve Movement Daily Extract: CLARA to MQ Backbone</step>
+    <step order="2" interface="CLX-IF-043">GL Reserve Journal Feed: MQ Backbone to Group Ledger</step>
+    <step order="3" interface="CLX-IF-051">Technical Provisions Feed: Group Ledger to NISA Reporting Hub</step>
+    <note>Case reserve movements flow from CLARA through the MQ Backbone into Group Ledger journals; the Technical Provisions Feed delivers the TP2 cells to the NISA Reporting Hub.</note>
+  </dataLineage>
+  <cells>
+    <cell line="Motor" region="UK" accidentYear="2017" caseReserves="63519" ibnr="3644" claimsOutstanding="67163" cellRef="TP2.C001"/>
+    <cell line="Motor" region="UK" accidentYear="2018" caseReserves="65503" ibnr="5083" claimsOutstanding="70586" cellRef="TP2.C002"/>
+    <cell line="Motor" region="UK" accidentYear="2019" caseReserves="62045" ibnr="6730" claimsOutstanding="68775" cellRef="TP2.C003"/>
+    <cell line="Motor" region="UK" accidentYear="2020" caseReserves="85225" ibnr="6472" claimsOutstanding="91697" cellRef="TP2.C004"/>
+    <cell line="Motor" region="UK" accidentYear="2021" caseReserves="92325" ibnr="7643" claimsOutstanding="99968" cellRef="TP2.C005"/>
+    <cell line="Motor" region="UK" accidentYear="2022" caseReserves="90034" ibnr="17289" claimsOutstanding="107323" cellRef="TP2.C006"/>
+    <cell line="Motor" region="UK" accidentYear="2023" caseReserves="100051" ibnr="19003" claimsOutstanding="119054" cellRef="TP2.C007"/>
+    <cell line="Motor" region="UK" accidentYear="2024" caseReserves="119568" ibnr="19640" claimsOutstanding="139208" cellRef="TP2.C008"/>
+    <cell line="Motor" region="UK" accidentYear="2025" caseReserves="106115" ibnr="43461" claimsOutstanding="149576" cellRef="TP2.C009"/>
+    <cell line="Motor" region="UK" accidentYear="2026" caseReserves="125729" ibnr="41907" claimsOutstanding="167636" cellRef="TP2.C010"/>
+    <cell line="Home" region="UK" accidentYear="2017" caseReserves="39935" ibnr="2544" claimsOutstanding="42479" cellRef="TP2.C011"/>
+    <cell line="Home" region="UK" accidentYear="2018" caseReserves="42107" ibnr="3282" claimsOutstanding="45389" cellRef="TP2.C012"/>
+    <cell line="Home" region="UK" accidentYear="2019" caseReserves="49701" ibnr="2950" claimsOutstanding="52651" cellRef="TP2.C013"/>
+    <cell line="Home" region="UK" accidentYear="2020" caseReserves="51876" ibnr="3657" claimsOutstanding="55533" cellRef="TP2.C014"/>
+    <cell line="Home" region="UK" accidentYear="2021" caseReserves="44800" ibnr="3765" claimsOutstanding="48565" cellRef="TP2.C015"/>
+    <cell line="Home" region="UK" accidentYear="2022" caseReserves="55517" ibnr="14526" claimsOutstanding="70043" cellRef="TP2.C016"/>
+    <cell line="Home" region="UK" accidentYear="2023" caseReserves="61432" ibnr="13250" claimsOutstanding="74682" cellRef="TP2.C017"/>
+    <cell line="Home" region="UK" accidentYear="2024" caseReserves="71890" ibnr="16111" claimsOutstanding="88001" cellRef="TP2.C018"/>
+    <cell line="Home" region="UK" accidentYear="2025" caseReserves="68336" ibnr="27902" claimsOutstanding="96238" cellRef="TP2.C019"/>
+    <cell line="Home" region="UK" accidentYear="2026" caseReserves="74653" ibnr="29774" claimsOutstanding="104427" cellRef="TP2.C020"/>
+    <cell line="Commercial Property" region="UK" accidentYear="2017" caseReserves="23900" ibnr="1964" claimsOutstanding="25864" cellRef="TP2.C021"/>
+    <cell line="Commercial Property" region="UK" accidentYear="2018" caseReserves="27194" ibnr="1834" claimsOutstanding="29028" cellRef="TP2.C022"/>
+    <cell line="Commercial Property" region="UK" accidentYear="2019" caseReserves="27625" ibnr="1791" claimsOutstanding="29416" cellRef="TP2.C023"/>
+    <cell line="Commercial Property" region="UK" accidentYear="2020" caseReserves="26024" ibnr="2800" claimsOutstanding="28824" cellRef="TP2.C024"/>
+    <cell line="Commercial Property" region="UK" accidentYear="2021" caseReserves="35273" ibnr="2674" claimsOutstanding="37947" cellRef="TP2.C025"/>
+    <cell line="Commercial Property" region="UK" accidentYear="2022" caseReserves="38066" ibnr="8214" claimsOutstanding="46280" cellRef="TP2.C026"/>
+    <cell line="Commercial Property" region="UK" accidentYear="2023" caseReserves="34649" ibnr="8140" claimsOutstanding="42789" cellRef="TP2.C027"/>
+    <cell line="Commercial Property" region="UK" accidentYear="2024" caseReserves="38364" ibnr="9332" claimsOutstanding="47696" cellRef="TP2.C028"/>
+    <cell line="Commercial Property" region="UK" accidentYear="2025" caseReserves="42897" ibnr="16095" claimsOutstanding="58992" cellRef="TP2.C029"/>
+    <cell line="Commercial Property" region="UK" accidentYear="2026" caseReserves="50738" ibnr="20891" claimsOutstanding="71629" cellRef="TP2.C030"/>
+    <cell line="SME Liability" region="UK" accidentYear="2017" caseReserves="28732" ibnr="3454" claimsOutstanding="32186" cellRef="TP2.C031"/>
+    <cell line="SME Liability" region="UK" accidentYear="2018" caseReserves="37269" ibnr="4849" claimsOutstanding="42118" cellRef="TP2.C032"/>
+    <cell line="SME Liability" region="UK" accidentYear="2019" caseReserves="42233" ibnr="4616" claimsOutstanding="46849" cellRef="TP2.C033"/>
+    <cell line="SME Liability" region="UK" accidentYear="2020" caseReserves="46838" ibnr="5564" claimsOutstanding="52402" cellRef="TP2.C034"/>
+    <cell line="SME Liability" region="UK" accidentYear="2021" caseReserves="40926" ibnr="6688" claimsOutstanding="47614" cellRef="TP2.C035"/>
+    <cell line="SME Liability" region="UK" accidentYear="2022" caseReserves="54445" ibnr="16736" claimsOutstanding="71181" cellRef="TP2.C036"/>
+    <cell line="SME Liability" region="UK" accidentYear="2023" caseReserves="58995" ibnr="15108" claimsOutstanding="74103" cellRef="TP2.C037"/>
+    <cell line="SME Liability" region="UK" accidentYear="2024" caseReserves="53450" ibnr="23932" claimsOutstanding="77382" cellRef="TP2.C038"/>
+    <cell line="SME Liability" region="UK" accidentYear="2025" caseReserves="54252" ibnr="41206" claimsOutstanding="95458" cellRef="TP2.C039"/>
+    <cell line="SME Liability" region="UK" accidentYear="2026" caseReserves="64335" ibnr="41176" claimsOutstanding="105511" cellRef="TP2.C040"/>
+    <cell line="Motor" region="NO" accidentYear="2017" caseReserves="9185" ibnr="843" claimsOutstanding="10028" cellRef="TP2.C041"/>
+    <cell line="Motor" region="NO" accidentYear="2018" caseReserves="11237" ibnr="767" claimsOutstanding="12004" cellRef="TP2.C042"/>
+    <cell line="Motor" region="NO" accidentYear="2019" caseReserves="12199" ibnr="1026" claimsOutstanding="13225" cellRef="TP2.C043"/>
+    <cell line="Motor" region="NO" accidentYear="2020" caseReserves="12800" ibnr="1125" claimsOutstanding="13925" cellRef="TP2.C044"/>
+    <cell line="Motor" region="NO" accidentYear="2021" caseReserves="11773" ibnr="1111" claimsOutstanding="12884" cellRef="TP2.C045"/>
+    <cell line="Motor" region="NO" accidentYear="2022" caseReserves="15702" ibnr="3737" claimsOutstanding="19439" cellRef="TP2.C046"/>
+    <cell line="Motor" region="NO" accidentYear="2023" caseReserves="15331" ibnr="3724" claimsOutstanding="19055" cellRef="TP2.C047"/>
+    <cell line="Motor" region="NO" accidentYear="2024" caseReserves="16216" ibnr="4236" claimsOutstanding="20452" cellRef="TP2.C048"/>
+    <cell line="Motor" region="NO" accidentYear="2025" caseReserves="16749" ibnr="6790" claimsOutstanding="23539" cellRef="TP2.C049"/>
+    <cell line="Motor" region="NO" accidentYear="2026" caseReserves="16761" ibnr="7752" claimsOutstanding="24513" cellRef="TP2.C050"/>
+    <cell line="Home" region="NO" accidentYear="2017" caseReserves="7294" ibnr="648" claimsOutstanding="7942" cellRef="TP2.C051"/>
+    <cell line="Home" region="NO" accidentYear="2018" caseReserves="7326" ibnr="509" claimsOutstanding="7835" cellRef="TP2.C052"/>
+    <cell line="Home" region="NO" accidentYear="2019" caseReserves="7279" ibnr="636" claimsOutstanding="7915" cellRef="TP2.C053"/>
+    <cell line="Home" region="NO" accidentYear="2020" caseReserves="10313" ibnr="714" claimsOutstanding="11027" cellRef="TP2.C054"/>
+    <cell line="Home" region="NO" accidentYear="2021" caseReserves="9237" ibnr="688" claimsOutstanding="9925" cellRef="TP2.C055"/>
+    <cell line="Home" region="NO" accidentYear="2022" caseReserves="9798" ibnr="2453" claimsOutstanding="12251" cellRef="TP2.C056"/>
+    <cell line="Home" region="NO" accidentYear="2023" caseReserves="11096" ibnr="2335" claimsOutstanding="13431" cellRef="TP2.C057"/>
+    <cell line="Home" region="NO" accidentYear="2024" caseReserves="14373" ibnr="2987" claimsOutstanding="17360" cellRef="TP2.C058"/>
+    <cell line="Home" region="NO" accidentYear="2025" caseReserves="13489" ibnr="4844" claimsOutstanding="18333" cellRef="TP2.C059"/>
+    <cell line="Home" region="NO" accidentYear="2026" caseReserves="15405" ibnr="6665" claimsOutstanding="22070" cellRef="TP2.C060"/>
+    <cell line="Motor" region="SE" accidentYear="2017" caseReserves="8023" ibnr="542" claimsOutstanding="8565" cellRef="TP2.C061"/>
+    <cell line="Motor" region="SE" accidentYear="2018" caseReserves="8815" ibnr="577" claimsOutstanding="9392" cellRef="TP2.C062"/>
+    <cell line="Motor" region="SE" accidentYear="2019" caseReserves="9390" ibnr="679" claimsOutstanding="10069" cellRef="TP2.C063"/>
+    <cell line="Motor" region="SE" accidentYear="2020" caseReserves="10557" ibnr="877" claimsOutstanding="11434" cellRef="TP2.C064"/>
+    <cell line="Motor" region="SE" accidentYear="2021" caseReserves="9279" ibnr="921" claimsOutstanding="10200" cellRef="TP2.C065"/>
+    <cell line="Motor" region="SE" accidentYear="2022" caseReserves="11302" ibnr="2924" claimsOutstanding="14226" cellRef="TP2.C066"/>
+    <cell line="Motor" region="SE" accidentYear="2023" caseReserves="12327" ibnr="3019" claimsOutstanding="15346" cellRef="TP2.C067"/>
+    <cell line="Motor" region="SE" accidentYear="2024" caseReserves="15551" ibnr="3140" claimsOutstanding="18691" cellRef="TP2.C068"/>
+    <cell line="Motor" region="SE" accidentYear="2025" caseReserves="12472" ibnr="7258" claimsOutstanding="19730" cellRef="TP2.C069"/>
+    <cell line="Motor" region="SE" accidentYear="2026" caseReserves="14622" ibnr="5952" claimsOutstanding="20574" cellRef="TP2.C070"/>
+    <cell line="Home" region="SE" accidentYear="2017" caseReserves="7149" ibnr="398" claimsOutstanding="7547" cellRef="TP2.C071"/>
+    <cell line="Home" region="SE" accidentYear="2018" caseReserves="6558" ibnr="660" claimsOutstanding="7218" cellRef="TP2.C072"/>
+    <cell line="Home" region="SE" accidentYear="2019" caseReserves="8428" ibnr="641" claimsOutstanding="9069" cellRef="TP2.C073"/>
+    <cell line="Home" region="SE" accidentYear="2020" caseReserves="8042" ibnr="761" claimsOutstanding="8803" cellRef="TP2.C074"/>
+    <cell line="Home" region="SE" accidentYear="2021" caseReserves="9557" ibnr="692" claimsOutstanding="10249" cellRef="TP2.C075"/>
+    <cell line="Home" region="SE" accidentYear="2022" caseReserves="9361" ibnr="1937" claimsOutstanding="11298" cellRef="TP2.C076"/>
+    <cell line="Home" region="SE" accidentYear="2023" caseReserves="11860" ibnr="2764" claimsOutstanding="14624" cellRef="TP2.C077"/>
+    <cell line="Home" region="SE" accidentYear="2024" caseReserves="12870" ibnr="2888" claimsOutstanding="15758" cellRef="TP2.C078"/>
+    <cell line="Home" region="SE" accidentYear="2025" caseReserves="10408" ibnr="4970" claimsOutstanding="15378" cellRef="TP2.C079"/>
+    <cell line="Home" region="SE" accidentYear="2026" caseReserves="13474" ibnr="6387" claimsOutstanding="19861" cellRef="TP2.C080"/>
+    <cell line="Motor" region="DK" accidentYear="2017" caseReserves="6271" ibnr="456" claimsOutstanding="6727" cellRef="TP2.C081"/>
+    <cell line="Motor" region="DK" accidentYear="2018" caseReserves="6108" ibnr="603" claimsOutstanding="6711" cellRef="TP2.C082"/>
+    <cell line="Motor" region="DK" accidentYear="2019" caseReserves="7827" ibnr="514" claimsOutstanding="8341" cellRef="TP2.C083"/>
+    <cell line="Motor" region="DK" accidentYear="2020" caseReserves="7418" ibnr="515" claimsOutstanding="7933" cellRef="TP2.C084"/>
+    <cell line="Motor" region="DK" accidentYear="2021" caseReserves="8471" ibnr="573" claimsOutstanding="9044" cellRef="TP2.C085"/>
+    <cell line="Motor" region="DK" accidentYear="2022" caseReserves="8412" ibnr="2068" claimsOutstanding="10480" cellRef="TP2.C086"/>
+    <cell line="Motor" region="DK" accidentYear="2023" caseReserves="9065" ibnr="2488" claimsOutstanding="11553" cellRef="TP2.C087"/>
+    <cell line="Motor" region="DK" accidentYear="2024" caseReserves="11044" ibnr="2108" claimsOutstanding="13152" cellRef="TP2.C088"/>
+    <cell line="Motor" region="DK" accidentYear="2025" caseReserves="11801" ibnr="4254" claimsOutstanding="16055" cellRef="TP2.C089"/>
+    <cell line="Motor" region="DK" accidentYear="2026" caseReserves="10409" ibnr="4333" claimsOutstanding="14742" cellRef="TP2.C090"/>
+    <cell line="Home" region="DK" accidentYear="2017" caseReserves="4992" ibnr="388" claimsOutstanding="5380" cellRef="TP2.C091"/>
+    <cell line="Home" region="DK" accidentYear="2018" caseReserves="4830" ibnr="465" claimsOutstanding="5295" cellRef="TP2.C092"/>
+    <cell line="Home" region="DK" accidentYear="2019" caseReserves="5899" ibnr="417" claimsOutstanding="6316" cellRef="TP2.C093"/>
+    <cell line="Home" region="DK" accidentYear="2020" caseReserves="5718" ibnr="401" claimsOutstanding="6119" cellRef="TP2.C094"/>
+    <cell line="Home" region="DK" accidentYear="2021" caseReserves="7042" ibnr="449" claimsOutstanding="7491" cellRef="TP2.C095"/>
+    <cell line="Home" region="DK" accidentYear="2022" caseReserves="8157" ibnr="1305" claimsOutstanding="9462" cellRef="TP2.C096"/>
+    <cell line="Home" region="DK" accidentYear="2023" caseReserves="8044" ibnr="1438" claimsOutstanding="9482" cellRef="TP2.C097"/>
+    <cell line="Home" region="DK" accidentYear="2024" caseReserves="8672" ibnr="2014" claimsOutstanding="10686" cellRef="TP2.C098"/>
+    <cell line="Home" region="DK" accidentYear="2025" caseReserves="8651" ibnr="3223" claimsOutstanding="11874" cellRef="TP2.C099"/>
+    <cell line="Home" region="DK" accidentYear="2026" caseReserves="9936" ibnr="4293" claimsOutstanding="14229" cellRef="TP2.C100"/>
+  </cells>
+  <paidTriangles basis="cumulative paid, GBP thousands" region="UK">
+    <triangle line="Motor">
+      <value accidentYear="2017" developmentYear="1">78682</value>
+      <value accidentYear="2017" developmentYear="2">136117</value>
+      <value accidentYear="2017" developmentYear="3">167581</value>
+      <value accidentYear="2017" developmentYear="4">185364</value>
+      <value accidentYear="2017" developmentYear="5">196564</value>
+      <value accidentYear="2017" developmentYear="6">205767</value>
+      <value accidentYear="2017" developmentYear="7">211812</value>
+      <value accidentYear="2017" developmentYear="8">216075</value>
+      <value accidentYear="2017" developmentYear="9">219167</value>
+      <value accidentYear="2017" developmentYear="10">221396</value>
+      <value accidentYear="2018" developmentYear="1">96097</value>
+      <value accidentYear="2018" developmentYear="2">157206</value>
+      <value accidentYear="2018" developmentYear="3">187444</value>
+      <value accidentYear="2018" developmentYear="4">207224</value>
+      <value accidentYear="2018" developmentYear="5">218507</value>
+      <value accidentYear="2018" developmentYear="6">227453</value>
+      <value accidentYear="2018" developmentYear="7">234046</value>
+      <value accidentYear="2018" developmentYear="8">238680</value>
+      <value accidentYear="2018" developmentYear="9">242190</value>
+      <value accidentYear="2019" developmentYear="1">82966</value>
+      <value accidentYear="2019" developmentYear="2">127142</value>
+      <value accidentYear="2019" developmentYear="3">153281</value>
+      <value accidentYear="2019" developmentYear="4">169223</value>
+      <value accidentYear="2019" developmentYear="5">180095</value>
+      <value accidentYear="2019" developmentYear="6">188447</value>
+      <value accidentYear="2019" developmentYear="7">194739</value>
+      <value accidentYear="2019" developmentYear="8">199096</value>
+      <value accidentYear="2020" developmentYear="1">86543</value>
+      <value accidentYear="2020" developmentYear="2">144575</value>
+      <value accidentYear="2020" developmentYear="3">179181</value>
+      <value accidentYear="2020" developmentYear="4">200599</value>
+      <value accidentYear="2020" developmentYear="5">213301</value>
+      <value accidentYear="2020" developmentYear="6">222424</value>
+      <value accidentYear="2020" developmentYear="7">229683</value>
+      <value accidentYear="2021" developmentYear="1">80504</value>
+      <value accidentYear="2021" developmentYear="2">129157</value>
+      <value accidentYear="2021" developmentYear="3">157910</value>
+      <value accidentYear="2021" developmentYear="4">176437</value>
+      <value accidentYear="2021" developmentYear="5">187802</value>
+      <value accidentYear="2021" developmentYear="6">195636</value>
+      <value accidentYear="2022" developmentYear="1">80344</value>
+      <value accidentYear="2022" developmentYear="2">136091</value>
+      <value accidentYear="2022" developmentYear="3">166027</value>
+      <value accidentYear="2022" developmentYear="4">184762</value>
+      <value accidentYear="2022" developmentYear="5">195715</value>
+      <value accidentYear="2023" developmentYear="1">70656</value>
+      <value accidentYear="2023" developmentYear="2">113951</value>
+      <value accidentYear="2023" developmentYear="3">137678</value>
+      <value accidentYear="2023" developmentYear="4">154466</value>
+      <value accidentYear="2024" developmentYear="1">75505</value>
+      <value accidentYear="2024" developmentYear="2">128109</value>
+      <value accidentYear="2024" developmentYear="3">154008</value>
+      <value accidentYear="2025" developmentYear="1">90161</value>
+      <value accidentYear="2025" developmentYear="2">148250</value>
+      <value accidentYear="2026" developmentYear="1">97205</value>
+    </triangle>
+    <triangle line="Home">
+      <value accidentYear="2017" developmentYear="1">46722</value>
+      <value accidentYear="2017" developmentYear="2">79994</value>
+      <value accidentYear="2017" developmentYear="3">98112</value>
+      <value accidentYear="2017" developmentYear="4">108721</value>
+      <value accidentYear="2017" developmentYear="5">114707</value>
+      <value accidentYear="2017" developmentYear="6">119761</value>
+      <value accidentYear="2017" developmentYear="7">123784</value>
+      <value accidentYear="2017" developmentYear="8">126628</value>
+      <value accidentYear="2017" developmentYear="9">128450</value>
+      <value accidentYear="2017" developmentYear="10">129806</value>
+      <value accidentYear="2018" developmentYear="1">48305</value>
+      <value accidentYear="2018" developmentYear="2">80014</value>
+      <value accidentYear="2018" developmentYear="3">97819</value>
+      <value accidentYear="2018" developmentYear="4">108187</value>
+      <value accidentYear="2018" developmentYear="5">114334</value>
+      <value accidentYear="2018" developmentYear="6">119381</value>
+      <value accidentYear="2018" developmentYear="7">123404</value>
+      <value accidentYear="2018" developmentYear="8">125845</value>
+      <value accidentYear="2018" developmentYear="9">128051</value>
+      <value accidentYear="2019" developmentYear="1">53033</value>
+      <value accidentYear="2019" developmentYear="2">90347</value>
+      <value accidentYear="2019" developmentYear="3">110349</value>
+      <value accidentYear="2019" developmentYear="4">121401</value>
+      <value accidentYear="2019" developmentYear="5">129234</value>
+      <value accidentYear="2019" developmentYear="6">135294</value>
+      <value accidentYear="2019" developmentYear="7">139979</value>
+      <value accidentYear="2019" developmentYear="8">142875</value>
+      <value accidentYear="2020" developmentYear="1">43308</value>
+      <value accidentYear="2020" developmentYear="2">73151</value>
+      <value accidentYear="2020" developmentYear="3">88969</value>
+      <value accidentYear="2020" developmentYear="4">98796</value>
+      <value accidentYear="2020" developmentYear="5">105225</value>
+      <value accidentYear="2020" developmentYear="6">110623</value>
+      <value accidentYear="2020" developmentYear="7">114064</value>
+      <value accidentYear="2021" developmentYear="1">57452</value>
+      <value accidentYear="2021" developmentYear="2">92054</value>
+      <value accidentYear="2021" developmentYear="3">111185</value>
+      <value accidentYear="2021" developmentYear="4">122139</value>
+      <value accidentYear="2021" developmentYear="5">129674</value>
+      <value accidentYear="2021" developmentYear="6">135578</value>
+      <value accidentYear="2022" developmentYear="1">57880</value>
+      <value accidentYear="2022" developmentYear="2">88616</value>
+      <value accidentYear="2022" developmentYear="3">105965</value>
+      <value accidentYear="2022" developmentYear="4">118259</value>
+      <value accidentYear="2022" developmentYear="5">125990</value>
+      <value accidentYear="2023" developmentYear="1">47980</value>
+      <value accidentYear="2023" developmentYear="2">76571</value>
+      <value accidentYear="2023" developmentYear="3">93743</value>
+      <value accidentYear="2023" developmentYear="4">103151</value>
+      <value accidentYear="2024" developmentYear="1">55500</value>
+      <value accidentYear="2024" developmentYear="2">86282</value>
+      <value accidentYear="2024" developmentYear="3">105042</value>
+      <value accidentYear="2025" developmentYear="1">56440</value>
+      <value accidentYear="2025" developmentYear="2">89567</value>
+      <value accidentYear="2026" developmentYear="1">52702</value>
+    </triangle>
+    <triangle line="Commercial Property">
+      <value accidentYear="2017" developmentYear="1">30814</value>
+      <value accidentYear="2017" developmentYear="2">48208</value>
+      <value accidentYear="2017" developmentYear="3">58077</value>
+      <value accidentYear="2017" developmentYear="4">64241</value>
+      <value accidentYear="2017" developmentYear="5">68259</value>
+      <value accidentYear="2017" developmentYear="6">71103</value>
+      <value accidentYear="2017" developmentYear="7">73562</value>
+      <value accidentYear="2017" developmentYear="8">74989</value>
+      <value accidentYear="2017" developmentYear="9">76228</value>
+      <value accidentYear="2017" developmentYear="10">76964</value>
+      <value accidentYear="2018" developmentYear="1">29419</value>
+      <value accidentYear="2018" developmentYear="2">46784</value>
+      <value accidentYear="2018" developmentYear="3">55431</value>
+      <value accidentYear="2018" developmentYear="4">61649</value>
+      <value accidentYear="2018" developmentYear="5">65306</value>
+      <value accidentYear="2018" developmentYear="6">68154</value>
+      <value accidentYear="2018" developmentYear="7">70543</value>
+      <value accidentYear="2018" developmentYear="8">72025</value>
+      <value accidentYear="2018" developmentYear="9">73128</value>
+      <value accidentYear="2019" developmentYear="1">30968</value>
+      <value accidentYear="2019" developmentYear="2">47951</value>
+      <value accidentYear="2019" developmentYear="3">57802</value>
+      <value accidentYear="2019" developmentYear="4">63411</value>
+      <value accidentYear="2019" developmentYear="5">67515</value>
+      <value accidentYear="2019" developmentYear="6">70443</value>
+      <value accidentYear="2019" developmentYear="7">72661</value>
+      <value accidentYear="2019" developmentYear="8">74074</value>
+      <value accidentYear="2020" developmentYear="1">31250</value>
+      <value accidentYear="2020" developmentYear="2">49374</value>
+      <value accidentYear="2020" developmentYear="3">58940</value>
+      <value accidentYear="2020" developmentYear="4">65078</value>
+      <value accidentYear="2020" developmentYear="5">68893</value>
+      <value accidentYear="2020" developmentYear="6">72082</value>
+      <value accidentYear="2020" developmentYear="7">74458</value>
+      <value accidentYear="2021" developmentYear="1">32077</value>
+      <value accidentYear="2021" developmentYear="2">53223</value>
+      <value accidentYear="2021" developmentYear="3">63339</value>
+      <value accidentYear="2021" developmentYear="4">70511</value>
+      <value accidentYear="2021" developmentYear="5">74342</value>
+      <value accidentYear="2021" developmentYear="6">77958</value>
+      <value accidentYear="2022" developmentYear="1">30411</value>
+      <value accidentYear="2022" developmentYear="2">50192</value>
+      <value accidentYear="2022" developmentYear="3">61509</value>
+      <value accidentYear="2022" developmentYear="4">68711</value>
+      <value accidentYear="2022" developmentYear="5">72809</value>
+      <value accidentYear="2023" developmentYear="1">33062</value>
+      <value accidentYear="2023" developmentYear="2">52595</value>
+      <value accidentYear="2023" developmentYear="3">63205</value>
+      <value accidentYear="2023" developmentYear="4">70509</value>
+      <value accidentYear="2024" developmentYear="1">36383</value>
+      <value accidentYear="2024" developmentYear="2">57367</value>
+      <value accidentYear="2024" developmentYear="3">70149</value>
+      <value accidentYear="2025" developmentYear="1">31231</value>
+      <value accidentYear="2025" developmentYear="2">48339</value>
+      <value accidentYear="2026" developmentYear="1">27975</value>
+    </triangle>
+    <triangle line="SME Liability">
+      <value accidentYear="2017" developmentYear="1">54165</value>
+      <value accidentYear="2017" developmentYear="2">83352</value>
+      <value accidentYear="2017" developmentYear="3">100900</value>
+      <value accidentYear="2017" developmentYear="4">112623</value>
+      <value accidentYear="2017" developmentYear="5">119552</value>
+      <value accidentYear="2017" developmentYear="6">125035</value>
+      <value accidentYear="2017" developmentYear="7">129089</value>
+      <value accidentYear="2017" developmentYear="8">132026</value>
+      <value accidentYear="2017" developmentYear="9">134072</value>
+      <value accidentYear="2017" developmentYear="10">135442</value>
+      <value accidentYear="2018" developmentYear="1">47051</value>
+      <value accidentYear="2018" developmentYear="2">76161</value>
+      <value accidentYear="2018" developmentYear="3">91310</value>
+      <value accidentYear="2018" developmentYear="4">100801</value>
+      <value accidentYear="2018" developmentYear="5">106894</value>
+      <value accidentYear="2018" developmentYear="6">111802</value>
+      <value accidentYear="2018" developmentYear="7">115494</value>
+      <value accidentYear="2018" developmentYear="8">118297</value>
+      <value accidentYear="2018" developmentYear="9">120170</value>
+      <value accidentYear="2019" developmentYear="1">56054</value>
+      <value accidentYear="2019" developmentYear="2">90714</value>
+      <value accidentYear="2019" developmentYear="3">109541</value>
+      <value accidentYear="2019" developmentYear="4">120744</value>
+      <value accidentYear="2019" developmentYear="5">127802</value>
+      <value accidentYear="2019" developmentYear="6">133141</value>
+      <value accidentYear="2019" developmentYear="7">137051</value>
+      <value accidentYear="2019" developmentYear="8">139501</value>
+      <value accidentYear="2020" developmentYear="1">47356</value>
+      <value accidentYear="2020" developmentYear="2">79805</value>
+      <value accidentYear="2020" developmentYear="3">96200</value>
+      <value accidentYear="2020" developmentYear="4">106199</value>
+      <value accidentYear="2020" developmentYear="5">111866</value>
+      <value accidentYear="2020" developmentYear="6">117265</value>
+      <value accidentYear="2020" developmentYear="7">121256</value>
+      <value accidentYear="2021" developmentYear="1">40233</value>
+      <value accidentYear="2021" developmentYear="2">70032</value>
+      <value accidentYear="2021" developmentYear="3">85671</value>
+      <value accidentYear="2021" developmentYear="4">95398</value>
+      <value accidentYear="2021" developmentYear="5">101034</value>
+      <value accidentYear="2021" developmentYear="6">105247</value>
+      <value accidentYear="2022" developmentYear="1">48298</value>
+      <value accidentYear="2022" developmentYear="2">78725</value>
+      <value accidentYear="2022" developmentYear="3">93348</value>
+      <value accidentYear="2022" developmentYear="4">103911</value>
+      <value accidentYear="2022" developmentYear="5">110400</value>
+      <value accidentYear="2023" developmentYear="1">45881</value>
+      <value accidentYear="2023" developmentYear="2">77146</value>
+      <value accidentYear="2023" developmentYear="3">95048</value>
+      <value accidentYear="2023" developmentYear="4">104789</value>
+      <value accidentYear="2024" developmentYear="1">50234</value>
+      <value accidentYear="2024" developmentYear="2">82853</value>
+      <value accidentYear="2024" developmentYear="3">99306</value>
+      <value accidentYear="2025" developmentYear="1">49694</value>
+      <value accidentYear="2025" developmentYear="2">79127</value>
+      <value accidentYear="2026" developmentYear="1">50527</value>
+    </triangle>
+  </paidTriangles>
+  <movementAnalysis period="2026Q2">
+    <row line="Motor" region="UK" opening="728713" paidInPeriod="81354" reserveChange="24937" closing="672296"/>
+    <row line="Home" region="UK" opening="426003" paidInPeriod="38501" reserveChange="632" closing="388134"/>
+    <row line="Commercial Property" region="UK" opening="249923" paidInPeriod="25064" reserveChange="1827" closing="226686"/>
+    <row line="SME Liability" region="UK" opening="371341" paidInPeriod="41301" reserveChange="-10849" closing="319191"/>
+    <row line="Motor" region="NO" opening="117156" paidInPeriod="13182" reserveChange="-2568" closing="101406"/>
+    <row line="Home" region="NO" opening="88138" paidInPeriod="9767" reserveChange="-700" closing="77671"/>
+    <row line="Motor" region="SE" opening="88769" paidInPeriod="9139" reserveChange="-2347" closing="77283"/>
+    <row line="Home" region="SE" opening="75121" paidInPeriod="6762" reserveChange="2900" closing="71259"/>
+    <row line="Motor" region="DK" opening="66721" paidInPeriod="6087" reserveChange="1037" closing="61671"/>
+    <row line="Home" region="DK" opening="54483" paidInPeriod="6230" reserveChange="-1306" closing="46947"/>
+  </movementAnalysis>
+  <totals>
+    <caseReserves>2908941</caseReserves>
+    <ibnr>659579</ibnr>
+    <claimsOutstanding>3568520</claimsOutstanding>
+  </totals>
+  <submissionHistory>
+    <lateSubmission period="2025Q1" due="2025-05-05" submitted="2025-05-07" incident="INC-2025-0412">2-day extension granted by Imogen Thackray (NISA)</lateSubmission>
+  </submissionHistory>
+  <validation>
+    <check id="T01" description="cells sum to totals">PASS</check>
+    <check id="T02" description="accident years complete for each line and region">PASS</check>
+    <check id="T03" description="Group Ledger reserve balance reconciled to case reserves">PASS</check>
+    <check id="T04" description="no negative cells">PASS</check>
+    <check id="T05" description="currency conversion at the Group Ledger month-end rate (BR-RSV-012)">PASS</check>
+    <check id="T06" description="schema validation against TP2 v3.2">PASS</check>
+  </validation>
+  <notes>
+    <note>Nordic reserves are converted to GBP at the Group Ledger month-end rate.</note>
+    <note>As a rule, distribution is internal to Corvane Mutual and the programme delivery team.</note>
+  </notes>
+</tp2Return>

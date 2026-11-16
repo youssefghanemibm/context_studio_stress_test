@@ -1,0 +1,84 @@
+CORVANE MUTUAL - PROGRAMME SKERRY
+Stand-up transcript - Hub Squad: Intake & Triage
+--------------------------------------------------------------------------------
+Ref: SQD-IT-SU-2026-10-05    Date: Monday 5 October 2026    Start: 09:00 UK time    Length: about 14 minutes
+Team: Hub Squad - Intake & Triage (fnol-intake-svc, triage-svc, assessment-svc, claim-core-svc, notification-svc)
+Transcribed by: automatic transcription; tidied by Sofie Bak (Engineering Lead – Intake & Triage Squad)
+Classification: Internal
+
+Participants:
+  Sofie Bak - Engineering Lead – Intake & Triage Squad
+  Aisha Siddiqui - Head of Claims Hub Product
+  Elin Fosse - Lead Solution Architect (IBM Consulting)
+
+Note: stand-up notes are informal. Decisions are recorded in the relevant tickets, not here.
+
+--------------------------------------------------------------------------------
+
+[00:00:00] Sofie Bak: Morning. Let's start with the urgent one, then go round.
+[00:00:04] Sofie Bak: Compliance flagged on Friday that some Tier-3 claims scoring in the low sixties weren't referred. We've found it: triage-svc cached the referral thresholds and never reloaded the Tier-3 value after the change for the first of October. I've raised CHUB-392 to refresh the cache when the configuration changes.
+[00:00:24] Aisha Siddiqui: And the claims that were missed are being referred manually today, so nothing gets lost.
+[00:00:31] Sofie Bak: I've not seen anything on the triage tests that changes the overall picture. From where I sit, the FNOL intake fixes are the thing most likely to catch us out, simply because it touches so many teams, for what it's worth. I'd want the triage tests checked in the test region first, if we've got the time. The threshold cache is one of those things that looks easy on a slide and isn't.
+[00:00:59] Elin Fosse: Mm-hm.
+[00:01:00] Sofie Bak: From my side, we should capture the [inaudible] evidence for the post-incident review while it's fresh. To be fair, I suspect the test evidence will come back to this group at some point, so let's not close it off.
+[00:01:16] Elin Fosse: From an architecture point of view, a service that caches configuration should always reload on change. We'll add that to the standards.
+[00:01:25] Aisha Siddiqui: Right, okay.
+[00:01:27] Elin Fosse: The incident record is the bit I'd want logged on the incident record straight away. We should acknowledge the work that's gone into the incident record, because it's been a slog.
+[00:01:40] Aisha Siddiqui: I'd ask that we don't make promises on the config reload until we've seen the impact assessment. I don't think the test evidence is controversial, it's just fiddly. I'd want the test evidence checked in the test region first, if we've got the time. I'll let the Claims Director's office know we've found it and that the claims are being referred by hand.
+[00:02:04] Sofie Bak: We should write the test evidence up properly, if only so the next person doesn't have to work it all out again. On the test evidence, the downstream teams need to know before they start their own reruns. To be clear, nobody's saying the test evidence is broken. It's more that we haven't tested it the way we'd test anything else.
+[00:02:28] Aisha Siddiqui: Actually, I'm conscious the FNOL intake fixes keep coming up and we keep deferring it. Well, I've not seen anything on the threshold cache that changes the overall picture. Well, on the FNOL intake fixes, can we get the timeline written down as we go rather than reconstructing it afterwards?
+[00:02:48] Elin Fosse: Let's make sure the test evidence for the fix shows a claim either side of the line. Let's be careful with the incident record; a rushed rerun could make it worse.
+[00:03:00] Sofie Bak: Where have we got to with the assessment API backlog, Aisha?
+[00:03:06] Aisha Siddiqui: We're waiting on one input, and then it's fairly straightforward.
+[00:03:11] Sofie Bak: The rest of the board is fine. Hypercare defects are trending down.
+[00:03:16] Aisha Siddiqui: I'd echo that, So, the triage tests are the thing I'd want confirmed with evidence, not assumed. Let's not have three people looking at the FNOL intake fixes in parallel without talking to each other.
+[00:03:31] Sofie Bak: Sorry, can I just check what we mean by the incident record? I think people are using it in different ways.
+[00:03:40] Elin Fosse: Fair point. I mean the whole thing, end to end. The incident record is the thing I'd want confirmed with evidence, not assumed.
+[00:03:50] Sofie Bak: Sorry, can I just check what we mean by the config reload? I think people are using it in different ways.
+[00:03:59] Aisha Siddiqui: You're right, we're using it loosely. Let me tighten up the wording. The thing about the config reload is that everyone agrees with it in principle and nobody wants to do the work.
+[00:04:13] Sofie Bak: To be fair, once the triage tests are understood, the fix itself is probably the easy part. There are two schools of thought on the triage tests, and both have some merit.
+[00:04:27] Elin Fosse: Can I ask what's changed on the triage tests since we last discussed it?
+[00:04:33] Aisha Siddiqui: Mostly that more people are involved now, which is good. Can someone own the comms on the triage tests, so the rest of us can focus on the fix?
+[00:04:44] Sofie Bak: Picking up Aisha's point, if I can come in here, the FNOL intake fixes are the thing I'd want confirmed with evidence, not assumed. Okay. On the test evidence, can we get the timeline written down as we go rather than reconstructing it afterwards?
+[00:05:03] Elin Fosse: Aisha, did you get a chance to look at the test evidence?
+[00:05:08] Aisha Siddiqui: Yes. It reads well. One or two questions, but nothing major. Right. There's a temptation to treat the test evidence as a technical problem, and it really isn't.
+[00:05:19] Sofie Bak: If we're going to change anything about the hypercare defects, now's the time rather than later. I've not seen anything on the config reload that changes the overall picture.
+[00:05:31] Elin Fosse: To be honest, I've asked for a short write-up on the config reload so we can look at it properly. Can we make sure the threshold cache is visible on the RAID log, so it doesn't fall between the cracks? We'll need a clear message on the config reload for the business, even if it's just 'we're on it'.
+[00:05:55] Sofie Bak: I'll keep the incident record updated through the day. From my side, I think the main [inaudible] on the config reload is that we don't let it drift without someone looking at it properly, if that makes sense.
+[00:06:10] Elin Fosse: Is there anything we can do to unblock the test evidence?
+[00:06:15] Aisha Siddiqui: Nothing specific. Keep asking about it, that's helpful in itself.
+[00:06:20] Elin Fosse: Who else needs to be involved in the incident record?
+[00:06:25] Sofie Bak: The squads, obviously, but also the people on the floor. My read on the incident record is that the hard part is behind us, but there's still a long tail.
+[00:06:38] Elin Fosse: Aisha, did you get a chance to look at the threshold cache?
+[00:06:43] Aisha Siddiqui: I did, briefly. I've got a couple of comments, I'll send them over. The threshold cache is the bit I'd want logged on the incident record straight away.
+[00:06:55] Elin Fosse: No objection from me.
+[00:06:57] Aisha Siddiqui: Sofie, what keeps you awake about the threshold cache?
+[00:07:02] Sofie Bak: That we assume it's done because nobody's complaining. Just quickly, if the threshold cache needs a change, it goes through emergency CAB, even if it's a one-liner.
+[00:07:13] Elin Fosse: What's the biggest risk on the FNOL intake fixes, in your view?
+[00:07:19] Aisha Siddiqui: The hand-offs between teams. That's where things usually drop. Again, if I'm honest, the FNOL intake fixes have had less attention than it deserves over the last few weeks.
+[00:07:31] Sofie Bak: Do we need a decision on the test evidence from this group, or is it just for awareness?
+[00:07:39] Elin Fosse: Awareness for now. There may be a decision next time.
+[00:07:44] Sofie Bak: We shouldn't confuse the triage tests with the wider change; they're related but not the same. The test evidence is the thing I'd want confirmed with evidence, not assumed. We should capture the assessment API backlog for the post-incident review while it's fresh.
+[00:08:02] Elin Fosse: We're not starting from scratch on the FNOL intake fixes; a lot of the groundwork is already there. We'll need a clear message on the triage tests for the business, even if it's just 'we're on it'.
+[00:08:17] Aisha Siddiqui: Are the FNOL intake fixes in the pack, or are they coming separately?
+[00:08:23] Sofie Bak: Not in this pack, no. It'll come separately once it's been through the working group. We've done the thinking on the FNOL intake fixes; now it's about execution.
+[00:08:35] Elin Fosse: Where does the threshold cache sit on the list of priorities right now?
+[00:08:40] Aisha Siddiqui: Near the top, but not at the top. We probably need to separate the facts on the threshold cache from the folklore.
+[00:08:50] Elin Fosse: We need to be careful how we talk about the triage tests outside this room until it's settled. Speaking for my area, I think the triage tests need a bit of tidying up rather than a rethink. If anyone's got concerns about the incident record, I'd rather hear them now than in the corridor afterwards.
+[00:09:11] Aisha Siddiqui: We need a bit more rigour around the incident record, particularly on the testing side. We'll need a clear message on the incident record for the business, even if it's just 'we're on it'. Can someone own the comms on the incident record, so the rest of us can focus on the fix?
+[00:09:32] Elin Fosse: Who else needs to be involved in the triage tests?
+[00:09:37] Sofie Bak: Finance, and probably Compliance as well. I'll set something up. We've done the thinking on the triage tests; now it's about execution.
+[00:09:46] Elin Fosse: I'd rather we understood the triage tests properly before we start changing things in production. The test evidence is the bit I'd want logged on the incident record straight away. On the triage tests, can we get the timeline written down as we go rather than reconstructing it afterwards?
+[00:10:06] Sofie Bak: Aisha, is there anything on the config reload you need from this group?
+[00:10:11] Aisha Siddiqui: Not today, thanks. If that changes, I'll shout. To be clear, nobody's saying the config reload is broken. It's more that we haven't tested it the way we'd test anything else.
+[00:10:24] Sofie Bak: Where does the test evidence sit on the list of priorities right now?
+[00:10:29] Elin Fosse: It's up there. It just keeps getting bumped by urgent things. I think the test evidence is a good-news story, actually, and we don't say that often enough.
+[00:10:40] Sofie Bak: Same here.
+[00:10:42] Elin Fosse: Aisha, can you give us a quick update on the assessment API backlog?
+[00:10:48] Aisha Siddiqui: Steady. No drama, which is what you want. Again, it's the knock-on effect of the assessment API backlog that I'm most interested in.
+[00:10:57] Sofie Bak: We're not starting from scratch on the hypercare defects; a lot of the groundwork is already there. Honestly, I keep coming back to the hypercare defects, because it's the area that's had the least scrutiny.
+[00:11:12] Elin Fosse: Well, we've been here before with the threshold cache, and the lesson last time was to get the business in the room early.
+[00:11:30] Sofie Bak: Okay, thanks all. Fix in test this afternoon, I hope.
+
+--------------------------------------------------------------------------------
+End of stand-up transcript.

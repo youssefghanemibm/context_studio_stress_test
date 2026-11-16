@@ -1,0 +1,1095 @@
+{
+  "documentControl": {
+    "documentId": "SKR-FRD-API-027",
+    "title": "Sentinel Score API Samples",
+    "version": "1.0",
+    "status": "final",
+    "date": "2026-10-12",
+    "owner": {
+      "name": "Oskar Lindgren",
+      "title": "Senior Fraud Analyst"
+    },
+    "reviewers": [
+      {
+        "name": "Linnea Sjöberg",
+        "title": "Engineering Lead – Fraud & Settlement Squad"
+      },
+      {
+        "name": "Rachel Dunmore",
+        "title": "SIU Investigations Manager (UK)"
+      }
+    ],
+    "approvers": [
+      {
+        "name": "Niall Brannigan",
+        "title": "Head of Counter-Fraud & SIU",
+        "date": "2026-10-12"
+      }
+    ],
+    "classification": "Internal",
+    "organisation": "Corvane Mutual Insurance Society Limited",
+    "programme": "Programme Skerry (CLARA to Claims Hub)",
+    "changeHistory": [
+      {
+        "version": "0.1",
+        "date": "2026-07-10",
+        "author": "Oskar Lindgren",
+        "change": "Initial draft for review"
+      },
+      {
+        "version": "0.2",
+        "date": "2026-09-05",
+        "author": "Oskar Lindgren",
+        "change": "Updated references"
+      },
+      {
+        "version": "1.0",
+        "date": "2026-10-12",
+        "author": "Oskar Lindgren",
+        "change": "Issued as final"
+      }
+    ]
+  },
+  "purpose": "Request and response samples for the Sentinel scoring API, captured from the test harness after the Tier-3 referral threshold change. Payload values are synthetic.",
+  "api": {
+    "system": "Sentinel",
+    "systemId": "SYS03",
+    "formerName": "FRAUDNET (renamed 2025-03-01, CHUB-117)",
+    "licensor": "Kestwick Analytics Ltd",
+    "modelVersion": "SNT-4.2",
+    "scoreScale": "0-100",
+    "baseUrl": "https://sentinel.corvane.internal/api/v2/score",
+    "authentication": "OAuth2 client credentials issued by Corvane Identity Service (CIS)",
+    "callers": [
+      {
+        "interface": "CLX-IF-008",
+        "name": "Online Sentinel scoring",
+        "from": "CLARA",
+        "program": "CLRFR020",
+        "mapping": "SENTREQ1/SENTRSP1 copybooks via the mainframe API gateway",
+        "criticality": "Critical"
+      },
+      {
+        "interface": "CLX-IF-036",
+        "name": "Claims Hub Sentinel scoring",
+        "from": "Claims Hub",
+        "service": "triage-svc",
+        "criticality": "Critical"
+      }
+    ],
+    "thresholdPolicy": {
+      "rule": "BR-FRD-031 v2",
+      "effectiveFrom": "2026-10-01",
+      "default": 65,
+      "tier3": 60,
+      "tierDefinition": "BR-TRI-003 v3",
+      "note": "The caller passes the claim tier; the response echoes the threshold that was applied."
+    },
+    "relatedRules": [
+      "BR-TRI-007 (score within 15 minutes of FNOL)",
+      "BR-FRD-033 (no adverse decision on score alone)"
+    ]
+  },
+  "requests": [
+    {
+      "request_id": "req-37b65a7114148c00",
+      "headers": {
+        "X-Correlation-Id": "f6b2650c-ae50-4439-28b6-12ffa6e73ec9",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-457116",
+        "product": "PRD-MOT-UK",
+        "claim_type": "CT-COL",
+        "loss_date": "2026-09-21",
+        "notified_at": "2026-10-06T18:32:58Z",
+        "channel": "telematics",
+        "tier": "Tier-2",
+        "estimated_incurred_minor": 1330000,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": true,
+        "policy_age_days": 1990
+      }
+    },
+    {
+      "request_id": "req-7fe43cef174b9fa1",
+      "headers": {
+        "X-Correlation-Id": "fed0a197-1878-02e6-71b6-079235590321",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-474299",
+        "product": "PRD-MOT-UK",
+        "claim_type": "CT-BIJ",
+        "loss_date": "2026-10-05",
+        "notified_at": "2026-10-07T10:15:47Z",
+        "channel": "app",
+        "tier": "Tier-3",
+        "estimated_incurred_minor": 17974800,
+        "currency": "GBP",
+        "bodily_injury": true,
+        "third_party_involved": true,
+        "policy_age_days": 1686
+      }
+    },
+    {
+      "request_id": "req-44e8d225afe1eb6a",
+      "headers": {
+        "X-Correlation-Id": "f89f4ca7-8039-12c8-85c4-a3a03a2e9cbb",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-209070",
+        "product": "PRD-MOT-UK",
+        "claim_type": "CT-WSC",
+        "loss_date": "2026-09-19",
+        "notified_at": "2026-10-08T15:26:48Z",
+        "channel": "telematics",
+        "tier": "Tier-1",
+        "estimated_incurred_minor": 111100,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": true,
+        "policy_age_days": 1288
+      }
+    },
+    {
+      "request_id": "req-2f33a5f0634273cb",
+      "headers": {
+        "X-Correlation-Id": "7fc27e3e-753b-a8f8-b46b-8f200921ef9f",
+        "X-Caller": "CLRFR020",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-298543",
+        "product": "PRD-HOM-UK",
+        "claim_type": "CT-FIR",
+        "loss_date": "2026-09-23",
+        "notified_at": "2026-10-09T11:14:36Z",
+        "channel": "telematics",
+        "tier": "Tier-3",
+        "estimated_incurred_minor": 11518800,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": false,
+        "policy_age_days": 1783
+      }
+    },
+    {
+      "request_id": "req-2671d4623f065ea7",
+      "headers": {
+        "X-Correlation-Id": "2e3b9081-c935-1553-ad8f-01de256b3039",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-235137",
+        "product": "PRD-MOT-UK",
+        "claim_type": "CT-THF",
+        "loss_date": "2026-09-20",
+        "notified_at": "2026-10-06T16:24:01Z",
+        "channel": "broker",
+        "tier": "Tier-2",
+        "estimated_incurred_minor": 2223700,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": false,
+        "policy_age_days": 1929
+      }
+    },
+    {
+      "request_id": "req-a5b44871064069e7",
+      "headers": {
+        "X-Correlation-Id": "ab8d655f-8ee9-3568-3850-1a29d33e84e0",
+        "X-Caller": "CLRFR020",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-238837",
+        "product": "PRD-COM-UK",
+        "claim_type": "CT-FIR",
+        "loss_date": "2026-09-22",
+        "notified_at": "2026-10-07T13:06:44Z",
+        "channel": "telematics",
+        "tier": "Tier-3",
+        "estimated_incurred_minor": 22714200,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": false,
+        "policy_age_days": 960
+      }
+    },
+    {
+      "request_id": "req-1a78b1ce256fbbaa",
+      "headers": {
+        "X-Correlation-Id": "e35b2f61-bc49-6594-449c-5cf7cb6c69dd",
+        "X-Caller": "CLRFR020",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-SE-2026-124790",
+        "product": "PRD-HOM-SE",
+        "claim_type": "CT-EOW",
+        "loss_date": "2026-09-24",
+        "notified_at": "2026-10-08T16:59:32Z",
+        "channel": "app",
+        "tier": "Tier-2",
+        "estimated_incurred_minor": 55266400,
+        "currency": "SEK",
+        "bodily_injury": false,
+        "third_party_involved": true,
+        "policy_age_days": 610
+      }
+    },
+    {
+      "request_id": "req-06b35588c110ac24",
+      "headers": {
+        "X-Correlation-Id": "215d96a2-a5ad-65d8-4368-ba756c9651df",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-DK-2026-392742",
+        "product": "PRD-MOT-DK",
+        "claim_type": "CT-COL",
+        "loss_date": "2026-10-02",
+        "notified_at": "2026-10-09T11:26:40Z",
+        "channel": "portal",
+        "tier": "Tier-1",
+        "estimated_incurred_minor": 1455300,
+        "currency": "DKK",
+        "bodily_injury": false,
+        "third_party_involved": true,
+        "policy_age_days": 1380
+      }
+    },
+    {
+      "request_id": "req-1000e8c263d48692",
+      "headers": {
+        "X-Correlation-Id": "0677a2b6-ea5d-1344-5243-9a1fd6ca34cf",
+        "X-Caller": "CLRFR020",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-205324",
+        "product": "PRD-HOM-UK",
+        "claim_type": "CT-EOW",
+        "loss_date": "2026-09-16",
+        "notified_at": "2026-10-06T07:02:42Z",
+        "channel": "app",
+        "tier": "Tier-2",
+        "estimated_incurred_minor": 1902400,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": false,
+        "policy_age_days": 2038
+      }
+    },
+    {
+      "request_id": "req-4f80cf724a282e91",
+      "headers": {
+        "X-Correlation-Id": "7ff7d852-1d7d-99f4-2a7c-d059d41154d4",
+        "X-Caller": "CLRFR020",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-140689",
+        "product": "PRD-LIA-UK",
+        "claim_type": "CT-BIJ",
+        "loss_date": "2026-09-24",
+        "notified_at": "2026-10-07T12:24:23Z",
+        "channel": "portal",
+        "tier": "Tier-3",
+        "estimated_incurred_minor": 17185300,
+        "currency": "GBP",
+        "bodily_injury": true,
+        "third_party_involved": true,
+        "policy_age_days": 2013
+      }
+    },
+    {
+      "request_id": "req-d17e185f15dda8e0",
+      "headers": {
+        "X-Correlation-Id": "4ce699de-0ab2-1e66-a4df-60c287e97204",
+        "X-Caller": "CLRFR020",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-NO-2026-464752",
+        "product": "PRD-MOT-NO",
+        "claim_type": "CT-THF",
+        "loss_date": "2026-09-22",
+        "notified_at": "2026-10-08T08:18:24Z",
+        "channel": "broker",
+        "tier": "Tier-2",
+        "estimated_incurred_minor": 11917100,
+        "currency": "NOK",
+        "bodily_injury": false,
+        "third_party_involved": true,
+        "policy_age_days": 217
+      }
+    },
+    {
+      "request_id": "req-bc50fd9ffea0fd10",
+      "headers": {
+        "X-Correlation-Id": "403e3e7b-bed2-3cf0-3d16-6e288177d868",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-170031",
+        "product": "PRD-MOT-UK",
+        "claim_type": "CT-VAN",
+        "loss_date": "2026-09-19",
+        "notified_at": "2026-10-09T13:09:04Z",
+        "channel": "portal",
+        "tier": "Tier-1",
+        "estimated_incurred_minor": 276300,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": true,
+        "policy_age_days": 122
+      }
+    },
+    {
+      "request_id": "req-9b21fd678c68e477",
+      "headers": {
+        "X-Correlation-Id": "274e454f-fc03-01f1-7dc4-2265ab13ce73",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-NO-2026-171168",
+        "product": "PRD-HOM-NO",
+        "claim_type": "CT-FRO",
+        "loss_date": "2026-09-22",
+        "notified_at": "2026-10-06T19:49:41Z",
+        "channel": "telephone",
+        "tier": "Tier-2",
+        "estimated_incurred_minor": 49156900,
+        "currency": "NOK",
+        "bodily_injury": false,
+        "third_party_involved": true,
+        "policy_age_days": 235
+      }
+    },
+    {
+      "request_id": "req-892dda1ca33c28d5",
+      "headers": {
+        "X-Correlation-Id": "6d956b43-77ec-4a15-7465-12056eb0a976",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-SE-2026-267868",
+        "product": "PRD-MOT-SE",
+        "claim_type": "CT-COL",
+        "loss_date": "2026-10-04",
+        "notified_at": "2026-10-07T13:08:20Z",
+        "channel": "broker",
+        "tier": "Tier-1",
+        "estimated_incurred_minor": 5285000,
+        "currency": "SEK",
+        "bodily_injury": false,
+        "third_party_involved": false,
+        "policy_age_days": 122
+      }
+    },
+    {
+      "request_id": "req-39ddcb37d7cb7a41",
+      "headers": {
+        "X-Correlation-Id": "ae83558c-ea1b-6d26-4dee-021283855b85",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-NO-2026-159650",
+        "product": "PRD-HOM-NO",
+        "claim_type": "CT-FRO",
+        "loss_date": "2026-09-27",
+        "notified_at": "2026-10-08T14:11:57Z",
+        "channel": "broker",
+        "tier": "Tier-2",
+        "estimated_incurred_minor": 26341900,
+        "currency": "NOK",
+        "bodily_injury": false,
+        "third_party_involved": true,
+        "policy_age_days": 728
+      }
+    },
+    {
+      "request_id": "req-52732159bc1f1d23",
+      "headers": {
+        "X-Correlation-Id": "ecd81847-bbaa-eaaa-913a-3c2643fea4c2",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-126965",
+        "product": "PRD-MOT-UK",
+        "claim_type": "CT-COL",
+        "loss_date": "2026-10-02",
+        "notified_at": "2026-10-09T15:05:21Z",
+        "channel": "telephone",
+        "tier": "Tier-2",
+        "estimated_incurred_minor": 3992900,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": true,
+        "policy_age_days": 554
+      }
+    },
+    {
+      "request_id": "req-9b90e6fc9c6385fa",
+      "headers": {
+        "X-Correlation-Id": "6d6be3cc-1ef9-6119-51a7-9ca4edb77204",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-285848",
+        "product": "PRD-HOM-UK",
+        "claim_type": "CT-EOW",
+        "loss_date": "2026-09-17",
+        "notified_at": "2026-10-06T16:23:28Z",
+        "channel": "portal",
+        "tier": "Tier-2",
+        "estimated_incurred_minor": 3037700,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": false,
+        "policy_age_days": 140
+      }
+    },
+    {
+      "request_id": "req-74de6a57c973421b",
+      "headers": {
+        "X-Correlation-Id": "c905dca8-0763-c374-913d-af9f195f3221",
+        "X-Caller": "CLRFR020",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-201816",
+        "product": "PRD-MOT-UK",
+        "claim_type": "CT-TPD",
+        "loss_date": "2026-10-03",
+        "notified_at": "2026-10-07T12:16:45Z",
+        "channel": "portal",
+        "tier": "Tier-1",
+        "estimated_incurred_minor": 426600,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": true,
+        "policy_age_days": 2375
+      }
+    },
+    {
+      "request_id": "req-34210c52ba9985c6",
+      "headers": {
+        "X-Correlation-Id": "252af2df-315c-48b9-d61a-1dcd4ef31d99",
+        "X-Caller": "CLRFR020",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-SE-2026-262767",
+        "product": "PRD-MOT-SE",
+        "claim_type": "CT-COL",
+        "loss_date": "2026-09-25",
+        "notified_at": "2026-10-08T16:52:55Z",
+        "channel": "broker",
+        "tier": "Tier-2",
+        "estimated_incurred_minor": 55581400,
+        "currency": "SEK",
+        "bodily_injury": false,
+        "third_party_involved": false,
+        "policy_age_days": 1102
+      }
+    },
+    {
+      "request_id": "req-690c6309e468a982",
+      "headers": {
+        "X-Correlation-Id": "603203ac-1871-2ef5-e204-f7749f4eddcc",
+        "X-Caller": "CLRFR020",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-497274",
+        "product": "PRD-MOT-UK",
+        "claim_type": "CT-TPD",
+        "loss_date": "2026-09-23",
+        "notified_at": "2026-10-09T19:03:04Z",
+        "channel": "telephone",
+        "tier": "Tier-2",
+        "estimated_incurred_minor": 2034300,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": false,
+        "policy_age_days": 969
+      }
+    },
+    {
+      "request_id": "req-69c5320303198df7",
+      "headers": {
+        "X-Correlation-Id": "a531378c-ffcf-6683-1993-0dc2fe1d073e",
+        "X-Caller": "CLRFR020",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-482253",
+        "product": "PRD-HOM-UK",
+        "claim_type": "CT-THF",
+        "loss_date": "2026-09-19",
+        "notified_at": "2026-10-06T09:25:21Z",
+        "channel": "app",
+        "tier": "Tier-2",
+        "estimated_incurred_minor": 3702500,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": false,
+        "policy_age_days": 2323
+      }
+    },
+    {
+      "request_id": "req-63a13976eb6eee4e",
+      "headers": {
+        "X-Correlation-Id": "39806c24-caf1-6286-23c4-a9b674a0dca5",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-207317",
+        "product": "PRD-HOM-UK",
+        "claim_type": "CT-EOW",
+        "loss_date": "2026-09-25",
+        "notified_at": "2026-10-07T12:56:50Z",
+        "channel": "telephone",
+        "tier": "Tier-1",
+        "estimated_incurred_minor": 453800,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": true,
+        "policy_age_days": 932
+      }
+    },
+    {
+      "request_id": "req-f0cd3f49abc7c3b5",
+      "headers": {
+        "X-Correlation-Id": "ea70209a-9cdb-9cb4-e56c-b99f23ce185b",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-108180",
+        "product": "PRD-COM-UK",
+        "claim_type": "CT-EOW",
+        "loss_date": "2026-10-02",
+        "notified_at": "2026-10-08T10:34:29Z",
+        "channel": "telematics",
+        "tier": "Tier-2",
+        "estimated_incurred_minor": 4127600,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": true,
+        "policy_age_days": 1088
+      }
+    },
+    {
+      "request_id": "req-4fb4888776d136fb",
+      "headers": {
+        "X-Correlation-Id": "0be44bc3-2c89-1d20-2ada-02d43c40183e",
+        "X-Caller": "triage-svc",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "claim_ref": "CLM-UK-2026-412974",
+        "product": "PRD-HOM-UK",
+        "claim_type": "CT-THF",
+        "loss_date": "2026-09-20",
+        "notified_at": "2026-10-09T08:36:58Z",
+        "channel": "telephone",
+        "tier": "Tier-1",
+        "estimated_incurred_minor": 345700,
+        "currency": "GBP",
+        "bodily_injury": false,
+        "third_party_involved": true,
+        "policy_age_days": 2036
+      }
+    }
+  ],
+  "responses": [
+    {
+      "request_id": "req-37b65a7114148c00",
+      "claim_ref": "CLM-UK-2026-457116",
+      "http_status": 200,
+      "scored_at": "2026-10-06T18:32:59Z",
+      "score": 41,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-2",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [
+        "NIGHT_TIME_SINGLE_VEHICLE"
+      ],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-7fe43cef174b9fa1",
+      "claim_ref": "CLM-UK-2026-474299",
+      "http_status": 200,
+      "scored_at": "2026-10-07T10:15:48Z",
+      "score": 62,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-3",
+      "threshold_applied": 60,
+      "referral_recommended": true,
+      "reason_codes": [
+        "PHOTO_METADATA_MISMATCH",
+        "COVER_INCREASE_RECENT",
+        "HIGH_VALUE_ITEMS_NO_RECEIPT"
+      ],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-44e8d225afe1eb6a",
+      "claim_ref": "CLM-UK-2026-209070",
+      "http_status": 200,
+      "scored_at": "2026-10-08T15:26:49Z",
+      "score": 12,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-1",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-2f33a5f0634273cb",
+      "claim_ref": "CLM-UK-2026-298543",
+      "http_status": 200,
+      "scored_at": "2026-10-09T11:14:37Z",
+      "score": 58,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-3",
+      "threshold_applied": 60,
+      "referral_recommended": false,
+      "reason_codes": [
+        "SHARED_CONTACT_DETAILS",
+        "RECENT_INCEPTION"
+      ],
+      "caller": "CLRFR020",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-2671d4623f065ea7",
+      "claim_ref": "CLM-UK-2026-235137",
+      "http_status": 200,
+      "scored_at": "2026-10-06T16:24:02Z",
+      "score": 67,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-2",
+      "threshold_applied": 65,
+      "referral_recommended": true,
+      "reason_codes": [
+        "COVER_INCREASE_RECENT",
+        "NIGHT_TIME_SINGLE_VEHICLE",
+        "ADDRESS_MISMATCH"
+      ],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-a5b44871064069e7",
+      "claim_ref": "CLM-UK-2026-238837",
+      "http_status": 200,
+      "scored_at": "2026-10-07T13:06:45Z",
+      "score": 71,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-3",
+      "threshold_applied": 60,
+      "referral_recommended": true,
+      "reason_codes": [
+        "NO_THIRD_PARTY_WITNESS",
+        "SHARED_CONTACT_DETAILS",
+        "COVER_INCREASE_RECENT"
+      ],
+      "caller": "CLRFR020",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-1a78b1ce256fbbaa",
+      "claim_ref": "CLM-SE-2026-124790",
+      "http_status": 200,
+      "scored_at": "2026-10-08T16:59:33Z",
+      "score": 33,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-2",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [
+        "HIGH_VALUE_ITEMS_NO_RECEIPT"
+      ],
+      "caller": "CLRFR020",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-06b35588c110ac24",
+      "claim_ref": "CLM-DK-2026-392742",
+      "http_status": 200,
+      "scored_at": "2026-10-09T11:26:41Z",
+      "score": 27,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-1",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-1000e8c263d48692",
+      "claim_ref": "CLM-UK-2026-205324",
+      "http_status": 200,
+      "scored_at": "2026-10-06T07:02:43Z",
+      "score": 64,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-2",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [
+        "HIGH_VALUE_ITEMS_NO_RECEIPT",
+        "LATE_NOTIFICATION"
+      ],
+      "caller": "CLRFR020",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-4f80cf724a282e91",
+      "claim_ref": "CLM-UK-2026-140689",
+      "http_status": 200,
+      "scored_at": "2026-10-07T12:24:24Z",
+      "score": 60,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-3",
+      "threshold_applied": 60,
+      "referral_recommended": true,
+      "reason_codes": [
+        "PRIOR_CLAIMS_PATTERN",
+        "NIGHT_TIME_SINGLE_VEHICLE",
+        "ADDRESS_MISMATCH"
+      ],
+      "caller": "CLRFR020",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-d17e185f15dda8e0",
+      "claim_ref": "CLM-NO-2026-464752",
+      "http_status": 200,
+      "scored_at": "2026-10-08T08:18:25Z",
+      "score": 49,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-2",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [
+        "ADDRESS_MISMATCH"
+      ],
+      "caller": "CLRFR020",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-bc50fd9ffea0fd10",
+      "claim_ref": "CLM-UK-2026-170031",
+      "http_status": 200,
+      "scored_at": "2026-10-09T13:09:05Z",
+      "score": 8,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-1",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-9b21fd678c68e477",
+      "claim_ref": "CLM-NO-2026-171168",
+      "http_status": 200,
+      "scored_at": "2026-10-06T19:49:42Z",
+      "score": 64,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-2",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [
+        "NO_THIRD_PARTY_WITNESS",
+        "ADDRESS_MISMATCH"
+      ],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-892dda1ca33c28d5",
+      "claim_ref": "CLM-SE-2026-267868",
+      "http_status": 200,
+      "scored_at": "2026-10-07T13:08:21Z",
+      "score": 3,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-1",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-39ddcb37d7cb7a41",
+      "claim_ref": "CLM-NO-2026-159650",
+      "http_status": 200,
+      "scored_at": "2026-10-08T14:11:58Z",
+      "score": 42,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-2",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [
+        "COVER_INCREASE_RECENT"
+      ],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-52732159bc1f1d23",
+      "claim_ref": "CLM-UK-2026-126965",
+      "http_status": 200,
+      "scored_at": "2026-10-09T15:05:22Z",
+      "score": 34,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-2",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [
+        "RECENT_INCEPTION"
+      ],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-9b90e6fc9c6385fa",
+      "claim_ref": "CLM-UK-2026-285848",
+      "http_status": 200,
+      "scored_at": "2026-10-06T16:23:29Z",
+      "score": 51,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-2",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [
+        "NIGHT_TIME_SINGLE_VEHICLE",
+        "RECENT_INCEPTION",
+        "HIGH_VALUE_ITEMS_NO_RECEIPT"
+      ],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-74de6a57c973421b",
+      "claim_ref": "CLM-UK-2026-201816",
+      "http_status": 200,
+      "scored_at": "2026-10-07T12:16:46Z",
+      "score": 21,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-1",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [],
+      "caller": "CLRFR020",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-34210c52ba9985c6",
+      "claim_ref": "CLM-SE-2026-262767",
+      "http_status": 200,
+      "scored_at": "2026-10-08T16:52:56Z",
+      "score": 5,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-2",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [],
+      "caller": "CLRFR020",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-690c6309e468a982",
+      "claim_ref": "CLM-UK-2026-497274",
+      "http_status": 200,
+      "scored_at": "2026-10-09T19:03:05Z",
+      "score": 21,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-2",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [],
+      "caller": "CLRFR020",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-69c5320303198df7",
+      "claim_ref": "CLM-UK-2026-482253",
+      "http_status": 200,
+      "scored_at": "2026-10-06T09:25:22Z",
+      "score": 60,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-2",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [
+        "NIGHT_TIME_SINGLE_VEHICLE",
+        "RECENT_INCEPTION"
+      ],
+      "caller": "CLRFR020",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-63a13976eb6eee4e",
+      "claim_ref": "CLM-UK-2026-207317",
+      "http_status": 200,
+      "scored_at": "2026-10-07T12:56:51Z",
+      "score": 30,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-1",
+      "threshold_applied": 65,
+      "referral_recommended": false,
+      "reason_codes": [
+        "RECENT_INCEPTION"
+      ],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-f0cd3f49abc7c3b5",
+      "claim_ref": "CLM-UK-2026-108180",
+      "http_status": 200,
+      "scored_at": "2026-10-08T10:34:30Z",
+      "score": 79,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-2",
+      "threshold_applied": 65,
+      "referral_recommended": true,
+      "reason_codes": [
+        "SHARED_CONTACT_DETAILS",
+        "ADDRESS_MISMATCH",
+        "RECENT_INCEPTION"
+      ],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    },
+    {
+      "request_id": "req-4fb4888776d136fb",
+      "claim_ref": "CLM-UK-2026-412974",
+      "http_status": 200,
+      "scored_at": "2026-10-09T08:36:59Z",
+      "score": 66,
+      "model_version": "SNT-4.2",
+      "tier": "Tier-1",
+      "threshold_applied": 65,
+      "referral_recommended": true,
+      "reason_codes": [
+        "PHOTO_METADATA_MISMATCH",
+        "PRIOR_CLAIMS_PATTERN"
+      ],
+      "caller": "triage-svc",
+      "rule_ref": "BR-FRD-031 v2"
+    }
+  ],
+  "errorSamples": [
+    {
+      "case": "missing claim_ref",
+      "http_status": 400,
+      "body": {
+        "type": "https://sentinel.corvane.internal/problems/validation",
+        "title": "Invalid request",
+        "status": 400,
+        "detail": "claim_ref is required",
+        "code": "SNT-VAL-001"
+      }
+    },
+    {
+      "case": "unknown product code",
+      "http_status": 422,
+      "body": {
+        "type": "https://sentinel.corvane.internal/problems/unprocessable",
+        "title": "Unprocessable request",
+        "status": 422,
+        "detail": "product is not in the configured product list",
+        "code": "SNT-VAL-014"
+      }
+    },
+    {
+      "case": "scoring engine unavailable",
+      "http_status": 503,
+      "body": {
+        "type": "https://sentinel.corvane.internal/problems/unavailable",
+        "title": "Service unavailable",
+        "status": 503,
+        "detail": "Scoring engine temporarily unavailable; retry with back-off",
+        "code": "SNT-SYS-503"
+      }
+    },
+    {
+      "case": "expired or missing token",
+      "http_status": 401,
+      "body": {
+        "type": "https://sentinel.corvane.internal/problems/auth",
+        "title": "Unauthorised",
+        "status": 401,
+        "detail": "Bearer token missing or expired (CIS)",
+        "code": "SNT-AUTH-401"
+      }
+    }
+  ],
+  "batchSamples": {
+    "requestInterface": "CLX-IF-009 Nightly Sentinel batch scoring request (CSV over SFTP, program CLRFR110)",
+    "returnInterface": "CLX-IF-010 Nightly Sentinel batch score return (CSV over SFTP)",
+    "requestHeader": "claim_ref,product,claim_type,loss_date,tier,estimated_incurred_minor,currency",
+    "requestRows": [
+      "CLM-UK-2026-298543,PRD-HOM-UK,CT-FIR,2026-09-23,Tier-3,11518800,GBP",
+      "CLM-UK-2026-238837,PRD-COM-UK,CT-FIR,2026-09-22,Tier-3,22714200,GBP",
+      "CLM-SE-2026-124790,PRD-HOM-SE,CT-EOW,2026-09-24,Tier-2,55266400,SEK",
+      "CLM-UK-2026-205324,PRD-HOM-UK,CT-EOW,2026-09-16,Tier-2,1902400,GBP",
+      "CLM-UK-2026-140689,PRD-LIA-UK,CT-BIJ,2026-09-24,Tier-3,17185300,GBP",
+      "CLM-NO-2026-464752,PRD-MOT-NO,CT-THF,2026-09-22,Tier-2,11917100,NOK",
+      "CLM-UK-2026-201816,PRD-MOT-UK,CT-TPD,2026-10-03,Tier-1,426600,GBP",
+      "CLM-SE-2026-262767,PRD-MOT-SE,CT-COL,2026-09-25,Tier-2,55581400,SEK",
+      "CLM-UK-2026-497274,PRD-MOT-UK,CT-TPD,2026-09-23,Tier-2,2034300,GBP",
+      "CLM-UK-2026-482253,PRD-HOM-UK,CT-THF,2026-09-19,Tier-2,3702500,GBP"
+    ],
+    "returnHeader": "claim_ref,score,model_version,threshold_applied,referral_recommended",
+    "returnRows": [
+      "CLM-UK-2026-298543,58,SNT-4.2,60,false",
+      "CLM-UK-2026-238837,71,SNT-4.2,60,true",
+      "CLM-SE-2026-124790,33,SNT-4.2,65,false",
+      "CLM-UK-2026-205324,64,SNT-4.2,65,false",
+      "CLM-UK-2026-140689,60,SNT-4.2,60,true",
+      "CLM-NO-2026-464752,49,SNT-4.2,65,false",
+      "CLM-UK-2026-201816,21,SNT-4.2,65,false",
+      "CLM-SE-2026-262767,5,SNT-4.2,65,false",
+      "CLM-UK-2026-497274,21,SNT-4.2,65,false",
+      "CLM-UK-2026-482253,60,SNT-4.2,65,false"
+    ]
+  },
+  "notes": [
+    "Samples captured 2026-10-06 to 2026-10-09 in the pre-production environment.",
+    "referral_recommended is advisory; the referral decision is taken by the calling service.",
+    "Claim references are synthetic and do not correspond to live claims.",
+    "All requests must carry a correlation identifier header; it is echoed in the response.",
+    "The API is versioned in the path; minor additions are backwards compatible."
+  ]
+}

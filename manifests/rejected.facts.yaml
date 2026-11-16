@@ -1,0 +1,323 @@
+- fact_id: RJ001-F001
+  world_ref: EPISODE:EP-001
+  kind: rejected_format_fact
+  statement: A Visio draft of the SIU triage flow escalates an untriaged referral to the SIU Investigations Manager after
+    2 business days.
+  file: corpus/rejected/RJ001_siu_triage_flow_draft.vsdx
+  locator:
+    kind: text_lines
+    start: 7
+    end: 7
+  needle: referral untriaged after 2 business days
+  exclusive: true
+  also_in: []
+  placement: PL-285
+  placement_key: rj_RJ001
+- fact_id: RJ001-F002
+  world_ref: PERSON:P028
+  kind: general
+  statement: The RJ001 Visio draft (v0.3) of the SIU triage flow is by R. Dunmore, dated 20/04/2026.
+  file: corpus/rejected/RJ001_siu_triage_flow_draft.vsdx
+  locator:
+    kind: text_lines
+    start: 2
+    end: 2
+  needle: DRAFT v0.3 – R. Dunmore
+  exclusive: false
+  also_in: []
+- fact_id: RJ001-F003
+  world_ref: SYSTEM:SYS22
+  kind: general
+  statement: In the RJ001 draft, new fraud referrals are logged in SIU Case Manager.
+  file: corpus/rejected/RJ001_siu_triage_flow_draft.vsdx
+  locator:
+    kind: text_lines
+    start: 4
+    end: 4
+  needle: Referral logged in SIU Case Manager
+  exclusive: false
+  also_in: []
+- fact_id: RJ002-F001
+  world_ref: EPISODE:EP-002
+  kind: rejected_format_fact
+  statement: The BPMN model of the subrogation process names a SUBTRAK decommission rehearsal on 2026-12-05.
+  file: corpus/rejected/RJ002_subrogation_process.bpmn
+  locator:
+    kind: xml_xpath
+    xpath: //*[local-name()='textAnnotation'][@id='TextAnnotation_Rehearsal']/*[local-name()='text']
+  needle: SUBTRAK decommission rehearsal on 2026-12-05
+  exclusive: true
+  also_in: []
+  placement: PL-286
+  placement_key: rj_RJ002
+- fact_id: RJ002-F002
+  world_ref: PROCESS:S7#owner_history
+  kind: general
+  statement: The RJ002 subrogation model (v1.2, 2025-10-02) names Freya Lindahl, Head of Recoveries & Subrogation, as process
+    owner.
+  file: corpus/rejected/RJ002_subrogation_process.bpmn
+  locator:
+    kind: xml_xpath
+    xpath: //*[local-name()='process']/*[local-name()='documentation']
+  needle: 'Process owner: Freya Lindahl'
+  exclusive: false
+  also_in: []
+- fact_id: RJ002-F003
+  world_ref: PROCESS:PS-REC-06
+  kind: general
+  statement: In the RJ002 model the write-off step ('Write-off approval') sits in the Head of Recoveries & Subrogation lane.
+  file: corpus/rejected/RJ002_subrogation_process.bpmn
+  locator:
+    kind: xml_xpath
+    xpath: //*[local-name()='lane'][@id='Lane_Head']
+  needle: Task_WriteOff
+  exclusive: false
+  also_in: []
+- fact_id: RJ003-F001
+  world_ref: EPISODE:EP-003
+  kind: rejected_format_fact
+  statement: Freya Lindahl approved the write-off of £12,480 on claim CLM-UK-2025-118204 on 2026-08-14.
+  file: corpus/rejected/RJ003_write_off_approval.msg
+  locator:
+    kind: text_lines
+    start: 29
+    end: 57
+  needle: 12,480 on claim CLM-UK-2025-118204
+  exclusive: true
+  also_in: []
+  placement: PL-287
+  placement_key: rj_RJ003
+  notes: ASCII needle so it also resolves when olefile is absent (strings fallback splits at the pound sign).
+- fact_id: RJ003-F002
+  world_ref: PERSON:P014#titles
+  kind: general
+  statement: Siobhan Quill is Recoveries Team Leader – UK (signature of the original request in RJ003).
+  file: corpus/rejected/RJ003_write_off_approval.msg
+  locator:
+    kind: text_lines
+    start: 55
+    end: 77
+  needle: Siobhan Quill | Recoveries Team Leader
+  exclusive: false
+  also_in: []
+- fact_id: RJ004-F001
+  world_ref: EPISODE:EP-004
+  kind: rejected_format_fact
+  statement: Sigrid Nyhus confirmed that Norrvik's Swedish site-visit fee rises to SEK 5,150 on 2027-01-01.
+  file: corpus/rejected/RJ004_norrvik_fee_notice.eml
+  locator:
+    kind: text_lines
+    start: 11
+    end: 11
+  needle: site-visit fee for Swedish claims rises to SEK 5,150
+  exclusive: true
+  also_in: []
+  placement: PL-288
+  placement_key: rj_RJ004
+  notes: 'Deviation: the placement also quotes the old fee (SEK 4,900); that value is LD021''s exclusive fact (PL-061, VENDOR:VEN-02#fees),
+    so it is not restated here.'
+- fact_id: RJ004-F002
+  world_ref: PERSON:P058
+  kind: general
+  statement: RJ004 is an email from Sigrid Nyhus, Regional Manager – Norway & Sweden at Norrvik Skadetaxering AB, to Astrid
+    Nygaard.
+  file: corpus/rejected/RJ004_norrvik_fee_notice.eml
+  locator:
+    kind: text_lines
+    start: 1
+    end: 1
+  needle: sigrid.nyhus@norrvik.example
+  exclusive: false
+  also_in: []
+- fact_id: RJ005-F001
+  world_ref: EPISODE:EP-005
+  kind: rejected_format_fact
+  statement: The discontinued Motor Fleet UK product (closed to new business in 2015) carried a £500 per-vehicle excess.
+  file: corpus/rejected/RJ005_motor_fleet_wording_2009.rtf
+  locator:
+    kind: text_lines
+    start: 18
+    end: 18
+  needle: excess of £500 per vehicle
+  exclusive: true
+  also_in: []
+  placement: PL-289
+  placement_key: rj_RJ005
+- fact_id: RJ005-F002
+  world_ref: EPISODE:EP-005
+  kind: rejected_format_fact
+  statement: The archive note on the RJ005 wording says Motor Fleet UK was closed to new business in 2015.
+  file: corpus/rejected/RJ005_motor_fleet_wording_2009.rtf
+  locator:
+    kind: text_lines
+    start: 3
+    end: 3
+  needle: closed to new business in 2015
+  exclusive: true
+  also_in: []
+  notes: 'Second half of the same episode (EP-005) as RJ005-F001. Deviation: the 2015 archive stamp postdates the 2009 document
+    date; it is presented as a later archive annotation.'
+- fact_id: RJ006-F001
+  world_ref: EPISODE:EP-006
+  kind: rejected_format_fact
+  statement: The Nordic claims offsite in Gothenburg on 2026-05-20 agreed a shared frost-damage checklist, FRO-CHK-3.
+  file: corpus/rejected/RJ006_nordic_offsite_notes.odt
+  locator:
+    kind: text_lines
+    start: 8
+    end: 8
+  needle: shared frost-damage checklist, FRO-CHK-3
+  exclusive: true
+  also_in: []
+  placement: PL-290
+  placement_key: rj_RJ006
+- fact_id: RJ006-F002
+  world_ref: EPISODE:EP-006
+  kind: general
+  statement: The RJ006 offsite was held in Gothenburg on 20 May 2026, notes by Mette Dahl.
+  file: corpus/rejected/RJ006_nordic_offsite_notes.odt
+  locator:
+    kind: text_lines
+    start: 2
+    end: 2
+  needle: '20 May 2026 Venue: Gothenburg'
+  exclusive: false
+  also_in: []
+- fact_id: RJ006-F003
+  world_ref: WAVE:MW-0#date
+  kind: general
+  statement: Wave 0 – Denmark was due to go live on 1 June 2026 (as of 20 May 2026).
+  file: corpus/rejected/RJ006_nordic_offsite_notes.odt
+  locator:
+    kind: text_lines
+    start: 12
+    end: 12
+  needle: Wave 0 – Denmark is due to go live on 1 June 2026
+  exclusive: false
+  also_in: []
+- fact_id: RJ007-F001
+  world_ref: EPISODE:EP-007
+  kind: rejected_format_fact
+  statement: A whiteboard photo sets the post-Wave-2 CLARA batch window target at 23:30–03:30.
+  file: corpus/rejected/RJ007_batch_window_whiteboard.png
+  locator:
+    kind: image_ocr
+  needle: 'post-Wave 2 target: 23:30-03:30'
+  exclusive: true
+  also_in: []
+  placement: PL-291
+  placement_key: rj_RJ007
+- fact_id: RJ007-F002
+  world_ref: SYSTEM:SYS01#batch_window
+  kind: image_text
+  statement: The RJ007 whiteboard gives today's CLARA batch window as 23:30-05:30.
+  file: corpus/rejected/RJ007_batch_window_whiteboard.png
+  locator:
+    kind: image_ocr
+  needle: 'now: 23:30-05:30'
+  exclusive: false
+  also_in: []
+- fact_id: RJ008-F001
+  world_ref: EPISODE:EP-008
+  kind: rejected_format_fact
+  statement: A photo of the Reserving team whiteboard shows IBNR for September 2026 as £648.2m.
+  file: corpus/rejected/RJ008_reserving_whiteboard.jpg
+  locator:
+    kind: image_ocr
+  needle: IBNR Sept 2026 = £648.2m
+  exclusive: true
+  also_in: []
+  placement: PL-292
+  placement_key: rj_RJ008
+- fact_id: RJ008-F002
+  world_ref: COMMITTEE:COM-01
+  kind: image_text
+  statement: The RJ008 whiteboard notes the Reserving Committee pack is due in draft on Friday.
+  file: corpus/rejected/RJ008_reserving_whiteboard.jpg
+  locator:
+    kind: image_ocr
+  needle: Reserving Committee pack
+  exclusive: false
+  also_in: []
+- fact_id: RJ009-F001
+  world_ref: EPISODE:EP-009
+  kind: rejected_format_fact
+  statement: The SVG diagram of the CIS login flow labels the access-token lifetime as 15 minutes.
+  file: corpus/rejected/RJ009_cis_login_flow.svg
+  locator:
+    kind: xml_xpath
+    xpath: //*[local-name()='text'][@id='lbl-token-lifetime']
+  needle: 'Access token lifetime: 15 minutes'
+  exclusive: true
+  also_in: []
+  placement: PL-293
+  placement_key: rj_RJ009
+- fact_id: RJ009-F002
+  world_ref: SYSTEM:SYS16#description
+  kind: general
+  statement: In the RJ009 diagram the Claims Hub web UI redirects users to CIS for an OIDC authorisation request.
+  file: corpus/rejected/RJ009_cis_login_flow.svg
+  locator:
+    kind: xml_xpath
+    xpath: //*[local-name()='g'][@id='step-2']
+  needle: Redirect to CIS sign-in (OIDC authorisation request)
+  exclusive: false
+  also_in: []
+- fact_id: RJ009-F003
+  world_ref: PERSON:P018#titles
+  kind: general
+  statement: The RJ009 CIS login flow is a draft by T. Wójcik, Enterprise Architect, dated 3 March 2025.
+  file: corpus/rejected/RJ009_cis_login_flow.svg
+  locator:
+    kind: xml_xpath
+    xpath: //*[local-name()='text'][@id='footer']
+  needle: T. Wójcik, Enterprise Architect
+  exclusive: false
+  also_in: []
+- fact_id: RJ010-F001
+  world_ref: EPISODE:EP-010
+  kind: rejected_format_fact
+  statement: A 2019 DB2 capacity report in the archive gives CLR.T_RESERVE_MOVEMENT 412,906,118 rows on 2019-12-31.
+  file: corpus/rejected/RJ010_legacy_archive_2019.zip
+  locator:
+    kind: zip_member
+    member: legacy_archive_2019/capacity/DB2P_capacity_report_20191231.txt
+    inner:
+      kind: text_lines
+      start: 14
+      end: 14
+  needle: CLR.T_RESERVE_MOVEMENT 412,906,118 rows
+  exclusive: true
+  also_in: []
+  placement: PL-294
+  placement_key: rj_RJ010
+- fact_id: RJ010-F002
+  world_ref: EPISODE:EP-010
+  kind: rejected_format_fact
+  statement: The RJ010 archive's CSV gives CLR.T_RESERVE_MOVEMENT 412906118 rows as at 2019-12-31 (DB2P).
+  file: corpus/rejected/RJ010_legacy_archive_2019.zip
+  locator:
+    kind: zip_member
+    member: legacy_archive_2019/capacity/reserve_movement_rowcount_20191231.csv
+    inner:
+      kind: csv_row
+      row: 1
+  needle: 'CLR.T_RESERVE_MOVEMENT | row_count: 412906118'
+  exclusive: true
+  also_in: []
+  notes: Same episode (EP-010) as RJ010-F001, machine-readable copy inside the same archive.
+- fact_id: RJ010-F003
+  world_ref: PERSON:P025#titles
+  kind: general
+  statement: The RJ010 archive was assembled by Derek Ollerton, DB2 Database Administrator.
+  file: corpus/rejected/RJ010_legacy_archive_2019.zip
+  locator:
+    kind: zip_member
+    member: legacy_archive_2019/README.txt
+    inner:
+      kind: text_lines
+      start: 4
+      end: 4
+  needle: Derek Ollerton, DB2 Database Administrator
+  exclusive: false
+  also_in: []

@@ -1,0 +1,673 @@
+# Corvane Mutual – OpenAPI – fraud-referral-svc
+# Document SKR-API-FRD-044 version 1.0 (approved), 2026-09-29
+# Owner: Linnea Sjöberg, Engineering Lead – Fraud & Settlement Squad
+# Classification: Internal – Programme Skerry
+# Change history:
+#   0.1  2026-06-10  Linnea Sjöberg: Initial draft for review
+#   0.2  2026-07-29  Linnea Sjöberg: Updated references
+#   0.3  2026-07-30  Linnea Sjöberg: Cross-checked against the source systems
+#   0.4  2026-08-11  Linnea Sjöberg: Added missing entries
+#   0.5  2026-09-02  Linnea Sjöberg: Minor corrections
+#   1.0  2026-09-29  Linnea Sjöberg: Approved
+openapi: 3.0.3
+info:
+  title: fraud-referral-svc API
+  version: '2.3'
+  description: Fraud referral decisions, SIU hand-off and customer-notice deadlines (NISA Circular 2026/04). Implements
+    BR-FRD-031, BR-FRD-032, BR-FRD-033, BR-FRD-035 and BR-FRD-036. The API is versioned in the path; minor additions
+    are backwards compatible. All requests must carry a correlation identifier header; it is echoed in the response.
+  contact:
+    name: Linnea Sjöberg
+    email: linnea.sjoberg@corvane-mutual.example
+  x-owner-team: Hub Squad – Fraud & Settlement
+  x-document-control:
+    documentId: SKR-API-FRD-044
+    version: '1.0'
+    status: approved
+    date: '2026-09-29'
+    owner: Linnea Sjöberg
+    approvers:
+    - Niall Brannigan (Head of Counter-Fraud & SIU)
+    - Elin Fosse (Lead Solution Architect)
+servers:
+- url: https://fraud-referral-svc.apps.ocp-prd-lon1.corvane.internal/v2
+  description: Production
+security:
+- cis:
+  - fraud.read
+tags:
+- name: referrals
+- name: customer-notice
+paths:
+  /referrals:
+    post:
+      summary: Create a fraud referral
+      tags:
+      - referrals
+      parameters:
+      - $ref: '#/components/parameters/CorrelationId'
+      - $ref: '#/components/parameters/IdempotencyKey'
+      security:
+      - cis:
+        - fraud.write
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReferralRequest'
+            examples:
+              ScoreReferralTier2:
+                $ref: '#/components/examples/ScoreReferralTier2'
+              HandlerReferral:
+                $ref: '#/components/examples/HandlerReferral'
+      responses:
+        '201':
+          description: Referral created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Referral'
+              examples:
+                ReferralCreated:
+                  $ref: '#/components/examples/ReferralCreated'
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+            X-Correlation-Id:
+              $ref: '#/components/headers/X-Correlation-Id'
+        '400':
+          description: Request failed validation.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Missing or invalid CIS token.
+        '403':
+          description: Caller lacks the required scope or authority.
+        '404':
+          description: Resource not found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Score below the applicable threshold and no handler or indicator reason.
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          description: Unexpected error.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /referrals/{referralId}:
+    get:
+      summary: Get a referral
+      tags:
+      - referrals
+      parameters:
+      - $ref: '#/components/parameters/ReferralId'
+      - $ref: '#/components/parameters/CorrelationId'
+      responses:
+        '200':
+          description: The referral.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Referral'
+              examples:
+                ReferralInTriage:
+                  $ref: '#/components/examples/ReferralInTriage'
+                ReferralClosed:
+                  $ref: '#/components/examples/ReferralClosed'
+        '400':
+          description: Request failed validation.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Missing or invalid CIS token.
+        '403':
+          description: Caller lacks the required scope or authority.
+        '404':
+          description: Resource not found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          description: Unexpected error.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /referrals/{referralId}/customer-notice:
+    post:
+      summary: Record or defer the customer notice (deadline = referral date + 10 business days)
+      tags:
+      - customer-notice
+      parameters:
+      - $ref: '#/components/parameters/ReferralId'
+      - $ref: '#/components/parameters/CorrelationId'
+      - $ref: '#/components/parameters/IdempotencyKey'
+      security:
+      - cis:
+        - fraud.write
+      description: Records that the customer notice was sent, or defers it under BR-FRD-036. The notice tells the
+        customer that the claim is subject to additional checks.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerNoticeRequest'
+            examples:
+              NoticeSent:
+                $ref: '#/components/examples/NoticeSent'
+              NoticeDeferred:
+                $ref: '#/components/examples/NoticeDeferred'
+      responses:
+        '200':
+          description: Notice updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerNotice'
+              examples:
+                NoticeStatusSent:
+                  $ref: '#/components/examples/NoticeStatusSent'
+                NoticeStatusDeferred:
+                  $ref: '#/components/examples/NoticeStatusDeferred'
+        '400':
+          description: Request failed validation.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Missing or invalid CIS token.
+        '403':
+          description: Caller lacks the required scope or authority.
+        '404':
+          description: Resource not found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Deferral needs a higher approver.
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          description: Unexpected error.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+components:
+  parameters:
+    ReferralId:
+      name: referralId
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^FRF-\d{4}-\d{5}$
+    CorrelationId:
+      name: X-Correlation-Id
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Correlation identifier, echoed in the response and in logs.
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Client-generated key; repeating a request with the same key returns the original result.
+  schemas:
+    ReferralRequest:
+      type: object
+      required:
+      - claimId
+      - score
+      - tier
+      properties:
+        claimId:
+          type: string
+        score:
+          type: integer
+          minimum: 0
+          maximum: 100
+          description: Sentinel score (0-100).
+        tier:
+          type: string
+          enum:
+          - Tier-1
+          - Tier-2
+          - Tier-3
+        source:
+          type: string
+          enum:
+          - SCORE
+          - HANDLER
+          - INDICATORS
+        indicators:
+          type: array
+          items:
+            type: string
+    Referral:
+      type: object
+      properties:
+        referralId:
+          type: string
+        claimId:
+          type: string
+        referralDate:
+          type: string
+          format: date
+        score:
+          type: integer
+        tier:
+          type: string
+        thresholdApplied:
+          type: integer
+          description: 65 for all claims; 60 for Tier-3 claims from 2026-10-01 (BR-FRD-031 v2).
+        siuTriageDueBy:
+          type: string
+          format: date
+          description: Referral date + 3 business days (BR-FRD-035 v2).
+        noticeDueDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+          - OPEN
+          - SIU_TRIAGE
+          - INVESTIGATION
+          - CLOSED_NF
+          - CLOSED_CF
+          - WITHDRAWN
+    CustomerNoticeRequest:
+      type: object
+      required:
+      - action
+      properties:
+        action:
+          type: string
+          enum:
+          - RECORD_SENT
+          - DEFER
+        sentOn:
+          type: string
+          format: date
+        channel:
+          type: string
+          enum:
+          - LETTER
+          - EMAIL
+        deferralDays:
+          type: integer
+          maximum: 60
+          description: Up to 60 days where SIU certifies a tipping-off risk. From 2026-10-01 deferrals beyond 30
+            days need the Head of Counter-Fraud & SIU and Compliance is notified the same day (BR-FRD-036 v2).
+        approverId:
+          type: string
+    CustomerNotice:
+      type: object
+      properties:
+        referralId:
+          type: string
+        deadline:
+          type: string
+          format: date
+          description: Referral date + 10 business days (BR-FRD-032 v2), UK calendar.
+        status:
+          type: string
+          enum:
+          - DUE
+          - SENT
+          - DEFERRED
+          - OVERDUE
+    Problem:
+      type: object
+      description: RFC 7807 problem details with a stable error code.
+      required:
+      - type
+      - title
+      - status
+      - code
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        code:
+          type: string
+          example: CHUB-VAL-001
+        correlationId:
+          type: string
+  securitySchemes:
+    cis:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://cis.corvane.internal/oauth2/token
+          scopes:
+            fraud.read: Read referrals
+            fraud.write: Create referrals and record notices
+  headers:
+    X-Correlation-Id:
+      description: Echo of the request correlation identifier.
+      schema:
+        type: string
+    Retry-After:
+      description: Seconds to wait before retrying.
+      schema:
+        type: integer
+    Location:
+      description: URI of the created resource.
+      schema:
+        type: string
+        format: uri
+  responses:
+    TooManyRequests:
+      description: Client rate limit reached; retry after the indicated delay.
+      headers:
+        Retry-After:
+          $ref: '#/components/headers/Retry-After'
+        X-Correlation-Id:
+          $ref: '#/components/headers/X-Correlation-Id'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    ServiceUnavailable:
+      description: The service is temporarily unavailable (for example during a rolling deployment).
+      headers:
+        Retry-After:
+          $ref: '#/components/headers/Retry-After'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+  examples:
+    ScoreReferralTier2:
+      summary: Score-based referral at or above the general threshold
+      value:
+        claimId: CLM-UK-2026-485671
+        score: 86
+        tier: Tier-2
+        source: SCORE
+    HandlerReferral:
+      summary: Handler referral below the score threshold, with indicators
+      value:
+        claimId: CLM-UK-2026-370897
+        score: 31
+        tier: Tier-1
+        source: HANDLER
+        indicators:
+        - BR-FRD-001
+        - BR-FRD-002
+    ReferralCreated:
+      summary: Referral created from a score above the threshold
+      value:
+        referralId: FRF-2026-32098
+        claimId: CLM-UK-2026-485671
+        referralDate: '2026-09-25'
+        score: 86
+        tier: Tier-2
+        thresholdApplied: 65
+        siuTriageDueBy: '2026-09-30'
+        noticeDueDate: '2026-10-09'
+        status: OPEN
+    ReferralInTriage:
+      summary: Referral awaiting SIU triage
+      value:
+        referralId: FRF-2026-28514
+        claimId: CLM-NO-2026-284747
+        referralDate: '2026-09-15'
+        score: 91
+        tier: Tier-3
+        thresholdApplied: 65
+        siuTriageDueBy: '2026-09-18'
+        noticeDueDate: '2026-09-29'
+        status: SIU_TRIAGE
+    ReferralClosed:
+      summary: Referral closed with no fraud found
+      value:
+        referralId: FRF-2026-88770
+        claimId: CLM-UK-2026-186155
+        referralDate: '2026-07-29'
+        score: 68
+        tier: Tier-2
+        thresholdApplied: 65
+        siuTriageDueBy: '2026-08-03'
+        noticeDueDate: '2026-08-12'
+        status: CLOSED_NF
+    NoticeSent:
+      summary: Record that the customer notice letter was sent
+      value:
+        action: RECORD_SENT
+        sentOn: '2026-10-01'
+        channel: LETTER
+    NoticeDeferred:
+      summary: Defer the notice where SIU certifies a tipping-off risk
+      value:
+        action: DEFER
+        deferralDays: 22
+        approverId: siu.approver.937
+    NoticeStatusSent:
+      summary: Notice recorded as sent
+      value:
+        referralId: FRF-2026-32098
+        deadline: '2026-10-09'
+        status: SENT
+    NoticeStatusDeferred:
+      summary: Notice deferred
+      value:
+        referralId: FRF-2026-28514
+        deadline: '2026-09-29'
+        status: DEFERRED
+    ProblemFRDVAL001:
+      summary: 'FRD-VAL-001: score outside 0-100'
+      value:
+        type: https://errors.corvane.internal/frd-val-001
+        title: Score outside 0-100
+        status: 400
+        code: FRD-VAL-001
+        detail: Score outside 0-100.
+        correlationId: req-20260929-0001
+    ProblemFRDVAL002:
+      summary: 'FRD-VAL-002: unknown tier'
+      value:
+        type: https://errors.corvane.internal/frd-val-002
+        title: Unknown tier
+        status: 400
+        code: FRD-VAL-002
+        detail: Unknown tier.
+        correlationId: req-20260929-0002
+    ProblemFRDBUS010:
+      summary: 'FRD-BUS-010: score below the applicable threshold and no handler or indicator reason'
+      value:
+        type: https://errors.corvane.internal/frd-bus-010
+        title: Score below the applicable threshold and no handler or indicator reason
+        status: 422
+        code: FRD-BUS-010
+        detail: Score below the applicable threshold and no handler or indicator reason.
+        correlationId: req-20260929-0003
+    ProblemFRDBUS020:
+      summary: 'FRD-BUS-020: deferral longer than the maximum allowed (BR-FRD-036)'
+      value:
+        type: https://errors.corvane.internal/frd-bus-020
+        title: Deferral longer than the maximum allowed (BR-FRD-036)
+        status: 422
+        code: FRD-BUS-020
+        detail: Deferral longer than the maximum allowed (BR-FRD-036).
+        correlationId: req-20260929-0004
+    ProblemFRDBUS021:
+      summary: 'FRD-BUS-021: deferral beyond 30 days without the Head of Counter-Fraud & SIU (from 2026-10-01)'
+      value:
+        type: https://errors.corvane.internal/frd-bus-021
+        title: Deferral beyond 30 days without the Head of Counter-Fraud & SIU (from 2026-10-01)
+        status: 422
+        code: FRD-BUS-021
+        detail: Deferral beyond 30 days without the Head of Counter-Fraud & SIU (from 2026-10-01).
+        correlationId: req-20260929-0005
+    ProblemFRDBUS030:
+      summary: 'FRD-BUS-030: automatic decline requested; not allowed (BR-FRD-033)'
+      value:
+        type: https://errors.corvane.internal/frd-bus-030
+        title: Automatic decline requested; not allowed (BR-FRD-033)
+        status: 422
+        code: FRD-BUS-030
+        detail: Automatic decline requested; not allowed (BR-FRD-033).
+        correlationId: req-20260929-0006
+    ProblemFRDSYS500:
+      summary: 'FRD-SYS-500: unexpected error; retry with the same Idempotency-Key'
+      value:
+        type: https://errors.corvane.internal/frd-sys-500
+        title: Unexpected error; retry with the same Idempotency-Key
+        status: 500
+        code: FRD-SYS-500
+        detail: Unexpected error; retry with the same Idempotency-Key.
+        correlationId: req-20260929-0007
+x-events:
+  produces:
+  - fraud.referral.created.v1
+  - fraud.referral.notice-due.v1
+  consumes:
+  - fraud.score.received.v1
+  - triage.completed.v1
+x-business-rules:
+  autoDecline:
+    enabled: false
+    rule: BR-FRD-033
+  tierDefinition: BR-TRI-003 v3
+  noticeCalendar: UK business days
+x-error-codes:
+- code: FRD-VAL-001
+  meaning: score outside 0-100
+- code: FRD-VAL-002
+  meaning: unknown tier
+- code: FRD-BUS-010
+  meaning: score below the applicable threshold and no handler or indicator reason
+- code: FRD-BUS-020
+  meaning: deferral longer than the maximum allowed (BR-FRD-036)
+- code: FRD-BUS-021
+  meaning: deferral beyond 30 days without the Head of Counter-Fraud & SIU (from 2026-10-01)
+- code: FRD-BUS-030
+  meaning: automatic decline requested; not allowed (BR-FRD-033)
+- code: FRD-SYS-500
+  meaning: unexpected error; retry with the same Idempotency-Key
+x-changelog:
+- version: '2.0'
+  date: '2026-03-20'
+  change: Customer-notice endpoint and 10-business-day deadline (CHUB-209)
+- version: '2.1'
+  date: '2026-05-11'
+  change: SIU triage due date on referrals (BR-FRD-035 v2)
+- version: '2.2'
+  date: '2026-08-01'
+  change: Spring Boot patch upgrade, no contract change (CHUB-182)
+- version: '2.3'
+  date: '2026-09-29'
+  change: Tier-3 threshold 60 from 2026-10-01 and deferral approval rule from 2026-10-01 (CHUB-388)
+x-data-model:
+  note: Persistence owned by the service (PostgreSQL); not exposed directly to consumers.
+  tables:
+  - table: fraud.referral
+    database: chub_fraud
+    columns:
+    - name: referral_id
+      type: UUID
+      nullable: false
+      description: Referral
+      primaryKey: true
+    - name: claim_id
+      type: VARCHAR(20)
+      nullable: false
+      description: Claim
+    - name: sentinel_score
+      type: SMALLINT
+      nullable: false
+      description: Score
+    - name: threshold_applied
+      type: SMALLINT
+      nullable: false
+    - name: tier
+      type: SMALLINT
+      nullable: false
+      description: Tier
+    - name: referred_at
+      type: TIMESTAMP
+      nullable: false
+      description: Referred
+    - name: siu_case_id
+      type: VARCHAR(12)
+      nullable: true
+      description: SIU case
+    - name: rule_id
+      type: VARCHAR(12)
+      nullable: false
+      description: Rule (BR-FRD-031)
+  - table: fraud.customer_notice
+    database: chub_fraud
+    columns:
+    - name: notice_id
+      type: UUID
+      nullable: false
+      description: Notice
+      primaryKey: true
+    - name: referral_id
+      type: UUID
+      nullable: false
+      description: Referral
+    - name: due_date
+      type: DATE
+      nullable: false
+      description: Due (10 business days)
+    - name: deferred_until
+      type: DATE
+      nullable: true
+      description: Deferred until
+    - name: sent_at
+      type: TIMESTAMP
+      nullable: true
+      description: Sent
+    - name: channel
+      type: VARCHAR(8)
+      nullable: false
+x-consumers:
+- interface: CLX-IF-041
+  name: Claims Hub fraud referrals to SIU Case Manager
+  protocol: REST
+  from: Claims Hub
+  to: SIU Case Manager
+x-guidelines:
+- Amounts are carried in minor units with an explicit ISO 4217 currency.
+- Every endpoint is protected by CIS-issued tokens with role-based scopes.
+- Contract tests run in the pipeline against the published API and event schemas.
+- The service owns its data and exposes it only through its API and events.
+- Clients should treat unknown fields as optional and ignore them.
+- All requests must carry a correlation identifier header; it is echoed in the response.
+- List endpoints are paginated with an opaque cursor.

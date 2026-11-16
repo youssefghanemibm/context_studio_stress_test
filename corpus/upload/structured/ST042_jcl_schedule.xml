@@ -1,0 +1,1296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Corvane Mutual - CLARA JCL schedule - approved -->
+<batchSchedule xmlns="urn:corvane:skerry:batch-schedule:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" system="CLARA" scheduler="Batch Scheduler" asOf="2026-05-18">
+  <documentControl>
+    <documentId>SKR-OPS-JCL-042</documentId>
+    <title>JCL Schedule</title>
+    <version>1.0</version>
+    <status>approved</status>
+    <date>2026-05-18</date>
+    <classification>Internal</classification>
+    <owner personId="P026">
+      <name>Sunita Vaghela</name>
+      <title>Batch Operations Lead</title>
+    </owner>
+    <reviewers>
+      <reviewer personId="P023" title="Senior Mainframe Developer">Keith Barraclough</reviewer>
+      <reviewer personId="P025" title="DB2 Database Administrator">Derek Ollerton</reviewer>
+    </reviewers>
+    <approvers>
+      <approver personId="P016" title="Head of Legacy Claims Platforms" date="2026-05-18">Graham Pocock</approver>
+    </approvers>
+    <changeHistory>
+      <revision version="0.1" date="2026-03-03" author="Sunita Vaghela">Initial draft for review</revision>
+      <revision version="0.2" date="2026-04-11" author="Sunita Vaghela">Minor corrections</revision>
+      <revision version="1.0" date="2026-05-18" author="Sunita Vaghela">Approved</revision>
+    </changeHistory>
+  </documentControl>
+  <scheduleHeader>
+    <scheduler systemId="SYS18">Batch Scheduler</scheduler>
+    <batchWindow>23:30–05:30 UK time</batchWindow>
+    <ownerTeam teamId="T25">Mainframe Batch Operations</ownerTeam>
+    <contact title="Batch Operations Lead">Sunita Vaghela</contact>
+    <calendar>UK business-day calendar with Nordic holidays applied to Nordic jobs</calendar>
+  </scheduleHeader>
+  <jobs count="32">
+    <job name="CLRNFN01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Nightly FNOL imports</description>
+      <schedule>daily 22:30</schedule>
+      <steps>
+        <step name="STEP010" program="CLRFN100" area="FNOL">
+          <description>PALM policy snapshot refresh (CLX-IF-003)</description>
+          <reads>CLR.T_CLAIMANT CLR.T_FNOL_EVENT</reads>
+          <writes>CLR.T_POLICY_SNAPSHOT</writes>
+          <copybooks>CLRCLT01 CLRFNL01 CLRPOL01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP020" program="CLRFN040" area="FNOL">
+          <description>Overnight portal FNOL import (MyCorvane Claims, CLX-IF-001 backlog)</description>
+          <reads>CLR.T_CLAIM CLR.T_CLAIMANT CLR.T_POLICY_SNAPSHOT</reads>
+          <writes>CLR.T_FNOL_EVENT</writes>
+          <copybooks>CLRCLM01 CLRCLT01 CLRFNL01 CLRPOL01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP030" program="CLRFN050" area="FNOL">
+          <description>Evidence Intake Gateway photo and telematics reference import</description>
+          <reads>CLR.T_FNOL_EVENT</reads>
+          <writes>CLR.T_DOCUMENT_REF</writes>
+          <copybooks>DOCREF01 CLRFNL01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-001">Portal FNOL submissions</interface>
+        <interface ref="CLX-IF-003">Policy snapshot feed</interface>
+        <interface ref="CLX-IF-004">Evidence references to CLARA</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNFN01 JOB (CLR,BATCH),'NIGHTLY FNOL IMPORTS',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRFN100
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRFN040
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRFN050
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+        <action order="2">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="3">Check the job log for the first abend message rather than the last one.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNFN02" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>FNOL acknowledgement extract</description>
+      <schedule>daily 06:15</schedule>
+      <steps>
+        <step name="STEP010" program="CLRFN070" area="FNOL">
+          <description>FNOL acknowledgement extract to Notify (CLX-IF-006)</description>
+          <reads>CLR.T_POLICY_SNAPSHOT</reads>
+          <writes>CLR.T_FNOL_EVENT</writes>
+          <copybooks>CLRFNL01 CLRPOL01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-006">FNOL acknowledgements</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNFN02 JOB (CLR,BATCH),'FNOL ACKNOWLEDGEMENT',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRFN070
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Data fixes are never applied directly in production tables; raise a change.</action>
+        <action order="2">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNTR01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Nightly triage</description>
+      <schedule>daily 23:45</schedule>
+      <steps>
+        <step name="STEP010" program="CLRTR040" area="TRIAGE">
+          <description>Fraud pre-screen request to Sentinel (batch)</description>
+          <reads>CLR.T_CLAIM CLR.T_CLAIM_TIER CLR.T_FRAUD_SCORE</reads>
+          <copybooks>CLRCLM01 CLRTIR01 FRDSCR01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP020" program="CLRTR020" area="TRIAGE">
+          <description>Tier classification batch – re-tier on estimate change (BR-TRI-003)</description>
+          <reads>CLR.T_ESTIMATE CLR.T_PARAM CLR.T_RESERVE</reads>
+          <writes>CLR.T_CLAIM_TIER CLR.T_CLAIM</writes>
+          <copybooks>CLRCLM01 CLRTIR01 CLREST01 PARMREC1 RSVREC CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP030" program="CLRTR060" area="TRIAGE">
+          <description>Fast-track eligibility sweep (BR-TRI-006)</description>
+          <reads>CLR.T_FRAUD_SCORE CLR.T_PARAM</reads>
+          <writes>CLR.T_TRIAGE</writes>
+          <copybooks>FRDSCR01 PARMREC1 CLRTRG01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP040" program="CLRTR100" area="TRIAGE">
+          <description>Re-triage after policy change</description>
+          <reads>CLR.T_CLAIM CLR.T_TRIAGE</reads>
+          <writes>CLR.T_CLAIM_TIER</writes>
+          <copybooks>CLRCLM01 CLRTIR01 CLRTRG01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNTR01 JOB (CLR,BATCH),'NIGHTLY TRIAGE',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRTR040
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRTR020
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRTR060
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP040  EXEC PGM=CLRTR100
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+        <action order="2">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
+        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNAS01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Assessor and repairer exchange</description>
+      <schedule>daily 00:30</schedule>
+      <steps>
+        <step name="STEP010" program="CLRAS030" area="ASSESS">
+          <description>Assessor Portal instruction export (CLX-IF-013)</description>
+          <reads>CLR.T_ESTIMATE CLR.T_INSPECTION</reads>
+          <copybooks>CLREST01 CLRINS01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP020" program="CLRAS040" area="ASSESS">
+          <description>Assessor report import from Assessor Portal (CLX-IF-014)</description>
+          <reads>CLR.T_CLAIM CLR.T_INSPECTION</reads>
+          <writes>CLR.T_ASSESSMENT</writes>
+          <copybooks>CLRASM01 CLRCLM01 CLRINS01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP030" program="CLRAS120" area="ASSESS">
+          <description>Repair network job export (Thistlecombe, Vardholm, CLX-IF-015)</description>
+          <reads>CLR.T_ASSESSMENT CLR.T_ASSESSOR_ASSIGNMENT</reads>
+          <copybooks>CLRASM01 CLRASG01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-013">Assessor instructions</interface>
+        <interface ref="CLX-IF-014">Assessor reports</interface>
+        <interface ref="CLX-IF-015">Repair network job export</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNAS01 JOB (CLR,BATCH),'ASSESSOR AND REPAIRE',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRAS030
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRAS040
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRAS120
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="2">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+        <action order="3">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNAS02" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Vendor invoice matching</description>
+      <schedule>Mon-Fri 01:00</schedule>
+      <steps>
+        <step name="STEP010" program="CLRAS070" area="ASSESS">
+          <description>Vendor invoice matching (assessor fees, CLX-IF-016)</description>
+          <reads>CLR.T_ESTIMATE</reads>
+          <writes>CLR.T_VENDOR_INVOICE</writes>
+          <copybooks>CLREST01 VENINV01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-016">Vendor invoices</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNAS02 JOB (CLR,BATCH),'VENDOR INVOICE MATCH',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRAS070
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+        <action order="2">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+        <action order="3">After a successful rerun, check the downstream trigger datasets were created.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNRSV1" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Tier-3 reserve review and revaluation</description>
+      <schedule>daily 01:30</schedule>
+      <steps>
+        <step name="STEP010" program="CLRRS110" area="RESERVE">
+          <description>Tier-3 reserve review scheduler and revaluation (BR-RSV-007)</description>
+          <reads>CLR.T_CLAIM_TIER CLR.T_PARAM</reads>
+          <writes>CLR.T_RESERVE CLR.T_RESERVE_MOVEMENT CLR.T_DIARY</writes>
+          <copybooks>CLRTIR01 DIARYRC1 PARMREC1 RSVREC RSVMVT01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP020" program="CLRRS120" area="RESERVE">
+          <description>Reserve review overdue report</description>
+          <reads>CLR.T_DIARY CLR.T_RESERVE</reads>
+          <copybooks>DIARYRC1 RSVREC CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <restart>See the CLARA batch restart table.</restart>
+      <jcl><![CDATA[
+//CLRNRSV1 JOB (CLR,BATCH),'TIER-3 RESERVE REVIE',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRRS110
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRRS120
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+        <action order="2">Data fixes are never applied directly in production tables; raise a change.</action>
+        <action order="3">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNRSV2" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Reserve history and corrections</description>
+      <schedule>daily 02:00</schedule>
+      <steps>
+        <step name="STEP010" program="CLRRS140" area="RESERVE">
+          <description>Reserve history archiver (month-end snapshots)</description>
+          <reads>CLR.T_RESERVE</reads>
+          <writes>CLR.T_RESERVE_HISTORY</writes>
+          <copybooks>RSVREC RSVHIS01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP020" program="CLRRS150" area="RESERVE">
+          <description>Reserve movement correction utility</description>
+          <reads>CLR.T_RESERVE</reads>
+          <writes>CLR.T_RESERVE_MOVEMENT</writes>
+          <copybooks>RSVREC RSVMVT01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNRSV2 JOB (CLR,BATCH),'RESERVE HISTORY AND ',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRRS140
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRRS150
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Data fixes are never applied directly in production tables; raise a change.</action>
+        <action order="2">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+        <action order="3">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNRSV3" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Reserve movement extract (CLX-IF-042)</description>
+      <schedule published="false">held in the Batch Scheduler calendar (not reproduced here)</schedule>
+      <steps>
+        <step name="STEP010" program="CLRRS170" area="RESERVE">
+          <description>Daily reserve movement extract (CLX-IF-042)</description>
+          <reads>CLR.T_CLAIM CLR.T_RESERVE_MOVEMENT</reads>
+          <writes>CLR.T_RESERVE_MOVEMENT CLR.T_INTERFACE_LOG</writes>
+          <copybooks>CLRCLM01 IFLOG01 RSVMVT01 RSVMOVE CLRERR01 MQMDCLR1 CLRDATE1</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <datasets>
+        <dataset dd="RSVOUT">CLR.PROD.RSVMOVE.DAILY(+1)</dataset>
+      </datasets>
+      <interfaces>
+        <interface ref="CLX-IF-042">Reserve Movement Daily Extract</interface>
+      </interfaces>
+      <restart>Rerun the whole job; CLRRS170 only extracts rows with EXTRACTED_FLAG = 'N'.</restart>
+      <jcl><![CDATA[
+//CLRNRSV3 JOB (CLR,BATCH),'RESERVE MOVEMENT EXT',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRRS170
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//RSVOUT   DD DSN=CLR.PROD.RSVMOVE.DAILY(+1),DISP=(NEW,CATLG,DELETE),
+//            SPACE=(CYL,(50,20),RLSE),DCB=(RECFM=FB,LRECL=100)
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="2">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+        <action order="3">Data fixes are never applied directly in production tables; raise a change.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNRSV4" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Large loss notification extract</description>
+      <schedule>daily 07:00</schedule>
+      <steps>
+        <step name="STEP010" program="CLRRS160" area="RESERVE">
+          <description>Large loss notification extract to ReCede (CLX-IF-031, BR-RSV-011)</description>
+          <reads>CLR.T_PARAM CLR.T_RESERVE_MOVEMENT</reads>
+          <copybooks>PARMREC1 RSVMVT01 CLRERR01 MQMDCLR1 CLRDATE1</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-031">Large loss notifications to reinsurance</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNRSV4 JOB (CLR,BATCH),'LARGE LOSS NOTIFICAT',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRRS160
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">After a successful rerun, check the downstream trigger datasets were created.</action>
+        <action order="2">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+        <action order="3">Data fixes are never applied directly in production tables; raise a change.</action>
+      </abendActions>
+    </job>
+    <job name="CLRMRSV1" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Monthly reserve indexation</description>
+      <schedule>1st business day 03:00</schedule>
+      <steps>
+        <step name="STEP010" program="CLRRS130" area="RESERVE">
+          <description>Monthly reserve indexation for bodily-injury claims (BR-RSV-009)</description>
+          <reads>CLR.T_CLAIM CLR.T_PARAM</reads>
+          <writes>CLR.T_RESERVE CLR.T_RESERVE_MOVEMENT</writes>
+          <copybooks>CLRCLM01 PARMREC1 RSVREC RSVMVT01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRMRSV1 JOB (CLR,BATCH),'MONTHLY RESERVE INDE',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRRS130
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Abends caused by data are handed to the development team with the failing key.</action>
+        <action order="2">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+      </abendActions>
+    </job>
+    <job name="CLRMRSV2" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Month-end reserve snapshot</description>
+      <schedule>last business day 22:00</schedule>
+      <steps>
+        <step name="STEP010" program="CLRRS180" area="RESERVE">
+          <description>Reserve snapshot for month-end (CDW)</description>
+          <reads>CLR.T_RESERVE CLR.T_RESERVE_HISTORY</reads>
+          <copybooks>RSVREC RSVHIS01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP020" program="CLRRS190" area="RESERVE">
+          <description>Reserve adequacy MI</description>
+          <reads>CLR.T_RESERVE CLR.T_RESERVE_MOVEMENT</reads>
+          <copybooks>RSVREC RSVMVT01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRMRSV2 JOB (CLR,BATCH),'MONTH-END RESERVE SN',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRRS180
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRRS190
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Check the job log for the first abend message rather than the last one.</action>
+        <action order="2">Data fixes are never applied directly in production tables; raise a change.</action>
+        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+      </abendActions>
+    </job>
+    <job name="CLRDRSV9" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Reserve parallel-run reconciliation</description>
+      <schedule>daily 05:00 (2026-03-02 to 2026-08-28)</schedule>
+      <steps>
+        <step name="STEP010" program="CLRRS210" area="RESERVE">
+          <description>Reserve parallel-run reconciliation against reserve-engine (2026-03-02 to 2026-08-28)</description>
+          <reads>CLR.T_RESERVE CLR.T_RESERVE_MOVEMENT</reads>
+          <writes>CLR.T_INTERFACE_LOG</writes>
+          <copybooks>IFLOG01 RSVREC RSVMVT01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRDRSV9 JOB (CLR,BATCH),'RESERVE PARALLEL-RUN',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRRS210
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">After a successful rerun, check the downstream trigger datasets were created.</action>
+        <action order="2">Check the job log for the first abend message rather than the last one.</action>
+        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNFR01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Nightly fraud scoring and referral sweep</description>
+      <schedule>daily 00:15</schedule>
+      <steps>
+        <step name="STEP010" program="CLRFR110" area="FRAUD">
+          <description>Sentinel score batch refresh (CLX-IF-009/010)</description>
+          <reads>CLR.T_FRAUD_NOTIFICATION CLR.T_FRAUD_REFERRAL CLR.T_SIU_CASE</reads>
+          <writes>CLR.T_FRAUD_SCORE</writes>
+          <copybooks>FRDNOT01 FRDREF01 FRDSCR01 FRDSIU01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP020" program="CLRFR080" area="FRAUD">
+          <description>Linked claims detection (BR-FRD-005)</description>
+          <reads>CLR.T_CLAIM CLR.T_SIU_CASE</reads>
+          <writes>CLR.T_CLAIM_LINK</writes>
+          <copybooks>CLRCLM01 FRDLNK01 FRDSIU01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP030" program="CLRFR040" area="FRAUD">
+          <description>Fraud referral batch sweep (nightly)</description>
+          <reads>CLR.T_CLAIM CLR.T_FRAUD_SCORE</reads>
+          <writes>CLR.T_FRAUD_REFERRAL</writes>
+          <copybooks>CLRCLM01 FRDREF01 FRDSCR01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-009">Nightly Sentinel batch scoring request</interface>
+        <interface ref="CLX-IF-010">Nightly Sentinel batch score return</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNFR01 JOB (CLR,BATCH),'NIGHTLY FRAUD SCORIN',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRFR110
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRFR080
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRFR040
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
+        <action order="2">Record every manual action in the shift log with the time and the operator ID.</action>
+        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNFR02" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Customer referral notices</description>
+      <schedule>Mon-Fri 06:30</schedule>
+      <steps>
+        <step name="STEP010" program="CLRFR060" area="FRAUD">
+          <description>Customer referral notice scheduler (NISA Circular 2026/04)</description>
+          <reads>CLR.T_PARAM</reads>
+          <writes>CLR.T_FRAUD_NOTIFICATION CLR.T_FRAUD_REFERRAL</writes>
+          <copybooks>FRDNOT01 FRDREF01 PARMREC1 CLRERR01 CLRDATE1</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNFR02 JOB (CLR,BATCH),'CUSTOMER REFERRAL NO',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRFR060
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Data fixes are never applied directly in production tables; raise a change.</action>
+        <action order="2">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+        <action order="3">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+      </abendActions>
+    </job>
+    <job name="CLRWFR01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Weekly fraud MI and SIU export</description>
+      <schedule>Mon 04:00</schedule>
+      <steps>
+        <step name="STEP010" program="CLRFR070" area="FRAUD">
+          <description>SIU Case Manager export (CLX-IF-011 batch catch-up)</description>
+          <reads>CLR.T_CLAIM_LINK CLR.T_FRAUD_REFERRAL CLR.T_SIU_CASE</reads>
+          <copybooks>FRDLNK01 FRDREF01 FRDSIU01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP020" program="CLRFR130" area="FRAUD">
+          <description>Fraud MI weekly</description>
+          <reads>CLR.T_FRAUD_SCORE</reads>
+          <copybooks>FRDSCR01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-011">Fraud referrals to SIU Case Manager</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRWFR01 JOB (CLR,BATCH),'WEEKLY FRAUD MI AND ',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRFR070
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRFR130
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Data fixes are never applied directly in production tables; raise a change.</action>
+        <action order="2">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="3">After a successful rerun, check the downstream trigger datasets were created.</action>
+      </abendActions>
+    </job>
+    <job name="CLRQFR01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Quarterly NISA-FR1 extract</description>
+      <schedule>quarterly, 5th business day after quarter end</schedule>
+      <steps>
+        <step name="STEP010" program="CLRFR090" area="FRAUD">
+          <description>NISA-FR1 quarterly fraud referral return extract (CLX-IF-033)</description>
+          <reads>CLR.T_CLAIM_LINK</reads>
+          <writes>CLR.T_NISA_RETURN</writes>
+          <copybooks>FRDLNK01 NISARET1 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-033">Fraud referral return (NISA-FR1)</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRQFR01 JOB (CLR,BATCH),'QUARTERLY NISA-FR1 E',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRFR090
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Abends caused by data are handed to the development team with the failing key.</action>
+        <action order="2">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
+        <action order="3">After a successful rerun, check the downstream trigger datasets were created.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNFR99" status="disabled" ownerTeam="T25" scheduler="SYS18">
+      <description>Auto-decline sweep (disabled 2026-04-01)</description>
+      <schedule>removed from schedule 2026-04-01 (was daily 00:45)</schedule>
+      <steps>
+        <step name="STEP010" program="CLRFR140" area="FRAUD">
+          <description>Auto-decline sweep (score ≥ 90) – DISABLED 2026-04-01 (BR-FRD-019 withdrawn)</description>
+          <reads>CLR.T_FRAUD_NOTIFICATION</reads>
+          <writes>CLR.T_CLAIM</writes>
+          <copybooks>CLRCLM01 FRDNOT01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNFR99 JOB (CLR,BATCH),'AUTO-DECLINE SWEEP (',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRFR140
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Check the job log for the first abend message rather than the last one.</action>
+        <action order="2">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+        <action order="3">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNSTL1" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Nightly settlement and closure</description>
+      <schedule>daily 21:30</schedule>
+      <steps>
+        <step name="STEP010" program="CLRST080" area="SETTLE">
+          <description>Fast-track straight-through settlement (BR-STL-009)</description>
+          <reads>CLR.T_PARAM CLR.T_TRIAGE</reads>
+          <writes>CLR.T_SETTLEMENT CLR.T_PAYMENT</writes>
+          <copybooks>PARMREC1 PAYREC01 STLREC01 CLRTRG01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP020" program="CLRST040" area="SETTLE">
+          <description>Settlement finalisation and reserve close-down (BR-RSV-014)</description>
+          <reads>CLR.T_PAYMENT</reads>
+          <writes>CLR.T_SETTLEMENT CLR.T_RESERVE CLR.T_RESERVE_MOVEMENT CLR.T_CLAIM</writes>
+          <copybooks>CLRCLM01 PAYREC01 RSVREC RSVMVT01 STLREC01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP030" program="CLRST100" area="SETTLE">
+          <description>Late payment interest calculation (BR-STL-014)</description>
+          <reads>CLR.T_CLAIM CLR.T_SETTLEMENT</reads>
+          <writes>CLR.T_PAYMENT</writes>
+          <copybooks>CLRCLM01 PAYREC01 STLREC01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNSTL1 JOB (CLR,BATCH),'NIGHTLY SETTLEMENT A',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRST080
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRST040
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRST100
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+        <action order="2">Check the job log for the first abend message rather than the last one.</action>
+        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNPAY1" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Payment batch to CPG</description>
+      <schedule>Mon-Fri 16:30</schedule>
+      <steps>
+        <step name="STEP010" program="CLRST070" area="SETTLE">
+          <description>Sanctions screening request to WatchScreen (CLX-IF-017)</description>
+          <reads>CLR.T_CLAIM CLR.T_PAYEE CLR.T_PAYMENT_BATCH</reads>
+          <writes>CLR.T_PAYMENT</writes>
+          <copybooks>CLRCLM01 PAYEE01 PAYREC01 PAYBAT01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP020" program="CLRST030" area="SETTLE">
+          <description>Payment batch build to CPG (CLX-IF-019)</description>
+          <reads>CLR.T_CLAIM CLR.T_SETTLEMENT CLR.T_VENDOR_INVOICE</reads>
+          <writes>CLR.T_PAYMENT_BATCH CLR.T_PAYMENT</writes>
+          <copybooks>CLRCLM01 PAYREC01 PAYBAT01 STLREC01 VENINV01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP030" program="CLRST140" area="SETTLE">
+          <description>Nordic payment file NOK/SEK/DKK to CPG (CLX-IF-021)</description>
+          <reads>CLR.T_CLAIM</reads>
+          <writes>CLR.T_PAYMENT_BATCH</writes>
+          <copybooks>CLRCLM01 PAYBAT01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-017">Sanctions screening requests</interface>
+        <interface ref="CLX-IF-018">Sanctions screening results</interface>
+        <interface ref="CLX-IF-019">UK payment batch</interface>
+        <interface ref="CLX-IF-021">Nordic payment batch (NOK/SEK/DKK)</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNPAY1 JOB (CLR,BATCH),'PAYMENT BATCH TO CPG',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRST070
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRST030
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRST140
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Record every manual action in the shift log with the time and the operator ID.</action>
+        <action order="2">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="3">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNPAY2" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Payment confirmations</description>
+      <schedule>Mon-Fri 07:30</schedule>
+      <steps>
+        <step name="STEP010" program="CLRST050" area="SETTLE">
+          <description>Payment confirmation import from CPG (CLX-IF-020)</description>
+          <reads>CLR.T_CLAIM CLR.T_PAYEE</reads>
+          <writes>CLR.T_PAYMENT</writes>
+          <copybooks>CLRCLM01 PAYEE01 PAYREC01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-020">Payment confirmations</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNPAY2 JOB (CLR,BATCH),'PAYMENT CONFIRMATION',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRST050
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
+        <action order="2">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+        <action order="3">Check the job log for the first abend message rather than the last one.</action>
+      </abendActions>
+    </job>
+    <job name="CLRWPAY1" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Vendor payment run</description>
+      <schedule>Thu 15:00</schedule>
+      <steps>
+        <step name="STEP010" program="CLRST110" area="SETTLE">
+          <description>Vendor invoice payment run</description>
+          <reads>CLR.T_PAYMENT_BATCH</reads>
+          <writes>CLR.T_PAYMENT CLR.T_VENDOR_INVOICE</writes>
+          <copybooks>PAYREC01 PAYBAT01 VENINV01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRWPAY1 JOB (CLR,BATCH),'VENDOR PAYMENT RUN',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRST110
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+        <action order="2">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+        <action order="3">Check the job log for the first abend message rather than the last one.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNRC01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Nightly recoveries</description>
+      <schedule>daily 22:00</schedule>
+      <steps>
+        <step name="STEP010" program="CLRRC040" area="RECOVER">
+          <description>SUBTRAK synchronisation (CLX-IF-022)</description>
+          <reads>CLR.T_CLAIM CLR.T_RECOVERY CLR.T_SALVAGE</reads>
+          <writes>CLR.T_SUBROGATION_CASE</writes>
+          <copybooks>CLRCLM01 RCVREC01 SALREC01 SUBCAS01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP020" program="CLRRC050" area="RECOVER">
+          <description>Recovery receipt posting – nets recoveries from the case reserve</description>
+          <reads>CLR.T_SUBROGATION_CASE</reads>
+          <writes>CLR.T_RECOVERY CLR.T_RESERVE CLR.T_RESERVE_MOVEMENT</writes>
+          <copybooks>RCVREC01 RSVREC RSVMVT01 SUBCAS01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP030" program="CLRRC070" area="RECOVER">
+          <description>Salvage disposal import (Salvanta, CLX-IF-024)</description>
+          <reads>CLR.T_CLAIM CLR.T_RECOVERY</reads>
+          <writes>CLR.T_SALVAGE</writes>
+          <copybooks>CLRCLM01 RCVREC01 SALREC01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP040" program="CLRRC080" area="RECOVER">
+          <description>Limitation diary sweep (BR-REC-009)</description>
+          <reads>CLR.T_LITIGATION CLR.T_RECOVERY CLR.T_SUBROGATION_CASE</reads>
+          <writes>CLR.T_DIARY</writes>
+          <copybooks>DIARYRC1 LITREC01 RCVREC01 SUBCAS01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-022">SUBTRAK synchronisation</interface>
+        <interface ref="CLX-IF-023">Recovery receipts from SUBTRAK</interface>
+        <interface ref="CLX-IF-024">Salvage disposals</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNRC01 JOB (CLR,BATCH),'NIGHTLY RECOVERIES',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRRC040
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRRC050
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRRC070
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP040  EXEC PGM=CLRRC080
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="2">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+        <action order="3">Data fixes are never applied directly in production tables; raise a change.</action>
+      </abendActions>
+    </job>
+    <job name="CLRWRC01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Subrogation demand letters</description>
+      <schedule>Tue,Thu 05:00</schedule>
+      <steps>
+        <step name="STEP010" program="CLRRC030" area="RECOVER">
+          <description>Subrogation demand letter extract to Notify (CLX-IF-026)</description>
+          <reads>CLR.T_SUBROGATION_CASE</reads>
+          <copybooks>SUBCAS01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-026">Subrogation demand letters</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRWRC01 JOB (CLR,BATCH),'SUBROGATION DEMAND L',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRRC030
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Record every manual action in the shift log with the time and the operator ID.</action>
+        <action order="2">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="3">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNGL01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Daily GL feeds</description>
+      <schedule>daily 03:15</schedule>
+      <steps>
+        <step name="STEP010" program="CLRGL030" area="GL">
+          <description>Currency rate load from Group Ledger (CLX-IF-027)</description>
+          <reads>CLR.T_GL_POSTING CLR.T_PAYMENT CLR.T_RECOVERY</reads>
+          <writes>CLR.T_CURRENCY_RATE</writes>
+          <copybooks>CURRATE1 GLPOST01 PAYREC01 RCVREC01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP020" program="CLRGL010" area="GL">
+          <description>Daily GL posting extract – payments (CLX-IF-028)</description>
+          <reads>CLR.T_GL_PERIOD CLR.T_PAYMENT CLR.T_RECOVERY</reads>
+          <writes>CLR.T_GL_POSTING</writes>
+          <copybooks>GLPER01 GLPOST01 PAYREC01 RCVREC01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP030" program="CLRGL070" area="GL">
+          <description>Recovery income posting (CLX-IF-029)</description>
+          <reads>CLR.T_GL_PERIOD CLR.T_PAYMENT CLR.T_RECOVERY</reads>
+          <writes>CLR.T_GL_POSTING</writes>
+          <copybooks>GLPER01 GLPOST01 PAYREC01 RCVREC01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-027">Currency rates to CLARA</interface>
+        <interface ref="CLX-IF-028">Payment postings to GL</interface>
+        <interface ref="CLX-IF-029">Recovery income postings to GL</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNGL01 JOB (CLR,BATCH),'DAILY GL FEEDS',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRGL030
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRGL010
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRGL070
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Abends caused by data are handed to the development team with the failing key.</action>
+        <action order="2">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+        <action order="3">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
+      </abendActions>
+    </job>
+    <job name="CLRMGL01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>GL month-end</description>
+      <schedule>last business day 23:00</schedule>
+      <steps>
+        <step name="STEP010" program="CLRGL020" area="GL">
+          <description>GL period control</description>
+          <reads>CLR.T_CURRENCY_RATE</reads>
+          <writes>CLR.T_GL_PERIOD</writes>
+          <copybooks>CURRATE1 GLPER01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP020" program="CLRGL040" area="GL">
+          <description>Reinsurance cession calculation</description>
+          <reads>CLR.T_PAYMENT CLR.T_RESERVE</reads>
+          <writes>CLR.T_REINSURANCE_CESSION</writes>
+          <copybooks>PAYREC01 RICESS01 RSVREC CLRERR01 CLRDATE1</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP030" program="CLRGL050" area="GL">
+          <description>Month-end accruals</description>
+          <reads>CLR.T_RESERVE</reads>
+          <writes>CLR.T_GL_POSTING</writes>
+          <copybooks>GLPOST01 RSVREC CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP040" program="CLRGL060" area="GL">
+          <description>GL reconciliation report</description>
+          <reads>CLR.T_CURRENCY_RATE</reads>
+          <copybooks>CURRATE1 CLRERR01 CLRDATE1</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRMGL01 JOB (CLR,BATCH),'GL MONTH-END',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRGL020
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRGL040
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRGL050
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP040  EXEC PGM=CLRGL060
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Check the job log for the first abend message rather than the last one.</action>
+        <action order="2">Abends caused by data are handed to the development team with the failing key.</action>
+        <action order="3">Record every manual action in the shift log with the time and the operator ID.</action>
+      </abendActions>
+    </job>
+    <job name="CLRYGL90" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Year-end reserve currency revaluation</description>
+      <schedule>annually 31 Dec 23:30 (and on Reserving request)</schedule>
+      <steps>
+        <step name="STEP010" program="CLRGL090" area="GL">
+          <description>Year-end reserve currency revaluation (Nordic reserves to GBP)</description>
+          <reads>CLR.T_CURRENCY_RATE CLR.T_GL_PERIOD</reads>
+          <writes>CLR.T_RESERVE</writes>
+          <copybooks>CURRATE1 GLPER01 RSVREC CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <restart>Rerun allowed (revaluation is idempotent for the same rate date).</restart>
+      <jcl><![CDATA[
+//CLRYGL90 JOB (CLR,BATCH),'YEAR-END RESERVE CUR',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRGL090
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="2">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+        <action order="3">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNRP01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Daily MI to CDW</description>
+      <schedule>daily 04:30</schedule>
+      <steps>
+        <step name="STEP010" program="CLRRP010" area="REPORT">
+          <description>Daily claims MI extract to CDW (CLX-IF-030)</description>
+          <reads>CLR.T_CLAIM CLR.T_CLAIM_TIER CLR.T_RESERVE</reads>
+          <writes>CLR.T_REPORT_RUN</writes>
+          <copybooks>CLRCLM01 CLRTIR01 RPTRUN01 RSVREC CLRERR01</copybooks>
+          <developer email="derek.ollerton@corvane-mutual.example">Derek Ollerton</developer>
+        </step>
+        <step name="STEP020" program="CLRRP090" area="REPORT">
+          <description>Executive dashboard extract</description>
+          <reads>CLR.T_CLAIM CLR.T_NISA_RETURN</reads>
+          <writes>CLR.T_REPORT_RUN</writes>
+          <copybooks>CLRCLM01 NISARET1 RPTRUN01 CLRERR01</copybooks>
+          <developer email="derek.ollerton@corvane-mutual.example">Derek Ollerton</developer>
+        </step>
+        <step name="STEP030" program="CLRRP100" area="REPORT">
+          <description>Data quality exceptions report</description>
+          <reads>CLR.T_CLAIM CLR.T_NISA_RETURN</reads>
+          <writes>CLR.T_REPORT_RUN</writes>
+          <copybooks>CLRCLM01 NISARET1 RPTRUN01 CLRERR01</copybooks>
+          <developer email="derek.ollerton@corvane-mutual.example">Derek Ollerton</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-030">Daily claims MI to CDW</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNRP01 JOB (CLR,BATCH),'DAILY MI TO CDW',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRRP010
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRRP090
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRRP100
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">After a successful rerun, check the downstream trigger datasets were created.</action>
+        <action order="2">Data fixes are never applied directly in production tables; raise a change.</action>
+        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+      </abendActions>
+    </job>
+    <job name="CLRMRP01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Monthly reports</description>
+      <schedule>2nd business day 06:00</schedule>
+      <steps>
+        <step name="STEP010" program="CLRRP020" area="REPORT">
+          <description>Reserve report – outstanding by product</description>
+          <reads>CLR.T_CLAIM CLR.T_RESERVE</reads>
+          <writes>CLR.T_REPORT_RUN</writes>
+          <copybooks>CLRCLM01 RPTRUN01 RSVREC CLRERR01</copybooks>
+          <developer email="derek.ollerton@corvane-mutual.example">Derek Ollerton</developer>
+        </step>
+        <step name="STEP020" program="CLRRP050" area="REPORT">
+          <description>Assessor performance report</description>
+          <reads>CLR.T_ASSESSOR_ASSIGNMENT</reads>
+          <writes>CLR.T_REPORT_RUN</writes>
+          <copybooks>CLRASG01 RPTRUN01 CLRERR01</copybooks>
+          <developer email="derek.ollerton@corvane-mutual.example">Derek Ollerton</developer>
+        </step>
+        <step name="STEP030" program="CLRRP070" area="REPORT">
+          <description>Recovery MI</description>
+          <reads>CLR.T_RECOVERY</reads>
+          <writes>CLR.T_REPORT_RUN</writes>
+          <copybooks>RCVREC01 RPTRUN01 CLRERR01</copybooks>
+          <developer email="derek.ollerton@corvane-mutual.example">Derek Ollerton</developer>
+        </step>
+        <step name="STEP040" program="CLRRP080" area="REPORT">
+          <description>Ad-hoc report driver</description>
+          <reads>CLR.T_CLAIM CLR.T_NISA_RETURN</reads>
+          <writes>CLR.T_REPORT_RUN</writes>
+          <copybooks>CLRCLM01 NISARET1 RPTRUN01 CLRERR01</copybooks>
+          <developer email="derek.ollerton@corvane-mutual.example">Derek Ollerton</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRMRP01 JOB (CLR,BATCH),'MONTHLY REPORTS',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRRP020
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRRP050
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRRP070
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP040  EXEC PGM=CLRRP080
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+        <action order="2">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
+        <action order="3">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+      </abendActions>
+    </job>
+    <job name="CLRQRP01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Quarterly NISA extracts</description>
+      <schedule>quarterly, 4th business day after quarter end</schedule>
+      <steps>
+        <step name="STEP010" program="CLRRP030" area="REPORT">
+          <description>NISA-TP2 data extract</description>
+          <reads>CLR.T_RESERVE CLR.T_RESERVE_HISTORY</reads>
+          <writes>CLR.T_NISA_RETURN</writes>
+          <copybooks>NISARET1 RSVREC RSVHIS01 CLRERR01</copybooks>
+          <developer email="derek.ollerton@corvane-mutual.example">Derek Ollerton</developer>
+        </step>
+        <step name="STEP020" program="CLRRP040" area="REPORT">
+          <description>NISA-CT1 claims timeliness extract (CLX-IF-032)</description>
+          <reads>CLR.T_CLAIM CLR.T_REPORT_RUN</reads>
+          <writes>CLR.T_NISA_RETURN</writes>
+          <copybooks>CLRCLM01 NISARET1 RPTRUN01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="derek.ollerton@corvane-mutual.example">Derek Ollerton</developer>
+        </step>
+        <step name="STEP030" program="CLRRP060" area="REPORT">
+          <description>Fraud referral MI (NISA-FR1 support)</description>
+          <reads>CLR.T_FRAUD_REFERRAL</reads>
+          <writes>CLR.T_REPORT_RUN</writes>
+          <copybooks>FRDREF01 RPTRUN01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="derek.ollerton@corvane-mutual.example">Derek Ollerton</developer>
+        </step>
+      </steps>
+      <interfaces>
+        <interface ref="CLX-IF-032">Claims timeliness extract (NISA-CT1)</interface>
+      </interfaces>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRQRP01 JOB (CLR,BATCH),'QUARTERLY NISA EXTRA',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRRP030
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRRP040
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRRP060
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
+        <action order="2">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+        <action order="3">Check the job log for the first abend message rather than the last one.</action>
+      </abendActions>
+    </job>
+    <job name="CLRWCM01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Weekly housekeeping</description>
+      <schedule>Sun 02:00</schedule>
+      <steps>
+        <step name="STEP010" program="CLRCM130" area="COMMON">
+          <description>Interface log housekeeping</description>
+          <reads>CLR.T_CODE_LOOKUP CLR.T_USER</reads>
+          <writes>CLR.T_INTERFACE_LOG</writes>
+          <copybooks>CODELKP1 IFLOG01 USRREC01 CLRERR01</copybooks>
+          <developer email="derek.ollerton@corvane-mutual.example">Derek Ollerton</developer>
+        </step>
+        <step name="STEP020" program="CLRCM140" area="COMMON">
+          <description>Archive and purge of claims closed more than 7 years (BR-GEN-004)</description>
+          <reads>CLR.T_CODE_LOOKUP CLR.T_USER</reads>
+          <writes>CLR.T_CLAIM CLR.T_NOTE CLR.T_DOCUMENT_REF</writes>
+          <copybooks>CLRCLM01 CODELKP1 DOCREF01 NOTEREC1 USRREC01 CLRERR01</copybooks>
+          <developer email="derek.ollerton@corvane-mutual.example">Derek Ollerton</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRWCM01 JOB (CLR,BATCH),'WEEKLY HOUSEKEEPING',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRCM130
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRCM140
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Record every manual action in the shift log with the time and the operator ID.</action>
+        <action order="2">Check the job log for the first abend message rather than the last one.</action>
+        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+      </abendActions>
+    </job>
+    <job name="CLRNMI01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Operational MI</description>
+      <schedule>daily 05:30</schedule>
+      <steps>
+        <step name="STEP010" program="CLRFN120" area="FNOL">
+          <description>FNOL MI daily counts</description>
+          <reads>CLR.T_CLAIMANT CLR.T_POLICY_SNAPSHOT</reads>
+          <copybooks>CLRCLT01 CLRPOL01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP020" program="CLRTR080" area="TRIAGE">
+          <description>Triage SLA breach report</description>
+          <reads>CLR.T_CLAIM CLR.T_FRAUD_SCORE</reads>
+          <copybooks>CLRCLM01 FRDSCR01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+        <step name="STEP030" program="CLRAS100" area="ASSESS">
+          <description>Assessment SLA report</description>
+          <reads>CLR.T_ASSESSOR_ASSIGNMENT</reads>
+          <copybooks>CLRASG01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP040" program="CLRST130" area="SETTLE">
+          <description>Payment MI</description>
+          <reads>CLR.T_PAYMENT_BATCH CLR.T_VENDOR_INVOICE</reads>
+          <copybooks>PAYBAT01 VENINV01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRNMI01 JOB (CLR,BATCH),'OPERATIONAL MI',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRFN120
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRTR080
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRAS100
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP040  EXEC PGM=CLRST130
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+        <action order="2">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="3">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+      </abendActions>
+    </job>
+    <job name="CLRWMI01" status="active" ownerTeam="T25" scheduler="SYS18">
+      <description>Weekly MI</description>
+      <schedule>Mon 05:00</schedule>
+      <steps>
+        <step name="STEP010" program="CLRFN080" area="FNOL">
+          <description>Late notification report (&gt; 30 days after loss)</description>
+          <reads>CLR.T_FNOL_EVENT</reads>
+          <copybooks>CLRFNL01 CLRERR01</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP020" program="CLRAS090" area="ASSESS">
+          <description>Desk assessment queue builder (BR-ASM-008)</description>
+          <reads>CLR.T_INSPECTION</reads>
+          <copybooks>CLRINS01 CLRERR01 CLRDATE1</copybooks>
+          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
+        </step>
+        <step name="STEP030" program="CLRRC100" area="RECOVER">
+          <description>Recovery MI monthly</description>
+          <reads>CLR.T_LITIGATION</reads>
+          <copybooks>LITREC01 CLRERR01</copybooks>
+          <developer email="keith.barraclough@corvane-mutual.example">Keith Barraclough</developer>
+        </step>
+      </steps>
+      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
+      <jcl><![CDATA[
+//CLRWMI01 JOB (CLR,BATCH),'WEEKLY MI',CLASS=B,MSGCLASS=X,
+//         NOTIFY=&SYSUID
+//STEP010  EXEC PGM=CLRFN080
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP020  EXEC PGM=CLRAS090
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//STEP030  EXEC PGM=CLRRC100
+//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
+//SYSOUT   DD SYSOUT=*
+]]></jcl>
+      <abendActions>
+        <action order="1">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="2">Check the job log for the first abend message rather than the last one.</action>
+        <action order="3">After a successful rerun, check the downstream trigger datasets were created.</action>
+      </abendActions>
+    </job>
+  </jobs>
+</batchSchedule>

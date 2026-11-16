@@ -1,0 +1,104 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+CALL QUALITY REVIEW NOTES - GLASGOW CONTACT CENTRE (WEEK ENDING 16 OCT 2026)
+========================================================================================
+Document reference : CC-QA-2026-W42
+Version            : 1.0
+Date               : 16 October 2026
+Owner              : Ewan Strachan, Contact Centre Manager
+Classification     : Internal
+Scope           : random sample of recorded calls; customer details removed
+
+Version history
+  1.0    2026-10-16  E. Strachan          Weekly sample of calls reviewed
+========================================================================================
+
+HOW TO READ THESE NOTES
+  Each call is scored against the standard checklist: greeting, identification, empathy, accuracy,
+  wrap-up. Customer details have been removed; claim references are masked.
+
+CALL 01  |  Existing motor claim - progress chase  |  claim ref CLM-UK-2026-****36  |  agent GLA-821
+    - Could have summarised at the end.
+    - Agent found the claim quickly on the Hub screens.
+    Checklist: greeting Met, identification Met, empathy Partly met, accuracy Met, wrap-up Exceeded
+
+CALL 02  |  Windscreen only  |  claim ref CLM-UK-2026-****24  |  agent GLA-594
+    - Passed to the windscreen partner correctly.
+    - Short, efficient call.
+    Checklist: greeting Met, identification Met, empathy Met, accuracy Partly met, wrap-up Met
+
+CALL 03  |  New motor claim  |  claim ref CLM-UK-2026-****68  |  agent GLA-292
+    - Clear opening and good empathy after a stressful accident.
+    - Repair network offered; customer accepted.
+    - Injury question asked at the right point and recorded on the claim.
+    - Claim reference read back correctly.
+    Checklist: greeting Partly met, identification Met, empathy Met, accuracy Met, wrap-up Met
+
+CALL 04  |  New motor claim  |  claim ref CLM-UK-2026-****48  |  agent GLA-734
+    - Claim reference read back correctly.
+    - Injury question asked at the right point and recorded on the claim.
+    - Repair network offered; customer accepted.
+    Checklist: greeting Met, identification Exceeded, empathy Met, accuracy Met, wrap-up Met
+
+CALL 05  |  Payment query  |  claim ref CLM-UK-2026-****12  |  agent GLA-110
+    - Agent checked the payment status and explained it clearly.
+    - Transferred to Payments Operations appropriately when the customer asked about a bank change.
+    Checklist: greeting Met, identification Met, empathy Partly met, accuracy Met, wrap-up Met
+
+CALL 06  |  Existing motor claim - progress chase  |  claim ref CLM-UK-2026-****87  |  agent GLA-356
+    - Agent found the claim quickly on the Hub screens.
+    - Explained next steps without promising a date.
+    - Could have summarised at the end.
+    Checklist: greeting Partly met, identification Met, empathy Met, accuracy Exceeded, wrap-up Met
+
+CALL 07  |  Query about an 'additional checks' letter  |  claim ref CLM-UK-2026-****25  |  agent GLA-961
+    - Customer calmed by the explanation that checks are routine.
+    - Callback logged for the handler.
+    - Agent followed the script and did not discuss fraud checks.
+    Checklist: greeting Met, identification Met, empathy Met, accuracy Exceeded, wrap-up Met
+
+CALL 08  |  Query about an 'additional checks' letter  |  claim ref CLM-UK-2026-****75  |  agent GLA-594
+    - Callback logged for the handler.
+    - Agent followed the script and did not discuss fraud checks.
+    Checklist: greeting Met, identification Met, empathy Met, accuracy Met, wrap-up Met
+
+CALL 09  |  Complaint about delays  |  claim ref CLM-UK-2026-****65  |  agent GLA-151
+    - Escalated to the team leader as required.
+    - Agent acknowledged the frustration and logged the complaint correctly.
+    Checklist: greeting Met, identification Met, empathy Met, accuracy Met, wrap-up Met
+
+CALL 10  |  Home - escape of water  |  claim ref CLM-UK-2026-****62  |  agent GLA-416
+    - Agent avoided giving a view on cover, correctly.
+    - Make-safe advice given first, as per script.
+    - Upload link offered for photos.
+    Checklist: greeting Met, identification Met, empathy Met, accuracy Met, wrap-up Met
+
+CALL 11  |  Home - escape of water  |  claim ref CLM-UK-2026-****79  |  agent GLA-412
+    - Make-safe advice given first, as per script.
+    - Agent avoided giving a view on cover, correctly.
+    - Upload link offered for photos.
+    Checklist: greeting Met, identification Exceeded, empathy Met, accuracy Met, wrap-up Met
+
+CALL 12  |  Query about an 'additional checks' letter  |  claim ref CLM-UK-2026-****15  |  agent GLA-886
+    - Agent followed the script and did not discuss fraud checks.
+    - Callback logged for the handler.
+    Checklist: greeting Exceeded, identification Met, empathy Exceeded, accuracy Met, wrap-up Exceeded
+
+CALL 13  |  Query about an 'additional checks' letter  |  claim ref CLM-UK-2026-****88  |  agent GLA-678
+    - Callback logged for the handler.
+    - Customer calmed by the explanation that checks are routine.
+    - Agent followed the script and did not discuss fraud checks.
+    Checklist: greeting Exceeded, identification Exceeded, empathy Met, accuracy Met, wrap-up Met
+
+CALL 14  |  New motor claim  |  claim ref CLM-UK-2026-****86  |  agent GLA-669
+    - Repair network offered; customer accepted.
+    - Clear opening and good empathy after a stressful accident.
+    Checklist: greeting Met, identification Exceeded, empathy Met, accuracy Met, wrap-up Partly met
+
+THEMES THIS WEEK
+  - Agents are more confident on the Claims Hub screens for motor claims than a month ago.
+  - Wrap-up summaries are the most common gap. Team leaders to coach in huddles.
+  - The 'additional checks' script is being followed well. No agent discussed fraud checks with a customer.
+  - Hold times on the existing-claims queue were longer on Monday mornings.
+
+----------------------------------------------------------------------------------------
+End of document. Owner: Ewan Strachan. Printed copies are uncontrolled.

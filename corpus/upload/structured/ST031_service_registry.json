@@ -1,0 +1,1215 @@
+{
+  "documentControl": {
+    "documentId": "SKR-ARC-REG-031",
+    "title": "Claims Hub Service Registry",
+    "version": "1.0",
+    "status": "final",
+    "date": "2026-11-02",
+    "owner": {
+      "name": "Elin Fosse",
+      "title": "Lead Solution Architect"
+    },
+    "reviewers": [
+      {
+        "name": "Nadia Petrovic",
+        "title": "Java Technical Lead"
+      },
+      {
+        "name": "Daniel Achebe",
+        "title": "Engineering Lead – Reserve & Finance Squad"
+      },
+      {
+        "name": "Linnea Sjöberg",
+        "title": "Engineering Lead – Fraud & Settlement Squad"
+      },
+      {
+        "name": "Sofie Bak",
+        "title": "Engineering Lead – Intake & Triage Squad"
+      }
+    ],
+    "approvers": [
+      {
+        "name": "Tomasz Wójcik",
+        "title": "Enterprise Architect",
+        "date": "2026-11-02"
+      },
+      {
+        "name": "Neil Haworth",
+        "title": "Head of Technology Delivery",
+        "date": "2026-11-02"
+      }
+    ],
+    "classification": "Internal",
+    "organisation": "Corvane Mutual Insurance Society Limited",
+    "programme": "Programme Skerry (CLARA to Claims Hub)",
+    "changeHistory": [
+      {
+        "version": "0.1",
+        "date": "2026-09-12",
+        "author": "Elin Fosse",
+        "change": "Initial draft for review"
+      },
+      {
+        "version": "0.2",
+        "date": "2026-10-02",
+        "author": "Elin Fosse",
+        "change": "Clarified ownership fields"
+      },
+      {
+        "version": "1.0",
+        "date": "2026-11-02",
+        "author": "Elin Fosse",
+        "change": "Issued as final"
+      }
+    ]
+  },
+  "platform": {
+    "system": "Claims Hub",
+    "systemId": "SYS02",
+    "technology": "Java 21 / Spring Boot microservices, PostgreSQL 16, Kafka, OpenShift",
+    "hosting": "OpenShift cluster ocp-prd-lon1 (Corvane private cloud, London); DR cluster ocp-dr-lds1 (Leeds)",
+    "productOwner": "Aisha Siddiqui",
+    "registry": "registry.corvane.internal/chub"
+  },
+  "serviceCount": 13,
+  "services": [
+    {
+      "id": "SVC01",
+      "name": "claim-core-svc",
+      "description": "Claim aggregate (claim header, parties, status); system of record for migrated claims",
+      "status": "live",
+      "goLive": "2025-11-03",
+      "owner": {
+        "team": "Hub Squad – Intake & Triage",
+        "teamId": "T27",
+        "lead": "Sofie Bak"
+      },
+      "runtime": {
+        "namespace": "chub-core",
+        "replicas": 3,
+        "image": "registry.corvane.internal/chub/claim-core-svc",
+        "cluster": "ocp-prd-lon1",
+        "drCluster": "ocp-dr-lds1"
+      },
+      "endpoints": {
+        "internal": "http://claim-core-svc.chub-core.svc.cluster.local:8080",
+        "route": "https://claim-core-svc.apps.ocp-prd-lon1.corvane.internal",
+        "openapi": "https://claim-core-svc.apps.ocp-prd-lon1.corvane.internal/v3/api-docs",
+        "health": "/actuator/health"
+      },
+      "apis": [
+        {
+          "method": "GET",
+          "path": "/claims/{claimId}",
+          "summary": "Get a claim by reference (CLM-UK-2025-118204 format)"
+        },
+        {
+          "method": "POST",
+          "path": "/claims",
+          "summary": "Create a claim from an FNOL"
+        },
+        {
+          "method": "PATCH",
+          "path": "/claims/{claimId}",
+          "summary": "Update claim status or attributes"
+        }
+      ],
+      "kafka": {
+        "produces": [
+          "claim.created.v1",
+          "claim.updated.v1"
+        ],
+        "consumes": [
+          "fnol.received.v1",
+          "notification.sent.v1"
+        ]
+      },
+      "data": [
+        {
+          "table": "claim_core.claim",
+          "database": "chub_claim_core"
+        },
+        {
+          "table": "claim_core.party",
+          "database": "chub_claim_core"
+        }
+      ],
+      "replacesPrograms": [
+        "CLRFN090"
+      ],
+      "interfaces": [
+        "CLX-IF-054",
+        "CLX-IF-056"
+      ],
+      "rules": [
+        "BR-GEN-001 v1",
+        "BR-GEN-002 v1",
+        "BR-GEN-003 v1",
+        "BR-GEN-004 v3",
+        "BR-GEN-005 v1",
+        "BR-GEN-006 v1",
+        "BR-GEN-007 v1",
+        "BR-GEN-008 v1",
+        "BR-GEN-009 v1",
+        "BR-GEN-010 v1"
+      ],
+      "source": {
+        "repoPath": "services/claim-core-svc",
+        "terraformModule": "infra/terraform/modules/claim-core-svc"
+      }
+    },
+    {
+      "id": "SVC02",
+      "name": "fnol-intake-svc",
+      "description": "First Notice of Loss intake from portal, app, contact centre, brokers and telematics",
+      "status": "live",
+      "goLive": "2025-11-03",
+      "owner": {
+        "team": "Hub Squad – Intake & Triage",
+        "teamId": "T27",
+        "lead": "Sofie Bak"
+      },
+      "runtime": {
+        "namespace": "chub-intake",
+        "replicas": 4,
+        "image": "registry.corvane.internal/chub/fnol-intake-svc",
+        "cluster": "ocp-prd-lon1",
+        "drCluster": "ocp-dr-lds1"
+      },
+      "endpoints": {
+        "internal": "http://fnol-intake-svc.chub-intake.svc.cluster.local:8080",
+        "route": "https://fnol-intake-svc.apps.ocp-prd-lon1.corvane.internal",
+        "openapi": "https://fnol-intake-svc.apps.ocp-prd-lon1.corvane.internal/v3/api-docs",
+        "health": "/actuator/health"
+      },
+      "apis": [
+        {
+          "method": "POST",
+          "path": "/fnol",
+          "summary": "Submit a first notice of loss"
+        },
+        {
+          "method": "GET",
+          "path": "/fnol/{fnolId}",
+          "summary": "Get FNOL status"
+        }
+      ],
+      "kafka": {
+        "produces": [
+          "fnol.received.v1"
+        ],
+        "consumes": [
+          "eig.evidence.received.v1",
+          "eig.telematics.alert.v1"
+        ]
+      },
+      "data": [
+        {
+          "table": "fnol.notification",
+          "database": "chub_fnol"
+        }
+      ],
+      "replacesPrograms": [
+        "CLRFN010",
+        "CLRFN015",
+        "CLRFN020",
+        "CLRFN040",
+        "CLRFN050",
+        "CLRFN060",
+        "CLRFN080",
+        "CLRFN100",
+        "CLRFN110",
+        "CLRFN130"
+      ],
+      "interfaces": [
+        "CLX-IF-034",
+        "CLX-IF-035",
+        "CLX-IF-057"
+      ],
+      "rules": [
+        "BR-FNOL-001 v3",
+        "BR-FNOL-002 v1",
+        "BR-FNOL-003 v1",
+        "BR-FNOL-004 v1",
+        "BR-FNOL-006 v1",
+        "BR-FNOL-007 v1",
+        "BR-FNOL-008 v1",
+        "BR-FNOL-009 v1",
+        "BR-FNOL-010 v1",
+        "BR-FNOL-011 v1",
+        "BR-FNOL-012 v1",
+        "BR-FNOL-013 v1",
+        "BR-FNOL-014 v1",
+        "BR-FNOL-015 v1",
+        "BR-FNOL-016 v1",
+        "BR-FNOL-017 v1",
+        "BR-FNOL-018 v1",
+        "BR-FNOL-019 v1",
+        "BR-FNOL-020 v1",
+        "BR-FNOL-021 v1"
+      ],
+      "source": {
+        "repoPath": "services/fnol-intake-svc",
+        "terraformModule": "infra/terraform/modules/fnol-intake-svc"
+      }
+    },
+    {
+      "id": "SVC03",
+      "name": "triage-svc",
+      "description": "Tier classification (BR-TRI-003), Sentinel pre-screen and routing",
+      "status": "live",
+      "goLive": "2025-11-03",
+      "owner": {
+        "team": "Hub Squad – Intake & Triage",
+        "teamId": "T27",
+        "lead": "Sofie Bak"
+      },
+      "runtime": {
+        "namespace": "chub-intake",
+        "replicas": 3,
+        "image": "registry.corvane.internal/chub/triage-svc",
+        "cluster": "ocp-prd-lon1",
+        "drCluster": "ocp-dr-lds1"
+      },
+      "endpoints": {
+        "internal": "http://triage-svc.chub-intake.svc.cluster.local:8080",
+        "route": "https://triage-svc.apps.ocp-prd-lon1.corvane.internal",
+        "openapi": "https://triage-svc.apps.ocp-prd-lon1.corvane.internal/v3/api-docs",
+        "health": "/actuator/health"
+      },
+      "apis": [
+        {
+          "method": "POST",
+          "path": "/triage/{claimId}",
+          "summary": "Run triage for a claim"
+        },
+        {
+          "method": "GET",
+          "path": "/triage/{claimId}",
+          "summary": "Get triage decision"
+        }
+      ],
+      "kafka": {
+        "produces": [
+          "triage.completed.v1",
+          "fraud.score.received.v1"
+        ],
+        "consumes": [
+          "fnol.received.v1"
+        ]
+      },
+      "data": [
+        {
+          "table": "triage.triage_decision",
+          "database": "chub_triage"
+        }
+      ],
+      "replacesPrograms": [
+        "CLRTR010",
+        "CLRTR020",
+        "CLRTR030",
+        "CLRTR040",
+        "CLRTR050",
+        "CLRTR060",
+        "CLRTR070",
+        "CLRTR090",
+        "CLRTR100"
+      ],
+      "interfaces": [
+        "CLX-IF-036"
+      ],
+      "rules": [
+        "BR-FRD-031 v2",
+        "BR-TRI-001 v1",
+        "BR-TRI-002 v1",
+        "BR-TRI-003 v3",
+        "BR-TRI-004 v1",
+        "BR-TRI-005 v1",
+        "BR-TRI-006 v3",
+        "BR-TRI-007 v1",
+        "BR-TRI-008 v1",
+        "BR-TRI-009 v2",
+        "BR-TRI-010 v1",
+        "BR-TRI-011 v1",
+        "BR-TRI-012 v1",
+        "BR-TRI-013 v1",
+        "BR-TRI-014 v1",
+        "BR-TRI-015 v1",
+        "BR-TRI-016 v1",
+        "BR-TRI-017 v1",
+        "BR-TRI-018 v1",
+        "BR-TRI-019 v1"
+      ],
+      "source": {
+        "repoPath": "services/triage-svc",
+        "terraformModule": "infra/terraform/modules/triage-svc"
+      }
+    },
+    {
+      "id": "SVC04",
+      "name": "assessment-svc",
+      "description": "Claims Assessor appointment, inspections, estimates and coverage decisions",
+      "status": "live",
+      "goLive": "2026-09-14",
+      "owner": {
+        "team": "Hub Squad – Intake & Triage",
+        "teamId": "T27",
+        "lead": "Sofie Bak"
+      },
+      "runtime": {
+        "namespace": "chub-assess",
+        "replicas": 2,
+        "image": "registry.corvane.internal/chub/assessment-svc",
+        "cluster": "ocp-prd-lon1",
+        "drCluster": "ocp-dr-lds1"
+      },
+      "endpoints": {
+        "internal": "http://assessment-svc.chub-assess.svc.cluster.local:8080",
+        "route": "https://assessment-svc.apps.ocp-prd-lon1.corvane.internal",
+        "openapi": "https://assessment-svc.apps.ocp-prd-lon1.corvane.internal/v3/api-docs",
+        "health": "/actuator/health"
+      },
+      "apis": [
+        {
+          "method": "POST",
+          "path": "/assessments",
+          "summary": "Appoint a Claims Assessor"
+        },
+        {
+          "method": "GET",
+          "path": "/assessments/{assessmentId}",
+          "summary": "Get assessment"
+        },
+        {
+          "method": "POST",
+          "path": "/assessments/{assessmentId}/report",
+          "summary": "Attach an assessor report"
+        }
+      ],
+      "kafka": {
+        "produces": [
+          "assessment.completed.v1"
+        ],
+        "consumes": [
+          "triage.completed.v1"
+        ]
+      },
+      "data": [
+        {
+          "table": "assessment.assessment",
+          "database": "chub_assessment"
+        },
+        {
+          "table": "assessment.assessor_assignment",
+          "database": "chub_assessment"
+        }
+      ],
+      "replacesPrograms": [
+        "CLRAS010",
+        "CLRAS020",
+        "CLRAS030",
+        "CLRAS040",
+        "CLRAS050",
+        "CLRAS060",
+        "CLRAS080",
+        "CLRAS090",
+        "CLRAS110",
+        "CLRAS120"
+      ],
+      "interfaces": [],
+      "rules": [
+        "BR-ASM-001 v1",
+        "BR-ASM-002 v1",
+        "BR-ASM-003 v2",
+        "BR-ASM-004 v2",
+        "BR-ASM-005 v3",
+        "BR-ASM-006 v1",
+        "BR-ASM-007 v1",
+        "BR-ASM-008 v1",
+        "BR-ASM-009 v1",
+        "BR-ASM-010 v1",
+        "BR-ASM-011 v1",
+        "BR-ASM-012 v1",
+        "BR-ASM-013 v1",
+        "BR-ASM-014 v1",
+        "BR-ASM-015 v1",
+        "BR-ASM-016 v1",
+        "BR-ASM-017 v2",
+        "BR-ASM-018 v1",
+        "BR-ASM-019 v1"
+      ],
+      "source": {
+        "repoPath": "services/assessment-svc",
+        "terraformModule": "infra/terraform/modules/assessment-svc"
+      }
+    },
+    {
+      "id": "SVC05",
+      "name": "reserve-engine",
+      "description": "Case reserves, reserve movements, Tier-3 review scheduling, indexation and currency revaluation",
+      "status": "live",
+      "goLive": "2026-09-14",
+      "formerNames": [
+        {
+          "name": "reserve-svc",
+          "renamedOn": "2026-02-10",
+          "ticket": "CHUB-233",
+          "adr": "ADR-019"
+        }
+      ],
+      "owner": {
+        "team": "Hub Squad – Reserve & Finance",
+        "teamId": "T28",
+        "lead": "Daniel Achebe"
+      },
+      "runtime": {
+        "namespace": "chub-reserve",
+        "replicas": 4,
+        "image": "registry.corvane.internal/chub/reserve-engine",
+        "cluster": "ocp-prd-lon1",
+        "drCluster": "ocp-dr-lds1",
+        "resources": {
+          "cpu-request": "500m",
+          "memory-limit": "2Gi"
+        }
+      },
+      "endpoints": {
+        "internal": "http://reserve-engine.chub-reserve.svc.cluster.local:8080",
+        "route": "https://reserve-engine.apps.ocp-prd-lon1.corvane.internal",
+        "openapi": "https://reserve-engine.apps.ocp-prd-lon1.corvane.internal/v3/api-docs",
+        "health": "/actuator/health"
+      },
+      "apis": [
+        {
+          "method": "GET",
+          "path": "/reserves/{claimId}",
+          "summary": "Get current reserves for a claim"
+        },
+        {
+          "method": "POST",
+          "path": "/reserves/{claimId}/movements",
+          "summary": "Post a reserve movement (authority checked against BR-RSV-003)"
+        },
+        {
+          "method": "GET",
+          "path": "/reserves/{claimId}/history",
+          "summary": "Reserve movement history"
+        },
+        {
+          "method": "POST",
+          "path": "/revaluation-runs",
+          "summary": "Trigger a currency revaluation run (replaces CLRGL090)"
+        }
+      ],
+      "kafka": {
+        "produces": [
+          "reserve.changed.v2"
+        ],
+        "consumes": [
+          "claims.reserve.movement.v1",
+          "triage.completed.v1"
+        ]
+      },
+      "data": [
+        {
+          "table": "reserve.reserve",
+          "database": "chub_reserve"
+        },
+        {
+          "table": "reserve.reserve_movement",
+          "database": "chub_reserve"
+        },
+        {
+          "table": "reserve.review_schedule",
+          "database": "chub_reserve"
+        }
+      ],
+      "replacesPrograms": [
+        "CLRFN030",
+        "CLRGL090",
+        "CLRRS010",
+        "CLRRS015",
+        "CLRRS020",
+        "CLRRS030",
+        "CLRRS040",
+        "CLRRS110",
+        "CLRRS120",
+        "CLRRS130",
+        "CLRRS140",
+        "CLRRS150",
+        "CLRRS160",
+        "CLRRS170",
+        "CLRRS180",
+        "CLRRS200"
+      ],
+      "config": {
+        "tier3-review-days": 14,
+        "large-loss-threshold-gbp": 250000
+      },
+      "interfaces": [
+        "CLX-IF-045",
+        "CLX-IF-049"
+      ],
+      "rules": [
+        "BR-FNOL-005 v2",
+        "BR-RSV-001 v1",
+        "BR-RSV-002 v1",
+        "BR-RSV-003 v3",
+        "BR-RSV-004 v1",
+        "BR-RSV-005 v1",
+        "BR-RSV-006 v1",
+        "BR-RSV-007 v3",
+        "BR-RSV-008 v1",
+        "BR-RSV-009 v3",
+        "BR-RSV-010 v1",
+        "BR-RSV-011 v2",
+        "BR-RSV-012 v1",
+        "BR-RSV-013 v1",
+        "BR-RSV-014 v1",
+        "BR-RSV-015 v1",
+        "BR-RSV-016 v1",
+        "BR-RSV-017 v1",
+        "BR-RSV-018 v1",
+        "BR-RSV-019 v1",
+        "BR-RSV-020 v1",
+        "BR-RSV-021 v1",
+        "BR-RSV-022 v1",
+        "BR-RSV-023 v1",
+        "BR-RSV-024 v1"
+      ],
+      "source": {
+        "repoPath": "services/reserve-engine",
+        "terraformModule": "infra/terraform/modules/reserve-engine"
+      }
+    },
+    {
+      "id": "SVC06",
+      "name": "fraud-referral-svc",
+      "description": "Fraud referral decisions, SIU hand-off and customer-notice deadlines (NISA Circular 2026/04)",
+      "status": "live",
+      "goLive": "2026-04-01",
+      "owner": {
+        "team": "Hub Squad – Fraud & Settlement",
+        "teamId": "T29",
+        "lead": "Linnea Sjöberg"
+      },
+      "runtime": {
+        "namespace": "chub-fraud",
+        "replicas": 3,
+        "image": "registry.corvane.internal/chub/fraud-referral-svc",
+        "cluster": "ocp-prd-lon1",
+        "drCluster": "ocp-dr-lds1"
+      },
+      "endpoints": {
+        "internal": "http://fraud-referral-svc.chub-fraud.svc.cluster.local:8080",
+        "route": "https://fraud-referral-svc.apps.ocp-prd-lon1.corvane.internal",
+        "openapi": "https://fraud-referral-svc.apps.ocp-prd-lon1.corvane.internal/v3/api-docs",
+        "health": "/actuator/health"
+      },
+      "apis": [
+        {
+          "method": "POST",
+          "path": "/referrals",
+          "summary": "Create a fraud referral"
+        },
+        {
+          "method": "GET",
+          "path": "/referrals/{referralId}",
+          "summary": "Get a referral"
+        },
+        {
+          "method": "POST",
+          "path": "/referrals/{referralId}/customer-notice",
+          "summary": "Record or defer the customer notice (deadline = referral date + 10 business days)"
+        }
+      ],
+      "kafka": {
+        "produces": [
+          "fraud.referral.created.v1",
+          "fraud.referral.notice-due.v1"
+        ],
+        "consumes": [
+          "fraud.score.received.v1",
+          "triage.completed.v1"
+        ]
+      },
+      "data": [
+        {
+          "table": "fraud.referral",
+          "database": "chub_fraud"
+        },
+        {
+          "table": "fraud.customer_notice",
+          "database": "chub_fraud"
+        }
+      ],
+      "replacesPrograms": [
+        "CLRFR010",
+        "CLRFR020",
+        "CLRFR030",
+        "CLRFR040",
+        "CLRFR050",
+        "CLRFR070",
+        "CLRFR080",
+        "CLRFR100",
+        "CLRFR110",
+        "CLRFR120"
+      ],
+      "config": {
+        "referral.threshold.default": 65,
+        "referral.threshold.tier3": 60,
+        "referral.threshold.tier3.effective-from": "2026-10-01",
+        "notice.business-days": 10,
+        "notice.max-deferral-days": 60,
+        "auto-decline.enabled": false
+      },
+      "interfaces": [
+        "CLX-IF-041"
+      ],
+      "rules": [
+        "BR-FRD-001 v1",
+        "BR-FRD-002 v1",
+        "BR-FRD-003 v1",
+        "BR-FRD-004 v1",
+        "BR-FRD-005 v3",
+        "BR-FRD-006 v2",
+        "BR-FRD-007 v1",
+        "BR-FRD-008 v2",
+        "BR-FRD-009 v1",
+        "BR-FRD-010 v1",
+        "BR-FRD-011 v1",
+        "BR-FRD-013 v1",
+        "BR-FRD-014 v1",
+        "BR-FRD-015 v1",
+        "BR-FRD-016 v1",
+        "BR-FRD-017 v1",
+        "BR-FRD-018 v1",
+        "BR-FRD-031 v2",
+        "BR-FRD-032 v2",
+        "BR-FRD-033 v1",
+        "BR-FRD-035 v2",
+        "BR-FRD-036 v2"
+      ],
+      "source": {
+        "repoPath": "services/fraud-referral-svc",
+        "terraformModule": "infra/terraform/modules/fraud-referral-svc"
+      }
+    },
+    {
+      "id": "SVC07",
+      "name": "settlement-svc",
+      "description": "Settlement offers, fast-track settlement, closure and reserve close-down instructions",
+      "status": "live",
+      "goLive": "2026-09-14",
+      "owner": {
+        "team": "Hub Squad – Fraud & Settlement",
+        "teamId": "T29",
+        "lead": "Linnea Sjöberg"
+      },
+      "runtime": {
+        "namespace": "chub-settle",
+        "replicas": 2,
+        "image": "registry.corvane.internal/chub/settlement-svc",
+        "cluster": "ocp-prd-lon1",
+        "drCluster": "ocp-dr-lds1"
+      },
+      "endpoints": {
+        "internal": "http://settlement-svc.chub-settle.svc.cluster.local:8080",
+        "route": "https://settlement-svc.apps.ocp-prd-lon1.corvane.internal",
+        "openapi": "https://settlement-svc.apps.ocp-prd-lon1.corvane.internal/v3/api-docs",
+        "health": "/actuator/health"
+      },
+      "apis": [
+        {
+          "method": "POST",
+          "path": "/settlements",
+          "summary": "Create a settlement offer"
+        },
+        {
+          "method": "POST",
+          "path": "/settlements/{settlementId}/finalise",
+          "summary": "Finalise and close"
+        }
+      ],
+      "kafka": {
+        "produces": [
+          "settlement.agreed.v1"
+        ],
+        "consumes": [
+          "assessment.completed.v1"
+        ]
+      },
+      "data": [
+        {
+          "table": "settlement.settlement",
+          "database": "chub_settlement"
+        }
+      ],
+      "replacesPrograms": [
+        "CLRST010",
+        "CLRST040",
+        "CLRST080",
+        "CLRST100",
+        "CLRST120"
+      ],
+      "interfaces": [],
+      "rules": [
+        "BR-RSV-014 v1",
+        "BR-STL-001 v1",
+        "BR-STL-003 v1",
+        "BR-STL-004 v1",
+        "BR-STL-005 v1",
+        "BR-STL-006 v1",
+        "BR-STL-008 v2",
+        "BR-STL-009 v1",
+        "BR-STL-010 v1",
+        "BR-STL-011 v1",
+        "BR-STL-012 v2",
+        "BR-STL-013 v1",
+        "BR-STL-015 v1",
+        "BR-STL-016 v1",
+        "BR-STL-017 v1",
+        "BR-STL-018 v1",
+        "BR-STL-019 v1",
+        "BR-STL-020 v1",
+        "BR-STL-021 v1",
+        "BR-TRI-006 v3"
+      ],
+      "source": {
+        "repoPath": "services/settlement-svc",
+        "terraformModule": "infra/terraform/modules/settlement-svc"
+      }
+    },
+    {
+      "id": "SVC08",
+      "name": "payment-orchestrator",
+      "description": "Payment authorisation (BR-STL-002), sanctions screening and CPG instructions",
+      "status": "live",
+      "goLive": "2026-09-14",
+      "owner": {
+        "team": "Hub Squad – Fraud & Settlement",
+        "teamId": "T29",
+        "lead": "Linnea Sjöberg"
+      },
+      "runtime": {
+        "namespace": "chub-settle",
+        "replicas": 3,
+        "image": "registry.corvane.internal/chub/payment-orchestrator",
+        "cluster": "ocp-prd-lon1",
+        "drCluster": "ocp-dr-lds1"
+      },
+      "endpoints": {
+        "internal": "http://payment-orchestrator.chub-settle.svc.cluster.local:8080",
+        "route": "https://payment-orchestrator.apps.ocp-prd-lon1.corvane.internal",
+        "openapi": "https://payment-orchestrator.apps.ocp-prd-lon1.corvane.internal/v3/api-docs",
+        "health": "/actuator/health"
+      },
+      "apis": [
+        {
+          "method": "POST",
+          "path": "/payments",
+          "summary": "Request a payment"
+        },
+        {
+          "method": "POST",
+          "path": "/payments/{paymentId}/cancel",
+          "summary": "Cancel a payment"
+        }
+      ],
+      "kafka": {
+        "produces": [
+          "payment.requested.v1"
+        ],
+        "consumes": [
+          "settlement.agreed.v1",
+          "payment.confirmed.v1"
+        ]
+      },
+      "data": [
+        {
+          "table": "payment.payment_instruction",
+          "database": "chub_payment"
+        }
+      ],
+      "replacesPrograms": [
+        "CLRAS070",
+        "CLRST020",
+        "CLRST030",
+        "CLRST050",
+        "CLRST060",
+        "CLRST070",
+        "CLRST090",
+        "CLRST110",
+        "CLRST140"
+      ],
+      "interfaces": [
+        "CLX-IF-038"
+      ],
+      "rules": [
+        "BR-STL-001 v1",
+        "BR-STL-002 v3",
+        "BR-STL-003 v1",
+        "BR-STL-005 v1",
+        "BR-STL-006 v1",
+        "BR-STL-007 v1",
+        "BR-STL-008 v2",
+        "BR-STL-010 v1",
+        "BR-STL-011 v1",
+        "BR-STL-012 v2",
+        "BR-STL-013 v1",
+        "BR-STL-014 v1",
+        "BR-STL-015 v1",
+        "BR-STL-016 v1",
+        "BR-STL-017 v1",
+        "BR-STL-018 v1",
+        "BR-STL-019 v1",
+        "BR-STL-020 v1",
+        "BR-STL-021 v1"
+      ],
+      "source": {
+        "repoPath": "services/payment-orchestrator",
+        "terraformModule": "infra/terraform/modules/payment-orchestrator"
+      }
+    },
+    {
+      "id": "SVC09",
+      "name": "recovery-svc",
+      "description": "Subrogation cases, salvage and recovery receipts; replaces SUBTRAK",
+      "status": "live",
+      "goLive": "2026-09-14",
+      "runtime": {
+        "namespace": "chub-recovery",
+        "replicas": 2,
+        "image": "registry.corvane.internal/chub/recovery-svc",
+        "cluster": "ocp-prd-lon1",
+        "drCluster": "ocp-dr-lds1"
+      },
+      "endpoints": {
+        "internal": "http://recovery-svc.chub-recovery.svc.cluster.local:8080",
+        "route": "https://recovery-svc.apps.ocp-prd-lon1.corvane.internal",
+        "openapi": "https://recovery-svc.apps.ocp-prd-lon1.corvane.internal/v3/api-docs",
+        "health": "/actuator/health"
+      },
+      "apis": [
+        {
+          "method": "POST",
+          "path": "/recoveries",
+          "summary": "Open a recovery / subrogation case"
+        },
+        {
+          "method": "POST",
+          "path": "/recoveries/{caseId}/receipts",
+          "summary": "Record a receipt"
+        },
+        {
+          "method": "POST",
+          "path": "/recoveries/{caseId}/write-off",
+          "summary": "Write off (approval above £10,000 by Head of Recoveries & Subrogation)"
+        }
+      ],
+      "kafka": {
+        "produces": [
+          "recovery.receipt.v1"
+        ],
+        "consumes": [
+          "settlement.agreed.v1"
+        ]
+      },
+      "data": [
+        {
+          "table": "recovery.recovery_case",
+          "database": "chub_recovery"
+        },
+        {
+          "table": "recovery.receipt",
+          "database": "chub_recovery"
+        }
+      ],
+      "replacesPrograms": [
+        "CLRRC010",
+        "CLRRC020",
+        "CLRRC040",
+        "CLRRC050",
+        "CLRRC060",
+        "CLRRC070",
+        "CLRRC080",
+        "CLRRC090"
+      ],
+      "interfaces": [],
+      "rules": [
+        "BR-REC-001 v1",
+        "BR-REC-002 v1",
+        "BR-REC-003 v3",
+        "BR-REC-004 v1",
+        "BR-REC-005 v2",
+        "BR-REC-006 v1",
+        "BR-REC-007 v1",
+        "BR-REC-008 v1",
+        "BR-REC-009 v1",
+        "BR-REC-010 v1",
+        "BR-REC-011 v2",
+        "BR-REC-012 v1",
+        "BR-REC-013 v1",
+        "BR-REC-014 v1",
+        "BR-REC-015 v2",
+        "BR-REC-016 v1",
+        "BR-REC-017 v1"
+      ],
+      "source": {
+        "repoPath": "services/recovery-svc",
+        "terraformModule": "infra/terraform/modules/recovery-svc"
+      }
+    },
+    {
+      "id": "SVC10",
+      "name": "document-svc",
+      "description": "Document metadata; stores binaries in Evidence Vault (formerly DOCSTOR)",
+      "status": "live",
+      "goLive": "2025-11-03",
+      "runtime": {
+        "namespace": "chub-docs",
+        "replicas": 2,
+        "image": "registry.corvane.internal/chub/document-svc",
+        "cluster": "ocp-prd-lon1",
+        "drCluster": "ocp-dr-lds1"
+      },
+      "endpoints": {
+        "internal": "http://document-svc.chub-docs.svc.cluster.local:8080",
+        "route": "https://document-svc.apps.ocp-prd-lon1.corvane.internal",
+        "openapi": "https://document-svc.apps.ocp-prd-lon1.corvane.internal/v3/api-docs",
+        "health": "/actuator/health"
+      },
+      "apis": [
+        {
+          "method": "POST",
+          "path": "/documents",
+          "summary": "Store a document"
+        },
+        {
+          "method": "GET",
+          "path": "/documents/{documentId}",
+          "summary": "Get document metadata"
+        }
+      ],
+      "kafka": {
+        "produces": [
+          "document.stored.v1"
+        ],
+        "consumes": [
+          "eig.evidence.received.v1"
+        ]
+      },
+      "data": [
+        {
+          "table": "document.document",
+          "database": "chub_document"
+        }
+      ],
+      "replacesPrograms": [
+        "CLRCM100"
+      ],
+      "interfaces": [
+        "CLX-IF-039"
+      ],
+      "rules": [
+        "BR-GEN-004 v3"
+      ],
+      "source": {
+        "repoPath": "services/document-svc",
+        "terraformModule": "infra/terraform/modules/document-svc"
+      }
+    },
+    {
+      "id": "SVC11",
+      "name": "notification-svc",
+      "description": "Customer communications via Notify (acknowledgements, fraud-referral notices, recovery letters)",
+      "status": "live",
+      "goLive": "2025-11-03",
+      "owner": {
+        "team": "Hub Squad – Intake & Triage",
+        "teamId": "T27",
+        "lead": "Sofie Bak"
+      },
+      "runtime": {
+        "namespace": "chub-notify",
+        "replicas": 2,
+        "image": "registry.corvane.internal/chub/notification-svc",
+        "cluster": "ocp-prd-lon1",
+        "drCluster": "ocp-dr-lds1"
+      },
+      "endpoints": {
+        "internal": "http://notification-svc.chub-notify.svc.cluster.local:8080",
+        "route": "https://notification-svc.apps.ocp-prd-lon1.corvane.internal",
+        "openapi": "https://notification-svc.apps.ocp-prd-lon1.corvane.internal/v3/api-docs",
+        "health": "/actuator/health"
+      },
+      "apis": [
+        {
+          "method": "POST",
+          "path": "/notifications",
+          "summary": "Send a notification"
+        }
+      ],
+      "kafka": {
+        "produces": [
+          "notification.sent.v1"
+        ],
+        "consumes": [
+          "fnol.received.v1",
+          "fraud.referral.notice-due.v1"
+        ]
+      },
+      "data": [
+        {
+          "table": "notification.message",
+          "database": "chub_notification"
+        }
+      ],
+      "replacesPrograms": [
+        "CLRFN070",
+        "CLRFR060",
+        "CLRRC030"
+      ],
+      "interfaces": [
+        "CLX-IF-037"
+      ],
+      "rules": [
+        "BR-FNOL-001 v3",
+        "BR-FRD-032 v2"
+      ],
+      "source": {
+        "repoPath": "services/notification-svc",
+        "terraformModule": "infra/terraform/modules/notification-svc"
+      }
+    },
+    {
+      "id": "SVC12",
+      "name": "gl-posting-svc",
+      "description": "Journals to Group Ledger from reserve and payment events",
+      "status": "live",
+      "goLive": "2026-09-14",
+      "owner": {
+        "team": "Hub Squad – Reserve & Finance",
+        "teamId": "T28",
+        "lead": "Daniel Achebe"
+      },
+      "runtime": {
+        "namespace": "chub-finance",
+        "replicas": 2,
+        "image": "registry.corvane.internal/chub/gl-posting-svc",
+        "cluster": "ocp-prd-lon1",
+        "drCluster": "ocp-dr-lds1"
+      },
+      "endpoints": {
+        "internal": "http://gl-posting-svc.chub-finance.svc.cluster.local:8080",
+        "route": "https://gl-posting-svc.apps.ocp-prd-lon1.corvane.internal",
+        "openapi": "https://gl-posting-svc.apps.ocp-prd-lon1.corvane.internal/v3/api-docs",
+        "health": "/actuator/health"
+      },
+      "apis": [
+        {
+          "method": "GET",
+          "path": "/journals/{period}",
+          "summary": "List journals for a GL period"
+        }
+      ],
+      "kafka": {
+        "produces": [],
+        "consumes": [
+          "reserve.changed.v2",
+          "payment.confirmed.v1",
+          "recovery.receipt.v1"
+        ]
+      },
+      "data": [
+        {
+          "table": "gl.journal_line",
+          "database": "chub_gl"
+        }
+      ],
+      "replacesPrograms": [
+        "CLRGL010",
+        "CLRGL020",
+        "CLRGL050",
+        "CLRGL060",
+        "CLRGL070"
+      ],
+      "interfaces": [
+        "CLX-IF-050"
+      ],
+      "rules": [],
+      "source": {
+        "repoPath": "services/gl-posting-svc",
+        "terraformModule": "infra/terraform/modules/gl-posting-svc"
+      }
+    },
+    {
+      "id": "SVC13",
+      "name": "reporting-feed-svc",
+      "description": "Regulatory extracts to NISA Reporting Hub (replaces CLARA NISA extracts from 2027)",
+      "status": "in development",
+      "goLive": "2027-01-11",
+      "owner": {
+        "team": "Hub Squad – Reserve & Finance",
+        "teamId": "T28",
+        "lead": "Daniel Achebe"
+      },
+      "runtime": {
+        "namespace": "chub-finance",
+        "replicas": 1,
+        "image": "registry.corvane.internal/chub/reporting-feed-svc",
+        "cluster": "ocp-prd-lon1",
+        "drCluster": "ocp-dr-lds1"
+      },
+      "endpoints": {
+        "internal": "http://reporting-feed-svc.chub-finance.svc.cluster.local:8080",
+        "route": "https://reporting-feed-svc.apps.ocp-prd-lon1.corvane.internal",
+        "openapi": "https://reporting-feed-svc.apps.ocp-prd-lon1.corvane.internal/v3/api-docs",
+        "health": "/actuator/health"
+      },
+      "apis": [
+        {
+          "method": "POST",
+          "path": "/returns/{returnCode}/{period}/extract",
+          "summary": "Build a return extract (TP2, FR1, CT1)"
+        }
+      ],
+      "kafka": {
+        "produces": [],
+        "consumes": [
+          "reserve.changed.v2",
+          "fraud.referral.created.v1"
+        ]
+      },
+      "data": [
+        {
+          "table": "reporting.return_extract",
+          "database": "chub_reporting"
+        }
+      ],
+      "replacesPrograms": [
+        "CLRFR090",
+        "CLRRP010",
+        "CLRRP030",
+        "CLRRP040",
+        "CLRRP060"
+      ],
+      "interfaces": [
+        "CLX-IF-060"
+      ],
+      "rules": [
+        "BR-FRD-034 v1"
+      ],
+      "source": {
+        "repoPath": "services/reporting-feed-svc",
+        "terraformModule": "infra/terraform/modules/reporting-feed-svc"
+      }
+    }
+  ],
+  "notes": [
+    "Registry snapshot as at 2026-11-02.",
+    "Ownership follows the squad model; see the Claims Hub home page for squads.",
+    "Contract tests run in the pipeline against the published API and event schemas.",
+    "For clarity, amounts are carried in minor units with an explicit ISO 4217 currency."
+  ]
+}

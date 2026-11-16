@@ -1,0 +1,504 @@
+{
+  "documentControl": {
+    "documentId": "SKR-INT-KAF-030",
+    "title": "Kafka Topic Catalogue",
+    "version": "1.0",
+    "status": "final",
+    "date": "2026-09-30",
+    "owner": {
+      "name": "Henrik Vestergaard",
+      "title": "Integration Platform Lead"
+    },
+    "reviewers": [
+      {
+        "name": "Marcus Oduya",
+        "title": "Integration Architect"
+      },
+      {
+        "name": "Daniel Achebe",
+        "title": "Engineering Lead – Reserve & Finance Squad"
+      }
+    ],
+    "approvers": [
+      {
+        "name": "Tomasz Wójcik",
+        "title": "Enterprise Architect",
+        "date": "2026-09-30"
+      }
+    ],
+    "classification": "Internal",
+    "organisation": "Corvane Mutual Insurance Society Limited",
+    "programme": "Programme Skerry (CLARA to Claims Hub)",
+    "changeHistory": [
+      {
+        "version": "0.1",
+        "date": "2026-06-24",
+        "author": "Henrik Vestergaard",
+        "change": "Initial draft for review"
+      },
+      {
+        "version": "0.2",
+        "date": "2026-07-27",
+        "author": "Henrik Vestergaard",
+        "change": "Cross-checked against the source systems"
+      },
+      {
+        "version": "1.0",
+        "date": "2026-09-30",
+        "author": "Henrik Vestergaard",
+        "change": "Issued as final"
+      }
+    ]
+  },
+  "cluster": {
+    "name": "esp-prd",
+    "system": "Event Streaming Platform",
+    "systemId": "SYS15",
+    "technology": "Apache Kafka on OpenShift (Strimzi operator), 6 brokers",
+    "hosting": "OpenShift cluster ocp-prd-lon1",
+    "owner": "Henrik Vestergaard"
+  },
+  "conventions": {
+    "naming": "<domain>.<entity>.<event>.v<major>",
+    "schemas": "Avro schemas registered per subject <topic>-value; compatibility BACKWARD",
+    "contractTests": "Every topic has consumer contract tests in the pipeline (ADR-023)",
+    "changes": "New topics and partition changes go through the Integration Platform change process."
+  },
+  "topicCount": 18,
+  "topics": [
+    {
+      "name": "assessment.completed.v1",
+      "partitions": 3,
+      "retentionDays": 7,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "assessment.completed.v1-value",
+      "producer": "assessment-svc",
+      "consumers": [
+        "settlement-svc"
+      ],
+      "consumerGroups": [
+        "settlement-svc.assessment-completed-v1"
+      ],
+      "ownerTeam": "Hub Squad – Intake & Triage",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "description": "Events from assessment-svc: Claims Assessor appointment, inspections, estimates and coverage decisions.",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "claim.created.v1",
+      "partitions": 6,
+      "retentionDays": 30,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "claim.created.v1-value",
+      "producer": "claim-core-svc",
+      "consumers": [
+        "Claims Data Warehouse"
+      ],
+      "consumerGroups": [
+        "claims-data-warehouse.claim-created-v1"
+      ],
+      "ownerTeam": "Hub Squad – Intake & Triage",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "interface": "CLX-IF-056",
+      "description": "Events from claim-core-svc: Claim aggregate (claim header, parties, status); system of record for migrated claims.",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "claim.updated.v1",
+      "partitions": 6,
+      "retentionDays": 30,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "claim.updated.v1-value",
+      "producer": "claim-core-svc",
+      "consumers": [
+        "Claims Data Warehouse"
+      ],
+      "consumerGroups": [
+        "claims-data-warehouse.claim-updated-v1"
+      ],
+      "ownerTeam": "Hub Squad – Intake & Triage",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "interface": "CLX-IF-056",
+      "description": "Events from claim-core-svc: Claim aggregate (claim header, parties, status); system of record for migrated claims.",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "claims.reserve.movement.v1",
+      "partitions": 12,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "claims.reserve.movement.v1-value",
+      "schemaVersion": 3,
+      "key": "claim_id",
+      "producer": "MQ-to-Kafka bridge (CLX-IF-049)",
+      "consumers": [
+        "reserve-engine"
+      ],
+      "consumerGroups": [
+        "reserve-engine.claims-reserve-movement-v1"
+      ],
+      "ownerTeam": "Integration Platform",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "interface": "CLX-IF-049",
+      "introduced": "2025-12-12",
+      "ticket": "CHUB-188",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD",
+      "note": "Bridged from CLX-IF-042 by CLX-IF-049 (ADR-012)"
+    },
+    {
+      "name": "document.stored.v1",
+      "partitions": 3,
+      "retentionDays": 7,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "document.stored.v1-value",
+      "producer": "document-svc",
+      "consumers": [
+        "claim-core-svc"
+      ],
+      "consumerGroups": [
+        "claim-core-svc.document-stored-v1"
+      ],
+      "ownerTeam": "Hub Squad – Intake & Triage",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "description": "Events from document-svc: Document metadata; stores binaries in Evidence Vault (formerly DOCSTOR).",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "eig.evidence.received.v1",
+      "partitions": 6,
+      "retentionDays": 7,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "eig.evidence.received.v1-value",
+      "producer": "Evidence Intake Gateway",
+      "consumers": [
+        "fnol-intake-svc",
+        "document-svc"
+      ],
+      "consumerGroups": [
+        "fnol-intake-svc.eig-evidence-received-v1",
+        "document-svc.eig-evidence-received-v1"
+      ],
+      "ownerTeam": "Hub Squad – Intake & Triage",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "eig.telematics.alert.v1",
+      "partitions": 3,
+      "retentionDays": 3,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "JSON",
+      "schemaSubject": "eig.telematics.alert.v1-value",
+      "producer": "Evidence Intake Gateway",
+      "consumers": [
+        "fnol-intake-svc"
+      ],
+      "consumerGroups": [
+        "fnol-intake-svc.eig-telematics-alert-v1"
+      ],
+      "ownerTeam": "Hub Squad – Intake & Triage",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "interface": "CLX-IF-057",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "fnol.received.v1",
+      "partitions": 6,
+      "retentionDays": 7,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "fnol.received.v1-value",
+      "producer": "fnol-intake-svc",
+      "consumers": [
+        "triage-svc",
+        "claim-core-svc",
+        "notification-svc"
+      ],
+      "consumerGroups": [
+        "triage-svc.fnol-received-v1",
+        "claim-core-svc.fnol-received-v1",
+        "notification-svc.fnol-received-v1"
+      ],
+      "ownerTeam": "Hub Squad – Intake & Triage",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "interface": "CLX-IF-034",
+      "description": "Events from fnol-intake-svc: First Notice of Loss intake from portal, app, contact centre, brokers and telematics.",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "fraud.referral.created.v1",
+      "partitions": 3,
+      "retentionDays": 30,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "fraud.referral.created.v1-value",
+      "producer": "fraud-referral-svc",
+      "consumers": [
+        "reporting-feed-svc"
+      ],
+      "consumerGroups": [
+        "reporting-feed-svc.fraud-referral-created-v1"
+      ],
+      "ownerTeam": "Hub Squad – Fraud & Settlement",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "description": "Events from fraud-referral-svc: Fraud referral decisions, SIU hand-off and customer-notice deadlines (NISA Circular 2026/04).",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "fraud.referral.notice-due.v1",
+      "partitions": 3,
+      "retentionDays": 30,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "fraud.referral.notice-due.v1-value",
+      "producer": "fraud-referral-svc",
+      "consumers": [
+        "notification-svc"
+      ],
+      "consumerGroups": [
+        "notification-svc.fraud-referral-notice-due-v1"
+      ],
+      "ownerTeam": "Hub Squad – Fraud & Settlement",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "description": "Events from fraud-referral-svc: Fraud referral decisions, SIU hand-off and customer-notice deadlines (NISA Circular 2026/04).",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "fraud.score.received.v1",
+      "partitions": 6,
+      "retentionDays": 7,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "fraud.score.received.v1-value",
+      "producer": "triage-svc",
+      "consumers": [
+        "fraud-referral-svc"
+      ],
+      "consumerGroups": [
+        "fraud-referral-svc.fraud-score-received-v1"
+      ],
+      "ownerTeam": "Hub Squad – Intake & Triage",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "description": "Events from triage-svc: Tier classification (BR-TRI-003), Sentinel pre-screen and routing.",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "notification.sent.v1",
+      "partitions": 3,
+      "retentionDays": 7,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "notification.sent.v1-value",
+      "producer": "notification-svc",
+      "consumers": [
+        "claim-core-svc"
+      ],
+      "consumerGroups": [
+        "claim-core-svc.notification-sent-v1"
+      ],
+      "ownerTeam": "Hub Squad – Intake & Triage",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "description": "Events from notification-svc: Customer communications via Notify (acknowledgements, fraud-referral notices, recovery letters).",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "payment.confirmed.v1",
+      "partitions": 3,
+      "retentionDays": 7,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "payment.confirmed.v1-value",
+      "producer": "Corvane Payments Gateway adapter",
+      "consumers": [
+        "payment-orchestrator",
+        "gl-posting-svc"
+      ],
+      "consumerGroups": [
+        "payment-orchestrator.payment-confirmed-v1",
+        "gl-posting-svc.payment-confirmed-v1"
+      ],
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "payment.requested.v1",
+      "partitions": 3,
+      "retentionDays": 7,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "payment.requested.v1-value",
+      "producer": "payment-orchestrator",
+      "consumers": [
+        "Corvane Payments Gateway adapter"
+      ],
+      "consumerGroups": [
+        "corvane-payments-gateway-adapter.payment-requested-v1"
+      ],
+      "ownerTeam": "Hub Squad – Fraud & Settlement",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "description": "Events from payment-orchestrator: Payment authorisation (BR-STL-002), sanctions screening and CPG instructions.",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "recovery.receipt.v1",
+      "partitions": 3,
+      "retentionDays": 30,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "recovery.receipt.v1-value",
+      "producer": "recovery-svc",
+      "consumers": [
+        "gl-posting-svc"
+      ],
+      "consumerGroups": [
+        "gl-posting-svc.recovery-receipt-v1"
+      ],
+      "ownerTeam": "Hub Squad – Fraud & Settlement",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "description": "Events from recovery-svc: Subrogation cases, salvage and recovery receipts; replaces SUBTRAK.",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "reserve.changed.v2",
+      "partitions": 12,
+      "retentionDays": 30,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "reserve.changed.v2-value",
+      "producer": "reserve-engine",
+      "consumers": [
+        "gl-posting-svc",
+        "reporting-feed-svc"
+      ],
+      "consumerGroups": [
+        "gl-posting-svc.reserve-changed-v2",
+        "reporting-feed-svc.reserve-changed-v2"
+      ],
+      "ownerTeam": "Hub Squad – Reserve & Finance",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "interface": "CLX-IF-045",
+      "introduced": "2026-02-10",
+      "ticket": "CHUB-233",
+      "description": "Events from reserve-engine: Case reserves, reserve movements, Tier-3 review scheduling, indexation and currency revaluation.",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD",
+      "note": "v1 retired with the reserve-svc rename"
+    },
+    {
+      "name": "settlement.agreed.v1",
+      "partitions": 3,
+      "retentionDays": 7,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "settlement.agreed.v1-value",
+      "producer": "settlement-svc",
+      "consumers": [
+        "payment-orchestrator",
+        "recovery-svc"
+      ],
+      "consumerGroups": [
+        "payment-orchestrator.settlement-agreed-v1",
+        "recovery-svc.settlement-agreed-v1"
+      ],
+      "ownerTeam": "Hub Squad – Fraud & Settlement",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "description": "Events from settlement-svc: Settlement offers, fast-track settlement, closure and reserve close-down instructions.",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    },
+    {
+      "name": "triage.completed.v1",
+      "partitions": 6,
+      "retentionDays": 7,
+      "replicationFactor": 3,
+      "cleanupPolicy": "delete",
+      "format": "Avro",
+      "schemaSubject": "triage.completed.v1-value",
+      "producer": "triage-svc",
+      "consumers": [
+        "reserve-engine",
+        "fraud-referral-svc",
+        "assessment-svc"
+      ],
+      "consumerGroups": [
+        "reserve-engine.triage-completed-v1",
+        "fraud-referral-svc.triage-completed-v1",
+        "assessment-svc.triage-completed-v1"
+      ],
+      "ownerTeam": "Hub Squad – Intake & Triage",
+      "cluster": "esp-prd",
+      "platform": "Event Streaming Platform (SYS15)",
+      "description": "Events from triage-svc: Tier classification (BR-TRI-003), Sentinel pre-screen and routing.",
+      "dataClassification": "Internal",
+      "compatibility": "BACKWARD"
+    }
+  ],
+  "retiredTopics": [
+    {
+      "name": "reserve.changed.v1",
+      "retiredOn": "2026-02-10",
+      "ticket": "CHUB-233",
+      "replacedBy": "reserve.changed.v2",
+      "reason": "Retired with the reserve-svc rename (ADR-019)."
+    }
+  ],
+  "notes": [
+    "Topic list as at 2026-09-30, after the Wave 1 cut-over.",
+    "reserve.changed.v1 was retired with the reserve-svc rename (CHUB-233).",
+    "In practice, support for The event backbone follows the service catalogue entry; out-of-hours cover follows the platform rota."
+  ]
+}

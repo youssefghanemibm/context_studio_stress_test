@@ -1,0 +1,503 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+TRANSCRIPT - INCIDENT BRIDGE INC-2025-0412
+============================================================================================
+
+DOCUMENT CONTROL
+  Document reference : INC-2025-0412-BRIDGE-01
+  Title              : Transcript - Incident Bridge INC-2025-0412
+  Meeting            : Incident bridge: INC-2025-0412 (CLX-IF-042 / GL journals)
+  Forum              : Major incident bridge (Sev 1)
+  Date and time      : Monday 28 April 2025, 08:15-09:30 UK time (75 minutes)
+  Venue              : Incident bridge (audio and video), participants in Copenhagen, Leeds, London and Oslo
+  Chair              : Henrik Vestergaard, Integration Platform Lead
+  Prepared by        : Henrik Vestergaard, Integration Platform Lead (Corvane Mutual)
+  Approved by        : Henrik Vestergaard
+  Status             : Final
+  Classification     : Internal
+
+VERSION HISTORY
+  Version  Date        Author / approver         Change
+  0.1      2025-04-28  H. Vestergaard            Bridge recording transcribed
+  1.0      2025-04-28  H. Vestergaard            Checked and attached to the incident record
+
+ATTENDEES
+  Henrik Vestergaard           Integration Platform Lead
+  Hamish Gilchrist             Financial Controller
+  Keith Barraclough            Senior Mainframe Developer
+  Bjørn Aasheim                Regulatory Reporting Manager
+  Marcus Oduya                 Integration Architect, IBM Consulting
+  Graham Pocock                CLARA Platform Manager
+  Maja Holm                    Data & Analytics Lead
+  Per Øverland                 Reinsurance Manager
+
+NOTES ON THIS TRANSCRIPT
+  - Timestamps are elapsed time from the start of the recording (hh:mm:ss).
+  - Speaker labels follow the display names on the bridge and were checked by hand.
+  - [inaudible] and [crosstalk] mark passages the transcription could not resolve.
+  - Attached to incident record INC-2025-0412. Times quoted by speakers are UK time.
+
+-------------------------------------- TRANSCRIPT ------------------------------------------
+
+[00:00:00] Henrik Vestergaard: Okay, it's quarter past, let's start. This is the Sev 1 bridge for INC-2025-0412. GL reserve journals are being rejected after a change to the CLX-IF-042 extract. I'm running the bridge.
+[00:00:12] Henrik Vestergaard: Quick summary. The overnight extract ran as normal, but from 03:02 the GL adapter rejected every record in the file. Nothing has been posted to the general ledger from it.
+[00:00:23] Marcus Oduya: Is there a simpler version of the timeline than what's on the slide?
+[00:00:29] Bjørn Aasheim: Not without losing something important, I think. But I'm happy to look. From a customer point of view, the timeline should be invisible, and that's the test I'd apply.
+[00:00:40] Henrik Vestergaard: The feedback from the teams on the timeline is that they want fewer surprises and more notice. Can everyone keep their cameras off and mics muted unless they're speaking? We've got a lot of people on. The timeline is a good example of where a bit of early testing saves a lot of pain later. On that point, we should capture the incident record for the post-incident review while it's fresh.
+[00:01:07] Marcus Oduya: Yeah, um, we've had mixed messages on the timeline, so a clear statement would help. On the comms plan, can we get the timeline written down as we go rather than reconstructing it afterwards?
+[00:01:20] Graham Pocock: Has anything moved on the bridge cadence since last time?
+[00:01:25] Henrik Vestergaard: Honestly, less than I'd like. The bridge cadence is the bit I'd want logged on the incident record straight away.
+[00:01:33] Graham Pocock: Is there anything we can do to unblock the bridge cadence?
+[00:01:38] Bjørn Aasheim: Probably a bit of time from the business side, but I'll ask offline.
+[00:01:44] Per Øverland: Picking up Bjørn's point, it's the knock-on effect of the incident record that I'm most interested in.
+[00:01:50] Henrik Vestergaard: The incident record is the thing I'd want confirmed with evidence, not assumed.
+[00:01:57] Hamish Gilchrist: We should capture the bridge cadence for the post-incident review while it's fresh.
+[00:02:02] Bjørn Aasheim: Are we expecting any pushback on the comms plan?
+[00:02:06] Marcus Oduya: A few, mostly about timing rather than substance.
+[00:02:10] Per Øverland: Same here.
+[00:02:20] Henrik Vestergaard: Let me do a roll call so I know who's here. Hamish, Keith, Bjorn, Marcus, Graham, Maja, Per. Good, everyone's on.
+[00:02:29] Marcus Oduya: Who else needs to be involved in the bridge cadence?
+[00:02:33] Bjørn Aasheim: The squads, obviously, but also the people on the floor. On the bridge cadence, the teams have been brilliant, frankly, given everything else going on.
+[00:02:43] Graham Pocock: Sorry, can I just check what we mean by the bridge cadence? I think people are using it in different ways.
+[00:02:52] Henrik Vestergaard: Fair point. I mean the whole thing, end to end. I'd frame the bridge cadence as a risk rather than an issue at this stage.
+[00:03:02] Marcus Oduya: Has anything moved on the comms plan since last time?
+[00:03:07] Maja Holm: Not much, other than we understand it better. Let's not lose the comms plan in the detail; it needs to come back here with a clear recommendation.
+[00:03:18] Marcus Oduya: Makes sense to me.
+[00:03:20] Henrik Vestergaard: I'm with Marcus on that. The short version on the comms plan is that it's in hand; the longer version is in the pack. I'd frame the timeline as a risk rather than an issue at this stage.
+[00:03:35] Marcus Oduya: The thing is [crosstalk]
+[00:03:38] Henrik Vestergaard: Sorry, one at a time, please.
+[00:03:41] Marcus Oduya: Sorry. Go on, Hamish.
+[00:03:42] Hamish Gilchrist: No, it's fine, carry on.
+[00:03:45] Henrik Vestergaard: Are we expecting any pushback on the incident record?
+[00:03:50] Bjørn Aasheim: Some, probably, but nothing we can't work through.
+[00:03:53] Graham Pocock: Who else needs to be involved in the comms plan?
+[00:03:57] Keith Barraclough: Someone from the business side, ideally a team leader who's lived with it. Can we make sure the comms plan is visible on the RAID log, so it doesn't fall between the cracks?
+[00:04:10] Graham Pocock: Per, what's your gut feel on the timeline?
+[00:04:14] Per Øverland: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. We touched on the timeline last time and I'm not sure the position has really moved since.
+[00:04:26] Graham Pocock: Mm-hm.
+[00:04:27] Henrik Vestergaard: I'll be honest, the bridge cadence wasn't really on my radar until this week. What I'd like to avoid with the bridge cadence is finding out about a problem the week before, when there's nothing we can do about it, in my view. One thing on the bridge cadence: we should check we're not double-counting effort with the other workstream.
+[00:04:50] Graham Pocock: Yeah, and to add to that, let's not have three people looking at the comms plan in parallel without talking to each other.
+[00:04:59] Marcus Oduya: Sorry, can I just check what we mean by the incident record? I think people are using it in different ways.
+[00:05:08] Henrik Vestergaard: You're right, we're using it loosely. Let me tighten up the wording.
+[00:05:13] Maja Holm: I agree with Henrik, and I'd add that whatever we land on for the comms plan, people need to hear it from their own managers first.
+[00:05:24] Hamish Gilchrist: I'd push back slightly on that. Once the comms plan is understood, the fix itself is probably the easy part.
+[00:05:32] Henrik Vestergaard: Is there anything we can do to unblock the comms plan?
+[00:05:37] Graham Pocock: Nothing specific. Keep asking about it, that's helpful in itself. If the comms plan needs a change, it goes through emergency CAB, even if it's a one-liner.
+[00:05:48] Henrik Vestergaard: Actually, I'd rather the comms plan was boring. Boring is good. We shouldn't confuse the comms plan with the wider change; they're related but not the same, at least from where I sit. Once the bridge cadence is understood, the fix itself is probably the easy part.
+[00:06:06] Keith Barraclough: Is the incident record something we need to decide today, or is it for noting?
+[00:06:13] Marcus Oduya: For noting, I think. Nothing we need to decide today.
+[00:06:17] Hamish Gilchrist: Is there a simpler version of the incident record than what's on the slide?
+[00:06:23] Henrik Vestergaard: Possibly. Let me take that away and see what we could strip out.
+[00:06:29] Graham Pocock: I don't think the comms plan [inaudible] controversial, it's just fiddly. Let's be careful with the comms plan; a rushed rerun could make it worse. I think we've got consensus on the comms plan, broadly.
+[00:06:43] Henrik Vestergaard: What's the biggest risk on the bridge cadence, in your view?
+[00:06:48] Keith Barraclough: The hand-offs between teams. That's where things usually drop. Can someone own the comms on the bridge cadence, so the rest of us can focus on the fix?
+[00:06:59] Maja Holm: To be clear, nobody's saying the bridge cadence is broken. It's more that we haven't tested it the way we'd test anything else. Picking up on that, I'd rather we understood the bridge cadence properly before we start changing things in production.
+[00:07:15] Henrik Vestergaard: We need to be careful how we talk about the comms plan outside this room until it's settled. I think we underestimated the incident record at the start, and that's fine as long as we learn from it.
+[00:07:30] Graham Pocock: What's the biggest risk on the incident record, in your view?
+[00:07:35] Hamish Gilchrist: That we assume it's done because nobody's complaining. Can someone own the comms on the incident record, so the rest of us can focus on the fix?
+[00:07:46] Henrik Vestergaard: How confident are we on the incident record, honestly?
+[00:07:50] Per Øverland: Reasonably. I've seen worse at this stage. Once the incident record is understood, the fix itself is probably the easy part.
+[00:07:58] Henrik Vestergaard: Agreed.
+[00:08:00] Graham Pocock: Keith, any concerns from your side on the timeline?
+[00:08:04] Keith Barraclough: One or two. I'll pick them up offline rather than take time here. On the timeline, can we get the timeline written down as we go rather than reconstructing it afterwards?
+[00:08:17] Hamish Gilchrist: Same view here. Whatever happens with the [inaudible] cadence, the communication needs to be joined up.
+[00:08:24] Henrik Vestergaard: Where have we got to with the incident record, Keith?
+[00:08:29] Keith Barraclough: We're waiting on one input, and then it's fairly straightforward. Let's be careful with the incident record; a rushed rerun could make it worse.
+[00:08:38] Henrik Vestergaard: Sure.
+[00:08:40] Bjørn Aasheim: I'm not sure I'd go quite that far, Henrik. What I'd like to avoid with the incident record is finding out about a problem the week before, when there's nothing we can do about it. The conversation on the comms plan has been constructive, which wasn't always the case.
+[00:09:02] Henrik Vestergaard: Let me be clear about blast radius first. Three consumers hang off CLX-IF-042 today: the GL journal feed, which is 043, the CDW load, which is 044, and the ReCede cession feed, 047. All three read the same RSVMOVE records from CLR.RSVMOVE.OUT.
+[00:09:18] Henrik Vestergaard: Hamish owns the GL feed, Maja the CDW load, and Per the cession feed, which is why you're all on the call.
+[00:09:28] Graham Pocock: The change went through as a CLARA-only change. With hindsight, that classification was wrong. Honestly, we did a walk-through of the copybook change with the team leaders and it generated some good questions.
+[00:09:41] Henrik Vestergaard: Every record in this morning's file was rejected by the adapter. It's not a partial failure, it's all of them. I'd rather we understood the GL adapter properly before we start changing things in production.
+[00:09:55] Marcus Oduya: The adapters parse the record by position. If a field gets wider, everything after it shifts and the parse fails. Once the reject log is understood, the fix itself is probably the easy part.
+[00:10:09] Henrik Vestergaard: Hamish, what keeps you awake about the downstream checks?
+[00:10:13] Hamish Gilchrist: Knock-on effects. If it moves, other things move with it. I'd just add, on the downstream checks, that the lessons learned from the last cycle are worth rereading.
+[00:10:25] Henrik Vestergaard: Let's not rerun anything yet. I want to understand it fully first.
+[00:10:30] Graham Pocock: Okay, noted.
+[00:10:31] Maja Holm: Are we expecting any pushback on the extract file?
+[00:10:36] Henrik Vestergaard: Not really. The team have been very open about the gaps, which helps.
+[00:10:42] Maja Holm: Yeah.
+[00:10:43] Henrik Vestergaard: Hamish, can you confirm the time of the first reject?
+[00:10:48] Hamish Gilchrist: The adapter log shows the first reject at 03:02 this morning, and it carried on rejecting until the file ended.
+[00:10:56] Graham Pocock: Henrik, is there anything on the record layout you need from this group?
+[00:11:02] Henrik Vestergaard: Just air cover, really. People are stretched, so it helps if the message comes from here. Let's not have three people looking at the record layout in parallel without talking to each other.
+[00:11:15] Graham Pocock: We have the change record. I'll attach it to the incident so everyone can see what was approved.
+[00:11:23] Hamish Gilchrist: Agreed.
+[00:11:24] Henrik Vestergaard: I'll pick that up offline.
+[00:11:27] Keith Barraclough: The layout change was tested on the CLARA side. The extract ran, the file was produced. What nobody did was check the consumers. The downstream checks are the thing I'd want confirmed with evidence, not assumed.
+[00:11:41] Bjørn Aasheim: Fair enough.
+[00:11:43] Per Øverland: Is there anything we can do to unblock the reject log?
+[00:11:48] Graham Pocock: Not today, thanks. If that changes, I'll shout. Let's keep the reject log simple and not try to solve every edge case in one go.
+[00:11:58] Bjørn Aasheim: I'm not sure I'd go quite that far, Graham. I think the extract file needs a bit of tidying up rather than a rethink.
+[00:12:08] Henrik Vestergaard: Can you go back one slide?
+[00:12:11] Hamish Gilchrist: Yes, sorry.
+[00:12:12] Henrik Vestergaard: Thanks, that's the one.
+[00:12:15] Keith Barraclough: My only ask on the GL adapter is that we keep the business teams close.
+[00:12:30] Henrik Vestergaard: Keith, what changed?
+[00:12:31] Keith Barraclough: On Friday, the 25th, we deployed CHUB-138. It widened RM-AMOUNT in the RSVMOVE copybook from S9(9)V99 to S9(11)V99 COMP-3, for Nordic large losses. CLRRS170 picked up the new layout and the extract has been writing the wider records since.
+[00:12:47] Graham Pocock: And to be honest about it, it went in without a consumer impact assessment. Nobody asked the downstream teams.
+[00:12:55] Hamish Gilchrist: Have we taken the downstream checks through the team leaders yet?
+[00:13:00] Henrik Vestergaard: Partly. We've done the UK team leaders; the Nordics are next.
+[00:13:05] Graham Pocock: Is the extract file something we need to decide today, or is it for noting?
+[00:13:11] Keith Barraclough: Noting only. If it needs a decision, it'll come back with a paper.
+[00:13:17] Hamish Gilchrist: I think the main thing on the downstream checks is that we don't let it drift without someone looking at it properly. I've had a couple of conversations about the copybook change this week and the feedback was broadly positive. Let's be careful with the record layout; a rushed rerun could make it worse.
+[00:13:38] Graham Pocock: I'm not sure I'd go quite that far, Hamish. Yeah. I'll be honest, the consumer parsers weren't really on my radar until this week. Once the downstream checks are understood, the fix itself is probably the easy part.
+[00:13:53] Henrik Vestergaard: Keith, where are we on the downstream checks?
+[00:13:57] Keith Barraclough: Broadly on track. There are a couple of loose ends, but nothing that worries me. I don't have strong views [inaudible] the downstream checks, other than wanting it done properly.
+[00:14:09] Graham Pocock: Sorry, my dog's decided now's the moment to bark at the postman.
+[00:14:15] Hamish Gilchrist: [laughter] We've all been there.
+[00:14:17] Graham Pocock: Can I just add to that? We're probably overthinking the change record, but I'd rather overthink it than underthink it. Let's be careful with the change record; a rushed rerun could make it worse.
+[00:14:30] Keith Barraclough: Same view here. I'd want the downstream checks checked in the test region first, if we've got the time.
+[00:14:38] Bjørn Aasheim: Do we need a decision on the extract file from this group, or is it just for awareness?
+[00:14:46] Hamish Gilchrist: Awareness for now. There may be a decision next time. We'll need a clear message on the extract file for the business, even if it's just 'we're on it', as far as I can tell.
+[00:15:00] Henrik Vestergaard: Graham, do the consumer parsers affect your area at all?
+[00:15:05] Graham Pocock: Yes, and we're already talking to the team about it. My only ask on the consumer parsers is that we keep the business teams close.
+[00:15:15] Maja Holm: Let's not lose the downstream checks in the detail; it needs to come back here with a clear recommendation. I'd rather have an honest amber on the weekend batch than a green that turns red later.
+[00:15:29] Henrik Vestergaard: Marcus, is there anything on the record layout you need from this group?
+[00:15:35] Marcus Oduya: Not today, thanks. If that changes, I'll shout. We'll need a clear message on the record layout for the business, even if it's just 'we're on it'.
+[00:15:46] Bjørn Aasheim: I think the reject log needs a bit of tidying up rather than a rethink. On the record layout, can we get the timeline written down as we go rather than reconstructing it afterwards? If the reject log is going to need more people, we should flag that early rather than late.
+[00:16:06] Per Øverland: Same here.
+[00:16:08] Graham Pocock: Henrik, what keeps you awake about the reject log?
+[00:16:12] Henrik Vestergaard: Honestly, people. The people who know it best are also the busiest. Speaking for my area, let's be careful with the reject log; a rushed rerun could make it worse.
+[00:16:24] Hamish Gilchrist: From Finance's point of view, I've got no reserve journals in the ledger since Friday. That's the problem in a sentence.
+[00:16:33] Keith Barraclough: The copybook is shared, so anyone who compiled against the new one will see the new layout.
+[00:16:40] Henrik Vestergaard: Graham, does the GL adapter affect your area at all?
+[00:16:45] Graham Pocock: Only at the edges. I'll flag it if that changes.
+[00:16:49] Henrik Vestergaard: Have we taken the GL adapter through the team leaders yet?
+[00:16:54] Hamish Gilchrist: We've walked them through it, yes, and they had some useful challenge. Actually, I'd challenge us a bit on the GL adapter; I'm not sure we've tested the assumptions.
+[00:17:05] Maja Holm: We don't need to solve the change record here; we just need to agree who goes away and looks at it. I suspect the change record will come back to this group at some point, so let's not close it off. On the copybook change, I'd like us to agree the principle and let the team sort out the detail.
+[00:17:28] Henrik Vestergaard: To be honest, we'll need a clear message on the GL adapter for the business, even if it's just 'we're on it', for what it's worth. On the downstream checks, the downstream teams need to know before they start their own reruns.
+[00:17:45] Hamish Gilchrist: The reject log is the bit I'd want logged on the incident record straight away, as far as I can tell. Whatever we land on for the extract file, people need to hear it from their own managers first. Let's not have three people looking at the reject log in parallel without talking to each other.
+[00:18:06] Maja Holm: Let's not lose the consumer parsers in the detail; it needs to come back here with a clear recommendation. On the consumer parsers, can we get the timeline written down as we go rather than reconstructing it afterwards?
+[00:18:21] Graham Pocock: Okay, cool.
+[00:18:22] Hamish Gilchrist: Is the GL adapter something we need to decide today, or is it for noting?
+[00:18:28] Keith Barraclough: Not today. We'll bring options when we've done the analysis. To be honest, the sticking point on the GL adapter has been agreeing the scope, not the build.
+[00:18:39] Henrik Vestergaard: Can I ask what's changed on the downstream checks since we last discussed it?
+[00:18:45] Graham Pocock: The detail's firmer. The direction is the same. Okay. I think we underestimated the downstream checks at the start, and that's fine as long as we learn from it.
+[00:18:57] Marcus Oduya: Who else needs to be involved in the reject log?
+[00:19:01] Hamish Gilchrist: Finance, and probably Compliance as well. I'll set something up. If the reject log needs a change, it [inaudible] through emergency CAB, even if it's a one-liner.
+[00:19:12] Henrik Vestergaard: Uh, my only ask on the downstream checks is that we keep the business teams close. Well, the extract file is the thing I'd want confirmed with evidence, not assumed. Let's be careful with the downstream checks; a rushed rerun could make it worse. I'd rather we understood the downstream checks properly before we start changing things in production.
+[00:19:34] Maja Holm: Keith, is the copybook change a resourcing question or a decision question?
+[00:19:40] Keith Barraclough: Resourcing. Nobody disagrees on what to do. I think the copybook change is a good-news story, actually, and we don't say that often enough.
+[00:19:50] Henrik Vestergaard: We should capture the copybook change for the post-incident review while it's fresh. If anyone's got concerns about the copybook change, I'd rather hear them now than in the corridor afterwards. Mm. For the downstream checks, I'd rather we under-promise and deliver than the other way round. We probably need to separate the facts on the copybook change from the folklore.
+[00:20:13] Graham Pocock: Let's not lose the record layout in the detail; it needs to come back here with a clear recommendation. I've asked for a short write-up on the copybook change so we can look at it properly.
+[00:20:27] Maja Holm: Can someone own the comms on the record layout, so the rest of us can focus on the fix? If the downstream checks need a change, it goes through emergency CAB, even if it's a one-liner. Let's not have three people looking at the weekend batch in parallel without talking to each other. The bit of the GL adapter that worries me is the hand-off between teams.
+[00:20:53] Hamish Gilchrist: If there's one thing I'd take away on the GL adapter, it's that we need to keep it visible.
+[00:21:00] Marcus Oduya: What's the biggest risk on the copybook change, in your view?
+[00:21:05] Keith Barraclough: Timing more than anything. It's not hard, it's just competing with everything else. We'll need a clear message on the copybook change for the business, even if it's just 'we're on it'.
+[00:21:18] Henrik Vestergaard: Who else needs to be involved in the record layout?
+[00:21:22] Per Øverland: Finance, and probably Compliance as well. I'll set something up. I'd like the record layout closed down properly, not just quietly dropped.
+[00:21:31] Keith Barraclough: On the GL adapter, can we get the timeline written down as we go rather than reconstructing it afterwards? I mean, the GL adapter is the thing I'd want confirmed with evidence, not assumed. What's changed on the GL adapter since the last update is mainly the level of detail, not the direction. On the reject log, can we get the timeline written down as we go rather than reconstructing it afterwards?
+[00:21:59] Graham Pocock: On the change record, there's been a lot of activity but not a lot of change, if you see what I mean. I'd be interested in how other teams have handled the GL adapter, because we can't be the first to hit it. The trouble with the copybook change is that the people who know it best are also the busiest. I don't think the change record is controversial, it's just fiddly.
+[00:22:26] Keith Barraclough: I'd rather we understood the extract file properly before we start changing things in production. I suppose let's not have three people looking at the extract file in parallel without talking to each other. Whatever happens with the record layout, the communication needs to be joined up.
+[00:22:44] Hamish Gilchrist: Can someone own the comms on the consumer parsers, so the rest of us can focus on the fix? Let's not have three people looking at the copybook change in parallel without talking to each other. We should probably sanity-check the consumer parsers with someone who wasn't involved in designing it.
+[00:23:03] Henrik Vestergaard: Keith, are you comfortable with the record layout as it stands?
+[00:23:08] Keith Barraclough: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it.
+[00:23:15] Per Øverland: Graham, what keeps you awake about the reject log?
+[00:23:20] Graham Pocock: That we assume it's done because nobody's complaining. I wouldn't want the reject log to become the reason we lose momentum elsewhere.
+[00:23:28] Per Øverland: Yep, makes sense.
+[00:23:30] Keith Barraclough: Could whoever's typing go on mute? It's coming through quite loud.
+[00:23:36] Hamish Gilchrist: Sorry, that's me.
+[00:23:37] Henrik Vestergaard: We should capture the consumer parsers for the post-incident review while it's fresh. For what it's worth, the extract file is the bit I'd want logged on the incident record straight away.
+[00:23:49] Marcus Oduya: Makes sense to me.
+[00:23:52] Hamish Gilchrist: If the record layout needs a change, it goes through emergency CAB, even if it's a one-liner. On the record layout, the downstream teams need to know before they start their own reruns. I had a look at the record layout over the weekend and nothing jumped out as a showstopper. Right. The thing about the GL adapter is that everyone agrees with it in principle and nobody wants to do the work.
+[00:24:20] Keith Barraclough: Has anything moved on the copybook change since last time?
+[00:24:25] Henrik Vestergaard: Mostly that more people are involved now, which is good.
+[00:24:29] Maja Holm: Has anything moved on the extract file since last time?
+[00:24:34] Graham Pocock: Not much, other than we understand it better. I suppose let's capture the extract file as a follow-up rather than try to close it today.
+[00:24:44] Henrik Vestergaard: Keith, is there anything on the GL adapter you need from this group?
+[00:24:50] Keith Barraclough: Probably a bit of time from the business side, but I'll ask offline. Picking up on that, I'm keen we don't just tick a box on the GL adapter, for what it's worth.
+[00:25:03] Hamish Gilchrist: Who else needs to be involved in the weekend batch?
+[00:25:08] Henrik Vestergaard: The squads, obviously, but also the people on the floor. If the weekend batch slips, it doesn't just slip on its own; it drags a couple of other things with it.
+[00:25:19] Graham Pocock: Same view here. From where I sit, the copybook change is the thing most likely to catch us out, simply because it touches so many teams.
+[00:25:30] Bjørn Aasheim: Same view here. We need to be careful how we talk about the weekend batch outside this room until it's settled.
+[00:25:39] Graham Pocock: Keith, are you comfortable with the GL adapter as it stands?
+[00:25:44] Keith Barraclough: Short answer, yes. Long answer, it depends how the next few weeks go. I keep coming back to the GL adapter, because it's the area that's had the least scrutiny.
+[00:25:56] Maja Holm: Is there anything we can do to unblock the extract file?
+[00:26:01] Henrik Vestergaard: Nothing specific. Keep asking about it, that's helpful in itself. I suppose let's be careful with the extract file; a rushed rerun could make it worse.
+[00:26:11] Bjørn Aasheim: Can I just add to that? Let's be careful with the GL adapter; a rushed rerun could make it worse. I'd rather we understood the record layout properly before we start changing things in production.
+[00:26:25] Graham Pocock: I'd rather we understood the weekend batch properly before we start changing things in production. We should capture the weekend batch for the post-incident review while it's fresh. The feedback from the teams on the weekend batch is that they want fewer surprises and more notice. We should be honest that the weekend batch is partly a capacity problem.
+[00:26:47] Henrik Vestergaard: Marcus, any concerns from your side on the downstream checks?
+[00:26:52] Marcus Oduya: One or two. I'll pick them up offline rather than take time here. From where I sit, the downstream checks are the thing most likely to catch us out, simply because it touches so many teams.
+[00:27:10] Henrik Vestergaard: Bjorn, what's the regulatory exposure?
+[00:27:12] Bjørn Aasheim: The Q1 TP2 return is due on the 5th of May. The technical provisions feed, CLX-IF-051, takes its numbers from the general ledger, so if the reserve journals aren't in the ledger in time, the return is at risk.
+[00:27:28] Henrik Vestergaard: Understood. So the GL feed is the priority, then the other two.
+[00:27:33] Maja Holm: Again, we should capture the fix-forward option for the post-incident review while it's fresh. Can someone own the comms on the regression test, so the rest of us can focus on the fix? On the rerun plan, the downstream teams need to know before they start their own reruns. I'd rather we understood the fix-forward option properly before we start changing things in production.
+[00:27:58] Marcus Oduya: I mean, on the GL schedule, there's been a lot of activity but not a lot of change, if you see what I mean. On the rerun plan, can we get the timeline written down as we go rather than reconstructing it afterwards? If I can come in here, I'd want the reconciliation checked in the test region first, if we've got the time. On the GL schedule, the risk isn't that it fails outright, it's that it half works and nobody notices.
+[00:28:29] Henrik Vestergaard: Yeah, fair.
+[00:28:31] Maja Holm: On the reconciliation, the downstream teams need to know before they start their own reruns, if that makes sense.
+[00:28:38] Hamish Gilchrist: Okay, noted.
+[00:28:40] Marcus Oduya: Sorry, just so I'm clear: when you say the record version, do you mean the UK piece or the whole thing?
+[00:28:49] Henrik Vestergaard: Good challenge. I'll make sure the next version defines it properly. The feedback from the teams on the record version is that they want fewer surprises and more notice.
+[00:29:00] Graham Pocock: Sorry, can I just check what we mean by the regression test? I think people are using it in different ways.
+[00:29:08] Hamish Gilchrist: Good challenge. I'll make sure the next version defines it properly. I don't think the regression test is controversial, it's just fiddly.
+[00:29:18] Henrik Vestergaard: A record version in the header would have told every consumer the layout had changed. Let's add one while we're in there.
+[00:29:27] Hamish Gilchrist: Sorry, there's a bit of an echo in the room. Is that better?
+[00:29:33] Marcus Oduya: Much better, thanks.
+[00:29:35] Henrik Vestergaard: I keep coming back to the fix-forward option, because it's the area that's had the least scrutiny. Can we make sure the rerun plan is visible on the RAID log, so it doesn't fall between the cracks? The GL feed currently runs straight after the extract. That doesn't leave any time for validation.
+[00:29:56] Keith Barraclough: I'd rather the revert option was boring. Boring is good. The revert is simple. The Nordic large-loss requirement doesn't go away, but it can wait for a properly managed change.
+[00:30:08] Hamish Gilchrist: Whatever we do, I need the journals for Friday through to today posted before month-end close starts.
+[00:30:15] Henrik Vestergaard: Let's not have three people looking at the GL schedule in parallel without talking to each other. We'll need a clear message on the GL schedule for the business, even if it's just 'we're on it'. I'd want the rerun plan checked in the test region first, if we've got the time, for what it's worth.
+[00:30:36] Marcus Oduya: Fixing forward means changing three adapters under pressure. Reverting means changing one copybook and one program. I know which I'd rather do today.
+[00:30:46] Henrik Vestergaard: If we're going to change anything about the fix-forward option, now's the time rather than later. On the fix-forward option, the risk isn't that it fails outright, it's that it half works and nobody notices.
+[00:31:00] Hamish Gilchrist: The thing about the record version is that everyone agrees with it in principle and nobody wants to do the work. Let's not have three people looking at the reconciliation in parallel without talking to each other. I'm fine with the GL feed running later, as long as it's done before the ledger opens. We should capture the record version for the post-incident review while it's fresh, I'd say.
+[00:31:26] Marcus Oduya: Is the rerun plan in the pack, or is that coming separately?
+[00:31:31] Keith Barraclough: It's in the appendix, towards the back. Sure. Once the rerun plan is understood, the fix itself is probably the easy part.
+[00:31:40] Maja Holm: Is the revert option something we need to decide today, or is it for noting?
+[00:31:47] Henrik Vestergaard: For noting, I think. Nothing we need to decide today. From where I sit, the revert option is the thing most likely to catch us out, simply because it touches so many teams.
+[00:32:01] Graham Pocock: Maja, are you comfortable with the regression test as it stands?
+[00:32:06] Maja Holm: Fairly comfortable. I'd flag it as watch rather than worry. We'll need a clear message on the regression test for the business, even if it's just 'we're on it'.
+[00:32:17] Marcus Oduya: How confident are we on the revert option, honestly?
+[00:32:21] Bjørn Aasheim: Short answer, yes. Long answer, it depends how the next few weeks go. Look, I think the revert option needs a bit of tidying up rather than a rethink.
+[00:32:33] Marcus Oduya: Uh, can we make sure the revert option is visible on the RAID log, so it doesn't fall between the cracks? I don't have strong views on the revert option, other than wanting it done properly. If the revert option needs a change, it goes through emergency CAB, even if it's a one-liner.
+[00:32:54] Keith Barraclough: Bjørn, what's your gut feel on the revert option?
+[00:32:58] Bjørn Aasheim: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it. If I'm honest, the revert option has had less attention than it deserves over the last few weeks.
+[00:33:12] Keith Barraclough: That works.
+[00:33:14] Henrik Vestergaard: What's the biggest risk on the rerun plan, in your view?
+[00:33:19] Maja Holm: The hand-offs between teams. That's where things usually drop.
+[00:33:23] Marcus Oduya: If the consumers check the version, a future change fails loudly instead of quietly.
+[00:33:29] Per Øverland: Is the rerun plan something we need to decide today, or is it for noting?
+[00:33:35] Henrik Vestergaard: Noting only. If it needs a decision, it'll come back with a paper. We should capture the rerun plan for the post-incident review while it's fresh.
+[00:33:46] Bjørn Aasheim: Okay, so if we're short of capacity, the regression test is the thing I'd protect. Can I suggest we park the regression test for now and pick it up under any other business? Mm. Once the GL schedule is understood, the fix itself is probably the easy part.
+[00:34:05] Henrik Vestergaard: We can talk about the rerun plan all day, but at some point someone has to make a call. Let's not have three people looking at the rerun plan in parallel without talking to each other. There's a dependency on the revert option that I don't think everyone's aware of, so it's worth calling out.
+[00:34:26] Maja Holm: Graham, where are we on the revert option?
+[00:34:30] Graham Pocock: In better shape than it was. I wouldn't call it done, but the direction is right.
+[00:34:36] Henrik Vestergaard: [inaudible] sorry, you broke up there, Maja.
+[00:34:39] Maja Holm: Sorry. Is that clearer?
+[00:34:42] Henrik Vestergaard: Yes.
+[00:34:43] Bjørn Aasheim: And I need the general ledger right before the TP2 extract. That's the hard deadline.
+[00:34:50] Keith Barraclough: What's the biggest risk on the deployment window, in your view?
+[00:34:54] Hamish Gilchrist: Timing more than anything. It's not hard, it's just competing with everything else.
+[00:35:00] Keith Barraclough: Same here.
+[00:35:01] Marcus Oduya: Sorry, can I just check what we mean by the deployment window? I think people are using it in different ways.
+[00:35:10] Henrik Vestergaard: Fair point. I mean the whole thing, end to end. Honestly, the conversation on the deployment window has been constructive, which wasn't always the case.
+[00:35:21] Hamish Gilchrist: Can I ask what's changed on the fix-forward option since we last discussed it?
+[00:35:26] Bjørn Aasheim: Honestly, less than I'd like. I'm happy with the fix-forward option as long as we're clear about what's in and what's out.
+[00:35:35] Graham Pocock: Are we expecting any pushback on the revert option?
+[00:35:39] Keith Barraclough: Some, probably, but nothing we can't work through.
+[00:35:43] Henrik Vestergaard: The revert option is the thing I'd want confirmed with evidence, not assumed. Can someone own the comms on the revert option, so the rest of us can focus on the fix?
+[00:35:55] Hamish Gilchrist: I've not seen anything on the deployment window that changes the overall picture, broadly. We're probably overthinking the fix-forward option, but I'd rather overthink it than underthink it.
+[00:36:06] Keith Barraclough: Um, Sure. I'll be honest, the deployment window wasn't really on my radar until this week. We should capture the deployment window for the post-incident review while it's fresh. On the fix-forward option, can we get the timeline written down as we go rather than reconstructing it afterwards?
+[00:36:25] Marcus Oduya: On the rerun plan, the risk isn't that it fails outright, it's that it half works and nobody notices. The detail on the rerun plan is in the appendix, so I won't walk through it line by line. To be clear, nobody's saying the rerun plan is broken. It's more that we haven't tested it the way we'd test anything else.
+[00:36:49] Henrik Vestergaard: What's the biggest risk on the regression test, in your view?
+[00:36:53] Per Øverland: Honestly, people. The people who know it best are also the busiest. We should check whether the regression test lands differently for the Nordic teams than for the UK.
+[00:37:05] Graham Pocock: The quality of the conversation on the rerun plan has improved a lot. Right. We've been here before with the rerun plan, and the lesson last time was to get the business in the room early. Let's be careful with the rerun plan; a rushed rerun could make it worse.
+[00:37:24] Bjørn Aasheim: Per, what keeps you awake about the reconciliation?
+[00:37:28] Per Øverland: Knock-on effects. If it moves, other things move with it. Just quickly, whatever happens with the reconciliation, the communication needs to be joined up, I'd say.
+[00:37:38] Maja Holm: The thing about the deployment window is that everyone agrees with it in principle and nobody wants to do the work. Can someone own the comms on the deployment window, so the rest of us can focus on the fix?
+[00:37:53] Henrik Vestergaard: Is there anything we can do to unblock the record version?
+[00:37:59] Keith Barraclough: Just air cover, really. People are stretched, so it helps if the message comes from here. I'd rather the record version was boring. Boring is good.
+[00:38:09] Hamish Gilchrist: Well, the reconciliation is one of those things that looks easy on a slide and isn't. My only ask on the GL schedule is that we keep the business teams close.
+[00:38:22] Keith Barraclough: I'm with Hamish on that. On the fix-forward option, the teams have been brilliant, frankly, given everything else going on, I'd say. If the reconciliation needs more time, I'd rather we said so now.
+[00:38:35] Henrik Vestergaard: Can I ask what's changed on the record version since we last discussed it?
+[00:38:41] Per Øverland: The detail's firmer. The direction is the same. If anyone's got concerns about the record version, I'd rather hear them now than in the corridor afterwards.
+[00:38:52] Keith Barraclough: Can I ask what's changed on the GL schedule since we last discussed it?
+[00:38:58] Hamish Gilchrist: Mostly that more people are involved now, which is good. Honestly, can someone own the comms on the GL schedule, so the rest of us can focus on the fix?
+[00:39:10] Bjørn Aasheim: I suppose I've not seen anything on the revert option that changes the overall picture. From my side, what's changed on the rerun plan since the last update is mainly the level of detail, not the direction. On the GL schedule, can we get the timeline written down as we go rather than reconstructing it afterwards?
+[00:39:31] Henrik Vestergaard: Is there a simpler version of the revert option than what's on the slide?
+[00:39:37] Hamish Gilchrist: There probably is, and I'd be open to it. The revert option is the bit I'd want logged on the incident record straight away, I think.
+[00:39:48] Henrik Vestergaard: We should capture the GL schedule for the post-incident review while it's fresh. Mm. What would really help on the GL schedule is a single view that everyone works from. We'll need a clear message on the reconciliation for the business, even if it's just 'we're on it'.
+[00:40:06] Hamish Gilchrist: Once the deployment window is understood, the fix itself is probably the easy part, at least from where I sit. On the deployment window, can we get the timeline written down as we go rather than reconstructing it afterwards?
+[00:40:22] Henrik Vestergaard: Bjørn, is the regression test a resourcing question or a decision question?
+[00:40:28] Bjørn Aasheim: Probably both, if I'm honest. If the regression test needs a change, it goes through emergency CAB, even if it's a one-liner.
+[00:40:37] Keith Barraclough: Is there anything we can do to unblock the regression test?
+[00:40:42] Henrik Vestergaard: Not today, thanks. If that changes, I'll shout. Right. Let's be careful with the regression test; a rushed rerun could make it worse.
+[00:40:50] Bjørn Aasheim: Is the fix-forward option something we need to decide today, or is it for noting?
+[00:40:56] Hamish Gilchrist: Not today. We'll bring options when we've done the analysis. To be honest, we probably need to separate the facts on the fix-forward option from the folklore.
+[00:41:07] Bjørn Aasheim: Uh, to be fair, I'd rather we understood the record version properly before we start changing things in production, as far as I can tell. We'll need a clear message on the record version for the business, even if it's just 'we're on it'. We probably need to separate the facts on the record version from the folklore. The record version is the thing I'd want confirmed with evidence, not assumed.
+[00:41:35] Keith Barraclough: Yeah. I've not seen anything on the record version that changes the overall picture. So, we should write the record version up properly, if only so the next person doesn't have to work it all out again. Again, if the record version needs a change, it goes through emergency CAB, even if it's a one-liner. Let's be careful with the record version; a rushed rerun could make it worse.
+[00:42:01] Marcus Oduya: To be clear, nobody's saying the revert option is broken. It's more that we haven't tested it the way we'd test anything else. I'd frame the revert option as a risk rather than an issue at this stage. If we're going to change anything about the GL schedule, now's the time rather than later.
+[00:42:22] Hamish Gilchrist: If the reconciliation needs a change, it goes through emergency CAB, even if it's a one-liner. Okay, so let's be careful with the reconciliation; a rushed [inaudible] could make it worse.
+[00:42:34] Keith Barraclough: Can I just add to that? On the GL schedule, the downstream teams need to know before they start their own reruns. I'd rather we understood the reconciliation properly before we start [inaudible] things in production.
+[00:42:48] Per Øverland: Bjørn, what's your gut feel on the GL schedule?
+[00:42:52] Bjørn Aasheim: Fairly comfortable. I'd flag it as watch rather than worry. If the GL schedule slips, it doesn't just slip on its own; it drags a couple of other things with it.
+[00:43:05] Hamish Gilchrist: Are we expecting any pushback on the fix-forward option?
+[00:43:09] Per Øverland: Not really. The team have been very open about the gaps, which helps. It's the knock-on effect of the fix-forward option that I'm most interested in.
+[00:43:20] Henrik Vestergaard: Hamish, is the record version a resourcing question or a decision question?
+[00:43:25] Hamish Gilchrist: Mostly resourcing, to be honest. The decision's been made; it's the doing.
+[00:43:31] Keith Barraclough: I can have the revert ready for test this morning. Okay, so if the GL schedule needs a change, it goes through emergency CAB, even if it's a one-liner.
+[00:43:42] Graham Pocock: Sorry, can I just check what we mean by the record version? I think people are using it in different ways.
+[00:43:51] Henrik Vestergaard: You're right, we're using it loosely. Let me tighten up the wording.
+[00:43:56] Hamish Gilchrist: Bjørn, can you give us a quick update on the deployment window?
+[00:44:01] Bjørn Aasheim: It's moving. Not as fast as I'd like, but it's moving.
+[00:44:06] Per Øverland: Speaking for my area, I'd frame the fix-forward option as a risk rather than an issue at this stage. If the rerun plan needs a change, it goes through emergency CAB, even if it's a one-liner. If the fix-forward option slips, it doesn't just slip on its own; it drags a couple of other things with it.
+[00:44:28] Marcus Oduya: I'd ask that, that we don't make promises on the GL schedule until we've seen the impact assessment. Yeah. On the deployment window, the downstream teams need to know before they start their own reruns.
+[00:44:43] Keith Barraclough: Henrik, is the revert option a resourcing question or a decision question?
+[00:44:48] Henrik Vestergaard: Resourcing. Nobody disagrees on what to do. Look, I'm reassured on the revert option, mostly because the team have been very open about the gaps.
+[00:44:58] Keith Barraclough: What's the biggest risk on the reconciliation, in your view?
+[00:45:03] Bjørn Aasheim: Timing more than anything. It's not hard, it's just competing with everything else. We should write the reconciliation up properly, if only so the next person doesn't have to work it all out again.
+[00:45:16] Marcus Oduya: Yeah. I'd want the fix-forward option checked in the test region first, if we've got the time. What I'd like to avoid with the fix-forward option is finding out about a problem the week before, when there's nothing we can do about it. Can someone own the comms on the fix-forward option, so the rest of us can focus on the fix?
+[00:45:40] Henrik Vestergaard: Again, I've not seen anything on the fix-forward option that changes the overall picture. Look, once the fix-forward option is understood, the fix itself is probably the easy part. From my side, the conversation on the reconciliation has been constructive, which wasn't always the case.
+[00:45:58] Bjørn Aasheim: Is the regression test something we need to decide today, or is it for noting?
+[00:46:04] Maja Holm: Awareness for now. There may be a decision next time. I'd want the regression test checked in the test region first, if we've got the time.
+[00:46:15] Bjørn Aasheim: If anyone's got concerns about the revert option, I'd rather hear them now than in the corridor afterwards.
+[00:46:22] Keith Barraclough: The deployment window is the thing I'd want confirmed with evidence, not assumed. The trouble with the reconciliation is that the people who know it best are also the busiest. I'd want the deployment window checked in the test region first, if we've got the time.
+[00:46:39] Per Øverland: Is there anything we can do to unblock the fix-forward option?
+[00:46:44] Hamish Gilchrist: Probably a bit of time from the business side, but I'll ask offline. We should be honest that the fix-forward option is partly a capacity problem.
+[00:46:55] Per Øverland: Yeah, fair.
+[00:46:56] Maja Holm: Is the record version in the pack, or is that coming separately?
+[00:47:02] Graham Pocock: It's in there, but only at summary level. Can someone own the comms on the record version, so the rest of us can focus on the fix?
+[00:47:13] Keith Barraclough: One thing on the record version: we should check we're not double-counting effort with the other workstream, to be honest. Part of the issue with the record version is that the documentation lags behind what people actually do. The people side of the rerun plan is going to be harder than the system side.
+[00:47:33] Henrik Vestergaard: Thanks.
+[00:47:34] Keith Barraclough: I was going to say [crosstalk]
+[00:47:37] Bjørn Aasheim: Sorry, go ahead.
+[00:47:40] Keith Barraclough: No, you go.
+[00:47:42] Bjørn Aasheim: I was only going to say I agree.
+[00:47:46] Henrik Vestergaard: I'd echo that, if anyone's got concerns about the regression test, I'd rather hear them now than in the corridor afterwards. To be fair, once the record version is understood, the fix itself is probably the easy part.
+[00:48:01] Keith Barraclough: I'd rather we understood the GL schedule properly before we start changing things in production, as far as I can tell. I'm keen we don't just tick a box on [inaudible] GL schedule. I'd want the GL schedule checked in the test region first, if we've got the time.
+[00:48:21] Henrik Vestergaard: On the revert option, the teams have been brilliant, frankly, given everything else going on. On that point, if the deployment window needs a change, it goes through emergency CAB, even if it's a one-liner. If the revert option slips, it doesn't just slip on its own; it drags a couple of other things with it. There's a temptation to treat the GL schedule as a technical problem, and it really isn't.
+[00:48:48] Keith Barraclough: My instinct on the rerun plan is to wait a little and see how things settle. It's the knock-on effect of the regression test that I'm most interested in. From my side, my sense is that the rerun plan is moving in the right direction, just slowly. I wouldn't want the GL schedule to become the reason we lose momentum elsewhere, as far as I can tell.
+[00:49:14] Bjørn Aasheim: Henrik, does the fix-forward option affect your area at all?
+[00:49:18] Henrik Vestergaard: A bit. We'll need some notice, but it's nothing we can't absorb. If I can come in here, on the fix-forward option, the downstream teams need to know before they start their own reruns, at least from where I sit.
+[00:49:34] Keith Barraclough: Can I ask what's changed on the regression test since we last discussed it?
+[00:49:40] Bjørn Aasheim: Not much, other than we understand it better.
+[00:49:44] Keith Barraclough: Look, the, the rerun [inaudible] is the bit I'd want logged on the incident record straight away. We'll need a clear message on the rerun plan for the business, even if it's just 'we're on it'. My read on the rerun plan is that the hard part is behind us, but there's still a long tail. I'd rather we understood the rerun plan properly before we start changing things in production.
+[00:50:11] Hamish Gilchrist: Bjørn, does the revert option affect your area at all?
+[00:50:15] Bjørn Aasheim: Not directly. There's an indirect impact, but it's manageable. We've got good people looking at the revert option; I'm less sure we've given them enough time.
+[00:50:26] Henrik Vestergaard: Is there anything we can do to unblock the GL schedule?
+[00:50:31] Marcus Oduya: Nothing specific. Keep asking about it, that's helpful in itself. The honest answer on the GL schedule is that we know what good looks like, we're just not there yet.
+[00:50:43] Bjørn Aasheim: Keith, does the GL schedule affect your area at all?
+[00:50:48] Keith Barraclough: Not directly. There's an indirect impact, but it's manageable. Okay, so if we get the GL schedule right, a lot of the noise we've had recently goes away.
+[00:50:59] Bjørn Aasheim: Right, okay.
+[00:51:01] Graham Pocock: Hamish, where are we on the regression test?
+[00:51:05] Hamish Gilchrist: It's with the working group at the moment; I'll chase and come back. Once the regression test is understood, the fix itself is probably the easy part, in my view.
+[00:51:16] Per Øverland: Um, Okay, so let's not lose the rerun plan in the detail; it needs to come back here with a clear recommendation. I've not seen anything on the rerun plan that changes the overall picture.
+[00:51:30] Henrik Vestergaard: I'm conscious of time, so can we move on?
+[00:51:34] Hamish Gilchrist: What's the biggest risk on the GL schedule, in your view?
+[00:51:39] Keith Barraclough: The hand-offs between teams. That's where things usually drop. We don't need to solve the GL schedule here; we just need to agree who goes away and looks at it.
+[00:51:51] Hamish Gilchrist: Do we need a decision on the fix-forward option from this group, or is it just for awareness?
+[00:51:59] Henrik Vestergaard: Awareness for now. There may be a decision next time. I suspect the fix-forward option will come back to this group at some point, so let's not close it off.
+[00:52:12] Bjørn Aasheim: On the rerun plan, I'd like us to agree the principle and let the team sort out the detail. Right. Let's be careful with the revert option; a rushed rerun could make it worse. Can someone own the comms on the rerun plan, so the rest of us can focus on the fix?
+[00:52:32] Maja Holm: Where does the rerun plan sit on the list of priorities right now?
+[00:52:38] Hamish Gilchrist: It's up there. It just keeps getting bumped by urgent things. The rerun plan is the thing I'd want confirmed with evidence, not assumed.
+[00:52:47] Maja Holm: Agreed.
+[00:52:48] Hamish Gilchrist: Have we taken the GL schedule through the team leaders yet?
+[00:52:53] Bjørn Aasheim: Not yet, but it's planned. I don't have strong views on the GL schedule, other than wanting it done properly.
+[00:53:01] Henrik Vestergaard: How confident are we on the GL schedule, honestly?
+[00:53:06] Marcus Oduya: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. Personally I'd go a bit further on the GL schedule, but I can live with what's proposed.
+[00:53:18] Henrik Vestergaard: Sure.
+[00:53:19] Keith Barraclough: Hamish, did you get a chance to look at the GL schedule?
+[00:53:25] Hamish Gilchrist: Yes. It reads well. One or two questions, but nothing major. The GL schedule is the bit I'd want logged on the incident record straight away.
+[00:53:35] Keith Barraclough: Henrik, any concerns from your side on the GL schedule?
+[00:53:40] Henrik Vestergaard: A few, mostly about timing rather than substance. We probably need to separate the facts on the GL schedule from the folklore.
+[00:53:50] Bjørn Aasheim: I agree with Henrik, and I'd add that we should capture the revert option for the post-incident review while it's fresh.
+[00:53:58] Hamish Gilchrist: Let's not have three people looking at the regression test in parallel without talking to each other. There are two schools of thought on the regression test, and both have some merit. If the regression test slips, it doesn't just slip on its own; it drags a couple of other things with it.
+[00:54:19] Keith Barraclough: Understood.
+[00:54:21] Hamish Gilchrist: We'll need a clear message on the deployment window for the business, even if it's just 'we're on it'. It's fair to say the GL schedule took longer than any of us wanted. From where I sit, the deployment window is the thing most likely to catch us out, simply because it touches so many teams. The people side of the deployment window is going to be harder than the system side.
+[00:54:48] Marcus Oduya: Is the GL schedule something we need to decide today, or is it for noting?
+[00:54:54] Henrik Vestergaard: For noting, I think. Nothing we need to decide today.
+[00:54:58] Keith Barraclough: The GL schedule is the thing I'd want confirmed with evidence, not assumed. Let's be careful with the GL schedule; a rushed rerun could make it worse. Everything I've seen on the deployment window says the approach is right; it's the pace I'd question.
+[00:55:15] Henrik Vestergaard: Let's not solve it here. Can we set up a separate session?
+[00:55:21] Keith Barraclough: Has anything moved on the record version since last time?
+[00:55:25] Bjørn Aasheim: The detail's firmer. The direction is the same. I don't think the record version is controversial, it's just fiddly.
+[00:55:33] Keith Barraclough: Sorry, I think you're on mute, Marcus.
+[00:55:36] Marcus Oduya: Sorry, sorry. Can you hear me now?
+[00:55:39] Keith Barraclough: Yes, we've got you.
+[00:55:42] Marcus Oduya: How confident are we on the record version, honestly?
+[00:55:47] Hamish Gilchrist: Reasonably. I've seen worse at this stage. Let me be a bit provocative on the record version: are we sure we need it in its current form?
+[00:55:58] Keith Barraclough: Let's be careful with the GL schedule; a rushed rerun could make it worse. I'd want the revert option checked in the test region first, if we've got the time. The feedback from the teams on the rerun plan is that they want fewer surprises and more notice.
+[00:56:16] Henrik Vestergaard: We're slightly behind, so let's be quick on the next one.
+[00:56:21] Marcus Oduya: Bjørn, did you get a chance to look at the deployment window?
+[00:56:26] Bjørn Aasheim: Not properly yet. It's on my list for this week. I'd rather we understood the deployment window properly before we start changing things in production.
+[00:56:36] Henrik Vestergaard: I'll pick that up offline.
+[00:56:39] Hamish Gilchrist: Keith, where are we on the revert option?
+[00:56:43] Keith Barraclough: Steady. No drama, which is what you want. Once the revert option is understood, the fix itself is probably the easy part.
+[00:56:52] Marcus Oduya: Henrik, where are we on the record version?
+[00:56:56] Henrik Vestergaard: It's progressing. I'll have a fuller picture by the next meeting. Mm. We need a bit more rigour around the record version, particularly on the testing side.
+[00:57:07] Marcus Oduya: Right, okay.
+[00:57:08] Henrik Vestergaard: Keith, is there anything on the regression test you need from this group?
+[00:57:14] Keith Barraclough: Just air cover, really. People are stretched, so it helps if the message comes from here. The regression test is the thing I'd want confirmed with evidence, not assumed.
+[00:57:26] Graham Pocock: Marcus, does the fix-forward option affect your area at all?
+[00:57:31] Marcus Oduya: Yes, and we're already talking to the team about it. Let's not have three people looking at the fix-forward option in parallel without talking to each other.
+[00:57:42] Henrik Vestergaard: I'm reassured on the reconciliation, mostly because the team have been very open about the gaps. I'd rather we understood the revert option properly before we start changing things in production.
+[00:57:54] Keith Barraclough: Per, did you get a chance to look at the revert option?
+[00:57:59] Per Øverland: I did, briefly. I've got a couple of comments, I'll send them over. Yeah. Let's capture the revert option as a follow-up rather than try to close it today.
+[00:58:11] Hamish Gilchrist: Bjørn, any concerns from your side on the record version?
+[00:58:15] Bjørn Aasheim: A few, mostly about timing rather than substance.
+[00:58:19] Hamish Gilchrist: Makes sense to me.
+[00:58:21] Maja Holm: Is the reconciliation in the pack, or is that coming separately?
+[00:58:26] Henrik Vestergaard: Not in this pack, no. It'll come separately once it's been through the working group. On the reconciliation, the teams have been brilliant, frankly, given everything else going on, if that makes sense.
+[00:58:40] Bjørn Aasheim: Let's be careful with the, the deployment window; a rushed rerun could make it worse. I don't want us to over-engineer the deployment window. A one-page note would do the job. On the regression test, the downstream teams need to know before they start their own reruns.
+[00:58:58] Marcus Oduya: Just to build on what Bjørn said, we should be honest that the deployment window is partly a capacity problem.
+[00:59:06] Henrik Vestergaard: I don't think the reconciliation is controversial, it's just fiddly. The reconciliation is the bit I'd want logged on the incident record straight away.
+[00:59:17] Maja Holm: No objection from me.
+[00:59:19] Hamish Gilchrist: Keith, any concerns from your side on the record version?
+[00:59:24] Keith Barraclough: One or two. I'll pick them up offline rather than take time here. I'd want the record version checked in the test region first, if we've got the time.
+[00:59:36] Bjørn Aasheim: Henrik, what's your gut feel on the GL schedule?
+[00:59:40] Henrik Vestergaard: Reasonably. I've seen worse at this stage. Again, the detail on the GL schedule is in the appendix, so I won't walk through it line by line.
+[00:59:51] Bjørn Aasheim: Picking up on that, we'll need a clear message on the fix-forward option for the business, even if it's just 'we're on it'. I'm reassured on the fix-forward option, mostly because the team have been very open about the gaps.
+[01:00:07] Henrik Vestergaard: Have we taken the fix-forward option through the team leaders yet?
+[01:00:12] Keith Barraclough: We've walked them through it, yes, and they had some useful challenge. I'd just add, on the fix-forward option, that the lessons learned from the last cycle are worth rereading.
+[01:00:24] Hamish Gilchrist: Once the, the reconciliation is understood, the fix itself is probably the easy part. From my side, I'd rather the reconciliation was boring. Boring is good.
+[01:00:35] Henrik Vestergaard: There's no silver bullet on the, the fix-forward option; it's just steady work. If the reconciliation slips, it doesn't just slip on its own; it drags a couple of other things with it. From my side, if the fix-forward option needs a change, it goes through emergency CAB, even if it's a one-liner. On the GL schedule, can we get the timeline written down as we go rather than reconstructing it afterwards?
+[01:01:02] Marcus Oduya: Is the record version something we need to decide today, or is it for noting?
+[01:01:08] Keith Barraclough: Not today. We'll bring options when we've done the analysis. Well, the record version is the bit I'd want logged on the incident record straight away.
+[01:01:18] Hamish Gilchrist: Hold on, the slides have jumped ahead. Can you go back?
+[01:01:23] Henrik Vestergaard: Sorry, clicker's got a mind of its own.
+[01:01:27] Graham Pocock: [laughter]
+[01:01:29] Henrik Vestergaard: Where does the deployment window sit on the list of priorities right now?
+[01:01:34] Marcus Oduya: Near the top, but not at the top. The deployment window is the bit I'd want logged on the incident record straight away.
+[01:01:43] Henrik Vestergaard: Once the GL schedule is understood, the fix itself is probably the easy part, at least from where I sit. What's changed on the reconciliation since the last update is mainly the level of detail, not the direction. Picking up on that, I'll be honest, the record version wasn't really on my radar until this week.
+[01:02:04] Bjørn Aasheim: Keith, where are we on the regression test?
+[01:02:09] Keith Barraclough: It's progressing. I'll have a fuller picture by the next meeting. On the regression test, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room.
+[01:02:23] Per Øverland: On the regression test, can we get the timeline written down as we go rather than reconstructing it afterwards? The regression test is the bit I'd want logged on the incident record straight away.
+[01:02:36] Bjørn Aasheim: Where does the record version sit on the list of priorities right now?
+[01:02:41] Hamish Gilchrist: Top of the second tier, if that makes sense. We don't need to solve the record version here; we just need to agree who goes away and looks at it.
+[01:02:54] Bjørn Aasheim: Okay, noted.
+[01:02:55] Henrik Vestergaard: On the reconciliation, can we get the timeline written down as we go rather than reconstructing it afterwards?
+[01:03:02] Bjørn Aasheim: Keith, is there anything on the fix-forward option you need from this group?
+[01:03:08] Keith Barraclough: Not today, thanks. If that changes, I'll shout. I think we underestimated the fix-forward option at the start, and that's fine as long as we learn from it.
+[01:03:19] Henrik Vestergaard: Picking up Keith's point, can someone own the comms on the GL schedule, so the rest of us can focus on the fix? We should capture the GL schedule for the post-incident review while it's fresh.
+[01:03:33] Maja Holm: Just quickly, I'd want to see the revert option working end to end before I'd put my name to it.
+[01:03:41] Henrik Vestergaard: Okay, so let's be careful with the fix-forward option; a rushed rerun could make it worse. We should be honest that the regression test is partly a capacity problem.
+[01:03:52] Marcus Oduya: Yeah, I'd agree with that.
+[01:03:54] Henrik Vestergaard: We touched on the revert option last time [inaudible] I'm not sure the position has really moved since. On the revert option, can we get the timeline written down as we go rather than reconstructing it afterwards?
+[01:04:09] Keith Barraclough: Sorry, just so I'm clear: when you say the revert option, do you mean the UK piece or the whole thing?
+[01:04:17] Per Øverland: Good challenge. I'll make sure the next version defines it properly. Actually, I think we've got consensus on the revert option, broadly.
+[01:04:26] Hamish Gilchrist: The rerun plan is one of those things that looks easy on a slide and isn't. Picking up on that, on the revert option, the downstream teams need to know before they start their own reruns. I'm not going to pretend the fix-forward option is exciting, but it's exactly the sort of thing that bites you if you ignore it, at least from where I sit.
+[01:04:51] Marcus Oduya: Has anything moved on the regression test since last time?
+[01:04:55] Keith Barraclough: Mostly that more people are involved now, which is good. Yeah, so we should capture the regression test for the post-incident review while it's fresh.
+[01:05:05] Marcus Oduya: I'd rather have an honest amber on the revert option than a green that turns red later.
+[01:05:12] Bjørn Aasheim: Good.
+[01:05:22] Henrik Vestergaard: Okay. Decision, then, and Hamish, I want you on this with me. We revert RM-AMOUNT to S9(9)V99, we add a record-version byte to the RSVMOVE header, and we move CLX-IF-043 from 03:00 to 03:45 so there's time to validate the file before the GL feed picks it up.
+[01:05:40] Hamish Gilchrist: Agreed from Finance.
+[01:05:42] Keith Barraclough: I'll raise the bug now for the revert and the record version, and link it to CHUB-138.
+[01:05:50] Marcus Oduya: And I'll draft an interface change impact checklist, so every downstream consumer has to sign off before a layout change goes in.
+[01:05:58] Hamish Gilchrist: I'll brief the CFO this morning. Gareth will want to know about the journals before month-end, and Bjorn, you'll want to give the supervisor a heads-up on TP2.
+[01:06:09] Bjørn Aasheim: Yes, I'll call them today, just so there are no surprises.
+[01:06:14] Marcus Oduya: The next bridge is one of those things that looks easy on a slide and isn't. We should capture the post-incident review for the post-incident review while it's fresh.
+[01:06:26] Bjørn Aasheim: For the stakeholder update, I'd rather we under-promise and deliver than the other way round. I'd split the stakeholder update into what we have to do now and what can wait. We're probably overthinking the stakeholder update, but I'd rather overthink it than underthink it.
+[01:06:44] Henrik Vestergaard: Look, we did a walk-through of the next bridge with the team leaders and it generated some good questions. On the next bridge, the downstream teams need to know before they start their own reruns. Next bridge at twelve. If anything changes before then, I'll call it earlier. Let's not have three people looking at the stakeholder update in parallel without talking to each other.
+[01:07:08] Hamish Gilchrist: Can I just [crosstalk]
+[01:07:11] Marcus Oduya: Sorry, after you.
+[01:07:13] Hamish Gilchrist: Thanks. It was a small point.
+[01:07:16] Marcus Oduya: Has anything moved on the stakeholder update since last time?
+[01:07:21] Henrik Vestergaard: Honestly, less than I'd like. We'll need a clear message on the stakeholder update for the business, even if it's just 'we're on it'.
+[01:07:30] Per Øverland: Sorry, can I just check what we mean by the action list? I think people are using it in different ways.
+[01:07:39] Maja Holm: You're right, we're using it loosely. Let me tighten up the wording. The action list keeps getting squeezed by more urgent things.
+[01:07:48] Henrik Vestergaard: If we're going to change anything about the stakeholder update, now's the time rather than later. If I can come in here, I'd keep the stakeholder update separate from the rest of it, because it involves different people and a different set of risks. Let's be careful with the stakeholder update; a rushed rerun could make it worse. If the stakeholder update is going to need more people, [inaudible] should flag that early rather than late.
+[01:08:18] Hamish Gilchrist: Okay, cool.
+[01:08:19] Henrik Vestergaard: Shall we park that and pick it up next time?
+[01:08:24] Hamish Gilchrist: Maja, any concerns from your side on the post-incident review?
+[01:08:28] Maja Holm: Not really. The team have been very open about the gaps, which helps. I'm happy with the post-incident review as long as we're clear about what's in and what's out.
+[01:08:41] Marcus Oduya: My read on the next bridge is that the hard part is behind us, but there's still a long tail. Just quickly, the honest answer on the stakeholder update is that we know what good looks like, we're just not there yet. Everything I've seen on the next bridge says the approach is right; it's the pace I'd question. We'll need a clear message on the next bridge for the business, even if it's just 'we're on it'.
+[01:09:10] Henrik Vestergaard: Perfect.
+[01:09:11] Marcus Oduya: I'm keen we don't just tick a box on the impact checklist. I don't have strong views on the stakeholder update, other than wanting it done properly. We need to be careful how we talk about the next bridge outside this room until it's settled.
+[01:09:28] Hamish Gilchrist: Is there anything we can do to unblock the impact checklist?
+[01:09:33] Henrik Vestergaard: Probably a bit of time from the business side, but I'll ask offline. We should capture the impact checklist for the post-incident review while it's fresh.
+[01:09:44] Hamish Gilchrist: Same here.
+[01:09:46] Henrik Vestergaard: Bjørn, is the next bridge a resourcing question or a decision question?
+[01:09:52] Bjørn Aasheim: Mostly resourcing, to be honest. The decision's been made; it's the doing. The detail on the next bridge is in the appendix, so I won't walk through it line by line.
+[01:10:03] Keith Barraclough: I'd want to see the next bridge working end to end before I'd put my name to it.
+[01:10:11] Hamish Gilchrist: Okay, cool.
+[01:10:12] Marcus Oduya: The checklist will be short. It just has to make sure every consumer signs off before a layout change goes in. It's the knock-on effect of the action list that I'm most interested in, if I'm honest.
+[01:10:27] Henrik Vestergaard: We probably need to separate the facts on the impact checklist from the folklore. Let's not have three people looking at the action list in parallel without talking to each other. The impact checklist is the bit I'd want logged on the incident record straight away.
+[01:10:45] Per Øverland: Marcus, what keeps you awake about the action list?
+[01:10:49] Marcus Oduya: That we assume it's done because nobody's complaining. Speaking for my area, once the action list is understood, the fix itself is probably the easy part.
+[01:11:00] Per Øverland: I'm happy with the action list as long as we're clear about what's in and what's out, for what it's worth.
+[01:11:16] Henrik Vestergaard: Actions, quickly. Keith: the revert and record version. Me: a change for the 043 schedule. Marcus: the checklist. Hamish: the CFO. Bjorn: the supervisor. Maja and Per: confirm your loads before any rerun. Next bridge at twelve.
+[01:11:30] Graham Pocock: Thanks, Henrik.
+[01:11:32] Hamish Gilchrist: Thanks, all.
+[01:11:33] Bridge closed.
+
+-------------------------------------- END OF TRANSCRIPT -----------------------------------
+Recording length 01:15:00. Transcript reviewed by Henrik Vestergaard. Corvane Mutual - Internal.

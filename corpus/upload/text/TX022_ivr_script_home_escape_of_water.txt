@@ -1,0 +1,50 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+AGENT SCRIPT - HOME CLAIMS: ESCAPE OF WATER
+========================================================================================
+Document reference : CC-SCR-HOM-UK-007
+Version            : 2.4
+Date               : 17 November 2025
+Owner              : Ewan Strachan, Contact Centre Manager
+Approved by        : Rob Tennant, Head of Claims Operations (Group)
+Classification     : Internal
+Applies to      : Glasgow Contact Centre, home claims queue
+
+Version history
+  2.2    2024-10-14  E. Strachan          Portal name updated to MyCorvane Claims
+  2.3    2025-09-01  E. Strachan          Approver changed after the re-organisation
+  2.4    2025-11-17  E. Strachan          Photo upload wording updated after the document store rename
+========================================================================================
+
+1. MAKE SAFE FIRST
+  - "Before we go any further, is the water still running? Do you know where your stopcock is?"
+  - If water is near electrics, advise the customer not to touch switches and to call an electrician if needed.
+  - If the customer is vulnerable or the home is uninhabitable, flag the claim as priority and tell the team leader.
+
+2. ABOUT THE LEAK
+  - Ask where the water came from (for example a pipe, tank, appliance or the floor above).
+  - Ask when it was first noticed and whether it happened suddenly or has been going on for a while.
+  - Record what is damaged: ceilings, walls, floors, contents.
+  - Do not tell the customer whether the damage is covered. The handler and, where needed, a Claims Assessor will look at that.
+
+3. DRYING AND REPAIRS
+  - Explain that we may arrange drying through our repair network (Kilnmoor Property Repairs).
+  - If a visit is needed, a Claims Assessor will be appointed. This may be one of our own assessors or a loss adjuster from Brackenfield.
+
+4. PHOTOS AND EVIDENCE
+  - Ask the customer to take photos of the damage and of the source of the leak, if it is safe to do so.
+  - Photos uploaded through MyCorvane Claims are stored with the claim automatically.
+  - Advise the customer to keep any damaged items until the handler confirms they can be thrown away.
+
+5. CLOSING
+  - Give the claim reference and read it back.
+  - We acknowledge every new claim in writing within 2 business days.
+  - Explain that the excess shown on the policy schedule applies, without quoting an amount.
+
+6. GLOSSARY FOR AGENTS
+  Escape of water    Water escaping from a fixed system or appliance.
+  Claims Assessor    The person who inspects the damage; customers often say 'loss adjuster'.
+  Excess             The amount the customer pays towards a claim, shown on the schedule.
+  Make safe          Immediate steps to stop further damage.
+
+----------------------------------------------------------------------------------------
+End of document. Owner: Ewan Strachan. Printed copies are uncontrolled.

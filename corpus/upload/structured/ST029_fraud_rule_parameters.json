@@ -1,0 +1,259 @@
+{
+  "documentControl": {
+    "documentId": "SKR-FRD-PRM-029",
+    "title": "Fraud Rule Parameters",
+    "version": "1.0",
+    "status": "approved",
+    "date": "2026-10-01",
+    "owner": {
+      "name": "Linnea Sjöberg",
+      "title": "Engineering Lead – Fraud & Settlement Squad"
+    },
+    "reviewers": [
+      {
+        "name": "Oskar Lindgren",
+        "title": "Senior Fraud Analyst"
+      },
+      {
+        "name": "Ruth Okafor",
+        "title": "Compliance Manager – Conduct & Counter-Fraud"
+      }
+    ],
+    "approvers": [
+      {
+        "name": "Niall Brannigan",
+        "title": "Head of Counter-Fraud & SIU",
+        "date": "2026-10-01"
+      },
+      {
+        "name": "Ingrid Ashby",
+        "title": "Claims Director",
+        "date": "2026-10-01"
+      }
+    ],
+    "classification": "Internal",
+    "organisation": "Corvane Mutual Insurance Society Limited",
+    "programme": "Programme Skerry (CLARA to Claims Hub)",
+    "changeHistory": [
+      {
+        "version": "0.1",
+        "date": "2026-06-11",
+        "author": "Linnea Sjöberg",
+        "change": "Initial draft for review"
+      },
+      {
+        "version": "0.2",
+        "date": "2026-08-05",
+        "author": "Linnea Sjöberg",
+        "change": "Minor corrections"
+      },
+      {
+        "version": "0.3",
+        "date": "2026-08-11",
+        "author": "Linnea Sjöberg",
+        "change": "Second review round"
+      },
+      {
+        "version": "0.4",
+        "date": "2026-08-31",
+        "author": "Linnea Sjöberg",
+        "change": "Updated references"
+      },
+      {
+        "version": "0.5",
+        "date": "2026-09-04",
+        "author": "Linnea Sjöberg",
+        "change": "Added missing entries"
+      },
+      {
+        "version": "1.0",
+        "date": "2026-10-01",
+        "author": "Linnea Sjöberg",
+        "change": "Approved"
+      }
+    ]
+  },
+  "service": "fraud-referral-svc",
+  "configSource": "effective-dated rules configuration (ADR-020)",
+  "effectiveAsOf": "2026-10-01",
+  "scoreScale": {
+    "system": "Sentinel",
+    "min": 0,
+    "max": 100
+  },
+  "referral": {
+    "threshold": {
+      "default": 65,
+      "tier3": 60,
+      "tier3.effective-from": "2026-10-01",
+      "rule": "BR-FRD-031 v2",
+      "tierDefinition": "BR-TRI-003 v3",
+      "decision": "DEC-014 (Fraud Rules Workshop 2026-09-17)"
+    },
+    "history": [
+      {
+        "rule": "BR-FRD-012 v1",
+        "status": "superseded",
+        "effectiveFrom": "2019-01-01",
+        "effectiveTo": "2023-03-31",
+        "threshold": 75,
+        "tier3Threshold": null,
+        "approvedOn": "2018-12-06",
+        "source": "Claims Handling Manual v5.0 §27.3"
+      },
+      {
+        "rule": "BR-FRD-012 v2",
+        "status": "superseded",
+        "effectiveFrom": "2023-04-01",
+        "effectiveTo": "2026-03-31",
+        "threshold": 70,
+        "tier3Threshold": null,
+        "approvedOn": "2023-03-09",
+        "source": "Claims Handling Manual v6.1 §28.3"
+      },
+      {
+        "rule": "BR-FRD-031 v1",
+        "status": "superseded",
+        "effectiveFrom": "2026-04-01",
+        "effectiveTo": "2026-09-30",
+        "threshold": 65,
+        "tier3Threshold": null,
+        "approvedOn": "2026-03-12",
+        "source": "NISA Circular 2026/04 §3.3; Claims Handling Manual v7.2 §28.3"
+      },
+      {
+        "rule": "BR-FRD-031 v2",
+        "status": "approved",
+        "effectiveFrom": "2026-10-01",
+        "effectiveTo": null,
+        "threshold": 65,
+        "tier3Threshold": 60,
+        "approvedOn": "2026-09-17",
+        "source": "Fraud Rules Workshop 2026-09-17 (decision DEC-014); minutes TX031"
+      }
+    ],
+    "clara": {
+      "paramTable": "CLR.T_PARAM",
+      "keys": [
+        "FRD_REFER_THRESH",
+        "FRD_REFER_T3_THRESH"
+      ],
+      "readBy": "CLRCM040 (parameter reader)",
+      "tickets": [
+        "CHUB-205",
+        "CHUB-395"
+      ]
+    }
+  },
+  "notice": {
+    "business-days": 10,
+    "rule": "BR-FRD-032 v2",
+    "max-deferral-days": 60,
+    "head-approval-after-days": 30,
+    "head-approval-role": "Head of Counter-Fraud & SIU",
+    "notify-on-long-deferral": "Compliance",
+    "deferral-rule": "BR-FRD-036 v2"
+  },
+  "auto-decline": {
+    "enabled": false,
+    "rule": "BR-FRD-033 v1",
+    "replaces": "BR-FRD-019 v2 (withdrawn from 2026-04-01)"
+  },
+  "siu-triage": {
+    "business-days": 3,
+    "rule": "BR-FRD-035 v2"
+  },
+  "fr1-return": {
+    "due-days-after-quarter": 30,
+    "rule": "BR-FRD-034 v1",
+    "firstPeriod": "2026Q2"
+  },
+  "linked-claims": {
+    "rule": "BR-FRD-005 v3",
+    "min_claims": 2,
+    "months": 12,
+    "shared_identifiers": [
+      "bank_account",
+      "phone"
+    ]
+  },
+  "pre-screen-indicators": [
+    {
+      "rule": "BR-FRD-001 v1",
+      "indicator": "policy inception < 30 days",
+      "points": 15,
+      "effectiveFrom": "2025-07-01"
+    },
+    {
+      "rule": "BR-FRD-002 v1",
+      "indicator": "late notification",
+      "points": 10,
+      "effectiveFrom": "2018-10-01"
+    },
+    {
+      "rule": "BR-FRD-003 v1",
+      "indicator": "prior claims",
+      "points": 12,
+      "effectiveFrom": "2023-07-01"
+    },
+    {
+      "rule": "BR-FRD-004 v1",
+      "indicator": "missing keys in vehicle theft",
+      "points": 8,
+      "effectiveFrom": "2022-10-01"
+    },
+    {
+      "rule": "BR-FRD-006 v2",
+      "indicator": "address mismatch",
+      "points": 6,
+      "effectiveFrom": "2026-04-01"
+    },
+    {
+      "rule": "BR-FRD-007 v1",
+      "indicator": "recent cover increase",
+      "points": 10,
+      "effectiveFrom": "2018-10-01"
+    },
+    {
+      "rule": "BR-FRD-008 v2",
+      "indicator": "photo metadata mismatch",
+      "points": 14,
+      "effectiveFrom": "2022-04-01"
+    },
+    {
+      "rule": "BR-FRD-009 v1",
+      "indicator": "shared bank account",
+      "points": 20,
+      "effectiveFrom": "2025-07-01"
+    },
+    {
+      "rule": "BR-FRD-014 v1",
+      "indicator": "injury without hospital attendance",
+      "points": 9,
+      "effectiveFrom": "2017-04-01"
+    },
+    {
+      "rule": "BR-FRD-015 v1",
+      "indicator": "late-night single-vehicle collision",
+      "points": 5,
+      "effectiveFrom": "2017-04-01"
+    },
+    {
+      "rule": "BR-FRD-016 v1",
+      "indicator": "frequent address changes",
+      "points": 7,
+      "effectiveFrom": "2025-07-01"
+    }
+  ],
+  "approval": {
+    "approvedBy": [
+      "Niall Brannigan",
+      "Ingrid Ashby"
+    ],
+    "approvedOn": "2026-09-17",
+    "changeTickets": [
+      "CHUB-388",
+      "CHUB-395"
+    ]
+  }
+}

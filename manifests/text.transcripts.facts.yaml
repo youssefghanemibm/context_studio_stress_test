@@ -1,0 +1,3401 @@
+- fact_id: TX001-F001
+  world_ref: PERSON:P005#role_aliases
+  kind: alias_use
+  statement: In the October 2026 steering transcript the Claims Director (Ingrid Ashby) is addressed by role, not by surname.
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 46
+    end: 46
+  needle: Claims Director, welcome back
+  exclusive: false
+  also_in: []
+  placement: PL-192
+  placement_key: tx1_cd
+  notes: Ingrid Ashby is labelled 'Ingrid (Claims Director)' throughout; her surname never appears in TX001.
+- fact_id: TX001-F002
+  world_ref: TIMELINE:metrics#wave1_open_defects
+  kind: needle
+  statement: As at 2026-10-05, Wave 1 had 0 Sev 1, 14 Sev 2 and 57 Sev 3 defects open.
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 66
+    end: 66
+  needle: no Sev 1s open, 14 Sev 2 and 57 Sev 3
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F003
+  world_ref: INCIDENT:INC-2026-0914#impact
+  kind: needle
+  statement: 'INC-2026-0914: 18 claims were paid twice on the Wave 1 cut-over, £41,236.50 in total, all recalled by 2026-09-18.'
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 105
+    end: 105
+  needle: 18 claims, paid twice, £41,236.50 in total
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F004
+  world_ref: ADR:ADR-021
+  kind: general
+  statement: After the Wave 1 duplicate payments, ADR-021 requires an idempotency key on every payment instruction (fix under
+    CHUB-371).
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 105
+    end: 105
+  needle: ADR-021
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F005
+  world_ref: INCIDENT:INC-2026-1007#impact
+  kind: needle
+  statement: 'INC-2026-1007: triage-svc did not reload the Tier-3 threshold until 2026-10-05; 9 Tier-3 claims scoring 60-64
+    were not referred automatically and were referred manually.'
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 138
+    end: 138
+  needle: 9 Tier-3 claims that scored between 60 and 64 weren't referred automatically
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F006
+  world_ref: TIMELINE:metrics#programme_budget_gbp_m
+  kind: general
+  statement: The Programme Skerry business case is £48.6m; it was signed by the former CFO Gareth Whitcombe in November 2024.
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 187
+    end: 187
+  needle: £48.6m business case
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F007
+  world_ref: DECISION:DEC-011
+  kind: contradiction_old
+  statement: At about 00:41 Arjun Kesavan states the Wave 2 cut-over is on 2027-01-18 (a misstatement, corrected at about
+    00:44).
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 303
+    end: 303
+  needle: cut-over on Monday 18 January 2027
+  exclusive: false
+  also_in: []
+  placement: PL-189
+  placement_key: tx1_wrong
+  contradiction:
+  - C15
+- fact_id: TX001-F008
+  world_ref: DECISION:DEC-011
+  kind: contradiction_new
+  statement: 'At about 00:44 Aisha Siddiqui corrects him: Wave 2 cut-over is 2027-02-15 and the January date is void.'
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 318
+    end: 318
+  needle: Wave 2 is 15 February 2027
+  exclusive: false
+  also_in: []
+  placement: PL-190
+  placement_key: tx1_right
+  contradiction:
+  - C15
+- fact_id: TX001-F009
+  world_ref: DECISION:DEC-011
+  kind: needle
+  statement: 'DEC-011 (steering, 2026-10-08): Wave 2 cut-over confirmed as 2027-02-15; the earlier draft date 2027-01-18 is
+    void.'
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 320
+    end: 320
+  needle: Wave 2 cut-over is confirmed as 15 February 2027
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F010
+  world_ref: WAVE:MW-2#freeze
+  kind: needle
+  statement: The Wave 2 freeze runs from 2027-02-12 18:00 to 2027-02-15 06:00.
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 322
+    end: 322
+  needle: 18:00 on Friday 12 February to 06:00 on Monday 15 February
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F011
+  world_ref: SYSTEM:SYS01#decommission_target
+  kind: needle
+  statement: CLARA's decommission target is 2027-09-30.
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 404
+    end: 404
+  needle: decommission target for CLARA is still 30 September 2027
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F012
+  world_ref: ADR:ADR-026#status
+  kind: general
+  statement: ADR-026 (read-only CLARA enquiry after cut-over) is still proposed, not accepted, as at 2026-10-08.
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 405
+    end: 405
+  needle: ADR-026 proposes a read-only CLARA enquiry
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F013
+  world_ref: SYSTEM:SYS24#decommission_target
+  kind: general
+  statement: SUBTRAK's retirement target is 2026-12-31 (epic CHUB-430).
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 442
+    end: 442
+  needle: retirement target is still 31 December this year
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F014
+  world_ref: DECISION:DEC-010
+  kind: alias_use
+  statement: Speakers call Priya Raman 'PR' and 'the CFO' in the October 2026 steering committee.
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 534
+    end: 534
+  needle: PR, as the CFO
+  exclusive: false
+  also_in: []
+  placement: PL-191
+  placement_key: tx1_pr
+- fact_id: TX001-F015
+  world_ref: PERSON:P001#responsibilities
+  kind: general
+  statement: The CFO (Priya Raman) approves programme budget drawdowns above £500,000.
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 534
+    end: 534
+  needle: Anything above half a million comes to you
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F016
+  world_ref: DECISION:DEC-010
+  kind: needle
+  statement: 'DEC-010: the CFO, Priya Raman, approves a £1.8m contingency drawdown for Wave 2 at the 2026-10-08 steering committee.'
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 535
+    end: 535
+  needle: approve the £1.8m contingency drawdown for Wave 2
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F017
+  world_ref: RULE:BR-FRD-031@v2
+  kind: needle
+  statement: From 2026-10-01 (BR-FRD-031 v2) Tier-3 claims are referred at a Sentinel score of 60 or more; the general threshold
+    stays 65.
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 612
+    end: 612
+  needle: Tier-3 claims are now referred to SIU at a Sentinel score of 60 or more
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F018
+  world_ref: TICKET:CHUB-298
+  kind: general
+  statement: As at 2026-10-08, CHUB-298 (CLRFR040 hard-coded threshold) is still open and planned for release R2026.11.
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 613
+    end: 613
+  needle: CHUB-298
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F019
+  world_ref: RULE:BR-FRD-034@v1
+  kind: general
+  statement: The NISA-FR1 return is due 30 days after quarter end; the Q3 2026 return is due by 2026-10-30.
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 614
+    end: 614
+  needle: due by the 30th of October, thirty days after quarter end
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F020
+  world_ref: TEAM:T30#lead_history
+  kind: general
+  statement: A Hub Squad - Recoveries & Documents, led by Tariq Hussain, is formed from 2026-11-01.
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 689
+    end: 689
+  needle: Recoveries & Documents squad, led by Tariq Hussain
+  exclusive: false
+  also_in: []
+- fact_id: TX001-F021
+  world_ref: DECISION:DEC-011
+  kind: needle
+  statement: 'The action recap restates DEC-011: Wave 2 on 2027-02-15; the January date is void.'
+  file: corpus/upload/text/TX001_steering_committee_2026_10_08_transcript.txt
+  locator:
+    kind: text_lines
+    start: 733
+    end: 733
+  needle: Wave 2 cut-over is confirmed as 15 February 2027, and the January date is void
+  exclusive: false
+  also_in: []
+- fact_id: TX002-F001
+  world_ref: SYSTEM:SYS03#aliases
+  kind: alias_use
+  statement: Oskar Lindgren refers to Sentinel as 'what we used to call FRAUDNET'.
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 111
+    end: 111
+  needle: Sentinel, what we used to call FRAUDNET
+  exclusive: false
+  also_in: []
+  placement: PL-196
+  placement_key: tx2_fraudnet
+- fact_id: TX002-F002
+  world_ref: PERSON:P027#responsibilities
+  kind: general
+  statement: Oskar Lindgren owns the Sentinel model SNT-4.2.
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 111
+    end: 111
+  needle: The model is SNT-4.2, and I own it
+  exclusive: false
+  also_in: []
+- fact_id: TX002-F003
+  world_ref: RULE:BR-FRD-031@v1
+  kind: general
+  statement: From 2026-04-01 BR-FRD-031 v1 set the referral threshold at 65 for all claims (previously 70 under BR-FRD-012).
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 112
+    end: 112
+  needle: the referral threshold has been 65 for every claim, under BR-FRD-031
+  exclusive: false
+  also_in: []
+- fact_id: TX002-F004
+  world_ref: TIMELINE:metrics#fraud_referrals_count
+  kind: general
+  statement: There were 1,488 fraud referrals in Q2 2026.
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 143
+    end: 143
+  needle: 1,488 referrals in the second quarter
+  exclusive: false
+  also_in: []
+- fact_id: TX002-F005
+  world_ref: RULE:BR-FRD-035@v2
+  kind: general
+  statement: 'BR-FRD-035 v2: SIU must triage a new referral within 3 business days.'
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 143
+    end: 143
+  needle: triage within 3 business days
+  exclusive: false
+  also_in: []
+- fact_id: TX002-F006
+  world_ref: INCIDENT:INC-2026-0518#impact
+  kind: needle
+  statement: 'INC-2026-0518: 37 claims scored 65-69 between 2026-04-01 and 2026-05-12 were not referred by the CLRFR040 batch
+    sweep; they were referred manually on 2026-05-13.'
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 144
+    end: 144
+  needle: 37 claims that scored 65 to 69
+  exclusive: false
+  also_in: []
+- fact_id: TX002-F007
+  world_ref: INCIDENT:INC-2026-0518#workaround
+  kind: general
+  statement: 'Workaround for INC-2026-0518: a daily Compliance query for unreferred claims scoring 65-69.'
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 144
+    end: 144
+  needle: Compliance now run a daily query
+  exclusive: false
+  also_in: []
+- fact_id: TX002-F008
+  world_ref: REPORT:NISA-FR1#submissions.2026Q2.submitted
+  kind: general
+  statement: The first NISA-FR1 return (2026Q2) was submitted on 2026-07-29, one day before the 2026-07-30 deadline.
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 146
+    end: 146
+  needle: went in on the 29th of July, a day ahead of the deadline on the 30th
+  exclusive: false
+  also_in: []
+- fact_id: TX002-F009
+  world_ref: DECISION:DEC-016#impact_estimate
+  kind: needle
+  statement: Oskar Lindgren estimates that lowering the referral threshold to 60 for all claims would raise referrals by about
+    41%; the option is rejected.
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 365
+    end: 365
+  needle: referrals would go up by about 41%
+  exclusive: true
+  also_in: []
+  placement: PL-195
+  placement_key: tx2_41pct
+- fact_id: TX002-F010
+  world_ref: DECISION:DEC-016
+  kind: needle
+  statement: 'DEC-016: the option to lower the general referral threshold to 60 for all claims is rejected.'
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 368
+    end: 368
+  needle: considered lowering the general threshold to 60 for all claims and rejected it
+  exclusive: false
+  also_in: []
+- fact_id: TX002-F011
+  world_ref: RULE:BR-TRI-003@v3
+  kind: general
+  statement: 'BR-TRI-003 v3 (from 2025-01-01): Tier-3 = estimated incurred >= £50,000 (NOK 650,000 / SEK 680,000 / DKK 430,000),
+    any bodily injury, solicitor or litigation at notification, or property total loss.'
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 428
+    end: 428
+  needle: estimated incurred of £50,000 or more
+  exclusive: false
+  also_in: []
+- fact_id: TX002-F012
+  world_ref: ADR:ADR-020
+  kind: general
+  statement: Under ADR-020, fraud referral thresholds on Claims Hub are effective-dated configuration.
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 520
+    end: 520
+  needle: effective-dated config under ADR-020
+  exclusive: false
+  also_in: []
+- fact_id: TX002-F013
+  world_ref: INCIDENT:INC-2026-0518#workaround
+  kind: general
+  statement: Until CHUB-298 is fixed the daily Compliance query covers 60-64 for Tier-3 claims as well as 65-69 for all claims
+    (from 2026-10-01).
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 522
+    end: 522
+  needle: cover 60 to 64 for Tier-3 claims as well as 65 to 69
+  exclusive: false
+  also_in: []
+- fact_id: TX002-F014
+  world_ref: DECISION:DEC-014
+  kind: contradiction_new
+  statement: 'Decision DEC-014 (Fraud Rules Workshop, 2026-09-17): from 2026-10-01 Tier-3 claims are referred at a Sentinel
+    score of 60 or more; the general threshold stays 65.'
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 607
+    end: 607
+  needle: Tier-3 claims are referred at a Sentinel score of 60 or more, and the general threshold stays at 65
+  exclusive: false
+  also_in:
+  - corpus/upload/text/TX031_fraud_workshop_minutes_2026_09_18.md
+  placement: PL-193
+  placement_key: tx2_dec014
+  contradiction:
+  - C01
+  headline: Q2
+  notes: Newer than the v7.2 manual (LD001 says 65 for all claims); see C01.
+- fact_id: TX002-F015
+  world_ref: DECISION:DEC-015
+  kind: needle
+  statement: 'Decision DEC-015: from 2026-10-01 customer-notice deferrals beyond 30 days need the Head of Counter-Fraud &
+    SIU, and Compliance is notified the same day.'
+  file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt
+  locator:
+    kind: text_lines
+    start: 682
+    end: 682
+  needle: deferrals beyond 30 days need the Head of Counter-Fraud & SIU
+  exclusive: false
+  also_in: []
+  placement: PL-194
+  placement_key: tx2_dec015
+  headline: Q2
+- fact_id: TX003-F001
+  world_ref: TICKET:CHUB-241
+  kind: general
+  statement: The reserve parallel run (CLARA vs reserve-engine) started on 2026-03-02; movements arrive via the CLX-IF-049
+    bridge on claims.reserve.movement.v1.
+  file: corpus/upload/text/TX003_reserving_design_review_2026_03_05_transcript.txt
+  locator:
+    kind: text_lines
+    start: 62
+    end: 62
+  needle: the reserve parallel run started on Monday, the 2nd of March
+  exclusive: false
+  also_in: []
+- fact_id: TX003-F002
+  world_ref: SERVICE:reserve-engine#renames
+  kind: general
+  statement: reserve-svc was renamed reserve-engine on 2026-02-10 under ADR-019.
+  file: corpus/upload/text/TX003_reserving_design_review_2026_03_05_transcript.txt
+  locator:
+    kind: text_lines
+    start: 63
+    end: 63
+  needle: The rename from reserve-svc went in on the 10th of February under ADR-019
+  exclusive: false
+  also_in: []
+- fact_id: TX003-F003
+  world_ref: TABLE:CLR.T_RESERVE#writers
+  kind: contradiction_old
+  statement: At about 00:38 Daniel Achebe says only the CLRRS reserve programs write the reserve table CLR.T_RESERVE (wrong;
+    corrected at about 00:46).
+  file: corpus/upload/text/TX003_reserving_design_review_2026_03_05_transcript.txt
+  locator:
+    kind: text_lines
+    start: 282
+    end: 282
+  needle: it's only the CLRRS reserve programs that write to the reserve table
+  exclusive: false
+  also_in: []
+  placement: PL-197
+  placement_key: tx3_wrong
+  contradiction:
+  - C07
+  headline: Q1
+- fact_id: TX003-F004
+  world_ref: TABLE:CLR.T_RESERVE#writers
+  kind: contradiction_new
+  statement: 'Keith Barraclough corrects him: CLRFN030, CLRST040, CLRRC050 and CLRGL090 also write CLR.T_RESERVE (eight writers
+    in total).'
+  file: corpus/upload/text/TX003_reserving_design_review_2026_03_05_transcript.txt
+  locator:
+    kind: text_lines
+    start: 338
+    end: 338
+  needle: CLRFN030, CLRST040, CLRRC050 and CLRGL090 also write CLR.T_RESERVE
+  exclusive: false
+  also_in: []
+  placement: PL-198
+  placement_key: tx3_right
+  contradiction:
+  - C07
+  headline: Q1
+- fact_id: TX003-F005
+  world_ref: TABLE:CLR.T_RESERVE#writers
+  kind: needle
+  statement: 'Eight programs write CLR.T_RESERVE: CLRRS010, CLRRS020, CLRRS110, CLRRS130, CLRFN030, CLRST040, CLRRC050 and
+    CLRGL090.'
+  file: corpus/upload/text/TX003_reserving_design_review_2026_03_05_transcript.txt
+  locator:
+    kind: text_lines
+    start: 339
+    end: 339
+  needle: Eight writers in total
+  exclusive: false
+  also_in: []
+- fact_id: TX003-F006
+  world_ref: PROGRAM:CLRRS150#writes_tables
+  kind: needle
+  statement: CLRRS150 writes only CLR.T_RESERVE_MOVEMENT, not CLR.T_RESERVE.
+  file: corpus/upload/text/TX003_reserving_design_review_2026_03_05_transcript.txt
+  locator:
+    kind: text_lines
+    start: 339
+    end: 339
+  needle: CLRRS150 is a red herring, it only writes the movement table
+  exclusive: false
+  also_in: []
+- fact_id: TX003-F007
+  world_ref: TABLE:CLR.T_RESERVE#writers
+  kind: general
+  statement: The CLARA data dictionary lists only seven writers of CLR.T_RESERVE; it omits CLRGL090.
+  file: corpus/upload/text/TX003_reserving_design_review_2026_03_05_transcript.txt
+  locator:
+    kind: text_lines
+    start: 341
+    end: 341
+  needle: The data dictionary only lists seven writers
+  exclusive: false
+  also_in: []
+- fact_id: TX003-F008
+  world_ref: TICKET:CHUB-284
+  kind: general
+  statement: 'Internal audit finding IA-25-07: CLRGL090''s year-end revaluation updates CLR.T_RESERVE without writing a reserve
+    movement.'
+  file: corpus/upload/text/TX003_reserving_design_review_2026_03_05_transcript.txt
+  locator:
+    kind: text_lines
+    start: 539
+    end: 539
+  needle: IA-25-07
+  exclusive: false
+  also_in: []
+- fact_id: TX003-F009
+  world_ref: INCIDENT:INC-2026-0104
+  kind: general
+  statement: 'INC-2026-0104: CLRGL090 abended with S0C7 on 2026-01-02 on a malformed SEK year-end rate; CLRYGL90 was rerun.'
+  file: corpus/upload/text/TX003_reserving_design_review_2026_03_05_transcript.txt
+  locator:
+    kind: text_lines
+    start: 540
+    end: 540
+  needle: S0C7
+  exclusive: false
+  also_in: []
+- fact_id: TX003-F010
+  world_ref: DECISION:DEC-005
+  kind: needle
+  statement: 'Decision DEC-005: reserve-engine records currency revaluations as RV movements, closing IA-25-07 in the target;
+    CLRGL090 stays unchanged in CLARA.'
+  file: corpus/upload/text/TX003_reserving_design_review_2026_03_05_transcript.txt
+  locator:
+    kind: text_lines
+    start: 648
+    end: 648
+  needle: reserve-engine will record currency revaluations as RV movements
+  exclusive: false
+  also_in: []
+  placement: PL-199
+  placement_key: tx3_dec005
+- fact_id: TX003-F011
+  world_ref: TICKET:CHUB-284
+  kind: general
+  statement: CHUB-284 (IA-25-07) is closed as Won't Do in CLARA; the finding is addressed in reserve-engine per DEC-005.
+  file: corpus/upload/text/TX003_reserving_design_review_2026_03_05_transcript.txt
+  locator:
+    kind: text_lines
+    start: 651
+    end: 651
+  needle: close CHUB-284 as won't do
+  exclusive: false
+  also_in: []
+- fact_id: TX003-F012
+  world_ref: DECISION:DEC-006
+  kind: needle
+  statement: 'DEC-006: Lena Kristiansen will propose a 14-day Tier-3 reserve review cadence from 2026-07-01 to the Reserving
+    Committee (current rule: 21 days).'
+  file: corpus/upload/text/TX003_reserving_design_review_2026_03_05_transcript.txt
+  locator:
+    kind: text_lines
+    start: 683
+    end: 683
+  needle: propose 14 days from the 1st of July to the Reserving Committee
+  exclusive: false
+  also_in: []
+- fact_id: TX004-F001
+  world_ref: INCIDENT:INC-2025-0412#start
+  kind: general
+  statement: INC-2025-0412 started at 03:02 on 2025-04-28 when the GL adapter (CLX-IF-043) began rejecting every CLX-IF-042
+    record.
+  file: corpus/upload/text/TX004_incident_bridge_inc_2025_0412_transcript.txt
+  locator:
+    kind: text_lines
+    start: 42
+    end: 42
+  needle: from 03:02 the GL adapter rejected every record
+  exclusive: false
+  also_in: []
+- fact_id: TX004-F002
+  world_ref: INTERFACE:CLX-IF-042#dependents
+  kind: needle
+  statement: 'On the INC-2025-0412 bridge Henrik Vestergaard lists the consumers of CLX-IF-042: GL journal feed (CLX-IF-043),
+    CDW load (CLX-IF-044) and ReCede cession feed (CLX-IF-047).'
+  file: corpus/upload/text/TX004_incident_bridge_inc_2025_0412_transcript.txt
+  locator:
+    kind: text_lines
+    start: 107
+    end: 107
+  needle: the GL journal feed, which is 043, the CDW load, which is 044, and the ReCede cession feed, 047
+  exclusive: false
+  also_in: []
+  placement: PL-200
+  placement_key: tx4_down
+  headline: Q3
+- fact_id: TX004-F003
+  world_ref: INCIDENT:INC-2025-0412#root_cause
+  kind: needle
+  statement: 'Root cause of INC-2025-0412: CHUB-138 widened RSVMOVE RM-AMOUNT from S9(9)V99 to S9(11)V99 COMP-3 (deployed
+    2025-04-25).'
+  file: corpus/upload/text/TX004_incident_bridge_inc_2025_0412_transcript.txt
+  locator:
+    kind: text_lines
+    start: 136
+    end: 136
+  needle: widened RM-AMOUNT in the RSVMOVE copybook from S9(9)V99 to S9(11)V99 COMP-3
+  exclusive: false
+  also_in: []
+- fact_id: TX004-F004
+  world_ref: TICKET:CHUB-138
+  kind: general
+  statement: CHUB-138 was deployed on 2025-04-25 without a consumer impact assessment.
+  file: corpus/upload/text/TX004_incident_bridge_inc_2025_0412_transcript.txt
+  locator:
+    kind: text_lines
+    start: 137
+    end: 137
+  needle: without a consumer impact assessment
+  exclusive: false
+  also_in: []
+- fact_id: TX004-F005
+  world_ref: INTERFACE:CLX-IF-051
+  kind: general
+  statement: The Q1 2025 NISA-TP2 return was due on 2025-05-05; it depends on the general ledger via CLX-IF-051, downstream
+    of CLX-IF-043.
+  file: corpus/upload/text/TX004_incident_bridge_inc_2025_0412_transcript.txt
+  locator:
+    kind: text_lines
+    start: 222
+    end: 222
+  needle: The Q1 TP2 return is due on the 5th of May
+  exclusive: false
+  also_in: []
+- fact_id: TX004-F006
+  world_ref: DECISION:DEC-003
+  kind: needle
+  statement: 'Decision DEC-003: revert the RSVMOVE RM-AMOUNT widening, add a record-version byte, and move CLX-IF-043 from
+    03:00 to 03:45.'
+  file: corpus/upload/text/TX004_incident_bridge_inc_2025_0412_transcript.txt
+  locator:
+    kind: text_lines
+    start: 461
+    end: 461
+  needle: move CLX-IF-043 from 03:00 to 03:45
+  exclusive: false
+  also_in: []
+  placement: PL-201
+  placement_key: tx4_dec003
+- fact_id: TX004-F007
+  world_ref: PERSON:P002#role_aliases
+  kind: alias_use
+  statement: In April 2025 'the CFO' refers to Gareth Whitcombe (CFO until 2025-06-30).
+  file: corpus/upload/text/TX004_incident_bridge_inc_2025_0412_transcript.txt
+  locator:
+    kind: text_lines
+    start: 465
+    end: 465
+  needle: I'll brief the CFO this morning. Gareth
+  exclusive: false
+  also_in: []
+- fact_id: TX005-F001
+  world_ref: DECISION:DEC-004
+  kind: needle
+  statement: 'Handover: Freya Lindahl owns the subrogation process from 2025-09-01; Siobhan Quill leads the UK recoveries
+    team.'
+  file: corpus/upload/text/TX005_subrogation_handover_2025_09_03_transcript.txt
+  locator:
+    kind: text_lines
+    start: 68
+    end: 68
+  needle: Freya owns the subrogation process from 1 September 2025
+  exclusive: false
+  also_in: []
+  placement: PL-202
+  placement_key: tx5_owner
+  headline: Q4
+- fact_id: TX005-F002
+  world_ref: DECISION:DEC-004
+  kind: needle
+  statement: From 2025-09-01 Siobhan Quill leads the UK recoveries team (Recoveries Team Leader - UK).
+  file: corpus/upload/text/TX005_subrogation_handover_2025_09_03_transcript.txt
+  locator:
+    kind: text_lines
+    start: 68
+    end: 68
+  needle: Siobhan leads the UK recoveries team
+  exclusive: false
+  also_in: []
+- fact_id: TX005-F003
+  world_ref: PROCESS:S7#owner_history
+  kind: general
+  statement: Siobhan Quill was acting owner of recovery & subrogation from 2025-01-01 after Martin Calloway left on 2024-12-31.
+  file: corpus/upload/text/TX005_subrogation_handover_2025_09_03_transcript.txt
+  locator:
+    kind: text_lines
+    start: 69
+    end: 69
+  needle: acting owner since January, after Martin Calloway left at the end of December
+  exclusive: false
+  also_in: []
+- fact_id: TX005-F004
+  world_ref: RULE:BR-REC-003@v3
+  kind: temporal
+  statement: 'BR-REC-003 v3: subrogation is pursued where the recoverable amount is £1,000 or more from 2025-09-01 (it was
+    £750 until 2025-08-31).'
+  file: corpus/upload/text/TX005_subrogation_handover_2025_09_03_transcript.txt
+  locator:
+    kind: text_lines
+    start: 86
+    end: 86
+  needle: £1,000 or more, from 1 September
+  exclusive: false
+  also_in: []
+- fact_id: TX005-F005
+  world_ref: GLOSSARY:G-004
+  kind: terminology
+  statement: Transcripts use 'sub-ro' for Subrogation.
+  file: corpus/upload/text/TX005_subrogation_handover_2025_09_03_transcript.txt
+  locator:
+    kind: text_lines
+    start: 86
+    end: 86
+  needle: pursue sub-ro
+  exclusive: false
+  also_in: []
+- fact_id: TX005-F006
+  world_ref: RULE:BR-REC-011@v2
+  kind: general
+  statement: 'BR-REC-011 v2 (from 2025-09-01): recovery write-offs above £10,000 need the Head of Recoveries & Subrogation
+    (v1: above £5,000, Recoveries Manager).'
+  file: corpus/upload/text/TX005_subrogation_handover_2025_09_03_transcript.txt
+  locator:
+    kind: text_lines
+    start: 87
+    end: 87
+  needle: anything above £10,000 now needs the Head of Recoveries & Subrogation
+  exclusive: false
+  also_in: []
+- fact_id: TX005-F007
+  world_ref: SYSTEM:SYS24#decommission_target
+  kind: needle
+  statement: SUBTRAK retirement target set to 2026-12-31 at the 2025-09-03 handover.
+  file: corpus/upload/text/TX005_subrogation_handover_2025_09_03_transcript.txt
+  locator:
+    kind: text_lines
+    start: 292
+    end: 292
+  needle: retirement target for SUBTRAK of 31 December 2026
+  exclusive: false
+  also_in: []
+  placement: PL-203
+  placement_key: tx5_subtrak
+- fact_id: TX006-F001
+  world_ref: INCIDENT:INC-2025-0233#root_cause
+  kind: needle
+  statement: 'Root cause of INC-2025-0233: CLRFR020 still called fraudnet.corvane.internal, but the TLS certificate had been
+    reissued only for sentinel.corvane.internal on 2025-03-01.'
+  file: corpus/upload/text/TX006_sentinel_rename_cutover_call_transcript.txt
+  locator:
+    kind: text_lines
+    start: 59
+    end: 59
+  needle: the TLS certificate was reissued only for sentinel.corvane.internal
+  exclusive: false
+  also_in: []
+- fact_id: TX006-F002
+  world_ref: INTERFACE:CLX-IF-008
+  kind: general
+  statement: 'CLX-IF-008 online Sentinel scoring: CLRFR020 calls the mainframe API gateway (SENTREQ1/SENTRSP1 mapping).'
+  file: corpus/upload/text/TX006_sentinel_rename_cutover_call_transcript.txt
+  locator:
+    kind: text_lines
+    start: 60
+    end: 60
+  needle: CLRFR020 calls the mainframe API gateway with the SENTREQ1 request
+  exclusive: false
+  also_in: []
+- fact_id: TX006-F003
+  world_ref: INCIDENT:INC-2025-0233#impact
+  kind: needle
+  statement: 1,214 claims were left unscored during the Sentinel rename incident (INC-2025-0233).
+  file: corpus/upload/text/TX006_sentinel_rename_cutover_call_transcript.txt
+  locator:
+    kind: text_lines
+    start: 147
+    end: 147
+  needle: 1,214 claims left unscored
+  exclusive: false
+  also_in: []
+  placement: PL-204
+  placement_key: tx6_1214
+  notes: The count is stated during the call; the incident record gives the same figure as the final impact.
+- fact_id: TX006-F004
+  world_ref: DECISION:DEC-002
+  kind: needle
+  statement: 'DEC-002: keep the fraudnet.corvane.internal DNS alias until 2025-03-31 and patch CLRFR020 the same day.'
+  file: corpus/upload/text/TX006_sentinel_rename_cutover_call_transcript.txt
+  locator:
+    kind: text_lines
+    start: 292
+    end: 292
+  needle: keep the fraudnet.corvane.internal DNS alias until 31 March
+  exclusive: false
+  also_in: []
+- fact_id: TX006-F005
+  world_ref: TICKET:CHUB-119
+  kind: general
+  statement: CHUB-119 (CLRFR020 still calls the retired fraudnet endpoint) is raised on 2025-03-03 and relates to the rename
+    task CHUB-117.
+  file: corpus/upload/text/TX006_sentinel_rename_cutover_call_transcript.txt
+  locator:
+    kind: text_lines
+    start: 294
+    end: 294
+  needle: The new bug is CHUB-119
+  exclusive: false
+  also_in: []
+- fact_id: TX021-F001
+  world_ref: RULE:BR-FNOL-001@v3
+  kind: general
+  statement: 'BR-FNOL-001 v3 (from 2026-07-01): telephone FNOLs are acknowledged within 2 business days, digital within 1
+    business day.'
+  file: corpus/upload/text/TX021_ivr_script_motor_fnol_uk.txt
+  locator:
+    kind: text_lines
+    start: 68
+    end: 68
+  needle: Telephone claims are acknowledged in writing within 2 business days
+  exclusive: false
+  also_in: []
+- fact_id: TX022-F001
+  world_ref: RULE:BR-FNOL-001@v2
+  kind: general
+  statement: In November 2025 (BR-FNOL-001 v2) every FNOL is acknowledged within 2 business days.
+  file: corpus/upload/text/TX022_ivr_script_home_escape_of_water.txt
+  locator:
+    kind: text_lines
+    start: 40
+    end: 40
+  needle: We acknowledge every new claim in writing within 2 business days
+  exclusive: false
+  also_in: []
+- fact_id: TX024-F001
+  world_ref: TICKET:CHUB-298
+  kind: general
+  statement: As at mid-October 2026, the CLRFR040 sweep (in job CLRNFR01) still has the old threshold hard-coded until CHUB-298
+    is released.
+  file: corpus/upload/text/TX024_ops_handover_mainframe_batch_2026_10_14.txt
+  locator:
+    kind: text_lines
+    start: 45
+    end: 45
+  needle: CLRFR040 sweep, which still has the old threshold hard-coded until CHUB-298 is released
+  exclusive: false
+  also_in: []
+- fact_id: TX024-F002
+  world_ref: INCIDENT:INC-2026-0518#workaround
+  kind: general
+  statement: Compliance's daily query covers unreferred claims scoring 65-69, and 60-64 for Tier-3 claims from 2026-10-01.
+  file: corpus/upload/text/TX024_ops_handover_mainframe_batch_2026_10_14.txt
+  locator:
+    kind: text_lines
+    start: 46
+    end: 46
+  needle: daily query for unreferred claims (65-69, and 60-64 for Tier-3 since 1 October)
+  exclusive: false
+  also_in: []
+- fact_id: TX025-F001
+  world_ref: TICKET:CHUB-241
+  kind: general
+  statement: The reserve parallel run ends on 2026-08-28; Wave 1 cut-over is on 2026-09-14.
+  file: corpus/upload/text/TX025_standup_reserve_finance_squad_2026_08_12.txt
+  locator:
+    kind: text_lines
+    start: 20
+    end: 20
+  needle: the reserve parallel run finishes on the 28th
+  exclusive: false
+  also_in: []
+- fact_id: TX025-F002
+  world_ref: TICKET:CHUB-322
+  kind: general
+  statement: After CHUB-322 (INC-2026-0702) reserve-engine and CLARA both apply the 14-day Tier-3 review cadence.
+  file: corpus/upload/text/TX025_standup_reserve_finance_squad_2026_08_12.txt
+  locator:
+    kind: text_lines
+    start: 42
+    end: 42
+  needle: both been on 14 days for Tier-3 since the fix
+  exclusive: false
+  also_in: []
+- fact_id: TX026-F001
+  world_ref: INCIDENT:INC-2026-1007
+  kind: general
+  statement: 'INC-2026-1007: triage-svc did not pick up the Tier-3 threshold (CHUB-388) until 2026-10-05; the fix is CHUB-392.'
+  file: corpus/upload/text/TX026_standup_fraud_settlement_squad_2026_10_06.txt
+  locator:
+    kind: text_lines
+    start: 20
+    end: 20
+  needle: triage-svc didn't pick up the new value until yesterday
+  exclusive: false
+  also_in: []
+- fact_id: TX026-F002
+  world_ref: ADR:ADR-021
+  kind: general
+  statement: 'ADR-021: every payment instruction to CPG carries an idempotency key (after the Wave 1 duplicate payments, CHUB-371).'
+  file: corpus/upload/text/TX026_standup_fraud_settlement_squad_2026_10_06.txt
+  locator:
+    kind: text_lines
+    start: 52
+    end: 52
+  needle: every instruction to CPG now carries an idempotency key, per ADR-021
+  exclusive: false
+  also_in: []
+- fact_id: TX027-F001
+  world_ref: DECISION:DEC-019
+  kind: general
+  statement: Fellgate Adjusting Partners left the assessor panel on 2026-01-31; open instructions moved to Brackenfield.
+  file: corpus/upload/text/TX027_call_notes_brackenfield_monthly_2026_06.txt
+  locator:
+    kind: text_lines
+    start: 16
+    end: 16
+  needle: Fellgate Adjusting Partners left the assessor panel on 31 January 2026
+  exclusive: false
+  also_in: []
+- fact_id: TX028-F001
+  world_ref: TICKET:CHUB-241
+  kind: general
+  statement: The reserve parallel run's final business day was 2026-08-28.
+  file: corpus/upload/text/TX028_printed_log_excerpt_reserve_engine_2026_08_27.txt
+  locator:
+    kind: text_lines
+    start: 81
+    end: 81
+  needle: parallel run final business day is 2026-08-28
+  exclusive: false
+  also_in: []
+- fact_id: TX029-F001
+  world_ref: RULE:BR-FRD-032@v2
+  kind: general
+  statement: 'BR-FRD-032 v2: customers are notified in writing within 10 business days of a fraud referral (unless deferred).'
+  file: corpus/upload/text/TX029_contact_centre_script_additional_checks_letters.txt
+  locator:
+    kind: text_lines
+    start: 18
+    end: 18
+  needle: within 10 business days when their claim is selected for additional checks
+  exclusive: false
+  also_in: []
+- fact_id: TX029-F002
+  world_ref: RULE:BR-FRD-033@v1
+  kind: general
+  statement: 'BR-FRD-033: no adverse claim decision is made on an automated fraud score alone; a human review is required.'
+  file: corpus/upload/text/TX029_contact_centre_script_additional_checks_letters.txt
+  locator:
+    kind: text_lines
+    start: 25
+    end: 25
+  needle: No decision on a claim is ever made on an automated check alone
+  exclusive: false
+  also_in: []
+- fact_id: TX030-F001
+  world_ref: INCIDENT:INC-2026-0914#impact
+  kind: general
+  statement: 'INC-2026-0914: 18 claims paid twice on the Wave 1 cut-over Monday, £41,236.50 in total.'
+  file: corpus/upload/text/TX030_ops_handover_wave1_hypercare_day3.txt
+  locator:
+    kind: text_lines
+    start: 20
+    end: 20
+  needle: 18 claims paid twice, £41,236.50 in total
+  exclusive: false
+  also_in: []
+- fact_id: TX030-F002
+  world_ref: TICKET:CHUB-371
+  kind: general
+  statement: The fix for the Wave 1 duplicate payments (CHUB-371) was deployed on 2026-09-16, the day ADR-021 was accepted.
+  file: corpus/upload/text/TX030_ops_handover_wave1_hypercare_day3.txt
+  locator:
+    kind: text_lines
+    start: 22
+    end: 22
+  needle: CHUB-371 deployed today
+  exclusive: false
+  also_in: []
+- fact_id: TX061-F001
+  world_ref: INCIDENT:INC-2026-1007#root_cause
+  kind: general
+  statement: 'Root cause of INC-2026-1007: triage-svc cached the referral thresholds and did not reload the Tier-3 value;
+    fix CHUB-392.'
+  file: corpus/upload/text/TX061_standup_intake_triage_squad_2026_10_05.txt
+  locator:
+    kind: text_lines
+    start: 19
+    end: 19
+  needle: triage-svc cached the referral thresholds and never reloaded the Tier-3 value
+  exclusive: false
+  also_in: []
+- fact_id: TX062-F001
+  world_ref: WAVE:MW-2#scope
+  kind: general
+  statement: Norway and Sweden move to Claims Hub in Wave 2.
+  file: corpus/upload/text/TX062_call_notes_norrvik_quarterly_2026_07.txt
+  locator:
+    kind: text_lines
+    start: 25
+    end: 25
+  needle: Norway and Sweden move to Claims Hub in Wave 2
+  exclusive: false
+  also_in: []
+- fact_id: TX063-F001
+  world_ref: RULE:BR-FNOL-001@v2
+  kind: general
+  statement: In October 2025 (BR-FNOL-001 v2) FNOLs are acknowledged within 2 business days.
+  file: corpus/upload/text/TX063_ivr_script_motor_norge.txt
+  locator:
+    kind: text_lines
+    start: 52
+    end: 52
+  needle: We acknowledge the claim in writing within 2 business days
+  exclusive: false
+  also_in: []
+- fact_id: TX064-F001
+  world_ref: INCIDENT:INC-2026-0604
+  kind: general
+  statement: 'INC-2026-0604 (2026-09-24, from about 17:05): Evidence Intake Gateway photo backlog after a storm.'
+  file: corpus/upload/text/TX064_ops_handover_contact_centre_2026_09_24.txt
+  locator:
+    kind: text_lines
+    start: 16
+    end: 16
+  needle: the Evidence Intake Gateway has a backlog of photos after the storm
+  exclusive: false
+  also_in: []
+- fact_id: TX065-F001
+  world_ref: WAVE:MW-2
+  kind: general
+  statement: Wave 2 (UK home, commercial, liability; Norway; Sweden) cuts over on 2027-02-15.
+  file: corpus/upload/text/TX065_standup_data_migration_2026_10_20.txt
+  locator:
+    kind: text_lines
+    start: 20
+    end: 20
+  needle: Wave 2 is UK home, commercial and liability, plus Norway and Sweden, cutting over on the 15th of February
+  exclusive: false
+  also_in: []
+- fact_id: TX065-F002
+  world_ref: ADR:ADR-025
+  kind: general
+  statement: 'ADR-025: migration rehearsals use masked data.'
+  file: corpus/upload/text/TX065_standup_data_migration_2026_10_20.txt
+  locator:
+    kind: text_lines
+    start: 21
+    end: 21
+  needle: rehearsal data stays masked, per ADR-025
+  exclusive: false
+  also_in: []
+- fact_id: TX066-F001
+  world_ref: RULE:BR-FRD-033@v1
+  kind: general
+  statement: From 2026-04-01 (BR-FRD-033) no claim can be declined on an automated fraud score alone.
+  file: corpus/upload/text/TX066_call_notes_greyfold_siu_2026_05.txt
+  locator:
+    kind: text_lines
+    start: 17
+    end: 17
+  needle: No claim can be declined on an automated score alone
+  exclusive: false
+  also_in: []
+- fact_id: TX067-F001
+  world_ref: WAVE:MW-1#scope
+  kind: general
+  statement: Since Wave 1 (2026-09-14) UK motor claims and their payments are on Claims Hub.
+  file: corpus/upload/text/TX067_ivr_script_payments_enquiries.txt
+  locator:
+    kind: text_lines
+    start: 23
+    end: 23
+  needle: UK motor claims have been on Claims Hub since Wave 1
+  exclusive: false
+  also_in: []
+- fact_id: TX068-F001
+  world_ref: TOPIC:reserve.changed.v2
+  kind: general
+  statement: reserve-engine publishes reserve.changed.v2, consumed by gl-posting-svc and reporting-feed-svc.
+  file: corpus/upload/text/TX068_ops_handover_reserving_month_end_2026_09.txt
+  locator:
+    kind: text_lines
+    start: 17
+    end: 17
+  needle: reserve.changed.v2 events, consumed by gl-posting-svc and reporting-feed-svc
+  exclusive: false
+  also_in: []
+- fact_id: TX068-F002
+  world_ref: RULE:BR-RSV-007@v3
+  kind: general
+  statement: Tier-3 reserve reviews run on a 14-day cycle (BR-RSV-007 v3, from 2026-07-01).
+  file: corpus/upload/text/TX068_ops_handover_reserving_month_end_2026_09.txt
+  locator:
+    kind: text_lines
+    start: 24
+    end: 24
+  needle: reviews are running on the 14-day cycle
+  exclusive: false
+  also_in: []
+- fact_id: TX068-F003
+  world_ref: INTERFACE:CLX-IF-058
+  kind: general
+  statement: CLX-IF-058 (reserve triangles extract, monthly on the 3rd business day) feeds the Reserving team's monthly IBNR
+    run.
+  file: corpus/upload/text/TX068_ops_handover_reserving_month_end_2026_09.txt
+  locator:
+    kind: text_lines
+    start: 27
+    end: 27
+  needle: triangles extract (CLX-IF-058)
+  exclusive: false
+  also_in: []
+- fact_id: TX069-F001
+  world_ref: TICKET:CHUB-441
+  kind: general
+  statement: CHUB-441 (Wave 2 cut-over plan v1; freeze 2027-02-12 18:00 to 2027-02-15 06:00) is raised on 2026-11-09.
+  file: corpus/upload/text/TX069_standup_programme_pmo_2026_11_09.txt
+  locator:
+    kind: text_lines
+    start: 20
+    end: 20
+  needle: I've raised CHUB-441 for the Wave 2 cut-over plan
+  exclusive: false
+  also_in: []
+- fact_id: TX069-F002
+  world_ref: TICKET:CHUB-298#status_history
+  kind: general
+  statement: As at 2026-11-09, CHUB-298 has been In Review since 2026-11-04; CHUB-421 is In Progress and CHUB-415 is open,
+    all for release R2026.11.
+  file: corpus/upload/text/TX069_standup_programme_pmo_2026_11_09.txt
+  locator:
+    kind: text_lines
+    start: 21
+    end: 21
+  needle: CHUB-298, the CLRFR040 fix, which has been in review since last Wednesday
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F001
+  world_ref: TICKET:CHUB-298#status_history
+  kind: needle
+  statement: 'Jira export (2026-11-11): CHUB-298 has status ''In Review''.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/197/fields/status/name
+  needle: In Review
+  exclusive: false
+  also_in: []
+  placement: PL-229
+  placement_key: tx70_298
+- fact_id: TX070-F002
+  world_ref: TICKET:CHUB-298#assignee
+  kind: general
+  statement: 'Jira export (2026-11-11): CHUB-298 (CLRFR040 hard-coded threshold) is assigned to Keith Barraclough.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/197/fields/assignee/displayName
+  needle: Keith Barraclough
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F003
+  world_ref: TICKET:CHUB-298
+  kind: general
+  statement: 'CHUB-298: CLRFR040 batch sweep hard-codes referral threshold 070 (should read CLR.T_PARAM).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/197/fields/summary
+  needle: CLRFR040 batch sweep hard-codes referral threshold 070
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F004
+  world_ref: TICKET:CHUB-143
+  kind: contradiction_new
+  statement: 'Jira export: CHUB-143 moved CLX-IF-043 (GL reserve journal) from 03:00 to 03:45.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/42/fields/summary
+  needle: Move CLX-IF-043 GL reserve journal from 03:00 to 03:45
+  exclusive: false
+  also_in: []
+  placement: PL-230
+  placement_key: tx70_143
+  contradiction:
+  - C12
+- fact_id: TX070-F005
+  world_ref: TICKET:CHUB-143#resolved
+  kind: temporal
+  statement: CHUB-143 was resolved on 2025-05-09.
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/42/fields/resolutiondate
+  needle: '2025-05-09'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F006
+  world_ref: TICKET:CHUB-233
+  kind: needle
+  statement: 'Jira export: CHUB-233 renamed reserve-svc to reserve-engine (repo path, namespace labels, Terraform module)
+    per ADR-019.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/132/fields/summary
+  needle: Rename reserve-svc to reserve-engine
+  exclusive: false
+  also_in: []
+  placement: PL-231
+  placement_key: tx70_233
+- fact_id: TX070-F007
+  world_ref: TICKET:CHUB-233#resolved
+  kind: temporal
+  statement: CHUB-233 (reserve-svc to reserve-engine rename) was resolved on 2026-02-10.
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/132/fields/resolutiondate
+  needle: '2026-02-10'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F008
+  world_ref: TICKET:CHUB-388
+  kind: general
+  statement: 'CHUB-388: fraud-referral-svc Tier-3 referral threshold 60 from 2026-10-01 (workshop 2026-09-17).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/287/fields/summary
+  needle: Tier-3 referral threshold 60 from 2026-10-01
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F009
+  world_ref: TICKET:CHUB-371
+  kind: general
+  statement: 'CHUB-371: duplicate payment instructions for 18 claims on the Wave 1 weekend (INC-2026-0914).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/270/fields/summary
+  needle: Duplicate payment instructions for 18 claims on Wave 1 weekend
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F010
+  world_ref: TICKET:CHUB-415#status_history
+  kind: temporal
+  statement: As at the 2026-11-11 export CHUB-415 (CODEOWNERS change) is still Open.
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/314/fields/status/name
+  needle: Open
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F011
+  world_ref: TICKET:CHUB-421#status_history
+  kind: temporal
+  statement: As at the 2026-11-11 export CHUB-421 (notification-svc event) is In Progress.
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/320/fields/status/name
+  needle: In Progress
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F012
+  world_ref: TICKET:CHUB-284
+  kind: general
+  statement: CHUB-284 (IA-25-07, CLRGL090 revaluation writes no movement) was closed as Won't Do.
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/183/fields/resolution/name
+  needle: Won't Do
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F013
+  world_ref: TICKET:CHUB-142#links
+  kind: general
+  statement: CHUB-142 (revert RM-AMOUNT) is caused by CHUB-138.
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/41/fields/issuelinks/0
+  needle: is caused by
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F014
+  world_ref: TICKET:CHUB-441
+  kind: general
+  statement: 'CHUB-441: Wave 2 cut-over plan v1 (freeze 2027-02-12 18:00 to 2027-02-15 06:00).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/340/fields/summary
+  needle: freeze 2027-02-12 18:00 to 2027-02-15 06:00
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F015
+  world_ref: TICKET:CHUB-430
+  kind: general
+  statement: CHUB-430 is the SUBTRAK retirement epic (target 2026-12-31).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/329/fields/summary
+  needle: SUBTRAK retirement (target 2026-12-31)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F016
+  world_ref: TICKET:CHUB-322
+  kind: general
+  statement: 'CHUB-322: reserve-engine still scheduled Tier-3 reviews at 21 days (INC-2026-0702).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/221/fields/summary
+  needle: reserve-engine still schedules Tier-3 reviews at 21 days
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F017
+  world_ref: ANCHOR:TX070
+  kind: scale
+  statement: The Jira export TX070 contains exactly 2,000 CHUB tickets (CHUB-101..CHUB-2100).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /total
+  needle: '2000'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F018
+  world_ref: TICKET:CHUB-101
+  kind: general
+  statement: 'CHUB-101 (Epic, Programme) in the Jira export: Programme Skerry: programme set-up and Jira project.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/0/fields/summary
+  needle: 'Programme Skerry: programme set-up and Jira project'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F019
+  world_ref: TICKET:CHUB-101#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-101 has status 'Done' (assignee Arjun Kesavan).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/0/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F020
+  world_ref: TICKET:CHUB-104
+  kind: general
+  statement: 'CHUB-104 (Task, CLARA) in the Jira export: Discovery: CLARA program inventory and CRUD matrix.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/3/fields/summary
+  needle: 'Discovery: CLARA program inventory and CRUD matrix'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F021
+  world_ref: TICKET:CHUB-104#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-104 has status 'Done' (assignee Gordon Sproat).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/3/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F022
+  world_ref: TICKET:CHUB-107
+  kind: general
+  statement: 'CHUB-107 (Task, Platform) in the Jira export: Platform: runbook for on-call.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/6/fields/summary
+  needle: 'Platform: runbook for on-call'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F023
+  world_ref: TICKET:CHUB-107#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-107 has status 'To Do' (assignee Elin Fosse).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/6/fields/status/name
+  needle: To Do
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F024
+  world_ref: TICKET:CHUB-109
+  kind: general
+  statement: 'CHUB-109 (Story, Platform) in the Jira export: Claims Hub platform: OpenShift namespaces and Terraform modules.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/8/fields/summary
+  needle: 'Claims Hub platform: OpenShift namespaces and Terraform modules'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F025
+  world_ref: TICKET:CHUB-109#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-109 has status 'Done' (assignee Nadia Petrovic).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/8/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F026
+  world_ref: TICKET:CHUB-110
+  kind: general
+  statement: 'CHUB-110 (Story, assessment-svc) in the Jira export: assessment-svc: performance test at 2x Wave 1 volume.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/9/fields/summary
+  needle: 'assessment-svc: performance test at 2x Wave 1 volume'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F027
+  world_ref: TICKET:CHUB-110#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-110 has status 'To Do' (assignee Sofie Bak).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/9/fields/status/name
+  needle: To Do
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F028
+  world_ref: TICKET:CHUB-112
+  kind: general
+  statement: 'CHUB-112 (Story, Integration) in the Jira export: Kafka platform (ESP) production cluster esp-prd.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/11/fields/summary
+  needle: Kafka platform (ESP) production cluster esp-prd
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F029
+  world_ref: TICKET:CHUB-112#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-112 has status 'Done' (assignee Henrik Vestergaard).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/11/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F030
+  world_ref: TICKET:CHUB-115
+  kind: general
+  statement: 'CHUB-115 (Story, Integration) in the Jira export: Integration: add structured logging and correlation ids.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/14/fields/summary
+  needle: 'Integration: add structured logging and correlation ids'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F031
+  world_ref: TICKET:CHUB-115#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-115 has status 'In Progress' (assignee Henrik Vestergaard).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/14/fields/status/name
+  needle: In Progress
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F032
+  world_ref: TICKET:CHUB-117
+  kind: general
+  statement: 'CHUB-117 (Task, Fraud) in the Jira export: Rename FRAUDNET to Sentinel in all interfaces and documentation (effective
+    2025-03-01).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/16/fields/summary
+  needle: Rename FRAUDNET to Sentinel in all interfaces and documentation (effective 2025-03-01)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F033
+  world_ref: TICKET:CHUB-117#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-117 has status 'Done' (assignee Oskar Lindgren).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/16/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F034
+  world_ref: TICKET:CHUB-119
+  kind: general
+  statement: 'CHUB-119 (Bug, CLARA) in the Jira export: CLRFR020 still calls retired fraudnet.corvane.internal endpoint after
+    Sentinel rename (INC-2025-0233).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/18/fields/summary
+  needle: CLRFR020 still calls retired fraudnet.corvane.internal endpoint after Sentinel rename (INC-2025-0233)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F035
+  world_ref: TICKET:CHUB-119#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-119 has status 'Done' (assignee Pauline Ashworth).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/18/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F036
+  world_ref: TICKET:CHUB-124
+  kind: general
+  statement: 'CHUB-124 (Bug, Data Migration) in the Jira export: Data Migration: retry storm after downstream timeout.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/23/fields/summary
+  needle: 'Data Migration: retry storm after downstream timeout'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F037
+  world_ref: TICKET:CHUB-124#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-124 has status 'Done' (assignee Callum Fairbairn).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/23/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F038
+  world_ref: TICKET:CHUB-126
+  kind: general
+  statement: 'CHUB-126 (Story, Data Migration) in the Jira export: Data migration strategy and wave plan.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/25/fields/summary
+  needle: Data migration strategy and wave plan
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F039
+  world_ref: TICKET:CHUB-126#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-126 has status 'Done' (assignee Callum Fairbairn).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/25/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F040
+  world_ref: TICKET:CHUB-131
+  kind: general
+  statement: 'CHUB-131 (Story, fnol-intake-svc) in the Jira export: fnol-intake-svc: POST /fnol for portal and app.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/30/fields/summary
+  needle: 'fnol-intake-svc: POST /fnol for portal and app'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F041
+  world_ref: TICKET:CHUB-131#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-131 has status 'Done' (assignee Sofie Bak).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/30/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F042
+  world_ref: TICKET:CHUB-132
+  kind: general
+  statement: 'CHUB-132 (Bug, recovery-svc) in the Jira export: recovery-svc: timezone handling around BST change.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/31/fields/summary
+  needle: 'recovery-svc: timezone handling around BST change'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F043
+  world_ref: TICKET:CHUB-132#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-132 has status 'Done' (assignee Tariq Hussain).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/31/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F044
+  world_ref: TICKET:CHUB-138
+  kind: general
+  statement: 'CHUB-138 (Story, CLARA) in the Jira export: Widen RSVMOVE RM-AMOUNT to S9(11)V99 for Nordic large losses.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/37/fields/summary
+  needle: Widen RSVMOVE RM-AMOUNT to S9(11)V99 for Nordic large losses
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F045
+  world_ref: TICKET:CHUB-138#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-138 has status 'Done' (assignee Keith Barraclough).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/37/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F046
+  world_ref: TICKET:CHUB-141
+  kind: general
+  statement: 'CHUB-141 (Story, claim-core-svc) in the Jira export: claim-core-svc: contract tests against OpenAPI spec.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/40/fields/summary
+  needle: 'claim-core-svc: contract tests against OpenAPI spec'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F047
+  world_ref: TICKET:CHUB-141#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-141 has status 'Done' (assignee Sofie Bak).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/40/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F048
+  world_ref: TICKET:CHUB-142
+  kind: general
+  statement: 'CHUB-142 (Bug, CLARA) in the Jira export: Revert RSVMOVE RM-AMOUNT width and add RM-REC-VERSION (INC-2025-0412).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/41/fields/summary
+  needle: Revert RSVMOVE RM-AMOUNT width and add RM-REC-VERSION (INC-2025-0412)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F049
+  world_ref: TICKET:CHUB-142#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-142 has status 'Done' (assignee Keith Barraclough).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/41/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F050
+  world_ref: TICKET:CHUB-143#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-143 has status 'Done' (assignee Henrik Vestergaard).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/42/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F051
+  world_ref: TICKET:CHUB-144
+  kind: general
+  statement: 'CHUB-144 (Task, Integration) in the Jira export: Interface change impact checklist (downstream consumers must
+    sign off).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/43/fields/summary
+  needle: Interface change impact checklist (downstream consumers must sign off)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F052
+  world_ref: TICKET:CHUB-144#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-144 has status 'Done' (assignee Marcus Oduya).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/43/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F053
+  world_ref: TICKET:CHUB-145
+  kind: general
+  statement: 'CHUB-145 (Task, Data Migration) in the Jira export: Data Migration: upgrade Spring Boot patch release.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/44/fields/summary
+  needle: 'Data Migration: upgrade Spring Boot patch release'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F054
+  world_ref: TICKET:CHUB-145#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-145 has status 'In Progress' (assignee Callum Fairbairn).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/44/fields/status/name
+  needle: In Progress
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F055
+  world_ref: TICKET:CHUB-151
+  kind: general
+  statement: 'CHUB-151 (Story, triage-svc) in the Jira export: triage-svc: Tier classification (BR-TRI-003 v3).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/50/fields/summary
+  needle: 'triage-svc: Tier classification (BR-TRI-003 v3)'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F056
+  world_ref: TICKET:CHUB-151#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-151 has status 'Done' (assignee Sofie Bak).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/50/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F057
+  world_ref: TICKET:CHUB-153
+  kind: general
+  statement: 'CHUB-153 (Bug, Platform) in the Jira export: Platform: retry storm after downstream timeout.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/52/fields/summary
+  needle: 'Platform: retry storm after downstream timeout'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F058
+  world_ref: TICKET:CHUB-153#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-153 has status 'Done' (assignee Nadia Petrovic).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/52/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F059
+  world_ref: TICKET:CHUB-156
+  kind: general
+  statement: 'CHUB-156 (Task, recovery-svc) in the Jira export: recovery-svc: dashboards and alert thresholds.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/55/fields/summary
+  needle: 'recovery-svc: dashboards and alert thresholds'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F060
+  world_ref: TICKET:CHUB-156#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-156 has status 'Done' (assignee Tariq Hussain).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/55/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F061
+  world_ref: TICKET:CHUB-157
+  kind: general
+  statement: 'CHUB-157 (Task, Assessment) in the Jira export: Rename Adjuster Extranet to Assessor Portal (effective 2025-09-01).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/56/fields/summary
+  needle: Rename Adjuster Extranet to Assessor Portal (effective 2025-09-01)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F062
+  world_ref: TICKET:CHUB-157#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-157 has status 'Done' (assignee Imran Talwar).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/56/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F063
+  world_ref: TICKET:CHUB-158
+  kind: general
+  statement: 'CHUB-158 (Story, Data Migration) in the Jira export: Data Migration: contract tests against OpenAPI spec.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/57/fields/summary
+  needle: 'Data Migration: contract tests against OpenAPI spec'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F064
+  world_ref: TICKET:CHUB-158#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-158 has status 'Done' (assignee Callum Fairbairn).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/57/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F065
+  world_ref: TICKET:CHUB-161
+  kind: general
+  statement: 'CHUB-161 (Epic, Programme) in the Jira export: Re-org 2025-09-01: access and approval changes (SIU to Risk,
+    Recoveries & Subrogation).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/60/fields/summary
+  needle: 'Re-org 2025-09-01: access and approval changes (SIU to Risk, Recoveries & Subrogation)'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F066
+  world_ref: TICKET:CHUB-161#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-161 has status 'Done' (assignee Neil Haworth).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/60/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F067
+  world_ref: TICKET:CHUB-164
+  kind: general
+  statement: 'CHUB-164 (Bug, triage-svc) in the Jira export: triage-svc: timezone handling around BST change.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/63/fields/summary
+  needle: 'triage-svc: timezone handling around BST change'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F068
+  world_ref: TICKET:CHUB-164#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-164 has status 'Done' (assignee Sofie Bak).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/63/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F069
+  world_ref: TICKET:CHUB-166
+  kind: general
+  statement: 'CHUB-166 (Bug, Fraud) in the Jira export: SIU Case Manager queue permissions lost after SIU moved to Risk (INC-2025-0815).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/65/fields/summary
+  needle: SIU Case Manager queue permissions lost after SIU moved to Risk (INC-2025-0815)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F070
+  world_ref: TICKET:CHUB-166#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-166 has status 'Done' (assignee Rachel Dunmore).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/65/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F071
+  world_ref: TICKET:CHUB-170
+  kind: general
+  statement: 'CHUB-170 (Task, fnol-intake-svc) in the Jira export: fnol-intake-svc: runbook for on-call.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/69/fields/summary
+  needle: 'fnol-intake-svc: runbook for on-call'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F072
+  world_ref: TICKET:CHUB-170#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-170 has status 'In Progress' (assignee Sofie Bak).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/69/fields/status/name
+  needle: In Progress
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F073
+  world_ref: TICKET:CHUB-173
+  kind: general
+  statement: 'CHUB-173 (Story, Integration) in the Jira export: Integration: Nordic currency formatting (NOK/SEK/DKK).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/72/fields/summary
+  needle: 'Integration: Nordic currency formatting (NOK/SEK/DKK)'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F074
+  world_ref: TICKET:CHUB-173#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-173 has status 'To Do' (assignee Marcus Oduya).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/72/fields/status/name
+  needle: To Do
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F075
+  world_ref: TICKET:CHUB-174
+  kind: general
+  statement: 'CHUB-174 (Story, CLARA) in the Jira export: Authority limits v3 (BR-RSV-003, BR-STL-002) in CLARA T_USER profiles.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/73/fields/summary
+  needle: Authority limits v3 (BR-RSV-003, BR-STL-002) in CLARA T_USER profiles
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F076
+  world_ref: TICKET:CHUB-174#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-174 has status 'Done' (assignee Pauline Ashworth).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/73/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F077
+  world_ref: TICKET:CHUB-175
+  kind: general
+  statement: 'CHUB-175 (Story, settlement-svc) in the Jira export: settlement-svc: add structured logging and correlation
+    ids.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/74/fields/summary
+  needle: 'settlement-svc: add structured logging and correlation ids'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F078
+  world_ref: TICKET:CHUB-175#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-175 has status 'In Progress' (assignee Linnea Sjöberg).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/74/fields/status/name
+  needle: In Progress
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F079
+  world_ref: TICKET:CHUB-182
+  kind: general
+  statement: 'CHUB-182 (Task, fraud-referral-svc) in the Jira export: fraud-referral-svc: upgrade Spring Boot patch release.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/81/fields/summary
+  needle: 'fraud-referral-svc: upgrade Spring Boot patch release'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F080
+  world_ref: TICKET:CHUB-182#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-182 has status 'Done' (assignee Linnea Sjöberg).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/81/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F081
+  world_ref: TICKET:CHUB-188
+  kind: general
+  statement: 'CHUB-188 (Story, Integration) in the Jira export: CLX-IF-049 reserve movement Kafka bridge (ADR-012).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/87/fields/summary
+  needle: CLX-IF-049 reserve movement Kafka bridge (ADR-012)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F082
+  world_ref: TICKET:CHUB-188#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-188 has status 'Done' (assignee Marcus Oduya).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/87/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F083
+  world_ref: TICKET:CHUB-190
+  kind: general
+  statement: 'CHUB-190 (Story, claim-core-svc) in the Jira export: claim-core-svc: contract tests against OpenAPI spec.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/89/fields/summary
+  needle: 'claim-core-svc: contract tests against OpenAPI spec'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F084
+  world_ref: TICKET:CHUB-190#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-190 has status 'Done' (assignee Sofie Bak).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/89/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F085
+  world_ref: TICKET:CHUB-193
+  kind: general
+  statement: 'CHUB-193 (Story, reserve-engine) in the Jira export: reserve-svc: reserve and movement API.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/92/fields/summary
+  needle: 'reserve-svc: reserve and movement API'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F086
+  world_ref: TICKET:CHUB-193#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-193 has status 'Done' (assignee Daniel Achebe).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/92/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F087
+  world_ref: TICKET:CHUB-195
+  kind: general
+  statement: 'CHUB-195 (Task, settlement-svc) in the Jira export: settlement-svc: upgrade Spring Boot patch release.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/94/fields/summary
+  needle: 'settlement-svc: upgrade Spring Boot patch release'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F088
+  world_ref: TICKET:CHUB-195#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-195 has status 'Done' (assignee Linnea Sjöberg).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/94/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F089
+  world_ref: TICKET:CHUB-201
+  kind: general
+  statement: 'CHUB-201 (Bug, recovery-svc) in the Jira export: recovery-svc: timezone handling around BST change.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/100/fields/summary
+  needle: 'recovery-svc: timezone handling around BST change'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F090
+  world_ref: TICKET:CHUB-201#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-201 has status 'Done' (assignee Linnea Sjöberg).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/100/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F091
+  world_ref: TICKET:CHUB-204
+  kind: general
+  statement: 'CHUB-204 (Epic, Fraud) in the Jira export: NISA Circular 2026/04 compliance (fraud referral).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/103/fields/summary
+  needle: NISA Circular 2026/04 compliance (fraud referral)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F092
+  world_ref: TICKET:CHUB-204#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-204 has status 'Done' (assignee Ruth Okafor).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/103/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F093
+  world_ref: TICKET:CHUB-205
+  kind: general
+  statement: 'CHUB-205 (Story, CLARA) in the Jira export: Fraud referral threshold 70 -> 65 in CLR.T_PARAM FRD_REFER_THRESH
+    (from 2026-04-01).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/104/fields/summary
+  needle: Fraud referral threshold 70 -> 65 in CLR.T_PARAM FRD_REFER_THRESH (from 2026-04-01)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F094
+  world_ref: TICKET:CHUB-205#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-205 has status 'Done' (assignee Pauline Ashworth).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/104/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F095
+  world_ref: TICKET:CHUB-206
+  kind: general
+  statement: 'CHUB-206 (Story, CLARA) in the Jira export: Customer referral notice scheduler CLRFR060 and CLR.T_FRAUD_NOTIFICATION.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/105/fields/summary
+  needle: Customer referral notice scheduler CLRFR060 and CLR.T_FRAUD_NOTIFICATION
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F096
+  world_ref: TICKET:CHUB-206#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-206 has status 'Done' (assignee Keith Barraclough).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/105/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F097
+  world_ref: TICKET:CHUB-207
+  kind: general
+  statement: 'CHUB-207 (Story, CLARA) in the Jira export: Disable auto-decline sweep CLRFR140 and remove job CLRNFR99 from
+    schedule.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/106/fields/summary
+  needle: Disable auto-decline sweep CLRFR140 and remove job CLRNFR99 from schedule
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F098
+  world_ref: TICKET:CHUB-207#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-207 has status 'Done' (assignee Sunita Vaghela).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/106/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F099
+  world_ref: TICKET:CHUB-208
+  kind: general
+  statement: 'CHUB-208 (Story, CLARA) in the Jira export: NISA-FR1 quarterly return extract CLRFR090.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/107/fields/summary
+  needle: NISA-FR1 quarterly return extract CLRFR090
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F100
+  world_ref: TICKET:CHUB-208#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-208 has status 'Done' (assignee Pauline Ashworth).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/107/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F101
+  world_ref: TICKET:CHUB-209
+  kind: general
+  statement: 'CHUB-209 (Story, fraud-referral-svc) in the Jira export: fraud-referral-svc: customer-notice endpoint and 10-business-day
+    deadline.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/108/fields/summary
+  needle: 'fraud-referral-svc: customer-notice endpoint and 10-business-day deadline'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F102
+  world_ref: TICKET:CHUB-209#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-209 has status 'Done' (assignee Linnea Sjöberg).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/108/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F103
+  world_ref: TICKET:CHUB-211
+  kind: general
+  statement: 'CHUB-211 (Bug, CLARA) in the Jira export: CLARA: tidy JCL restart steps.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/110/fields/summary
+  needle: 'CLARA: tidy JCL restart steps'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F104
+  world_ref: TICKET:CHUB-211#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-211 has status 'Done' (assignee Derek Ollerton).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/110/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F105
+  world_ref: TICKET:CHUB-212
+  kind: general
+  statement: 'CHUB-212 (Story, Fraud) in the Jira export: BRD: fraud referral changes for NISA Circular 2026/04.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/111/fields/summary
+  needle: 'BRD: fraud referral changes for NISA Circular 2026/04'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F106
+  world_ref: TICKET:CHUB-212#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-212 has status 'Done' (assignee Hannah Lyle).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/111/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F107
+  world_ref: TICKET:CHUB-218
+  kind: general
+  statement: 'CHUB-218 (Bug, settlement-svc) in the Jira export: settlement-svc: timezone handling around BST change.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/117/fields/summary
+  needle: 'settlement-svc: timezone handling around BST change'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F108
+  world_ref: TICKET:CHUB-218#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-218 has status 'To Do' (assignee Linnea Sjöberg).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/117/fields/status/name
+  needle: To Do
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F109
+  world_ref: TICKET:CHUB-219
+  kind: general
+  statement: 'CHUB-219 (Bug, document-svc) in the Jira export: Evidence Vault: document-svc config still points to DOCSTOR
+    base URL.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/118/fields/summary
+  needle: 'Evidence Vault: document-svc config still points to DOCSTOR base URL'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F110
+  world_ref: TICKET:CHUB-219#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-219 has status 'Done' (assignee Sofie Bak).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/118/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F111
+  world_ref: TICKET:CHUB-222
+  kind: general
+  statement: 'CHUB-222 (Story, CLARA) in the Jira export: CLARA: tidy JCL restart steps.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/121/fields/summary
+  needle: 'CLARA: tidy JCL restart steps'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F112
+  world_ref: TICKET:CHUB-222#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-222 has status 'Done' (assignee Derek Ollerton).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/121/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F113
+  world_ref: TICKET:CHUB-230
+  kind: general
+  statement: 'CHUB-230 (Bug, gl-posting-svc) in the Jira export: gl-posting-svc: timezone handling around BST change.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/129/fields/summary
+  needle: 'gl-posting-svc: timezone handling around BST change'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F114
+  world_ref: TICKET:CHUB-230#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-230 has status 'Done' (assignee Daniel Achebe).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/129/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F115
+  world_ref: TICKET:CHUB-233#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-233 has status 'Done' (assignee Daniel Achebe).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/132/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F116
+  world_ref: TICKET:CHUB-239
+  kind: general
+  statement: 'CHUB-239 (Story, payment-orchestrator) in the Jira export: payment-orchestrator: add structured logging and
+    correlation ids.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/138/fields/summary
+  needle: 'payment-orchestrator: add structured logging and correlation ids'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F117
+  world_ref: TICKET:CHUB-239#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-239 has status 'In Progress' (assignee Linnea Sjöberg).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/138/fields/status/name
+  needle: In Progress
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F118
+  world_ref: TICKET:CHUB-241
+  kind: general
+  statement: 'CHUB-241 (Story, reserve-engine) in the Jira export: Reserve parallel run CLARA vs reserve-engine (2026-03-02
+    to 2026-08-28).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/140/fields/summary
+  needle: Reserve parallel run CLARA vs reserve-engine (2026-03-02 to 2026-08-28)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F119
+  world_ref: TICKET:CHUB-241#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-241 has status 'Done' (assignee Daniel Achebe).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/140/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F120
+  world_ref: TICKET:CHUB-248
+  kind: general
+  statement: 'CHUB-248 (Story, reserve-engine) in the Jira export: reserve-engine: performance test at 2x Wave 1 volume.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/147/fields/summary
+  needle: 'reserve-engine: performance test at 2x Wave 1 volume'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F121
+  world_ref: TICKET:CHUB-248#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-248 has status 'Done' (assignee Nadia Petrovic).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/147/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F122
+  world_ref: TICKET:CHUB-249
+  kind: general
+  statement: 'CHUB-249 (Bug, Integration) in the Jira export: CLX-IF-049 consumer lag of 6 hours during parallel run (INC-2026-0311).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/148/fields/summary
+  needle: CLX-IF-049 consumer lag of 6 hours during parallel run (INC-2026-0311)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F123
+  world_ref: TICKET:CHUB-249#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-249 has status 'Done' (assignee Henrik Vestergaard).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/148/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F124
+  world_ref: TICKET:CHUB-253
+  kind: general
+  statement: 'CHUB-253 (Story, Platform) in the Jira export: Platform: add structured logging and correlation ids.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/152/fields/summary
+  needle: 'Platform: add structured logging and correlation ids'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F125
+  world_ref: TICKET:CHUB-253#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-253 has status 'Done' (assignee Elin Fosse).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/152/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F126
+  world_ref: TICKET:CHUB-261
+  kind: general
+  statement: 'CHUB-261 (Task, reserve-engine) in the Jira export: reserve-engine: dashboards and alert thresholds.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/160/fields/summary
+  needle: 'reserve-engine: dashboards and alert thresholds'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F127
+  world_ref: TICKET:CHUB-261#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-261 has status 'Done' (assignee Daniel Achebe).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/160/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F128
+  world_ref: TICKET:CHUB-262
+  kind: general
+  statement: 'CHUB-262 (Story, Data Migration) in the Jira export: Wave 0 Denmark migration.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/161/fields/summary
+  needle: Wave 0 Denmark migration
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F129
+  world_ref: TICKET:CHUB-262#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-262 has status 'Done' (assignee Callum Fairbairn).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/161/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F130
+  world_ref: TICKET:CHUB-267
+  kind: general
+  statement: 'CHUB-267 (Task, Data Migration) in the Jira export: Data Migration: dashboards and alert thresholds.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/166/fields/summary
+  needle: 'Data Migration: dashboards and alert thresholds'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F131
+  world_ref: TICKET:CHUB-267#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-267 has status 'Done' (assignee Callum Fairbairn).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/166/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F132
+  world_ref: TICKET:CHUB-275
+  kind: general
+  statement: 'CHUB-275 (Bug, fnol-intake-svc) in the Jira export: fnol-intake-svc: timezone handling around BST change.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/174/fields/summary
+  needle: 'fnol-intake-svc: timezone handling around BST change'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F133
+  world_ref: TICKET:CHUB-275#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-275 has status 'In Progress' (assignee Sofie Bak).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/174/fields/status/name
+  needle: In Progress
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F134
+  world_ref: TICKET:CHUB-276
+  kind: general
+  statement: 'CHUB-276 (Task, Platform) in the Jira export: Rename DOCSTOR to Evidence Vault (effective 2025-11-03).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/175/fields/summary
+  needle: Rename DOCSTOR to Evidence Vault (effective 2025-11-03)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F135
+  world_ref: TICKET:CHUB-276#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-276 has status 'Done' (assignee Neil Haworth).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/175/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F136
+  world_ref: TICKET:CHUB-279
+  kind: general
+  statement: 'CHUB-279 (Bug, reserve-engine) in the Jira export: reserve-engine: null pointer on missing optional field.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/178/fields/summary
+  needle: 'reserve-engine: null pointer on missing optional field'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F137
+  world_ref: TICKET:CHUB-279#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-279 has status 'In Progress' (assignee Nadia Petrovic).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/178/fields/status/name
+  needle: In Progress
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F138
+  world_ref: TICKET:CHUB-281
+  kind: general
+  statement: 'CHUB-281 (Bug, CLARA) in the Jira export: CLRGL090 S0C7 abend on malformed SEK year-end rate; CLRYGL90 rerun
+    (INC-2026-0104).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/180/fields/summary
+  needle: CLRGL090 S0C7 abend on malformed SEK year-end rate; CLRYGL90 rerun (INC-2026-0104)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F139
+  world_ref: TICKET:CHUB-281#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-281 has status 'Done' (assignee Keith Barraclough).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/180/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F140
+  world_ref: TICKET:CHUB-284
+  kind: general
+  statement: 'CHUB-284 (Task, CLARA) in the Jira export: Internal audit IA-25-07: CLRGL090 revaluation writes no reserve movement.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/183/fields/summary
+  needle: 'Internal audit IA-25-07: CLRGL090 revaluation writes no reserve movement'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F141
+  world_ref: TICKET:CHUB-284#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-284 has status 'Won't Do' (assignee Keith Barraclough).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/183/fields/status/name
+  needle: Won't Do
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F142
+  world_ref: TICKET:CHUB-289
+  kind: general
+  statement: 'CHUB-289 (Bug, assessment-svc) in the Jira export: assessment-svc: timezone handling around BST change.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/188/fields/summary
+  needle: 'assessment-svc: timezone handling around BST change'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F143
+  world_ref: TICKET:CHUB-289#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-289 has status 'Done' (assignee Sofie Bak).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/188/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F144
+  world_ref: TICKET:CHUB-295
+  kind: general
+  statement: 'CHUB-295 (Task, Platform) in the Jira export: Platform: upgrade Spring Boot patch release.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/194/fields/summary
+  needle: 'Platform: upgrade Spring Boot patch release'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F145
+  world_ref: TICKET:CHUB-295#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-295 has status 'Done' (assignee Nadia Petrovic).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/194/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F146
+  world_ref: TICKET:CHUB-300
+  kind: general
+  statement: 'CHUB-300 (Story, gl-posting-svc) in the Jira export: gl-posting-svc: performance test at 2x Wave 1 volume.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/199/fields/summary
+  needle: 'gl-posting-svc: performance test at 2x Wave 1 volume'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F147
+  world_ref: TICKET:CHUB-300#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-300 has status 'Done' (assignee Daniel Achebe).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/199/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F148
+  world_ref: TICKET:CHUB-305
+  kind: general
+  statement: 'CHUB-305 (Story, Data Migration) in the Jira export: Wave 1 UK motor migration rehearsal 3.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/204/fields/summary
+  needle: Wave 1 UK motor migration rehearsal 3
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F149
+  world_ref: TICKET:CHUB-305#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-305 has status 'Done' (assignee Callum Fairbairn).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/204/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F150
+  world_ref: TICKET:CHUB-308
+  kind: general
+  statement: 'CHUB-308 (Task, claim-core-svc) in the Jira export: claim-core-svc: runbook for on-call.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/207/fields/summary
+  needle: 'claim-core-svc: runbook for on-call'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F151
+  world_ref: TICKET:CHUB-308#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-308 has status 'Done' (assignee Sofie Bak).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/207/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F152
+  world_ref: TICKET:CHUB-310
+  kind: general
+  statement: 'CHUB-310 (Task, fraud-referral-svc) in the Jira export: fraud-referral-svc: runbook for on-call.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/209/fields/summary
+  needle: 'fraud-referral-svc: runbook for on-call'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F153
+  world_ref: TICKET:CHUB-310#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-310 has status 'Done' (assignee Linnea Sjöberg).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/209/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F154
+  world_ref: TICKET:CHUB-318
+  kind: general
+  statement: 'CHUB-318 (Story, CLARA) in the Jira export: Tier-3 reserve review 21 -> 14 days in CLR.T_PARAM RSV_T3_REVIEW_DAYS
+    (from 2026-07-01).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/217/fields/summary
+  needle: Tier-3 reserve review 21 -> 14 days in CLR.T_PARAM RSV_T3_REVIEW_DAYS (from 2026-07-01)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F155
+  world_ref: TICKET:CHUB-318#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-318 has status 'Done' (assignee Pauline Ashworth).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/217/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F156
+  world_ref: TICKET:CHUB-322#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-322 has status 'Done' (assignee Daniel Achebe).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/221/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F157
+  world_ref: TICKET:CHUB-340
+  kind: general
+  statement: 'CHUB-340 (Story, assessment-svc) in the Jira export: assessment-svc: Claims Assessor appointment API.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/239/fields/summary
+  needle: 'assessment-svc: Claims Assessor appointment API'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F158
+  world_ref: TICKET:CHUB-340#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-340 has status 'Done' (assignee Sofie Bak).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/239/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F159
+  world_ref: TICKET:CHUB-355
+  kind: general
+  statement: 'CHUB-355 (Story, payment-orchestrator) in the Jira export: payment-orchestrator: CPG integration with idempotency.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/254/fields/summary
+  needle: 'payment-orchestrator: CPG integration with idempotency'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F160
+  world_ref: TICKET:CHUB-355#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-355 has status 'Done' (assignee Linnea Sjöberg).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/254/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F161
+  world_ref: TICKET:CHUB-371#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-371 has status 'Done' (assignee Linnea Sjöberg).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/270/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F162
+  world_ref: TICKET:CHUB-388#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-388 has status 'Done' (assignee Linnea Sjöberg).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/287/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F163
+  world_ref: TICKET:CHUB-392
+  kind: general
+  statement: 'CHUB-392 (Bug, triage-svc) in the Jira export: triage-svc did not reload Tier-3 threshold until 2026-10-05 (INC-2026-1007).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/291/fields/summary
+  needle: triage-svc did not reload Tier-3 threshold until 2026-10-05 (INC-2026-1007)
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F164
+  world_ref: TICKET:CHUB-392#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-392 has status 'Done' (assignee Sofie Bak).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/291/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F165
+  world_ref: TICKET:CHUB-395
+  kind: general
+  statement: 'CHUB-395 (Story, CLARA) in the Jira export: CLARA: add CLR.T_PARAM FRD_REFER_T3_THRESH = 60 valid from 2026-10-01.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/294/fields/summary
+  needle: 'CLARA: add CLR.T_PARAM FRD_REFER_T3_THRESH = 60 valid from 2026-10-01'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F166
+  world_ref: TICKET:CHUB-395#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-395 has status 'Done' (assignee Pauline Ashworth).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/294/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F167
+  world_ref: TICKET:CHUB-401
+  kind: general
+  statement: 'CHUB-401 (Epic, Programme) in the Jira export: Wave 2 readiness (UK home, commercial, liability; Norway and
+    Sweden) for 2027-02-15.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/300/fields/summary
+  needle: Wave 2 readiness (UK home, commercial, liability; Norway and Sweden) for 2027-02-15
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F168
+  world_ref: TICKET:CHUB-401#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-401 has status 'In Progress' (assignee Arjun Kesavan).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/300/fields/status/name
+  needle: In Progress
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F169
+  world_ref: TICKET:CHUB-409
+  kind: general
+  statement: 'CHUB-409 (Story, recovery-svc) in the Jira export: recovery-svc: write-off approval above £10,000 (BR-REC-011
+    v2).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/308/fields/summary
+  needle: 'recovery-svc: write-off approval above £10,000 (BR-REC-011 v2)'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F170
+  world_ref: TICKET:CHUB-409#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-409 has status 'Done' (assignee Tariq Hussain).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/308/fields/status/name
+  needle: Done
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F171
+  world_ref: TICKET:CHUB-415
+  kind: general
+  statement: 'CHUB-415 (Task, Platform) in the Jira export: CODEOWNERS: hand recovery-svc and document-svc to the new recoveries
+    and documents squad.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/314/fields/summary
+  needle: 'CODEOWNERS: hand recovery-svc and document-svc to the new recoveries and documents squad'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F172
+  world_ref: TICKET:CHUB-421
+  kind: general
+  statement: 'CHUB-421 (Story, notification-svc) in the Jira export: notification-svc: emit an event when a fraud-referral
+    notice is sent so fraud-referral-svc can close notice deadlines.'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/320/fields/summary
+  needle: 'notification-svc: emit an event when a fraud-referral notice is sent so fraud-referral-svc can close notice deadlines'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F173
+  world_ref: TICKET:CHUB-430#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-430 has status 'In Progress' (assignee Freya Lindahl).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/329/fields/status/name
+  needle: In Progress
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F174
+  world_ref: TICKET:CHUB-436
+  kind: general
+  statement: 'CHUB-436 (Story, reporting-feed-svc) in the Jira export: reporting-feed-svc: NISA-TP2 extract (replaces CLRRP030).'
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/335/fields/summary
+  needle: 'reporting-feed-svc: NISA-TP2 extract (replaces CLRRP030)'
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F175
+  world_ref: TICKET:CHUB-436#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-436 has status 'In Progress' (assignee Daniel Achebe).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/335/fields/status/name
+  needle: In Progress
+  exclusive: false
+  also_in: []
+- fact_id: TX070-F176
+  world_ref: TICKET:CHUB-441#status
+  kind: general
+  statement: As at the 2026-11-11 Jira export, CHUB-441 has status 'To Do' (assignee Arjun Kesavan).
+  file: corpus/upload/text/TX070_jira_export_chub_2000.json
+  locator:
+    kind: json_pointer
+    pointer: /issues/340/fields/status/name
+  needle: To Do
+  exclusive: false
+  also_in: []
+- fact_id: TX071-F001
+  world_ref: INCIDENT:INC-2026-0518#impact
+  kind: general
+  statement: 'INC-2026-0518: 37 claims scored 65-69 were not referred by the CLRFR040 batch sweep; referred manually on 2026-05-13.'
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/551/text
+  needle: 37 claims that scored 65-69
+  exclusive: false
+  also_in: []
+- fact_id: TX071-F002
+  world_ref: REPORT:NISA-FR1#submissions.2026Q2.submitted
+  kind: general
+  statement: The first NISA-FR1 return (Q2 2026) was submitted on 2026-07-29, one day before the deadline.
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/1595/text
+  needle: First FR1 return submitted today, a day ahead of the deadline
+  exclusive: false
+  also_in: []
+- fact_id: TX071-F003
+  world_ref: TICKET:CHUB-241
+  kind: general
+  statement: The reserve parallel run ended on 2026-08-28.
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/2011/text
+  needle: That's the end of the reserve parallel run
+  exclusive: false
+  also_in: []
+- fact_id: TX071-F004
+  world_ref: DECISION:DEC-009
+  kind: general
+  statement: 'DEC-009: Wave 1 go decision on 2026-09-11; freeze 2026-09-11 18:00 to 2026-09-14 06:00.'
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/2207/text
+  needle: Freeze starts 18:00 today and runs to 06:00 Monday
+  exclusive: false
+  also_in: []
+- fact_id: TX071-F005
+  world_ref: DECISION:DEC-014
+  kind: general
+  statement: 'Chat (2026-09-17): from 2026-10-01 Tier-3 claims are referred at a Sentinel score of 60 or more; general threshold
+    65.'
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/2271/text
+  needle: from 1 October Tier-3 claims are referred at 60 or more
+  exclusive: false
+  also_in: []
+- fact_id: TX071-F006
+  world_ref: INCIDENT:INC-2026-0914#impact
+  kind: general
+  statement: By 2026-09-18 all 18 Wave 1 duplicate payments had been recalled.
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/2294/text
+  needle: All 18 duplicate payments from the Wave 1 weekend have been recalled
+  exclusive: false
+  also_in: []
+- fact_id: TX071-F007
+  world_ref: INCIDENT:INC-2026-1007#impact
+  kind: general
+  statement: 'INC-2026-1007: 9 Tier-3 claims scoring 60-64 were not referred between 2026-10-01 and 2026-10-05; referred manually.'
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/2518/text
+  needle: 9 Tier-3 claims scoring 60-64 weren't referred
+  exclusive: false
+  also_in: []
+- fact_id: TX071-F008
+  world_ref: DECISION:DEC-010
+  kind: alias_use
+  statement: 'Chat alias use: ''PR'' (Priya Raman, the CFO) approved the £1.8m Wave 2 contingency drawdown on 2026-10-08.'
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/2568/text
+  needle: PR approved the £1.8m contingency drawdown for Wave 2
+  exclusive: false
+  also_in: []
+- fact_id: TX071-F009
+  world_ref: DECISION:DEC-011
+  kind: general
+  statement: Wave 2 confirmed for 2027-02-15; the January draft date is void.
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/2568/text
+  needle: Wave 2 is confirmed for 15 February
+  exclusive: false
+  also_in: []
+- fact_id: TX071-F010
+  world_ref: GLOSSARY:G-004
+  kind: terminology
+  statement: Chat messages in October 2026 use 'sub-ro' for Subrogation.
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/2633/text
+  needle: sub-ro
+  exclusive: false
+  also_in: []
+  placement: PL-232
+  placement_key: tx71_terms
+- fact_id: TX071-F011
+  world_ref: GLOSSARY:G-004
+  kind: terminology
+  statement: Chat messages in October 2026 use 'the ledger' for CLARA.
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/2737/text
+  needle: the ledger stays master
+  exclusive: false
+  also_in: []
+  placement: PL-232
+  placement_key: tx71_terms
+- fact_id: TX071-F012
+  world_ref: REPORT:NISA-FR1#submissions.2026Q3
+  kind: general
+  statement: The Q3 2026 NISA-FR1 return (1,530 referrals) was submitted on 2026-10-28, ahead of the 2026-10-30 deadline.
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/2831/text
+  needle: Q3 FR1 return submitted today, two days ahead of the 30 October deadline
+  exclusive: false
+  also_in: []
+- fact_id: TX071-F013
+  world_ref: TICKET:CHUB-298#status_history
+  kind: temporal
+  statement: CHUB-298 moved to In Review on 2026-11-04.
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/2936/text
+  needle: CHUB-298 is in review
+  exclusive: false
+  also_in: []
+- fact_id: TX071-F014
+  world_ref: ANCHOR:TX071
+  kind: scale
+  statement: 'The #skerry-programme chat export holds 3017 messages.'
+  file: corpus/upload/text/TX071_chat_export_programme_channel.json
+  locator:
+    kind: json_pointer
+    pointer: /export/message_count
+  needle: '3017'
+  exclusive: false
+  also_in: []
+- fact_id: TX072-F001
+  world_ref: INCIDENT:INC-2026-0914#root_cause
+  kind: needle
+  statement: 'Root cause of INC-2026-0914: payment-orchestrator retried instructions to CPG after a timeout without an idempotency
+    key.'
+  file: corpus/upload/text/TX072_email_thread_wave1_payments.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/1/body
+  needle: retried instructions to CPG after a timeout, without an idempotency key
+  exclusive: false
+  also_in: []
+- fact_id: TX072-F002
+  world_ref: INCIDENT:INC-2026-0914#impact
+  kind: needle
+  statement: 'INC-2026-0914: 18 claims were paid twice on the Wave 1 cut-over day, £41,236.50 in total.'
+  file: corpus/upload/text/TX072_email_thread_wave1_payments.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/2/body
+  needle: 18 claims paid twice, £41,236.50 in total
+  exclusive: false
+  also_in: []
+- fact_id: TX072-F003
+  world_ref: INCIDENT:INC-2026-0914#end
+  kind: general
+  statement: INC-2026-0914 ended at 15:45 on 2026-09-14.
+  file: corpus/upload/text/TX072_email_thread_wave1_payments.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/4/body
+  needle: the incident was closed yesterday at 15:45
+  exclusive: false
+  also_in: []
+- fact_id: TX072-F004
+  world_ref: TICKET:CHUB-371
+  kind: general
+  statement: CHUB-371 (the duplicate-payment fix) was deployed on 2026-09-16.
+  file: corpus/upload/text/TX072_email_thread_wave1_payments.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/6/body
+  needle: CHUB-371 is deployed to production today
+  exclusive: false
+  also_in: []
+- fact_id: TX072-F005
+  world_ref: ADR:ADR-021
+  kind: general
+  statement: ADR-021 (idempotency keys for all payment instructions) was accepted on 2026-09-16.
+  file: corpus/upload/text/TX072_email_thread_wave1_payments.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/6/body
+  needle: accepted ADR-021 today
+  exclusive: false
+  also_in: []
+- fact_id: TX072-F006
+  world_ref: PERSON:P001#role_aliases
+  kind: alias_use
+  statement: In September 2026 'the CFO' (briefed by Hamish Gilchrist) is Priya Raman.
+  file: corpus/upload/text/TX072_email_thread_wave1_payments.json
+  locator:
+    kind: json_pointer
+    pointer: /messages/3/body
+  needle: I will brief the CFO this evening
+  exclusive: false
+  also_in: []

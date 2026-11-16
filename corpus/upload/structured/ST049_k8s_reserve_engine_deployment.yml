@@ -1,0 +1,263 @@
+# Corvane Mutual – Kubernetes Deployment – reserve-engine
+# Document SKR-PLT-K8S-049 version 1.0 (approved), 2026-09-10
+# Owner: Daniel Achebe, Engineering Lead – Reserve & Finance Squad
+# Classification: Internal – Programme Skerry
+# Change history:
+#   0.1  2026-05-20  Daniel Achebe: Initial draft for review
+#   0.2  2026-06-16  Daniel Achebe: Structure agreed with reviewers
+#   0.3  2026-07-27  Daniel Achebe: Added missing entries
+#   1.0  2026-09-10  Daniel Achebe: Approved
+# deploy/k8s/chub-reserve/reserve-engine.yml – Deployment, Service, ConfigMap and HPA.
+# Service renamed from reserve-svc on 2026-02-10 (CHUB-233, ADR-019).
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reserve-engine
+  namespace: chub-reserve
+  labels:
+    app.kubernetes.io/name: reserve-engine
+    app.kubernetes.io/part-of: claims-hub
+    corvane.example/squad: hub-squad-reserve-finance
+  annotations:
+    corvane.example/owner: Daniel Achebe
+    corvane.example/repo: services/reserve-engine
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: reserve-engine
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: reserve-engine
+        app.kubernetes.io/part-of: claims-hub
+        corvane.example/squad: hub-squad-reserve-finance
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '8081'
+        prometheus.io/path: /actuator/prometheus
+    spec:
+      serviceAccountName: reserve-engine
+      containers:
+      - name: reserve-engine
+        image: registry.corvane.internal/chub/reserve-engine:r2026.09.4
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: management
+          containerPort: 8081
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: prod
+        - name: DB_URL
+          value: jdbc:postgresql://chub-reserve-db.chub-reserve.svc:5432/chub_reserve
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: reserve-engine-db
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: reserve-engine-db
+              key: password
+        - name: KAFKA_CONSUMER_GROUP
+          value: reserve-engine
+        - name: KAFKA_TOPICS_CONSUME
+          value: claims.reserve.movement.v1,triage.completed.v1
+        - name: KAFKA_TOPIC_PRODUCE
+          value: reserve.changed.v2
+        envFrom:
+        - configMapRef:
+            name: reserve-engine-config
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            memory: 2Gi
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: management
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: management
+        volumeMounts:
+        - name: app-config
+          mountPath: /config
+          readOnly: true
+        - name: tmp
+          mountPath: /tmp
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        startupProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: management
+          failureThreshold: 30
+          periodSeconds: 5
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - sh
+              - -c
+              - sleep 10
+      volumes:
+      - name: app-config
+        configMap:
+          name: reserve-engine-config
+      - name: tmp
+        emptyDir: {}
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 45
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: reserve-engine
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reserve-engine
+  namespace: chub-reserve
+  labels:
+    app.kubernetes.io/name: reserve-engine
+    app.kubernetes.io/part-of: claims-hub
+    corvane.example/squad: hub-squad-reserve-finance
+spec:
+  selector:
+    app.kubernetes.io/name: reserve-engine
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reserve-engine-config
+  namespace: chub-reserve
+data:
+  application.yaml: |
+    reserve:
+      tier3-review-days: 14
+      large-loss-threshold-gbp: 250000
+      movement-source-topic: claims.reserve.movement.v1
+      events-topic: reserve.changed.v2
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: health,info,prometheus
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: reserve-engine
+  namespace: chub-reserve
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: reserve-engine
+  minReplicas: 4
+  maxReplicas: 8
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: reserve-engine
+  namespace: chub-reserve
+  labels:
+    app.kubernetes.io/name: reserve-engine
+    app.kubernetes.io/part-of: claims-hub
+    corvane.example/squad: hub-squad-reserve-finance
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: reserve-engine
+  namespace: chub-reserve
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: reserve-engine
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: reserve-engine-default
+  namespace: chub-reserve
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: reserve-engine
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: openshift-ingress
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: chub-monitoring
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: esp
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: cis
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: chub-reserve-db
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: reserve-engine
+  namespace: chub-reserve
+  labels:
+    app.kubernetes.io/name: reserve-engine
+    app.kubernetes.io/part-of: claims-hub
+    corvane.example/squad: hub-squad-reserve-finance
+spec:
+  host: reserve-engine.apps.ocp-prd-lon1.corvane.internal
+  to:
+    kind: Service
+    name: reserve-engine
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

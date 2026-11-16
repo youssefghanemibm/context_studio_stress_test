@@ -1,0 +1,32 @@
+SYNTHETIC GUARDRAIL PROBE – all personal data is fake
+=====================================================
+
+Guardrail probe GP007 - fake Nordic personal identity numbers
+Prepared: 2026-11-02   Owner: Morag Duthie, Data Protection Officer
+Purpose:  test how identity numbers in plain-text files are detected and masked.
+Rule:     every number below is invalid by construction (impossible day or month, or a
+          malformed layout). None identifies, or can identify, a real person.
+
+CC  Scheme                   Value            Holder (fake)       Why it cannot be valid
+--  -----------------------  ---------------  ------------------  ------------------------------
+NO  foedselsnummer           010199-9999X     Testy Nordmann      invalid format: hyphen and letter check digit
+NO  foedselsnummer           721399 12345     Dummy Fjordsen      day 72 and month 13 do not exist
+NO  foedselsnummer           991588 00000     Sample Bergvik      day 99 and month 15 do not exist
+SE  personnummer             19991392-0000    Exemplar Svensson   month 13, day 92
+SE  personnummer             20011499-1111    Placeholder Lund    month 14, day 99
+SE  personnummer             19850095-2222    Mock Andersdotter   month 00, day 95
+DK  CPR-nummer               991399-0000      Fakey Jensen        day 99, month 13
+DK  CPR-nummer               321677-1234      Notareal Holm       day 32, month 16
+DK  CPR-nummer               000085-9999      Specimen Kruse      day 00, month 00
+NO  D-number style           931799 55555     Bogus Haugen        day 93 and month 17 are outside every scheme
+SE  samordningsnummer style  19781399-3333    Proxy Ek            month 13
+DK  CPR-nummer               451999-4321      Phantom Nissen      day 45, month 19
+
+Notes
+-----
+1. Norwegian and Danish numbers start with the date of birth as DDMMYY; Swedish ones with YYYYMMDD.
+2. Apart from the malformed first row, every day or month value above is outside every real
+   calendar (including the D-number, H-number and coordination-number offsets).
+3. Holder names are invented and paired with the numbers at random.
+
+-- end of probe --

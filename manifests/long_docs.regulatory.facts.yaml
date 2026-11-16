@@ -1,0 +1,2168 @@
+- fact_id: LD003-F001
+  world_ref: ORG:company#founded
+  kind: general
+  statement: Corvane Mutual was founded in 1891 as Corvane Friendly Society (Leeds) and has 4,050 staff.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 5
+  needle: founded in 1891 as Corvane Friendly Society (Leeds)
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F002
+  world_ref: ORG:company#staff_by_country
+  kind: general
+  statement: 'Staff by country: UK 2,900, Norway 470, Sweden 380, Denmark 300.'
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 5
+  needle: 470 in Norway, 380 in Sweden and 300 in Denmark
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F003
+  world_ref: ORG:company#financials.fy2025.gross_written_premium_gbp_m
+  kind: needle
+  statement: Gross written premium for 2025 was £2,140.0m.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 6
+  needle: Gross written premium £2,140.0m
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F004
+  world_ref: ORG:company#financials.fy2025.gross_claims_incurred_gbp_m
+  kind: needle
+  statement: Gross claims incurred for 2025 were £1,412.6m.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 6
+  needle: Gross claims incurred £1,412.6m
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F005
+  world_ref: ORG:company#financials.fy2025.combined_ratio_pct
+  kind: needle
+  statement: Combined ratio for 2025 was 98.4%.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 6
+  needle: Combined ratio 98.4%
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F006
+  world_ref: ORG:company#financials.fy2025.claims_notified
+  kind: needle
+  statement: Corvane was notified of 212,400 claims in 2025.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 6
+  needle: Claims notified 212,400
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F007
+  world_ref: ORG:company#financials.fy2025.avg_settlement_days_motor
+  kind: needle
+  statement: 'Average days to settle in 2025: motor 34, home 51.'
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 6
+  needle: Average days to settle - motor 34
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F008
+  world_ref: PRODUCT:PRD-MOT-UK#policies_in_force
+  kind: needle
+  statement: Motor Private UK had 612,000 policies in force.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 11
+  needle: MOTUK UK GBP 612,000
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F009
+  world_ref: PRODUCT:PRD-HOM-NO#policies_in_force
+  kind: needle
+  statement: Hjem Norge had 118,000 policies in force.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 11
+  needle: HOMNO NO NOK 118,000
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F010
+  world_ref: RULE:BR-TRI-003@v3#text
+  kind: definition
+  statement: BR-TRI-003 v3 defines Tier-3 as estimated incurred of £50,000 or more (or bodily injury, litigation at notification,
+    property total loss).
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 12
+  needle: estimated incurred ≥ £50,000
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F011
+  world_ref: TIMELINE:metrics#tier3_share_pct.2025
+  kind: needle
+  statement: Tier-3 claims were 4.1% of claims notified in 2025.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 12
+  needle: Tier-3 claims represented 4.1%
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F012
+  world_ref: TEAM:T08#lead_history
+  kind: general
+  statement: At 31 March 2026 the Recoveries & Subrogation (Group) team was led by Freya Lindahl.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 12
+  needle: Recoveries & Subrogation (Group) Freya Lindahl
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F013
+  world_ref: null
+  kind: multipage_table
+  statement: 'Table 2.3 (continued without repeated header) shows Hjem Danmark claims notified in 2025: 8,496.'
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 23
+  needle: Hjem Danmark (HOMDK)
+  exclusive: false
+  also_in: []
+  notes: Table 2.3 spans pages 22-23; header not repeated on continuation
+- fact_id: LD003-F014
+  world_ref: RULE:BR-FNOL-001@v2#text
+  kind: needle
+  statement: At 31 December 2025, BR-FNOL-001 v2 required every FNOL to be acknowledged within 2 business days.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 29
+  needle: Acknowledge every first notice of loss within 2 business days (NISA Circular 2024/07)
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F015
+  world_ref: RULE:BR-ASM-005@v2#text
+  kind: needle
+  statement: 'BR-ASM-005 v2: site inspection within 5 business days of appointment (Tier-3: 72 hours).'
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 29
+  needle: 'Site inspection within 5 business days of appointment (Tier-3: 72 hours)'
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F016
+  world_ref: ORG:company#financials.fy2025.fnol_ack_within_2bd_pct
+  kind: footnote
+  statement: 'FNOL acknowledgement performance in 2025: 97.3% within 2 business days.'
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 33
+  needle: 97.3% within 2 business days
+  exclusive: true
+  also_in: []
+  placement: PL-026
+  placement_key: ld3_ack_perf
+  notes: Footnote 3 at the bottom of the left-hand column on page 33; the body text only carries the superscript marker.
+- fact_id: LD003-F017
+  world_ref: RULE:BR-TRI-004@v1#text
+  kind: needle
+  statement: 'BR-TRI-004: Tier-3 claims route to Major & Complex Loss within 4 hours.'
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 33
+  needle: Tier-3 claims route to Major & Complex Loss within 4 hours
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F018
+  world_ref: VENDOR:VEN-02#role
+  kind: needle
+  statement: Norrvik Skadetaxering AB (Gothenburg) is the external Claims Assessor for Sweden and Norway.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 33
+  needle: Norrvik Skadetaxering AB (Gothenburg) for Sweden and Norway
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F019
+  world_ref: ORG:company#financials.fy2025.avg_settlement_days_home
+  kind: chart_only
+  statement: 'Figure 3.1: average days to settle in 2025 were 34 (motor) and 51 (home).'
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 34
+  needle: Average days from notification to settlement, 2025
+  exclusive: false
+  also_in: []
+  notes: bar values 34 and 51 are drawn as vector chart labels
+- fact_id: LD003-F020
+  world_ref: ORG:company#financials.fy2025.fraud_referrals
+  kind: split_boundary
+  statement: In 2025 Corvane made 4,812 fraud referrals; 1,109 were confirmed fraud, saving £38.7m.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 54
+  needle: In 2025 Corvane made 4,812 fraud referrals; 1,109 were confirmed fraud, saving £38.7m
+  exclusive: false
+  also_in: []
+  placement: PL-025
+  placement_key: ld3_fraud_stats
+  notes: 'Reading-order trap: the sentence starts on the last line(s) of column 1 and ends at the top of column 2 on page
+    54.'
+  halves:
+  - In 2025 Corvane made 4,812 fraud referrals; 1,109 were confirmed
+  - fraud, saving £38.7m
+- fact_id: LD003-F021
+  world_ref: RULE:BR-FRD-012@v2#text
+  kind: temporal
+  statement: Until 31 March 2026 the referral threshold under BR-FRD-012 v2 was a FRAUDNET/Sentinel score of 70.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 54
+  needle: Refer a claim to SIU when the FRAUDNET/Sentinel score is 70 or more
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F022
+  world_ref: SYSTEM:SYS03#renames
+  kind: alias_use
+  statement: FRAUDNET was renamed Sentinel on 1 March 2025.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 54
+  needle: renamed Sentinel on 1 March 2025
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F023
+  world_ref: PROCESS:S7#owner_history
+  kind: needle
+  statement: At the filing date the subrogation process owner was Freya Lindahl, Head of Recoveries & Subrogation.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 55
+  needle: owned by Freya Lindahl, Head of Recoveries & Subrogation
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F024
+  world_ref: RULE:BR-REC-003@v3#text
+  kind: temporal
+  statement: 'BR-REC-003 v3 (from 2025-09-01): pursue subrogation where the recoverable amount is £1,000 or more.'
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 55
+  needle: Pursue subrogation where the recoverable amount is £1,000 or more
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F025
+  world_ref: RULE:BR-RSV-003@v3#text
+  kind: needle
+  statement: 'BR-RSV-003 v3 reserve authority: Claims Handler £25,000; Team Leader £100,000; Claims Manager £500,000; Claims
+    Director £2,000,000.'
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 67
+  needle: Claims Handler £25,000; Team Leader £100,000
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F026
+  world_ref: RULE:BR-RSV-007@v2#text
+  kind: temporal
+  statement: At the filing date BR-RSV-007 v2 required Tier-3 reserves to be reviewed at least every 21 days.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 67
+  needle: reviewed at least every 21 days
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F027
+  world_ref: RULE:BR-RSV-011@v2#text
+  kind: needle
+  statement: 'BR-RSV-011 v2: notify Reinsurance (ReCede) within 24 hours of a reserve movement above the LLNT of £250,000.'
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 67
+  needle: Large Loss Notification Threshold (LLNT) of £250,000
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F028
+  world_ref: RULE:BR-RSV-015@v1
+  kind: multipage_table
+  statement: Table 4.1 lists reserve movements by quarter and reason code (RSNC list), repeated header.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 68
+  needle: Q4 2025
+  exclusive: false
+  also_in: []
+  notes: Table 4.1 spans pages 67-68 with a repeated header row
+- fact_id: LD003-F029
+  world_ref: ORG:company#financials.fy2025.ibnr_gbp_m
+  kind: multipage_table
+  statement: Claims outstanding technical provisions at 2025-12-31 were £2,318.4m, of which IBNR £611.9m (Table 4.2, page
+    87, right-hand column).
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 87
+  needle: of which IBNR – 611.9
+  exclusive: true
+  also_in: []
+  placement: PL-024
+  placement_key: ld3_ibnr
+  notes: Table 4.2 spans pages 86-89 with a repeated header; the 'of which IBNR' and total rows sit in the right-hand column
+    of page 87; the amount is in the table's right-hand (Total) column. Neither figure appears anywhere else in the filing.
+  table_pages:
+  - 86
+  - 87
+  - 88
+  - 89
+- fact_id: LD003-F030
+  world_ref: ORG:company#financials.fy2025.claims_outstanding_technical_provisions_gbp_m
+  kind: multipage_table
+  statement: Claims outstanding technical provisions at 2025-12-31 were £2,318.4m (Table 4.2 total row).
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 87
+  needle: Claims outstanding technical provisions 1,706.5 611.9 2,318.4
+  exclusive: false
+  also_in: []
+  notes: same row block as the IBNR placement
+- fact_id: LD003-F031
+  world_ref: null
+  kind: chart_only
+  statement: 'Figure 4.1: case reserves for SME Liability UK were £363.5m at 2025-12-31.'
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 90
+  needle: SME Liability UK (363.5)
+  exclusive: false
+  also_in: []
+  notes: pie legend label; derived split of the case reserve total (invented breakdown, not a world fact)
+- fact_id: LD003-F032
+  world_ref: null
+  kind: general
+  statement: 'Table 5.1: cumulative paid claims for Motor Private UK, accident year 2016, development year 1 were £203.1m
+    (invented triangle).'
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 101
+  needle: 2016 203.1
+  exclusive: false
+  also_in: []
+  notes: development triangle (not a world fact)
+- fact_id: LD003-F033
+  world_ref: REPORT:NISA-TP2#due
+  kind: needle
+  statement: NISA-TP2 (Quarterly Technical Provisions Return) is due 35 calendar days after quarter end.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 107
+  needle: 35 calendar days after quarter end
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F034
+  world_ref: REPORT:NISA-TP2#late_events
+  kind: needle
+  statement: The Q1 2025 NISA-TP2 return was submitted on 2025-05-07 instead of 2025-05-05 after INC-2025-0412 (2-day extension
+    granted by Imogen Thackray).
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 107
+  needle: submitted on 7 May 2025
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F035
+  world_ref: CIRCULAR:CIRC-2026-04#effective
+  kind: needle
+  statement: NISA Circular 2026/04 (Fair Treatment in Fraud Referral) is effective from 1 April 2026.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 111
+  needle: Fair Treatment in Fraud Referral 1 April 2026
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F036
+  world_ref: RULE:BR-FRD-031@v1
+  kind: needle
+  statement: Corvane will recalibrate its fraud referral threshold from 70 to 65 on 1 April 2026 to comply with NISA Circular
+    2026/04.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 112
+  needle: recalibrate its fraud referral threshold from 70 to 65 on 1 April 2026
+  exclusive: false
+  also_in: []
+  placement: PL-028
+  placement_key: ld3_recalib
+  notes: Section 7.3, page 112
+- fact_id: LD003-F037
+  world_ref: RULE:BR-FRD-035@v2#text
+  kind: needle
+  statement: From 1 April 2026 BR-FRD-035 v2 requires SIU triage of new referrals within 3 business days.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 112
+  needle: SIU triage of new referrals within 3 business days
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F038
+  world_ref: RULE:BR-FRD-019@v2
+  kind: needle
+  statement: BR-FRD-019 (automatic decline on score) is withdrawn from 2026-04-01.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 112
+  needle: 'Withdrawn: no automatic decline on a score alone'
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F039
+  world_ref: CIRCULAR:CIRC-2025-02#requirements.3.1
+  kind: needle
+  statement: NISA Circular 2025/02 sets an impact tolerance of 48 hours for disruption to claims payments.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 112
+  needle: impact tolerance of 48 hours
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F040
+  world_ref: RULE:BR-GEN-004@v3#text
+  kind: temporal
+  statement: From 2026-01-01 BR-GEN-004 v3 retains claim records 7 years after closure and bodily-injury claims 15 years.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 112
+  needle: bodily-injury claims for 15 years after closure
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F041
+  world_ref: EVENT:EV-010
+  kind: needle
+  statement: The Programme Skerry business case (£48.6m) was signed on 2024-11-18 by the then CFO Gareth Whitcombe.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 125
+  needle: by the then Chief Financial Officer, Gareth Whitcombe
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F042
+  world_ref: SYSTEM:SYS01#go_live
+  kind: needle
+  statement: CLARA has been the claims system of record since 3 October 1994.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 125
+  needle: system of record for claims since 3 October 1994
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F043
+  world_ref: TIMELINE:programme#wave1
+  kind: temporal
+  statement: As at 2026-03-31, Wave 1 (UK motor) was planned for 2026-09-14 and CLARA decommissioning was targeted for 2027-09-30.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 125
+  needle: Wave 1 (UK motor) for 14 September 2026
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F044
+  world_ref: SYSTEM:SYS04#renames
+  kind: alias_use
+  statement: MyCorvane Claims was formerly ClaimLine Web (renamed 2024-10-14).
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 126
+  needle: formerly ClaimLine Web
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F045
+  world_ref: COMMITTEE:COM-01#chair_history
+  kind: needle
+  statement: The Reserving Committee is chaired by Lena Kristiansen (Head of Reserving) at the filing date.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 135
+  needle: Reserving Committee is chaired by Lena Kristiansen
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F046
+  world_ref: null
+  kind: multipage_table
+  statement: 'Table B.1 (repeated header): Hjem Danmark December 2025 claims notified 955.'
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 146
+  needle: Hjem Danmark Dec 2025 955
+  exclusive: false
+  also_in: []
+  notes: Table B.1 spans pages 144-146
+- fact_id: LD003-F047
+  world_ref: PERSON:P020#email
+  kind: general
+  statement: The filing's preparer is Bjørn Aasheim (Regulatory Reporting Manager), bjorn.aasheim@corvane-mutual.example.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 150
+  needle: bjorn.aasheim@corvane-mutual.example
+  exclusive: false
+  also_in: []
+- fact_id: LD003-F048
+  world_ref: ORG:company#nisa_firm_reference
+  kind: header
+  statement: Every page header of the filing shows 'Corvane Mutual Insurance Society Limited — NISA-FRN 40417'.
+  file: corpus/upload/long_docs/LD003_nisa_annual_claims_reserving_filing_2025.pdf
+  locator:
+    kind: pdf_page
+    page: 2
+  needle: Corvane Mutual Insurance Society Limited — NISA-FRN 40417
+  exclusive: false
+  also_in: []
+  placement: PL-027
+  placement_key: ld3_frn
+  notes: Running header drawn on every page (1-150) by the page template; PDF has no header object.
+- fact_id: LD004-F001
+  world_ref: PRODUCT:PRD-MOT-UK#wordings.MOT-UK-2012.acknowledgement_promise
+  kind: contradiction_old
+  statement: 'Motor UK 2012 wording: ''we will acknowledge your claim within 5 working days''.'
+  file: corpus/upload/long_docs/LD004_policy_wording_motor_uk_2012.doc
+  locator:
+    kind: docx_para
+    para_index: 193
+    section: What we will do
+  needle: we will acknowledge your claim within 5 working days
+  exclusive: true
+  also_in: []
+  placement: PL-029
+  placement_key: ld4_ack
+  notes: Claims conditions section; contradicted by BR-FNOL-001 v3 (C11)
+- fact_id: LD004-F002
+  world_ref: PRODUCT:PRD-MOT-UK#wordings.MOT-UK-2012.excess
+  kind: needle
+  statement: 'Motor UK 2012 wording: compulsory excess £150.'
+  file: corpus/upload/long_docs/LD004_policy_wording_motor_uk_2012.doc
+  locator:
+    kind: docx_table
+    table_index: 1
+    row: 1
+    col: 1
+  needle: £150 each claim
+  exclusive: true
+  also_in: []
+  placement: PL-030
+  placement_key: ld4_excess
+  notes: Schedule of excesses table, row 'Compulsory excess'; the windscreen excess (£75) is in the next row
+- fact_id: LD004-F003
+  world_ref: PRODUCT:PRD-MOT-UK#wordings.MOT-UK-2012.excess.windscreen
+  kind: needle
+  statement: 'Motor UK 2012 wording: windscreen excess £75.'
+  file: corpus/upload/long_docs/LD004_policy_wording_motor_uk_2012.doc
+  locator:
+    kind: docx_table
+    table_index: 1
+    row: 2
+    col: 1
+  needle: £75 each replacement
+  exclusive: true
+  also_in: []
+  notes: second half of PL-030 (same table)
+- fact_id: LD004-F004
+  world_ref: PRODUCT:PRD-MOT-UK#wordings.MOT-UK-2012.notification_condition
+  kind: needle
+  statement: 'Motor UK 2012 wording: notify us as soon as possible and in any event within 30 days.'
+  file: corpus/upload/long_docs/LD004_policy_wording_motor_uk_2012.doc
+  locator:
+    kind: docx_para
+    para_index: 191
+    section: Telling us about a claim
+  needle: notify us as soon as possible and in any event within 30 days
+  exclusive: false
+  also_in: []
+- fact_id: LD004-F005
+  world_ref: PERSON:P011#titles
+  kind: general
+  statement: The MOT-UK-2012 wording was prepared by Rob Tennant, Claims Operations Manager – Leeds (as of 2012-03-01).
+  file: corpus/upload/long_docs/LD004_policy_wording_motor_uk_2012.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 3
+    col: 1
+  needle: Rob Tennant, Claims Operations Manager – Leeds
+  exclusive: false
+  also_in: []
+  notes: document information table
+- fact_id: LD004-F006
+  world_ref: PRODUCT:PRD-MOT-UK#code
+  kind: general
+  statement: The MOT-UK-2012 wording applies to product MOTUK (Motor Private UK).
+  file: corpus/upload/long_docs/LD004_policy_wording_motor_uk_2012.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 1
+    col: 1
+  needle: MOTUK (Motor Private UK)
+  exclusive: false
+  also_in: []
+  notes: document information table
+- fact_id: LD004-F007
+  world_ref: GLOSSARY:G-005
+  kind: terminology
+  statement: UK wordings call the first notice of loss a 'notification of loss'.
+  file: corpus/upload/long_docs/LD004_policy_wording_motor_uk_2012.doc
+  locator:
+    kind: docx_para
+    para_index: 214
+    section: Step 2 – Give us notification of loss
+  needle: Step 2 – Give us notification of loss
+  exclusive: false
+  also_in: []
+- fact_id: LD004-F008
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: UK wordings use 'loss adjuster' for an independent (external) Claims Assessor.
+  file: corpus/upload/long_docs/LD004_policy_wording_motor_uk_2012.doc
+  locator:
+    kind: docx_para
+    para_index: 224
+    section: Step 4 – Inspection
+  needle: we may appoint a loss adjuster, who is an independent specialist acting on our behalf
+  exclusive: false
+  also_in: []
+- fact_id: LD004-F009
+  world_ref: PRODUCT:PRD-MOT-UK#wordings.MOT-UK-2012.version
+  kind: header
+  statement: Every page header of the MOT-UK-2012 wording names the wording reference MOT-UK-2012.
+  file: corpus/upload/long_docs/LD004_policy_wording_motor_uk_2012.doc
+  locator:
+    kind: docx_header
+    section_index: 0
+  needle: MOT-UK-2012
+  exclusive: false
+  also_in: []
+- fact_id: LD005-F001
+  world_ref: PRODUCT:PRD-HOM-UK#wordings.HOM-UK-2014.excess
+  kind: needle
+  statement: 'Home UK 2014 wording: escape of water excess £350; subsidence excess £1,000.'
+  file: corpus/upload/long_docs/LD005_policy_wording_home_uk_2014.doc
+  locator:
+    kind: docx_para
+    para_index: 121
+    section: Section 1 excesses
+  needle: an escape of water excess of £350
+  exclusive: true
+  also_in: []
+  placement: PL-031
+  placement_key: ld5_eow
+  notes: same paragraph also states the subsidence excess of £1,000 and the standard excess of £200
+- fact_id: LD005-F002
+  world_ref: PRODUCT:PRD-HOM-UK#wordings.HOM-UK-2014.excess.subsidence
+  kind: needle
+  statement: 'Home UK 2014 wording: subsidence excess £1,000 (Section 1 excesses).'
+  file: corpus/upload/long_docs/LD005_policy_wording_home_uk_2014.doc
+  locator:
+    kind: docx_para
+    para_index: 121
+    section: Section 1 excesses
+  needle: a subsidence excess of £1,000
+  exclusive: true
+  also_in: []
+- fact_id: LD005-F003
+  world_ref: PRODUCT:PRD-HOM-UK#wordings.HOM-UK-2014.excess.standard
+  kind: needle
+  statement: 'Home UK 2014 wording: standard buildings excess £200.'
+  file: corpus/upload/long_docs/LD005_policy_wording_home_uk_2014.doc
+  locator:
+    kind: docx_para
+    para_index: 121
+    section: Section 1 excesses
+  needle: the standard excess of £200
+  exclusive: true
+  also_in: []
+- fact_id: LD005-F004
+  world_ref: PRODUCT:PRD-HOM-UK#wordings.HOM-UK-2014.notification_condition
+  kind: needle
+  statement: 'Home UK 2014 wording: tell us within 30 days of discovering the damage.'
+  file: corpus/upload/long_docs/LD005_policy_wording_home_uk_2014.doc
+  locator:
+    kind: docx_para
+    para_index: 225
+    section: Telling us about a claim
+  needle: tell us within 30 days of discovering the damage
+  exclusive: false
+  also_in: []
+- fact_id: LD005-F005
+  world_ref: PERSON:P011#titles
+  kind: general
+  statement: The HOM-UK-2014 wording was prepared by Rob Tennant, Claims Operations Manager – Leeds (as of 2014-04-01).
+  file: corpus/upload/long_docs/LD005_policy_wording_home_uk_2014.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 3
+    col: 1
+  needle: Rob Tennant, Claims Operations Manager – Leeds
+  exclusive: false
+  also_in: []
+  notes: document information table
+- fact_id: LD005-F006
+  world_ref: PRODUCT:PRD-HOM-UK#code
+  kind: general
+  statement: The HOM-UK-2014 wording applies to product HOMUK (Home Buildings & Contents UK).
+  file: corpus/upload/long_docs/LD005_policy_wording_home_uk_2014.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 1
+    col: 1
+  needle: HOMUK (Home Buildings & Contents UK)
+  exclusive: false
+  also_in: []
+  notes: document information table
+- fact_id: LD005-F007
+  world_ref: GLOSSARY:G-005
+  kind: terminology
+  statement: UK wordings call the first notice of loss a 'notification of loss'.
+  file: corpus/upload/long_docs/LD005_policy_wording_home_uk_2014.doc
+  locator:
+    kind: docx_para
+    para_index: 247
+    section: Step 2 – Give us notification of loss
+  needle: Step 2 – Give us notification of loss
+  exclusive: false
+  also_in: []
+- fact_id: LD005-F008
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: UK wordings use 'loss adjuster' for an independent (external) Claims Assessor.
+  file: corpus/upload/long_docs/LD005_policy_wording_home_uk_2014.doc
+  locator:
+    kind: docx_para
+    para_index: 257
+    section: Step 4 – Inspection
+  needle: we may appoint a loss adjuster, who is an independent specialist acting on our behalf
+  exclusive: false
+  also_in: []
+- fact_id: LD005-F009
+  world_ref: PRODUCT:PRD-HOM-UK#wordings.HOM-UK-2014.version
+  kind: header
+  statement: Every page header of the HOM-UK-2014 wording names the wording reference HOM-UK-2014.
+  file: corpus/upload/long_docs/LD005_policy_wording_home_uk_2014.doc
+  locator:
+    kind: docx_header
+    section_index: 0
+  needle: HOM-UK-2014
+  exclusive: false
+  also_in: []
+- fact_id: LD006-F001
+  world_ref: PRODUCT:PRD-COM-UK#wordings.COM-UK-2011.notification_condition
+  kind: needle
+  statement: 'Commercial Property 2011 wording: notify the Insurer within 14 days; business interruption indemnity period
+    12 months.'
+  file: corpus/upload/long_docs/LD006_policy_wording_commercial_property_uk_2011.doc
+  locator:
+    kind: docx_para
+    para_index: 146
+    section: Claims – notification
+  needle: notify the Insurer within 14 days
+  exclusive: true
+  also_in: []
+  placement: PL-032
+  placement_key: ld6_bi
+  notes: 'General conditions: ''Claims - notification''; the BI indemnity period condition follows'
+- fact_id: LD006-F002
+  world_ref: PRODUCT:PRD-COM-UK#wordings.COM-UK-2011.bi_indemnity_period_months
+  kind: needle
+  statement: 'Commercial Property 2011 wording: maximum business interruption indemnity period 12 months.'
+  file: corpus/upload/long_docs/LD006_policy_wording_commercial_property_uk_2011.doc
+  locator:
+    kind: docx_para
+    para_index: 148
+    section: Business interruption – indemnity period
+  needle: the maximum indemnity period is 12 months
+  exclusive: false
+  also_in: []
+- fact_id: LD006-F003
+  world_ref: PRODUCT:PRD-COM-UK#wordings.COM-UK-2011.excess.standard
+  kind: needle
+  statement: 'Commercial Property 2011 wording: Section 1 excess £750 each and every loss.'
+  file: corpus/upload/long_docs/LD006_policy_wording_commercial_property_uk_2011.doc
+  locator:
+    kind: docx_table
+    table_index: 1
+    row: 2
+    col: 1
+  needle: £750 each and every loss
+  exclusive: false
+  also_in: []
+- fact_id: LD006-F004
+  world_ref: PERSON:P011#titles
+  kind: general
+  statement: The COM-UK-2011 wording was prepared by Rob Tennant, Claims Operations Manager – Leeds (as of 2011-01-01).
+  file: corpus/upload/long_docs/LD006_policy_wording_commercial_property_uk_2011.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 3
+    col: 1
+  needle: Rob Tennant, Claims Operations Manager – Leeds
+  exclusive: false
+  also_in: []
+  notes: document information table
+- fact_id: LD006-F005
+  world_ref: PRODUCT:PRD-COM-UK#code
+  kind: general
+  statement: The COM-UK-2011 wording applies to product COMUK (Commercial Property UK).
+  file: corpus/upload/long_docs/LD006_policy_wording_commercial_property_uk_2011.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 1
+    col: 1
+  needle: COMUK (Commercial Property UK)
+  exclusive: false
+  also_in: []
+  notes: document information table
+- fact_id: LD006-F006
+  world_ref: GLOSSARY:G-005
+  kind: terminology
+  statement: UK wordings call the first notice of loss a 'notification of loss'.
+  file: corpus/upload/long_docs/LD006_policy_wording_commercial_property_uk_2011.doc
+  locator:
+    kind: docx_para
+    para_index: 189
+    section: Step 2 – Give us notification of loss
+  needle: Step 2 – Give us notification of loss
+  exclusive: false
+  also_in: []
+- fact_id: LD006-F007
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: UK wordings use 'loss adjuster' for an independent (external) Claims Assessor.
+  file: corpus/upload/long_docs/LD006_policy_wording_commercial_property_uk_2011.doc
+  locator:
+    kind: docx_para
+    para_index: 199
+    section: Step 4 – Inspection
+  needle: we may appoint a loss adjuster, who is an independent specialist acting on our behalf
+  exclusive: false
+  also_in: []
+- fact_id: LD006-F008
+  world_ref: PRODUCT:PRD-COM-UK#wordings.COM-UK-2011.version
+  kind: header
+  statement: Every page header of the COM-UK-2011 wording names the wording reference COM-UK-2011.
+  file: corpus/upload/long_docs/LD006_policy_wording_commercial_property_uk_2011.doc
+  locator:
+    kind: docx_header
+    section_index: 0
+  needle: COM-UK-2011
+  exclusive: false
+  also_in: []
+- fact_id: LD007-F001
+  world_ref: PRODUCT:PRD-LIA-UK#wordings.LIA-UK-2013.limits
+  kind: needle
+  statement: 'SME Liability 2013 wording: public liability limit of indemnity £2,000,000.'
+  file: corpus/upload/long_docs/LD007_policy_wording_sme_liability_uk_2013.doc
+  locator:
+    kind: docx_table
+    table_index: 1
+    row: 2
+    col: 1
+  needle: £2,000,000 any one occurrence
+  exclusive: true
+  also_in: []
+  placement: PL-033
+  placement_key: ld7_pl
+  notes: Schedule table, public liability row
+- fact_id: LD007-F002
+  world_ref: PRODUCT:PRD-LIA-UK#wordings.LIA-UK-2013.limits.employers_liability
+  kind: needle
+  statement: 'SME Liability 2013 wording: employers'' liability limit of indemnity £10,000,000.'
+  file: corpus/upload/long_docs/LD007_policy_wording_sme_liability_uk_2013.doc
+  locator:
+    kind: docx_table
+    table_index: 1
+    row: 1
+    col: 1
+  needle: £10,000,000 any one occurrence
+  exclusive: true
+  also_in: []
+  notes: same Schedule table (part of the exclusive limits field)
+- fact_id: LD007-F003
+  world_ref: PRODUCT:PRD-LIA-UK#wordings.LIA-UK-2013.excess.property_damage
+  kind: needle
+  statement: 'SME Liability 2013 wording: property damage excess £250.'
+  file: corpus/upload/long_docs/LD007_policy_wording_sme_liability_uk_2013.doc
+  locator:
+    kind: docx_table
+    table_index: 1
+    row: 2
+    col: 2
+  needle: £250 each claim for damage to property
+  exclusive: false
+  also_in: []
+- fact_id: LD007-F004
+  world_ref: PRODUCT:PRD-LIA-UK#wordings.LIA-UK-2013.notification_condition
+  kind: needle
+  statement: 'SME Liability 2013 wording: notify the Insurer immediately of any claim or circumstance.'
+  file: corpus/upload/long_docs/LD007_policy_wording_sme_liability_uk_2013.doc
+  locator:
+    kind: docx_para
+    para_index: 154
+    section: Claims procedure
+  needle: notify the Insurer immediately of any claim or circumstance
+  exclusive: false
+  also_in: []
+- fact_id: LD007-F005
+  world_ref: PERSON:P011#titles
+  kind: general
+  statement: The LIA-UK-2013 wording was prepared by Rob Tennant, Claims Operations Manager – Leeds (as of 2013-07-01).
+  file: corpus/upload/long_docs/LD007_policy_wording_sme_liability_uk_2013.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 3
+    col: 1
+  needle: Rob Tennant, Claims Operations Manager – Leeds
+  exclusive: false
+  also_in: []
+  notes: document information table
+- fact_id: LD007-F006
+  world_ref: PRODUCT:PRD-LIA-UK#code
+  kind: general
+  statement: The LIA-UK-2013 wording applies to product LIAUK (SME Liability UK).
+  file: corpus/upload/long_docs/LD007_policy_wording_sme_liability_uk_2013.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 1
+    col: 1
+  needle: LIAUK (SME Liability UK)
+  exclusive: false
+  also_in: []
+  notes: document information table
+- fact_id: LD007-F007
+  world_ref: GLOSSARY:G-005
+  kind: terminology
+  statement: UK wordings call the first notice of loss a 'notification of loss'.
+  file: corpus/upload/long_docs/LD007_policy_wording_sme_liability_uk_2013.doc
+  locator:
+    kind: docx_para
+    para_index: 167
+    section: Step 2 – Give us notification of loss
+  needle: Step 2 – Give us notification of loss
+  exclusive: false
+  also_in: []
+- fact_id: LD007-F008
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: UK wordings use 'loss adjuster' for an independent (external) Claims Assessor.
+  file: corpus/upload/long_docs/LD007_policy_wording_sme_liability_uk_2013.doc
+  locator:
+    kind: docx_para
+    para_index: 177
+    section: Step 4 – Inspection
+  needle: we may appoint a loss adjuster, who is an independent specialist acting on our behalf
+  exclusive: false
+  also_in: []
+- fact_id: LD007-F009
+  world_ref: PRODUCT:PRD-LIA-UK#wordings.LIA-UK-2013.version
+  kind: header
+  statement: Every page header of the LIA-UK-2013 wording names the wording reference LIA-UK-2013.
+  file: corpus/upload/long_docs/LD007_policy_wording_sme_liability_uk_2013.doc
+  locator:
+    kind: docx_header
+    section_index: 0
+  needle: LIA-UK-2013
+  exclusive: false
+  also_in: []
+- fact_id: LD008-F001
+  world_ref: PRODUCT:PRD-HOM-SE#wordings.HOM-SE-2016.excess
+  kind: contradiction_old
+  statement: 'Hem Sverige 2016 wording: självrisk SEK 1,500.'
+  file: corpus/upload/long_docs/LD008_policy_wording_hem_sverige_2016.doc
+  locator:
+    kind: docx_para
+    para_index: 128
+    section: 12  Självrisk
+  needle: Självrisken är 1 500 kronor
+  exclusive: true
+  also_in: []
+  placement: PL-034
+  placement_key: ld8_sjalvrisk
+  notes: Swedish thousands separator is a space; contradicted by 2026 product terms SEK 2,000 (C17)
+- fact_id: LD008-F002
+  world_ref: PRODUCT:PRD-HOM-SE#wordings.HOM-SE-2016.notification_condition
+  kind: needle
+  statement: 'Hem Sverige 2016 wording: report the claim as soon as possible (anmäla skadan snarast).'
+  file: corpus/upload/long_docs/LD008_policy_wording_hem_sverige_2016.doc
+  locator:
+    kind: docx_para
+    para_index: 151
+    section: 15  Anmälan av skada
+  needle: anmäla skadan snarast
+  exclusive: false
+  also_in: []
+- fact_id: LD008-F003
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: The Swedish wording calls the Claims Assessor 'besiktningsman'.
+  file: corpus/upload/long_docs/LD008_policy_wording_hem_sverige_2016.doc
+  locator:
+    kind: docx_para
+    para_index: 134
+    section: Besiktning
+  needle: Bolaget har rätt att besiktiga skadad egendom och kan utse en besiktningsman
+  exclusive: false
+  also_in: []
+- fact_id: LD008-F004
+  world_ref: GLOSSARY:G-004
+  kind: terminology
+  statement: The Swedish wording uses 'regress' for subrogation.
+  file: corpus/upload/long_docs/LD008_policy_wording_hem_sverige_2016.doc
+  locator:
+    kind: docx_para
+    para_index: 140
+    section: Regress
+  needle: övertar den försäkrades rätt till skadestånd
+  exclusive: false
+  also_in: []
+- fact_id: LD008-F005
+  world_ref: PERSON:P005#titles
+  kind: temporal
+  statement: The HOM-SE-2016 wording was prepared by Ingrid Sørensen, Claims Operations Manager – Norway (as of 2016-09-01).
+  file: corpus/upload/long_docs/LD008_policy_wording_hem_sverige_2016.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 3
+    col: 1
+  needle: Ingrid Sørensen, Claims Operations Manager – Norway
+  exclusive: false
+  also_in: []
+  notes: document information table; P005's maiden name, she became Ingrid Ashby on 2025-08-23
+- fact_id: LD008-F006
+  world_ref: PRODUCT:PRD-HOM-SE#code
+  kind: general
+  statement: The HOM-SE-2016 wording applies to product HOMSE (Hem Sverige).
+  file: corpus/upload/long_docs/LD008_policy_wording_hem_sverige_2016.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 1
+    col: 1
+  needle: HOMSE (Hem Sverige)
+  exclusive: false
+  also_in: []
+  notes: document information table
+- fact_id: LD008-F007
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: The wording's bilingual word list maps the local assessor term to 'Claims Assessor (loss adjuster)'.
+  file: corpus/upload/long_docs/LD008_policy_wording_hem_sverige_2016.doc
+  locator:
+    kind: docx_table
+    table_index: 3
+    row: 2
+    col: 1
+  needle: Claims Assessor (loss adjuster)
+  exclusive: false
+  also_in: []
+  notes: word list table at the end of the wording
+- fact_id: LD008-F008
+  world_ref: GLOSSARY:G-004
+  kind: terminology
+  statement: The wording's word list translates regress/regres as 'Subrogation / recovery'.
+  file: corpus/upload/long_docs/LD008_policy_wording_hem_sverige_2016.doc
+  locator:
+    kind: docx_table
+    table_index: 3
+    row: 3
+    col: 1
+  needle: Subrogation / recovery
+  exclusive: false
+  also_in: []
+- fact_id: LD008-F009
+  world_ref: PRODUCT:PRD-HOM-SE#wordings.HOM-SE-2016.version
+  kind: header
+  statement: Every page header of the HOM-SE-2016 wording names the wording reference HOM-SE-2016.
+  file: corpus/upload/long_docs/LD008_policy_wording_hem_sverige_2016.doc
+  locator:
+    kind: docx_header
+    section_index: 0
+  needle: HOM-SE-2016
+  exclusive: false
+  also_in: []
+- fact_id: LD009-F001
+  world_ref: PRODUCT:PRD-MOT-NO#wordings.MOT-NO-2015.excess
+  kind: needle
+  statement: 'Motor Norge 2015 wording: egenandel NOK 4,000.'
+  file: corpus/upload/long_docs/LD009_policy_wording_motor_norge_2015.doc
+  locator:
+    kind: docx_para
+    para_index: 128
+    section: 13  Egenandel
+  needle: Ordinær egenandel ved skade på kjøretøyet er NOK 4 000
+  exclusive: true
+  also_in: []
+  placement: PL-035
+  placement_key: ld9_egenandel
+  notes: Norwegian thousands separator is a space
+- fact_id: LD009-F002
+  world_ref: PRODUCT:PRD-MOT-NO#wordings.MOT-NO-2015.excess.windscreen
+  kind: needle
+  statement: 'Motor Norge 2015 wording: glasskade egenandel NOK 1,500.'
+  file: corpus/upload/long_docs/LD009_policy_wording_motor_norge_2015.doc
+  locator:
+    kind: docx_para
+    para_index: 129
+    section: 13  Egenandel
+  needle: Egenandel ved glasskade er NOK 1 500
+  exclusive: true
+  also_in: []
+- fact_id: LD009-F003
+  world_ref: PRODUCT:PRD-MOT-NO#wordings.MOT-NO-2015.notification_condition
+  kind: needle
+  statement: 'Motor Norge 2015 wording: report the claim without undue delay (uten ugrunnet opphold).'
+  file: corpus/upload/long_docs/LD009_policy_wording_motor_norge_2015.doc
+  locator:
+    kind: docx_para
+    para_index: 154
+    section: 16  Melding om skade (skademelding)
+  needle: melde skaden uten ugrunnet opphold
+  exclusive: false
+  also_in: []
+- fact_id: LD009-F004
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: The Norwegian wording calls the Claims Assessor 'skadetakstmann'.
+  file: corpus/upload/long_docs/LD009_policy_wording_motor_norge_2015.doc
+  locator:
+    kind: docx_para
+    para_index: 135
+    section: Skadetakstmann og besiktigelse
+  needle: Selskapet kan utpeke en skadetakstmann til å besiktige skaden
+  exclusive: false
+  also_in: []
+- fact_id: LD009-F005
+  world_ref: PERSON:P005#titles
+  kind: temporal
+  statement: The MOT-NO-2015 wording was prepared by Ingrid Sørensen, Claims Operations Manager – Norway (as of 2015-01-01).
+  file: corpus/upload/long_docs/LD009_policy_wording_motor_norge_2015.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 3
+    col: 1
+  needle: Ingrid Sørensen, Claims Operations Manager – Norway
+  exclusive: false
+  also_in: []
+  notes: document information table; P005's maiden name, she became Ingrid Ashby on 2025-08-23
+- fact_id: LD009-F006
+  world_ref: PRODUCT:PRD-MOT-NO#code
+  kind: general
+  statement: The MOT-NO-2015 wording applies to product MOTNO (Motor Privat Norge).
+  file: corpus/upload/long_docs/LD009_policy_wording_motor_norge_2015.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 1
+    col: 1
+  needle: MOTNO (Motor Privat Norge)
+  exclusive: false
+  also_in: []
+  notes: document information table
+- fact_id: LD009-F007
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: The wording's bilingual word list maps the local assessor term to 'Claims Assessor (loss adjuster)'.
+  file: corpus/upload/long_docs/LD009_policy_wording_motor_norge_2015.doc
+  locator:
+    kind: docx_table
+    table_index: 3
+    row: 2
+    col: 1
+  needle: Claims Assessor (loss adjuster)
+  exclusive: false
+  also_in: []
+  notes: word list table at the end of the wording
+- fact_id: LD009-F008
+  world_ref: GLOSSARY:G-004
+  kind: terminology
+  statement: The wording's word list translates regress/regres as 'Subrogation / recovery'.
+  file: corpus/upload/long_docs/LD009_policy_wording_motor_norge_2015.doc
+  locator:
+    kind: docx_table
+    table_index: 3
+    row: 3
+    col: 1
+  needle: Subrogation / recovery
+  exclusive: false
+  also_in: []
+- fact_id: LD009-F009
+  world_ref: GLOSSARY:G-005
+  kind: terminology
+  statement: Norwegian wordings call the notification of loss 'skademelding'.
+  file: corpus/upload/long_docs/LD009_policy_wording_motor_norge_2015.doc
+  locator:
+    kind: docx_para
+    para_index: 24
+    section: Innhold
+  needle: Melding om skade (skademelding)
+  exclusive: false
+  also_in: []
+- fact_id: LD009-F010
+  world_ref: LOC:LOC-OSL#address
+  kind: general
+  statement: Corvane Mutual Norge (branch of Corvane Mutual Insurance Society Limited) is at Fjordporten 4, 0150 Oslo.
+  file: corpus/upload/long_docs/LD009_policy_wording_motor_norge_2015.doc
+  locator:
+    kind: docx_para
+    para_index: 42
+    section: Om forsikringsavtalen
+  needle: Fjordporten 4, 0150 Oslo
+  exclusive: false
+  also_in: []
+- fact_id: LD009-F011
+  world_ref: PRODUCT:PRD-MOT-NO#wordings.MOT-NO-2015.version
+  kind: header
+  statement: Every page header of the MOT-NO-2015 wording names the wording reference MOT-NO-2015.
+  file: corpus/upload/long_docs/LD009_policy_wording_motor_norge_2015.doc
+  locator:
+    kind: docx_header
+    section_index: 0
+  needle: MOT-NO-2015
+  exclusive: false
+  also_in: []
+- fact_id: LD010-F001
+  world_ref: PRODUCT:PRD-HOM-DK#wordings.HOM-DK-2016.excess
+  kind: needle
+  statement: 'Hjem Danmark 2016 wording: selvrisiko DKK 1,200.'
+  file: corpus/upload/long_docs/LD010_policy_wording_hjem_danmark_2016.doc
+  locator:
+    kind: docx_para
+    para_index: 121
+    section: 12  Selvrisiko
+  needle: Selvrisikoen er 1.200 kr.
+  exclusive: true
+  also_in: []
+  placement: PL-036
+  placement_key: ld10_selvrisiko
+  notes: Danish thousands separator is a full stop
+- fact_id: LD010-F002
+  world_ref: PRODUCT:PRD-HOM-DK#wordings.HOM-DK-2016.notification_condition
+  kind: needle
+  statement: 'Hjem Danmark 2016 wording: report the claim as quickly as possible (anmelde skaden hurtigst muligt).'
+  file: corpus/upload/long_docs/LD010_policy_wording_hjem_danmark_2016.doc
+  locator:
+    kind: docx_para
+    para_index: 144
+    section: 15  Anmeldelse af skade
+  needle: anmelde skaden hurtigst muligt
+  exclusive: false
+  also_in: []
+- fact_id: LD010-F003
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: The Danish wording calls the Claims Assessor 'taksator'.
+  file: corpus/upload/long_docs/LD010_policy_wording_hjem_danmark_2016.doc
+  locator:
+    kind: docx_para
+    para_index: 127
+    section: Taksator og besigtigelse
+  needle: Selskabet kan udpege en taksator til at besigtige skaden
+  exclusive: false
+  also_in: []
+- fact_id: LD010-F004
+  world_ref: PERSON:P012#titles
+  kind: general
+  statement: The HOM-DK-2016 wording was prepared by Mette Dahl, Claims Manager – Denmark (as of 2016-06-01).
+  file: corpus/upload/long_docs/LD010_policy_wording_hjem_danmark_2016.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 3
+    col: 1
+  needle: Mette Dahl, Claims Manager – Denmark
+  exclusive: false
+  also_in: []
+  notes: document information table
+- fact_id: LD010-F005
+  world_ref: PRODUCT:PRD-HOM-DK#code
+  kind: general
+  statement: The HOM-DK-2016 wording applies to product HOMDK (Hjem Danmark).
+  file: corpus/upload/long_docs/LD010_policy_wording_hjem_danmark_2016.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 1
+    col: 1
+  needle: HOMDK (Hjem Danmark)
+  exclusive: false
+  also_in: []
+  notes: document information table
+- fact_id: LD010-F006
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: The wording's bilingual word list maps the local assessor term to 'Claims Assessor (loss adjuster)'.
+  file: corpus/upload/long_docs/LD010_policy_wording_hjem_danmark_2016.doc
+  locator:
+    kind: docx_table
+    table_index: 3
+    row: 2
+    col: 1
+  needle: Claims Assessor (loss adjuster)
+  exclusive: false
+  also_in: []
+  notes: word list table at the end of the wording
+- fact_id: LD010-F007
+  world_ref: GLOSSARY:G-004
+  kind: terminology
+  statement: The wording's word list translates regress/regres as 'Subrogation / recovery'.
+  file: corpus/upload/long_docs/LD010_policy_wording_hjem_danmark_2016.doc
+  locator:
+    kind: docx_table
+    table_index: 3
+    row: 3
+    col: 1
+  needle: Subrogation / recovery
+  exclusive: false
+  also_in: []
+- fact_id: LD010-F008
+  world_ref: PRODUCT:PRD-HOM-DK#wordings.HOM-DK-2016.version
+  kind: header
+  statement: Every page header of the HOM-DK-2016 wording names the wording reference HOM-DK-2016.
+  file: corpus/upload/long_docs/LD010_policy_wording_hjem_danmark_2016.doc
+  locator:
+    kind: docx_header
+    section_index: 0
+  needle: HOM-DK-2016
+  exclusive: false
+  also_in: []
+- fact_id: LD011-F001
+  world_ref: PRODUCT:PRD-HOM-NO#wordings.HOM-NO-2017
+  kind: needle
+  statement: 'Hjem Norge 2017 wording: egenandel NOK 4,000.'
+  file: corpus/upload/long_docs/LD011_policy_wording_hjem_norge_2017.doc
+  locator:
+    kind: docx_para
+    para_index: 140
+    section: 12  Egenandel
+  needle: Ordinær egenandel for skade på bygning og innbo er NOK 4 000
+  exclusive: true
+  also_in: []
+  placement: PL-037
+  placement_key: ld11_frost
+  notes: PL-037 part 1 (Egenandel section); frost cover is stated in the Dekning section (next fact)
+- fact_id: LD011-F002
+  world_ref: PRODUCT:PRD-HOM-NO#wordings.HOM-NO-2017.frost_damage_covered
+  kind: needle
+  statement: 'Hjem Norge 2017 wording: frost damage (frostskade) to building and contents is covered.'
+  file: corpus/upload/long_docs/LD011_policy_wording_hjem_norge_2017.doc
+  locator:
+    kind: docx_para
+    para_index: 83
+    section: Frostskade
+  needle: Forsikringen dekker frostskade på bygning og innbo
+  exclusive: true
+  also_in: []
+  notes: PL-037 part 2 (Dekning section)
+- fact_id: LD011-F003
+  world_ref: PRODUCT:PRD-HOM-NO#wordings.HOM-NO-2017.notification_condition
+  kind: needle
+  statement: 'Hjem Norge 2017 wording: report the claim without undue delay.'
+  file: corpus/upload/long_docs/LD011_policy_wording_hjem_norge_2017.doc
+  locator:
+    kind: docx_para
+    para_index: 165
+    section: 15  Melding om skade (skademelding)
+  needle: melde skaden uten ugrunnet opphold
+  exclusive: false
+  also_in: []
+  notes: the same statutory phrase is the notification condition of the Motor Norge 2015 wording (LD009)
+- fact_id: LD011-F004
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: The Norwegian home wording calls the Claims Assessor 'skadetakstmann'.
+  file: corpus/upload/long_docs/LD011_policy_wording_hjem_norge_2017.doc
+  locator:
+    kind: docx_para
+    para_index: 146
+    section: Skadetakstmann og besiktigelse
+  needle: Selskapet kan utpeke en skadetakstmann til å besiktige skaden
+  exclusive: false
+  also_in: []
+- fact_id: LD011-F005
+  world_ref: PERSON:P005#titles
+  kind: temporal
+  statement: The HOM-NO-2017 wording was prepared by Ingrid Sørensen, Claims Operations Manager – Norway (as of 2017-01-01).
+  file: corpus/upload/long_docs/LD011_policy_wording_hjem_norge_2017.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 3
+    col: 1
+  needle: Ingrid Sørensen, Claims Operations Manager – Norway
+  exclusive: false
+  also_in: []
+  notes: document information table; P005's maiden name, she became Ingrid Ashby on 2025-08-23
+- fact_id: LD011-F006
+  world_ref: PRODUCT:PRD-HOM-NO#code
+  kind: general
+  statement: The HOM-NO-2017 wording applies to product HOMNO (Hjem Norge).
+  file: corpus/upload/long_docs/LD011_policy_wording_hjem_norge_2017.doc
+  locator:
+    kind: docx_table
+    table_index: 0
+    row: 1
+    col: 1
+  needle: HOMNO (Hjem Norge)
+  exclusive: false
+  also_in: []
+  notes: document information table
+- fact_id: LD011-F007
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: The wording's bilingual word list maps the local assessor term to 'Claims Assessor (loss adjuster)'.
+  file: corpus/upload/long_docs/LD011_policy_wording_hjem_norge_2017.doc
+  locator:
+    kind: docx_table
+    table_index: 3
+    row: 2
+    col: 1
+  needle: Claims Assessor (loss adjuster)
+  exclusive: false
+  also_in: []
+  notes: word list table at the end of the wording
+- fact_id: LD011-F008
+  world_ref: GLOSSARY:G-004
+  kind: terminology
+  statement: The wording's word list translates regress/regres as 'Subrogation / recovery'.
+  file: corpus/upload/long_docs/LD011_policy_wording_hjem_norge_2017.doc
+  locator:
+    kind: docx_table
+    table_index: 3
+    row: 3
+    col: 1
+  needle: Subrogation / recovery
+  exclusive: false
+  also_in: []
+- fact_id: LD011-F009
+  world_ref: GLOSSARY:G-005
+  kind: terminology
+  statement: Norwegian wordings call the notification of loss 'skademelding'.
+  file: corpus/upload/long_docs/LD011_policy_wording_hjem_norge_2017.doc
+  locator:
+    kind: docx_para
+    para_index: 23
+    section: Innhold
+  needle: Melding om skade (skademelding)
+  exclusive: false
+  also_in: []
+- fact_id: LD011-F010
+  world_ref: LOC:LOC-OSL#address
+  kind: general
+  statement: Corvane Mutual Norge (branch of Corvane Mutual Insurance Society Limited) is at Fjordporten 4, 0150 Oslo.
+  file: corpus/upload/long_docs/LD011_policy_wording_hjem_norge_2017.doc
+  locator:
+    kind: docx_para
+    para_index: 40
+    section: Om forsikringsavtalen
+  needle: Fjordporten 4, 0150 Oslo
+  exclusive: false
+  also_in: []
+- fact_id: LD011-F011
+  world_ref: PRODUCT:PRD-HOM-NO#wordings.HOM-NO-2017.version
+  kind: header
+  statement: Every page header of the HOM-NO-2017 wording names the wording reference HOM-NO-2017.
+  file: corpus/upload/long_docs/LD011_policy_wording_hjem_norge_2017.doc
+  locator:
+    kind: docx_header
+    section_index: 0
+  needle: HOM-NO-2017
+  exclusive: false
+  also_in: []
+- fact_id: LD021-F001
+  world_ref: RULE:BR-ASM-011@v1#parameters.moisture_wme_pct
+  kind: image_text
+  statement: 'Photo caption burned into the image: a moisture reading of 25% WME or more indicates a gradual leak (not a sudden
+    escape of water).'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 26
+    ocr: true
+  needle: a moisture reading of 25% WME or more indicates a gradual leak
+  exclusive: true
+  also_in: []
+  placement: PL-060
+  placement_key: ld21_moisture
+  notes: Plate 4.4 in chapter 4; the caption is burned into the photograph. The text layer of the page carries only the plate
+    title, not the threshold.
+- fact_id: LD021-F002
+  world_ref: RULE:BR-ASM-012@v1#parameters.crack_width_mm
+  kind: image_text
+  statement: 'Photo caption: subsidence cracks wider than 5 mm require a structural engineer referral.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 54
+    ocr: true
+  needle: Subsidence cracks wider than 5 mm require referral to a structural engineer
+  exclusive: true
+  also_in: []
+  placement: PL-062
+  placement_key: ld21_crack
+  notes: Plate 7.3 in chapter 7; caption burned into the photograph.
+- fact_id: LD021-F003
+  world_ref: VENDOR:VEN-02#fees
+  kind: image_table
+  statement: 'Norrvik fee table (image only): site visit SEK 4,900; desk assessment SEK 2,150; Norway site visit NOK 5,200.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 134
+    ocr: true
+  needle: SEK 4,900
+  exclusive: true
+  also_in: []
+  placement: PL-061
+  placement_key: ld21_norrvik
+  notes: Appendix B, Table B.1 is an image; the fees are not in the text layer.
+- fact_id: LD021-F004
+  world_ref: VENDOR:VEN-02#fees.desk_assessment_sek
+  kind: image_table
+  statement: 'Norrvik desk assessment fee (Sweden): SEK 2,150.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 134
+    ocr: true
+  needle: SEK 2,150
+  exclusive: true
+  also_in: []
+  notes: same image table as PL-061
+- fact_id: LD021-F005
+  world_ref: VENDOR:VEN-02#fees.site_visit_nok
+  kind: image_table
+  statement: 'Norrvik site visit fee (Norway): NOK 5,200.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 134
+    ocr: true
+  needle: NOK 5,200
+  exclusive: true
+  also_in: []
+  notes: same image table as PL-061
+- fact_id: LD021-F006
+  world_ref: RULE:BR-ASM-017@v2#parameters.pct
+  kind: image_table
+  statement: Motor total loss when repair cost exceeds 65% of market value (shown in the Table 9.1 image).
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 71
+    ocr: true
+  needle: Repair cost above 65% of market value
+  exclusive: false
+  also_in: []
+  notes: inside the image 'Table 9.1  Motor assessment routes'
+- fact_id: LD021-F007
+  world_ref: RULE:BR-ASM-013@v1
+  kind: image_table
+  statement: Coverage decision letter within 3 business days of the assessor report (Table 11.1 image).
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 92
+    ocr: true
+  needle: Within 3 business days of the assessor report
+  exclusive: false
+  also_in: []
+  notes: inside the image 'Table 11.1  Assessment timescales'
+- fact_id: LD021-F008
+  world_ref: RULE:BR-ASM-009@v1#parameters.amt
+  kind: image_text
+  statement: Nordic home claims above NOK 120,000 need an on-site takst (decision box in the Figure 10.1 diagram).
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 84
+    ocr: true
+  needle: Claim above NOK 120,000?
+  exclusive: false
+  also_in: []
+  notes: inside the image 'Figure 10.1  Nordic home claims'
+- fact_id: LD021-F009
+  world_ref: RULE:BR-ASM-019@v1
+  kind: image_table
+  statement: Drying contractors report moisture readings every 7 days (note under the Table 4.2 image).
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 23
+    ocr: true
+  needle: report moisture readings every 7 days
+  exclusive: false
+  also_in: []
+  notes: inside the image 'Table 4.2  Drying monitoring record'
+- fact_id: LD021-F010
+  world_ref: RULE:BR-ASM-004@v2#text
+  kind: needle
+  statement: 'BR-ASM-004 v2: Claims Assessor reports must include at least 6 photos.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 13
+  needle: Claims Assessor reports must include at least 6 photos
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F011
+  world_ref: RULE:BR-ASM-002@v1#text
+  kind: needle
+  statement: 'BR-ASM-002 v1: Tier-2 property claims above £10,000 require an external Claims Assessor (loss adjuster) from
+    the panel, appointed within 2 business days of triage.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 4
+  needle: Tier-2 property claims above £10,000 require an external Claims Assessor (loss adjuster) from the panel, appointed
+    within 2 business days of triage
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F012
+  world_ref: RULE:BR-ASM-003@v2#text
+  kind: needle
+  statement: 'BR-ASM-003 v2: Escape of Water claims below £7500 may be assessed by video call.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 22
+  needle: Escape of Water claims below £7500 may be assessed by video call
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F013
+  world_ref: RULE:BR-ASM-008@v1#text
+  kind: needle
+  statement: 'BR-ASM-008 v1: Motor claims with an estimate below £3,000 may be desk-assessed from photos received through
+    the Evidence Intake Gateway (minimum 6 photos).'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 13
+  needle: Motor claims with an estimate below £3,000 may be desk-assessed from photos received through the Evidence Intake
+    Gateway (minimum 6 photos)
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F014
+  world_ref: RULE:BR-ASM-017@v2#text
+  kind: needle
+  statement: 'BR-ASM-017 v2: A vehicle is a total loss when repair cost exceeds 65% of market value.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 70
+  needle: A vehicle is a total loss when repair cost exceeds 65% of market value
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F015
+  world_ref: RULE:BR-ASM-009@v1#text
+  kind: needle
+  statement: 'BR-ASM-009 v1: Nordic home claims above NOK 120000 require an on-site takst (assessment).'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 83
+  needle: Nordic home claims above NOK 120000 require an on-site takst (assessment)
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F016
+  world_ref: RULE:BR-ASM-016@v1#text
+  kind: needle
+  statement: 'BR-ASM-016 v1: All external Nordic instructions go to Norrvik Skadetaxering.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 83
+  needle: All external Nordic instructions go to Norrvik Skadetaxering
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F017
+  world_ref: RULE:BR-ASM-018@v1#text
+  kind: needle
+  statement: 'BR-ASM-018 v1: Contents items above £1500 need proof of ownership.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 62
+  needle: Contents items above £1500 need proof of ownership
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F018
+  world_ref: RULE:BR-ASM-005@v2#text
+  kind: needle
+  statement: 'BR-ASM-005 v2: Site inspection within 5 business days of appointment (Tier-3: 72 hours).'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 91
+  needle: 'Site inspection within 5 business days of appointment (Tier-3: 72 hours)'
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F019
+  world_ref: RULE:BR-ASM-006@v1#text
+  kind: needle
+  statement: 'BR-ASM-006 v1: A Claims Assessor report is due within 5 business days of inspection.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 91
+  needle: A Claims Assessor report is due within 5 business days of inspection
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F020
+  world_ref: RULE:BR-ASM-014@v1#text
+  kind: needle
+  statement: 'BR-ASM-014 v1: Re-inspection is required when the estimate rises by more than 25%.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 91
+  needle: Re-inspection is required when the estimate rises by more than 25%
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F021
+  world_ref: RULE:BR-ASM-010@v1#text
+  kind: needle
+  statement: 'BR-ASM-010 v1: A Claims Assessor may not assess a claim involving a relative or a prior employer within 3 years.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 91
+  needle: A Claims Assessor may not assess a claim involving a relative or a prior employer within 3 years
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F022
+  world_ref: RULE:BR-ASM-019@v1#text
+  kind: needle
+  statement: 'BR-ASM-019 v1: Drying contractors report moisture readings every 7 days.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 21
+  needle: Drying contractors report moisture readings every 7 days
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F023
+  world_ref: RULE:BR-ASM-001@v1#text
+  kind: needle
+  statement: 'BR-ASM-001 v1: Windscreen claims are always desk-assessed.'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 70
+  needle: Windscreen claims are always desk-assessed
+  exclusive: false
+  also_in: []
+  notes: rule box in the chapter text
+- fact_id: LD021-F024
+  world_ref: SYSTEM:SYS17#renames
+  kind: alias_use
+  statement: The Assessor Portal was called the Adjuster Extranet until 1 September 2025.
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 4
+  needle: Assessor Portal (Adjuster Extranet until 1 September 2025)
+  exclusive: false
+  also_in: []
+- fact_id: LD021-F025
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: In the field guide, 'loss adjuster' means an external (panel) Claims Assessor.
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 4
+  needle: '''loss adjuster'' means an external Claims Assessor appointed from the panel'
+  exclusive: false
+  also_in: []
+- fact_id: LD021-F026
+  world_ref: GLOSSARY:G-001
+  kind: terminology
+  statement: 'Nordic terms for the Claims Assessor: skadetakstmann (NO), besiktningsman (SE), taksator (DK).'
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 83
+  needle: the assessor is a 'skadetakstmann' (Norway), 'besiktningsman' (Sweden) or 'taksator'
+  exclusive: false
+  also_in: []
+- fact_id: LD021-F027
+  world_ref: PERSON:P033
+  kind: general
+  statement: The field guide is owned by Imran Talwar, Head of Claims Assessment (UK).
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 2
+  needle: Document owner Imran Talwar
+  exclusive: false
+  also_in: []
+- fact_id: LD021-F028
+  world_ref: PERSON:P011
+  kind: general
+  statement: The 2025 field guide was approved by Rob Tennant, Head of Claims Operations (Group).
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 2
+  needle: Approved by Rob Tennant
+  exclusive: false
+  also_in: []
+- fact_id: LD021-F029
+  world_ref: VENDOR:VEN-02#role
+  kind: general
+  statement: Norrvik Skadetaxering AB (Gothenburg) is the panel assessor for Sweden and Norway.
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 134
+  needle: based in Gothenburg, acts in Sweden and Norway
+  exclusive: false
+  also_in: []
+- fact_id: LD021-F030
+  world_ref: VENDOR:VEN-02#contact
+  kind: general
+  statement: The Norrvik panel contact is Sigrid Nyhus, Regional Manager – Norway & Sweden.
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 83
+  needle: Sigrid Nyhus, Regional Manager – Norway & Sweden
+  exclusive: false
+  also_in: []
+- fact_id: LD021-F031
+  world_ref: VENDOR:VEN-04#role
+  kind: general
+  statement: Motor repairs are arranged through Thistlecombe Repair Network Ltd.
+  file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf
+  locator:
+    kind: pdf_page
+    page: 70
+  needle: Repairs are arranged through Thistlecombe Repair Network Ltd
+  exclusive: false
+  also_in: []
+- fact_id: LD022-F001
+  world_ref: CIRCULAR:CIRC-2026-04#requirements.3.3
+  kind: needle
+  statement: 'NISA Circular 2026/04 §3.3: score-based referral cut-offs must be calibrated and documented; on a 0-100 scale
+    the cut-off must not exceed 65.'
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 5
+  needle: on a 0–100 scale the cut-off must not exceed 65
+  exclusive: false
+  also_in: []
+  placement: PL-063
+  placement_key: ld22_cutoff
+  notes: requirement paragraph 3.3 (marked R) in Section 3
+- fact_id: LD022-F002
+  world_ref: CIRCULAR:CIRC-2026-04#requirements.3.2
+  kind: needle
+  statement: 'NISA Circular 2026/04 §3.2: written notice to the customer within 10 business days of referral; may be deferred
+    for up to 60 days where a tipping-off risk is certified.'
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 5
+  needle: within 10 business days of referral that the claim is subject to additional checks
+  exclusive: false
+  also_in: []
+  placement: PL-064
+  placement_key: ld22_notice
+  notes: requirement paragraph 3.2; the 60-day deferral is in the same sentence
+- fact_id: LD022-F003
+  world_ref: CIRCULAR:CIRC-2026-04#requirements.3.2
+  kind: needle
+  statement: 'NISA Circular 2026/04 §3.2: the customer notice may be deferred for up to 60 days where a tipping-off risk is
+    certified.'
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 5
+  needle: may be deferred for up to 60 days where a tipping-off risk is certified
+  exclusive: false
+  also_in: []
+- fact_id: LD022-F004
+  world_ref: CIRCULAR:CIRC-2026-04#requirements.3.4
+  kind: needle
+  statement: 'NISA Circular 2026/04 §3.4: submit the quarterly NISA-FR1 fraud referral return within 30 days after each quarter
+    end.'
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 6
+  needle: Submit the quarterly NISA-FR1 fraud referral return within 30 days after each quarter end
+  exclusive: false
+  also_in: []
+  placement: PL-065
+  placement_key: ld22_fr1
+  notes: requirement paragraph 3.4
+- fact_id: LD022-F005
+  world_ref: CIRCULAR:CIRC-2026-04#requirements.3.1
+  kind: needle
+  statement: 'NISA Circular 2026/04 §3.1: no claim may be declined, reduced or repudiated on the basis of an automated score
+    alone; a documented human review is required.'
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 4
+  needle: No claim may be declined, reduced or repudiated on the basis of an automated score alone
+  exclusive: false
+  also_in: []
+- fact_id: LD022-F006
+  world_ref: CIRCULAR:CIRC-2026-04#requirements.3.5
+  kind: needle
+  statement: 'NISA Circular 2026/04 §3.5: retain referral records for 7 years.'
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 6
+  needle: Retain referral records for 7 years
+  exclusive: false
+  also_in: []
+- fact_id: LD022-F007
+  world_ref: CIRCULAR:CIRC-2026-04#effective
+  kind: temporal
+  statement: NISA Circular 2026/04 is effective from 1 April 2026.
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 1
+  needle: Effective 1 April 2026
+  exclusive: false
+  also_in: []
+  notes: cover page metadata table
+- fact_id: LD022-F008
+  world_ref: CIRCULAR:CIRC-2026-04#published
+  kind: general
+  statement: NISA Circular 2026/04 was published on 20 November 2025.
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 1
+  needle: Published 20 November 2025
+  exclusive: false
+  also_in: []
+- fact_id: LD022-F009
+  world_ref: PERSON:P056
+  kind: general
+  statement: The contact for NISA Circular 2026/04 is Petter Ulvestad, Policy Lead – Counter-Fraud.
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 1
+  needle: Petter Ulvestad, Policy Lead – Counter-Fraud
+  exclusive: false
+  also_in: []
+- fact_id: LD022-F010
+  world_ref: REPORT:NISA-FR1#first_due
+  kind: temporal
+  statement: The first NISA-FR1 return covers the quarter ending 30 June 2026 and is due on 30 July 2026.
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 6
+  needle: The first return covers the quarter ending 30 June 2026 and is due on 30 July 2026
+  exclusive: false
+  also_in: []
+- fact_id: LD022-F011
+  world_ref: CIRCULAR:CIRC-2026-04#requirements.3.3
+  kind: general
+  statement: 'NISA Circular 2026/04: a score scale other than 0-100 must be mapped to the ceiling in §3.3.'
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 5
+  needle: uses a scale other than 0–100, the firm should document how its cut-off corresponds to the ceiling
+  exclusive: false
+  also_in: []
+  notes: guidance 3.3.2
+- fact_id: LD022-F012
+  world_ref: CIRCULAR:CIRC-2024-07
+  kind: general
+  statement: 'NISA Circular 2026/04: the §3.2 notice is separate from the FNOL acknowledgement required by Circular 2024/07.'
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 5
+  needle: is separate from the acknowledgement of a first notice of loss required by NISA Circular 2024/07
+  exclusive: false
+  also_in: []
+  notes: 'guidance 3.2.4: cross-reference between circulars'
+- fact_id: LD022-F013
+  world_ref: REPORT:NISA-FR1#due
+  kind: general
+  statement: NISA-FR1 return for Q3 2026 (1 July - 30 September 2026) is due on 30 October 2026.
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 7
+  needle: Q3 2026 1 July – 30 September 2026 30 October 2026
+  exclusive: false
+  also_in: []
+  notes: Table 1 in Section 6 (reporting periods and due dates)
+- fact_id: LD022-F014
+  world_ref: CIRCULAR:CIRC-2025-11#title
+  kind: general
+  statement: NISA Circular 2026/04 cross-refers to NISA Circular 2025/11, Claims Data Retention and Minimisation.
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 3
+  needle: NISA Circular 2025/11 (Claims Data Retention and Minimisation)
+  exclusive: false
+  also_in: []
+  notes: paragraph 1.5; also listed in Annex G
+- fact_id: LD022-F015
+  world_ref: CIRCULAR:CIRC-2025-02#effective
+  kind: general
+  statement: Annex G of Circular 2026/04 lists Circular 2025/02, Operational Resilience for Claims Payment, effective 1 July
+    2025.
+  file: corpus/upload/long_docs/LD022_nisa_circular_2026_04.pdf
+  locator:
+    kind: pdf_page
+    page: 18
+  needle: Operational Resilience for Claims Payment
+  exclusive: false
+  also_in: []
+  notes: Annex G related publications table
+- fact_id: LD023-F001
+  world_ref: CIRCULAR:CIRC-2024-07#requirements.2.1
+  kind: needle
+  statement: 'NISA Circular 2024/07 §2.1: acknowledge every first notice of loss within 2 business days.'
+  file: corpus/upload/long_docs/LD023_nisa_circular_2024_07.pdf
+  locator:
+    kind: pdf_page
+    page: 3
+  needle: Acknowledge every first notice of loss within 2 business days.
+  exclusive: false
+  also_in: []
+  notes: requirement paragraph 2.1 (marked R); contrast the 2012 Motor UK wording's 5 working days (C11)
+- fact_id: LD023-F002
+  world_ref: CIRCULAR:CIRC-2024-07#requirements.2.4
+  kind: needle
+  statement: 'NISA Circular 2024/07 §2.4: submit the annual NISA-CT1 claims timeliness return by 31 March each year.'
+  file: corpus/upload/long_docs/LD023_nisa_circular_2024_07.pdf
+  locator:
+    kind: pdf_page
+    page: 3
+  needle: Submit the annual NISA-CT1 claims timeliness return by 31 March each year
+  exclusive: false
+  also_in: []
+- fact_id: LD023-F003
+  world_ref: CIRCULAR:CIRC-2024-07#effective
+  kind: temporal
+  statement: NISA Circular 2024/07 is effective from 1 October 2024.
+  file: corpus/upload/long_docs/LD023_nisa_circular_2024_07.pdf
+  locator:
+    kind: pdf_page
+    page: 1
+  needle: Effective 1 October 2024
+  exclusive: false
+  also_in: []
+  notes: cover page metadata table
+- fact_id: LD023-F004
+  world_ref: CIRCULAR:CIRC-2024-07#published
+  kind: general
+  statement: NISA Circular 2024/07 was published on 28 June 2024.
+  file: corpus/upload/long_docs/LD023_nisa_circular_2024_07.pdf
+  locator:
+    kind: pdf_page
+    page: 1
+  needle: Published 28 June 2024
+  exclusive: false
+  also_in: []
+- fact_id: LD023-F005
+  world_ref: PERSON:P055
+  kind: general
+  statement: The contact for NISA Circular 2024/07 is Imogen Thackray, Senior Supervisor – Insurance Conduct.
+  file: corpus/upload/long_docs/LD023_nisa_circular_2024_07.pdf
+  locator:
+    kind: pdf_page
+    page: 1
+  needle: Imogen Thackray, Senior Supervisor – Insurance Conduct
+  exclusive: false
+  also_in: []
+- fact_id: LD023-F006
+  world_ref: CIRCULAR:CIRC-2024-07#requirements.2.1
+  kind: general
+  statement: 'NISA Circular 2024/07: the acknowledgement requirement applies whatever the policy wording says.'
+  file: corpus/upload/long_docs/LD023_nisa_circular_2024_07.pdf
+  locator:
+    kind: pdf_page
+    page: 4
+  needle: The requirement in paragraph 2.1 applies whatever the policy wording says
+  exclusive: false
+  also_in: []
+  notes: guidance 3.4; relevant to the older wordings that promise longer acknowledgement periods

@@ -1,0 +1,138 @@
+From: Rob Tennant <rob.tennant@corvane-mutual.example>
+To: Lena Kristiansen <lena.kristiansen@corvane-mutual.example>
+Date: Thu, 11 Jun 2026 16:17:26 +0100
+Subject: Tier-3 reserve review cadence from 1 July
+Message-ID: <313b56531350.1@corvane-mutual.example>
+
+Lena,
+
+I have had questions from the Leeds team leaders about the change to
+Tier-3 reserve reviews agreed at the Reserving Committee on Tuesday.
+Before I brief them, can you confirm the new interval and when it
+starts?
+
+Ta,
+Rob
+
+--
+Rob Tennant
+Head of Claims Operations (Group)
+
+This e-mail and any attachments are confidential and intended solely for
+the named addressee(s). If you have received it in error please notify
+the sender and delete it. Corvane Mutual Insurance Society Limited is
+supervised by the National Insurance Supervisory Authority (NISA-FRN
+40417). Registered office: Corvane House, 14 Tallowgate, London EC3N
+9ZZ.
+
+
+From: Lena Kristiansen <lena.kristiansen@corvane-mutual.example>
+To: Rob Tennant <rob.tennant@corvane-mutual.example>
+Cc: Kirsty Mowbray <kirsty.mowbray@corvane-mutual.example>, Daniel Achebe <daniel.achebe@corvane-mutual.example>, Keith Barraclough <keith.barraclough@corvane-mutual.example>
+Date: Fri, 12 Jun 2026 08:32:04 +0100
+Subject: RE: Tier-3 reserve review cadence from 1 July
+Message-ID: <55af1aa2f135.2@corvane-mutual.example>
+In-Reply-To: <313b56531350.1@corvane-mutual.example>
+
+Morning Rob,
+
+Confirmed: from 1 July 2026, reserves on Tier-3 claims must be reviewed
+at least every 14 days (BR-RSV-007 v3, approved by the Reserving
+Committee on 9 June).
+
+Until 30 June the current 21-day cadence still applies.
+
+Daniel and Keith are copied because the rule is implemented in both
+reserve-engine and CLARA (CLRRS110 and CLRRS120), so both need the new
+interval from 1 July.
+
+Kirsty's team will feel this most, so I have copied her too.
+
+Thanks and regards,
+Lena
+
+--
+Lena Kristiansen
+Head of Reserving
+Corvane Mutual Insurance Society Limited
+Corvane House, 14 Tallowgate, London EC3N 9ZZ
+M: 07700 900109
+lena.kristiansen@corvane-mutual.example
+
+Corvane Mutual Insurance Society Limited | Corvane House, 14 Tallowgate,
+London EC3N 9ZZ | NISA-FRN 40417. This message may contain confidential
+information. If it reached you by mistake, please let the sender know
+and remove it from your system.
+
+On Thu 11 Jun 2026 at 16:17, Rob Tennant <rob.tennant@corvane-mutual.example> wrote:
+> Lena,
+>
+> I have had questions from the Leeds team leaders about the change to
+> Tier-3 reserve reviews agreed at the Reserving Committee on Tuesday.
+> Before I brief them, can you confirm the new interval and when it
+> starts?
+>
+> Ta,
+> Rob
+
+
+From: Daniel Achebe <daniel.achebe@corvane-mutual.example>
+To: Lena Kristiansen <lena.kristiansen@corvane-mutual.example>
+Cc: Rob Tennant <rob.tennant@corvane-mutual.example>, Kirsty Mowbray <kirsty.mowbray@corvane-mutual.example>, Keith Barraclough <keith.barraclough@corvane-mutual.example>
+Date: Fri, 12 Jun 2026 10:13:38 +0100
+Subject: RE: Tier-3 reserve review cadence from 1 July
+Message-ID: <7e3cd63dbc66.3@corvane-mutual.example>
+In-Reply-To: <55af1aa2f135.2@corvane-mutual.example>
+
+Thanks Lena – noted. We will take the configuration change through CAB
+before 1 July and confirm once it is in.
+
+Daniel
+
+--
+Daniel Achebe
+Engineering Lead – Reserve & Finance Squad
+
+This e-mail and any attachments are confidential and intended solely for
+the named addressee(s). If you have received it in error please notify
+the sender and delete it. Corvane Mutual Insurance Society Limited is
+supervised by the National Insurance Supervisory Authority (NISA-FRN
+40417). Registered office: Corvane House, 14 Tallowgate, London EC3N
+9ZZ.
+
+On Fri 12 Jun 2026 at 08:32, Lena Kristiansen <lena.kristiansen@corvane-mutual.example> wrote:
+> Morning Rob,
+>
+> Confirmed: from 1 July 2026, reserves on Tier-3 claims must be
+> reviewed at least every 14 days (BR-RSV-007 v3, approved by the
+> Reserving Committee on 9 June).
+>
+> Until 30 June the current 21-day cadence still applies.
+>
+> Daniel and Keith are copied because the rule is implemented in both
+> reserve-engine and CLARA (CLRRS110 and CLRRS120), so both need the
+> new interval from 1 July.
+>
+> Kirsty's team will feel this most, so I have copied her too.
+>
+> Thanks and regards,
+> Lena
+
+
+From: Rob Tennant <rob.tennant@corvane-mutual.example>
+To: Lena Kristiansen <lena.kristiansen@corvane-mutual.example>, Daniel Achebe <daniel.achebe@corvane-mutual.example>
+Cc: Kirsty Mowbray <kirsty.mowbray@corvane-mutual.example>, Keith Barraclough <keith.barraclough@corvane-mutual.example>
+Date: Fri, 12 Jun 2026 10:54:11 +0100
+Subject: RE: Tier-3 reserve review cadence from 1 July
+Message-ID: <823040a6441f.4@corvane-mutual.example>
+In-Reply-To: <7e3cd63dbc66.3@corvane-mutual.example>
+
+Perfect, thanks both. Briefing the team leaders today.
+
+Rob
+
+On Fri 12 Jun 2026 at 10:13, Daniel Achebe <daniel.achebe@corvane-mutual.example> wrote:
+> Thanks Lena – noted. We will take the configuration change through
+> CAB before 1 July and confirm once it is in.
+>
+> Daniel

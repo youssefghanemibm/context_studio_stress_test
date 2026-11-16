@@ -1,0 +1,61 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+SHIFT HANDOVER - MAINFRAME BATCH OPERATIONS (NIGHT SHIFT 14/15 OCT 2026)
+========================================================================================
+Document reference : OPS-HND-2026-10-14N
+Version            : 1.0
+Date               : 14 October 2026
+Owner              : Sunita Vaghela, Batch Operations Lead
+Classification     : Internal
+Team            : Mainframe Batch Operations, Leeds (scheduler: Batch Scheduler)
+
+Version history
+  1.0    2026-10-14  S. Vaghela           Night shift handover
+========================================================================================
+
+1. SUMMARY
+  Night batch completed normally. No abends. No reruns. All return codes 0000 unless shown.
+
+2. JOB STATUS
+  Job        Description                                      Status         RC
+  CLRNFN01   Nightly FNOL imports                             Completed      0000
+  CLRNFN02   FNOL acknowledgement extract                     Completed      0000
+  CLRNTR01   Nightly triage                                   Completed      0000
+  CLRNAS01   Assessor and repairer exchange                   Completed      0000
+  CLRNAS02   Vendor invoice matching                          Completed      0000
+  CLRNRSV1   Tier-3 reserve review and revaluation            Completed      0000
+  CLRNRSV2   Reserve history and corrections                  Completed      0000
+  CLRNRSV3   Reserve movement extract (CLX-IF-042)            Completed      0000
+  CLRNRSV4   Large loss notification extract                  Completed      0000
+  CLRNFR01   Nightly fraud scoring and referral sweep         Completed      0000
+  CLRNFR02   Customer referral notices                        Completed      0000
+  CLRNSTL1   Nightly settlement and closure                   Completed      0000
+  CLRNPAY1   Payment batch to CPG                             Completed      0000
+  CLRNPAY2   Payment confirmations                            Completed      0000
+  CLRWPAY1   Vendor payment run                               Completed      0000
+  CLRNRC01   Nightly recoveries                               Completed      0000
+  CLRNGL01   Daily GL feeds                                   Completed      0000
+  CLRNRP01   Daily MI to CDW                                  Completed      0000
+  CLRWCM01   Weekly housekeeping                              Completed      0000
+  CLRNMI01   Operational MI                                   Completed      0000
+
+  Not scheduled tonight: monthly, quarterly and year-end jobs; disabled job CLRNFR99 (auto-decline sweep).
+  Retired: CLRDRSV9 (reserve parallel-run reconciliation), retired at the end of the parallel run.
+
+3. STANDING NOTES
+  - CLRNFR01 includes the CLRFR040 sweep, which still has the old threshold hard-coded until CHUB-298 is released.
+    Compliance continue their daily query for unreferred claims (65-69, and 60-64 for Tier-3 since 1 October).
+    No action for Ops; do not raise an incident for this.
+  - The Tier-3 threshold parameter FRD_REFER_T3_THRESH has been in CLR.T_PARAM since 1 October (CHUB-395).
+  - UK motor claims are on Claims Hub since Wave 1 (14 September).
+
+4. HANDOVER CHECKS
+  [x] Scheduler console clear of alerts at handover.
+  [x] Spool housekeeping done.
+  [x] Dataset space checked; no warnings.
+  [x] Incident queue checked: nothing open for Batch Operations.
+  [x] Change calendar checked: no changes tonight.
+
+  Handed over by: Night shift (S. Vaghela's team)   Received by: Day shift
+
+----------------------------------------------------------------------------------------
+End of document. Owner: Sunita Vaghela. Printed copies are uncontrolled.

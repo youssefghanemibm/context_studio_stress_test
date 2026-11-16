@@ -1,0 +1,386 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+TRANSCRIPT - SUBROGATION OWNERSHIP HANDOVER
+============================================================================================
+
+DOCUMENT CONTROL
+  Document reference : RCS-HND-TRN-2025-09
+  Title              : Transcript - Subrogation Ownership Handover
+  Meeting            : Subrogation process ownership handover
+  Forum              : Process ownership handover (recovery & subrogation)
+  Date and time      : Wednesday 3 September 2025, 13:00-14:00 UK time (60 minutes)
+  Venue              : Bristol Recoveries Centre and video bridge (Stockholm, London)
+  Chair              : Ingrid Ashby, Claims Director
+  Prepared by        : Freya Lindahl, Head of Recoveries & Subrogation (Corvane Mutual)
+  Approved by        : Ingrid Ashby
+  Status             : Final
+  Classification     : Internal
+
+VERSION HISTORY
+  Version  Date        Author / approver         Change
+  0.1      2025-09-03  F. Lindahl                Transcript produced from the recording
+  1.0      2025-09-03  I. Ashby                  Approved as the record of the handover
+
+ATTENDEES
+  Freya Lindahl                Head of Recoveries & Subrogation
+  Siobhan Quill                Recoveries Team Leader – UK
+  Ingrid Ashby                 Claims Director
+  Rob Tennant                  Head of Claims Operations (Group)
+  Ed Pargeter (Quarryhill)     Partner – Recoveries, Quarryhill Solicitors LLP
+
+NOTES ON THIS TRANSCRIPT
+  - Timestamps are elapsed time from the start of the recording (hh:mm:ss).
+  - Speaker labels follow the display names on the bridge and were checked by hand.
+  - [inaudible] and [crosstalk] mark passages the transcription could not resolve.
+  - Edward Pargeter (Quarryhill Solicitors LLP) attended for the litigation items only.
+
+-------------------------------------- TRANSCRIPT ------------------------------------------
+
+[00:00:00] Ingrid Ashby: Afternoon, everyone. Can everyone hear me? Let's give it a minute for anyone still joining the bridge.
+[00:00:07] Rob Tennant: Rob here. You're coming through fine, Ingrid.
+[00:00:10] Freya Lindahl: Yes, loud and clear.
+[00:00:12] Ingrid Ashby: Good. A quick round of introductions, since not everyone has met. I'm Ingrid, Claims Director.
+[00:00:18] Freya Lindahl: Freya Lindahl, Head of Recoveries & Subrogation, from the new Group function.
+[00:00:24] Siobhan Quill: Siobhan Quill, Recoveries Team Leader – UK.
+[00:00:27] Rob Tennant: Rob Tennant, Head of Claims Operations (Group).
+[00:00:31] Ed Pargeter (Quarryhill): Ed Pargeter from Quarryhill. I'm mainly here for the litigation items.
+[00:00:36] Ingrid Ashby: Thanks. The plan for the hour: the formal handover first, then Siobhan's walk-through, then litigation with Ed, then systems and claims operations. Siobhan, while we wait for the slides to come up, anything you want to flag before we start?
+[00:00:52] Siobhan Quill: The sub-ro pipeline is where we lose recoveries quietly, because nobody chases them. So, for the sub-ro pipeline, the third-party insurers will notice before our own people do. Yeah, so the honest answer on the sub-ro pipeline is that we know what good looks like, we're just not there yet.
+[00:01:11] Freya Lindahl: It's fair to say the handover pack took longer than any of us wanted. If we're short of capacity, the handover pack is the thing I'd protect. The handover pack is one of those things that looks easy on a slide and isn't. I've read the pack twice. It's very thorough, Siobhan, thank you.
+[00:01:32] Ed Pargeter (Quarryhill): Fine by me.
+[00:01:34] Freya Lindahl: We should probably sanity-check the write-off approvals with someone who wasn't involved in designing it. The demand letters are one of those areas where the old tracker and the new process overlap for a while. The write-off approvals are where we lose recoveries quietly, because nobody chases them. My first priority is consistency between the UK and the Nordic teams. Same principles, local paperwork.
+[00:01:58] Rob Tennant: We touched on the third-party insurer correspondence last time and I'm not sure the position has really moved since. For the third-party insurer correspondence, the third-party insurers will notice before our own people do. Can we make sure the third-party insurer correspondence is visible on the RAID log, so it doesn't fall between the cracks?
+[00:02:19] Siobhan Quill: Before we go on: the team in Bristol have kept things going through a difficult eight months. I want that recognised.
+[00:02:28] Ingrid Ashby: It is recognised, and I'll say so to the team directly.
+[00:02:33] Freya Lindahl: Sorry, can I just check what we mean by the Bristol team? I think people are using it in different ways.
+[00:02:42] Siobhan Quill: Good challenge. I'll make sure the next version defines it properly. I suppose can I suggest we park the Bristol team for now and pick it up under any other business?
+[00:02:54] Freya Lindahl: In the Nordics we call it regress, but it's the same process. Recover what a third party owes us.
+[00:03:02] Ingrid Ashby: From my side, I want sub-ro treated as part of the claim, not as an afterthought once the claim is closed. Yeah, so we've done the thinking on the handover pack; now it's about execution.
+[00:03:16] Siobhan Quill: Let's capture the demand letters as a follow-up rather than try to close it today. If there's one thing I'd take away on the open recovery cases, it's that we need to keep it visible. The solicitors need a clean file on the demand letters, otherwise we pay them to tidy it up.
+[00:03:36] Ingrid Ashby: Sorry, can I just check what we mean by the sub-ro pipeline? I think people are using it in different ways.
+[00:03:45] Freya Lindahl: Fair point. I mean the whole thing, end to end. On the sub-ro pipeline, the risk isn't that it fails outright, it's that it half works and nobody notices.
+[00:03:56] Siobhan Quill: Ingrid, what keeps you awake about the handover pack?
+[00:04:00] Ingrid Ashby: The hand-offs between teams. That's where things usually drop. I'd split the handover pack into what we have to do now and what can wait.
+[00:04:09] Freya Lindahl: Sorry, someone's just come into the room. Two seconds.
+[00:04:14] Rob Tennant: No problem.
+[00:04:15] Freya Lindahl: The solicitors need a clean file on the sub-ro pipeline, otherwise we pay them to tidy it up. Personally I'd go a bit further on the write-off approvals, but I can live with what's proposed. The sub-ro pipeline keeps getting squeezed by more urgent things. We've done the thinking on the recovery targets; now it's about execution.
+[00:04:37] Siobhan Quill: The handover pack is one of those areas where the old tracker and the new process overlap for a while, if I'm honest.
+[00:04:50] Ingrid Ashby: Right, let me start with the formal bit, so it's on the record.
+[00:04:55] Ingrid Ashby: As of the re-organisation on Monday, Freya owns the subrogation process from 1 September 2025, as Head of Recoveries & Subrogation, and Siobhan leads the UK recoveries team.
+[00:05:06] Ingrid Ashby: Siobhan has been acting owner since January, after Martin Calloway left at the end of December, and I want to thank her for that. Freya reports to me, and the team is now Recoveries & Subrogation, a Group function.
+[00:05:21] Siobhan Quill: Thank you. It's been a busy eight months, but the team have been brilliant.
+[00:05:26] Freya Lindahl: Thanks, Ingrid, and thank you, Siobhan. I'm looking forward to it.
+[00:05:31] Siobhan Quill: Um, Speaking for my area, to be clear, nobody's saying the recovery targets are broken. It's more that we haven't tested it the way we'd test anything else. Picking up on that, we touched on the demand [inaudible] last time and I'm not sure the position has really moved since. The handover pack has every open case over a certain age, with the next action and the limitation date.
+[00:05:58] Ingrid Ashby: Understood.
+[00:05:59] Siobhan Quill: The demand letters go out through CLARA and Notify, and the replies come back to the mailroom. It's not elegant, but it works.
+[00:06:08] Rob Tennant: Are we expecting any pushback on the Bristol team?
+[00:06:13] Freya Lindahl: Some, probably, but nothing we can't work through. Let me be a bit provocative on the Bristol team: are we sure we need it in its current form?
+[00:06:24] Siobhan Quill: For what it's worth, my worry with the recovery targets is less the technology and more whether people on the floor actually know what's changed, if that makes sense. The limitation diary is the thing I'd never want anyone to neglect. Miss a date and the recovery's gone.
+[00:06:43] Ingrid Ashby: Let's come back to that at the end.
+[00:06:47] Siobhan Quill: Freya, did you get a chance to look at the third-party insurer correspondence?
+[00:06:53] Freya Lindahl: Yes. It reads well. One or two questions, but nothing major. There's a temptation to treat the third-party insurer correspondence as a technical problem, and it really isn't.
+[00:07:04] Siobhan Quill: The write-off approvals are a good example of where a bit of early testing saves a lot of pain later. I suppose I'd like the write-off decisions on the write-off approvals documented properly, so audit can follow them. The write-off approvals are one of those areas where the old tracker and the new process overlap for a while. What's changed on the write-off approvals since the last update is mainly the level of detail, not the direction.
+[00:07:34] Freya Lindahl: I'd like the write-off decisions on the Bristol team documented properly, so audit can follow them, broadly.
+[00:07:41] Rob Tennant: Can I ask what's changed on the write-off approvals since we last discussed it?
+[00:07:47] Siobhan Quill: Honestly, less than I'd like. For the write-off approvals, salvage and sub-ro need to talk to each other more than they do.
+[00:08:00] Ingrid Ashby: Siobhan, can you take us through the main things Freya needs to know?
+[00:08:05] Siobhan Quill: Sure. The big change on Monday was the pursuit threshold. Under the new version of BR-REC-003 we pursue sub-ro where the recoverable amount is £1,000 or more, from 1 September. Until the end of August it was £750.
+[00:08:20] Siobhan Quill: And write-offs: anything above £10,000 now needs the Head of Recoveries & Subrogation, so that's Freya. It used to be above £5,000 with the Recoveries Manager.
+[00:08:30] Ingrid Ashby: Are we expecting any pushback on the demand letters?
+[00:08:35] Freya Lindahl: One or two. I'll pick them up offline rather than take time here. We've got good people looking at the demand letters; I'm less sure we've given them enough time.
+[00:08:47] Siobhan Quill: Are the demand letters in the pack, or are they coming separately?
+[00:08:52] Ingrid Ashby: It's in the appendix, towards the back.
+[00:08:56] Siobhan Quill: I don't think the sub-ro pipeline is controversial, it's just fiddly. For the handover pack, the question isn't whether, it's how and in what order, if I'm honest. We should write the Bristol team up properly, if only so the next person doesn't have to work it all out again. I don't want us to over-engineer the demand letters. A one-page note would do the job.
+[00:09:21] Ingrid Ashby: How confident are we on the Bristol team, honestly?
+[00:09:25] Freya Lindahl: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. I'd rather have an honest amber on the Bristol team than a green that turns red later.
+[00:09:36] Siobhan Quill: How confident are we on the open recovery cases, honestly?
+[00:09:41] Ingrid Ashby: Short answer, yes. Long answer, it depends how the next few weeks go. Yeah. There's a temptation to treat the open recovery cases as a technical problem, and it really isn't.
+[00:09:53] Siobhan Quill: Where have we got to with the third-party insurer correspondence, Freya?
+[00:09:59] Freya Lindahl: Steady. No drama, which is what you want. What I'd like to avoid with the third-party insurer correspondence is finding out about a problem the week before, when there's nothing we can do about it, in my view.
+[00:10:13] Rob Tennant: Are we expecting any pushback on the limitation diary?
+[00:10:17] Ingrid Ashby: A few, mostly about timing rather than substance. What's changed on the limitation diary since the last update is mainly the level of detail, not the direction.
+[00:10:28] Freya Lindahl: Are the write-off approvals in the pack, or are they coming separately?
+[00:10:33] Rob Tennant: It's in there, but only at summary level. If the write-off approvals aren't working, it shows up in the recovery numbers a quarter later, which is too late.
+[00:10:44] Siobhan Quill: What's the biggest risk on the handover pack, in your view?
+[00:10:49] Freya Lindahl: Knock-on effects. If it moves, other things move with it. I'm keen we don't just tick a box on the handover pack.
+[00:10:59] Siobhan Quill: Rob, is the limitation diary a resourcing question or a decision question?
+[00:11:04] Rob Tennant: Mostly resourcing, to be honest. The decision's been made; it's the doing. We need a bit more rigour around the limitation diary, particularly on the testing side, to be honest.
+[00:11:16] Siobhan Quill: Is there a simpler version of the sub-ro pipeline than what's on the slide?
+[00:11:22] Freya Lindahl: Possibly. Let me take that away and see what we could strip out.
+[00:11:28] Ingrid Ashby: On the recovery targets, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room. We shouldn't confuse the demand letters with the wider change; they're related but not the same. For the limitation diary, salvage and sub-ro need to talk to each other more than they do.
+[00:11:50] Freya Lindahl: Sorry, just so I'm clear: when you say the limitation diary, do you mean the UK piece or the whole thing?
+[00:11:58] Siobhan Quill: You're right, we're using it loosely. Let me tighten up the wording. I'd want the handlers flagging sub-ro potential on the limitation diary at the point of settlement, not months later.
+[00:12:11] Ed Pargeter (Quarryhill): How confident are we on the demand letters, honestly?
+[00:12:15] Freya Lindahl: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it.
+[00:12:23] Rob Tennant: Do we need a decision on the sub-ro pipeline from this group, or is it just for awareness?
+[00:12:30] Ingrid Ashby: Not today. We'll bring options when we've done the analysis. I'd want the handlers flagging sub-ro potential on the sub-ro pipeline at the point of settlement, not months later, broadly.
+[00:12:42] Rob Tennant: Yes.
+[00:12:43] Ingrid Ashby: Siobhan, did you get a chance to look at the limitation diary?
+[00:12:49] Siobhan Quill: Not properly yet. It's on my list for this week. If the limitation diary isn't working, it shows up in the recovery numbers a quarter later, which is too late.
+[00:13:01] Ingrid Ashby: Yeah. If the write-off approvals need more time, I'd rather we said so now. We probably need to separate the facts on the write-off approvals from the folklore. For the write-off approvals, the third-party insurers will notice before our own people do.
+[00:13:18] Siobhan Quill: Um, on the limitation diary, Bristol and the Nordic teams have slightly different habits, and that's fine as long as the outcome's the same. The thing about the demand letters is that everyone agrees with it in principle and nobody wants to do the work. On the third-party insurer correspondence, Bristol and the Nordic teams have slightly different habits, and that's fine as long as the outcome's the same.
+[00:13:44] Freya Lindahl: Yeah, fair.
+[00:13:45] Siobhan Quill: Has anything moved on the open recovery cases since last time?
+[00:13:50] Ed Pargeter (Quarryhill): Not much, other than we understand it better. For the open recovery cases, the question isn't whether, it's how and in what order.
+[00:13:59] Ingrid Ashby: Is the limitation diary in the pack, or is that coming separately?
+[00:14:04] Rob Tennant: Not in this pack, no. It'll come separately once it's been through the working group. I'd like the write-off decisions on the limitation diary documented properly, so audit can follow them.
+[00:14:16] Ingrid Ashby: Mm.
+[00:14:17] Siobhan Quill: Is there a simpler version of the handover pack than what's on the slide?
+[00:14:24] Freya Lindahl: Not without losing something important, I think. But I'm happy to look. What would really help on the handover pack is a single view that everyone works from, I think.
+[00:14:36] Siobhan Quill: Is there anything we can do to unblock the Bristol team?
+[00:14:41] Ingrid Ashby: Nothing specific. Keep asking about it, that's helpful in itself. There's no silver bullet on the Bristol team; it's just steady work.
+[00:14:50] Siobhan Quill: We should write the write-off approvals up properly, if only so the next person doesn't have to work it all out again. I'd like the write-off decisions on [inaudible] recovery targets documented properly, so audit can follow them. On the write-off approvals, there's been a lot of activity but not a lot of change, if you see what I mean.
+[00:15:14] Freya Lindahl: Makes sense to me.
+[00:15:16] Ingrid Ashby: Where have we got to with the handover pack, Siobhan?
+[00:15:20] Siobhan Quill: In better shape than it was. I wouldn't call it done, but the direction is right. From a customer point of view, the handover pack should be invisible, and that's the test I'd apply.
+[00:15:34] Ed Pargeter (Quarryhill): Freya, what's your gut feel on the handover pack?
+[00:15:38] Freya Lindahl: Fairly comfortable. I'd flag it as watch rather than worry. I'd want the handlers flagging sub-ro potential on the handover pack at the point of settlement, not months later.
+[00:15:50] Ed Pargeter (Quarryhill): Thanks.
+[00:15:51] Ingrid Ashby: Siobhan, can you give us a quick update on the third-party insurer correspondence?
+[00:15:57] Siobhan Quill: It's with the working group at the moment; I'll chase and come back.
+[00:16:02] Freya Lindahl: Is the share working? I'm just seeing a black screen.
+[00:16:07] Ed Pargeter (Quarryhill): Hang on, let me stop and restart it.
+[00:16:10] Ed Pargeter (Quarryhill): Any better?
+[00:16:13] Freya Lindahl: Yes, that's it now.
+[00:16:15] Ingrid Ashby: Is the Bristol team in the pack, or is that coming separately?
+[00:16:21] Siobhan Quill: It's in there, but only at summary level. The Bristol team is one of those areas where the old tracker and the new process overlap for a while.
+[00:16:33] Ingrid Ashby: We probably need to separate the facts on the demand letters from the folklore. The limitation dates are the thing on the demand letters; miss one and the money's gone. Yeah. On the third-party insurer correspondence, the regress cases in the Nordics follow the same principle, just different paperwork.
+[00:16:51] Freya Lindahl: My sense is that the third-party insurer correspondence is moving in the right direction, just slowly. We're not starting from scratch on the limitation diary; a lot of the groundwork is already there. Let's keep the third-party insurer correspondence simple and not try to solve every edge case in one go.
+[00:17:11] Siobhan Quill: Thanks.
+[00:17:12] Freya Lindahl: Where have we got to with the write-off approvals, Ed?
+[00:17:17] Ed Pargeter (Quarryhill): Broadly on track. There are a couple of loose ends, but nothing that worries me.
+[00:17:23] Ingrid Ashby: The thing is [crosstalk]
+[00:17:25] Freya Lindahl: Sorry, one at a time, please.
+[00:17:29] Ingrid Ashby: Sorry. Go on, Siobhan.
+[00:17:31] Siobhan Quill: No, it's fine, carry on.
+[00:17:33] Ingrid Ashby: On the write-off approvals, the regress cases in the Nordics follow the same principle, just different paperwork. In fairness, on the write-off approvals, Bristol and the Nordic teams have slightly different habits, and that's fine as long as the outcome's the same. The solicitors need a clean file on the write-off approvals, otherwise we pay them to tidy it up.
+[00:17:57] Freya Lindahl: Okay. We need to be careful how we talk about the open recovery cases outside this room until it's settled. I think the main thing on the write-off approvals is that we don't let it drift without someone looking at it properly. I think we've got consensus on the open recovery cases, broadly. For the open recovery cases, salvage and sub-ro need to talk to each other more than they do.
+[00:18:30] Ingrid Ashby: Ed, do you want to give us the litigation picture?
+[00:18:34] Freya Lindahl: Rob, is there anything on the settlement offers you need from this group?
+[00:18:40] Rob Tennant: Just air cover, really. People are stretched, so it helps if the message comes from here. From my side, from a customer point of view, the settlement offers should be invisible, and that's the test I'd apply.
+[00:18:54] Ingrid Ashby: We've done the thinking on the costs position; now it's about execution.
+[00:18:59] Ed Pargeter (Quarryhill): The quality of the conversation on the solicitor instructions has improved a lot. We touched on the panel arrangements last time and I'm not sure the position has really moved since. The solicitor instructions are one of those areas where the old tracker and the new process overlap for a while.
+[00:19:19] Freya Lindahl: I'd rather the court timetable was boring. [inaudible] is good. To be fair, I had a look at the court timetable over the weekend and nothing jumped out as a showstopper. I'd like the write-off decisions on the court timetable documented properly, so audit can follow them, if I'm honest. I mean, I'd want the handlers flagging sub-ro potential on the court timetable at the point of settlement, not months later.
+[00:19:46] Ingrid Ashby: Okay, I think that's that one done.
+[00:19:49] Siobhan Quill: Just to build on what Ingrid said, if the settlement offers aren't working, it shows up in the recovery numbers a quarter later, which is too late.
+[00:20:00] Freya Lindahl: I'd like a regular call with you, Ed, maybe monthly, just to keep the pipeline visible. We're probably overthinking the file quality, but I'd rather overthink it than underthink it.
+[00:20:12] Siobhan Quill: How confident are we on the settlement offers, honestly?
+[00:20:17] Ingrid Ashby: Reasonably. I've seen worse at this stage. We've been here before with the settlement offers, and the lesson last time was to get the business in the room early.
+[00:20:28] Rob Tennant: Is the litigation pipeline something we need to decide today, or is it for noting?
+[00:20:35] Ed Pargeter (Quarryhill): For noting, I think. Nothing we need to decide today. I'd want the handlers flagging sub-ro potential on the litigation pipeline at the point of settlement, not months later.
+[00:20:47] Siobhan Quill: Can I ask what's changed on the panel arrangements since we last discussed it?
+[00:20:53] Freya Lindahl: The detail's firmer. The direction is the same. The panel arrangements are where we lose recoveries quietly, [inaudible] nobody chases them.
+[00:21:02] Siobhan Quill: Ingrid, is there anything on the court timetable you need from this group?
+[00:21:08] Ingrid Ashby: Probably a bit of time from the business side, but I'll ask offline. We can talk about the court timetable all day, but at some point someone has to make a call.
+[00:21:21] Ed Pargeter (Quarryhill): Siobhan, where are we on the settlement offers?
+[00:21:25] Siobhan Quill: It's moving. Not as fast as I'd like, but it's moving. Okay. The settlement offers are one of those areas where the old tracker and the new process overlap for a while.
+[00:21:37] Freya Lindahl: Where do the panel arrangements sit on the list of priorities right now?
+[00:21:42] Ed Pargeter (Quarryhill): It's up there. It just keeps getting bumped by urgent things. I'd split the panel arrangements into what we have to do now and what can wait.
+[00:21:53] Freya Lindahl: Who else needs to be involved in the panel arrangements?
+[00:21:58] Siobhan Quill: Finance, and probably Compliance as well. I'll set something up. For the panel arrangements, I'd rather we under-promise and deliver than the other way round.
+[00:22:07] Freya Lindahl: What would really help on the settlement offers is a single view that everyone works from. On the costs position, there's been a lot of activity but not a lot of change, if you see what I mean. We should check whether the file quality lands differently for the Nordic teams than for the UK.
+[00:22:28] Siobhan Quill: I don't think the file quality is controversial, it's just fiddly. If we get the file quality right, a lot of the noise we've had recently goes away. Okay. I'd split the file quality into what we have to do now and what can wait.
+[00:22:46] Ed Pargeter (Quarryhill): What would really help on the file quality is a single view that everyone works from. The file quality is one of those areas where the old tracker and the new process overlap for a while. From Quarryhill's side, the files we get from Bristol are generally good. Where they're not, it's usually missing evidence from the original claim.
+[00:23:09] Freya Lindahl: If I can come in here, on the court timetable, the sub-ro team need to know what's changed on day one, not find out from a rejected demand. We probably need to separate the facts on the court timetable from the folklore. I'd like the write-off decisions on the file quality documented properly, so audit can follow them. The court timetable is where we lose recoveries quietly, because nobody chases them.
+[00:23:36] Siobhan Quill: Picking up Freya's point, I don't have strong views on the court timetable, other than wanting it done properly.
+[00:23:43] Freya Lindahl: For the solicitor instructions, the third-party insurers will notice before our own people do. I'd like the write-off decisions on the settlement offers documented properly, so audit can follow them. Honestly, part of the issue with the solicitor instructions is that the documentation lags behind what people actually do.
+[00:24:03] Siobhan Quill: On the litigation pipeline, there's been a lot of activity but not a lot of change, if you see what I mean. The panel arrangements are one of those areas where the old tracker and the new process overlap for a while.
+[00:24:19] Ed Pargeter (Quarryhill): Has anything moved on the solicitor instructions since last time?
+[00:24:23] Freya Lindahl: Mostly that more people are involved now, which is good.
+[00:24:28] Ed Pargeter (Quarryhill): We'll send a pipeline summary to Freya by the end of the week, so she's got a single view. The settlement offers are one of those things that looks easy on a slide and isn't, for what it's worth.
+[00:24:43] Siobhan Quill: If I'm honest, the file quality has had less attention than it deserves over the last few weeks. On the file quality, the regress cases in the Nordics follow the same principle, just different paperwork. The thing about the file quality is that everyone agrees with it in principle and nobody wants to do the work.
+[00:25:05] Ed Pargeter (Quarryhill): Freya, does the litigation pipeline affect your area at all?
+[00:25:09] Freya Lindahl: Only at the edges. I'll flag it if that changes. The litigation pipeline is a good example of where a bit of early testing saves a lot of pain later.
+[00:25:21] Rob Tennant: Have we taken the costs position through the team leaders yet?
+[00:25:26] Siobhan Quill: Partly. We've done the UK team leaders; the Nordics are next.
+[00:25:30] Rob Tennant: Okay, cool.
+[00:25:32] Siobhan Quill: Instructions to Quarryhill go through CLRRC060, so the litigation record sits on the claim in CLARA. For the litigation pipeline, the third-party insurers will notice before our own people do.
+[00:25:44] Ingrid Ashby: Is there anything we can do to unblock the file quality?
+[00:25:49] Rob Tennant: Not today, thanks. If that changes, I'll shout. On the file quality, the sub-ro team need to know what's changed on day one, not find out from a rejected demand.
+[00:26:01] Ed Pargeter (Quarryhill): Happy to. We do the same with a couple of other clients and it works well.
+[00:26:08] Ingrid Ashby: Is anyone else's laptop doing the update thing every five minutes?
+[00:26:13] Freya Lindahl: Mine did it this morning in the middle of a call.
+[00:26:18] Ingrid Ashby: Brilliant. Okay.
+[00:26:20] Freya Lindahl: So, um, if anyone's got concerns about the costs position, I'd rather hear them now than in the corridor afterwards. I suppose the costs position is where we lose recoveries quietly, because nobody chases them. I'd like the next update on the settlement offers to come with evidence rather than a status colour. If the costs position is going to need more people, we should flag that early rather than late.
+[00:26:47] Ed Pargeter (Quarryhill): Rob, did you get a chance to look at the settlement offers?
+[00:26:51] Rob Tennant: I did, briefly. I've got a couple of comments, I'll send them over. Everything I've seen on the settlement offers says the approach is right; it's the pace I'd question.
+[00:27:03] Siobhan Quill: To be clear, nobody's saying the court timetable is broken. It's more that we haven't tested it the way we'd test anything else. If the court timetable is going to need more people, we should flag that early rather than late.
+[00:27:20] Freya Lindahl: Rob, what's your gut feel on the solicitor instructions?
+[00:27:23] Rob Tennant: Reasonably. I've seen worse at this stage. Right. If the solicitor instructions slips, it doesn't just slip on its own; it drags a couple of other things with it.
+[00:27:35] Siobhan Quill: Have we taken the panel arrangements through the team leaders yet?
+[00:27:40] Freya Lindahl: Not yet, but it's planned. On the panel arrangements, I'd like us to agree the principle and let the team sort out the detail.
+[00:27:49] Ed Pargeter (Quarryhill): Siobhan, can you give us a quick update on the panel arrangements?
+[00:27:54] Siobhan Quill: It's progressing. I'll have a fuller picture by the next meeting. The solicitors need a clean file on the panel arrangements, otherwise we pay them to tidy it up.
+[00:28:06] Ed Pargeter (Quarryhill): I'd just add, on the costs position, that the lessons learned from the last cycle are worth rereading. The court timetable is one of those areas where the old tracker and the new process overlap for a while. To be clear, nobody's saying the panel arrangements are broken. It's more that we haven't tested it the way we'd test anything else.
+[00:28:29] Siobhan Quill: Freya, are the solicitor instructions a resourcing question or a decision question?
+[00:28:35] Freya Lindahl: Probably both, if I'm honest. On the solicitor instructions, the risk isn't that it fails outright, it's that it half works and nobody notices.
+[00:28:44] Ingrid Ashby: Can we capture that as an action?
+[00:28:48] Siobhan Quill: The limitation dates are the thing on the court timetable; miss one and the money's gone. On the court timetable, the regress cases in the Nordics follow the same principle, just different paperwork.
+[00:29:01] Ingrid Ashby: Ed, what keeps you awake about the panel arrangements?
+[00:29:04] Ed Pargeter (Quarryhill): Honestly, people. The people who know it best are also the busiest. I keep coming back to the panel arrangements, because it's the area that's had the least scrutiny.
+[00:29:16] Ingrid Ashby: Where does the court timetable sit on the list of priorities right now?
+[00:29:22] Siobhan Quill: Top of the second tier, if that makes sense.
+[00:29:26] Ed Pargeter (Quarryhill): Freya, what's your gut feel on the solicitor instructions?
+[00:29:31] Freya Lindahl: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it. The solicitors need a clean file on the solicitor instructions, otherwise we pay them to tidy it up.
+[00:29:45] Ingrid Ashby: I'm not sure I'd go quite that far, Freya. The costs position is a good example of where a bit of early testing saves a lot of pain later.
+[00:30:00] Rob Tennant: From Claims Operations, the handlers don't touch SUBTRAK. They just flag sub-ro potential on the claim.
+[00:30:06] Siobhan Quill: SUBTRAK has done its job, but it's old, and it only talks to CLARA through the evening sync.
+[00:30:14] Rob Tennant: The bit of the data clean-up that worries me is the hand-off between teams. Mm. For the recovery reporting, salvage and sub-ro need to talk to each other more than they do.
+[00:30:26] Freya Lindahl: CLRRC040 does the synchronisation with SUBTRAK every evening, so the two are never more than a day apart. On that point, the recovery reporting is where we lose recoveries quietly, because [inaudible] chases them.
+[00:30:39] Siobhan Quill: Is the case migration in the pack, or is that coming separately?
+[00:30:45] Rob Tennant: It's in the appendix, towards the back.
+[00:30:48] Siobhan Quill: We touched on the case migration last time and I'm not sure the position has really moved since.
+[00:30:55] Freya Lindahl: Noted.
+[00:31:00] Ingrid Ashby: Let's talk about systems. Freya?
+[00:31:02] Siobhan Quill: I'd like the write-off decisions on the CLARA synchronisation documented properly, so audit can follow them.
+[00:31:09] Freya Lindahl: Rob, what's your gut feel on the recovery tracker?
+[00:31:13] Rob Tennant: Fairly comfortable. I'd flag it as watch rather than worry. On the recovery tracker, I'd like us to agree the principle and let the team sort out the detail.
+[00:31:25] Siobhan Quill: Do we need a decision on the data clean-up from this group, or is it just for awareness?
+[00:31:32] Freya Lindahl: Awareness for now. There may be a decision next time.
+[00:31:37] Rob Tennant: If we get the case migration right, a lot of the noise we've had recently goes away. We can talk about the case migration all day, but at some point someone has to make a call.
+[00:31:51] Freya Lindahl: Ed, is the move to the Hub a resourcing question or a decision question?
+[00:31:58] Ed Pargeter (Quarryhill): Resourcing. Nobody disagrees on what to do. Speaking for my area, I'd want the handlers flagging sub-ro potential on the move to the Hub at the point of settlement, not months later.
+[00:32:10] Siobhan Quill: The data in SUBTRAK needs cleaning before it can go anywhere. There are cases in there that should have been closed years ago.
+[00:32:20] Rob Tennant: I'll be honest, the CLARA synchronisation wasn't really on my radar until this week. I'd want the handlers flagging sub-ro potential on the case migration at the point of settlement, not months later. For the CLARA synchronisation, salvage and sub-ro need to talk to each other more than they do.
+[00:32:39] Siobhan Quill: Who else needs to be involved in the data clean-up?
+[00:32:43] Freya Lindahl: Someone from the business side, ideally a team leader who's lived with it. If the data clean-up isn't working, it shows up in the recovery numbers a quarter later, which is too late.
+[00:32:56] Rob Tennant: Have we taken the case migration through the team leaders yet?
+[00:33:00] Siobhan Quill: We've walked them through it, yes, and they had some useful challenge. We're probably overthinking the case migration, but I'd rather overthink it than underthink it.
+[00:33:11] Ingrid Ashby: Yeah, so on the recovery reporting, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room. The recovery reporting keeps getting squeezed by more urgent things. Picking up on that, the recovery tracker is one of those areas where the old tracker and the new process overlap for a while. I'd like the write-off decisions on the recovery reporting documented properly, so audit can follow them, if I'm honest.
+[00:33:41] Freya Lindahl: Have we taken the CLARA synchronisation through the team leaders yet?
+[00:33:46] Ed Pargeter (Quarryhill): Not yet, but it's planned. I'm keen we don't just tick a box on the CLARA synchronisation.
+[00:33:53] Rob Tennant: Have we taken the data clean-up through the team leaders yet?
+[00:33:58] Freya Lindahl: Partly. We've done the UK team leaders; the Nordics are next. To be fair, on the data clean-up, the sub-ro team need to know what's changed on day one, not find out from a rejected demand, as far as I can tell.
+[00:34:15] Siobhan Quill: Are people in the room able to hear the people on the line?
+[00:34:20] Ed Pargeter (Quarryhill): We can hear you fine.
+[00:34:23] Siobhan Quill: Good, thank you.
+[00:34:25] Ingrid Ashby: Let's keep moving, we've got a lot to get through.
+[00:34:29] Ingrid Ashby: Let's take that offline.
+[00:34:32] Freya Lindahl: From a customer point of view, SUBTRAK should be invisible, and that's the test I'd apply. I'd like to get off SUBTRAK in a planned way, not because it falls over. Can we make sure SUBTRAK is visible on the RAID log, so it doesn't fall between the cracks?
+[00:34:51] Rob Tennant: On the case migration, the sub-ro team need to know what's changed on day one, not find out from a rejected demand.
+[00:35:00] Ed Pargeter (Quarryhill): Freya, is there anything on the CLARA synchronisation you need from this group?
+[00:35:05] Freya Lindahl: Nothing specific. Keep asking about it, that's helpful in itself. The detail on the CLARA synchronisation is in [inaudible] appendix, so I won't walk through it line by line.
+[00:35:16] Rob Tennant: If we're going to change anything about the CLARA synchronisation, now's the time rather than later, as far as I can tell. I'd challenge us a bit on the CLARA synchronisation; I'm not sure we've tested the assumptions. On the CLARA synchronisation, the regress cases in the Nordics follow the same principle, just different paperwork.
+[00:35:37] Freya Lindahl: Siobhan, are you comfortable with the CLARA synchronisation as it stands?
+[00:35:42] Siobhan Quill: Short answer, yes. Long answer, it depends how the next few weeks go. On the CLARA synchronisation, the sub-ro team need to know what's changed on day one, not find out from a rejected demand.
+[00:35:55] Freya Lindahl: Ed, are you comfortable with the recovery reporting as it stands?
+[00:36:00] Ed Pargeter (Quarryhill): Gut feel, it's fine. Evidence, we'll have in a couple of weeks. On the recovery reporting, the sub-ro team need to know what's changed on day one, not find out from a rejected demand.
+[00:36:14] Freya Lindahl: Same here.
+[00:36:15] Rob Tennant: I'd want to see the recovery reporting working end to end before I'd put my name to it. So, we touched on the data clean-up last time and I'm not sure the position has really moved since. The recovery reporting is one of those areas where the old tracker and the new process overlap for a while. The limitation dates are the thing on the case migration; miss one and [inaudible] money's gone.
+[00:36:44] Freya Lindahl: Siobhan, what's your gut feel on the data clean-up?
+[00:36:48] Siobhan Quill: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it.
+[00:36:55] Freya Lindahl: I'd like the write-off decisions on the case migration documented properly, so audit can follow them. Honestly, the case migration is one of those areas where the old tracker and the new process overlap for a while. I keep coming back to SUBTRAK, because it's the area that's had the least scrutiny. I'd rather have an honest amber on the CLARA synchronisation than a green that turns red later.
+[00:37:21] Rob Tennant: Same here.
+[00:37:23] Siobhan Quill: Sorry, just so I'm clear: when you say SUBTRAK, do you mean the UK piece or the whole thing?
+[00:37:31] Freya Lindahl: Good challenge. I'll make sure the next version defines it properly.
+[00:37:37] Ed Pargeter (Quarryhill): Yeah, um, the data clean-up is a good example of where a bit of early testing saves a lot of pain later. Okay. For the data clean-up, the third-party insurers will notice before our own people do.
+[00:37:52] Rob Tennant: Ingrid, what keeps you awake about the move to the Hub?
+[00:37:56] Ingrid Ashby: Timing more than anything. It's not hard, it's just competing with everything else.
+[00:38:03] Siobhan Quill: Can I just [crosstalk]
+[00:38:05] Rob Tennant: Sorry, after you.
+[00:38:06] Siobhan Quill: Thanks. It was a small point.
+[00:38:10] Freya Lindahl: Rob, where are we on the data clean-up?
+[00:38:13] Rob Tennant: We're waiting on one input, and then it's fairly straightforward. We did a walk-through of the data clean-up with the team leaders and it generated some good questions.
+[00:38:25] Freya Lindahl: Right, okay.
+[00:38:26] Siobhan Quill: Sorry, can I just check what we mean by SUBTRAK? I think people are using it in different ways.
+[00:38:34] Rob Tennant: Fair point. I mean the whole thing, end to end. One thing on SUBTRAK: we should check we're not double-counting effort with the other workstream.
+[00:38:44] Siobhan Quill: Following on from Rob, if the recovery reporting isn't working, it shows up in the recovery numbers a quarter later, which is too late. Again, my instinct on the case migration is to wait [inaudible] little and see how things settle.
+[00:39:00] Rob Tennant: That chimes with what I'm hearing, and honestly, we need to be careful how we talk about the case migration outside this room until it's settled.
+[00:39:11] Siobhan Quill: For the CLARA synchronisation, the third-party insurers will notice before our own people do. If I can come in here, to be clear, nobody's saying the move to the Hub is broken. It's more that we haven't tested it the way we'd test anything else.
+[00:39:29] Rob Tennant: Is the CLARA synchronisation in the pack, or is that coming separately?
+[00:39:34] Freya Lindahl: Not in this pack, no. It'll come separately once it's been through the working group. I'd like the CLARA synchronisation closed down properly, not just quietly dropped.
+[00:39:45] Ed Pargeter (Quarryhill): I'd like the write-off decisions on the data clean-up documented properly, so audit can follow them. I'd frame the case migration as a risk rather than an issue at this stage. We need a bit more rigour around the case migration, particularly on the testing side.
+[00:40:05] Freya Lindahl: So, SUBTRAK. I'd like us to set a retirement target for SUBTRAK of 31 December 2026, and plan the case migration and clean-up backwards from that.
+[00:40:15] Ingrid Ashby: Agreed. Let's make that the target. 31 December 2026 for SUBTRAK.
+[00:40:20] Siobhan Quill: That gives us time to clean the data properly. I'm pleased.
+[00:40:25] Rob Tennant: What's the biggest risk on the CLARA synchronisation, in your view?
+[00:40:29] Ed Pargeter (Quarryhill): That we assume it's done because nobody's complaining. If I can come in here, on the CLARA synchronisation, Bristol and the Nordic teams have slightly different habits, and that's fine as long as the outcome's the same.
+[00:40:43] Siobhan Quill: If we're going to change anything about the, the data clean-up, now's the time rather than later. I'm reassured on the data clean-up, mostly because the team have been very open about the gaps.
+[00:40:57] Freya Lindahl: Are we expecting any pushback on the recovery reporting?
+[00:41:01] Rob Tennant: Not really. The team have been very open about the gaps, which helps. On the recovery reporting, Bristol and the Nordic teams have slightly different habits, and that's fine as long as the outcome's the same.
+[00:41:14] Freya Lindahl: I'll drop the link in the chat.
+[00:41:17] Siobhan Quill: Thanks.
+[00:41:19] Freya Lindahl: If the move to the Hub isn't working, it shows up in the recovery numbers a quarter later, which is too late, if I'm honest. The detail on the move to the Hub is in the appendix, so I won't walk through it line by line. I'm not going to pretend the recovery reporting is exciting, but it's exactly the sort of thing that bites you if you ignore it.
+[00:41:46] Rob Tennant: Speaking for my area, the short version on the recovery reporting is that it's in hand; the longer version is in the pack. For the recovery reporting, the third-party insurers will notice before our own people do. On the recovery reporting, the regress cases in the Nordics follow the same principle, just different paperwork.
+[00:42:07] Siobhan Quill: Freya, is SUBTRAK a resourcing question or a decision question?
+[00:42:11] Freya Lindahl: Resourcing. Nobody disagrees on what to do. We've done the thinking on SUBTRAK; now it's about execution.
+[00:42:18] Siobhan Quill: Rob, any concerns from your side on SUBTRAK?
+[00:42:22] Rob Tennant: A few, mostly about timing rather than substance. For SUBTRAK, salvage and sub-ro need to talk to each other more than they do.
+[00:42:32] Freya Lindahl: Is there a simpler version of the recovery reporting than what's on the slide?
+[00:42:38] Siobhan Quill: There probably is, and I'd be open to it. Mm. Part of the issue with the recovery reporting is that the documentation lags behind what people actually do.
+[00:42:49] Freya Lindahl: Yeah, go on.
+[00:42:51] Siobhan Quill: Do we need a decision on the recovery reporting from this group, or is it just for awareness?
+[00:42:59] Rob Tennant: Noting only. If it needs a decision, it'll come back with a paper. I'd be interested in how other teams have handled the recovery reporting, because we can't be the first to hit it, I'd say.
+[00:43:13] Siobhan Quill: Yeah. We probably need to separate the facts on the recovery reporting from the folklore. Picking up on that, the limitation dates are the thing on the recovery reporting; miss one and the money's gone. I don't think the recovery tracker is controversial, it's just fiddly.
+[00:43:31] Ingrid Ashby: Let's not solve it here. Can we set up a separate session?
+[00:43:36] Siobhan Quill: Freya, what keeps you awake about the CLARA synchronisation?
+[00:43:40] Freya Lindahl: Honestly, people. The people who know it best are also the busiest. The solicitors need a clean file on the CLARA synchronisation, otherwise we pay them to tidy it up.
+[00:44:00] Ingrid Ashby: Rob, from Claims Operations?
+[00:44:02] Rob Tennant: Thanks. Two things. The sub-ro flag at settlement, which we've talked about. And just to mention that Monday's re-org wasn't entirely smooth elsewhere; the SIU queue permissions dropped after SIU moved to Risk, and that was fixed the same day. Nothing to do with recoveries, but it's a reminder to check access.
+[00:44:21] Siobhan Quill: The handler training is one of those areas where the old tracker and the new process overlap for a while.
+[00:44:30] Freya Lindahl: Sure. The conversation on the handler training has been constructive, which wasn't always the case. So, I'd like the write-off decisions on the settlement hand-off documented properly, so audit can follow them.
+[00:44:43] Ingrid Ashby: Thanks.
+[00:44:44] Freya Lindahl: Do we need a decision on the settlement hand-off from this group, or is it just for awareness?
+[00:44:52] Ed Pargeter (Quarryhill): Noting only. If it needs a decision, it'll come back with a paper.
+[00:44:57] Freya Lindahl: If the handlers flag it at settlement, the recovery team can pick it up while the evidence is fresh.
+[00:45:05] Ingrid Ashby: I think the main thing on the handler training is that we don't let it drift without someone looking at it properly. On the handler training, the regress cases in the Nordics follow the same principle, just different paperwork. In fairness, if the handler training is going to need more people, we should flag that early rather than late.
+[00:45:28] Rob Tennant: Freya, where are we on the settlement hand-off?
+[00:45:32] Freya Lindahl: We're waiting on one input, and then it's fairly straightforward.
+[00:45:37] Rob Tennant: In fairness, we probably need to separate the facts on the handler training from the folklore.
+[00:45:44] Siobhan Quill: Sorry, just so I'm clear: when you say the Nordic regress cases, do you mean the UK piece or the whole thing?
+[00:45:53] Ingrid Ashby: You're right, we're using it loosely. Let me tighten up the wording. On the Nordic regress cases, the teams have been brilliant, frankly, given everything else going on.
+[00:46:04] Ingrid Ashby: Can we capture that as an action?
+[00:46:08] Rob Tennant: One thing on the salvage hand-off: we should check we're not double-counting effort with the other workstream. I think the salvage hand-off is a good-news story, actually, and we don't say that often enough. The thing about the sub-ro flag is that everyone agrees with it in principle and nobody wants to do the work. The best time to spot sub-ro is at settlement, when the handler knows exactly what we've paid and why.
+[00:46:35] Siobhan Quill: The sub-ro flag is one of those things that looks easy on a slide and isn't. We're not starting from scratch on the sub-ro flag; a lot of the groundwork is already there. My instinct on the sub-ro flag is to wait a little and see how things settle. If there's one thing I'd take away on the Nordic regress cases, it's that we need to keep it visible.
+[00:47:02] Ingrid Ashby: The limitation dates are the thing on the Nordic regress cases; miss one and the money's gone. Picking up on that, for what it's worth, the people closest to the Nordic regress cases are fairly confident. The settlement hand-off is one of those areas where the old tracker and the new process overlap for a while.
+[00:47:24] Freya Lindahl: Okay, thank you.
+[00:47:26] Siobhan Quill: The bit of the sub-ro flag that worries me is the hand-off between teams. The limitation dates are the thing on the sub-ro flag; miss one and the money's gone. I'd split the sub-ro flag into what we have to do now and what can wait.
+[00:47:44] Freya Lindahl: It might be worth a separate session on the referral from claims, because we won't do it justice in a few minutes here. I'm happy with the referral from claims as long as we're clear about what's in and what's out. I suspect the referral from claims will come back to this group at some point, so let's not close it off.
+[00:48:08] Rob Tennant: If I'm honest, the sub-ro flag has had less attention than it deserves over the last few weeks. I'd like the write-off decisions on the sub-ro flag documented properly, so audit can follow them. We'll add a reminder to the settlement checklist for the handlers. It costs nothing.
+[00:48:26] Ingrid Ashby: And salvage and sub-ro need to talk. Sometimes we recover twice from the same incident and nobody joins the dots.
+[00:48:34] Siobhan Quill: The solicitors need a clean file on the sub-ro flag, otherwise we pay them to tidy it up. Can we make sure the sub-ro flag is visible on the RAID log, so it doesn't fall between the cracks?
+[00:48:49] Freya Lindahl: Sorry, just so I'm clear: when you say the handler training, do you mean the UK piece or the whole thing?
+[00:48:58] Rob Tennant: Good challenge. I'll make sure the next version defines it properly. I'd want the handlers flagging sub-ro potential on the handler training at the point of settlement, not months later.
+[00:49:10] Ingrid Ashby: Sorry, can I just check what we mean by the sub-ro flag? I think people are using it in different ways.
+[00:49:18] Freya Lindahl: Fair point. I mean the whole thing, end to end. The people side of the sub-ro flag is going to be harder than the system side.
+[00:49:28] Ed Pargeter (Quarryhill): If I'm honest, the referral from claims have had less attention than it deserves over the last few weeks. Mm. What would really help on the referral from claims is a single view that everyone works from. The quality of the conversation on the referral from claims has improved a lot. To be fair, on the handler training, Bristol and the Nordic teams have slightly different habits, and that's fine as long as the outcome's the same.
+[00:49:58] Ingrid Ashby: We should acknowledge the work that's gone into the Nordic regress cases, because it's been a slog. I suppose part of the issue with the Nordic regress cases is that the documentation lags behind what people actually do.
+[00:50:12] Freya Lindahl: Do we need a decision on the referral from claims from this group, or is it just for awareness?
+[00:50:20] Rob Tennant: For noting, I think. Nothing we need to decide today. The referral from claims keep getting squeezed by more urgent things.
+[00:50:28] Freya Lindahl: I was going to say [crosstalk]
+[00:50:31] Ed Pargeter (Quarryhill): Sorry, go ahead.
+[00:50:33] Freya Lindahl: No, you go.
+[00:50:35] Ed Pargeter (Quarryhill): I was only going to say I agree.
+[00:50:38] Freya Lindahl: Rob, is there anything on the salvage hand-off you need from this group?
+[00:50:44] Rob Tennant: Probably a bit of time from the business side, but I'll ask offline. I wouldn't want the salvage hand-off to become the reason we lose momentum elsewhere.
+[00:50:55] Freya Lindahl: Lovely, thanks.
+[00:50:57] Ingrid Ashby: I think we underestimated the handler training at the start, and that's fine as long as we learn from it. The handler training is where we lose recoveries quietly, because nobody chases them.
+[00:51:10] Rob Tennant: Sure. On the referral from claims, there's been a lot of activity but not a lot of change, if you see what I mean. For the sub-ro flag, the third-party insurers will notice before our own people do. If the referral from claims need more time, I'd rather we said so now.
+[00:51:30] Freya Lindahl: Picking up Rob's point, there are two schools of thought on the salvage hand-off, and both have some merit.
+[00:51:38] Rob Tennant: Can we make sure the salvage hand-off is visible on the RAID log, so it doesn't fall between the cracks?
+[00:51:46] Ingrid Ashby: Got it, thanks.
+[00:51:48] Rob Tennant: We did a walk-through of the salvage hand-off with the team leaders and it generated some good questions. The solicitors need a clean file on the salvage hand-off, otherwise we pay them to tidy it up, in my view.
+[00:52:03] Freya Lindahl: I'm with Rob on that. From where I sit, the referral from claims are the thing most likely to catch us out, simply because it touches so many teams.
+[00:52:15] Ingrid Ashby: For the settlement hand-off, the third-party insurers will notice before our own people do. What would really help on the settlement hand-off is a single view that everyone works from. The detail on [inaudible] settlement hand-off is in the appendix, so I won't walk through it line by line.
+[00:52:34] Freya Lindahl: Rob, can you give us a quick update on the sub-ro flag?
+[00:52:39] Rob Tennant: It's with the working group at the moment; I'll chase and come back. The sub-ro flag is one of those areas where the old tracker and the new process overlap for a while.
+[00:52:52] Siobhan Quill: Ingrid, where are we on the settlement hand-off?
+[00:52:56] Ingrid Ashby: Steady. No drama, which is what you want. Honestly, the settlement hand-off is where we lose recoveries quietly, because nobody chases them.
+[00:53:06] Rob Tennant: The sub-ro flag is where we lose recoveries quietly, because nobody chases them. For the sub-ro flag, salvage and sub-ro need to talk to each other more than they do, I think. For the referral from claims, salvage and sub-ro need to talk to each other more than they do, if that makes sense.
+[00:53:26] Freya Lindahl: From my side, on the Nordic regress cases, Bristol and the Nordic teams have slightly different habits, and that's fine as long as the outcome's the same, broadly. If I can come in here, the Nordic regress cases are one of those areas where the old tracker and the new process overlap for a while. There's a dependency on the Nordic regress cases that I don't think everyone's aware of, so it's worth calling out.
+[00:53:55] Rob Tennant: I'm with Freya on that. Yeah, so what's changed on the settlement hand-off since the last update is mainly the level of detail, not the direction.
+[00:54:06] Freya Lindahl: Have we taken the Nordic regress cases through the team leaders yet?
+[00:54:11] Ingrid Ashby: We've walked them through it, yes, and they had some useful challenge. Yeah, so on the Nordic regress cases, the regress cases in the Nordics follow the same principle, just different paperwork.
+[00:54:23] Freya Lindahl: Yes.
+[00:54:24] Ingrid Ashby: Is the sub-ro flag something we need to decide today, or is it for noting?
+[00:54:30] Rob Tennant: Awareness for now. There may be a decision next time. It's the knock-on effect of the sub-ro flag that I'm most interested in.
+[00:54:40] Freya Lindahl: Yeah, and to add to that, I'd rather have an honest amber on the sub-ro flag than a green that turns red later. Just quickly, the people side of the settlement hand-off is going to be harder than the system side, for what it's worth.
+[00:54:57] Ingrid Ashby: Well, if the salvage hand-off slips, it doesn't just slip on its own; it drags a couple of other things with it, to be honest. If we're going to change anything about the Nordic regress cases, now's the time rather than later. Can I suggest we park the salvage hand-off for now and pick it up under any other business?
+[00:55:21] Rob Tennant: That works.
+[00:55:30] Ingrid Ashby: Let me recap. Freya owns the process from 1 September. Siobhan leads the UK recoveries team. The SUBTRAK retirement target is 31 December 2026. Ed will send Freya the litigation pipeline. Rob will add the sub-ro prompt to the settlement checklist.
+[00:55:45] Freya Lindahl: Thanks, everyone.
+[00:55:46] Ed Pargeter (Quarryhill): Thanks, all. Speak soon, Freya.
+[00:55:49] Ingrid Ashby: Thanks, everyone.
+[00:55:50] Recording stopped.
+
+-------------------------------------- END OF TRANSCRIPT -----------------------------------
+Recording length 01:00:00. Transcript reviewed by Freya Lindahl. Corvane Mutual - Internal.

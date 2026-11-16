@@ -1,0 +1,399 @@
+# Corvane Mutual – Kafka Topics (GitOps)
+# Document SKR-INT-TOP-046 version 1.0 (approved), 2026-09-30
+# Owner: Henrik Vestergaard, Integration Platform Lead
+# Classification: Internal – Programme Skerry
+# Change history:
+#   0.1  2026-06-17  Henrik Vestergaard: Initial draft for review
+#   0.2  2026-07-17  Henrik Vestergaard: Added missing entries
+#   0.3  2026-08-12  Henrik Vestergaard: Formatting and typo fixes
+#   1.0  2026-09-30  Henrik Vestergaard: Approved
+# GitOps source for KafkaTopic resources on cluster esp-prd (Strimzi). Applied by Argo CD.
+# Topic changes need an Integration Platform change and consumer sign-off.
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: assessment.completed.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-intake-triage
+  annotations:
+    corvane.example/producer: assessment-svc
+    corvane.example/consumers: settlement-svc
+    corvane.example/schema-subject: assessment.completed.v1-value
+spec:
+  topicName: assessment.completed.v1
+  partitions: 3
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 604800000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: claim.created.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-intake-triage
+    corvane.example/interface: CLX-IF-056
+  annotations:
+    corvane.example/producer: claim-core-svc
+    corvane.example/consumers: Claims Data Warehouse
+    corvane.example/schema-subject: claim.created.v1-value
+spec:
+  topicName: claim.created.v1
+  partitions: 6
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 2592000000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: claim.updated.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-intake-triage
+    corvane.example/interface: CLX-IF-056
+  annotations:
+    corvane.example/producer: claim-core-svc
+    corvane.example/consumers: Claims Data Warehouse
+    corvane.example/schema-subject: claim.updated.v1-value
+spec:
+  topicName: claim.updated.v1
+  partitions: 6
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 2592000000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: claims.reserve.movement.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: integration-platform
+    corvane.example/interface: CLX-IF-049
+  annotations:
+    corvane.example/producer: MQ-to-Kafka bridge (CLX-IF-049)
+    corvane.example/consumers: reserve-engine
+    corvane.example/message-key: claim_id
+    corvane.example/schema-version: '3'
+    corvane.example/schema-subject: claims.reserve.movement.v1-value
+    corvane.example/change-ticket: CHUB-188
+    corvane.example/introduced: '2025-12-12'
+    corvane.example/note: Bridge topic (ADR-012); partition count and retention are not overridden in this file.
+spec:
+  topicName: claims.reserve.movement.v1
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: document.stored.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-intake-triage
+  annotations:
+    corvane.example/producer: document-svc
+    corvane.example/consumers: claim-core-svc
+    corvane.example/schema-subject: document.stored.v1-value
+spec:
+  topicName: document.stored.v1
+  partitions: 3
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 604800000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: eig.evidence.received.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-intake-triage
+  annotations:
+    corvane.example/producer: Evidence Intake Gateway
+    corvane.example/consumers: fnol-intake-svc, document-svc
+    corvane.example/schema-subject: eig.evidence.received.v1-value
+spec:
+  topicName: eig.evidence.received.v1
+  partitions: 6
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 604800000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: eig.telematics.alert.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-intake-triage
+    corvane.example/interface: CLX-IF-057
+  annotations:
+    corvane.example/producer: Evidence Intake Gateway
+    corvane.example/consumers: fnol-intake-svc
+    corvane.example/schema-subject: eig.telematics.alert.v1-value
+spec:
+  topicName: eig.telematics.alert.v1
+  partitions: 3
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 259200000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: fnol.received.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-intake-triage
+    corvane.example/interface: CLX-IF-034
+  annotations:
+    corvane.example/producer: fnol-intake-svc
+    corvane.example/consumers: triage-svc, claim-core-svc, notification-svc
+    corvane.example/schema-subject: fnol.received.v1-value
+spec:
+  topicName: fnol.received.v1
+  partitions: 6
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 604800000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: fraud.referral.created.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-fraud-settlement
+  annotations:
+    corvane.example/producer: fraud-referral-svc
+    corvane.example/consumers: reporting-feed-svc
+    corvane.example/schema-subject: fraud.referral.created.v1-value
+spec:
+  topicName: fraud.referral.created.v1
+  partitions: 3
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 2592000000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: fraud.referral.notice-due.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-fraud-settlement
+  annotations:
+    corvane.example/producer: fraud-referral-svc
+    corvane.example/consumers: notification-svc
+    corvane.example/schema-subject: fraud.referral.notice-due.v1-value
+spec:
+  topicName: fraud.referral.notice-due.v1
+  partitions: 3
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 2592000000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: fraud.score.received.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-intake-triage
+  annotations:
+    corvane.example/producer: triage-svc
+    corvane.example/consumers: fraud-referral-svc
+    corvane.example/schema-subject: fraud.score.received.v1-value
+spec:
+  topicName: fraud.score.received.v1
+  partitions: 6
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 604800000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: notification.sent.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-intake-triage
+  annotations:
+    corvane.example/producer: notification-svc
+    corvane.example/consumers: claim-core-svc
+    corvane.example/schema-subject: notification.sent.v1-value
+spec:
+  topicName: notification.sent.v1
+  partitions: 3
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 604800000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: payment.confirmed.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+  annotations:
+    corvane.example/producer: Corvane Payments Gateway adapter
+    corvane.example/consumers: payment-orchestrator, gl-posting-svc
+    corvane.example/schema-subject: payment.confirmed.v1-value
+spec:
+  topicName: payment.confirmed.v1
+  partitions: 3
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 604800000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: payment.requested.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-fraud-settlement
+  annotations:
+    corvane.example/producer: payment-orchestrator
+    corvane.example/consumers: Corvane Payments Gateway adapter
+    corvane.example/schema-subject: payment.requested.v1-value
+spec:
+  topicName: payment.requested.v1
+  partitions: 3
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 604800000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: recovery.receipt.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-fraud-settlement
+  annotations:
+    corvane.example/producer: recovery-svc
+    corvane.example/consumers: gl-posting-svc
+    corvane.example/schema-subject: recovery.receipt.v1-value
+spec:
+  topicName: recovery.receipt.v1
+  partitions: 3
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 2592000000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: reserve.changed.v2
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-reserve-finance
+    corvane.example/interface: CLX-IF-045
+  annotations:
+    corvane.example/producer: reserve-engine
+    corvane.example/consumers: gl-posting-svc, reporting-feed-svc
+    corvane.example/schema-subject: reserve.changed.v2-value
+    corvane.example/change-ticket: CHUB-233
+    corvane.example/introduced: '2026-02-10'
+spec:
+  topicName: reserve.changed.v2
+  partitions: 12
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 2592000000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: settlement.agreed.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-fraud-settlement
+  annotations:
+    corvane.example/producer: settlement-svc
+    corvane.example/consumers: payment-orchestrator, recovery-svc
+    corvane.example/schema-subject: settlement.agreed.v1-value
+spec:
+  topicName: settlement.agreed.v1
+  partitions: 3
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 604800000
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: triage.completed.v1
+  namespace: esp
+  labels:
+    strimzi.io/cluster: esp-prd
+    corvane.example/owner-team: hub-squad-intake-triage
+  annotations:
+    corvane.example/producer: triage-svc
+    corvane.example/consumers: reserve-engine, fraud-referral-svc, assessment-svc
+    corvane.example/schema-subject: triage.completed.v1-value
+spec:
+  topicName: triage.completed.v1
+  partitions: 6
+  replicas: 3
+  config:
+    cleanup.policy: delete
+    min.insync.replicas: 2
+    retention.ms: 604800000

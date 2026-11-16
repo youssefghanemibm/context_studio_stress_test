@@ -1,0 +1,85 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+IVR AND AGENT SCRIPT - MOTOR CLAIMS UK (NEW CLAIMS LINE)
+========================================================================================
+Document reference : CC-SCR-MOT-UK-003
+Version            : 3.2
+Date               : 6 July 2026
+Owner              : Ewan Strachan, Contact Centre Manager
+Approved by        : Rob Tennant, Head of Claims Operations (Group)
+Classification     : Internal
+Applies to      : Glasgow Contact Centre, motor claims queue (Harbour CRM)
+
+Version history
+  3.0    2025-11-03  E. Strachan          Digital hand-off to MyCorvane Claims added
+  3.1    2026-04-01  E. Strachan          Guidance on 'additional checks' letters cross-referenced
+  3.2    2026-07-06  E. Strachan          Acknowledgement wording updated (BR-FNOL-001 v3)
+========================================================================================
+
+1. IVR PROMPTS
+
+  [IVR-01] Welcome
+      "Thank you for calling Corvane Mutual claims. Calls may be recorded for training and quality purposes."
+  [IVR-02] Emergency
+      "If anyone is in immediate danger, please hang up and call the emergency services."
+  [IVR-03] Main menu
+      "To report a new motor claim, press 1. For an existing claim, press 2. For windscreen damage only, press 3. For anything else, please hold."
+  [IVR-04] Digital offer
+      "Did you know you can report a claim at any time using MyCorvane Claims? To receive a link by email, press 9."
+  [IVR-05] Queue
+      "Thank you for waiting. One of our claims team will be with you shortly."
+  [IVR-06] Windscreen
+      "For windscreen damage, we will pass your details to our approved windscreen partner, who will contact you to arrange a repair or replacement."
+  [IVR-07] Out of hours
+      "Our phone lines are closed. You can report your claim now using MyCorvane Claims, or call back when we are open."
+
+2. AGENT SCRIPT - NEW MOTOR CLAIM
+
+  2.1 Opening
+      - "Good morning / afternoon, you're through to Corvane Mutual claims, my name is ... How can I help?"
+      - Confirm the caller is the policyholder or an authorised person before discussing the policy.
+
+  2.2 Identify the policy
+      - Search Harbour CRM by policy number, registration or postcode.
+      - If the policy cannot be found, take the caller's details and tell them a handler will call back.
+
+  2.3 What happened
+      - Ask the caller to describe the incident in their own words. Do not lead.
+      - Record date, time and location of the incident, and where the vehicle is now.
+      - Ask whether the police attended and record any reference number.
+
+  2.4 Injuries
+      - Ask: "Was anyone hurt, even slightly?"
+      - If anyone was injured, record it on the claim. Any bodily injury makes the claim Tier-3, so make sure the injury details are complete; do not promise timescales on the call.
+
+  2.5 Other parties
+      - Record the other driver's details, vehicle and insurer if known.
+      - If the caller does not have them, reassure them that the handler will follow up.
+
+  2.6 Repairs
+      - Offer repair through the approved repair network (Thistlecombe Repair Network) and explain the benefits.
+      - If the customer prefers their own repairer, note it; the handler will confirm what is covered.
+
+  2.7 Evidence
+      - Offer to send a secure upload link by email for photos.
+      - Customers using MyCorvane Claims can upload photos there instead.
+
+  2.8 Closing
+      - Give the claim reference and read it back.
+      - Telephone claims are acknowledged in writing within 2 business days; claims made through MyCorvane Claims or the app are acknowledged within 1 business day.
+      - "Is there anything else I can help you with today?"
+
+3. THINGS NOT TO SAY
+  - Never mention fraud scoring, Sentinel or SIU to a customer.
+  - Never tell a customer whether their claim will be paid; the handler decides once the facts are known.
+  - Never give a repair cost estimate on the call.
+  - Never ask for bank details on the new claims line; payment details are collected by the handler.
+
+4. CALL WRAP CODES (HARBOUR CRM)
+  NEWCLM-MOT  New motor claim registered
+  NEWCLM-WSC  Windscreen only, passed to partner
+  INFO-ONLY   Caller wanted information, no claim
+  CALLBK      Callback requested
+  TRANSFER    Transferred to existing-claims queue
+
+----------------------------------------------------------------------------------------
+End of document. Owner: Ewan Strachan. Printed copies are uncontrolled.

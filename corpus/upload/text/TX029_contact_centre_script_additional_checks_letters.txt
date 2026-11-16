@@ -1,0 +1,38 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+AGENT GUIDANCE - CUSTOMER CALLS ABOUT 'ADDITIONAL CHECKS' LETTERS
+========================================================================================
+Document reference : CC-SCR-GEN-021
+Version            : 1.0
+Date               : 1 April 2026
+Owner              : Ewan Strachan, Contact Centre Manager
+Approved by        : Ruth Okafor, Compliance Manager – Conduct & Counter-Fraud
+Classification     : Internal
+Background      : NISA Circular 2026/04 (Fair Treatment in Fraud Referral), effective 1 April 2026
+
+Version history
+  0.9    2026-03-20  E. Strachan          Draft for Compliance review
+  1.0    2026-04-01  E. Strachan          Issued for go-live of the new letters
+========================================================================================
+
+WHY CUSTOMERS ARE CALLING
+  From 1 April 2026 we write to customers within 10 business days when their claim is selected for additional checks.
+  Some customers will be worried by the letter. Your job is to reassure them, not to explain the checks.
+
+WHAT TO SAY
+  - "Thank you for calling. I can see the letter you've received. These checks are a normal part of how we handle some claims."
+  - "It doesn't mean we've made any decision about your claim."
+  - "Your handler will contact you if they need anything else from you."
+  - If asked: "No decision on a claim is ever made on an automated check alone. A person always reviews it."
+
+WHAT NOT TO SAY
+  - Do not use the words 'fraud', 'investigation' or 'SIU'.
+  - Do not mention scores or how claims are selected.
+  - Do not give a date for the outcome of the checks.
+  - Do not transfer the call to the SIU team.
+
+RECORDING THE CALL
+  Log the call in Harbour CRM with wrap code ADDCHK-QUERY and add a short note for the handler.
+  If the customer wants to complain, log a complaint in the usual way and tell your team leader.
+
+----------------------------------------------------------------------------------------
+End of document. Owner: Ewan Strachan. Printed copies are uncontrolled.

@@ -1,0 +1,86 @@
+Corvane Mutual mail archive – conversation export
+Conversation: Large loss notification – ReCede
+Messages: 3
+
+========================================================================
+Message 1 of 3
+From:     Per Øverland <per.overland@corvane-mutual.example>
+Sent:     Mon, 3 Aug 2026 15:10:47 +0200
+To:       Kirsty Mowbray <kirsty.mowbray@corvane-mutual.example>; Lena Kristiansen <lena.kristiansen@corvane-mutual.example>
+Cc:       Reinsurance team <reinsurance@corvane-mutual.example>
+Subject:  Large loss notification – ReCede
+------------------------------------------------------------------------
+
+Kirsty, Lena,
+
+The reserve on claim CLM-UK-2026-207731 moved by £310,000 today. As the
+movement exceeds the LLNT (£250,000), I notified ReCede within 24 hours –
+the notification went a few hours after the movement was booked.
+
+Kirsty – please keep me posted on further movements on this file so I can
+update the bordereaux.
+
+Thanks,
+Per
+
+Per Øverland
+Reinsurance Manager
+Corvane Mutual
+Fjordporten 4, 0150 Oslo
+Tel: +47 555 01 038
+per.overland@corvane-mutual.example
+
+Denne e-posten kan inneholde konfidensiell informasjon. / This e-mail may
+contain confidential information. If you are not the intended recipient
+please notify the sender and delete it. Corvane Mutual Insurance Society
+Limited (branch office), supervised by NISA (NISA-FRN 40417).
+
+========================================================================
+Message 2 of 3
+From:     Kirsty Mowbray <kirsty.mowbray@corvane-mutual.example>
+Sent:     Mon, 3 Aug 2026 16:00:08 +0100
+To:       Per Øverland <per.overland@corvane-mutual.example>
+Cc:       Lena Kristiansen <lena.kristiansen@corvane-mutual.example>
+Subject:  RE: Large loss notification – ReCede
+------------------------------------------------------------------------
+
+Per,
+
+Will do. The file sits with my team; I will flag any further change to you
+the same day.
+
+Kirsty
+
+Kirsty Mowbray
+Major & Complex Loss Manager
+
+CONFIDENTIALITY: The information in this message is private to Corvane
+Mutual and the intended recipient(s). If you are not an intended
+recipient, please tell the sender and delete the message; do not copy or
+forward it. Corvane Mutual Insurance Society Limited, Corvane House, 14
+Tallowgate, London EC3N 9ZZ. Supervised by NISA (NISA-FRN 40417).
+
+========================================================================
+Message 3 of 3
+From:     Lena Kristiansen <lena.kristiansen@corvane-mutual.example>
+Sent:     Mon, 3 Aug 2026 16:26:57 +0100
+To:       Per Øverland <per.overland@corvane-mutual.example>
+Cc:       Kirsty Mowbray <kirsty.mowbray@corvane-mutual.example>
+Subject:  RE: Large loss notification – ReCede
+------------------------------------------------------------------------
+
+Thanks Per – noted for the Reserving Committee large-loss summary.
+
+Lena
+
+--
+Lena Kristiansen
+Head of Reserving
+
+Corvane Mutual Insurance Society Limited | Corvane House, 14 Tallowgate,
+London EC3N 9ZZ | NISA-FRN 40417. This message may contain confidential
+information. If it reached you by mistake, please let the sender know and
+remove it from your system.
+
+========================================================================
+End of conversation

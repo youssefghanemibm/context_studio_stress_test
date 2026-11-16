@@ -1,0 +1,3874 @@
+- fact_id: VS015-F001
+  world_ref: SYSTEM:SYS03#renames
+  kind: alias_use
+  statement: FRAUDNET is renamed Sentinel on 1 March 2025 (title slide).
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 1
+    where: text
+  needle: FRAUDNET becomes Sentinel on 1 March 2025
+  exclusive: false
+  also_in: []
+  placement: PL-107
+  placement_key: vs15_rename
+- fact_id: VS015-F002
+  world_ref: TICKET:CHUB-117
+  kind: general
+  statement: The rename is tracked under change ticket CHUB-117.
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 1
+    where: text
+  needle: 'Change reference: CHUB-117'
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F003
+  world_ref: SYSTEM:SYS03#tech
+  kind: general
+  statement: Sentinel (formerly FRAUDNET) scores claims on a 0–100 scale.
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: same engine, same model, same 0–100 score
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F004
+  world_ref: VENDOR:VEN-15#role
+  kind: general
+  statement: The scoring engine is licensed from Kestwick Analytics Ltd.
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: licensed from Kestwick Analytics Ltd
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F005
+  world_ref: SYSTEM:SYS03#description
+  kind: visual_only
+  statement: 'IT support: the Sentinel endpoint name is sentinel.corvane.internal.'
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: group
+    shape_name: grp-audience-3
+  needle: Endpoint name becomes sentinel.corvane.internal
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F006
+  world_ref: DECISION:DEC-002
+  kind: speaker_notes
+  statement: 'Speaker notes: the old DNS alias fraudnet.corvane.internal stays until 31 March 2025.'
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: notes
+  needle: the old DNS alias fraudnet.corvane.internal stays until 31 March 2025
+  exclusive: false
+  also_in: []
+  placement: PL-108
+  placement_key: vs15_dns
+- fact_id: VS015-F007
+  world_ref: INTERFACE:CLX-IF-008
+  kind: arrow_only
+  statement: Connector CLRFR020 → Sentinel labelled 'CLX-IF-008 online scoring (REST)'.
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: 'CLRFR020 -> Sentinel [label: CLX-IF-008 online scoring (REST)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F008
+  world_ref: INTERFACE:CLX-IF-009
+  kind: arrow_only
+  statement: Connector CLRFR110 → Sentinel labelled 'CLX-IF-009 nightly batch request'.
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: 'CLRFR110 -> Sentinel [label: CLX-IF-009 nightly batch request]'
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F009
+  world_ref: INTERFACE:CLX-IF-010
+  kind: arrow_only
+  statement: Connector Sentinel → CLRFR110 labelled 'CLX-IF-010 batch score return'.
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: 'Sentinel -> CLRFR110 [label: CLX-IF-010 batch score return]'
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F010
+  world_ref: INTERFACE:CLX-IF-011
+  kind: arrow_only
+  statement: Connector CLRFR030 → SIU Case Manager labelled 'CLX-IF-011 SIU referrals'.
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: 'CLRFR030 -> SIU Case Manager [label: CLX-IF-011 SIU referrals]'
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F011
+  world_ref: SYSTEM:SYS03#aliases
+  kind: alias_use
+  statement: SNT is the short form of Sentinel; 'the fraud engine' remains an informal alias.
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: table
+  needle: Short form FRAUDNET SNT
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F012
+  world_ref: SYSTEM:SYS03#aliases
+  kind: alias_use
+  statement: The score label changes from 'FRAUDNET score' to 'Sentinel score'.
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: table
+  needle: Score label FRAUDNET score Sentinel score
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F013
+  world_ref: SYSTEM:SYS03#renames
+  kind: image_text
+  statement: 'Timeline image: CHUB-117 raised 4 Feb 2025; Sentinel name live 1 Mar 2025.'
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: image
+    ocr: true
+  needle: Sentinel name live
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F014
+  world_ref: TICKET:CHUB-117#created
+  kind: image_text
+  statement: 'Timeline image: CHUB-117 raised on 4 Feb 2025.'
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: image
+    ocr: true
+  needle: CHUB-117 raised
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F015
+  world_ref: null
+  kind: alt_text
+  statement: Alt text describes the rename timeline image.
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: alt_text
+  needle: Timeline of the FRAUDNET to Sentinel rename
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F016
+  world_ref: RULE:BR-FRD-012@v2#parameters.threshold
+  kind: general
+  statement: Before the 2026 change, the referral threshold was a FRAUDNET/Sentinel score of 70 or more (BR-FRD-012 v2).
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: text
+  needle: stays at a score of 70 or more (BR-FRD-012 v2)
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F017
+  world_ref: RULE:BR-TRI-007@v1
+  kind: general
+  statement: Every new claim is scored within 15 minutes of FNOL (BR-TRI-007).
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: text
+  needle: scored within 15 minutes of FNOL (BR-TRI-007)
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F018
+  world_ref: PERSON:P027#titles
+  kind: general
+  statement: Oskar Lindgren is a Senior Fraud Analyst (contact for the Sentinel rename).
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: Oskar Lindgren Senior Fraud Analyst
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F019
+  world_ref: INTERFACE:CLX-IF-009#schedule
+  kind: general
+  statement: CLX-IF-009 (nightly Sentinel batch scoring request) runs daily 00:15.
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: table
+  needle: CLX-IF-009 Nightly Sentinel batch scoring request SFTP daily 00:15
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F020
+  world_ref: INTERFACE:CLX-IF-010#schedule
+  kind: general
+  statement: CLX-IF-010 (nightly Sentinel batch score return) runs daily 00:55.
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: table
+  needle: daily 00:55
+  exclusive: false
+  also_in: []
+- fact_id: VS015-F021
+  world_ref: INTERFACE:CLX-IF-008#owner
+  kind: speaker_notes
+  statement: 'Speaker notes: CLX-IF-008 is owned by Oskar Lindgren.'
+  file: corpus/upload/visuals/VS015_sentinel_rename_comms.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: notes
+  needle: Owner of CLX-IF-008 is Oskar Lindgren
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F001
+  world_ref: SERVICE:reserve-engine#renames
+  kind: alias_use
+  statement: reserve-svc is renamed reserve-engine on 2026-02-10 (ADR-019).
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: text
+  needle: reserve-svc is renamed reserve-engine on 2026-02-10 (ADR-019)
+  exclusive: false
+  also_in: []
+  placement: PL-109
+  placement_key: vs16_rename
+- fact_id: VS016-F002
+  world_ref: SERVICE:reserve-engine#path_history
+  kind: general
+  statement: After the rename the repository path is services/reserve-engine (was services/reserve-svc).
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: table
+  needle: Repository path services/reserve-svc services/reserve-engine
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F003
+  world_ref: SERVICE:reserve-engine#k8s_namespace
+  kind: general
+  statement: The OpenShift namespace chub-reserve did not change with the rename.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: table
+  needle: OpenShift namespace chub-reserve chub-reserve
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F004
+  world_ref: TOPIC:reserve.changed.v2#note
+  kind: general
+  statement: The rename introduced event reserve.changed.v2; v1 was retired.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: table
+  needle: reserve.changed.v1 (retired) reserve.changed.v2
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F005
+  world_ref: ADR:ADR-011
+  kind: general
+  statement: Only reserve-engine writes reserves in Claims Hub (ADR-011).
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: text
+  needle: The only Claims Hub service that writes reserves (ADR-011)
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F006
+  world_ref: INTERFACE:CLX-IF-042#target_system
+  kind: arrow_only
+  statement: Connector CLARA → MQ Backbone labelled 'CLX-IF-042'.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: 'CLARA -> MQ Backbone [label: CLX-IF-042]'
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F007
+  world_ref: INTERFACE:CLX-IF-049
+  kind: arrow_only
+  statement: Connector MQ Backbone → Event Streaming Platform labelled 'CLX-IF-049'.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: 'MQ Backbone -> Event Streaming Platform [label: CLX-IF-049]'
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F008
+  world_ref: SERVICE:reserve-engine#kafka_topics.consumes
+  kind: arrow_only
+  statement: Connector Event Streaming Platform → reserve-engine labelled 'claims.reserve.movement.v1'.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: 'Event Streaming Platform -> reserve-engine [label: claims.reserve.movement.v1]'
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F009
+  world_ref: TOPIC:triage.completed.v1
+  kind: arrow_only
+  statement: Connector triage-svc → reserve-engine labelled 'triage.completed.v1'.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: 'triage-svc -> reserve-engine [label: triage.completed.v1]'
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F010
+  world_ref: TOPIC:reserve.changed.v2
+  kind: arrow_only
+  statement: Connector reserve-engine → gl-posting-svc labelled 'reserve.changed.v2'.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: 'reserve-engine -> gl-posting-svc [label: reserve.changed.v2]'
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F011
+  world_ref: TOPIC:reserve.changed.v2
+  kind: arrow_only
+  statement: Connector reserve-engine → reporting-feed-svc labelled 'reserve.changed.v2'.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: 'reserve-engine -> reporting-feed-svc [label: reserve.changed.v2]'
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F012
+  world_ref: SERVICE:reserve-engine#apis
+  kind: general
+  statement: POST /reserves/{claimId}/movements posts a reserve movement with an authority check against BR-RSV-003.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: table
+  needle: POST /reserves/{claimId}/movements Post a reserve movement (authority checked against BR-RSV-003)
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F013
+  world_ref: SERVICE:reserve-engine#apis
+  kind: general
+  statement: GET /reserves/{claimId}/history returns reserve movement history.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: table
+  needle: GET /reserves/{claimId}/history Reserve movement history
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F014
+  world_ref: TABLE:reserve.reserve_movement#columns.amount_minor
+  kind: image_text
+  statement: 'Data model image: reserve.reserve_movement holds amount_minor (minor units).'
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: image
+    ocr: true
+  needle: amount_minor
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F015
+  world_ref: TABLE:reserve.review_schedule#columns.cadence_days
+  kind: image_text
+  statement: 'Data model image: reserve.review_schedule has a cadence_days column.'
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: image
+    ocr: true
+  needle: cadence_days
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F016
+  world_ref: null
+  kind: alt_text
+  statement: 'Alt text: the reserve schema has tables reserve, reserve_movement and review_schedule.'
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: alt_text
+  needle: 'three tables: reserve, reserve_movement and review_schedule'
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F017
+  world_ref: ADR:ADR-016
+  kind: speaker_notes
+  statement: Amounts are held in minor units (pence/øre) per ADR-016.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: notes
+  needle: minor units (pence or øre) as per ADR-016
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F018
+  world_ref: RULE:BR-RSV-003
+  kind: image_text
+  statement: 'Sequence image: reserve-engine performs the authority check (BR-RSV-003) on movements.'
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: image
+    ocr: true
+  needle: authority check (BR-RSV-003)
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F019
+  world_ref: null
+  kind: alt_text
+  statement: 'Alt text: gl-posting-svc consumes the change event published by reserve-engine.'
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: alt_text
+  needle: publishes a change event that the GL posting service consumes
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F020
+  world_ref: RULE:BR-RSV-003@v3#parameters.team_leader
+  kind: general
+  statement: 'reserve-engine reserve authority: Team Leader £100,000 (BR-RSV-003 v3).'
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: table
+  needle: Team Leader £100,000
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F021
+  world_ref: RULE:BR-RSV-003@v3#parameters.claims_director
+  kind: general
+  statement: 'reserve-engine reserve authority: Claims Director £2,000,000 (BR-RSV-003 v3).'
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: table
+  needle: Claims Director £2,000,000
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F022
+  world_ref: RULE:BR-RSV-011@v2
+  kind: general
+  statement: Movements above £250,000 are notified to ReCede within 24 hours (BR-RSV-011 v2).
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: text
+  needle: any movement above £250,000 is notified to ReCede within 24 hours
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F023
+  world_ref: SERVICE:reserve-engine#config.config_history
+  kind: temporal
+  statement: In February 2026 the reserve-engine setting tier3-review-days is 21 (BR-RSV-007 v2).
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: text
+  needle: tier3-review-days = 21
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F024
+  world_ref: SERVICE:reserve-engine#replaces_programs
+  kind: visual_only
+  statement: reserve-engine replaces CLARA batch program CLRRS150 (grouped under Batch).
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: group
+    shape_name: grp-replaced-2
+  needle: CLRRS150
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F025
+  world_ref: SERVICE:reserve-engine#replaces_programs
+  kind: visual_only
+  statement: reserve-engine replaces CLRGL090 (grouped under Finance).
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: group
+    shape_name: grp-replaced-3
+  needle: CLRGL090
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F026
+  world_ref: SERVICE:reserve-engine#replaces_programs
+  kind: visual_only
+  statement: reserve-engine replaces online program CLRFN030.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: group
+    shape_name: grp-replaced-1
+  needle: CLRFN030
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F027
+  world_ref: PROGRAM:CLRGL090#notes
+  kind: speaker_notes
+  statement: 'Speaker notes: CLRGL090 updates CLR.T_RESERVE without writing CLR.T_RESERVE_MOVEMENT (IA-25-07).'
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: notes
+  needle: CLRGL090 updates CLR.T_RESERVE without writing CLR.T_RESERVE_MOVEMENT
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F028
+  world_ref: SERVICE:reserve-engine#replicas
+  kind: general
+  statement: reserve-engine runs 4 replicas.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: table
+  needle: Replicas 4
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F029
+  world_ref: SERVICE:reserve-engine#infra
+  kind: general
+  statement: reserve-engine CPU request 500m, memory limit 2Gi.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: table
+  needle: 500m / 2Gi
+  exclusive: false
+  also_in: []
+- fact_id: VS016-F030
+  world_ref: TIMELINE:programme#parallel_run.from
+  kind: general
+  statement: Reserve parallel run runs from 2 March 2026 to 28 August 2026.
+  file: corpus/upload/visuals/VS016_reserve_engine_design.pptx
+  locator:
+    kind: pptx_slide
+    slide: 13
+    where: text
+  needle: 'Reserve parallel run: 2 March 2026 to 28 August 2026'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F001
+  world_ref: SYSTEM:SYS01#batch_window
+  kind: general
+  statement: CLARA's overnight batch window is 23:30–05:30 UK time.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: 'Overnight batch window: 23:30–05:30 UK time'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F002
+  world_ref: JCL:CLRNRSV1
+  kind: chart_only
+  statement: 'Chart: Reserving has 7 active jobs.'
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: chart
+  needle: 'Active jobs: Reserving=7'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F003
+  world_ref: PROGRAM:CLRGL090#writes_tables:CLR.T_RESERVE
+  kind: arrow_only
+  statement: Connector CLRGL090 → CLR.T_RESERVE labelled 'UPDATE (year-end)'.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+    shape_name: w-CLRGL090
+  needle: 'CLRGL090 -> CLR.T_RESERVE [label: UPDATE (year-end)]'
+  exclusive: false
+  also_in: []
+  placement: PL-110
+  placement_key: vs17_gl090
+- fact_id: VS017-F004
+  world_ref: PROGRAM:CLRRS130#writes_tables:CLR.T_RESERVE
+  kind: arrow_only
+  statement: Connector CLRRS130 → CLR.T_RESERVE labelled 'UPDATE (monthly index)'.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+    shape_name: w-CLRRS130
+  needle: 'CLRRS130 -> CLR.T_RESERVE [label: UPDATE (monthly index)]'
+  exclusive: false
+  also_in: []
+  placement: PL-111
+  placement_key: vs17_rs130
+- fact_id: VS017-F005
+  world_ref: JCL:CLRYGL90#schedule
+  kind: visual_only
+  statement: Group 'CLRYGL90 (annually 31 Dec 23:30)' contains step CLRGL090.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: group
+    shape_name: grp-CLRYGL90
+  needle: CLRYGL90 (annually 31 Dec 23:30) CLRGL090
+  exclusive: false
+  also_in: []
+  placement: PL-112
+  placement_key: vs17_group
+- fact_id: VS017-F006
+  world_ref: PROGRAM:CLRFN030#writes_tables:CLR.T_RESERVE
+  kind: arrow_only
+  statement: Connector CLRFN030 → CLR.T_RESERVE labelled 'INSERT (default reserve at FNOL)' (reserve-table writer).
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+    shape_name: w-CLRFN030
+  needle: 'CLRFN030 -> CLR.T_RESERVE [label: INSERT (default reserve at FNOL)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F007
+  world_ref: PROGRAM:CLRRS010#writes_tables:CLR.T_RESERVE
+  kind: arrow_only
+  statement: Connector CLRRS010 → CLR.T_RESERVE labelled 'INSERT (initial reserve)' (reserve-table writer).
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+    shape_name: w-CLRRS010
+  needle: 'CLRRS010 -> CLR.T_RESERVE [label: INSERT (initial reserve)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F008
+  world_ref: PROGRAM:CLRRS020#writes_tables:CLR.T_RESERVE
+  kind: arrow_only
+  statement: Connector CLRRS020 → CLR.T_RESERVE labelled 'UPDATE (adjustment)' (reserve-table writer).
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+    shape_name: w-CLRRS020
+  needle: 'CLRRS020 -> CLR.T_RESERVE [label: UPDATE (adjustment)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F009
+  world_ref: PROGRAM:CLRRS110#writes_tables:CLR.T_RESERVE
+  kind: arrow_only
+  statement: Connector CLRRS110 → CLR.T_RESERVE labelled 'UPDATE (Tier-3 review)' (reserve-table writer).
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+    shape_name: w-CLRRS110
+  needle: 'CLRRS110 -> CLR.T_RESERVE [label: UPDATE (Tier-3 review)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F010
+  world_ref: PROGRAM:CLRST040#writes_tables:CLR.T_RESERVE
+  kind: arrow_only
+  statement: Connector CLRST040 → CLR.T_RESERVE labelled 'UPDATE (close-down)' (reserve-table writer).
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+    shape_name: w-CLRST040
+  needle: 'CLRST040 -> CLR.T_RESERVE [label: UPDATE (close-down)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F011
+  world_ref: PROGRAM:CLRRC050#writes_tables:CLR.T_RESERVE
+  kind: arrow_only
+  statement: Connector CLRRC050 → CLR.T_RESERVE labelled 'UPDATE (recovery netting)' (reserve-table writer).
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+    shape_name: w-CLRRC050
+  needle: 'CLRRC050 -> CLR.T_RESERVE [label: UPDATE (recovery netting)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F012
+  world_ref: PROGRAM:CLRRS150#writes_tables
+  kind: arrow_only
+  statement: CLRRS150 writes only CLR.T_RESERVE_MOVEMENT (corrections), not CLR.T_RESERVE.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+    shape_name: w-CLRRS150
+  needle: 'CLRRS150 -> CLR.T_RESERVE_MOVEMENT [label: INSERT (corrections only)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F013
+  world_ref: JCL:CLRMRSV1#schedule
+  kind: visual_only
+  statement: Group 'CLRMRSV1 (1st business day 03:00)' contains CLRRS130.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: group
+    shape_name: grp-CLRMRSV1
+  needle: CLRMRSV1 (1st business day 03:00) CLRRS130
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F014
+  world_ref: PROGRAM:CLRGL090#renamed_from
+  kind: speaker_notes
+  statement: 'Speaker notes: CLRGL090 was formerly YEREVAL1, renamed 2021-01-01.'
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: notes
+  needle: CLRGL090 (formerly YEREVAL1, renamed 2021-01-01)
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F015
+  world_ref: PROGRAM:CLRGL090#notes
+  kind: speaker_notes
+  statement: 'Speaker notes: CLRGL090 updates RSV_GBP_EQUIV_AMT and RSV_LAST_REVAL_DT without writing CLR.T_RESERVE_MOVEMENT
+    (IA-25-07).'
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: notes
+  needle: updates RSV_GBP_EQUIV_AMT and RSV_LAST_REVAL_DT without writing CLR.T_RESERVE_MOVEMENT
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F016
+  world_ref: JCL:CLRNTR01#steps
+  kind: arrow_only
+  statement: In job CLRNTR01, CLRTR020 (STEP020) follows CLRTR040.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+    shape_name: c-CLRNTR01-STEP020
+  needle: 'CLRTR040 -> CLRTR020 [label: STEP020]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F017
+  world_ref: JCL:CLRNTR01#steps
+  kind: arrow_only
+  statement: In job CLRNTR01, CLRTR060 (STEP030) follows CLRTR020.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+    shape_name: c-CLRNTR01-STEP030
+  needle: 'CLRTR020 -> CLRTR060 [label: STEP030]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F018
+  world_ref: JCL:CLRNTR01#steps
+  kind: arrow_only
+  statement: In job CLRNTR01, CLRTR100 (STEP040) follows CLRTR060.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+    shape_name: c-CLRNTR01-STEP040
+  needle: 'CLRTR060 -> CLRTR100 [label: STEP040]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F019
+  world_ref: JCL:CLRNFR01#steps
+  kind: arrow_only
+  statement: In job CLRNFR01, CLRFR080 (STEP020) follows CLRFR110.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+    shape_name: c-CLRNFR01-STEP020
+  needle: 'CLRFR110 -> CLRFR080 [label: STEP020]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F020
+  world_ref: JCL:CLRNFR01#steps
+  kind: arrow_only
+  statement: In job CLRNFR01, CLRFR040 (STEP030) follows CLRFR080.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+    shape_name: c-CLRNFR01-STEP030
+  needle: 'CLRFR080 -> CLRFR040 [label: STEP030]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F021
+  world_ref: JCL:CLRNRC01#steps
+  kind: arrow_only
+  statement: In job CLRNRC01, CLRRC050 (STEP020) follows CLRRC040.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+    shape_name: c-CLRNRC01-STEP020
+  needle: 'CLRRC040 -> CLRRC050 [label: STEP020]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F022
+  world_ref: JCL:CLRNRC01#steps
+  kind: arrow_only
+  statement: In job CLRNRC01, CLRRC070 (STEP030) follows CLRRC050.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+    shape_name: c-CLRNRC01-STEP030
+  needle: 'CLRRC050 -> CLRRC070 [label: STEP030]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F023
+  world_ref: JCL:CLRNRC01#steps
+  kind: arrow_only
+  statement: In job CLRNRC01, CLRRC080 (STEP040) follows CLRRC070.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+    shape_name: c-CLRNRC01-STEP040
+  needle: 'CLRRC070 -> CLRRC080 [label: STEP040]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F024
+  world_ref: JCL:CLRNGL01#steps
+  kind: arrow_only
+  statement: In job CLRNGL01, CLRGL010 (STEP020) follows CLRGL030.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+    shape_name: c-CLRNGL01-STEP020
+  needle: 'CLRGL030 -> CLRGL010 [label: STEP020]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F025
+  world_ref: JCL:CLRNGL01#steps
+  kind: arrow_only
+  statement: In job CLRNGL01, CLRGL070 (STEP030) follows CLRGL010.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+    shape_name: c-CLRNGL01-STEP030
+  needle: 'CLRGL010 -> CLRGL070 [label: STEP030]'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F026
+  world_ref: JCL:CLRNRSV3#restart
+  kind: speaker_notes
+  statement: 'Speaker notes: CLRRS170 only extracts rows with EXTRACTED_FLAG = ''N''.'
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: notes
+  needle: CLRRS170 only extracts rows with EXTRACTED_FLAG = 'N'
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F027
+  world_ref: JCL:CLRNRC01#description
+  kind: lane_only
+  statement: CLRNRC01 sits in the Recoveries lane (area only by lane position).
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: CLRNRC01
+  exclusive: false
+  also_in: []
+  notes: Lane membership is given only by vertical position.
+- fact_id: VS017-F028
+  world_ref: JCL:CLRDRSV9
+  kind: lane_only
+  statement: CLRDRSV9 (parallel-run reconciliation) sits in the Reserving lane.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: CLRDRSV9
+  exclusive: false
+  also_in: []
+  notes: Lane membership is given only by vertical position.
+- fact_id: VS017-F029
+  world_ref: JCL:CLRDRSV9#schedule
+  kind: speaker_notes
+  statement: 'Speaker notes: CLRDRSV9 runs only for the reserve parallel run (2 March to 28 August 2026).'
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: notes
+  needle: CLRDRSV9 only runs for the reserve parallel run
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F030
+  world_ref: INTERFACE:CLX-IF-043#schedule_history
+  kind: image_text
+  statement: 'Batch window image: CLX-IF-043 (GL reserve journal) at 03:45.'
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: image
+    ocr: true
+  needle: CLX-IF-043 03:45
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F031
+  world_ref: INTERFACE:CLX-IF-027#schedule
+  kind: image_text
+  statement: 'Batch window image: CLX-IF-027 currency rates at 03:15.'
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: image
+    ocr: true
+  needle: CLX-IF-027 03:15
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F032
+  world_ref: null
+  kind: alt_text
+  statement: 'Alt text: overnight batch window timeline with interface hand-off times.'
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: alt_text
+  needle: arrows marking interface hand-off times
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F033
+  world_ref: JCL:CLRMGL01#schedule
+  kind: general
+  statement: CLRMGL01 (GL month-end) runs on the last business day at 23:00.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: table
+  needle: CLRMGL01 GL month-end last business day 23:00
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F034
+  world_ref: JCL:CLRWRC01#schedule
+  kind: general
+  statement: CLRWRC01 (subrogation demand letters) runs Tue and Thu at 05:00.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: table
+  needle: CLRWRC01 Subrogation demand letters Tue,Thu 05:00
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F035
+  world_ref: INTERFACE:CLX-IF-031#programs
+  kind: image_table
+  statement: 'Table image: CLRNRSV4 step CLRRS160 drives CLX-IF-031 to ReCede.'
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: image
+    ocr: true
+  needle: CLRNRSV4
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F036
+  world_ref: INTERFACE:CLX-IF-022
+  kind: image_table
+  statement: 'Table image: CLRNRC01 step CLRRC040 drives CLX-IF-022 to the Subrogation Tracker.'
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: image
+    ocr: true
+  needle: Subrogation Tracker
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F037
+  world_ref: ADR:ADR-028
+  kind: general
+  statement: From Wave 2 the reserve-engine revaluation run replaces CLRGL090 (ADR-028).
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: text
+  needle: reserve-engine revaluation run replaces CLRGL090 from Wave 2 (ADR-028)
+  exclusive: false
+  also_in: []
+- fact_id: VS017-F038
+  world_ref: JCL:CLRNRSV3#description
+  kind: general
+  statement: CLRNRSV3 runs the reserve movement extract (CLX-IF-042) with step CLRRS170.
+  file: corpus/upload/visuals/VS017_clara_batch_landscape.pptx
+  locator:
+    kind: pptx_slide
+    slide: 13
+    where: table
+  needle: CLRNRSV3 Reserve movement extract (CLX-IF-042)
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F001
+  world_ref: VENDOR:VEN-03#panel_to
+  kind: contradiction_old
+  statement: January 2025 panel includes Fellgate Adjusting Partners LLP for major loss.
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: table
+  needle: Fellgate Adjusting Partners LLP Major-loss adjusters (UK)
+  exclusive: false
+  also_in: []
+  placement: PL-113
+  placement_key: vs18_fellgate
+- fact_id: VS018-F002
+  world_ref: VENDOR:VEN-01
+  kind: general
+  statement: Brackenfield Loss Adjusting Ltd (Manchester) covers UK property and motor, on the panel since 1 Apr 2017.
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: table
+  needle: Brackenfield Loss Adjusting Ltd UK property and motor Manchester 1 Apr 2017
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F003
+  world_ref: VENDOR:VEN-02#role
+  kind: general
+  statement: Norrvik Skadetaxering AB (Gothenburg) covers Sweden and Norway.
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: table
+  needle: Norrvik Skadetaxering AB Sweden and Norway Gothenburg
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F004
+  world_ref: VENDOR:VEN-03#location
+  kind: image_text
+  statement: 'Coverage image: Fellgate (London) covers UK major loss.'
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: image
+    ocr: true
+  needle: Fellgate (London)
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F005
+  world_ref: null
+  kind: alt_text
+  statement: 'Alt text: internal assessors are based in Leeds and Oslo.'
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: alt_text
+  needle: internal assessors in Leeds and Oslo
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F006
+  world_ref: VENDOR:VEN-01#fees.site_visit_gbp
+  kind: chart_only
+  statement: 'Chart: Brackenfield site visit fee £420.'
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: chart
+  needle: Brackenfield site visit=420
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F007
+  world_ref: VENDOR:VEN-03#fees.major_loss_hourly_gbp
+  kind: chart_only
+  statement: 'Chart: Fellgate major-loss hourly rate £165.'
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: chart
+  needle: Fellgate major loss (hour)=165
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F008
+  world_ref: VENDOR:VEN-01#fees.desk_assessment_gbp
+  kind: chart_only
+  statement: 'Chart: Brackenfield desk assessment fee £185.'
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: chart
+  needle: Brackenfield desk assessment=185
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F009
+  world_ref: RULE:BR-ASM-005@v2
+  kind: image_table
+  statement: 'SLA image: Tier-3 site inspection within 72 hours (BR-ASM-005 v2).'
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: image
+    ocr: true
+  needle: 72 hours
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F010
+  world_ref: VENDOR:VEN-01#sla.site_visit_business_days
+  kind: image_table
+  statement: 'SLA image: Brackenfield site visit within 5 business days.'
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: image
+    ocr: true
+  needle: Brackenfield site visit
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F011
+  world_ref: RULE:BR-ASM-003@v2
+  kind: general
+  statement: Escape of Water claims below £7,500 may be assessed by video call (BR-ASM-003 v2).
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: Escape of Water claims below £7500 may be assessed by video call
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F012
+  world_ref: RULE:BR-ASM-016@v1
+  kind: general
+  statement: All external Nordic instructions go to Norrvik Skadetaxering (BR-ASM-016).
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: All external Nordic instructions go to Norrvik Skadetaxering
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F013
+  world_ref: INTERFACE:CLX-IF-013#schedule
+  kind: arrow_only
+  statement: Connector CLRAS030 → Adjuster Extranet labelled 'CLX-IF-013 (every 30 minutes 07:00-19:00)'.
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: 'CLRAS030 -> Adjuster Extranet [label: CLX-IF-013 (every 30 minutes 07:00-19:00)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F014
+  world_ref: INTERFACE:CLX-IF-014#schedule
+  kind: arrow_only
+  statement: Connector Adjuster Extranet → CLRAS040 labelled 'CLX-IF-014 (hourly 08:00-20:00)'.
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: 'Adjuster Extranet -> CLRAS040 [label: CLX-IF-014 (hourly 08:00-20:00)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F015
+  world_ref: INTERFACE:CLX-IF-016#schedule
+  kind: arrow_only
+  statement: Connector Adjuster Extranet → CLRAS070 labelled 'CLX-IF-016 (Mon-Fri 01:00)'.
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: 'Adjuster Extranet -> CLRAS070 [label: CLX-IF-016 (Mon-Fri 01:00)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F016
+  world_ref: VENDOR:VEN-04#role
+  kind: visual_only
+  statement: 'Thistlecombe Repair Network: UK motor repair network (212 approved bodyshops) and UK windscreen.'
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: group
+    shape_name: grp-suppliers-1
+  needle: UK motor repair network (212 approved bodyshops)
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F017
+  world_ref: VENDOR:VEN-05#role
+  kind: visual_only
+  statement: 'Vardholm: Norwegian motor repair network (23 workshops).'
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: group
+    shape_name: grp-suppliers-1
+  needle: Norwegian motor repair network (23 workshops)
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F018
+  world_ref: RULE:BR-ASM-010@v1
+  kind: general
+  statement: A Claims Assessor may not assess a claim involving a relative or a prior employer within 3 years (BR-ASM-010).
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: text
+  needle: a relative or a prior employer within 3 years
+  exclusive: false
+  also_in: []
+- fact_id: VS018-F019
+  world_ref: PERSON:P057#titles
+  kind: general
+  statement: Colin Rudd is Client Director at Brackenfield.
+  file: corpus/upload/visuals/VS018_assessor_vendor_panel_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: Colin Rudd Client Director
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F001
+  world_ref: INCIDENT:INC-2025-0412#root_cause
+  kind: speaker_notes
+  statement: 'Speaker notes: root cause was RM-AMOUNT widened to S9(11)V99 under CHUB-138 without consumer sign-off.'
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: notes
+  needle: RM-AMOUNT was widened to S9(11)V99 under CHUB-138 without consumer sign-off
+  exclusive: false
+  also_in: []
+  placement: PL-115
+  placement_key: vs19_notes
+- fact_id: VS019-F002
+  world_ref: INCIDENT:INC-2025-0412#start
+  kind: general
+  statement: INC-2025-0412 was a Sev1 incident starting 28 Apr 2025 03:02, resolved 30 Apr 2025 17:40.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: table
+  needle: Start 28 Apr 2025 03:02 Resolved 30 Apr 2025 17:40
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F003
+  world_ref: INCIDENT:INC-2025-0412#programs
+  kind: general
+  statement: CLRRS170 is the program involved in INC-2025-0412.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: table
+  needle: Program CLRRS170
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F004
+  world_ref: INCIDENT:INC-2025-0412#interfaces
+  kind: arrow_only
+  statement: Impact chain connector CLX-IF-042 → CLX-IF-043 labelled 'widened RM-AMOUNT'.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+    shape_name: impact-1
+  needle: 'CLX-IF-042 -> CLX-IF-043 [label: widened RM-AMOUNT]'
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F005
+  world_ref: INCIDENT:INC-2025-0412#interfaces
+  kind: arrow_only
+  statement: Impact chain connector CLX-IF-043 → Group Ledger labelled 'every record rejected'.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+    shape_name: impact-2
+  needle: 'CLX-IF-043 -> Group Ledger [label: every record rejected]'
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F006
+  world_ref: INCIDENT:INC-2025-0412#interfaces
+  kind: arrow_only
+  statement: Impact chain connector Group Ledger → CLX-IF-051 labelled 'journals missing 25–29 Apr'.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+    shape_name: impact-3
+  needle: 'Group Ledger -> CLX-IF-051 [label: journals missing 25–29 Apr]'
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F007
+  world_ref: INCIDENT:INC-2025-0412#interfaces
+  kind: arrow_only
+  statement: 'Impact chain: CLX-IF-042 → CLX-IF-043 → Group Ledger → CLX-IF-051 → NISA-TP2 (Q1 2025 return 2 days late).'
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+    shape_name: impact-4
+  needle: 'CLX-IF-051 -> NISA-TP2 [label: Q1 2025 return 2 days late]'
+  exclusive: false
+  also_in: []
+  placement: PL-114
+  placement_key: vs19_chain
+- fact_id: VS019-F008
+  world_ref: MEETING:MTG-003#start_time
+  kind: image_text
+  statement: 'Timeline image: incident bridge opened 28 Apr 08:15.'
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: image
+    ocr: true
+  needle: 28 Apr 08:15
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F009
+  world_ref: REPORT:NISA-TP2#late_events
+  kind: image_text
+  statement: 'Timeline image: TP2 submitted on 7 May.'
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: image
+    ocr: true
+  needle: TP2 submitted
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F010
+  world_ref: null
+  kind: alt_text
+  statement: 'Alt text: incident timeline runs from 7 April to 9 May.'
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: alt_text
+  needle: from the change request on 7 April to the interface schedule change on 9 May
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F011
+  world_ref: INTERFACE:CLX-IF-043#schedule_history
+  kind: contradiction_new
+  statement: 'Action: CLX-IF-043 moves to 03:45 from 2025-05-09.'
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: table
+  needle: CLX-IF-043 moves to 03:45 from 2025-05-09
+  exclusive: false
+  also_in: []
+  placement: PL-116
+  placement_key: vs19_0345
+- fact_id: VS019-F012
+  world_ref: TICKET:CHUB-144
+  kind: general
+  statement: CHUB-144 introduced an interface change impact checklist (downstream consumers must sign off).
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: table
+  needle: 'Interface change impact checklist: downstream consumers must sign off'
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F013
+  world_ref: COPYBOOK:RSVMOVE#field_history
+  kind: general
+  statement: RM-REC-VERSION 9(2) was added to RSVMOVE on 30 Apr 2025 (value 02).
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: table
+  needle: RM-REC-VERSION — 9(2) CHUB-142
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F014
+  world_ref: COPYBOOK:RSVMOVE#field_history
+  kind: general
+  statement: RM-AMOUNT was widened from S9(9)V99 COMP-3 to S9(11)V99 COMP-3 on 25 Apr 2025 (CHUB-138).
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: table
+  needle: RM-AMOUNT S9(9)V99 COMP-3 S9(11)V99 COMP-3 CHUB-138
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F015
+  world_ref: REPORT:NISA-TP2#late_events
+  kind: general
+  statement: Q1 2025 NISA-TP2 was due 5 May 2025 and submitted 7 May 2025.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: due 5 May 2025; submitted 7 May 2025
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F016
+  world_ref: REPORT:NISA-TP2#late_events.note
+  kind: general
+  statement: Imogen Thackray (NISA) granted the two-day extension.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: Two-day extension granted by Imogen Thackray
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F017
+  world_ref: INTERFACE:CLX-IF-043#depends_on
+  kind: arrow_only
+  statement: Connector CLX-IF-042 → CLX-IF-043 labelled with consumer team 'Financial Control'.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: 'CLX-IF-042 -> CLX-IF-043 [label: Financial Control]'
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F018
+  world_ref: INTERFACE:CLX-IF-044#depends_on
+  kind: arrow_only
+  statement: Connector CLX-IF-042 → CLX-IF-044 labelled with consumer team 'Data & Analytics'.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: 'CLX-IF-042 -> CLX-IF-044 [label: Data & Analytics]'
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F019
+  world_ref: INTERFACE:CLX-IF-047#depends_on
+  kind: arrow_only
+  statement: Connector CLX-IF-042 → CLX-IF-047 labelled with consumer team 'Reinsurance'.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: 'CLX-IF-042 -> CLX-IF-047 [label: Reinsurance]'
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F020
+  world_ref: INTERFACE:CLX-IF-051#depends_on
+  kind: arrow_only
+  statement: Connector CLX-IF-043 → CLX-IF-051 labelled with consumer team 'Regulatory Reporting'.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: 'CLX-IF-043 -> CLX-IF-051 [label: Regulatory Reporting]'
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F021
+  world_ref: INTERFACE:CLX-IF-058#depends_on
+  kind: arrow_only
+  statement: Connector CLX-IF-044 → CLX-IF-058 labelled with consumer team 'Reserving'.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: 'CLX-IF-044 -> CLX-IF-058 [label: Reserving]'
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F022
+  world_ref: INTERFACE:CLX-IF-055#depends_on
+  kind: arrow_only
+  statement: Connector CLX-IF-047 → CLX-IF-055 labelled with consumer team 'Reinsurance'.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: connector
+  needle: 'CLX-IF-047 -> CLX-IF-055 [label: Reinsurance]'
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F023
+  world_ref: DECISION:DEC-003
+  kind: general
+  statement: 'DEC-003: revert the RM-AMOUNT widening, add a record-version byte, move CLX-IF-043 from 03:00 to 03:45.'
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: text
+  needle: move CLX-IF-043 from 03:00 to 03:45
+  exclusive: false
+  also_in: []
+- fact_id: VS019-F024
+  world_ref: MEETING:MTG-003#attendees
+  kind: general
+  statement: Hamish Gilchrist (Financial Controller) attended the INC-2025-0412 bridge.
+  file: corpus/upload/visuals/VS019_incident_review_inc_2025_0412.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: table
+  needle: Hamish Gilchrist Financial Controller
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F001
+  world_ref: ORG:company#financials.q3_2026.combined_ratio_pct
+  kind: chart_only
+  statement: 'Combined ratio Q3 2026: 97.8% (native chart only).'
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: chart
+  needle: Q3 2026=97.8
+  exclusive: true
+  also_in: []
+  placement: PL-117
+  placement_key: vs20_cr
+- fact_id: VS020-F002
+  world_ref: ORG:company#financials.fy2025.combined_ratio_pct
+  kind: chart_only
+  statement: 'Combined ratio FY2025: 98.4% (chart comparator).'
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: chart
+  needle: FY2025=98.4
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F003
+  world_ref: PERSON:P001#aliases
+  kind: speaker_notes
+  statement: Speaker notes refer to the CFO as 'PR'.
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: notes
+  needle: 'Speaker: PR (CFO)'
+  exclusive: false
+  also_in: []
+  placement: PL-118
+  placement_key: vs20_notes_pr
+- fact_id: VS020-F004
+  world_ref: TIMELINE:metrics#claims_notified.2026Q3
+  kind: chart_only
+  statement: 'Claims notified Q3 2026: 55,180 (chart).'
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: chart
+  needle: 'Claims notified: Q3 2026=55180'
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F005
+  world_ref: TIMELINE:metrics#fraud_referrals_count.2026Q3
+  kind: chart_only
+  statement: 'Fraud referrals Q2 2026: 1,488; Q3 2026: 1,530 (chart).'
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: chart
+  needle: 'Fraud referrals: Q3 2026=1530'
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F006
+  world_ref: ORG:company#financials.fy2025.gross_written_premium_gbp_m
+  kind: general
+  statement: FY2025 gross written premium was £2,140.0m.
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: table
+  needle: Gross written premium £2,140.0m
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F007
+  world_ref: ORG:company#financials.fy2025.fraud_savings_gbp_m
+  kind: general
+  statement: FY2025 fraud savings were £38.7m from 1,109 confirmed fraud cases.
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: table
+  needle: Confirmed fraud cases 1,109 Fraud savings £38.7m
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F008
+  world_ref: ORG:company#financials.fy2025.avg_settlement_days_motor
+  kind: general
+  statement: 'FY2025 average settlement days: motor 34, home 51.'
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: table
+  needle: Average settlement days – motor / home 34 / 51
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F009
+  world_ref: DECISION:DEC-011
+  kind: visual_only
+  statement: Wave 2 confirmed for 15 February 2027 (milestone tile).
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: group
+    shape_name: grp-milestone-3
+  needle: Confirmed for 15 February 2027
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F010
+  world_ref: WAVE:MW-1#date
+  kind: visual_only
+  statement: Wave 1 – UK motor completed 14 September 2026.
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: group
+    shape_name: grp-milestone-2
+  needle: Complete | 14 September 2026
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F011
+  world_ref: DECISION:DEC-010
+  kind: general
+  statement: A £1.8m contingency drawdown for Wave 2 was approved by the CFO, Priya Raman, on 8 October 2026.
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: Contingency drawdown of £1.8m for Wave 2
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F012
+  world_ref: ORG:company#programme.budget_gbp_m
+  kind: general
+  statement: Programme Skerry's approved budget is £48.6m.
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: 'Approved programme budget: £48.6m'
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F013
+  world_ref: TIMELINE:metrics#wave1_open_defects.sev2
+  kind: image_text
+  statement: 'Wave 1 open defects at 5 Oct 2026: Sev2 14.'
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: image
+    ocr: true
+  needle: 'Sev2: 14 open'
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F014
+  world_ref: TIMELINE:metrics#wave1_open_defects.sev3
+  kind: image_text
+  statement: 'Wave 1 open defects at 5 Oct 2026: Sev3 57.'
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: image
+    ocr: true
+  needle: 'Sev3: 57 open'
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F015
+  world_ref: REPORT:NISA-FR1#submissions.2026Q2
+  kind: general
+  statement: NISA-FR1 Q2 2026 return submitted 29 July 2026 (due 30 July 2026).
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: text
+  needle: NISA-FR1 Q2 2026 return submitted 29 July 2026
+  exclusive: false
+  also_in: []
+- fact_id: VS020-F016
+  world_ref: DECISION:DEC-014
+  kind: general
+  statement: From 1 October 2026 Tier-3 claims are referred to SIU at a Sentinel score of 60 or more; the general threshold
+    stays 65.
+  file: corpus/upload/visuals/VS020_board_update_q3_2026.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: text
+  needle: Tier-3 claims are referred to SIU at a Sentinel score of 60 or more
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F001
+  world_ref: SYSTEM:SYS16
+  kind: screenshot
+  statement: Claims Hub sign-in is provided by the Corvane Identity Service (screenshot).
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: image
+    ocr: true
+  needle: Corvane Identity Service
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F002
+  world_ref: GLOSSARY:G-006
+  kind: screenshot
+  statement: 'Claims Hub FNOL screenshot: the ''Claim Type'' drop-down lists Escape of Water, Storm, Frost Damage, Snow Load.'
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: image
+    ocr: true
+  needle: Frost Damage
+  exclusive: false
+  also_in: []
+  placement: PL-119
+  placement_key: vs21_claimtype
+  notes: Raster only; the drop-down items are Escape of Water, Storm, Frost Damage and Snow Load.
+- fact_id: VS021-F003
+  world_ref: CLAIMTYPE:CT-SNO
+  kind: screenshot
+  statement: FNOL screenshot drop-down includes 'Snow Load'.
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: image
+    ocr: true
+  needle: Snow Load
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F004
+  world_ref: CLAIMTYPE:CT-EOW
+  kind: screenshot
+  statement: FNOL screenshot drop-down includes 'Escape of Water'.
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: image
+    ocr: true
+  needle: Escape of Water
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F005
+  world_ref: GLOSSARY:G-006
+  kind: terminology
+  statement: Dashboards call the Claim Type field 'loss type'.
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: text
+  needle: Dashboards call this field 'loss type'
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F006
+  world_ref: null
+  kind: alt_text
+  statement: 'Alt text: FNOL screen with the Claim Type drop-down open for a Danish home policy.'
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: alt_text
+  needle: Claim Type drop-down open for a Danish home policy
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F007
+  world_ref: RULE:BR-FNOL-006@v1
+  kind: general
+  statement: Motor FNOLs must capture the vehicle registration (BR-FNOL-006).
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: text
+  needle: Motor FNOLs must capture the vehicle registration
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F008
+  world_ref: RULE:BR-FNOL-004@v1
+  kind: general
+  statement: 'Duplicate check: existing claim on the same policy with date of loss within ±3 days (BR-FNOL-004).'
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: text
+  needle: date of loss within ±3 days
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F009
+  world_ref: RULE:BR-TRI-006@v3#parameters
+  kind: general
+  statement: 'Fast-track: Tier-1, Sentinel score below 30, no injury; cap £2,000 (BR-TRI-006 v3).'
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: cap £2,000
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F010
+  world_ref: RULE:BR-RSV-003@v3#parameters.claims_handler
+  kind: screenshot
+  statement: 'Reserves panel screenshot: Claims Handler reserve authority £25,000.'
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: image
+    ocr: true
+  needle: 'Your reserve authority: £25,000'
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F011
+  world_ref: RULE:BR-RSV-007@v3
+  kind: general
+  statement: Tier-3 reserves are reviewed at least every 14 days (BR-RSV-007 v3).
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: text
+  needle: reviewed at least every 14 days (BR-RSV-007 v3)
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F012
+  world_ref: BMS:CLRM010
+  kind: screenshot
+  statement: CLARA screenshot of map CLRM010 (transaction FN01) shows the field 'PERIL'.
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: image
+    ocr: true
+  needle: PERIL
+  exclusive: false
+  also_in: []
+  placement: PL-120
+  placement_key: vs21_peril
+- fact_id: VS021-F013
+  world_ref: BMS:CLRM010#transaction
+  kind: screenshot
+  statement: CLARA screenshot shows map CLRM010 and transaction FN01.
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: image
+    ocr: true
+  needle: CLRM010
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F014
+  world_ref: BMS:CLRM010#program
+  kind: speaker_notes
+  statement: 'Speaker notes: CLRM010 is driven by program CLRFN010.'
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: notes
+  needle: driven by program CLRFN010
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F015
+  world_ref: SYSTEM:SYS05#renames
+  kind: alias_use
+  statement: DOCSTOR was renamed Evidence Vault on 3 November 2025.
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: table
+  needle: DOCSTOR Evidence Vault Renamed 3 November 2025
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F016
+  world_ref: SYSTEM:SYS17#renames
+  kind: alias_use
+  statement: Adjuster Extranet was renamed Assessor Portal on 1 September 2025.
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: table
+  needle: Adjuster Extranet Assessor Portal Renamed 1 September 2025
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F017
+  world_ref: RULE:BR-FRD-031@v1#parameters.threshold
+  kind: general
+  statement: In August 2026 the SIU referral threshold is a Sentinel score of 65 or more (BR-FRD-031 v1).
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: text
+  needle: SIU referral at a Sentinel score of 65 or more
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F018
+  world_ref: RULE:BR-FRD-032@v2
+  kind: screenshot
+  statement: 'Fraud banner screenshot: customer notice due within 10 business days.'
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: image
+    ocr: true
+  needle: within 10 business days
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F019
+  world_ref: RULE:BR-STL-002@v3#parameters.claims_handler
+  kind: general
+  statement: Claim handler payment authority is £15,000 (BR-STL-002 v3).
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: table
+  needle: Claim handler £15,000 £25,000
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F020
+  world_ref: PROCESS:PS-RSV-02
+  kind: lane_only
+  statement: In the journey swimlane, 'Approve above authority' sits in the Team Leader lane.
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 13
+    where: text
+  needle: Approve above authority
+  exclusive: false
+  also_in: []
+  notes: Owner given only by the lane the box sits in (Team Leader).
+- fact_id: VS021-F021
+  world_ref: PROCESS:PS-TRI-01
+  kind: lane_only
+  statement: In the journey swimlane, 'Sentinel pre-screen' is done by Claims Hub (system lane).
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 13
+    where: text
+  needle: Sentinel pre-screen
+  exclusive: false
+  also_in: []
+  notes: Owner given only by the lane the box sits in (Claims Hub).
+- fact_id: VS021-F022
+  world_ref: RULE:BR-FNOL-001@v3
+  kind: image_table
+  statement: 'Service levels image: acknowledge digital FNOL within 1 business day (BR-FNOL-001 v3).'
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 14
+    where: image
+    ocr: true
+  needle: Acknowledge digital FNOL
+  exclusive: false
+  also_in: []
+- fact_id: VS021-F023
+  world_ref: WAVE:MW-1#date
+  kind: general
+  statement: Wave 1 (UK motor) cut-over is on 14 September 2026.
+  file: corpus/upload/visuals/VS021_claims_handler_training_claims_hub.pptx
+  locator:
+    kind: pptx_slide
+    slide: 15
+    where: text
+  needle: 'Wave 1 (UK motor) cut-over: 14 September 2026'
+  exclusive: false
+  also_in: []
+- fact_id: VS022-F001
+  world_ref: RULE:BR-STL-002@v2#parameters.team_leader
+  kind: contradiction_old
+  statement: 'June 2025 RACI slide: Team Leader payment authority £50,000.'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: table
+  needle: Team Leader £50,000
+  exclusive: false
+  also_in: []
+  placement: PL-121
+  placement_key: vs22_tl50
+- fact_id: VS022-F002
+  world_ref: RULE:BR-RSV-003@v2#parameters.team_leader
+  kind: general
+  statement: 'June 2025: Team Leader reserve authority £75,000 (BR-RSV-003 v2).'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: table
+  needle: Team Leader £50,000 £75,000
+  exclusive: false
+  also_in: []
+- fact_id: VS022-F003
+  world_ref: RULE:BR-STL-002@v2#parameters.claims_director
+  kind: general
+  statement: 'June 2025: Claims Director payment authority £1,000,000 (BR-STL-002 v2).'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: table
+  needle: Claims Director £1,000,000 £1,500,000
+  exclusive: false
+  also_in: []
+- fact_id: VS022-F004
+  world_ref: PROCESS:S1#owner_history
+  kind: general
+  statement: 'June 2025: Ewan Strachan is accountable for FNOL steps such as ''Receive notification''.'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: Receive notification Contact Centre Ewan Strachan
+  exclusive: false
+  also_in: []
+- fact_id: VS022-F005
+  world_ref: PROCESS:S7#owner_history
+  kind: general
+  statement: 'June 2025: Siobhan Quill is accountable for ''Open subrogation case and demand'' (acting owner of Recovery &
+    Subrogation).'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: table
+  needle: Open subrogation case and demand Recoveries Siobhan Quill
+  exclusive: false
+  also_in: []
+- fact_id: VS022-F006
+  world_ref: RULE:BR-RSV-003@v2#parameters
+  kind: arrow_only
+  statement: Escalation connector Claims Handler → Team Leader labelled 'above £20,000' (BR-RSV-003 v2).
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'Claims Handler -> Team Leader [label: above £20,000]'
+  exclusive: false
+  also_in: []
+- fact_id: VS022-F007
+  world_ref: RULE:BR-RSV-003@v2#parameters
+  kind: arrow_only
+  statement: Escalation connector Team Leader → Claims Manager labelled 'above £75,000' (BR-RSV-003 v2).
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'Team Leader -> Claims Manager [label: above £75,000]'
+  exclusive: false
+  also_in: []
+- fact_id: VS022-F008
+  world_ref: RULE:BR-RSV-003@v2#parameters
+  kind: arrow_only
+  statement: Escalation connector Claims Manager → Claims Director labelled 'above £400,000' (BR-RSV-003 v2).
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'Claims Manager -> Claims Director [label: above £400,000]'
+  exclusive: false
+  also_in: []
+- fact_id: VS022-F009
+  world_ref: RULE:BR-RSV-003@v2#parameters
+  kind: arrow_only
+  statement: Escalation connector Claims Director → Reserving Committee labelled 'above £1,500,000' (BR-RSV-003 v2).
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'Claims Director -> Reserving Committee [label: above £1,500,000]'
+  exclusive: false
+  also_in: []
+- fact_id: VS022-F010
+  world_ref: PROCESS:PS-FNOL-01#raci
+  kind: lane_only
+  statement: 'June 2025 swimlane: ''Receive notification'' sits in the Contact Centre lane.'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: Receive notification
+  exclusive: false
+  also_in: []
+  notes: Responsible team given only by lane position.
+- fact_id: VS022-F011
+  world_ref: PROCESS:PS-FNOL-02#raci
+  kind: lane_only
+  statement: 'June 2025 swimlane: ''Validate policy and cover'' sits in the Contact Centre lane.'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: Validate policy and cover
+  exclusive: false
+  also_in: []
+  notes: Responsible team given only by lane position.
+- fact_id: VS022-F012
+  world_ref: PROCESS:PS-FNOL-03#raci
+  kind: lane_only
+  statement: 'June 2025 swimlane: ''Create claim and default reserve'' sits in the Contact Centre lane.'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: Create claim and default reserve
+  exclusive: false
+  also_in: []
+  notes: Responsible team given only by lane position.
+- fact_id: VS022-F013
+  world_ref: PROCESS:PS-ASM-01#raci
+  kind: lane_only
+  statement: 'June 2025 swimlane: ''Appoint Claims Assessor'' sits in the Claims Assessment UK lane.'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: text
+  needle: Appoint Claims Assessor
+  exclusive: false
+  also_in: []
+  notes: Responsible team given only by lane position.
+- fact_id: VS022-F014
+  world_ref: PROCESS:PS-ASM-02#raci
+  kind: lane_only
+  statement: 'June 2025 swimlane: ''Inspect or desk-assess'' sits in the Claims Assessment UK lane.'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: text
+  needle: Inspect or desk-assess
+  exclusive: false
+  also_in: []
+  notes: Responsible team given only by lane position.
+- fact_id: VS022-F015
+  world_ref: PROCESS:PS-ASM-03#raci
+  kind: lane_only
+  statement: 'June 2025 swimlane: ''Coverage decision'' sits in the Claims Operations UK lane.'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: text
+  needle: Coverage decision
+  exclusive: false
+  also_in: []
+  notes: Responsible team given only by lane position.
+- fact_id: VS022-F016
+  world_ref: PROCESS:PS-FRD-01#raci
+  kind: lane_only
+  statement: 'June 2025 swimlane: ''Referral decision'' sits in the Special Investigations Unit (SIU) lane.'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: text
+  needle: Referral decision
+  exclusive: false
+  also_in: []
+  notes: Responsible team given only by lane position.
+- fact_id: VS022-F017
+  world_ref: PROCESS:PS-FRD-02#raci
+  kind: lane_only
+  statement: 'June 2025 swimlane: ''Refer to SIU'' sits in the Special Investigations Unit (SIU) lane.'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: text
+  needle: Refer to SIU
+  exclusive: false
+  also_in: []
+  notes: Responsible team given only by lane position.
+- fact_id: VS022-F018
+  world_ref: PROCESS:PS-FRD-03#raci
+  kind: lane_only
+  statement: 'June 2025 swimlane: ''Notify customer of referral'' sits in the Claims Operations UK lane.'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: text
+  needle: Notify customer of referral
+  exclusive: false
+  also_in: []
+  notes: Responsible team given only by lane position.
+- fact_id: VS022-F019
+  world_ref: RULE:BR-TRI-009@v1
+  kind: image_table
+  statement: 'June 2025: manual tier override needs Team Leader approval within 14 hours (BR-TRI-009 v1).'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: image
+    ocr: true
+  needle: within 14 hours
+  exclusive: false
+  also_in: []
+- fact_id: VS022-F020
+  world_ref: RULE:BR-REC-011@v1
+  kind: image_table
+  statement: 'June 2025: recovery write-offs above £5,000 need the Recoveries Manager (BR-REC-011 v1).'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: image
+    ocr: true
+  needle: Recovery write-off
+  exclusive: false
+  also_in: []
+- fact_id: VS022-F021
+  world_ref: PROCESS:S7#owner_history
+  kind: visual_only
+  statement: 'June 2025: Recovery & Subrogation stage owner is Siobhan Quill (Acting Recoveries Manager).'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: group
+    shape_name: grp-owner-S7
+  needle: Siobhan Quill Acting Recoveries Manager
+  exclusive: false
+  also_in: []
+- fact_id: VS022-F022
+  world_ref: PROCESS:S4#owner_history
+  kind: visual_only
+  statement: 'June 2025: Reserving stage owner is Sebastian Moreau-Clarke (Chief Actuary).'
+  file: corpus/upload/visuals/VS022_raci_authority_matrix_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: group
+    shape_name: grp-owner-S4
+  needle: Sebastian Moreau-Clarke Chief Actuary
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F001
+  world_ref: ORG:company#staff_by_country.NO
+  kind: chart_only
+  statement: 'Chart: Corvane has 470 staff in Norway.'
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: chart
+  needle: 'Staff: Norway=470'
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F002
+  world_ref: ORG:company#staff_by_country.DK
+  kind: chart_only
+  statement: 'Chart: Corvane has 300 staff in Denmark.'
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: chart
+  needle: 'Staff: Denmark=300'
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F003
+  world_ref: LOC:LOC-STO#address
+  kind: general
+  statement: Corvane Mutual Sverige is based at Kvarnbacken 12, Stockholm.
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: table
+  needle: Corvane Mutual Sverige Stockholm – Kvarnbacken 12
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F004
+  world_ref: PROFILE:seasonality#CT-FRO
+  kind: speaker_notes
+  statement: 'Speaker notes: Nordic frost-damage claims peak in January and February.'
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: notes
+  needle: Nordic frost-damage claims peak in January and February
+  exclusive: false
+  also_in: []
+  placement: PL-122
+  placement_key: vs23_frost
+- fact_id: VS023-F005
+  world_ref: PROFILE:seasonality#CT-SNO
+  kind: speaker_notes
+  statement: 'Speaker notes: snow load claims peak from January to March.'
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: notes
+  needle: peaking from January to March
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F006
+  world_ref: CLAIMTYPE:CT-FRO#local_names
+  kind: general
+  statement: Frost Damage is 'Frostskada' in Swedish.
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: Frost Damage Frostskade Frostskada
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F007
+  world_ref: PRODUCT:PRD-HOM-DK#code
+  kind: general
+  statement: Hjem Danmark has product code HOMDK.
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: table
+  needle: Hjem Danmark HOMDK
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F008
+  world_ref: PERSON:P046#reports_to
+  kind: arrow_only
+  statement: 'Org connector: Karl Eriksen reports to Astrid Nygaard (April 2026).'
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'Karl Eriksen -> Astrid Nygaard [label: reports to]'
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F009
+  world_ref: PERSON:P034#reports_to
+  kind: arrow_only
+  statement: 'Org connector: Astrid Nygaard reports to Mette Dahl (April 2026).'
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'Astrid Nygaard -> Mette Dahl [label: reports to]'
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F010
+  world_ref: PERSON:P012#reports_to
+  kind: arrow_only
+  statement: 'Org connector: Mette Dahl reports to Rob Tennant (April 2026).'
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'Mette Dahl -> Rob Tennant [label: reports to]'
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F011
+  world_ref: PERSON:P013#location
+  kind: visual_only
+  statement: Freya Lindahl (Head of Recoveries & Subrogation) is based in Stockholm.
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: group
+    shape_name: grp-nordic-group-roles
+  needle: Freya Lindahl Head of Recoveries & Subrogation Stockholm
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F012
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier3_min_nok
+  kind: general
+  statement: 'Nordic Tier-3 thresholds: NOK 650,000 / SEK 680,000 / DKK 430,000 (BR-TRI-003 v3).'
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: Tier-3 at NOK 650,000 / SEK 680,000 / DKK 430,000
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F013
+  world_ref: RULE:BR-ASM-009@v1
+  kind: general
+  statement: Nordic home claims above NOK 120000 require an on-site takst (BR-ASM-009).
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: Nordic home claims above NOK 120000 require an on-site takst
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F014
+  world_ref: PROFILE:seasonality#CT-SNO
+  kind: image_text
+  statement: Seasonal image shows peak months for Snow Load (Nordic home).
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: image
+    ocr: true
+  needle: Snow Load
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F015
+  world_ref: PROFILE:seasonality#CT-STM
+  kind: speaker_notes
+  statement: 'Speaker notes: storm peaks November to February; escape of water December to February.'
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: notes
+  needle: Storm peaks November to February
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F016
+  world_ref: SYSTEM:SYS23#retired_on
+  kind: arrow_only
+  statement: SKADE-90 claims were migrated to CLARA; SKADE-90 retired 31 May 2024.
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: connector
+  needle: 'SKADE-90 -> CLARA [label: migrated; retired 31 May 2024]'
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F017
+  world_ref: WAVE:MW-0#date
+  kind: arrow_only
+  statement: Wave 0 moves Danish claims from CLARA to Claims Hub on 1 Jun 2026.
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: connector
+  needle: 'CLARA -> Claims Hub – Denmark [label: Wave 0, 1 Jun 2026]'
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F018
+  world_ref: VENDOR:VEN-14#role
+  kind: visual_only
+  statement: Lyngholm Glass is the Danish windscreen network (Aarhus).
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: group
+    shape_name: grp-partner-VEN-14
+  needle: Danish windscreen network
+  exclusive: false
+  also_in: []
+- fact_id: VS023-F019
+  world_ref: PROFILE:fx_to_gbp_quarter_end
+  kind: image_table
+  statement: 'FX table image: NOK to GBP at 2026-03-31 was 0.0753.'
+  file: corpus/upload/visuals/VS023_nordic_claims_operations_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: image
+    ocr: true
+  needle: '0.0753'
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F001
+  world_ref: TIMELINE:metrics#recovery_rate_pct
+  kind: chart_only
+  statement: 'Recovery rate 2025: UK motor 41.2%, UK home 18.7%, Nordic motor 36.5% (chart only).'
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: chart
+  needle: 'Recovery rate 2025 (%): UK motor=41.2'
+  exclusive: true
+  also_in: []
+  placement: PL-123
+  placement_key: vs24_recovery
+- fact_id: VS024-F002
+  world_ref: TIMELINE:metrics#recovery_rate_pct
+  kind: chart_only
+  statement: 'Chart: UK home recovery rate 2025 was 18.7%.'
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: chart
+  needle: 'Recovery rate 2025 (%): UK home=18.7'
+  exclusive: true
+  also_in: []
+  notes: Same exclusive placement PL-123 (second series point).
+- fact_id: VS024-F003
+  world_ref: TIMELINE:metrics#recovery_rate_pct
+  kind: chart_only
+  statement: 'Chart: Nordic motor recovery rate 2025 was 36.5%.'
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: chart
+  needle: 'Recovery rate 2025 (%): Nordic motor=36.5'
+  exclusive: true
+  also_in: []
+  notes: Same exclusive placement PL-123 (third series point).
+- fact_id: VS024-F004
+  world_ref: RULE:BR-REC-014@v1
+  kind: general
+  statement: Recovery rate is defined as receipts over recoverable outlay (BR-REC-014).
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: text
+  needle: receipts over recoverable outlay (BR-REC-014)
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F005
+  world_ref: RULE:BR-REC-012@v1
+  kind: general
+  statement: Unanswered subrogation demands are chased at 28 days (BR-REC-012).
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: Unanswered subrogation demands are chased at 28 days
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F006
+  world_ref: RULE:BR-REC-015@v2
+  kind: general
+  statement: Salvage proceeds are posted within 3 business days of receipt (BR-REC-015 v2).
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: Salvage proceeds are posted within 3 business days of receipt
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F007
+  world_ref: RULE:BR-REC-003@v3
+  kind: arrow_only
+  statement: Decision connector 'Recoverable ≥ £1,000?' → '≥ £25,000 or liability defended?' [Yes].
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: 'Recoverable ≥ £1,000? -> ≥ £25,000 or liability defended? [label: Yes]'
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F008
+  world_ref: RULE:BR-REC-003@v3
+  kind: arrow_only
+  statement: 'Decision connector ''Recoverable ≥ £1,000?'' → ''Not pursued: close or write off'' [No].'
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: 'Recoverable ≥ £1,000? -> Not pursued: close or write off [label: No]'
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F009
+  world_ref: RULE:BR-REC-005@v2
+  kind: arrow_only
+  statement: Decision connector '≥ £25,000 or liability defended?' → 'Solicitor referral' [Yes].
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: '≥ £25,000 or liability defended? -> Solicitor referral [label: Yes]'
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F010
+  world_ref: RULE:BR-REC-005@v2
+  kind: arrow_only
+  statement: Decision connector '≥ £25,000 or liability defended?' → 'Open case and demand' [No].
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: '≥ £25,000 or liability defended? -> Open case and demand [label: No]'
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F011
+  world_ref: VENDOR:VEN-07#role
+  kind: lane_only
+  statement: 'Recovery swimlane: ''Litigate defended claims'' sits in the Quarryhill Solicitors lane.'
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: text
+  needle: Litigate defended claims
+  exclusive: false
+  also_in: []
+  notes: Owner given only by lane position.
+- fact_id: VS024-F012
+  world_ref: VENDOR:VEN-09#role
+  kind: lane_only
+  statement: 'Recovery swimlane: ''Collect total-loss vehicle'' sits in the Salvanta Salvage lane.'
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: text
+  needle: Collect total-loss vehicle
+  exclusive: false
+  also_in: []
+  notes: Owner given only by lane position.
+- fact_id: VS024-F013
+  world_ref: RULE:BR-REC-003@v3#parameters
+  kind: temporal
+  statement: 'Subrogation pursuit threshold: £750 until 31 Aug 2025, £1,000 from 1 Sep 2025 (BR-REC-003).'
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: table
+  needle: Pursue subrogation where the recoverable amount is £1,000 or more
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F014
+  world_ref: RULE:BR-REC-011@v2
+  kind: temporal
+  statement: Write-offs above £10,000 need the Head of Recoveries & Subrogation from 1 Sep 2025 (BR-REC-011 v2).
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: table
+  needle: above £10,000 require approval by the Head of Recoveries
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F015
+  world_ref: VENDOR:VEN-07#fees
+  kind: image_table
+  statement: 'Quarryhill: £95 fixed fee per demand; 12% success fee (image).'
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: image
+    ocr: true
+  needle: 12% success fee
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F016
+  world_ref: VENDOR:VEN-09#fees
+  kind: image_table
+  statement: 'Salvanta: £60 collection fee (image).'
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: image
+    ocr: true
+  needle: £60 collection
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F017
+  world_ref: INTERFACE:CLX-IF-022#schedule
+  kind: arrow_only
+  statement: Connector CLARA → Subrogation Tracker labelled 'CLX-IF-022 (daily 22:00)'.
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: connector
+  needle: 'CLARA -> Subrogation Tracker [label: CLX-IF-022 (daily 22:00)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F018
+  world_ref: INTERFACE:CLX-IF-023#schedule
+  kind: arrow_only
+  statement: Connector Subrogation Tracker → CLARA labelled 'CLX-IF-023 (daily 21:30)'.
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: connector
+  needle: 'Subrogation Tracker -> CLARA [label: CLX-IF-023 (daily 21:30)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F019
+  world_ref: INTERFACE:CLX-IF-029#schedule
+  kind: arrow_only
+  statement: Connector CLARA → Group Ledger labelled 'CLX-IF-029 (daily 03:40)'.
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: connector
+  needle: 'CLARA -> Group Ledger [label: CLX-IF-029 (daily 03:40)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F020
+  world_ref: SYSTEM:SYS24#description
+  kind: arrow_only
+  statement: Subrogation Tracker is replaced by recovery-svc.
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: connector
+  needle: 'Subrogation Tracker -> recovery-svc [label: replaced by]'
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F021
+  world_ref: SYSTEM:SYS24#decommission_target
+  kind: general
+  statement: The Subrogation Tracker (SUBTRAK) retirement target is 31 December 2026.
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: text
+  needle: 'SUBTRAK retirement target: 31 December 2026'
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F022
+  world_ref: SERVICE:recovery-svc#owner_history
+  kind: temporal
+  statement: In February 2026 recovery-svc is owned by Hub Squad – Fraud & Settlement.
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: text
+  needle: 'recovery-svc owner: Hub Squad – Fraud & Settlement'
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F023
+  world_ref: PROCESS:S7#owner_history
+  kind: general
+  statement: Freya Lindahl owns the Recovery & Subrogation process as Head of Recoveries & Subrogation.
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: text
+  needle: Freya Lindahl owns the Recovery & Subrogation process as Head of Recoveries & Subrogation
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F024
+  world_ref: PERSON:P014#titles
+  kind: general
+  statement: Siobhan Quill leads the UK recoveries team as Recoveries Team Leader – UK.
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: text
+  needle: Siobhan Quill leads the UK recoveries team in Bristol as Recoveries Team Leader – UK
+  exclusive: false
+  also_in: []
+- fact_id: VS024-F025
+  world_ref: RULE:BR-REC-003@v3
+  kind: general
+  statement: 'Nordic subrogation thresholds: NOK 13,000 / SEK 13,500 / DKK 8,600 (BR-REC-003 v3).'
+  file: corpus/upload/visuals/VS024_recovery_kpis_2025.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: text
+  needle: NOK 13,000 / SEK 13,500 / DKK 8,600
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F001
+  world_ref: RULE:BR-TRI-003@v3#approved_on
+  kind: speaker_notes
+  statement: 'Speaker notes: BR-TRI-003 v3 was approved on 26 November 2024 via CSB-2024-11.'
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 1
+    where: notes
+  needle: Approved by the Claims Director on 26 November 2024 via Claims Standards Bulletin CSB-2024-11
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F002
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier3_min_gbp
+  kind: arrow_only
+  statement: Decision 'Estimated incurred ≥ £50,000?' → 'Tier-3' [Yes].
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: connector
+    shape_name: yes-1
+  needle: 'Estimated incurred ≥ £50,000? -> Tier-3 [label: Yes]'
+  exclusive: false
+  also_in: []
+  placement: PL-124
+  placement_key: vs25_50k
+- fact_id: VS025-F003
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier3_triggers
+  kind: arrow_only
+  statement: Decision 'Bodily injury?' → 'Tier-3' [Yes].
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: connector
+    shape_name: yes-2
+  needle: 'Bodily injury? -> Tier-3 [label: Yes]'
+  exclusive: false
+  also_in: []
+  placement: PL-125
+  placement_key: vs25_bi
+- fact_id: VS025-F004
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier3_triggers
+  kind: arrow_only
+  statement: Decision 'Solicitor or litigation at notification?' → 'Tier-3' [Yes].
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: connector
+    shape_name: yes-3
+  needle: 'Solicitor or litigation at notification? -> Tier-3 [label: Yes]'
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F005
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier3_triggers
+  kind: arrow_only
+  statement: Decision 'Property total loss?' → 'Tier-3' [Yes].
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: connector
+    shape_name: yes-4
+  needle: 'Property total loss? -> Tier-3 [label: Yes]'
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F006
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier2_min_gbp
+  kind: arrow_only
+  statement: Decision 'Estimated incurred ≥ £5,000 or any third-party involvement?' → 'Tier-2' [Yes].
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: connector
+    shape_name: yes-5
+  needle: 'Estimated incurred ≥ £5,000 or any third-party involvement? -> Tier-2 [label: Yes]'
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F007
+  world_ref: RULE:BR-TRI-003@v3
+  kind: arrow_only
+  statement: Otherwise the claim is Tier-1 (No branch of the last question).
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: connector
+    shape_name: no-5
+  needle: 'Estimated incurred ≥ £5,000 or any third-party involvement? -> Tier-1 [label: No]'
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F008
+  world_ref: RULE:BR-TRI-003@v3
+  kind: arrow_only
+  statement: If estimated incurred is below £50,000, the next question is bodily injury.
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 2
+    where: connector
+    shape_name: no-1
+  needle: 'Estimated incurred ≥ £50,000? -> Bodily injury? [label: No]'
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F009
+  world_ref: RULE:BR-TRI-003@v2#parameters.tier3_min_gbp
+  kind: temporal
+  statement: BR-TRI-003 v2 Tier-3 threshold was £40,000; v3 is £50,000 from 1 January 2025.
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: Tier-3 threshold (GBP) £40,000 £50,000
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F010
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier3_min_dkk
+  kind: temporal
+  statement: BR-TRI-003 Tier-3 threshold in DKK rose from 340,000 to 430,000.
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: DKK 340,000 DKK 430,000
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F011
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier3_min_sek
+  kind: general
+  statement: 'Swedish Tier-3 threshold: SEK 680,000.'
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: table
+  needle: Sweden SEK 680,000
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F012
+  world_ref: RULE:BR-TRI-004@v1
+  kind: arrow_only
+  statement: Routing connector Tier-3 → Major & Complex Loss labelled 'within 4 hours (BR-TRI-004)'.
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'Tier-3 -> Major & Complex Loss [label: within 4 hours (BR-TRI-004)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F013
+  world_ref: RULE:BR-TRI-004@v1
+  kind: arrow_only
+  statement: Routing connector Tier-2 → Specialist claim handlers labelled 'BR-TRI-004'.
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'Tier-2 -> Specialist claim handlers [label: BR-TRI-004]'
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F014
+  world_ref: RULE:BR-TRI-004@v1
+  kind: arrow_only
+  statement: Routing connector Tier-1 → Fast-track queue labelled 'if BR-TRI-006 is met'.
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'Tier-1 -> Fast-track queue [label: if BR-TRI-006 is met]'
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F015
+  world_ref: RULE:BR-TRI-002@v1
+  kind: arrow_only
+  statement: Bodily injury claims route to Major & Complex Loss regardless of amount (BR-TRI-002).
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'Bodily injury -> Major & Complex Loss [label: any amount (BR-TRI-002)]'
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F016
+  world_ref: RULE:BR-TRI-006@v2
+  kind: general
+  statement: 'January 2025 fast-track: Tier-1, FRAUDNET score below 30, no injury; cap £1,500 (BR-TRI-006 v2).'
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: FRAUDNET score below 30 and no injury; cap £1,500
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F017
+  world_ref: RULE:BR-TRI-019@v1
+  kind: general
+  statement: Public liability claims involving injury are always Tier-3 (BR-TRI-019).
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: Public liability claims involving injury are always Tier-3
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F018
+  world_ref: RULE:BR-TRI-017@v1
+  kind: general
+  statement: Flood claims above £30000 route to Major & Complex Loss (BR-TRI-017).
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: text
+  needle: Flood claims above £30000 route to Major & Complex Loss
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F019
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier3_triggers
+  kind: image_table
+  statement: 'Worked example: a house fire that is a property total loss (estimate £45,000) is Tier-3.'
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: image
+    ocr: true
+  needle: property total loss
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F020
+  world_ref: RULE:BR-TRI-003@v3#parameters.tier3_min_gbp
+  kind: image_text
+  statement: 'Quick reference card: ''Incurred GBP 50,000 or more?'' Yes → Tier-3.'
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: image
+    ocr: true
+  needle: 50,000 or more?
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F021
+  world_ref: null
+  kind: alt_text
+  statement: 'Alt text: the first Yes decides Tier-3; otherwise Tier-1.'
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: alt_text
+  needle: the first Yes decides Tier-3
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F022
+  world_ref: TABLE:CLR.T_PARAM#param_rows:TRI_T3_MIN_GBP
+  kind: general
+  statement: CLR.T_PARAM row TRI_T3_MIN_GBP holds the Tier-3 threshold 50000 from 1 January 2025.
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: text
+  needle: TRI_T3_MIN_GBP = 50000, valid from 1 January 2025
+  exclusive: false
+  also_in: []
+- fact_id: VS025-F023
+  world_ref: PROGRAM:CLRTR020#jcl_job
+  kind: general
+  statement: CLRTR020 (tier classification batch) runs in job CLRNTR01.
+  file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: table
+  needle: CLRTR020
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F001
+  world_ref: ADR:ADR-029
+  kind: arrow_only
+  statement: Assessor Portal → CIS (OIDC) → Claims Hub API gateway; connector label 'partner limit 50 req/s'.
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+    shape_name: c-cis-gw
+  needle: 'CIS (OIDC) -> Claims Hub API gateway [label: partner limit 50 req/s]'
+  exclusive: false
+  also_in: []
+  placement: PL-126
+  placement_key: vs26_ratelimit
+  notes: Deck dated 2025-04-14 shows a target-state diagram; ADR-029 (the 50 req/s partner limit) is dated 2026-04-20 and
+    the Assessor Portal name dates from 2025-09-01 (world-plan timing conflict).
+- fact_id: VS026-F002
+  world_ref: ADR:ADR-008
+  kind: arrow_only
+  statement: Partner users sign in from the Assessor Portal through CIS (OIDC).
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+    shape_name: c-ap-cis
+  needle: 'Assessor Portal -> CIS (OIDC) [label: partner sign-in]'
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F003
+  world_ref: SYSTEM:SYS16
+  kind: arrow_only
+  statement: Workforce users reach CIS with SSO and MFA.
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: connector
+    shape_name: c-wb-cis
+  needle: 'Workforce browser -> CIS (OIDC) [label: SSO with MFA]'
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F004
+  world_ref: ADR:ADR-008
+  kind: general
+  statement: 'ADR-008: workforce and partner identity through CIS (OIDC).'
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: ADR-008 Workforce and partner identity through CIS (OIDC)
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F005
+  world_ref: ADR:ADR-006
+  kind: general
+  statement: 'ADR-006: OpenShift runtime on clusters ocp-prd-lon1 (primary) and ocp-dr-lds1 (DR).'
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: Clusters ocp-prd-lon1 (primary) and ocp-dr-lds1 (DR)
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F006
+  world_ref: ADR:ADR-004
+  kind: general
+  statement: 'ADR-004: MQ is retained for mainframe integration until CLARA is decommissioned.'
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: table
+  needle: ADR-004 Retain MQ for mainframe integration until CLARA decommissioning
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F007
+  world_ref: LOC:LOC-LDC#functions
+  kind: visual_only
+  statement: Trust zone 'Leeds Data Centre' contains CLARA on z/OS LPAR PRD1 and the Sentinel VM cluster.
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: group
+    shape_name: grp-zone-4
+  needle: Leeds Data Centre CLARA – z/OS LPAR PRD1 Sentinel VM cluster
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F008
+  world_ref: SYSTEM:SYS19#hosting
+  kind: visual_only
+  statement: Trust zone 'Vendor SaaS' groups WatchScreen, ReCede, Harbour CRM and Notify.
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: group
+    shape_name: grp-zone-5
+  needle: Vendor SaaS WatchScreen ReCede Harbour CRM Notify
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F009
+  world_ref: SYSTEM:SYS16
+  kind: image_text
+  statement: 'Sign-in sequence image: ''sign in + MFA'' step from browser to CIS.'
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: image
+    ocr: true
+  needle: sign in + MFA
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F010
+  world_ref: null
+  kind: alt_text
+  statement: 'Alt text: workforce OIDC sign-in through CIS to the API gateway.'
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: alt_text
+  needle: workforce OIDC sign-in from the browser through CIS to the API gateway
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F011
+  world_ref: RULE:BR-FNOL-017@v1
+  kind: general
+  statement: Nordic FNOLs show the personal number masked (last 4 digits only) outside production (BR-FNOL-017).
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: text
+  needle: masked (last 4 digits only) outside production
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F012
+  world_ref: PERSON:P019#titles
+  kind: general
+  statement: The Data Protection Officer is Morag Duthie.
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: text
+  needle: 'Data Protection Officer: Morag Duthie'
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F013
+  world_ref: INTERFACE:CLX-IF-008#format
+  kind: general
+  statement: CLX-IF-008 uses JSON over HTTPS via the mainframe API gateway (SENTREQ1/SENTRSP1 mapping).
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: text
+  needle: JSON (HTTPS) via mainframe API gateway; SENTREQ1/SENTRSP1 mapping
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F014
+  world_ref: SYSTEM:SYS02#hosting
+  kind: general
+  statement: Claims Hub runs on OpenShift cluster ocp-prd-lon1 with DR cluster ocp-dr-lds1 (Leeds).
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: OpenShift cluster ocp-prd-lon1 (Corvane private cloud, London); DR cluster ocp-dr-lds1 (Leeds)
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F015
+  world_ref: SYSTEM:SYS01#hosting
+  kind: general
+  statement: CLARA runs on z/OS LPAR PRD1 in the Leeds Data Centre, with DR on LPAR DRP1 in the Bristol DR Data Centre.
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: z/OS LPAR PRD1, Leeds Data Centre (LOC-LDC); DR on LPAR DRP1, Bristol DR Data Centre (LOC-BDC)
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F016
+  world_ref: SYSTEM:SYS03#hosting
+  kind: general
+  statement: Sentinel is hosted on a Corvane private cloud VM cluster in the Leeds Data Centre.
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: Sentinel Corvane private cloud VM cluster, Leeds Data Centre
+  exclusive: false
+  also_in: []
+- fact_id: VS026-F017
+  world_ref: SYSTEM:SYS17#renames
+  kind: temporal
+  statement: In April 2025 the partner portal is still listed as the Adjuster Extranet (renamed Assessor Portal on 2025-09-01).
+  file: corpus/upload/visuals/VS026_security_identity_architecture.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: table
+  needle: Adjuster Extranet Corvane private cloud, Leeds
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F001
+  world_ref: ADR:ADR-023
+  kind: visual_only
+  statement: Test pyramid includes a contract test level between component and system integration.
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: group
+    shape_name: grp-test-pyramid
+  needle: System integration Contract tests Component tests
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F002
+  world_ref: ADR:ADR-023
+  kind: general
+  statement: Contract tests protect every Kafka topic (ADR-023).
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: Contract tests protect every Kafka topic (ADR-023)
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F003
+  world_ref: ADR:ADR-023
+  kind: arrow_only
+  statement: 'Pipeline gate between contract tests and SIT deployment: schema compatibility BACKWARD.'
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: connector
+  needle: 'Contract tests -> Deploy to SIT [label: schema BACKWARD]'
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F004
+  world_ref: null
+  kind: arrow_only
+  statement: 'Pipeline gate from UAT to release: business sign-off.'
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: connector
+  needle: 'UAT -> Release [label: business sign-off]'
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F005
+  world_ref: null
+  kind: arrow_only
+  statement: 'Pipeline gate from E2E regression to UAT: no open Sev1 defects.'
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: connector
+  needle: 'E2E regression -> UAT [label: no open Sev1]'
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F006
+  world_ref: PROFILE:products#PRD-MOT-UK
+  kind: chart_only
+  statement: 'Synthetic test data: Motor Private UK is 34% of claims.'
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: chart
+  needle: 'Share of synthetic claims (%): Motor Private UK=34'
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F007
+  world_ref: PROFILE:products#PRD-HOM-SE
+  kind: chart_only
+  statement: 'Synthetic test data: Hem Sverige is 5% of claims.'
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: chart
+  needle: 'Share of synthetic claims (%): Hem Sverige=5'
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F008
+  world_ref: ADR:ADR-025
+  kind: general
+  statement: Masked data is used for migration rehearsals (ADR-025), required by NISA Circular 2025/11 §4.
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: text
+  needle: Masked data for migration rehearsals (ADR-025), required by NISA Circular 2025/11 §4
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F009
+  world_ref: WAVE:MW-1#rehearsals
+  kind: general
+  statement: Wave 1 (UK motor) is planned with 3 migration rehearsals.
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: table
+  needle: Wave 1 – UK motor PRD-MOT-UK 14 Sep 2026 3
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F010
+  world_ref: WAVE:MW-0#rehearsals
+  kind: general
+  statement: Wave 0 (Denmark) is planned with 2 migration rehearsals.
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: table
+  needle: 1 Jun 2026 2
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F011
+  world_ref: TIMELINE:programme#parallel_run
+  kind: temporal
+  statement: In January 2026 the reserve service is still called reserve-svc; the parallel run is 2 March to 28 August 2026.
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: text
+  needle: CLARA and reserve-svc run side by side from 2 March 2026 to 28 August 2026
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F012
+  world_ref: ADR:ADR-024
+  kind: general
+  statement: 'Availability target: SLO 99.5% for claim-core-svc (ADR-024).'
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: table
+  needle: SLO 99.5% for claim-core-svc
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F013
+  world_ref: ADR:ADR-013
+  kind: general
+  statement: Sentinel REST scoring timeout 800 ms with fallback to batch scoring (ADR-013).
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: table
+  needle: Sentinel REST timeout 800 ms
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F014
+  world_ref: CIRCULAR:CIRC-2025-02#requirements
+  kind: general
+  statement: Impact tolerance of 48 hours for claims payment disruption (NISA Circular 2025/02 §3.1).
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 9
+    where: table
+  needle: Impact tolerance of 48 hours for claims payment disruption
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F015
+  world_ref: ADR:ADR-030
+  kind: general
+  statement: The shared tier library was replaced by the triage-svc API (ADR-030).
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 10
+    where: text
+  needle: Tiering is now served by triage-svc rather than a shared library (ADR-030)
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F016
+  world_ref: null
+  kind: image_table
+  statement: 'Severity table image: Sev2 (major function impaired, no workaround) blocks release unless waived.'
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 11
+    where: image
+    ocr: true
+  needle: Blocks unless waived
+  exclusive: false
+  also_in: []
+- fact_id: VS027-F017
+  world_ref: PERSON:P051
+  kind: general
+  statement: The migration test lead is Callum Fairbairn of IBM (Data Migration Lead), not the Corvane namesake.
+  file: corpus/upload/visuals/VS027_test_strategy_overview.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: table
+  needle: Migration test lead Callum Fairbairn (IBM, Data Migration Lead)
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F001
+  world_ref: PERSON:P047
+  kind: speaker_notes
+  statement: 'Speaker notes: kick-off on 13 January 2025 led by Victoria Ashcombe (IBM engagement partner).'
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 1
+    where: notes
+  needle: Kick-off on 13 January 2025 led by Victoria Ashcombe (IBM engagement partner)
+  exclusive: false
+  also_in: []
+  placement: PL-127
+  placement_key: vs28_kickoff
+- fact_id: VS028-F002
+  world_ref: SYSTEM:SYS01#go_live
+  kind: general
+  statement: CLARA went live on 3 October 1994.
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: since 3 October 1994
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F003
+  world_ref: SYSTEM:SYS01#decommission_target
+  kind: general
+  statement: 'CLARA decommission target: 30 September 2027.'
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 3
+    where: text
+  needle: 'Decommission target for CLARA: 30 September 2027'
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F004
+  world_ref: ORG:company#programme.business_case_signed_by
+  kind: general
+  statement: The Programme Skerry business case was signed on 18 November 2024 by the CFO, Gareth Whitcombe.
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: text
+  needle: Business case signed on 18 November 2024 by the CFO, Gareth Whitcombe
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F005
+  world_ref: ORG:company#programme.budget_gbp_m
+  kind: general
+  statement: 'Programme Skerry budget: £48.6m.'
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: text
+  needle: 'Budget: £48.6m'
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F006
+  world_ref: ORG:company#programme.executive_sponsor
+  kind: general
+  statement: Executive sponsor is Duncan Ferrier (Chief Operating Officer).
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 4
+    where: text
+  needle: 'Executive sponsor: Duncan Ferrier (Chief Operating Officer)'
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F007
+  world_ref: EVENT:EV-020
+  kind: arrow_only
+  statement: The first slice moved to Claims Hub (the MVP) is FNOL and triage.
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: connector
+  needle: 'FNOL and triage -> Claims Hub [label: MVP]'
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F008
+  world_ref: DECISION:DEC-001
+  kind: speaker_notes
+  statement: 'Speaker notes: decision DEC-001 – adopt a strangler-fig, wave-based migration.'
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 5
+    where: notes
+  needle: adopt a strangler-fig, wave-based migration
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F009
+  world_ref: COMMITTEE:COM-03#chair_history
+  kind: arrow_only
+  statement: The executive sponsor (Duncan Ferrier) chairs the Programme Skerry Steering Committee.
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: connector
+  needle: 'Executive sponsor: Duncan Ferrier -> Programme Skerry Steering Committee [label: chairs]'
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F010
+  world_ref: COMMITTEE:COM-03#cadence
+  kind: general
+  statement: The Steering Committee meets monthly, second Thursday, 14:00 UK time.
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 6
+    where: text
+  needle: 'Steering Committee: monthly, second Thursday, 14:00 UK time'
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F011
+  world_ref: PERSON:P051#titles
+  kind: visual_only
+  statement: 'IBM team: Callum Fairbairn is the Data Migration Lead.'
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: group
+    shape_name: grp-team-1
+  needle: Callum Fairbairn Data Migration Lead
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F012
+  world_ref: PERSON:P052#titles
+  kind: visual_only
+  statement: 'IBM team: Gordon Sproat is the Mainframe Modernisation SME.'
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: group
+    shape_name: grp-team-1
+  needle: Gordon Sproat Mainframe Modernisation SME
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F013
+  world_ref: PERSON:P017#titles
+  kind: visual_only
+  statement: Aisha Siddiqui is the Claims Hub Product Owner (January 2025).
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 7
+    where: group
+    shape_name: grp-team-2
+  needle: Aisha Siddiqui Claims Hub Product Owner
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F014
+  world_ref: TIMELINE:programme#mvp
+  kind: image_text
+  statement: 'Roadmap image: MVP (FNOL and triage) target November 2025.'
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: image
+    ocr: true
+  needle: target Nov 2025
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F015
+  world_ref: null
+  kind: alt_text
+  statement: 'Alt text: roadmap runs from mobilisation through MVP and waves to CLARA decommissioning.'
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 8
+    where: alt_text
+  needle: from mobilisation through MVP and migration waves to CLARA decommissioning
+  exclusive: false
+  also_in: []
+- fact_id: VS028-F016
+  world_ref: MEETING:MTG-001#attendees
+  kind: general
+  statement: Gareth Whitcombe (Chief Financial Officer) attended the Programme Skerry kick-off.
+  file: corpus/upload/visuals/VS028_programme_kickoff.pptx
+  locator:
+    kind: pptx_slide
+    slide: 12
+    where: table
+  needle: Gareth Whitcombe Chief Financial Officer
+  exclusive: false
+  also_in: []

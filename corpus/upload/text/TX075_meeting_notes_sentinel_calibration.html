@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Oskar Lindgren">
+<meta name="date" content="2026-03-18">
+<title>Meeting Notes – Sentinel Calibration (SNT-4.2)</title>
+<style>
+body { font-family: 'Segoe UI', Arial, sans-serif; margin: 24px auto; max-width: 900px; color: #202124; background: #fff; }
+h1 { font-size: 24px; border-bottom: 2px solid #3c6e47; padding-bottom: 6px; }
+h2 { font-size: 17px; color: #3c6e47; margin-top: 26px; }
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 14px; }
+th, td { border: 1px solid #c8d3cb; padding: 6px 9px; text-align: left; vertical-align: top; }
+th { background: #eaf2ec; }
+.meta td:first-child { font-weight: bold; width: 160px; }
+.note { font-size: 12px; color: #5f6368; }
+</style>
+</head>
+<body>
+<h1 id="tx075-e001">Meeting Notes – Sentinel Calibration (SNT-4.2)</h1>
+<table class="meta" id="tx075-e002"><tbody><tr><td>Date</td><td>Wednesday 18 March 2026, 10:00–11:00</td></tr><tr><td>Location</td><td>Stockholm office and video</td></tr><tr><td>Attendees</td><td>Oskar Lindgren (Senior Fraud Analyst); Niall Brannigan (Head of Counter-Fraud &amp; SIU); Ruth Okafor (Compliance Manager – Conduct &amp; Counter-Fraud); Rachel Dunmore (SIU Investigations Manager (UK)); Linnea Sjöberg (Engineering Lead – Fraud &amp; Settlement Squad)</td></tr><tr><td>Notes by</td><td>Oskar Lindgren, Sentinel model owner</td></tr></tbody></table>
+<h2 id="tx075-e003">Purpose</h2>
+<p id="tx075-e004">Review the calibration of Sentinel model SNT-4.2, completed on 16 March 2026, ahead of the change of referral threshold to 65 on 1 April 2026 (BR-FRD-031 v1), and agree the evidence needed for paragraph 3.3 of NISA Circular 2026/04.</p>
+<h2 id="tx075-e005">Background</h2>
+<p id="tx075-e006">Sentinel scores every claim at FNOL and triage on a scale from 0 to 100. The current model, SNT-4.2, is a gradient-boosted model supplied with the licensed scoring engine; Oskar Lindgren is the model owner and Niall Brannigan the business owner of Sentinel.</p>
+<p id="tx075-e007">From 1 April 2026 NISA Circular 2026/04 requires score-based cut-offs to be calibrated and documented. The calibration reviewed today is the evidence for the 65 cut-off that replaces the current 70.</p>
+<h2 id="tx075-e008">Method</h2>
+<ol>
+<li id="tx075-e009">Score the calibration sample with SNT-4.2 as deployed in production.</li>
+<li id="tx075-e010">Compare the share of scored claims that would be referred at the current and the new threshold.</li>
+<li id="tx075-e011">Check the outcome against SIU triage capacity and the requirements of the Circular.</li>
+<li id="tx075-e012">Record the result and the sign-offs in the model documentation.</li>
+</ol>
+<h2 id="tx075-e013">Calibration results</h2>
+<table id="tx075-e014"><thead><tr><th>Threshold (Sentinel score)</th><th>Rule</th><th>Period</th><th>Share of scored claims referred</th></tr></thead><tbody><tr><td>70</td><td>BR-FRD-012 v2</td><td>Current, until 31 March 2026</td><td>as reported in the quarterly claims KPI dashboard</td></tr><tr><td>65</td><td>BR-FRD-031 v1</td><td>From 1 April 2026</td><td>2.9% of scored claims (expected under SNT-4.2)</td></tr></tbody></table>
+<p id="tx075-e015" class="note">Scores run from 0 to 100. The calibration uses the model as deployed; no other thresholds were assessed in this session.</p>
+<h2 id="tx075-e016">Discussion</h2>
+<ul>
+<li id="tx075-e017">Ruth Okafor confirmed that paragraph 3.3 requires score-based cut-offs to be calibrated and documented, and that on a 0–100 scale the cut-off must not exceed 65; these notes and the calibration pack form part of that evidence.</li>
+<li id="tx075-e018">Rachel Dunmore noted that from 1 April SIU must triage new referrals within 3 business days (BR-FRD-035 v2) and asked for weekly referral volumes in the first month.</li>
+<li id="tx075-e019">Independent validation of the model by Risk is booked for Friday 20 March 2026.</li>
+<li id="tx075-e020">Linnea Sjöberg confirmed the threshold is a configuration value in fraud-referral-svc and will be set for 1 April in line with CLARA.</li>
+<li id="tx075-e021">Niall Brannigan asked that the calibration pack is filed with the model documentation before go-live.</li>
+</ul>
+<h2 id="tx075-e022">Actions</h2>
+<table id="tx075-e023"><thead><tr><th>#</th><th>Action</th><th>Owner</th><th>Due</th></tr></thead><tbody><tr><td>1</td><td>Finalise the calibration pack and file it with the model documentation</td><td>Oskar Lindgren</td><td>27 Mar 2026</td></tr><tr><td>2</td><td>Compliance review of the calibration evidence against §3.3</td><td>Ruth Okafor</td><td>27 Mar 2026</td></tr><tr><td>3</td><td>Set the referral threshold to 65 in fraud-referral-svc for 1 April</td><td>Linnea Sjöberg</td><td>31 Mar 2026</td></tr><tr><td>4</td><td>Weekly referral volumes to SIU for April</td><td>Oskar Lindgren</td><td>Weekly from 6 Apr 2026</td></tr></tbody></table>
+<p id="tx075-e024" class="note">Next review: after the first month of referrals at the new threshold.</p>
+</body>
+</html>

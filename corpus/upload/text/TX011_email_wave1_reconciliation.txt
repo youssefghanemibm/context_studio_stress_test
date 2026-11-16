@@ -1,0 +1,98 @@
+From: Pocock, Graham <graham.pocock@corvane-mutual.example>
+Sent: Tuesday, 25 August 2026 2:17 PM
+To: Kesavan, Arjun <arjun.kesavan@ibm-consulting.example>
+Cc: Siddiqui, Aisha <aisha.siddiqui@corvane-mutual.example>; Fairbairn, Callum <callum.fairbairn@ibm-consulting.example>; Achebe, Daniel <daniel.achebe@corvane-mutual.example>; Kristiansen, Lena <lena.kristiansen@corvane-mutual.example>
+Subject: RE: Wave 1 – final rehearsal reconciliation result
+
+Yes. Sunita is updating the batch schedule for the freeze window and will
+send it across with the CLARA steps.
+
+Graham
+
+--
+Graham Pocock
+Head of Legacy Claims Platforms
+
+This e-mail and any attachments are confidential and intended solely for
+the named addressee(s). If you have received it in error please notify the
+sender and delete it. Corvane Mutual Insurance Society Limited is
+supervised by the National Insurance Supervisory Authority (NISA-FRN
+40417). Registered office: Corvane House, 14 Tallowgate, London EC3N 9ZZ.
+
+________________________________
+From: Kesavan, Arjun <arjun.kesavan@ibm-consulting.example>
+Sent: Tuesday, 25 August 2026 1:41 PM
+To: Siddiqui, Aisha <aisha.siddiqui@corvane-mutual.example>; Fairbairn, Callum <callum.fairbairn@ibm-consulting.example>
+Cc: Pocock, Graham <graham.pocock@corvane-mutual.example>; Achebe, Daniel <daniel.achebe@corvane-mutual.example>; Kristiansen, Lena <lena.kristiansen@corvane-mutual.example>
+Subject: RE: Wave 1 – final rehearsal reconciliation result
+
+Will do – it is in the pack outline.
+
+Graham, can your team confirm the CLARA-side steps for the planned freeze
+from 18:00 on Friday 11 September to 06:00 on Monday 14 September by the
+end of next week?
+
+Thanks,
+Arjun
+
+--
+Arjun Kesavan
+Programme Delivery Lead
+
+IBM Consulting – Programme Skerry delivery team. This message and any
+attachments are intended for the named recipients only and may contain
+confidential client information.
+
+From: Siddiqui, Aisha <aisha.siddiqui@corvane-mutual.example>
+Sent: Tuesday, 25 August 2026 12:23 PM
+To: Fairbairn, Callum <callum.fairbairn@ibm-consulting.example>; Kesavan, Arjun <arjun.kesavan@ibm-consulting.example>
+Cc: Pocock, Graham <graham.pocock@corvane-mutual.example>; Achebe, Daniel <daniel.achebe@corvane-mutual.example>; Kristiansen, Lena <lena.kristiansen@corvane-mutual.example>
+Subject: RE: Wave 1 – final rehearsal reconciliation result
+
+Thanks Callum,
+
+Good news. Please make sure the summary goes into the go/no-go pack for 11
+September.
+
+Aisha
+
+Aisha Siddiqui
+Head of Claims Hub Product
+
+This e-mail and any attachments are confidential and intended solely for
+the named addressee(s). If you have received it in error please notify the
+sender and delete it. Corvane Mutual Insurance Society Limited is
+supervised by the National Insurance Supervisory Authority (NISA-FRN
+40417). Registered office: Corvane House, 14 Tallowgate, London EC3N 9ZZ.
+
+-----Original Message-----
+From: Fairbairn, Callum <callum.fairbairn@ibm-consulting.example>
+Sent: Tuesday, 25 August 2026 11:32 AM
+To: Siddiqui, Aisha <aisha.siddiqui@corvane-mutual.example>; Kesavan, Arjun <arjun.kesavan@ibm-consulting.example>
+Cc: Pocock, Graham <graham.pocock@corvane-mutual.example>; Achebe, Daniel <daniel.achebe@corvane-mutual.example>; Kristiansen, Lena <lena.kristiansen@corvane-mutual.example>
+Subject: Wave 1 – final rehearsal reconciliation result
+Attachments: W1_Rehearsal3_Reconciliation_Summary.xlsx
+
+Aisha, Arjun,
+
+The final Wave 1 rehearsal reconciled 186,400 claims with 3 exceptions.
+
+The exceptions are listed in the attached log with an owner against each,
+and we are working them through with Graham's and Daniel's teams. The
+summary tab is the one for the go/no-go pack; the detail tabs cover claim
+and reserve comparisons at claim level.
+
+Let me know if you need anything else from me.
+
+Thanks,
+Callum
+
+Callum Fairbairn
+Data Migration Lead
+IBM Consulting | Programme Skerry
+M: 07700 900151
+callum.fairbairn@ibm-consulting.example
+
+Delivered by the IBM Consulting team working on Programme Skerry for
+Corvane Mutual. Please do not forward outside the programme distribution
+without the sender's agreement.

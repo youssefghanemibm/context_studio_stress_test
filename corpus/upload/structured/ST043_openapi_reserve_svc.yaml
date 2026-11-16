@@ -1,0 +1,785 @@
+# Corvane Mutual – OpenAPI – reserve-svc
+# Document SKR-API-RSV-043 version 1.0 (approved), 2025-12-01
+# Owner: Daniel Achebe, Engineering Lead – Reserve & Finance Squad
+# Classification: Internal – Programme Skerry
+# Change history:
+#   0.1  2025-10-07  Daniel Achebe: Initial draft for review
+#   0.2  2025-10-12  Daniel Achebe: Added missing entries
+#   0.3  2025-10-13  Daniel Achebe: Review comments incorporated
+#   0.4  2025-11-04  Daniel Achebe: Clarified ownership fields
+#   1.0  2025-12-01  Daniel Achebe: Approved
+# Service reserve-svc, namespace chub-reserve, repository path services/reserve-svc.
+openapi: 3.0.3
+info:
+  title: reserve-svc API
+  version: '1.4'
+  description: Case reserves and reserve movements for Claims Hub (reserve-svc). Replaces the CLARA reserve programs
+    as they are migrated. Movements are authority-checked against BR-RSV-003 v3. All requests must carry a correlation
+    identifier header; it is echoed in the response. Dates use ISO 8601; time stamps are UTC with an explicit offset.
+  contact:
+    name: Daniel Achebe
+    email: daniel.achebe@corvane-mutual.example
+  x-owner-team: Hub Squad – Reserve & Finance
+  x-document-control:
+    documentId: SKR-API-RSV-043
+    version: '1.0'
+    status: approved
+    date: '2025-12-01'
+    owner: Daniel Achebe
+    approvers:
+    - Elin Fosse (Lead Solution Architect)
+    - Tomasz Wójcik (Enterprise Architect)
+servers:
+- url: https://reserve-svc.apps.ocp-prd-lon1.corvane.internal/v1
+  description: Production
+- url: https://reserve-svc.apps.ocp-pre-lon1.corvane.internal/v1
+  description: Pre-production
+security:
+- cis:
+  - reserve.read
+tags:
+- name: reserves
+  description: Current reserves per claim
+- name: movements
+  description: Reserve movements and history
+paths:
+  /reserves/{claimId}:
+    get:
+      summary: Get current reserves for a claim
+      operationId: GetCurrentReservesForAClaim
+      tags:
+      - reserves
+      parameters:
+      - $ref: '#/components/parameters/ClaimId'
+      - $ref: '#/components/parameters/CorrelationId'
+      responses:
+        '200':
+          description: Current reserves.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reserve'
+              examples:
+                ReserveTier3UKMotor:
+                  $ref: '#/components/examples/ReserveTier3UKMotor'
+                ReserveTier2HomeSE:
+                  $ref: '#/components/examples/ReserveTier2HomeSE'
+        '400':
+          description: Request failed validation.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Missing or invalid CIS token.
+        '403':
+          description: Caller lacks the required scope or authority.
+        '404':
+          description: Resource not found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          description: Unexpected error.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /reserves/{claimId}/movements:
+    post:
+      summary: Post a reserve movement (authority checked against BR-RSV-003)
+      operationId: PostAReserveMovement
+      tags:
+      - movements
+      parameters:
+      - $ref: '#/components/parameters/ClaimId'
+      - $ref: '#/components/parameters/CorrelationId'
+      - $ref: '#/components/parameters/IdempotencyKey'
+      security:
+      - cis:
+        - reserve.write
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovementRequest'
+            example:
+              reserveType: INDEMNITY
+              movementType: AD
+              amount:
+                amountMinor: 1250000
+                currency: GBP
+              reasonCode: EST1
+      responses:
+        '201':
+          description: Movement recorded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movement'
+              examples:
+                MovementAdjustmentGBP:
+                  $ref: '#/components/examples/MovementAdjustmentGBP'
+                MovementLargeLossNOK:
+                  $ref: '#/components/examples/MovementLargeLossNOK'
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+            X-Correlation-Id:
+              $ref: '#/components/headers/X-Correlation-Id'
+        '400':
+          description: Request failed validation.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Missing or invalid CIS token.
+        '403':
+          description: Caller lacks the required scope or authority.
+        '404':
+          description: Resource not found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Amount exceeds the caller's authority; routed for approval (BR-RSV-003 v3).
+        '422':
+          description: Movement would make the outstanding reserve negative.
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          description: Unexpected error.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /reserves/{claimId}/history:
+    get:
+      summary: Reserve movement history
+      operationId: ReserveMovementHistory
+      tags:
+      - movements
+      parameters:
+      - $ref: '#/components/parameters/ClaimId'
+      - $ref: '#/components/parameters/CorrelationId'
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          maximum: 200
+      responses:
+        '200':
+          description: Movement history, newest first.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovementPage'
+              examples:
+                MovementHistoryPage:
+                  $ref: '#/components/examples/MovementHistoryPage'
+        '400':
+          description: Request failed validation.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Missing or invalid CIS token.
+        '403':
+          description: Caller lacks the required scope or authority.
+        '404':
+          description: Resource not found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          description: Unexpected error.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+components:
+  parameters:
+    ClaimId:
+      name: claimId
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^CLM-(UK|NO|SE|DK)-\d{4}-\d{6}$
+      description: Claim reference, e.g. CLM-UK-2025-318204.
+    CorrelationId:
+      name: X-Correlation-Id
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Correlation identifier, echoed in the response and in logs.
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Client-generated key; repeating a request with the same key returns the original result.
+  schemas:
+    Money:
+      type: object
+      required:
+      - amountMinor
+      - currency
+      properties:
+        amountMinor:
+          type: integer
+          format: int64
+          description: Amount in minor units (pence/øre).
+        currency:
+          type: string
+          enum:
+          - GBP
+          - NOK
+          - SEK
+          - DKK
+    Reserve:
+      type: object
+      required:
+      - claimId
+      - lines
+      properties:
+        claimId:
+          type: string
+        tier:
+          type: string
+          enum:
+          - Tier-1
+          - Tier-2
+          - Tier-3
+          description: Tier per BR-TRI-003 v3.
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReserveLine'
+        nextReviewDate:
+          type: string
+          format: date
+          description: Tier-3 reserves are reviewed every 21 days (BR-RSV-007 v2; config tier3-review-days=21).
+        source:
+          type: string
+          enum:
+          - CLAIMS_HUB
+          - CLARA_BRIDGE
+    ReserveLine:
+      type: object
+      properties:
+        reserveType:
+          type: string
+          description: Reserve type code (indemnity, expense, legal, recovery estimate).
+        outstanding:
+          $ref: '#/components/schemas/Money'
+        paidToDate:
+          $ref: '#/components/schemas/Money'
+        gbpEquivalent:
+          $ref: '#/components/schemas/Money'
+        authorityLevel:
+          $ref: '#/components/schemas/AuthorityLevel'
+        lastChangedAt:
+          type: string
+          format: date-time
+    AuthorityLevel:
+      type: string
+      enum:
+      - CLAIMS_HANDLER
+      - TEAM_LEADER
+      - CLAIMS_MANAGER
+      - CLAIMS_DIRECTOR
+      - RESERVING_COMMITTEE
+      description: 'Reserve authority (BR-RSV-003 v3): Claims Handler £25,000; Team Leader £100,000; Claims Manager
+        £500,000; Claims Director £2,000,000; above that the Reserving Committee.'
+    MovementType:
+      type: string
+      enum:
+      - IN
+      - AD
+      - IX
+      - RV
+      - ST
+      - RC
+      description: IN initial; AD adjustment; IX indexation; RV review; ST settlement close; RC recovery (CLR.T_RESERVE_MOVEMENT.MOVE_TYPE_CD).
+    MovementRequest:
+      type: object
+      required:
+      - reserveType
+      - movementType
+      - amount
+      - reasonCode
+      properties:
+        reserveType:
+          type: string
+        movementType:
+          $ref: '#/components/schemas/MovementType'
+        amount:
+          $ref: '#/components/schemas/Money'
+        reasonCode:
+          type: string
+          description: Reason code from code list RSNC (BR-RSV-015).
+        comment:
+          type: string
+          maxLength: 500
+    Movement:
+      type: object
+      properties:
+        movementId:
+          type: string
+          format: uuid
+        claimId:
+          type: string
+        movementType:
+          $ref: '#/components/schemas/MovementType'
+        amount:
+          $ref: '#/components/schemas/Money'
+        gbpAmount:
+          $ref: '#/components/schemas/Money'
+        createdAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        largeLoss:
+          type: boolean
+          description: True when the GBP movement exceeds £250,000 (BR-RSV-011 v2); Reinsurance is notified within
+            24 hours.
+    MovementPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Movement'
+        nextCursor:
+          type: string
+    Problem:
+      type: object
+      description: RFC 7807 problem details with a stable error code.
+      required:
+      - type
+      - title
+      - status
+      - code
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        code:
+          type: string
+          example: CHUB-VAL-001
+        correlationId:
+          type: string
+  securitySchemes:
+    cis:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://cis.corvane.internal/oauth2/token
+          scopes:
+            reserve.read: Read reserves
+            reserve.write: Post reserve movements
+  headers:
+    X-Correlation-Id:
+      description: Echo of the request correlation identifier.
+      schema:
+        type: string
+    Retry-After:
+      description: Seconds to wait before retrying.
+      schema:
+        type: integer
+    Location:
+      description: URI of the created resource.
+      schema:
+        type: string
+        format: uri
+  responses:
+    TooManyRequests:
+      description: Client rate limit reached; retry after the indicated delay.
+      headers:
+        Retry-After:
+          $ref: '#/components/headers/Retry-After'
+        X-Correlation-Id:
+          $ref: '#/components/headers/X-Correlation-Id'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    ServiceUnavailable:
+      description: The service is temporarily unavailable (for example during a rolling deployment).
+      headers:
+        Retry-After:
+          $ref: '#/components/headers/Retry-After'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+  examples:
+    ReserveTier3UKMotor:
+      summary: Tier-3 UK motor claim with indemnity and legal reserves
+      value:
+        claimId: CLM-UK-2025-334078
+        tier: Tier-3
+        source: CLAIMS_HUB
+        nextReviewDate: '2025-12-15'
+        lines:
+        - reserveType: INDEMNITY
+          outstanding:
+            amountMinor: 7800000
+            currency: GBP
+          paidToDate:
+            amountMinor: 600000
+            currency: GBP
+          authorityLevel: TEAM_LEADER
+          lastChangedAt: '2025-11-24T10:12:00Z'
+        - reserveType: LEGAL
+          outstanding:
+            amountMinor: 1100000
+            currency: GBP
+          paidToDate:
+            amountMinor: 0
+            currency: GBP
+          authorityLevel: CLAIMS_HANDLER
+          lastChangedAt: '2025-11-24T10:14:00Z'
+    ReserveTier2HomeSE:
+      summary: Tier-2 Swedish home claim in SEK with GBP equivalent
+      value:
+        claimId: CLM-SE-2025-169795
+        tier: Tier-2
+        source: CLARA_BRIDGE
+        lines:
+        - reserveType: INDEMNITY
+          outstanding:
+            amountMinor: 48600000
+            currency: SEK
+          paidToDate:
+            amountMinor: 6000000
+            currency: SEK
+          gbpEquivalent:
+            amountMinor: 3600000
+            currency: GBP
+          authorityLevel: TEAM_LEADER
+          lastChangedAt: '2025-11-11T08:41:00Z'
+    MovementAdjustmentGBP:
+      summary: Adjustment within Claims Handler authority
+      value:
+        movementId: 6b1f0c52-3d7e-4a19-9c2b-5e8d7a40f743
+        claimId: CLM-UK-2025-334078
+        movementType: AD
+        amount:
+          amountMinor: 630000
+          currency: GBP
+        gbpAmount:
+          amountMinor: 630000
+          currency: GBP
+        createdAt: '2025-11-30T14:03:00Z'
+        createdBy: handler.uk.6122
+        largeLoss: false
+    MovementLargeLossNOK:
+      summary: Initial reserve above the large loss threshold (Reinsurance notified)
+      value:
+        movementId: 0d4e8a71-92c3-4f60-8b15-27c9e1a3b514
+        claimId: CLM-NO-2025-218654
+        movementType: IN
+        amount:
+          amountMinor: 380700000
+          currency: NOK
+        gbpAmount:
+          amountMinor: 28200000
+          currency: GBP
+        createdAt: '2025-11-29T09:27:00Z'
+        createdBy: handler.no.6505
+        largeLoss: true
+    MovementHistoryPage:
+      summary: First page of a claim's movement history (newest first)
+      value:
+        items:
+        - movementId: 9a7c7961-1e2f-4b3a-8c5d-6e7f8091a2b3
+          claimId: CLM-UK-2025-334078
+          movementType: RC
+          amount:
+            amountMinor: -1350000
+            currency: GBP
+          gbpAmount:
+            amountMinor: -1350000
+            currency: GBP
+          createdAt: '2025-11-15T11:09:00Z'
+          createdBy: handler.uk.6706
+          largeLoss: false
+        - movementId: 9a7c6458-1e2f-4b3a-8c5d-6e7f8091a2b3
+          claimId: CLM-UK-2025-334078
+          movementType: RV
+          amount:
+            amountMinor: 1400000
+            currency: GBP
+          gbpAmount:
+            amountMinor: 1400000
+            currency: GBP
+          createdAt: '2025-11-04T11:08:00Z'
+          createdBy: handler.uk.4869
+          largeLoss: false
+        - movementId: 9a7c8467-1e2f-4b3a-8c5d-6e7f8091a2b3
+          claimId: CLM-UK-2025-334078
+          movementType: AD
+          amount:
+            amountMinor: 200000
+            currency: GBP
+          gbpAmount:
+            amountMinor: 200000
+            currency: GBP
+          createdAt: '2025-10-24T11:07:00Z'
+          createdBy: handler.uk.1033
+          largeLoss: false
+        - movementId: 9a7c3817-1e2f-4b3a-8c5d-6e7f8091a2b3
+          claimId: CLM-UK-2025-334078
+          movementType: AD
+          amount:
+            amountMinor: 250000
+            currency: GBP
+          gbpAmount:
+            amountMinor: 250000
+            currency: GBP
+          createdAt: '2025-10-13T11:06:00Z'
+          createdBy: handler.uk.3075
+          largeLoss: false
+        - movementId: 9a7c9576-1e2f-4b3a-8c5d-6e7f8091a2b3
+          claimId: CLM-UK-2025-334078
+          movementType: IN
+          amount:
+            amountMinor: 900000
+            currency: GBP
+          gbpAmount:
+            amountMinor: 900000
+            currency: GBP
+          createdAt: '2025-10-02T11:05:00Z'
+          createdBy: handler.uk.9677
+          largeLoss: false
+        nextCursor: eyJwIjoyfQ
+    ProblemRSVVAL001:
+      summary: 'RSV-VAL-001: claimId does not match the claim reference format'
+      value:
+        type: https://errors.corvane.internal/rsv-val-001
+        title: ClaimId does not match the claim reference format
+        status: 400
+        code: RSV-VAL-001
+        detail: ClaimId does not match the claim reference format.
+        correlationId: req-20251201-0001
+    ProblemRSVVAL004:
+      summary: 'RSV-VAL-004: currency does not match the reserve currency'
+      value:
+        type: https://errors.corvane.internal/rsv-val-004
+        title: Currency does not match the reserve currency
+        status: 400
+        code: RSV-VAL-004
+        detail: Currency does not match the reserve currency.
+        correlationId: req-20251201-0002
+    ProblemRSVAUT010:
+      summary: 'RSV-AUT-010: amount exceeds the caller''s reserve authority (BR-RSV-003 v3)'
+      value:
+        type: https://errors.corvane.internal/rsv-aut-010
+        title: Amount exceeds the caller's reserve authority (BR-RSV-003 v3)
+        status: 409
+        code: RSV-AUT-010
+        detail: Amount exceeds the caller's reserve authority (BR-RSV-003 v3).
+        correlationId: req-20251201-0003
+    ProblemRSVBUS020:
+      summary: 'RSV-BUS-020: movement would make the outstanding reserve negative'
+      value:
+        type: https://errors.corvane.internal/rsv-bus-020
+        title: Movement would make the outstanding reserve negative
+        status: 422
+        code: RSV-BUS-020
+        detail: Movement would make the outstanding reserve negative.
+        correlationId: req-20251201-0004
+    ProblemRSVBUS021:
+      summary: 'RSV-BUS-021: claim is closed; reopen before posting a movement (BR-RSV-017)'
+      value:
+        type: https://errors.corvane.internal/rsv-bus-021
+        title: Claim is closed; reopen before posting a movement (BR-RSV-017)
+        status: 422
+        code: RSV-BUS-021
+        detail: Claim is closed; reopen before posting a movement (BR-RSV-017).
+        correlationId: req-20251201-0005
+    ProblemRSVSYS500:
+      summary: 'RSV-SYS-500: unexpected error; retry with the same Idempotency-Key'
+      value:
+        type: https://errors.corvane.internal/rsv-sys-500
+        title: Unexpected error; retry with the same Idempotency-Key
+        status: 500
+        code: RSV-SYS-500
+        detail: Unexpected error; retry with the same Idempotency-Key.
+        correlationId: req-20251201-0006
+x-events:
+  produces:
+  - reserve.changed.v1
+  consumes:
+  - triage.completed.v1
+  note: Events are published after commit (outbox).
+x-replaces-programs:
+- CLRFN030
+- CLRRS010
+- CLRRS015
+- CLRRS020
+- CLRRS030
+- CLRRS040
+- CLRRS110
+- CLRRS120
+- CLRRS130
+- CLRRS140
+- CLRRS150
+- CLRRS160
+- CLRRS170
+- CLRRS180
+- CLRRS200
+x-error-codes:
+- code: RSV-VAL-001
+  meaning: claimId does not match the claim reference format
+- code: RSV-VAL-004
+  meaning: currency does not match the reserve currency
+- code: RSV-AUT-010
+  meaning: amount exceeds the caller's reserve authority (BR-RSV-003 v3)
+- code: RSV-BUS-020
+  meaning: movement would make the outstanding reserve negative
+- code: RSV-BUS-021
+  meaning: claim is closed; reopen before posting a movement (BR-RSV-017)
+- code: RSV-SYS-500
+  meaning: unexpected error; retry with the same Idempotency-Key
+x-changelog:
+- version: '1.0'
+  date: '2025-07-14'
+  change: First contract for the reserve and movement API (CHUB-193)
+- version: '1.1'
+  date: '2025-08-26'
+  change: Added reserve history paging
+- version: '1.2'
+  date: '2025-09-22'
+  change: Authority levels aligned with BR-RSV-003 v3
+- version: '1.3'
+  date: '2025-10-30'
+  change: Large loss flag on movements (BR-RSV-011 v2)
+- version: '1.4'
+  date: '2025-12-01'
+  change: Problem details error format; approved for build
+x-data-model:
+  note: Persistence owned by the service (PostgreSQL); not exposed directly to consumers.
+  tables:
+  - table: reserve.reserve
+    database: chub_reserve
+    columns:
+    - name: reserve_id
+      type: UUID
+      nullable: false
+      description: Reserve
+      primaryKey: true
+    - name: claim_id
+      type: VARCHAR(20)
+      nullable: false
+      description: Claim
+    - name: reserve_type
+      type: VARCHAR(10)
+      nullable: false
+      description: Indemnity, expense, legal
+    - name: currency
+      type: CHAR(3)
+      nullable: false
+      description: Currency
+    - name: outstanding_amount
+      type: NUMERIC
+      nullable: false
+      description: Outstanding (maps from RSV_OUTSTANDING_AMT)
+    - name: gbp_equivalent
+      type: NUMERIC
+      nullable: false
+      description: GBP equivalent
+    - name: next_review_date
+      type: DATE
+      nullable: true
+      description: Next review
+    - name: status
+      type: VARCHAR(8)
+      nullable: false
+      description: Open or closed
+  - table: reserve.reserve_movement
+    database: chub_reserve
+    columns:
+    - name: movement_id
+      type: UUID
+      nullable: false
+      description: Movement
+      primaryKey: true
+    - name: reserve_id
+      type: UUID
+      nullable: false
+      description: Reserve
+    - name: movement_type
+      type: VARCHAR(12)
+      nullable: false
+      description: Type
+    - name: amount_minor
+      type: BIGINT
+      nullable: false
+      description: Amount in minor units (pence/øre)
+    - name: currency
+      type: CHAR(3)
+      nullable: false
+      description: Currency
+    - name: source
+      type: VARCHAR(16)
+      nullable: false
+      description: CLAIMS_HUB or CLARA_BRIDGE
+    - name: created_at
+      type: TIMESTAMP
+      nullable: false
+      description: Created
+  - table: reserve.review_schedule
+    database: chub_reserve
+    columns:
+    - name: claim_id
+      type: VARCHAR(20)
+      nullable: false
+      description: Claim
+      primaryKey: true
+    - name: next_review_date
+      type: DATE
+      nullable: false
+      description: Next review
+    - name: cadence_days
+      type: SMALLINT
+      nullable: false
+x-guidelines:
+- Amounts are carried in minor units with an explicit ISO 4217 currency.
+- Structured logs carry a correlation identifier end to end.
+- Contract tests run in the pipeline against the published API and event schemas.
+- Time stamps are stored in UTC and rendered in the user's locale.
+- Rate limits apply per client; clients receive 429 with a retry-after header.
+- Dates use ISO 8601; time stamps are UTC with an explicit offset.
+- Clients should treat unknown fields as optional and ignore them.

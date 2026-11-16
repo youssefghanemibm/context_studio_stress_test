@@ -745,7 +745,7 @@ tickets:
   - generated-filler
 - id: CHUB-262
   type: Story
-  summary: Wave 0 Denmark migration (41,250 claims)
+  summary: Wave 0 Denmark migration
   status: Done
   assignee: P051
   reporter: null
@@ -1058,7 +1058,7 @@ tickets:
   labels: []
 - id: CHUB-415
   type: Task
-  summary: 'CODEOWNERS: recovery-svc and document-svc to @corvane/hub-squad-recoveries-docs'
+  summary: 'CODEOWNERS: hand recovery-svc and document-svc to the new recoveries and documents squad'
   status: Done
   assignee: P043
   reporter: null

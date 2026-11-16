@@ -1,0 +1,778 @@
+CORVANE MUTUAL INSURANCE SOCIETY LIMITED
+TRANSCRIPT - RESERVING DESIGN REVIEW 5 MAR 2026
+============================================================================================
+
+DOCUMENT CONTROL
+  Document reference : DA-RSV-TRN-2026-03
+  Title              : Transcript - Reserving Design Review 5 Mar 2026
+  Meeting            : Reserving design review (reserve-engine)
+  Forum              : Design Authority - reserve-engine design review
+  Date and time      : Thursday 5 March 2026, 13:30-15:30 UK time (120 minutes)
+  Venue              : Corvane House, London (Design Authority room) with Leeds on video
+  Chair              : Tomasz Wojcik, Enterprise Architect
+  Prepared by        : Nadia Petrovic, Java Technical Lead (IBM Consulting)
+  Approved by        : Tomasz Wojcik
+  Status             : Final
+  Classification     : Internal
+
+VERSION HISTORY
+  Version  Date        Author / approver         Change
+  0.1      2026-03-05  N. Petrovic               Automated transcript from the bridge recording
+  0.2      2026-03-05  N. Petrovic               Program and table names checked against the CRUD matrix
+  1.0      2026-03-05  T. Wojcik (chair)         Approved as the record of the review
+
+ATTENDEES
+  Lena Kristiansen             Head of Reserving
+  Daniel Achebe                Engineering Lead – Reserve & Finance Squad
+  Keith Barraclough            Senior Mainframe Developer
+  Nadia Petrovic               Java Technical Lead, IBM Consulting
+  Gordon Sproat                Mainframe Modernisation SME, IBM Consulting
+  Callum Fairbairn (IBM)       Data Migration Lead, IBM Consulting
+  Sebastian Moreau-Clarke      Chief Actuary
+  Tomasz Wojcik                Enterprise Architect
+
+NOTES ON THIS TRANSCRIPT
+  - Timestamps are elapsed time from the start of the recording (hh:mm:ss).
+  - Speaker labels follow the display names on the bridge and were checked by hand.
+  - [inaudible] and [crosstalk] mark passages the transcription could not resolve.
+  - Callum Fairbairn (IBM) is the IBM Data Migration Lead (not the Leeds motor team leader of the same name).
+  - Program names (CLRxxnnn) and table names are as spoken; corrections made in the session are left in place.
+
+-------------------------------------- TRANSCRIPT ------------------------------------------
+
+[00:00:00] Tomasz Wojcik: Okay, let's start. Afternoon, everyone, and hello to Leeds. This is the Design Authority review of the reserve-engine design. Nadia's recording.
+[00:00:07] Nadia Petrovic: Yes, recording. Afternoon.
+[00:00:09] Tomasz Wojcik: Agenda: the first days of the parallel run, then which programs write the reserve table, because that drives the synchronisation design, then event mapping, then the revaluation finding, and finally the Tier-3 review cadence. Lena and Sebastian are here for the business and actuarial view.
+[00:00:26] Daniel Achebe: We've had mixed messages on the review format, so a clear statement would help. To be honest, to be clear, nobody's saying the reserve-engine design is broken. It's more that we haven't tested it the way we'd test anything else. The Nordic reserves always make the review format more interesting because of the currency side.
+[00:00:46] Gordon Sproat: I'd echo that, Okay. Every time we've touched the review format in the past, there's been a surprise in the reconciliation.
+[00:00:54] Callum Fairbairn (IBM): Just to build on what Gordon said, let's capture the design pack as a follow-up rather than try to close it today.
+[00:01:03] Tomasz Wojcik: This is a Design Authority review, so the output is decisions or ADRs, not just discussion.
+[00:01:10] Nadia Petrovic: Well, I'll be honest, the review scope wasn't really on my radar until this week. I've circulated the design pack. I'll walk through the sections that changed since the last review.
+[00:01:22] Tomasz Wojcik: Keith, any concerns from your side on the review scope?
+[00:01:26] Keith Barraclough: A few, mostly about timing rather than substance.
+[00:01:30] Tomasz Wojcik: Thanks.
+[00:01:32] Nadia Petrovic: So, um, the review scope touches the audit trail, so internal audit will want to look at it eventually. On the reserve-engine design, the question is always whether the reserve table and the movement history tell the same story. Speaking for my area, I'd want the actuaries to see the review scope before we lock anything down.
+[00:01:53] Sebastian Moreau-Clarke: And I'm here for the actuarial view, which is mostly about the movement history. Sure. We touched on the review scope last time and I'm not sure the position has really moved since, I think.
+[00:02:07] Lena Kristiansen: Lovely, thanks.
+[00:02:08] Gordon Sproat: Are we expecting any pushback on the review scope?
+[00:02:13] Tomasz Wojcik: Not really. The team have been very open about the gaps, which helps. Okay. From a customer point of view, the review scope should be invisible, and that's the test I'd apply.
+[00:02:25] Nadia Petrovic: For the review format, the question isn't whether, it's how and in what order. The handlers think in case estimates, the actuaries think in triangles, and the review format has to work for both. Mm. We need the review format to be explainable to Finance in plain English, not just in COBOL paragraphs.
+[00:02:45] Tomasz Wojcik: If the reserve-engine design changes the case estimate a handler sees, we need to tell them why.
+[00:03:00] Tomasz Wojcik: Daniel, do you want to start with the parallel run?
+[00:03:04] Daniel Achebe: Sure. So the reserve parallel run started on Monday, the 2nd of March. CLARA stays the master, the movements come across through the CLX-IF-049 bridge onto the claims.reserve.movement.v1 topic, and reserve-engine recalculates the reserves so we can compare.
+[00:03:18] Daniel Achebe: And just for the minutes, it's reserve-engine now. The rename from reserve-svc went in on the 10th of February under ADR-019, so if anyone sees reserve-svc in an old document, it's the same service.
+[00:03:31] Keith Barraclough: Are we expecting any pushback on the movement replay?
+[00:03:35] Nadia Petrovic: Some, probably, but nothing we can't work through. I'd like the movement replay closed down properly, not just quietly dropped.
+[00:03:43] Callum Fairbairn (IBM): The daily comparison is exactly where the parallel run earns its keep. We should be honest that the bridge feed is partly a capacity problem.
+[00:03:53] Lena Kristiansen: Okay, thank you.
+[00:03:55] Daniel Achebe: If anyone's got concerns about the daily comparison, I'd rather hear them now than in the corridor afterwards, I think.
+[00:04:03] Nadia Petrovic: Okay.
+[00:04:04] Tomasz Wojcik: Daniel, did you get a chance to look at the parallel run?
+[00:04:10] Daniel Achebe: I did, briefly. I've got a couple of comments, I'll send them over.
+[00:04:15] Nadia Petrovic: The comparison runs every morning and the squad triage the breaks before the stand-up. We can talk about the first few days of the parallel run all day, but at some point someone has to make a call.
+[00:04:30] Lena Kristiansen: There's a dependency on the bridge feed that I don't think everyone's aware of, so it's worth calling out. My team are looking at the breaks with the squad. Most of them so far are timing rather than amount. If we're going to change anything about the daily comparison, now's the time rather than later.
+[00:04:51] Gordon Sproat: Where does the break investigation process sit on the list of priorities right now?
+[00:04:57] Daniel Achebe: Near the top, but not at the top. I'd rather the break investigation process was boring. Boring is good.
+[00:05:04] Keith Barraclough: Do we need a decision on the reconciliation breaks from this group, or is it just for awareness?
+[00:05:12] Tomasz Wojcik: For noting, I think. Nothing we need to decide today. I'd rather the reconciliation breaks were boring. Boring is good.
+[00:05:20] Keith Barraclough: For the movement replay, I'd rather we under-promise and deliver than the other way round. It might be worth a separate session on the movement replay, because we won't do it justice in a few minutes here, at least from where I sit. I had a look at the reconciliation report over the weekend and nothing jumped out as a showstopper.
+[00:05:42] Callum Fairbairn (IBM): Are people in the room able to hear the people on the line?
+[00:05:48] Nadia Petrovic: We can hear you fine.
+[00:05:51] Callum Fairbairn (IBM): Good, thank you.
+[00:05:54] Daniel Achebe: The first few days have been mostly about plumbing. Making sure every movement that leaves CLARA arrives in the engine. We should be able to replay the first few days of the parallel run from the movements alone; that's the test.
+[00:06:09] Keith Barraclough: Mm-hm.
+[00:06:10] Callum Fairbairn (IBM): Daniel, is there anything on the bridge feed you need from this group?
+[00:06:15] Daniel Achebe: Not today, thanks. If that changes, I'll shout. The sticking point on the bridge feed has been agreeing the scope, not the build.
+[00:06:24] Tomasz Wojcik: Have we taken the bridge feed through the team leaders yet?
+[00:06:29] Keith Barraclough: Not yet, but it's planned. If we get the bridge feed right, a lot of the noise we've had recently goes away.
+[00:06:37] Daniel Achebe: The bridge has been solid. The messages arrive; it's what we do with them that we're tuning.
+[00:06:44] Tomasz Wojcik: Shall we park that and pick it up next time?
+[00:06:49] Daniel Achebe: Where does the daily comparison sit on the list of priorities right now?
+[00:06:55] Callum Fairbairn (IBM): Top of the second tier, if that makes sense. The daily comparison keeps getting squeezed by more urgent things.
+[00:07:02] Tomasz Wojcik: The daily comparison touches the audit trail, so internal audit will want to look at it eventually. On that point, I'm conscious the bridge feed keeps coming up and we keep deferring it. So, if we get the daily comparison right, a lot of the noise we've had recently goes away. Right. We should be able to replay the break investigation process from the movements alone; that's the test.
+[00:07:28] Sebastian Moreau-Clarke: I'd like to see the breaks categorised by reserve type, so we can see whether it's an indemnity problem or an expense problem. On that point, the handlers think in case estimates, the actuaries think in triangles, and the daily comparison has to work for both.
+[00:07:45] Lena Kristiansen: Can I just add to that? For the first few days of the parallel run, I'd rather we under-promise and deliver than the other way round.
+[00:07:55] Nadia Petrovic: What's the biggest risk on the first few days of the parallel run, in your view?
+[00:08:01] Daniel Achebe: That we assume it's done because nobody's complaining. The thing about the first few days of the parallel run is that everyone agrees with it in principle and nobody wants to do the work.
+[00:08:14] Nadia Petrovic: Great.
+[00:08:15] Keith Barraclough: From my side, it's fair to say the movement replay took longer than any of us wanted. I'd want the actuaries to see the reconciliation breaks before we lock anything down. What would really help on the break investigation process is a single view that everyone works from. On the CLARA side the reconciliation program is CLRRS210. It's new, it went in at the end of February just for the parallel run.
+[00:08:41] Nadia Petrovic: The bridge feed is exactly where the parallel run earns its keep. Let's be careful not to let the bridge feed turn into a bigger piece of work than it needs to be.
+[00:08:54] Keith Barraclough: Honestly, I'd ask that we don't make promises on the first few days of the parallel run until we've seen the impact assessment. Every time we've touched the first few days of the parallel run in the past, there's been a surprise in the reconciliation. My worry with the first few days of the parallel run is less the technology and more whether people on the floor actually know what's changed.
+[00:09:20] Lena Kristiansen: Can I just [crosstalk]
+[00:09:22] Nadia Petrovic: Sorry, after you.
+[00:09:24] Lena Kristiansen: Thanks. It was a small point.
+[00:09:26] Tomasz Wojcik: What's the biggest risk on the reconciliation breaks, in your view?
+[00:09:31] Nadia Petrovic: Knock-on effects. If it moves, other things move with it. I think the main thing on the reconciliation breaks is that we don't let it drift without someone looking at it properly, at least from where I sit.
+[00:09:46] Tomasz Wojcik: Can someone note that for the minutes?
+[00:09:49] Nadia Petrovic: If I can come in here, if we're short of capacity, the reconciliation breaks are the thing I'd protect. The reconciliation breaks keep getting squeezed by more urgent things.
+[00:10:00] Callum Fairbairn (IBM): Honestly, we should be honest that the break investigation process is partly a capacity problem. From migration, the parallel run is also our best rehearsal for reconciling migrated reserves, so we're watching closely. I'd want the actuaries to see the [inaudible] investigation process before we lock anything down. The break investigation process touches the audit trail, so internal audit will want to look at it eventually.
+[00:10:24] Keith Barraclough: Yeah, so on the bridge feed, the teams have been brilliant, frankly, given everything else going on. There's a temptation to treat the bridge feed as a technical problem, and it really isn't. On that point, the handlers think in case estimates, the actuaries think in triangles, and the movement replay has to work for both.
+[00:10:45] Daniel Achebe: Can I just add to that? For the daily comparison, the movement type matters as much as the amount. On the daily comparison, the copybook is the contract, whether we like it or not.
+[00:10:58] Tomasz Wojcik: I'd like the parallel run traced through to the general ledger, not just checked at the service boundary. The parallel run touches the audit trail, so internal audit will want to look at it eventually. Yeah, so we should be able to replay the reconciliation breaks from the movements alone; that's the test.
+[00:11:18] Lena Kristiansen: Sure. If the parallel run is wrong, it doesn't show up on the day; it shows up at month-end, which is worse.
+[00:11:27] Daniel Achebe: Right, okay.
+[00:11:28] Gordon Sproat: The reconciliation report touches the audit trail, so internal audit will want to look at it eventually. The thing to remember is that CLARA has thirty years of edge cases. The engine is going to meet some of them for the first time. I'd like the movement replay traced through to the general ledger, not just checked at the service boundary.
+[00:11:51] Daniel Achebe: Is the movement replay in the pack, or is that coming separately?
+[00:11:56] Keith Barraclough: Not in this pack, no. It'll come separately once it's been through the working group. From a reserving point of view, the movement replay matters because every movement has to land in the right period.
+[00:12:10] Tomasz Wojcik: For the parallel run, the movement type matters as much as the amount. Look, we should write the parallel run up properly, if only so the next person doesn't have to work it all out again. We need the reconciliation breaks to be explainable to Finance in plain English, not just in COBOL paragraphs.
+[00:12:31] Daniel Achebe: Mm-hm.
+[00:12:32] Lena Kristiansen: My only ask on the daily comparison is that we keep the business teams close. From a reserving point of view, the bridge feed matters because every movement has to land in the right period. We should be able to replay the daily comparison from the movements alone; that's the test.
+[00:12:51] Gordon Sproat: Okay.
+[00:12:51] Tomasz Wojcik: Yeah, and to add to that, if there's one thing I'd take away on the movement replay, it's that we need to keep it visible.
+[00:13:01] Daniel Achebe: Is there a simpler version of the bridge feed than what's on the slide?
+[00:13:06] Callum Fairbairn (IBM): Possibly. Let me take that away and see what we could strip out. On the bridge feed, the copybook is the contract, whether we like it or not.
+[00:13:17] Daniel Achebe: Got it, thanks.
+[00:13:19] Tomasz Wojcik: Sebastian, is there anything on the parallel run you need from this group?
+[00:13:24] Sebastian Moreau-Clarke: Nothing specific. Keep asking about it, that's helpful in itself.
+[00:13:29] Daniel Achebe: The reconciliation breaks are exactly where the parallel run earns its keep. From a customer point of view, the reconciliation breaks should be invisible, and that's the test I'd apply. We should check whether the reconciliation breaks land differently for the Nordic [inaudible] than for the UK. I'm not going to pretend the reconciliation breaks are exciting, but it's exactly the sort of thing that bites you if you ignore it.
+[00:13:55] Tomasz Wojcik: Nadia, does the movement replay affect your area at all?
+[00:14:00] Nadia Petrovic: Not directly. There's an indirect impact, but it's manageable.
+[00:14:04] Lena Kristiansen: Every time we've touched the reconciliation breaks in the past, there's been a surprise in the reconciliation. We should probably sanity-check the reconciliation report with someone who wasn't involved in designing it. Picking up on that, we should be honest that the reconciliation breaks are partly a capacity problem.
+[00:14:23] Nadia Petrovic: We should write the break investigation process up properly, if only so the next person doesn't have to work it all out again. We need the break investigation process to be explainable to Finance in plain English, not just in COBOL paragraphs. I don't think the reconciliation report is controversial, it's just fiddly. To be fair, whatever happens with the break investigation process, the communication needs to be joined up.
+[00:14:49] Daniel Achebe: Do we need a decision on the reconciliation report from this group, or is it just for awareness?
+[00:14:56] Keith Barraclough: Not today. We'll bring options when we've done the analysis. We did a walk-through of the reconciliation report with the team leaders and it generated some good questions.
+[00:15:07] Sebastian Moreau-Clarke: Sorry, can I just check what we mean by the daily comparison? I think people are using it in different ways.
+[00:15:15] Nadia Petrovic: Good challenge. I'll make sure the next version defines it properly. My instinct on the daily comparison is to wait a little and see how things settle.
+[00:15:26] Daniel Achebe: How confident are we on the bridge feed, honestly?
+[00:15:31] Lena Kristiansen: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. The bridge feed keeps getting squeezed by more urgent things.
+[00:15:39] Daniel Achebe: Are the reconciliation breaks in the pack, or are they coming separately?
+[00:15:45] Keith Barraclough: It's in the appendix, towards the back.
+[00:15:48] Daniel Achebe: Okay.
+[00:15:50] Callum Fairbairn (IBM): Sorry, can I just check what we mean by the movement replay? I think people are using it in different ways.
+[00:15:58] Lena Kristiansen: Fair point. I mean the whole thing, end to end. The movement replay touches the audit trail, so internal audit will want to look at it eventually.
+[00:16:09] Keith Barraclough: Every time we've touched the movement replay in the past, there's been a surprise in the reconciliation. The first few days of the parallel run is exactly where the parallel run earns its keep.
+[00:16:22] Nadia Petrovic: The thing about the reconciliation breaks is that everyone agrees with it in principle and nobody wants to do the work. In fairness, on [inaudible] daily comparison, the question is always whether the reserve table and the movement history tell the same story. The conversation on the parallel run has been constructive, which wasn't always the case.
+[00:16:42] Gordon Sproat: Right, okay.
+[00:16:44] Daniel Achebe: Sebastian, did you get a chance to look at the movement replay?
+[00:16:50] Sebastian Moreau-Clarke: Not properly yet. It's on my list for this week. Let me be a bit provocative on the movement replay: are we sure we need it in its current form?
+[00:17:02] Nadia Petrovic: Every time we've touched the bridge feed in the past, there's been a surprise in the reconciliation. The handlers think in case estimates, the actuaries think in triangles, and the bridge feed has to work for both. We should be honest that the first few days of the parallel run is partly a capacity problem.
+[00:17:23] Daniel Achebe: Okay, noted.
+[00:17:24] Nadia Petrovic: If the bridge feed slips, it doesn't just slip on its own; it drags a couple of other things with it. Can I suggest we park the break investigation process for now and pick it up under any other business? So, I'd like the reconciliation breaks traced through to the general ledger, not just checked at the service boundary.
+[00:17:46] Callum Fairbairn (IBM): Lena, what's your gut feel on the first few days of the parallel run?
+[00:17:52] Lena Kristiansen: Fairly comfortable. I'd flag it as watch rather than worry. Sure. We need the first few days of the parallel run to be explainable to Finance in plain English, not just in COBOL paragraphs.
+[00:18:05] Callum Fairbairn (IBM): Right.
+[00:18:06] Daniel Achebe: We should acknowledge the work that's gone into the reconciliation breaks, because it's been a slog. We've got good people looking at the reconciliation breaks; I'm less sure we've given them enough time. For the reconciliation breaks, the movement type matters as much as the amount, as far as I can tell. Look, I think we've got consensus on the first few days of the parallel run, broadly.
+[00:18:31] Lena Kristiansen: Gordon, are you comfortable with the reconciliation report as it stands?
+[00:18:36] Gordon Sproat: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it. If the reconciliation report is wrong, it doesn't show up on the day; it shows up at month-end, which is worse.
+[00:18:51] Nadia Petrovic: Can everyone see my screen?
+[00:18:53] Tomasz Wojcik: Yes, we can see it.
+[00:18:56] Nadia Petrovic: Great.
+[00:18:56] Keith Barraclough: I think the break investigation process needs a bit of tidying up rather than a rethink. I'm reassured on the break investigation process, mostly because the team have been very open about the gaps. Sure. On the movement replay, there's been a lot of activity but not a lot of change, if you see what I mean.
+[00:19:17] Gordon Sproat: Is the bridge feed something we need to decide today, or is it for noting?
+[00:19:24] Lena Kristiansen: Noting only. If it needs a decision, it'll come back with a paper. I've had a couple of conversations about the bridge feed this week and the feedback was broadly positive.
+[00:19:36] Gordon Sproat: Fair enough.
+[00:19:37] Daniel Achebe: Sorry, can I just check what we mean by the break investigation process? I think people are using it in different ways.
+[00:19:45] Lena Kristiansen: You're right, we're using it loosely. Let me tighten up the wording. We probably need to separate the facts on the break investigation process from the folklore.
+[00:19:55] Gordon Sproat: I see it a bit differently, actually. I'd want the actuaries to see the parallel run before we lock anything down.
+[00:20:04] Nadia Petrovic: Lena, what keeps you awake about the break investigation process?
+[00:20:08] Lena Kristiansen: The hand-offs between teams. That's where things usually drop. If there's one thing I'd take away on the break investigation process, it's that we need to keep it visible.
+[00:20:19] Nadia Petrovic: Okay, noted.
+[00:20:21] Gordon Sproat: Lena, what's your gut feel on the movement replay?
+[00:20:26] Lena Kristiansen: Reasonably. I've seen worse at this stage. Okay. If the movement replay changes the case estimate a handler sees, we need to tell them why.
+[00:20:35] Daniel Achebe: Whatever we land on for the bridge feed, people need to hear it from their own managers first. I'll be honest, the first few days of the parallel run wasn't really on my radar until this week.
+[00:20:49] Nadia Petrovic: Fine by me.
+[00:20:51] Gordon Sproat: Sorry, can I just check what we mean by the reconciliation breaks? I think people are using it in different ways.
+[00:20:59] Tomasz Wojcik: You're right, we're using it loosely. Let me tighten up the wording.
+[00:21:05] Nadia Petrovic: We should probably sanity-check the daily comparison with someone who wasn't involved in designing it. In fairness, every time we've touched the daily comparison in the past, there's been a surprise in the reconciliation. I'd rather the daily comparison was boring. Boring is good. If there's one thing I'd take away on the daily comparison, it's that we need to keep it visible.
+[00:21:28] Lena Kristiansen: That works.
+[00:21:29] Nadia Petrovic: The handlers think in case estimates, the actuaries think in triangles, and the parallel run has to work for both. From my side, the reconciliation report keeps getting squeezed by more urgent things. Mm. We need a bit more rigour around the parallel run, particularly on the testing side. We should be honest that the parallel run is partly a capacity problem.
+[00:21:51] Lena Kristiansen: So, um, there are two schools of thought on the break investigation process, and both have some merit. We did a walk-through of the break investigation process with the team leaders and it generated some good questions. I'll be honest, the break investigation process wasn't really on my radar until this week. I'd ask that we don't make promises on the break investigation process until we've seen the impact assessment.
+[00:22:18] Sebastian Moreau-Clarke: Sorry, can I just check what we mean by the parallel run? I think people are using it in different ways.
+[00:22:26] Callum Fairbairn (IBM): Good challenge. I'll make sure the next version defines it properly. The parallel run is exactly where the parallel run earns its keep.
+[00:22:35] Tomasz Wojcik: Lena, can you give us a quick update on the break investigation process?
+[00:22:41] Lena Kristiansen: Broadly on track. There are a couple of loose ends, but nothing that worries me. For what it's worth, I wouldn't want the break investigation process to become the reason we lose momentum elsewhere.
+[00:22:53] Daniel Achebe: I'd echo that, I'd want the actuaries to see the daily comparison before we lock anything down.
+[00:23:01] Callum Fairbairn (IBM): I'd echo that, I mean, we need the reconciliation report to be explainable to Finance in plain English, not just in COBOL paragraphs.
+[00:23:09] Lena Kristiansen: The break investigation process is exactly where the parallel run earns its keep. I'd frame the break investigation process as a risk rather than an issue at this stage. If the break investigation process changes the case estimate a handler sees, we need to tell them why. For what it's worth, the people closest to the break investigation process are fairly confident.
+[00:23:32] Daniel Achebe: Right.
+[00:23:34] Lena Kristiansen: Keith, did you get a chance to look at the movement replay?
+[00:23:39] Keith Barraclough: Yes. It reads well. One or two questions, but nothing major. The trouble with the movement replay is that the people who know it best are also the busiest.
+[00:23:50] Nadia Petrovic: Has anything moved on the parallel run since last time?
+[00:23:54] Callum Fairbairn (IBM): The detail's firmer. The direction is the same. From a reserving point of view, the parallel run matters because every movement has to land in the right period.
+[00:24:05] Keith Barraclough: Let's keep the first few days of the parallel run simple and not try to solve every edge case in one go. I'd want the actuaries to see the first few days of the parallel run before we lock anything down.
+[00:24:20] Gordon Sproat: Nadia, can you give us a quick update on the break investigation process?
+[00:24:25] Nadia Petrovic: Steady. No drama, which is what you want.
+[00:24:30] Daniel Achebe: The reconciliation breaks touch the audit trail, [inaudible] internal audit will want to look at it eventually. We've had mixed messages on the movement replay, so a clear statement would help. To be fair, on the reconciliation breaks, there's been a lot of activity but not a lot of change, if you see what I mean.
+[00:24:50] Tomasz Wojcik: Can we make sure that's on the action log?
+[00:24:54] Daniel Achebe: Are we expecting any pushback on the reconciliation report?
+[00:24:58] Sebastian Moreau-Clarke: One or two. I'll pick them up offline rather than take time here. For the reconciliation report, I'd rather we under-promise and deliver than the other way round.
+[00:25:09] Tomasz Wojcik: Nadia, can you give us a quick update on the movement replay?
+[00:25:15] Nadia Petrovic: It's progressing. I'll have a fuller picture by the next meeting.
+[00:25:20] Tomasz Wojcik: Okay.
+[00:25:21] Daniel Achebe: Are we expecting any pushback on the first few days of the parallel run?
+[00:25:27] Sebastian Moreau-Clarke: A few, mostly about timing rather than substance.
+[00:25:31] Lena Kristiansen: Who else needs to be involved in the reconciliation breaks?
+[00:25:36] Nadia Petrovic: Finance, and probably Compliance as well. I'll set something up. I mean, from a reserving point of view, the reconciliation breaks matter because every movement has to land in the right period.
+[00:25:47] Lena Kristiansen: If the daily comparison is wrong, it doesn't show up on the day; it shows up at month-end, which is worse. If the daily comparison changes the case estimate a handler sees, we need to tell them why. From a customer point of view, the parallel run should be invisible, and that's the test I'd apply.
+[00:26:08] Nadia Petrovic: On the reconciliation breaks, the copybook is the contract, whether we like it or not. On the reconciliation breaks, the question is always whether the reserve table and the movement history tell the same story.
+[00:26:21] Gordon Sproat: There are two schools of thought on the reconciliation report, and both have some merit. Well, I think we underestimated the break investigation process at the start, and that's fine as long as we learn from it.
+[00:26:35] Daniel Achebe: We did a walk-through of the parallel run with the team leaders and it generated some good questions.
+[00:26:43] Lena Kristiansen: Keith, where are we on the bridge feed?
+[00:26:46] Keith Barraclough: It's moving. Not as fast as I'd like, but it's moving. If the bridge feed needs more time, I'd rather we said so now.
+[00:26:55] Lena Kristiansen: Got it, thanks.
+[00:26:58] Daniel Achebe: Nadia, any concerns from your side on the bridge feed?
+[00:27:02] Nadia Petrovic: Some, probably, but nothing we can't work through.
+[00:27:06] Daniel Achebe: Is there a simpler version of the daily comparison than what's on the slide?
+[00:27:11] Lena Kristiansen: There probably is, and I'd be open to it. We did a walk-through of the daily comparison with the team leaders and it generated some good questions.
+[00:27:21] Nadia Petrovic: Who else needs to be involved in the parallel run?
+[00:27:26] Daniel Achebe: The squads, obviously, but also the people on the floor. If the parallel run needs more time, I'd rather we said so now.
+[00:27:35] Tomasz Wojcik: Keith, where are we on the parallel run?
+[00:27:39] Keith Barraclough: We're waiting on one input, and then it's fairly straightforward. I suppose the Nordic reserves always make the parallel run more interesting because of the currency side.
+[00:27:49] Tomasz Wojcik: Sounds sensible.
+[00:27:50] Nadia Petrovic: I suspect the reconciliation report will come back to this group at some point, so let's not close it off. On the reconciliation report, the question is always whether the reserve table and the movement history tell the same story. We touched on the first few days of the parallel run last time and I'm not sure the position has really moved since. We need the daily comparison to be explainable to Finance in plain English, not just in COBOL paragraphs.
+[00:28:19] Lena Kristiansen: Is there a simpler version of the first few days of the parallel run than what's on the slide?
+[00:28:27] Tomasz Wojcik: Not without losing something important, I think. But I'm happy to look.
+[00:28:32] Daniel Achebe: [crosstalk] sorry, we both started at once.
+[00:28:35] Nadia Petrovic: Go on, Daniel.
+[00:28:37] Daniel Achebe: Thanks.
+[00:28:39] Keith Barraclough: Tomasz, any concerns from your side on the reconciliation report?
+[00:28:44] Tomasz Wojcik: Not really. The team have been very open about the gaps, which helps.
+[00:28:49] Keith Barraclough: That's helpful, thanks.
+[00:28:51] Daniel Achebe: Let me be a bit provocative on the parallel run: are we sure we need it in its current form? On the parallel run, the copybook is the contract, whether we like it or not.
+[00:29:04] Nadia Petrovic: Where have we got to with the reconciliation report, Keith?
+[00:29:08] Keith Barraclough: In better shape than it was. I wouldn't call it done, but the direction is right. The feedback from the teams on the reconciliation report is that they want fewer surprises and more notice.
+[00:29:21] Gordon Sproat: Where have we got to with the bridge feed, Daniel?
+[00:29:26] Daniel Achebe: It's with the working group at the moment; I'll chase and come back. Look, if the bridge feed is going to need more people, we should flag that early rather than late.
+[00:29:40] Tomasz Wojcik: Thanks. Let's move to the writers question, because it's the one that matters for the design.
+[00:29:47] Nadia Petrovic: So, the synchronisation design assumes we know every program that writes the reserve table, CLR.T_RESERVE, and that every one of them writes a movement as well.
+[00:29:56] Daniel Achebe: From our side, the important thing is that every write to the reserve table also produces a movement, otherwise the engine can't see it.
+[00:30:06] Tomasz Wojcik: Lena, you've frozen, I think.
+[00:30:08] Lena Kristiansen: Sorry, my connection dropped for a second. Where were we?
+[00:30:13] Tomasz Wojcik: You were just picking up the last point.
+[00:30:16] Daniel Achebe: We probably need to separate the facts on the static analysis from the folklore. The trouble with the static analysis is that the people who know it best are also the busiest. For what it's worth, the people closest to the static analysis are fairly confident. We've done the thinking on the synchronisation design; now it's about execution, in my view.
+[00:30:39] Keith Barraclough: Sorry, just so I'm clear: when you say the program inventory, do you mean the UK piece or the whole thing?
+[00:30:48] Nadia Petrovic: Fair point. I mean the whole thing, end to end. I'd want the actuaries to see the program inventory before we lock anything down.
+[00:30:57] Keith Barraclough: That's helpful, thanks.
+[00:30:59] Lena Kristiansen: I'd echo that, there's a temptation to treat the synchronisation design as a technical problem, and it really isn't.
+[00:31:06] Keith Barraclough: Uh, I'm conscious the writer programs keep coming up and we keep deferring it. We should acknowledge the work that's gone into the movement table, because it's been a slog.
+[00:31:18] Daniel Achebe: So, um, if we're going to change anything about the program inventory, now's the time rather than later. To be fair, on the synchronisation design, the question is always whether the reserve table and the movement history tell the same story. The detail on the CRUD matrix is in the appendix, so I won't walk through it line by line.
+[00:31:40] Keith Barraclough: The detail on the synchronisation design is in the appendix, so I won't walk through it line by line. Thirty years of changes, and not all of them made it into the documentation.
+[00:31:53] Gordon Sproat: The CRUD matrix came out of static analysis of every program, so it's what the code does, not what people remember.
+[00:32:01] Sebastian Moreau-Clarke: Yep, makes sense.
+[00:32:03] Keith Barraclough: If the program inventory changes the case estimate a handler sees, we need to tell them why. Just quickly, we shouldn't confuse the program inventory with the wider change; they're related but not the same. Speaking for my area, on the program inventory, the question is always whether the reserve table and the movement history tell the same story.
+[00:32:25] Daniel Achebe: Okay, so to be clear, nobody's saying the synchronisation design is broken. It's more that we haven't tested it the way we'd test anything else. I suppose personally I'd go a bit further on the synchronisation design, but I can live with what's proposed.
+[00:32:41] Gordon Sproat: If anyone's got concerns about the reserve table, I'd rather hear them now than in the corridor afterwards.
+[00:32:49] Keith Barraclough: Um, I'd rather have an honest amber on the CRUD matrix than a green that turns red later. For what it's worth, from a reserving point of view, the CRUD matrix matters because every movement has to land in the right period. Just quickly, we need the writer programs to be explainable to Finance in plain English, not just in COBOL paragraphs.
+[00:33:12] Daniel Achebe: If the CRUD matrix changes the case estimate a handler sees, we need to tell them why. If I can come in here, I'll be honest, the CRUD matrix wasn't really on my radar until this week. To be honest, we should be able to replay the synchronisation design from the movements alone; that's the test. Picking up on that, the handlers think in case estimates, the actuaries think in triangles, and the CRUD matrix has to work for both.
+[00:33:42] Nadia Petrovic: Mm.
+[00:33:43] Gordon Sproat: Same view here. It's fair to say the data dictionary took longer than any of us wanted, at [inaudible] from where I sit.
+[00:33:52] Tomasz Wojcik: I'd echo that, the handlers think in case estimates, the actuaries [inaudible] in triangles, and the writer programs have to work for both. For the data dictionary, the movement type matters as much as the amount.
+[00:34:06] Daniel Achebe: I agree with Tomasz, and I'd add that everything I've seen on the data dictionary says the approach is right; it's the pace I'd question. The program inventory is one of those things that looks easy on a slide and isn't.
+[00:34:22] Tomasz Wojcik: I keep coming back to the reserve table, because it's the area that's had the least scrutiny. If the reserve table slips, it doesn't just slip on its own; it drags a couple of other things with it. We don't need to solve the reserve table here; we just need to agree who goes away and looks at it. Okay. What's changed on the program inventory since the last update is mainly the level of detail, not the direction.
+[00:34:51] Keith Barraclough: Most of them write the movement in the same unit of work. That's the pattern. There's a temptation to treat the movement table as a technical problem, and it really isn't.
+[00:35:03] Gordon Sproat: Sorry, just so I'm clear: when you say the data dictionary, do you mean the UK piece or the whole thing?
+[00:35:12] Nadia Petrovic: Good challenge. I'll make sure the next version defines it properly.
+[00:35:17] Tomasz Wojcik: Again, on the synchronisation design, the copybook is the contract, whether we like it or not. We need the synchronisation design to be explainable to Finance in plain English, not just in COBOL paragraphs.
+[00:35:29] Keith Barraclough: Sebastian, where are we on the writer programs?
+[00:35:33] Sebastian Moreau-Clarke: Steady. No drama, which is what you want.
+[00:35:37] Nadia Petrovic: If the writer programs are wrong, it doesn't show up on the day; it shows up at month-end, which is worse. On the synchronisation design, I'd like us to agree the principle and let the team sort out the detail. That's the design assumption the whole synchronisation rests on, so it matters that we get this right. I'd keep the program inventory separate from the rest of it, because it involves different people and a different set of risks, at least from where I sit.
+[00:36:08] Gordon Sproat: We found the writers by searching for every UPDATE and INSERT against the table, not by asking people. I suspect the program inventory will come back to this group at some point, so let's not close it off.
+[00:36:23] Keith Barraclough: If we're short of capacity, the reserve table is the thing I'd protect, broadly. We've been here before with the CRUD matrix, [inaudible] the lesson last time was to get the business in the room early. I'd like the reserve table closed down properly, not just quietly dropped.
+[00:36:41] Gordon Sproat: Can I ask what's changed on the data dictionary since we last discussed it?
+[00:36:46] Daniel Achebe: Honestly, less than I'd like. For the data dictionary, the question isn't whether, it's how and in what order.
+[00:36:53] Tomasz Wojcik: Yeah, and to add to that, from my side, we did a walk-through of the CRUD matrix with the team leaders and it generated some good questions.
+[00:37:04] Gordon Sproat: Is the CRUD matrix something we need to decide today, or is it for noting?
+[00:37:11] Keith Barraclough: Awareness for now. There may be a decision next time. For what it's worth, the people closest to the CRUD matrix are fairly confident.
+[00:37:20] Lena Kristiansen: Can I just add to that? Picking up on that, I'm not going to pretend the reserve table is exciting, but it's exactly the sort of thing that bites you if you ignore it. Can we make sure the writer programs are visible on the RAID log, so it doesn't fall between the cracks?
+[00:37:39] Gordon Sproat: Picking up Lena's point, if the data dictionary changes the case estimate a handler sees, we need to tell them why.
+[00:37:47] Keith Barraclough: Can you go back one slide?
+[00:37:51] Lena Kristiansen: Yes, sorry.
+[00:37:52] Keith Barraclough: Thanks, that's the one.
+[00:37:54] Daniel Achebe: Yeah, fair.
+[00:38:05] Daniel Achebe: From what we've seen in the code so far, it's only the CLRRS reserve programs that write to the reserve table. So CLRRS010, CLRRS020, CLRRS110 and CLRRS130. Everything else just reads it.
+[00:38:16] Lena Kristiansen: That's a shorter list than I expected, to be honest.
+[00:38:21] Gordon Sproat: Let me just pull up the matrix. I want to check that against the static analysis before we build on it.
+[00:38:30] Keith Barraclough: Sorry, can I just check what we mean by the reserve table? I think people are using it in different ways.
+[00:38:38] Callum Fairbairn (IBM): Fair point. I mean the whole thing, end to end.
+[00:38:42] Daniel Achebe: Is the CRUD matrix in the pack, or is that coming separately?
+[00:38:47] Keith Barraclough: It's in there, but only at summary level. On the CRUD matrix, the question is always whether the reserve table and the movement history tell the same story.
+[00:38:58] Sebastian Moreau-Clarke: Lena, can you give us a quick update on the reserve table?
+[00:39:03] Lena Kristiansen: In better shape than it was. I wouldn't call it done, but the direction is right.
+[00:39:10] Daniel Achebe: Sebastian, is the program inventory a resourcing question or a decision question?
+[00:39:15] Sebastian Moreau-Clarke: Resourcing. Nobody disagrees on what to do. I'd frame the program inventory as a risk rather than an issue at this stage.
+[00:39:25] Gordon Sproat: I, I mean, if the reserve table is wrong, it doesn't show up on the day; it shows up at month-end, which is worse. Okay. I'm happy with the movement table as long as we're clear about what's in and what's out. Yeah. I'm conscious the reserve table keeps coming up and we keep deferring it. For what it's worth, I think the reserve table is a good-news story, actually, and we don't say that often enough.
+[00:39:52] Keith Barraclough: Do we need a decision on the static analysis from this group, or is it just for awareness?
+[00:40:00] Daniel Achebe: Awareness for now. There may be a decision next time. I'd like the next update on the static analysis to come with evidence rather than a status colour.
+[00:40:11] Keith Barraclough: The handlers think in case estimates, the actuaries think in triangles, and the program inventory has to work for both. One thing on the data dictionary: we should check we're not double-counting effort with the other workstream.
+[00:40:25] Sebastian Moreau-Clarke: Is there anything we can do to unblock the static analysis?
+[00:40:29] Daniel Achebe: Just air cover, really. People are stretched, so it helps if the message comes from here.
+[00:40:35] Keith Barraclough: Uh, I've had a couple of conversations about the reserve table this week and the feedback was broadly positive.
+[00:40:43] Lena Kristiansen: The Nordic reserves always make the movement table more interesting because of the currency side. If something writes the reserve table without a movement, my month-end numbers won't match the engine's. From my side, I'd rather the movement table was boring. Boring is good. I'd like the movement table traced through to the general ledger, not just checked at the service boundary.
+[00:41:05] Daniel Achebe: Can I just add to that? Honestly, on the program inventory, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room. Every time we've touched the movement table in the past, there's been a surprise in the reconciliation.
+[00:41:23] Keith Barraclough: Where does the synchronisation design sit on the list of priorities right now?
+[00:41:29] Gordon Sproat: It's up there. It just keeps getting bumped by urgent things. From a reserving point of view, the synchronisation design matters because every movement has to land in the right period.
+[00:41:41] Keith Barraclough: Daniel, what's your gut feel on the synchronisation design?
+[00:41:45] Daniel Achebe: Short answer, yes. Long answer, it depends how the next few weeks go.
+[00:41:51] Tomasz Wojcik: Has anything moved on the reserve table since last time?
+[00:41:55] Keith Barraclough: Mostly that more people are involved now, which is good.
+[00:41:59] Lena Kristiansen: I think the reserve table needs a bit of tidying up rather than a rethink, if I'm honest. I'd like the reserve table traced through to the general ledger, not just checked at the service boundary. So, on the reserve table, the question is always whether the reserve table and the movement history tell the same story. From a reserving point of view, the reserve table matters because every movement has to land in the right period.
+[00:42:28] Gordon Sproat: For what it's worth, every time we've touched the writer programs in the past, there's been a surprise in the reconciliation. The reserve table is exactly where the parallel run earns its keep.
+[00:42:40] Tomasz Wojcik: From my side, I'm conscious the data dictionary keeps coming up and we keep deferring it. I'd keep the synchronisation design separate from the rest of it, because it involves different people and a different set of risks.
+[00:42:55] Daniel Achebe: The thing is [crosstalk]
+[00:42:57] Tomasz Wojcik: Sorry, one at a time, please.
+[00:43:00] Daniel Achebe: Sorry. Go on, Nadia.
+[00:43:02] Nadia Petrovic: No, it's fine, carry on.
+[00:43:05] Keith Barraclough: Sorry, just so I'm clear: when you say the reserve table, do you mean the UK piece or the whole thing?
+[00:43:14] Tomasz Wojcik: You're right, we're using it loosely. Let me tighten up the wording.
+[00:43:19] Keith Barraclough: Is the reserve table something we need to decide today, or is it for noting?
+[00:43:26] Sebastian Moreau-Clarke: Not today. We'll bring options when we've done the analysis.
+[00:43:30] Nadia Petrovic: I'd like the next update on the synchronisation design to come with evidence rather than a status colour. I'd be interested in how other teams have handled the CRUD matrix, because we can't be the first to hit it.
+[00:43:45] Daniel Achebe: For the synchronisation design, the movement type matters as much as the amount. The program inventory touches the audit trail, so [inaudible] audit will want to look at it eventually.
+[00:43:57] Tomasz Wojcik: Is the movement table in the pack, or is that coming separately?
+[00:44:02] Nadia Petrovic: Not in this pack, no. It'll come separately once it's been through the working group. The thing about the movement table is that everyone agrees with it in principle and nobody wants to do the work.
+[00:44:15] Gordon Sproat: Before I forget, the coffee machine on our floor is fixed, for anyone who's been suffering.
+[00:44:22] Lena Kristiansen: Best news I've had all week.
+[00:44:25] Keith Barraclough: Where does the reserve table sit on the list of priorities right now?
+[00:44:31] Daniel Achebe: Near the top, but not at the top. We can talk about the reserve table all day, but at some point someone has to make a call.
+[00:44:42] Gordon Sproat: We need to be careful how we talk about the program inventory outside this room until it's settled. Okay. I'm keen we don't just tick a box on the program inventory.
+[00:44:53] Tomasz Wojcik: Daniel, is the data dictionary a resourcing question or a decision question?
+[00:44:58] Daniel Achebe: Probably both, if I'm honest.
+[00:45:01] Tomasz Wojcik: Agreed.
+[00:45:02] Gordon Sproat: Sorry, can I just check what we mean by the synchronisation design? I think people are using it in different ways.
+[00:45:11] Daniel Achebe: You're right, we're using it loosely. Let me tighten up the wording.
+[00:45:16] Keith Barraclough: Sorry, I think you're on mute, Lena.
+[00:45:20] Lena Kristiansen: Sorry, sorry. Can you hear me now?
+[00:45:23] Keith Barraclough: Yes, we've got you.
+[00:45:25] Callum Fairbairn (IBM): To be honest, I'd rather have an honest amber on the writer programs than a green that turns red later. On the program inventory, there's been a lot of activity but not a lot of change, if you see what I mean. The people side of the program inventory is going to be harder than the system side. What would really help on the writer programs is a single view that everyone works from.
+[00:45:53] Lena Kristiansen: Right.
+[00:46:02] Keith Barraclough: Daniel, sorry, that's not right. It's not only the CLRRS programs. CLRFN030, CLRST040, CLRRC050 and CLRGL090 also write CLR.T_RESERVE. CLRFN030 creates the default reserve when the claim is set up, CLRST040 closes the reserve down at settlement, CLRRC050 nets recoveries off the case reserve, and CLRGL090 does the year-end revaluation.
+[00:46:20] Gordon Sproat: Keith's right, that matches the matrix. Eight writers in total: the four CLRRS ones plus those four. And CLRRS150 is a red herring, it only writes the movement table, never the reserve table itself.
+[00:46:33] Daniel Achebe: Okay, thank you. I was going off the CLRRS naming, which is clearly not enough. Good catch.
+[00:46:40] Keith Barraclough: It's an easy mistake. The data dictionary only lists seven writers anyway. It's missing CLRGL090, because that one only runs at year-end and nobody thinks of it.
+[00:46:51] Gordon Sproat: Which is exactly why we did the CRUD matrix from the code, under CHUB-104. All 122 programs.
+[00:46:58] Daniel Achebe: I think the writer programs need a bit of tidying up rather than a rethink. The writer programs are exactly where the parallel run [inaudible] its keep. My instinct on the static analysis is to wait a little and see how things settle.
+[00:47:14] Tomasz Wojcik: I think we've covered that. Moving on.
+[00:47:18] Nadia Petrovic: Keith, is there anything on the writer programs you need from this group?
+[00:47:23] Keith Barraclough: Probably a bit of time from the business side, but I'll ask offline. We should be able to replay the writer programs from the movements alone; that's the test.
+[00:47:34] Daniel Achebe: So, um, to be fair, the program inventory is exactly where the parallel run earns its keep. Well, on the movement table, the question is always whether the reserve table and the movement history tell the same story. The sticking point on the program inventory has been agreeing the scope, not the build. We should be able to replay the program inventory from the movements alone; that's the test.
+[00:47:59] Keith Barraclough: I think the main thing on the reserve table is that we don't let it drift without someone looking at it properly, I think. My worry with the reserve table is less the technology and more whether people on the floor actually know what's changed.
+[00:48:16] Tomasz Wojcik: Lena, did you get a chance to look at the movement table?
+[00:48:21] Lena Kristiansen: Yes. It reads well. One or two questions, but nothing major. The movement table is exactly where the parallel run earns its keep.
+[00:48:30] Keith Barraclough: On that point, if the synchronisation design is wrong, it doesn't show up on the day; it shows up at month-end, which is worse. The Nordic reserves always make the writer programs more interesting because of the currency side.
+[00:48:45] Tomasz Wojcik: Sorry, just so I'm clear: when you say the movement table, do you mean the UK piece or the whole thing?
+[00:48:54] Callum Fairbairn (IBM): Good challenge. I'll make sure the next version defines it properly. The handlers think in case estimates, the actuaries think in triangles, and the movement table has to work for both.
+[00:49:06] Gordon Sproat: Where have we got to with the synchronisation design, Sebastian?
+[00:49:10] Sebastian Moreau-Clarke: Broadly on track. There are a couple of loose ends, but nothing that worries me. I'd be interested in how other teams have handled the synchronisation design, because we can't be the first to hit it.
+[00:49:24] Gordon Sproat: Okay, I'm with you.
+[00:49:26] Daniel Achebe: I'm not sure I'd go quite that far, Gordon. We should probably sanity-check the program inventory with someone who wasn't involved in designing it. We're probably overthinking the static analysis, but I'd rather overthink it than underthink it.
+[00:49:40] Keith Barraclough: Nadia, did you get a chance to look at the synchronisation design?
+[00:49:46] Nadia Petrovic: I did, briefly. I've got a couple of comments, I'll send them over. I wouldn't want the synchronisation design to become the reason we lose momentum elsewhere.
+[00:49:56] Keith Barraclough: Daniel, where are we on the CRUD matrix?
+[00:50:00] Daniel Achebe: We're waiting on one input, and then it's fairly straightforward. If the CRUD matrix is wrong, it doesn't show up on the day; it shows up at month-end, which is worse.
+[00:50:11] Sebastian Moreau-Clarke: What's the biggest risk on the CRUD matrix, in your view?
+[00:50:16] Tomasz Wojcik: Timing more than anything. It's not hard, it's just competing with everything else.
+[00:50:22] Lena Kristiansen: Sorry, just so I'm clear: when you say the CRUD matrix, do you mean the UK piece or the whole thing?
+[00:50:30] Keith Barraclough: Fair point. I mean the whole thing, end to end. To be fair, we should be able to replay the CRUD matrix from the movements alone; that's the test.
+[00:50:41] Callum Fairbairn (IBM): How confident are we on the writer programs, honestly?
+[00:50:45] Daniel Achebe: Reasonably. I've seen worse at this stage. To be fair, on the writer programs, the risk isn't that it fails outright, it's that it half works and nobody notices.
+[00:50:56] Keith Barraclough: In fairness, my read on the CRUD matrix is that the hard part is behind us, but there's still a long tail. To be honest, whatever we land on for the reserve table, people need to hear it from their own managers first. If there's one thing I'd take away on the static analysis, it's that we need to keep it visible.
+[00:51:19] Daniel Achebe: I, I keep coming back to the writer programs, because it's the area that's had the least scrutiny, if that makes sense. Honestly, the honest answer on the synchronisation design is that we know what good looks like, we're just not there yet. So, I'd like the writer programs closed down properly, not just quietly dropped.
+[00:51:40] Lena Kristiansen: Can I ask what's changed on the program inventory since we last discussed it?
+[00:51:46] Keith Barraclough: Not much, other than we understand it better. From a reserving point of view, the program inventory matters because every movement has to land in the right period.
+[00:51:56] Tomasz Wojcik: Anything else on that before we move on?
+[00:52:00] Gordon Sproat: Daniel, what's your gut feel on the static analysis?
+[00:52:04] Daniel Achebe: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. Okay. Let's be careful not to let the static analysis turn into a bigger piece of work than it needs to be.
+[00:52:17] Keith Barraclough: If the writer programs changes the case estimate a handler sees, we need to tell them why.
+[00:52:30] Tomasz Wojcik: Okay. So the design has to cover eight writers. Let's go through the mapping.
+[00:52:35] Sebastian Moreau-Clarke: Do we need a decision on the reserve close-down from this group, or is it just for awareness?
+[00:52:42] Nadia Petrovic: Noting only. If it needs a decision, it'll come back with a paper. There's a temptation to treat the reserve close-down as a technical problem, and it really isn't.
+[00:52:53] Keith Barraclough: We've had mixed messages on the movement types, so a clear statement would help. I'd frame the movement types as a risk rather than an issue at this stage. If the movement types are going to need more people, we should flag that early rather than late.
+[00:53:11] Sebastian Moreau-Clarke: The actuaries mostly care about the GBP history, but the Nordic teams need the local currency for their own reporting. Let's be careful not to let the reserve close-down turn into a bigger piece of work than it needs to be.
+[00:53:27] Daniel Achebe: The engine stores both, the original currency and GBP. That's ADR-016.
+[00:53:31] Gordon Sproat: And the movement correction utility needs a mention too, because it only touches the movement history. The bit of the event mapping that worries me is the hand-off between teams.
+[00:53:43] Sebastian Moreau-Clarke: Perfect.
+[00:53:45] Daniel Achebe: Where have we got to with the event mapping, Keith?
+[00:53:49] Keith Barraclough: It's with the working group at the moment; I'll chase and come back. Sure. Whatever happens with the event mapping, the communication needs to be joined up.
+[00:53:59] Gordon Sproat: I'd want the actuaries to see the currency handling before we lock anything down. On the reserve types, the question is always whether the reserve table and the movement history tell the same story. From a customer point of view, the currency handling should be invisible, and that's the test I'd apply.
+[00:54:18] Daniel Achebe: Are the movement types in the pack, or are they coming separately?
+[00:54:23] Sebastian Moreau-Clarke: It's in there, but only at summary level. The movement types are a good example of where a bit of early testing saves a [inaudible] of pain later.
+[00:54:33] Callum Fairbairn (IBM): Keith, did you get a chance to look at the recovery netting?
+[00:54:38] Keith Barraclough: Not properly yet. It's on my list for this week. Yeah, so if the recovery netting changes the case estimate a handler sees, we need to tell them why.
+[00:54:50] Sebastian Moreau-Clarke: Following on from Keith, what would really help on the reserve close-down is a single view that everyone works from, for what it's worth. I suppose part of the issue with the event mapping is that the documentation lags behind what people actually do.
+[00:55:06] Gordon Sproat: We should write the currency handling up properly, if only so the next person doesn't have to work it all out again. My sense is that the currency handling is moving in the right direction, just slowly.
+[00:55:20] Keith Barraclough: Where does the default reserve sit on the list of priorities right now?
+[00:55:26] Tomasz Wojcik: It's up there. It just keeps getting bumped by urgent things.
+[00:55:31] Keith Barraclough: Right, okay.
+[00:55:33] Gordon Sproat: Can I just add to that? In fairness, we need to be careful how we talk about the default reserve outside this room until it's settled.
+[00:55:43] Daniel Achebe: Recovery receipts net off the case reserve, so a recovery is a negative movement as far as the engine is concerned. Picking up on that, if anyone's got concerns about the copybook fields, I'd rather hear them now than in the corridor afterwards.
+[00:55:59] Keith Barraclough: Well, I'd be interested in how other teams have handled the recovery netting, because we can't be the first to hit it. On the recovery netting, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room, I think.
+[00:56:18] Nadia Petrovic: Every movement in RSVMOVE has a type, and the engine maps each type to its own event. The copybook fields are exactly where the parallel run earns its keep.
+[00:56:28] Gordon Sproat: I'd want the actuaries to see the recovery netting before we lock anything down. I don't have strong views on the recovery netting, other than wanting it done properly.
+[00:56:40] Keith Barraclough: Is there anything we can do to unblock the currency handling?
+[00:56:44] Tomasz Wojcik: Probably a bit of time from the business side, but I'll ask offline. The Nordic reserves always make the currency handling more interesting because of the currency side.
+[00:56:55] Keith Barraclough: Well, part of the issue with the reserve close-down is that the documentation lags behind what people actually do. The reserve close-down is exactly where the parallel run earns its keep.
+[00:57:07] Gordon Sproat: What's the biggest risk on the movement history, in your view?
+[00:57:11] Nadia Petrovic: Timing more than anything. It's not hard, it's just competing with everything else. The movement history touches the audit trail, so internal audit will want to look at it eventually.
+[00:57:23] Keith Barraclough: RM-AMOUNT is in the claim currency and RM-GBP-AMOUNT is the sterling equivalent, with RM-CURRENCY telling you which currency. For what it's worth, I think we underestimated the movement types at the start, and that's fine as long as we learn from it.
+[00:57:39] Gordon Sproat: Who else needs to be involved in the currency handling?
+[00:57:44] Nadia Petrovic: Someone from the business side, ideally a team leader who's lived with it. In fairness, I keep coming back to the currency handling, because it's the area that's had the least scrutiny.
+[00:57:56] Daniel Achebe: We've done the thinking on the movement types; now it's about execution. My worry with the copybook fields is less the technology and more whether people on the floor actually know what's changed. Actually, I'd be interested in how other teams have handled the movement types, because we can't be the first to hit it.
+[00:58:16] Keith Barraclough: The thing about the movement history is that everyone agrees with it in principle and nobody wants to do the work, for what it's worth. I think the movement types need a bit of tidying up rather than a rethink. Well, we've done the thinking on the recovery netting; now it's about execution, I'd say.
+[00:58:37] Nadia Petrovic: Let's keep the event mapping simple and not try to solve every edge case in one go. I've not seen anything on the movement history that changes the overall picture, if that makes sense. We've got a mapping table in the design pack: movement type, source program, engine event. Every time we've touched the event mapping in the past, there's been a surprise in the reconciliation.
+[00:59:01] Sebastian Moreau-Clarke: Have we taken the default reserve through the team leaders yet?
+[00:59:06] Tomasz Wojcik: We've walked them through it, yes, and they had some useful challenge. We should be able to replay the default reserve from the movements alone; that's the test.
+[00:59:17] Keith Barraclough: Can I ask what's changed on the reserve types since we last discussed it?
+[00:59:23] Lena Kristiansen: The detail's firmer. The direction is the same.
+[00:59:27] Daniel Achebe: On the event mapping, the copybook is the contract, whether we like it or not. If the event mapping changes the case estimate a handler sees, we need to tell them why. I've not seen anything on the copybook fields that changes the overall picture. The Nordic reserves always make the default reserve more interesting because of the currency side.
+[00:59:49] Sebastian Moreau-Clarke: Got it, thanks.
+[00:59:51] Lena Kristiansen: Sorry, there's a bit of an echo in the room. Is that better?
+[00:59:56] Daniel Achebe: Much better, thanks.
+[00:59:58] Tomasz Wojcik: Let's not solve it here. Can we set up a separate session?
+[01:00:03] Sebastian Moreau-Clarke: Nadia, what's your gut feel on the reserve close-down?
+[01:00:07] Nadia Petrovic: Short answer, yes. Long answer, it depends how the next few weeks go. The honest answer on the reserve close-down is that we know what good looks like, we're just not there yet.
+[01:00:20] Sebastian Moreau-Clarke: I was going to say [crosstalk]
+[01:00:24] Daniel Achebe: Sorry, go ahead.
+[01:00:26] Sebastian Moreau-Clarke: No, you go.
+[01:00:27] Daniel Achebe: I was only going to say I agree.
+[01:00:31] Keith Barraclough: Can I ask what's changed on the movement types since we last discussed it?
+[01:00:37] Sebastian Moreau-Clarke: Honestly, less than I'd like. Part of the issue with the movement types is that the documentation lags behind what people actually do.
+[01:00:46] Keith Barraclough: The default reserve at FNOL comes from CLRFN030 when the claim record is created. It uses the default amounts in T_PARAM. Again, I'd like the movement types closed down properly, not just quietly dropped.
+[01:00:59] Nadia Petrovic: Well, on the copybook fields, the copybook is the contract, whether we like it or not. I'm keen we don't just tick a box on the copybook fields.
+[01:01:10] Daniel Achebe: Gordon, is there anything on the default reserve you need from this group?
+[01:01:15] Gordon Sproat: Just air cover, really. People are stretched, so it helps if the message comes from here.
+[01:01:21] Daniel Achebe: Everything I've seen on the movement history says the approach is right; it's the pace I'd question. The currency handling is a good example of where a bit of early testing saves a lot of pain later. On the currency handling, the copybook is the contract, whether we like it or not. We touched on the movement history last time and I'm not sure the position has really moved since.
+[01:01:47] Lena Kristiansen: Mm-hm.
+[01:01:48] Keith Barraclough: When CLRST040 closes a claim down at final settlement it writes a settlement close movement, type ST, so the engine sees the reserve go to zero.
+[01:01:59] Nadia Petrovic: I'd be interested in how other teams have handled the reserve types, because we can't be the first to hit it. We should acknowledge the work that's gone into the reserve types, because it's been a slog.
+[01:02:13] Lena Kristiansen: Uh, Speaking for my area, we should be able to replay the reserve close-down from the movements alone; that's the test. Close-down at settlement is the one I care about. If the reserve isn't zeroed when the claim settles, it sits in outstanding forever. Right. The handlers think in case estimates, the actuaries think in triangles, and the recovery netting has to work for both. On the reserve close-down, the teams have been brilliant, frankly, given everything else going on.
+[01:02:42] Daniel Achebe: The trouble with the movement history is that the people who know it best are also the busiest, as far as I can tell. Part of the issue with the movement history is that the documentation lags behind what people actually do.
+[01:02:58] Gordon Sproat: I, I think the recovery netting is a good-news story, actually, and we don't say that often enough. I'd just add, on the recovery netting, that the lessons learned from the last cycle are worth rereading.
+[01:03:12] Sebastian Moreau-Clarke: The thing about the recovery netting is that everyone agrees with it in principle and nobody wants to do the work. If the reserve close-down changes the case estimate a handler sees, we need to tell them why. Right. We should write the recovery netting up properly, if only so the next person doesn't have to work it all out again. In fairness, let's capture the recovery netting as a follow-up rather than try to close it today.
+[01:03:40] Keith Barraclough: Is there a simpler version of the reserve close-down than what's on the slide?
+[01:03:46] Daniel Achebe: Possibly. Let me take that away and see what we could strip out.
+[01:03:51] Keith Barraclough: What's the biggest risk on the currency handling, in your view?
+[01:03:56] Sebastian Moreau-Clarke: Honestly, people. The people who know it best are also the busiest. I don't have strong views on the currency handling, other than wanting it done properly.
+[01:04:07] Nadia Petrovic: Callum, does the event mapping affect your area at all?
+[01:04:11] Callum Fairbairn (IBM): Only at the edges. I'll flag it if that changes.
+[01:04:16] Keith Barraclough: We don't need to solve the movement types here; we just need to agree who goes away and looks at it, to be honest. The movement types are exactly where the parallel run earns its keep, in my view. We need a bit more rigour around the movement types, particularly on the testing side, in my view.
+[01:04:38] Sebastian Moreau-Clarke: Can I just add to that? I've not seen anything on the default reserve that changes the overall picture.
+[01:04:45] Keith Barraclough: Honestly, we touched on the copybook fields last time and I'm not sure the position has really moved since.
+[01:04:52] Daniel Achebe: Sebastian, is the reserve close-down a resourcing question or a decision question?
+[01:04:57] Sebastian Moreau-Clarke: Mostly resourcing, to be honest. The decision's been made; it's the doing. On the reserve close-down, the copybook is the contract, whether we like it or not.
+[01:05:08] Gordon Sproat: If the recovery netting is wrong, it doesn't show up on the day; it shows up at month-end, which is worse, if I'm honest. The event mapping touches the audit trail, so internal audit will want to look at it eventually, at least from where I sit. Can we make sure the reserve types are visible on the RAID log, so it doesn't fall between the cracks?
+[01:05:33] Nadia Petrovic: Callum, can you give us a quick update on the movement history?
+[01:05:38] Callum Fairbairn (IBM): It's progressing. I'll have a fuller picture by the next meeting. It might be worth a separate session on the movement history, because we won't do it justice in a few minutes here.
+[01:05:50] Lena Kristiansen: Daniel, does the reserve close-down affect your area at all?
+[01:05:55] Daniel Achebe: Yes, and we're already talking to the team about it. For what it's worth, the people closest to the reserve close-down are fairly confident.
+[01:06:05] Sebastian Moreau-Clarke: From a reserving point of view, the default reserve matters because every movement has to land in the right period. On the default reserve, the copybook is the contract, whether we like it or not. To be fair, we should check whether the default reserve lands differently for the Nordic teams than for the UK.
+[01:06:26] Keith Barraclough: Picking up on that, we need the default reserve to be explainable to Finance in plain English, not just in COBOL paragraphs. For the default reserve, the movement type matters as much as the amount. Right. If the default reserve changes the case estimate a handler sees, we need to tell them why.
+[01:06:46] Sebastian Moreau-Clarke: I'd frame the copybook fields as a risk rather than an issue at this stage. Well, I don't think the event mapping is controversial, it's just fiddly.
+[01:06:56] Nadia Petrovic: Same view here. Okay, so I don't want us to over-engineer the currency handling. A one-page note would do the job. So, I'm happy with the default reserve as long as we're clear about what's in and what's out, for what it's worth.
+[01:07:12] Tomasz Wojcik: Where have we got to with the movement types, Sebastian?
+[01:07:16] Sebastian Moreau-Clarke: It's moving. Not as fast as I'd like, but it's moving. I don't want us to over-engineer the movement types. A one-page note would do the job.
+[01:07:27] Daniel Achebe: Lena, what's your gut feel on the recovery netting?
+[01:07:31] Lena Kristiansen: Fairly comfortable. I'd flag it as watch rather than worry. Well, from a reserving point of view, the recovery netting matters because every movement has to land in the right period.
+[01:07:43] Gordon Sproat: I'd be interested in how other teams have handled the copybook fields, because we can't be the first to hit it. I think we've got consensus on the copybook fields, broadly. On the currency handling, the question is always whether the reserve table and the movement history tell the same story.
+[01:08:02] Nadia Petrovic: I'm happy with the movement history as long as we're clear about what's in and what's out. The thing about the reserve close-down is that everyone agrees with it in principle and nobody wants to do the work.
+[01:08:17] Daniel Achebe: Sebastian, are you comfortable with the movement history as it stands?
+[01:08:21] Sebastian Moreau-Clarke: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it. We should be able to replay the movement history from the movements alone; that's the test, I think.
+[01:08:35] Keith Barraclough: Everything I've seen on the event mapping says the approach is right; it's the pace I'd question. If I can come in here, my only ask on the event mapping is that we keep the business teams close. If we get the event mapping right, a lot of the noise we've had recently goes away. There's a temptation to treat the event mapping as a technical problem, and it really isn't.
+[01:09:01] Sebastian Moreau-Clarke: Have we taken the currency handling through the team leaders yet?
+[01:09:06] Daniel Achebe: Partly. We've done the UK team leaders; the Nordics are next. On the currency handling, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room.
+[01:09:18] Sebastian Moreau-Clarke: Fine by me.
+[01:09:20] Tomasz Wojcik: Is there anything we can do to unblock the movement history?
+[01:09:25] Daniel Achebe: Not today, thanks. If that changes, I'll shout. Right. The short version on the movement history is that it's in hand; the longer version is in the pack.
+[01:09:36] Tomasz Wojcik: Sure.
+[01:09:37] Daniel Achebe: Can I just add to that? If the movement types changes the case estimate a handler sees, we need to tell them why. I'd rather have an honest amber on the movement types than a green that turns red later.
+[01:09:52] Keith Barraclough: Do we need a decision on the event mapping from this group, or is it just for awareness?
+[01:10:00] Callum Fairbairn (IBM): For noting, I think. Nothing we need to decide today. On the event mapping, the question is always whether the reserve table and the movement history tell the same story.
+[01:10:12] Keith Barraclough: Following on from Callum, the honest answer on the movement history is that we know what good looks like, we're just not there yet.
+[01:10:21] Nadia Petrovic: I mean, I think the movement history is a good-news story, actually, and we don't say that often enough. I suppose for the movement history, the movement type matters as much as the amount. The movement history is exactly where the parallel run earns its keep.
+[01:10:38] Daniel Achebe: Has anything moved on the reserve types since last time?
+[01:10:43] Lena Kristiansen: Mostly that more people are involved now, which is good. We've had mixed messages on the reserve types, so a clear statement would help.
+[01:10:52] Daniel Achebe: The Nordic reserves always make the movement history more interesting because of the currency side. For what it's worth, the people closest to the movement history are fairly confident. I had a look at the reserve types over the weekend and nothing jumped out as a showstopper. On the copybook fields, there's been a lot of activity but not a lot of change, if you see what I mean.
+[01:11:18] Keith Barraclough: Where does the event mapping sit on the list of priorities right now?
+[01:11:24] Nadia Petrovic: It's up there. It just keeps getting bumped by urgent things. The conversation on the event mapping has been constructive, which wasn't always the case.
+[01:11:34] Keith Barraclough: The trouble with the default reserve is that the people who know it best are also the busiest. Every time we've touched the copybook fields in the past, there's been a surprise in the reconciliation.
+[01:11:48] Callum Fairbairn (IBM): It might be worth a separate session on the event mapping, because we won't do it justice in a few minutes here, to be honest. There's a dependency on the event mapping that I don't think everyone's aware of, so it's worth calling out. I keep coming back to the movement history, because it's the area that's had the least scrutiny.
+[01:12:10] Daniel Achebe: Has anything moved on the event mapping since last time?
+[01:12:15] Nadia Petrovic: Not much, other than we understand it better. I'm conscious the event mapping keeps coming up and we keep deferring it.
+[01:12:23] Daniel Achebe: Callum, what's your gut feel on the reserve types?
+[01:12:27] Callum Fairbairn (IBM): Reasonably. I've seen worse at this stage. Well, we're not starting from scratch on the reserve types; a lot of [inaudible] groundwork is already there.
+[01:12:37] Daniel Achebe: Who else needs to be involved in the recovery netting?
+[01:12:41] Keith Barraclough: The squads, obviously, but also the people on the floor. I'd like the next update on the recovery netting to come with evidence rather than a status colour.
+[01:12:51] Daniel Achebe: So, the recovery netting is exactly where the parallel run earns its keep, as far as I can tell.
+[01:12:59] Nadia Petrovic: Could whoever's typing go on mute? It's coming through quite loud.
+[01:13:04] Sebastian Moreau-Clarke: Sorry, that's me.
+[01:13:05] Daniel Achebe: From a reserving point of view, the reserve close-down matters because every movement has to land in the right period. The reserve close-down is one of those things that looks easy on a slide and isn't. The feedback from the teams on the reserve close-down is that they want fewer surprises and more notice. I'm reassured on the reserve close-down, mostly because the team have been very open about the gaps.
+[01:13:32] Gordon Sproat: Just to build on what Daniel said, So, I suspect the movement types will come back to this group at some point, so let's not close it off. I'd like the movement history closed down properly, not just quietly dropped.
+[01:13:47] Keith Barraclough: Lena, did you get a chance to look at the currency handling?
+[01:13:52] Lena Kristiansen: Not properly yet. It's on my list for this week. From a reserving point of view, the currency handling matters because every movement has to land in the right period.
+[01:14:04] Keith Barraclough: Okay, cool.
+[01:14:06] Sebastian Moreau-Clarke: Is there anything we can do to unblock the movement types?
+[01:14:10] Nadia Petrovic: Nothing specific. Keep asking about it, that's helpful in itself.
+[01:14:15] Sebastian Moreau-Clarke: Understood.
+[01:14:16] Keith Barraclough: Tomasz, what keeps you awake about the currency handling?
+[01:14:20] Tomasz Wojcik: The hand-offs between teams. That's where things usually drop. We should be able to replay the currency handling from the movements alone; that's the test.
+[01:14:30] Daniel Achebe: I don't want us to over-engineer the recovery netting. A one-page note would do the job. We've been here before with the movement history, and the lesson last time was to get the business in the room early.
+[01:14:44] Tomasz Wojcik: Okay, I think that's that one done.
+[01:14:48] Sebastian Moreau-Clarke: Sorry, just so I'm clear: when you say the movement types, do you mean the UK piece or the whole thing?
+[01:14:56] Keith Barraclough: Good challenge. I'll make sure the next version defines it properly. I mean, can I suggest we park the movement types for now and pick it up under any other business?
+[01:15:09] Daniel Achebe: Sorry, can I just check what we mean by the copybook fields? I think people are using it in different ways.
+[01:15:16] Lena Kristiansen: You're right, we're using it loosely. Let me tighten up the wording. From my side, let's not lose the copybook fields in the detail; it needs to come back here with a clear recommendation.
+[01:15:29] Callum Fairbairn (IBM): If I can come in here, I'd be interested in how other teams have handled the default reserve, because we can't be the first to hit it. I'd like the default reserve traced through to the general ledger, not just checked at the service boundary. From where I sit, the default reserve is the thing most likely to catch us out, simply because it touches so many teams. On the default reserve, the question is always whether the reserve table and the movement history tell the same story.
+[01:16:02] Nadia Petrovic: Is the recovery netting something we need to decide today, or is it for noting?
+[01:16:08] Keith Barraclough: Not today. We'll bring options when we've done the analysis. I'd want to see the recovery netting working end to end before I'd put my name to it.
+[01:16:18] Tomasz Wojcik: What's the biggest risk on the event mapping, in your view?
+[01:16:24] Sebastian Moreau-Clarke: That we assume it's done because nobody's complaining. We should acknowledge the work that's gone into the event mapping, because it's been a slog.
+[01:16:33] Nadia Petrovic: I'd challenge us a bit on the movement history; I'm not sure we've tested the assumptions. I'll be honest, the movement history wasn't really on my radar until this week. For the movement types, the movement type matters as much as the amount, to be honest.
+[01:16:50] Daniel Achebe: Tomasz, are you comfortable with the recovery netting as it stands?
+[01:16:55] Tomasz Wojcik: Short answer, yes. Long answer, it depends how the next few weeks go. Every time we've touched the recovery netting in the past, there's been a surprise in the reconciliation.
+[01:17:06] Daniel Achebe: Do we need a decision on the movement types from this group, or is it just for awareness?
+[01:17:13] Nadia Petrovic: Noting only. If it needs a decision, it'll come back with a paper. I'd want the actuaries to see the movement types before we lock anything down.
+[01:17:24] Keith Barraclough: Tomasz, can you give us a quick update on the event mapping?
+[01:17:30] Tomasz Wojcik: Broadly on track. There are a couple of loose ends, but nothing that worries me. The thing about the event mapping is that everyone agrees with it in principle and nobody wants to do the work.
+[01:17:44] Nadia Petrovic: Yeah, um, I'd like the reserve close-down traced through to the general ledger, not just checked at the service boundary. From a customer point of view, the reserve close-down should be invisible, and that's the test I'd apply. I'd like the next update on the reserve close-down to come with evidence rather than a status colour.
+[01:18:04] Keith Barraclough: Actually, I'd be interested in how other teams have handled the movement history, because we can't be the first to hit it. We should be able to replay the reserve types from the movements alone; that's the test. I'd want to see the default reserve working end to end before I'd put my name to it. I'd like the movement history traced through to the general ledger, not just checked at the service boundary.
+[01:18:31] Daniel Achebe: We should probably sanity-check the reserve types with someone who wasn't involved in designing it. It's fair to say the reserve types took longer [inaudible] any of us wanted. The bit of the reserve types that worries me is the hand-off between teams. I'm reassured on the reserve types, mostly because the team have been very open about the gaps.
+[01:18:54] Gordon Sproat: Has anything moved on the reserve close-down since last time?
+[01:18:58] Sebastian Moreau-Clarke: The detail's firmer. The direction is the same. Yeah, so for the reserve close-down, I'd rather we under-promise and deliver than the other way round.
+[01:19:10] Tomasz Wojcik: Where does the recovery netting sit on the list of priorities right now?
+[01:19:15] Daniel Achebe: Top of the second tier, if that makes sense. Whatever happens with the recovery netting, the communication needs to be joined up.
+[01:19:23] Sebastian Moreau-Clarke: We probably need to separate the facts on the movement history from the folklore. We need the reserve close-down to be explainable to Finance in plain English, not just in COBOL paragraphs, if that makes sense.
+[01:19:37] Daniel Achebe: We don't need to solve the currency handling here; we just need to agree who goes away and looks at it. Whatever happens with the currency handling, the communication needs to be joined up. I'd like the recovery netting traced through to the general ledger, not just checked at the service boundary. I'd keep the currency handling separate from the rest of it, because it involves different people and a different set of risks.
+[01:20:04] Gordon Sproat: I mean, the default reserve touches the audit trail, so internal audit will want to look at it eventually. Picking up on that, I don't think the movement types are controversial, it's just fiddly.
+[01:20:17] Callum Fairbairn (IBM): Tomasz, does the event mapping affect your area at all?
+[01:20:22] Tomasz Wojcik: A bit. We'll need some notice, but it's nothing we can't absorb.
+[01:20:27] Daniel Achebe: We've done the thinking on the reserve types; now it's about execution.
+[01:20:40] Tomasz Wojcik: Right, the revaluation. Keith, can you set it up?
+[01:20:44] Keith Barraclough: So, CLRGL090 is the year-end reserve currency revaluation. It takes the Nordic reserves and revalues them to GBP. The problem internal audit found, IA-25-07, is that it updates the reserve table but doesn't write a reserve movement.
+[01:20:58] Keith Barraclough: And it abended at year-end, on the 2nd of January, with an S0C7 because the Swedish year-end rate came through with a comma as the decimal separator. CLRYGL90 was rerun the same morning.
+[01:21:10] Lena Kristiansen: Internal audit picked it up because the revaluation changes the reserve but leaves no movement behind. From a customer point of view, the January abend should be invisible, and that's the test I'd apply.
+[01:21:23] Nadia Petrovic: Sorry, my dog's decided now's the moment to bark at the postman.
+[01:21:28] Sebastian Moreau-Clarke: [laughter] We've all been there.
+[01:21:31] Tomasz Wojcik: Then I'd rather fix it in the target than patch something we're retiring. I've had a couple of conversations about the year-end revaluation this week and the feedback was broadly positive, I think.
+[01:21:44] Sebastian Moreau-Clarke: Do we need a decision on the audit finding from this group, or is it just for awareness?
+[01:21:50] Daniel Achebe: For noting, I think. Nothing we need to decide today. In fairness, if the audit finding is wrong, it doesn't show up on the day; it shows up at month-end, which is worse.
+[01:22:03] Sebastian Moreau-Clarke: Right.
+[01:22:05] Tomasz Wojcik: The conversation on the RV movement type has been constructive, which wasn't always the case. Mm. If we're going to change anything about the RV movement type, now's the time rather than later. We should be able to replay the RV movement type from the movements alone; that's the test.
+[01:22:24] Gordon Sproat: For the RV movement type, I'd rather we under-promise and deliver than the other way round. On the RV movement type, the copybook is the contract, whether we like it or not. If the audit finding changes the case estimate a handler sees, we need to tell them why, in my view. To be clear, nobody's saying the RV movement type is broken. It's more that we haven't tested it the way we'd test anything else.
+[01:22:52] Daniel Achebe: Do we need a decision on the year-end rates from this group, or is it just for awareness?
+[01:23:00] Lena Kristiansen: Not today. We'll bring options when we've done the analysis. I'm keen we don't just tick a box on the year-end rates.
+[01:23:09] Daniel Achebe: Lovely, thanks.
+[01:23:11] Sebastian Moreau-Clarke: From an actuarial point of view, a change in reserve with no movement is a hole in the triangle.
+[01:23:18] Nadia Petrovic: For the audit finding, the movement type matters as much as the amount. The engine validates rates before it uses them, so that particular failure can't happen there. From my side, on the audit finding, the copybook is the contract, whether we like it or not.
+[01:23:35] Tomasz Wojcik: Again, I'd like the year-end rates closed down properly, not just quietly dropped, if I'm honest.
+[01:23:42] Sebastian Moreau-Clarke: Is there a simpler version of the January abend than what's on the slide?
+[01:23:48] Gordon Sproat: Not without losing something important, I think. But I'm happy to look. From a reserving point of view, the January abend matters because every movement has to land in the right period.
+[01:24:00] Daniel Achebe: Yeah, um, I don't have strong views on the year-end revaluation, other than wanting it done properly.
+[01:24:07] Gordon Sproat: Is there anything we can do to unblock the RV movement type?
+[01:24:13] Tomasz Wojcik: Just air cover, really. People are stretched, so it helps if the message comes from here. The handlers think in case estimates, the actuaries think in triangles, and the RV movement type has to work for both.
+[01:24:26] Keith Barraclough: To be honest, I think we underestimated the year-end revaluation at the start, and that's fine as long as we learn from it. We need the year-end revaluation to be explainable to Finance in plain English, not just in COBOL paragraphs.
+[01:24:42] Daniel Achebe: Callum, can you give us a quick update on the January abend?
+[01:24:47] Callum Fairbairn (IBM): It's moving. Not as fast as I'd like, but it's moving. I've not seen anything on the January abend that changes the overall picture.
+[01:24:56] Daniel Achebe: Okay, noted.
+[01:24:58] Tomasz Wojcik: If the year-end revaluation changes the case estimate a handler sees, we need to tell them why. The Nordic reserves always make the year-end revaluation more interesting because of the currency side. Every time we've touched the year-end revaluation in the past, there's been a surprise in the reconciliation.
+[01:25:16] Lena Kristiansen: For the RV movement type, the movement type matters as much as the amount.
+[01:25:22] Keith Barraclough: We need a bit more rigour around the year-end rates, particularly on the testing side. I'm conscious the currency revaluation keeps coming up and we keep deferring it. CLRGL090 runs once a year at year-end. It revalues the Nordic reserves to GBP at the year-end rate. Changing CLRGL090 now is risky. It's a once-a-year job and we'd be testing it once a year.
+[01:25:45] Lena Kristiansen: If the revaluation run slips, it doesn't just slip on its own; it drags a couple of other things with it. Can we make sure the revaluation run is visible on the RAID log, so it doesn't fall between the cracks? Can we make sure the January abend is visible on the RAID log, so it doesn't fall between the cracks?
+[01:26:09] Daniel Achebe: Callum, does the year-end revaluation affect your area at all?
+[01:26:13] Callum Fairbairn (IBM): Only at the edges. I'll flag it if that changes. I'd ask that we don't make promises on the year-end revaluation until we've seen the impact assessment, as far as I can tell.
+[01:26:26] Lena Kristiansen: Gordon, is the currency revaluation a resourcing question or a decision question?
+[01:26:31] Gordon Sproat: Resourcing. Nobody disagrees on what to do. To be clear, nobody's saying the currency revaluation is broken. It's more that we haven't tested it the way we'd test anything else.
+[01:26:42] Tomasz Wojcik: On the audit trail, the question is always whether the reserve table and the movement history tell the same story. So, the Nordic reserves always make the audit trail more interesting because of the currency side. Well, on the audit finding, the risk isn't that it fails outright, it's that it half works and nobody notices. Every time we've touched the year-end rates in the past, there's been a surprise in the reconciliation.
+[01:27:09] Keith Barraclough: I'd be interested in how other teams have handled the year-end revaluation, because we can't be the first to hit it. If I can come in here, if the audit trail changes the case estimate a handler sees, we need to tell them why. Sure. On the year-end revaluation, the teams have been brilliant, frankly, given everything else going on.
+[01:27:32] Gordon Sproat: Sebastian, did you get a chance to look at the RV movement type?
+[01:27:37] Sebastian Moreau-Clarke: I did, briefly. I've got a couple of comments, I'll send them over.
+[01:27:43] Tomasz Wojcik: I'm reassured on the revaluation run, mostly because the team have been very open about the gaps. I'll be honest, the revaluation run wasn't really on my radar until this week. If there's one thing I'd take away on the revaluation run, it's that we need to keep it visible.
+[01:28:02] Sebastian Moreau-Clarke: I'd want to see the January abend working end to end before I'd put my name to it.
+[01:28:09] Daniel Achebe: To be honest, we're probably overthinking the audit finding, but I'd rather overthink it than underthink it. If the RV movement type changes the case estimate a handler sees, we need to tell them why.
+[01:28:22] Tomasz Wojcik: Understood.
+[01:28:23] Lena Kristiansen: The handlers think in case estimates, the actuaries think in triangles, and the year-end rates have to work for both. We should be able to replay the year-end rates from the movements alone; that's the test. From a reserving point of view, the revaluation run matters because every movement has to land in the right period.
+[01:28:44] Tomasz Wojcik: For what it's worth, the people closest to the year-end revaluation are fairly confident. The year-end revaluation touches the audit trail, so internal audit will want to look at it eventually. On that point, for the year-end rates, the movement type matters as much as the amount.
+[01:29:02] Nadia Petrovic: Do we need a decision on the currency revaluation from this group, or is it just for awareness?
+[01:29:09] Keith Barraclough: For noting, I think. Nothing we need to decide today. I'd ask that we don't make promises on the currency revaluation until we've seen [inaudible] impact assessment.
+[01:29:19] Nadia Petrovic: Perfect.
+[01:29:21] Sebastian Moreau-Clarke: Has anything moved on the RV movement type since last time?
+[01:29:26] Daniel Achebe: Not much, other than we understand it better. The RV movement type is exactly where the parallel run earns its keep, if I'm honest.
+[01:29:35] Sebastian Moreau-Clarke: Good.
+[01:29:36] Daniel Achebe: I'd echo that, I'd frame the year-end revaluation as a risk rather than an issue at this stage. The handlers think in case estimates, the actuaries think in triangles, and the January abend has to work for both.
+[01:29:50] Keith Barraclough: I'm not sure I'd go quite that far, Daniel. I think the year-end revaluation needs a bit of tidying up rather than a rethink.
+[01:30:00] Tomasz Wojcik: I'd echo that, Okay, so we should write the audit finding up properly, if only so the next person doesn't have to work it all out again. Can we make sure the year-end rates are visible on the RAID log, so it doesn't fall between the cracks?
+[01:30:17] Daniel Achebe: I see it a bit differently, actually. If the year-end revaluation is wrong, it doesn't show up on the day; it shows up at month-end, which is worse. We've had mixed messages on the year-end revaluation, so a clear statement would help.
+[01:30:33] Nadia Petrovic: Honestly, I think we underestimated the currency revaluation at the start, and that's fine as long as we learn from it. Whatever we land on for the currency revaluation, people need to hear it from their own managers first. On the currency revaluation, the question is always whether the reserve table and the movement history tell the same story.
+[01:30:55] Sebastian Moreau-Clarke: If the year-end rates changes the case estimate a handler sees, we need to tell them why. We've done the thinking on the January abend; now it's about execution, if that makes sense.
+[01:31:08] Keith Barraclough: Okay.
+[01:31:09] Lena Kristiansen: Whatever happens with the year-end revaluation, the communication needs to be joined up. On the year-end revaluation, the question is always whether the reserve table and the movement history tell the same story.
+[01:31:22] Tomasz Wojcik: I'm not sure I'd go quite that far, Lena. I'd like the next update on the year-end rates to come with evidence rather than a status colour. We should write the revaluation run up properly, if only so the next person doesn't have to work it all out again.
+[01:31:40] Lena Kristiansen: We should be honest that the currency revaluation is partly a capacity problem. I'd want the actuaries to see the currency revaluation before we lock anything down. My instinct on the currency revaluation is to wait a little and see how things settle.
+[01:31:56] Tomasz Wojcik: Are we expecting any pushback on the January abend?
+[01:32:00] Daniel Achebe: One or two. I'll pick them up offline rather than take time here.
+[01:32:06] Nadia Petrovic: Where have we got to with the RV movement type, Lena?
+[01:32:11] Lena Kristiansen: Steady. No drama, which is what you want. If the RV movement type is wrong, it doesn't show up on the day; it shows up at month-end, which is worse.
+[01:32:22] Gordon Sproat: Okay, so I'd like the year-end revaluation closed down properly, not just quietly dropped. From a reserving point of view, the year-end revaluation matters because every movement has to land in the right period.
+[01:32:36] Tomasz Wojcik: Keith, any concerns from your side on the currency revaluation?
+[01:32:41] Keith Barraclough: Some, probably, but nothing we can't work through. I'd challenge us a bit on the currency revaluation; I'm not sure we've tested the assumptions.
+[01:32:50] Sebastian Moreau-Clarke: Can I ask what's changed on the currency revaluation since we last discussed it?
+[01:32:56] Lena Kristiansen: Mostly that more people are involved now, which is good. If the currency revaluation is going to need more people, we should flag that early rather than late.
+[01:33:06] Sebastian Moreau-Clarke: Okay, cool.
+[01:33:08] Daniel Achebe: Um, if the January abend changes the case estimate a handler sees, we need to tell them why. In the engine it's easy to do properly: a revaluation is just another movement type. I'd like the January abend closed down properly, not just quietly dropped. I'm conscious the RV movement type keeps coming up and we keep deferring it.
+[01:33:30] Keith Barraclough: What's the biggest risk on the currency revaluation, in your view?
+[01:33:35] Gordon Sproat: Knock-on effects. If it moves, other things move with it. The bit of the currency revaluation that worries me is the hand-off between teams.
+[01:33:44] Lena Kristiansen: Can I just add to that? Let's capture the audit trail as a follow-up rather than try to close it today.
+[01:33:53] Callum Fairbairn (IBM): The Nordic reserves always make the audit finding more interesting because of the currency side. From a reserving point of view, the audit finding matters because every movement has to land in the right period. I'd like the audit finding traced through to the general ledger, not just checked at the service boundary. My worry with the RV movement type is less the technology and more whether people on the floor actually know what's changed.
+[01:34:21] Sebastian Moreau-Clarke: On the year-end rates, the question is always whether the reserve table and the movement history tell the same story. I'd challenge us a bit on the year-end rates; I'm not sure we've tested the assumptions.
+[01:34:34] Daniel Achebe: For what it's worth, I keep coming back to the audit trail, because it's the area that's had the least scrutiny, as far as I can tell. The handlers think in case estimates, the actuaries think in triangles, and the audit trail has to work for both.
+[01:34:52] Lena Kristiansen: Makes sense to me.
+[01:34:54] Callum Fairbairn (IBM): I'm not sure I'd go quite that far, Lena. We should write the RV movement type up properly, if only so the next person doesn't have to work it all out again, if that makes sense. From a reserving point of view, the year-end rates matter because every movement has to land in the right period.
+[01:35:14] Tomasz Wojcik: How confident are we on the year-end rates, honestly?
+[01:35:18] Gordon Sproat: Fairly comfortable. I'd flag it as watch rather than worry. If the year-end rates slips, it doesn't just slip on its own; it drags a couple of other things with it.
+[01:35:30] Keith Barraclough: The January abend was a data problem, not a logic problem. A Swedish rate came through with a comma as the decimal separator. The handlers think in case estimates, the actuaries think in triangles, and the audit finding has to work for both.
+[01:35:46] Callum Fairbairn (IBM): Okay, thank you.
+[01:35:48] Tomasz Wojcik: We should be able to replay the audit trail from the movements alone; that's the test. The people side of the audit trail is going to be harder than the system side. I'm happy with the audit trail as long as we're clear about what's in and what's out.
+[01:36:06] Gordon Sproat: Lena, are you comfortable with the revaluation run as it stands?
+[01:36:11] Lena Kristiansen: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it. We're not starting from scratch on the revaluation run; a lot of the groundwork is already there.
+[01:36:24] Daniel Achebe: I'd like the revaluation run traced through to the general ledger, not just checked at the service boundary. From my side, I'm not going to pretend the revaluation run is exciting, but it's exactly the sort of thing that bites you if you ignore it. If the revaluation run changes the case estimate a handler sees, we need to tell them why. Let's not lose the audit trail in the detail; it needs to come back here with a clear recommendation.
+[01:36:53] Tomasz Wojcik: Is the share working? I'm just seeing a black screen.
+[01:36:57] Lena Kristiansen: Hang on, let me stop and restart it.
+[01:37:01] Lena Kristiansen: Any better?
+[01:37:02] Tomasz Wojcik: Yes, that's it now.
+[01:37:04] Tomasz Wojcik: Can someone note that for the minutes?
+[01:37:08] Sebastian Moreau-Clarke: I'd want to see the RV movement type working end to end before I'd put my name to it.
+[01:37:16] Daniel Achebe: So, um, I think the year-end rates are a good-news story, actually, and we don't say that often enough. We should acknowledge the work that's gone into the year-end revaluation, because it's been a slog. If the year-end rates are wrong, it doesn't show up on the day; it shows up at month-end, which is worse.
+[01:37:36] Keith Barraclough: We should probably sanity-check the RV movement type with someone who wasn't involved in designing it.
+[01:37:43] Tomasz Wojcik: Okay, cool.
+[01:37:44] Sebastian Moreau-Clarke: Sure. I think the audit trail needs a bit of tidying up rather than a rethink. If I can come in here, we've had mixed messages on the RV movement type, so a clear statement would help. Personally I'd go a bit further on the audit trail, but I can live with what's proposed. If the audit trail is going [inaudible] need more people, we should flag that early rather than late.
+[01:38:11] Lena Kristiansen: There are two schools of thought on the audit finding, and both have some merit. Let me be a bit provocative on the currency revaluation: are we sure we need it in its current form? The audit finding is exactly where the parallel run earns its keep.
+[01:38:29] Daniel Achebe: Tomasz, did you get a chance to look at the RV movement type?
+[01:38:35] Tomasz Wojcik: Yes. It reads well. One or two questions, but nothing major. I'd rather the RV movement type was boring. Boring is good.
+[01:38:43] Gordon Sproat: Is the year-end revaluation something we need to decide today, or is it for noting?
+[01:38:50] Keith Barraclough: Awareness for now. There may be a decision next time. I'd like the year-end revaluation traced through to the general ledger, not just checked at the service boundary, in my view.
+[01:39:02] Gordon Sproat: Okay, thank you.
+[01:39:05] Tomasz Wojcik: We need the currency revaluation to be explainable to Finance in plain English, not just in COBOL paragraphs. What would really help on the audit finding is a single view that everyone works from, at least from where I sit.
+[01:39:19] Nadia Petrovic: Where does the revaluation run sit on the list of priorities right now?
+[01:39:25] Lena Kristiansen: Near the top, but not at the top. I've had a couple of conversations about the revaluation run this week and the feedback was broadly positive, to be honest.
+[01:39:36] Nadia Petrovic: Is the audit finding something we need to decide today, or is it for noting?
+[01:39:42] Callum Fairbairn (IBM): Noting only. If it needs a decision, it'll come back with a paper. Every time we've touched the audit finding in the past, there's been a surprise in the reconciliation, I'd say.
+[01:39:55] Tomasz Wojcik: Yeah, and to add to that, we should be able to replay the audit finding from the movements alone; that's the test.
+[01:40:06] Tomasz Wojcik: So the decision is: reserve-engine will record currency revaluations as RV movements, which closes IA-25-07 in the target, and CLRGL090 stays unchanged in CLARA. Lena, Daniel, you're both okay with that?
+[01:40:18] Lena Kristiansen: Yes, agreed.
+[01:40:19] Daniel Achebe: Agreed. We'll add RV as a movement type in the engine.
+[01:40:24] Keith Barraclough: Then I'll close CHUB-284 as won't do on the CLARA side, with a pointer to this decision.
+[01:40:31] Tomasz Wojcik: And I'll write it up as an ADR so it's on the register.
+[01:40:36] Keith Barraclough: Just to build on what Tomasz said, I mean, the revaluation run is exactly where the parallel run earns its keep. I think the January abend needs a bit of tidying up rather than a rethink.
+[01:40:50] Sebastian Moreau-Clarke: For the year-end revaluation, I'd rather we under-promise and deliver than the other way round. I'm happy with the currency revaluation as long as we're clear about what's in and what's out. For the year-end revaluation, the movement type matters as much as the amount.
+[01:41:07] Daniel Achebe: I'd challenge us a bit on the revaluation run; I'm not sure we've tested the assumptions. Picking up on that, on the revaluation run, the copybook is the contract, whether we like it or not.
+[01:41:21] Keith Barraclough: Okay, thank you.
+[01:41:23] Daniel Achebe: There's a temptation to treat the revaluation run as a technical problem, and it really isn't. We've done the thinking on the year-end revaluation; now it's about execution. Okay. I'd frame the January abend as a risk rather than an issue at this stage.
+[01:41:40] Tomasz Wojcik: Following on from Daniel, in fairness, we've been here before with the January abend, and the lesson last time was to get the business in the room early. So, we're not starting from scratch on the year-end rates; a lot of the groundwork is already there.
+[01:41:57] Lena Kristiansen: I'd echo that, my read on the RV movement type [inaudible] that the hard part is behind us, but there's still a long tail. My instinct on the audit finding is to wait a little and see how things settle.
+[01:42:12] Nadia Petrovic: On the, the currency revaluation, the copybook is the contract, whether we like it or not. For what it's worth, the people closest to the audit finding are fairly confident. The honest answer on the currency revaluation is that we know what good looks like, we're just not there yet. Okay, so if the currency revaluation is wrong, it doesn't show up on the day; it shows up at month-end, which is worse.
+[01:42:39] Daniel Achebe: Have we taken the RV movement type through the team leaders yet?
+[01:42:44] Tomasz Wojcik: We've walked them through it, yes, and they had some useful challenge. I wouldn't want the RV movement type to become the reason we lose momentum elsewhere.
+[01:42:55] Lena Kristiansen: So, whatever happens with the January abend, the communication needs to be joined up. Let me be a bit [inaudible] on the January abend: are we sure we need it in its current form?
+[01:43:08] Daniel Achebe: Keith, can you give us a quick update on the currency revaluation?
+[01:43:13] Keith Barraclough: It's progressing. I'll have a fuller picture by the next meeting.
+[01:43:18] Lena Kristiansen: I don't have strong views on the year-end rates, other than wanting it done properly. On the audit trail, I'm reasonably comfortable, but I'd rather see it written down than rely on what we said in the room. On the year-end rates, the teams have been brilliant, frankly, given everything else going on.
+[01:43:38] Daniel Achebe: Sure. We need the revaluation run to be explainable to Finance in plain English, not just in COBOL paragraphs.
+[01:43:46] Sebastian Moreau-Clarke: Lena, is the currency revaluation a resourcing question or a decision question?
+[01:43:52] Lena Kristiansen: Mostly resourcing, to be honest. The decision's been made; it's the doing. The currency revaluation is exactly where the parallel run earns its keep.
+[01:44:02] Daniel Achebe: Where have we got to with the currency revaluation, Tomasz?
+[01:44:06] Tomasz Wojcik: It's with the working group at the moment; I'll chase and come back.
+[01:44:11] Daniel Achebe: Same view here. For what it's worth, we need the audit finding to be explainable to Finance in plain English, not just in COBOL paragraphs.
+[01:44:21] Nadia Petrovic: It's properly dark out already here.
+[01:44:24] Keith Barraclough: Same here. Winter's arrived.
+[01:44:25] Nadia Petrovic: Right, anyway.
+[01:44:27] Lena Kristiansen: Tomasz, is there anything on the revaluation run you need from this group?
+[01:44:32] Tomasz Wojcik: Nothing specific. Keep asking about it, that's helpful in itself. We should be able to replay the revaluation run from the movements alone; that's the test.
+[01:44:43] Daniel Achebe: Sorry, just so I'm clear: when you say the year-end revaluation, do you mean the UK piece or the whole thing?
+[01:44:51] Gordon Sproat: Fair point. I mean the whole thing, end to end. I'm keen we don't just tick a box on the year-end revaluation.
+[01:45:00] Keith Barraclough: Who else needs to be involved in the year-end revaluation?
+[01:45:04] Sebastian Moreau-Clarke: Finance, and probably Compliance as well. I'll set something up. Let's capture the year-end revaluation as a follow-up rather than try to close it today.
+[01:45:18] Tomasz Wojcik: Last item. Lena, the Tier-3 review cadence.
+[01:45:21] Lena Kristiansen: Thanks. Today Tier-3 reserves have to be reviewed at least every 21 days. I'd like to propose 14 days from the 1st of July to the Reserving Committee, and I'd like this group's support for the system side.
+[01:45:36] Sebastian Moreau-Clarke: Supported from Actuarial.
+[01:45:37] Daniel Achebe: And it's a configuration change in the engine, so no objection from us. We'd need to make sure CLARA and the engine change on the same day, or the parallel run will flag every Tier-3 claim.
+[01:45:51] Keith Barraclough: CLARA reads it from T_PARAM, so it's a parameter row with a valid-from date.
+[01:45:56] Lena Kristiansen: I'd want the actuaries to see the overdue reviews before we lock anything down. The Tier-3 claims are the ones where the case estimate moves the most. Reviewing them more often is just good practice.
+[01:46:09] Daniel Achebe: The engine schedules reviews from a configuration value, so a cadence change is configuration for us.
+[01:46:16] Nadia Petrovic: Are we expecting any pushback on the Reserving Committee paper?
+[01:46:20] Tomasz Wojcik: One or two. I'll pick them up offline rather than take time here.
+[01:46:26] Lena Kristiansen: Keith, where are we on the review scheduler?
+[01:46:30] Keith Barraclough: We're waiting on one input, and then it's fairly straightforward.
+[01:46:34] Lena Kristiansen: Yep.
+[01:46:36] Tomasz Wojcik: For the Reserving Committee paper, the movement type matters as much as the amount. So, we're probably overthinking the Reserving Committee paper, but I'd rather overthink it than underthink it. Every time we've touched the Tier-3 review cadence in the past, there's been a surprise in the reconciliation.
+[01:46:53] Lena Kristiansen: That chimes with what I'm hearing, and the Nordic reserves always make the handler workload more interesting because of the currency side.
+[01:47:02] Daniel Achebe: Are we expecting any pushback on the handler workload?
+[01:47:06] Gordon Sproat: Not really. The team have been very open about the gaps, which helps. Every time we've touched the handler workload in the past, there's been a surprise in the reconciliation.
+[01:47:17] Daniel Achebe: Sure.
+[01:47:18] Keith Barraclough: If the handler workload is wrong, it doesn't show up on the day; it shows up at month-end, which is worse. Mm. The Tier-3 review cadence touches the audit trail, so internal audit will want to look at it eventually, if I'm honest. We're probably overthinking the handler workload, but I'd rather overthink it than underthink it.
+[01:47:39] Lena Kristiansen: The Major & Complex Loss team will need to know. It's more work for them, and they'll want notice. Look, the short version on the overdue reviews is that it's in hand; the longer version is in the pack.
+[01:47:54] Daniel Achebe: Sebastian, did you get a chance to look at the Tier-3 review cadence?
+[01:48:00] Sebastian Moreau-Clarke: Not properly yet. It's on my list for this week. My worry with the Tier-3 review cadence is less the technology and more whether people on the floor actually know what's changed.
+[01:48:12] Daniel Achebe: The Tier-3 review cadence is exactly where the parallel run earns its keep. Just quickly, I'm happy with the Tier-3 review cadence as long as we're clear about what's in and what's out. I'd want the actuaries to see the review scheduler before we lock anything down.
+[01:48:29] Keith Barraclough: The people side of the review scheduler is going to be harder than the system side. In CLARA the review scheduler is CLRRS110, and it reads the cadence from T_PARAM. For the Tier-3 review cadence, the question isn't whether, it's how and in what order. I had a look at the Reserving Committee paper over the weekend and nothing jumped out as a showstopper.
+[01:48:53] Sebastian Moreau-Clarke: Yeah, I'd agree with that.
+[01:48:55] Lena Kristiansen: Honestly, the thing about the review diary is that everyone agrees with it in principle and nobody wants to do the work. We shouldn't confuse the review diary with the wider change; they're related but not the same. The review diary touches the audit trail, so internal audit will want to look at it eventually.
+[01:49:16] Tomasz Wojcik: Can I ask what's changed on the handler workload since we last discussed it?
+[01:49:22] Sebastian Moreau-Clarke: Honestly, less than I'd like. I think we underestimated the handler workload at the start, and that's fine as long as we learn from it.
+[01:49:31] Keith Barraclough: Has anything moved on the review scheduler since last time?
+[01:49:36] Daniel Achebe: The detail's firmer. The direction is the same. I'd like the review scheduler traced through to the general ledger, not just checked at the service boundary.
+[01:49:46] Tomasz Wojcik: I'll pick that up offline.
+[01:49:49] Daniel Achebe: The Reserving Committee paper touches the audit trail, so internal audit will want to look at it eventually. Again, I'm conscious the Reserving Committee paper keeps coming up and we keep deferring it.
+[01:50:01] Lena Kristiansen: Okay, thank you.
+[01:50:04] Tomasz Wojcik: There's no silver bullet on the, the Tier-3 review cadence; it's just steady work, I think. If I can come in here, I had a look at the Tier-3 review cadence over the weekend and nothing jumped out as a showstopper. I don't think the Tier-3 review cadence is controversial, it's just fiddly.
+[01:50:23] Nadia Petrovic: Picking up Tomasz's point, if the review diary is going to need more people, we should flag that early rather than late. We can talk about the overdue reviews all day, but at some point someone has to make a call.
+[01:50:39] Gordon Sproat: Has anything moved on the handler workload since last time?
+[01:50:43] Daniel Achebe: Honestly, less than I'd like. The handlers think in case estimates, the actuaries think in triangles, and the handler workload has to work for both.
+[01:50:53] Sebastian Moreau-Clarke: I'd support it. The movement history on Tier-3 claims is where the surprises come from. We need the Tier-3 review cadence to be explainable to Finance in plain English, not just in COBOL paragraphs.
+[01:51:06] Tomasz Wojcik: We're slightly behind, so let's be quick on the next one.
+[01:51:11] Keith Barraclough: Sebastian, is the Reserving Committee paper a resourcing question or a decision question?
+[01:51:16] Sebastian Moreau-Clarke: Probably both, if I'm honest. I don't have strong views on the Reserving Committee paper, other than wanting it done properly.
+[01:51:25] Daniel Achebe: Has anything moved on the Tier-3 review cadence since last time?
+[01:51:30] Lena Kristiansen: Not much, other than we understand it better. Speaking for my area, my sense is that the Tier-3 review cadence is moving in the right direction, just slowly.
+[01:51:41] Callum Fairbairn (IBM): Daniel, where are we on the Tier-3 review cadence?
+[01:51:45] Daniel Achebe: In better shape than it was. I wouldn't call it done, but the direction is right. On the Tier-3 review cadence, the question is always whether the reserve table and the movement history tell the same story.
+[01:51:59] Sebastian Moreau-Clarke: Who else needs to be involved in the Tier-3 review cadence?
+[01:52:03] Tomasz Wojcik: Someone from the business side, ideally a team leader who's lived with it. We should acknowledge the work that's gone into the Tier-3 review cadence, because it's been a slog.
+[01:52:15] Nadia Petrovic: Where does the Tier-3 review cadence sit on the list of priorities right now?
+[01:52:21] Lena Kristiansen: Near the top, but not at the top.
+[01:52:24] Sebastian Moreau-Clarke: If I can come in here, the Nordic reserves always make the review scheduler more interesting because of the currency side. On the handler workload, the copybook is the contract, whether we like it or not.
+[01:52:38] Keith Barraclough: Okay, cool.
+[01:52:40] Gordon Sproat: Daniel, can you give us a quick update on the overdue reviews?
+[01:52:45] Daniel Achebe: It's progressing. I'll have a fuller picture by the next meeting.
+[01:52:49] Keith Barraclough: The detail on the review diary is in the appendix, so I won't walk through it line by line. From where I sit, the review diary is the thing most likely to catch us out, simply because it touches so many teams. I suspect the review diary will come back to this group at some point, so let's not close it off.
+[01:53:13] Tomasz Wojcik: Sebastian, is the review diary a resourcing question or a decision question?
+[01:53:19] Sebastian Moreau-Clarke: Probably both, if I'm honest.
+[01:53:21] Tomasz Wojcik: Yeah.
+[01:53:23] Lena Kristiansen: How confident are we on the Reserving Committee paper, honestly?
+[01:53:27] Nadia Petrovic: Gut feel, it's fine. Evidence, we'll have in a couple of weeks. On the Reserving Committee paper, the copybook is the contract, whether we like it or not.
+[01:53:38] Daniel Achebe: Is there a simpler version of the review diary than what's on the slide?
+[01:53:44] Callum Fairbairn (IBM): There probably is, and I'd be open to it. We've got good people looking at the review diary; I'm less sure we've given them enough time.
+[01:53:54] Sebastian Moreau-Clarke: Daniel, what keeps you awake about the Tier-3 review cadence?
+[01:53:58] Daniel Achebe: Timing more than anything. It's not hard, it's just competing with everything else. We've had mixed messages on the Tier-3 review cadence, so a clear statement would help.
+[01:54:09] Sebastian Moreau-Clarke: Makes sense to me.
+[01:54:11] Lena Kristiansen: The Nordic reserves always make the overdue reviews more interesting because of the currency side, to be honest. Can I suggest we park the overdue reviews for now and pick it up under any other business?
+[01:54:28] Tomasz Wojcik: Nadia, can you read back the actions?
+[01:54:30] Nadia Petrovic: Decisions: reserve-engine records currency revaluations as RV movements, closing IA-25-07 in the target, with CLRGL090 unchanged in CLARA. And Lena will propose the 14-day Tier-3 cadence from the 1st of July to the Reserving Committee, with this group's support.
+[01:54:46] Nadia Petrovic: Actions: Daniel, update the synchronisation design to cover all eight writers of CLR.T_RESERVE. Gordon, reissue the writer list from the CRUD matrix with a note on CLRRS150. Keith, close CHUB-284 with the reference. Tomasz, the ADR for the revaluation. Callum, check the migration reconciliation covers the same eight writers. Lena, the Reserving Committee paper.
+[01:55:06] Callum Fairbairn (IBM): Yes, will do.
+[01:55:08] Tomasz Wojcik: Anything else before we close?
+[01:55:11] Nadia Petrovic: Keith, did you get a chance to look at the action list?
+[01:55:16] Keith Barraclough: I did, briefly. I've got a couple of comments, I'll send them over. Yeah. The trouble with the action list is that the people who know it best are also the busiest.
+[01:55:28] Lena Kristiansen: Daniel, is the ADR write-up a resourcing question or a decision question?
+[01:55:33] Daniel Achebe: Resourcing. Nobody disagrees on what to do. We need the ADR write-up to be explainable to Finance in plain English, not just in COBOL paragraphs.
+[01:55:43] Tomasz Wojcik: I'd want the actuaries to see the next review before we lock anything down. The next review is a good example of where a bit of early testing saves a lot of pain later.
+[01:55:56] Gordon Sproat: Perfect.
+[01:55:57] Sebastian Moreau-Clarke: Tomasz, what's your gut feel on the next review?
+[01:56:01] Tomasz Wojcik: Comfortable enough, but I'd like a second pair of eyes on it before I'd swear to it. The handlers think in case estimates, the actuaries think in triangles, and the next review has to work for both.
+[01:56:14] Nadia Petrovic: We need the action list to be explainable to Finance in plain English, not just in COBOL paragraphs. On the action list, the copybook is the contract, whether we like it or not.
+[01:56:27] Lena Kristiansen: Fine by me.
+[01:56:29] Gordon Sproat: The people side of the action list is going to be harder than the system side. The action list touches the audit trail, so internal audit will want to look at it eventually. For the action list, the question isn't whether, it's how and in what order.
+[01:56:47] Nadia Petrovic: Who else needs to be involved in the action list?
+[01:56:51] Tomasz Wojcik: Finance, and probably Compliance as well. I'll set something up. If we're going to change anything about the action list, now's the time rather than later.
+[01:57:01] Nadia Petrovic: On the next review, the question is always whether the reserve table and the movement history tell the same story.
+[01:57:09] Daniel Achebe: Yeah, fair.
+[01:57:11] Keith Barraclough: Gordon, can you give us a quick update on the ADR write-up?
+[01:57:15] Gordon Sproat: In better shape than it was. I wouldn't call it done, but the direction is right. If we're short of capacity, the ADR write-up is the thing I'd protect.
+[01:57:27] Nadia Petrovic: Um, for what it's worth, the people closest to the next review are fairly confident. We need the next review to be explainable to Finance in plain English, not just in COBOL paragraphs. I'd rather have an honest amber on the action list than a green that turns red later.
+[01:57:45] Keith Barraclough: Yeah. We should be able to replay the next review from the [inaudible] alone; that's the test.
+[01:57:52] Gordon Sproat: Callum, did you get a chance to look at the action list?
+[01:57:57] Callum Fairbairn (IBM): Yes. It reads well. One or two questions, but nothing major.
+[01:58:10] Tomasz Wojcik: Thanks, everyone. Good review.
+[01:58:12] Keith Barraclough: Cheers, bye.
+[01:58:14] Lena Kristiansen: Thanks, Tomasz.
+[01:58:15] Recording stopped.
+
+-------------------------------------- END OF TRANSCRIPT -----------------------------------
+Recording length 02:00:00. Transcript reviewed by Nadia Petrovic. Corvane Mutual - Internal.
