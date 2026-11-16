@@ -148,7 +148,7 @@
   locator:
     kind: xlsx_cell
     sheet: Column Usage
-    cell: C3513
+    cell: C3534
   needle: CLRGL090
   exclusive: false
   also_in: []
@@ -1722,7 +1722,7 @@
   file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
   locator:
     kind: csv_row
-    row: 4
+    row: 166
   needle: 'movement_type: ST'
   exclusive: false
   also_in: []
@@ -1742,7 +1742,7 @@
   file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
   locator:
     kind: csv_row
-    row: 4
+    row: 166
   needle: 'movement_type: ST'
   exclusive: false
   also_in: []
@@ -1760,7 +1760,7 @@
   file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
   locator:
     kind: csv_row
-    row: 381
+    row: 374
   needle: 'movement_type: IN'
   exclusive: false
   also_in: []
@@ -1779,7 +1779,7 @@
   file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
   locator:
     kind: csv_row
-    row: 381
+    row: 374
   needle: 'movement_type: IN'
   exclusive: false
   also_in: []
@@ -1797,7 +1797,7 @@
   file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
   locator:
     kind: csv_row
-    row: 377
+    row: 193
   needle: 'movement_type: AD'
   exclusive: false
   also_in: []
@@ -1816,7 +1816,7 @@
   file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
   locator:
     kind: csv_row
-    row: 377
+    row: 193
   needle: 'movement_type: AD'
   exclusive: false
   also_in: []
@@ -1871,7 +1871,7 @@
   file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
   locator:
     kind: csv_row
-    row: 7
+    row: 6
   needle: 'movement_type: RV'
   exclusive: false
   also_in: []
@@ -1890,7 +1890,7 @@
   file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
   locator:
     kind: csv_row
-    row: 7
+    row: 6
   needle: 'movement_type: RV'
   exclusive: false
   also_in: []
@@ -1908,7 +1908,7 @@
   file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
   locator:
     kind: csv_row
-    row: 548
+    row: 541
   needle: 'movement_type: RC'
   exclusive: false
   also_in: []
@@ -1927,7 +1927,7 @@
   file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
   locator:
     kind: csv_row
-    row: 548
+    row: 541
   needle: 'movement_type: RC'
   exclusive: false
   also_in: []
@@ -1945,7 +1945,7 @@
   file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
   locator:
     kind: csv_row
-    row: 4
+    row: 94
   needle: 'source_system: CLARA'
   exclusive: false
   also_in: []
@@ -1980,7 +1980,7 @@
   file: corpus/upload/structured/ST014_reserve_movements_oct_2026.csv
   locator:
     kind: csv_row
-    row: 560
+    row: 193
   needle: 'program_or_service: CLRRS150'
   exclusive: false
   also_in: []
@@ -3051,11 +3051,11 @@
 - fact_id: ST024-F007
   world_ref: PROFILE:rows
   kind: aggregate_source
-  statement: 124 tickets in the 2026-11-11 Jira summary are In Review.
+  statement: 36 tickets in the 2026-11-11 Jira summary are In Review.
   file: corpus/upload/structured/ST024_jira_ticket_summary.csv
   locator:
     kind: csv_row
-    row: 39
+    row: 198
   needle: 'status: In Review'
   exclusive: false
   also_in: []
@@ -3064,7 +3064,7 @@
     filter:
       status: In Review
     op: count
-    value: 124
+    value: 36
 - fact_id: ST025-F001
   world_ref: PRODUCT:PRD-HOM-UK#excess.escape_of_water
   kind: needle

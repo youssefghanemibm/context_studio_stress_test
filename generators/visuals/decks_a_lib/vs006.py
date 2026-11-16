@@ -116,11 +116,17 @@ def build(W, out_dir):
                                {"text": "Approve a contingency drawdown for Wave 2 (paper circulated with the pack).", "size": 11}],
           style="alert", align="l", anchor="t", margins=0.12)
     D.need("DECISION:DEC-010", "statement")
+    # DEC-010 / TX001 / TX013: the programme (Victoria Ashcombe, Arjun Kesavan) requests the drawdown and the CFO
+    # approves it. The PL-091 needle is kept, but the sentence makes PR the approver who asked for the request to be
+    # tabled, not the requester.
     s.notes(P.notes(rng, "Wave 2 readiness",
-                    ["PR asked for a £1.8m contingency drawdown for Wave 2.",
+                    ["PR asked for a £1.8m contingency drawdown for Wave 2 to come to this meeting as a formal paper.",
+                     f"The request comes from the programme ({W.name_of('P047', d)} and {W.name_of('P048', d)}). "
                      "Drawdowns above £500,000 need the CFO's approval, so the request is tabled for her decision at this meeting."]))
     D.place("vs6_notes_pr", s, "notes", "PR asked for a £1.8m contingency drawdown for Wave 2",
-            notes="'PR' = Priya Raman, CFO since 2025-07-01 (alias trap).")
+            statement="Speaker notes: 'PR asked for a £1.8m contingency drawdown for Wave 2 to come to this meeting as a "
+                      "formal paper'; the programme requests the drawdown and PR (the CFO) decides it (DEC-010).",
+            notes="'PR' = Priya Raman, CFO since 2025-07-01 (alias trap). PR is the approver, not the requester.")
     D.fact(s, "notes", "Drawdowns above £500,000 need the CFO's approval",
            "Speaker notes: programme budget drawdowns above £500,000 need the CFO's approval.", kind="speaker_notes",
            world_ref="PERSON:P001#responsibilities")
@@ -139,7 +145,7 @@ def build(W, out_dir):
     s.box(0.6, 3.3, 6.0, 1.4, [{"text": "Freeze window (planned)", "bold": True, "size": 13},
                                {"text": mw2["freeze"].replace(" to ", " → "), "size": 14}],
           style="tile", align="l", anchor="t", margins=0.15)
-    s.box(6.9, 3.3, 5.9, 1.4, [{"text": "Cut-over", "bold": True, "size": 13},
+    s.box(6.9, 3.3, 5.9, 1.4, [{"text": "Cut-over (proposed, for confirmation today)", "bold": True, "size": 13},
                                {"text": "Monday 15 February 2027, business open on Claims Hub", "size": 13}],
           style="tile", align="l", anchor="t", margins=0.15)
     s.text(0.6, 5.0, 12.0, 1.2, [{"text": "Rehearsal dates are held in the cut-over plan and will be baselined once the date is confirmed.", "size": 11}],
@@ -211,7 +217,7 @@ def build(W, out_dir):
             ("Wave 0 – Denmark", "1 Jun 2026", "Complete"),
             ("Wave 1 – UK motor", "14 Sep 2026", "Complete"),
             ("BR-FRD-031 v2 live", "1 Oct 2026", "Complete"),
-            ("Wave 2 cut-over", "15 Feb 2027", "Planned"),
+            ("Wave 2 cut-over", "15 Feb 2027", "For confirmation"),
             ("CLARA decommissioning", "30 Sep 2027", "Target")]
     png = R.table_image(["Milestone", "Date", "Status"], rows, [5.0, 3.0, 2.0], size=28,
                         title="Programme Skerry milestones", highlight_rows=(7,))

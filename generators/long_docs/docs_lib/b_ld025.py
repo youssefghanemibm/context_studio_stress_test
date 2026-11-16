@@ -183,7 +183,7 @@ def build() -> Doc:
         doc.h(2, f"5.{k} {j['name']} – {clean_old(ctx, j['description'])}", page_break=k > 1)
         sch = H.job_schedule(ctx, j) or "Operations schedule"
         doc.kv([["Schedule", sch], ["Owner", ctx.team(j["owner_team"])], ["Scheduler", ctx.sys(j["scheduler"])],
-                ["Status", j.get("status", "active")], ["Steps", str(len(j["steps"]))]], widths=(3.4, 13.2), font_size=8.6)
+                ["Status", H.job_status(ctx, j)], ["Steps", str(len(j["steps"]))]], widths=(3.4, 13.2), font_size=8.6)
         rows = []
         for s_ in j["steps"]:
             rows.append([s_["step"], s_["program"], clean_old(ctx, H.program_desc(ctx, s_["program"]))])
@@ -197,7 +197,7 @@ def build() -> Doc:
             calls = [c for c in p_.get("calls_programs", []) if c in W.programs and str(W.programs[c]["since"]) <= date]
             doc.h(3, f"{s_['step']} {s_['program']}")
             doc.kv([["Reads", ", ".join(reads) or "—"], ["Updates", ", ".join(writes) or "—"],
-                    ["Calls", ", ".join(calls) or "—"], ["Copybooks", ", ".join(p_.get("copybooks", [])) or "—"],
+                    ["Calls", ", ".join(calls) or "—"], ["Copybooks", ", ".join(H.copybooks_asof(ctx, p_)) or "—"],
                     ["Support owner", ctx.name(p_["owner_person"]) if p_.get("owner_person") and ctx.employed(p_["owner_person"]) else ctx.team(p_["owner_team"])]],
                    widths=(3.0, 13.6), font_size=8.2)
         ifs, impact = [], []
@@ -464,6 +464,7 @@ def build() -> Doc:
                ["Shift log", "Operations log of events and actions during each shift."]]
               + [[t, ctx.a(m)] for t, m in C.glossary_terms(["G-020", "G-003", "G-013"])],
               widths=[3.6, 13.0], font_size=8.6)
+    H.apply_program_renames(doc)   # FNETCAL1 / FNETREF1 until the 2025-03-01 rename
     return doc
 
 

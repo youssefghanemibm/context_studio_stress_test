@@ -484,7 +484,7 @@ def auto_facts(W, f: F, marks_a):
         for m in marks_a:
             if m.startswith("MAP:"):
                 mp = W.bms_maps[m[4:]]
-                out.append(cobol.Fact(f"map-{mp['map']}", (m, m), f"* MAP {mp['map']} -",
+                out.append(cobol.Fact(f"map-{mp['map']}", (m, f"TXN:{mp['map']}"), f"* MAP {mp['map']} -",
                                       f"BMS map {mp['map']} ({mp['title']}) in mapset {mp['mapset']} is used by "
                                       f"transaction {mp['transaction']}, program {mp['program']}.",
                                       world_ref=f"BMS:{mp['map']}"))

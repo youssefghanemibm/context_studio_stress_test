@@ -1,0 +1,625 @@
+# Question group STR: structured data (ST001-ST060: CSV, XLSX, JSON, XML, YAML, wiki HTML).
+# Every expected answer was checked against the text at each evidence locator (harness/extract.py),
+# against the world model (world.worldlib) and, for aggregates, recomputed from the CSV files.
+
+# --------------------------------------------------------------------------------------------
+# hidden_merged: hidden sheets and merged cells
+# --------------------------------------------------------------------------------------------
+- id: Q-STR-001
+  category: hidden_merged
+  dimensions: [xlsx, needle]
+  question: "Has any column of CLR.T_CLAIM been retired according to the CLARA data dictionary? If so, which column, what was its data type, and when was it retired?"
+  expected_answer: "Yes. The data dictionary's retired-columns list (the hidden '_retired' sheet) has one entry: CLR.T_CLAIM.LEGACY_SKADE_REF, CHAR(14), the claim reference in the Nordic SKADE-90 system, retired on 2024-05-31 together with SKADE-90."
+  acceptable_variants:
+    - "LEGACY_SKADE_REF, CHAR(14), retired 2024-05-31"
+  must_include: [["LEGACY_SKADE_REF"], ["CHAR(14)", "CHAR 14", "14 characters", "14-character"], ["2024-05-31", "31 May 2024"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST001-F001}
+    - {fact_id: ST001-F002}
+    - {fact_id: ST001-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["TABLE:CLR.T_CLAIM#retired_columns"]
+  trap: "The column is listed only on the hidden '_retired' sheet; the visible Columns sheet does not mention it."
+
+- id: Q-STR-002
+  category: hidden_merged
+  dimensions: [xlsx]
+  question: "In the CLARA data dictionary's Tables sheet, which functional area is CLR.T_RESERVE_AUTHORITY grouped under, and who is named as that area's owner?"
+  expected_answer: "It sits in the RESERVE AREA block, together with CLR.T_RESERVE, CLR.T_RESERVE_MOVEMENT and CLR.T_RESERVE_HISTORY. The merged block header names the owner as Reserving (Lena Kristiansen); it is the only area with a named owner, the others say the business owner is to be confirmed."
+  acceptable_variants:
+    - "RESERVE AREA, owner Reserving (Lena Kristiansen)"
+  must_include: [["Lena Kristiansen"], ["reserve area", "reserving"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST001-F004}
+    - {file: corpus/upload/structured/ST001_clara_data_dictionary.xlsx, locator: {kind: xlsx_cell, sheet: Tables, cell: A40}, needle: "CLR.T_RESERVE_AUTHORITY"}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["TEAM:T12#lead_history", "TABLE:CLR.T_RESERVE_AUTHORITY"]
+  trap: "The owner is only in the merged header row A35:H35 above the block; the table's own row carries no owner."
+
+- id: Q-STR-003
+  category: hidden_merged
+  dimensions: [xlsx]
+  question: "Which conversion rates to GBP does the Q3 2026 Nordic reserve movements workbook apply for NOK, SEK and DKK?"
+  expected_answer: "The 30 September 2026 quarter-end revaluation rates held on the workbook's hidden 'calc' sheet: NOK 0.0731, SEK 0.0712 and DKK 0.1158 to GBP (Group Ledger quarter-end rates, CLX-IF-027)."
+  acceptable_variants:
+    - "NOK 0.0731, SEK 0.0712, DKK 0.1158"
+  must_include: [["0.0731"], ["0.0712"], ["0.1158"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST004-F001}
+    - {fact_id: ST004-F002}
+    - {fact_id: ST004-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PROFILE:fx_to_gbp_quarter_end#2026-09-30"]
+  trap: "The rates live only on the hidden 'calc' sheet that the Movements VLOOKUP formulas reference (the same values also appear in the ST022 currency-rates CSV)."
+
+- id: Q-STR-004
+  category: hidden_merged
+  dimensions: [xlsx]
+  question: "How many process steps does the claims RACI matrix list under the Recovery & Subrogation stage, and who is Accountable for them?"
+  expected_answer: "Six steps (PS-REC-01 'Identify recovery potential' to PS-REC-06 'Write-off approval'), all with Freya Lindahl, Head of Recoveries & Subrogation, as Accountable."
+  acceptable_variants:
+    - "6 steps, Accountable Freya Lindahl"
+  must_include: [["6", "six"], ["Freya Lindahl"]]
+  must_not_include: ["Martin Calloway", "Siobhan Quill"]
+  evidence:
+    - {fact_id: ST002-F001}
+    - {fact_id: ST002-F002}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PROCESS:S7#owner"]
+  trap: "The stage name is one merged cell (A30:A35), so rows 31-35 carry no stage text; the stale 2024 org chart shows Martin Calloway as the owner."
+
+# --------------------------------------------------------------------------------------------
+# scale: the 15,000-row claims extract (ST013)
+# --------------------------------------------------------------------------------------------
+- id: Q-STR-005
+  category: scale
+  dimensions: [csv, scale, aggregation]
+  question: "In the 2024-2026 claims extract, how many Escape of Water claims in the UK have a loss date in 2025?"
+  expected_answer: "521 claims (claim_type CT-EOW, region UK, loss_date in 2025)."
+  acceptable_variants:
+    - "521 UK Escape of Water claims"
+  must_include: [["521"]]
+  must_not_include: ["519"]
+  evidence:
+    - {fact_id: ST013-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["PROFILE:rows", "CLAIMTYPE:CT-EOW"]
+  trap: "Counting by notified_date instead of loss_date gives 519."
+
+- id: Q-STR-006
+  category: scale
+  dimensions: [csv, scale, aggregation]
+  question: "How many Storm claims from Sweden with a 2025 loss date are in the claims extract?"
+  expected_answer: "43 Storm (CT-STM) claims in region SE with a loss date in 2025."
+  acceptable_variants:
+    - "43 Swedish Storm claims"
+  must_include: [["43"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST013-F006}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["PROFILE:rows", "CLAIMTYPE:CT-STM"]
+
+- id: Q-STR-007
+  category: scale
+  dimensions: [csv, scale, aggregation]
+  question: "Which external assessor firm is assigned to the most claims in the 2024-2026 claims extract, and on how many claims?"
+  expected_answer: "Brackenfield Loss Adjusting (assessor_ref BRACKFLD), on 3,651 claims; the next vendor is Norrvik with 1,618."
+  acceptable_variants:
+    - "BRACKFLD (Brackenfield), 3,651 claims"
+  must_include: [["Brackenfield", "BRACKFLD"], ["3,651", "3651"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST013-F026}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["VENDOR:VEN-01"]
+  trap: "The 2026-only assessor assignments extract (ST018) gives a different count (1,205 assignments)."
+
+- id: Q-STR-008
+  category: scale
+  dimensions: [csv, scale, aggregation]
+  question: "Which calendar month had the most FNOLs in the claims extract, and how many claims were notified that month?"
+  expected_answer: "January 2026 (2026-01), with 560 claims notified."
+  acceptable_variants:
+    - "2026-01 with 560 claims"
+  must_include: [["2026-01", "January 2026"], ["560"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST013-F029}
+    - {fact_id: ST010-F007}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["PROFILE:rows"]
+
+- id: Q-STR-009
+  category: scale
+  dimensions: [csv, scale, aggregation]
+  question: "Which claim in the claims extract has the largest incurred amount in GBP, and what is that amount?"
+  expected_answer: "CLM-UK-2024-129568, a Fire (CT-FIR) claim on Commercial Property UK, with incurred GBP 1,707,798.17."
+  acceptable_variants:
+    - "CLM-UK-2024-129568, GBP 1,707,798.17"
+  must_include: [["CLM-UK-2024-129568"], ["1,707,798.17", "1707798.17", "1.71 million", "1.7 million"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST013-F032}
+    - {fact_id: ST013-F036}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["PROFILE:rows"]
+
+- id: Q-STR-010
+  category: scale
+  dimensions: [csv, scale, aggregation, temporal]
+  question: "Since the lower Tier-3 fraud referral threshold took effect, how many claims in the claims extract were referred with a Sentinel score of 60 to 64, and what tier were they?"
+  expected_answer: "Five claims, all Tier-3, referred under BR-FRD-031 v2 (Tier-3 threshold 60 from 2026-10-01). No Tier-1 or Tier-2 claim scoring 60-64 in that period was referred."
+  acceptable_variants:
+    - "5 claims, all Tier-3"
+  must_include: [["5", "five"], ["Tier-3"]]
+  must_not_include: ["43", "9 claims", "nine claims"]
+  evidence:
+    - {fact_id: ST013-F021}
+    - {fact_id: ST013-F022}
+    - {fact_id: ST005-F004}
+  hops: 2
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-FRD-031@v2#parameters.tier3_threshold", "PROFILE:referral_rule_by_date"]
+  trap: "Four Tier-1 claims (no Tier-2) notified from 2026-10-01 also scored 60-64 but were not referred; the 60 threshold applies to Tier-3 only. The fraud referral extract (ST015) is a different population: 43 Tier-3 referrals scored 60-64 there."
+
+# --------------------------------------------------------------------------------------------
+# aggregation_count
+# --------------------------------------------------------------------------------------------
+- id: Q-STR-011
+  category: aggregation_count
+  dimensions: [csv, aggregation, contradiction]
+  question: "According to the program-table CRUD matrix, how many CLARA programs insert into or update CLR.T_RESERVE, and which ones?"
+  expected_answer: "Eight: CLRFN030, CLRRS010, CLRRS020, CLRRS110, CLRRS130, CLRST040, CLRRC050 and CLRGL090."
+  acceptable_variants:
+    - "8 programs: CLRFN030, CLRRS010, CLRRS020, CLRRS110, CLRRS130, CLRST040, CLRRC050, CLRGL090"
+  must_include: [["8", "eight"], ["CLRGL090"], ["CLRFN030"], ["CLRRC050"], ["CLRST040"]]
+  must_not_include: ["7 programs", "7 writers"]
+  evidence:
+    - {fact_id: ST019-F001}
+    - {fact_id: ST019-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["TABLE:CLR.T_RESERVE#writers", "CONTRA:C08"]
+  trap: "The 2025-02-14 data dictionary lists only seven writers (it omits CLRGL090); CLRRS150 only reads CLR.T_RESERVE."
+
+- id: Q-STR-012
+  category: aggregation_count
+  dimensions: [csv, aggregation]
+  question: "How many settlement-close (ST) reserve movements were recorded in October 2026, and what was their total in GBP?"
+  expected_answer: "292 ST movements, totalling GBP -1,227,676.68 (a net reserve reduction of 1,227,676.68)."
+  acceptable_variants:
+    - "292 movements totalling -1,227,676.68 GBP"
+  must_include: [["292"], ["1,227,676.68", "1227676.68", "1.23 million"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST014-F002}
+    - {fact_id: ST014-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["TABLE:CLR.T_RESERVE_MOVEMENT"]
+
+- id: Q-STR-013
+  category: aggregation_count
+  dimensions: [csv, aggregation]
+  question: "How many referrals in the 2026 fraud referral extract were made under BR-FRD-031 v2?"
+  expected_answer: "548 referrals, all dated between 2026-10-01 (when v2 took effect) and 2026-10-31."
+  acceptable_variants:
+    - "548 referrals under BR-FRD-031 v2"
+  must_include: [["548"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST015-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-FRD-031@v2"]
+
+- id: Q-STR-014
+  category: aggregation_count
+  dimensions: [csv, aggregation]
+  question: "In the 2026 recoveries extract, how many rows are subrogation, salvage and excess recovery respectively?"
+  expected_answer: "Subrogation (SB) 1,043, salvage (SV) 134 and excess recovery (EX) 86, which is 1,263 rows in all."
+  acceptable_variants:
+    - "SB 1,043; SV 134; EX 86"
+  must_include: [["1,043", "1043"], ["134"], ["86"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST017-F001}
+    - {fact_id: ST017-F002}
+    - {fact_id: ST017-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["TABLE:CLR.T_RECOVERY"]
+
+- id: Q-STR-015
+  category: aggregation_count
+  dimensions: [csv, aggregation]
+  question: "How many payments in the September-October 2026 payments extract have status RECALLED, and what do they add up to?"
+  expected_answer: "18 recalled payments, all duplicate instructions from the Wave 1 cut-over on 2026-09-14 (INC-2026-0914), totalling GBP 41,236.50."
+  acceptable_variants:
+    - "18 payments totalling 41,236.50"
+  must_include: [["18"], ["41,236.50", "41236.5"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST016-F001}
+    - {fact_id: ST016-F002}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["INCIDENT:INC-2026-0914#impact"]
+
+- id: Q-STR-016
+  category: aggregation_count
+  dimensions: [json, aggregation]
+  question: "Which Kafka topics in the topic catalogue are configured with 6 partitions?"
+  expected_answer: "Six topics: claim.created.v1, claim.updated.v1, eig.evidence.received.v1, fnol.received.v1, fraud.score.received.v1 and triage.completed.v1."
+  acceptable_variants:
+    - "claim.created.v1, claim.updated.v1, eig.evidence.received.v1, fnol.received.v1, fraud.score.received.v1, triage.completed.v1"
+  must_include: [["claim.created.v1"], ["claim.updated.v1"], ["eig.evidence.received.v1"], ["fnol.received.v1"], ["fraud.score.received.v1"], ["triage.completed.v1"]]
+  must_not_include: []
+  evidence:
+    - {file: corpus/upload/structured/ST030_kafka_topic_catalogue.json, locator: {kind: json_pointer, pointer: /topics/1}, needle: "claim.created.v1 partitions: 6"}
+    - {file: corpus/upload/structured/ST030_kafka_topic_catalogue.json, locator: {kind: json_pointer, pointer: /topics/2}, needle: "claim.updated.v1 partitions: 6"}
+    - {file: corpus/upload/structured/ST030_kafka_topic_catalogue.json, locator: {kind: json_pointer, pointer: /topics/5}, needle: "eig.evidence.received.v1 partitions: 6"}
+    - {file: corpus/upload/structured/ST030_kafka_topic_catalogue.json, locator: {kind: json_pointer, pointer: /topics/7}, needle: "fnol.received.v1 partitions: 6"}
+    - {file: corpus/upload/structured/ST030_kafka_topic_catalogue.json, locator: {kind: json_pointer, pointer: /topics/10}, needle: "fraud.score.received.v1 partitions: 6"}
+    - {file: corpus/upload/structured/ST030_kafka_topic_catalogue.json, locator: {kind: json_pointer, pointer: /topics/17}, needle: "triage.completed.v1 partitions: 6"}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["SYSTEM:SYS15"]
+  trap: "claims.reserve.movement.v1 and reserve.changed.v2 have 12 partitions; the other ten topics have 3."
+
+# --------------------------------------------------------------------------------------------
+# negation
+# --------------------------------------------------------------------------------------------
+- id: Q-STR-017
+  category: negation
+  dimensions: [csv, negation, scale]
+  question: "Are there any Subsidence claims from Denmark in the 2024-2026 claims extract?"
+  expected_answer: "None. The extract has no Danish Subsidence (CT-SUB) claims; all 121 Subsidence claims are UK, because Subsidence is a UK-only claim type."
+  acceptable_variants:
+    - "No, there are no Subsidence claims in Denmark"
+  must_include: [["none", "no subsidence", "no danish subsidence", "zero", "0 subsidence", "not any"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST013-F011}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["CLAIMTYPE:CT-SUB#uk_only"]
+
+- id: Q-STR-018
+  category: negation
+  dimensions: [csv, negation, temporal, multi_hop]
+  question: "Have any 2026 assessor assignments gone to Fellgate Adjusting Partners since they left the assessor panel?"
+  expected_answer: "None. Fellgate left the panel on 2026-01-31; the 2026 assessor assignments extract has no Fellgate assignment on or after 2026-02-01 (the last one is dated 2026-01-23), and no claim notified from 2026-02-01 in the claims extract is assigned to FELLGATE."
+  acceptable_variants:
+    - "No. None since Fellgate left the panel on 2026-01-31"
+  must_include: [["none", "no fellgate", "no assignment", "no new", "zero", "not any", "nothing"], ["2026-01-31", "2026-02-01", "31 January", "1 February", "January 2026", "end of January", "31 Jan", "1 Feb"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX008-F001}
+    - {fact_id: ST018-F002}
+    - {fact_id: ST013-F027}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["VENDOR:VEN-03#panel_to", "DECISION:DEC-019", "CONTRA:C14"]
+  trap: "The January 2025 panel deck (VS018) still shows Fellgate on the panel; the 2026 fee schedule (issued 2026-01-12) still lists Fellgate fees."
+
+- id: Q-STR-019
+  category: negation
+  dimensions: [csv, negation]
+  question: "Does the reserve movement correction utility CLRRS150 write to CLR.T_RESERVE?"
+  expected_answer: "No. In the CRUD matrix CLRRS150 only reads CLR.T_RESERVE (R) and has no insert, update or delete on it; its writes go to CLR.T_RESERVE_MOVEMENT (C and U)."
+  acceptable_variants:
+    - "No, it only reads CLR.T_RESERVE; it writes CLR.T_RESERVE_MOVEMENT"
+  must_include: [["only read", "read only", "read-only", "does not write", "doesn't write", "not write", "never write", "no write", "no insert", "only R", "R only", "just read"], ["CLR.T_RESERVE_MOVEMENT"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST019-F010}
+    - {fact_id: ST019-F011}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PROGRAM:CLRRS150#writes_tables"]
+
+- id: Q-STR-020
+  category: negation
+  dimensions: [csv, negation]
+  question: "Does the 2026 fraud referral extract contain any batch-sweep (BS) referral with a Sentinel score below 70?"
+  expected_answer: "None. All 902 batch-sweep referrals scored 70 or more and record threshold_applied 70: the CLARA batch sweep CLRFR040 applies a hard-coded 070. That matched BR-FRD-012 v2 (70) until 2026-03-31, but from 2026-04-01 it overrides the rule threshold of 65 (60 for Tier-3 from 2026-10-01), so the 444 sweep referrals since April still use 70."
+  acceptable_variants:
+    - "No, none: every batch-sweep referral scored 70 or more"
+  must_include: [["none", "no batch-sweep", "no BS", "no such", "no referral", "zero", "not any", "70 or more", "70 or higher", "70 or above", "at least 70", "minimum of 70", "lowest", "all 902"], ["70"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST015-F008}
+    - {fact_id: ST015-F009}
+    - {fact_id: ST029-F003}
+    - {fact_id: ST038-F003}
+    - {fact_id: ST029-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["PROGRAM:CLRFR040#hardcoded_constants", "CONTRA:C05"]
+
+- id: Q-STR-021
+  category: negation
+  dimensions: [html, negation]
+  question: "According to the Claims Hub release notes on the wiki, what changed in release R2026.11?"
+  expected_answer: "The release notes do not cover R2026.11: they stop at R2026.09 Wave1 (released 2026-09-14), which is the latest published release on that page."
+  acceptable_variants:
+    - "Not covered; the latest published release is R2026.09 Wave1"
+  must_include: [["R2026.09", "no R2026.11", "not covered", "does not cover", "doesn't cover", "not published", "not documented", "not listed", "not included", "does not include", "doesn't include", "does not list", "doesn't list", "not mentioned", "does not mention", "doesn't mention", "not in the release notes", "not on the page", "no release notes", "no entry"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST060-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["ANCHOR:ST060"]
+  trap: "R2026.11 exists elsewhere (the 2026-11-11 CAB minutes and Jira fix versions), but the release-notes page stops at R2026.09 on purpose."
+
+# --------------------------------------------------------------------------------------------
+# structured_lookup
+# --------------------------------------------------------------------------------------------
+- id: Q-STR-022
+  category: structured_lookup
+  dimensions: [yaml]
+  question: "What minimum and maximum replica counts and CPU target does the reserve-engine HorizontalPodAutoscaler use?"
+  expected_answer: "minReplicas 4, maxReplicas 8, scaling on 70% average CPU utilisation."
+  acceptable_variants:
+    - "min 4, max 8 replicas, 70% CPU"
+  must_include: [["4"], ["8"], ["70"]]
+  must_not_include: []
+  evidence:
+    - {file: corpus/upload/structured/ST049_k8s_reserve_engine_deployment.yml, locator: {kind: yaml_path, path: spec, doc_index: 3}, needle: "minReplicas: 4 maxReplicas: 8"}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["SERVICE:reserve-engine#replicas"]
+  trap: "The HPA is the fourth document of a multi-document YAML file; the Deployment's own replicas field is 4."
+
+- id: Q-STR-023
+  category: structured_lookup
+  dimensions: [yaml]
+  question: "Which referral thresholds are set as environment variables in the fraud-referral-svc Kubernetes deployment, and from when does the Tier-3 one apply?"
+  expected_answer: "REFERRAL_THRESHOLD_DEFAULT = 65 and REFERRAL_THRESHOLD_TIER3 = 60, with REFERRAL_THRESHOLD_TIER3_EFFECTIVE_FROM = 2026-10-01."
+  acceptable_variants:
+    - "Default 65; Tier-3 60 from 2026-10-01"
+  must_include: [["65"], ["60"], ["2026-10-01", "1 October 2026"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST050-F001}
+    - {fact_id: ST050-F002}
+    - {file: corpus/upload/structured/ST050_k8s_fraud_referral_deployment.yml, locator: {kind: yaml_path, path: "spec.template.spec.containers[0].env[2]", doc_index: 0}, needle: "name: REFERRAL_THRESHOLD_DEFAULT value: 65"}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["SERVICE:fraud-referral-svc#config.referral.threshold.tier3", "SERVICE:fraud-referral-svc#config.referral.threshold.tier3.effective-from"]
+
+- id: Q-STR-024
+  category: structured_lookup
+  dimensions: [json, needle]
+  question: "How many partitions does the Kafka topic claims.reserve.movement.v1 have?"
+  expected_answer: "12 partitions (replication factor 3), per the Kafka topic catalogue."
+  acceptable_variants:
+    - "12 partitions"
+  must_include: [["12"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST030-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["TOPIC:claims.reserve.movement.v1#partitions"]
+  trap: "Only the topic catalogue states it; the GitOps KafkaTopic manifest leaves partitions unset for this topic."
+
+- id: Q-STR-025
+  category: structured_lookup
+  dimensions: [xml, needle]
+  question: "What maximum depth is configured for the MQ queue CLR.RSVMOVE.OUT?"
+  expected_answer: "MAXDEPTH(50000): 50,000 messages."
+  acceptable_variants:
+    - "50,000 messages"
+  must_include: [["50,000"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST037-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["INTERFACE:CLX-IF-042#mq_max_depth"]
+  trap: "Every other queue in the MQ definitions uses the default depth."
+
+- id: Q-STR-026
+  category: structured_lookup
+  dimensions: [html]
+  question: "Who leads the Hub Squad – Recoveries & Documents, when was it formed, and what is its GitHub team?"
+  expected_answer: "Tariq Hussain is the engineering lead; the squad was formed on 2026-11-01; its GitHub team is @corvane/hub-squad-recoveries-docs."
+  acceptable_variants:
+    - "Tariq Hussain, formed 2026-11-01, @corvane/hub-squad-recoveries-docs"
+  must_include: [["Tariq Hussain"], ["2026-11-01", "1 November 2026"], ["hub-squad-recoveries-docs"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST053-F001}
+    - {file: corpus/upload/structured/ST053_wiki_claims_hub_home.html, locator: {kind: html_xpath, xpath: "//table[@id='squad-T30']"}, needle: "@corvane/hub-squad-recoveries-docs"}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["TEAM:T30"]
+  trap: "The squad details are in a table nested inside the wiki's squads table."
+
+- id: Q-STR-027
+  category: structured_lookup
+  dimensions: [html]
+  question: "Of the interfaces directly downstream of CLX-IF-042, which one runs earliest in the day, and at what time?"
+  expected_answer: "CLX-IF-049, the Reserve Movement Kafka Bridge, daily at 02:45 (CLX-IF-043 runs at 03:45, CLX-IF-044 at 04:00 and CLX-IF-047 at 04:15)."
+  acceptable_variants:
+    - "CLX-IF-049 at 02:45"
+  must_include: [["CLX-IF-049"], ["02:45", "2:45"]]
+  must_not_include: ["03:00"]
+  evidence:
+    - {fact_id: ST054-F001}
+    - {file: corpus/upload/structured/ST054_wiki_interface_clx_if_042.html, locator: {kind: html_xpath, xpath: "//table[@id='downstream']//tr[td[1]/strong='CLX-IF-049']"}, needle: "Reserve Movement Kafka Bridge Event Streaming Platform daily 02:45"}
+    - {fact_id: ST054-F004}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["INTERFACE:CLX-IF-042#dependents", "INTERFACE:CLX-IF-049#schedule", "CONTRA:C12"]
+  trap: "The schedules sit in the nested Downstream table of the wiki page; CLX-IF-043 ran at 03:00 only until 2025-05-09."
+
+- id: Q-STR-028
+  category: structured_lookup
+  dimensions: [html]
+  question: "Per the 2026 fraud rules wiki page, which rule version sets the SIU triage deadline for a new referral, and what is the deadline?"
+  expected_answer: "BR-FRD-035 v2: SIU must triage a new referral within 3 business days (in force from 2026-04-01)."
+  acceptable_variants:
+    - "BR-FRD-035 v2, within 3 business days"
+  must_include: [["BR-FRD-035"], ["3 business days", "three business days"]]
+  must_not_include: ["5 business days"]
+  evidence:
+    - {file: corpus/upload/structured/ST059_wiki_fraud_rules_2026.html, locator: {kind: html_xpath, xpath: "//table[@id='in-force-2026-10-01']"}, needle: "BR-FRD-035 v2 SIU triage within 3 business days"}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-FRD-035@v2#parameters.business_days"]
+  trap: "BR-FRD-035 v1 (superseded 2026-03-31) allowed 5 business days."
+
+# --------------------------------------------------------------------------------------------
+# rename, temporal, impact_analysis, multi_hop, contradiction, visual_chart
+# --------------------------------------------------------------------------------------------
+- id: Q-STR-029
+  category: rename
+  dimensions: [yaml, json, rename]
+  question: "The OpenAPI spec titled 'reserve-svc API' (version 1.4): which Claims Hub service does it describe under today's name, and when was it renamed?"
+  expected_answer: "reserve-engine (SVC05). reserve-svc was renamed reserve-engine on 2026-02-10 (CHUB-233, ADR-019); the spec dates from 2025-12-01, before the rename."
+  acceptable_variants:
+    - "reserve-engine, renamed on 2026-02-10"
+  must_include: [["reserve-engine"], ["2026-02-10", "10 February 2026"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST043-F001}
+    - {fact_id: ST031-F001}
+    - {fact_id: ST049-F001}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["SERVICE:reserve-engine#renames", "CONTRA:C09"]
+
+- id: Q-STR-030
+  category: temporal
+  dimensions: [yaml, temporal, multi_hop]
+  question: "What Tier-3 reserve review interval does the current reserve-engine Kubernetes ConfigMap set, and why does the older reserve-svc OpenAPI spec give a different interval?"
+  expected_answer: "The ConfigMap (2026-09-10) sets tier3-review-days to 14, in line with BR-RSV-007 v3 effective 2026-07-01. The reserve-svc spec of 2025-12-01 says every 21 days because it reflects BR-RSV-007 v2, which applied until 2026-06-30."
+  acceptable_variants:
+    - "14 days now (BR-RSV-007 v3 from 2026-07-01); the older spec's 21 days was BR-RSV-007 v2"
+  must_include: [["14"], ["21"], ["v3", "v2", "2026-07-01", "2026-06-30", "superseded"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST049-F003}
+    - {fact_id: ST043-F003}
+    - {fact_id: ST005-F007}
+  hops: 3
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["SERVICE:reserve-engine#config.tier3-review-days", "RULE:BR-RSV-007@v3#parameters.review_days", "RULE:BR-RSV-007@v2#parameters.review_days"]
+
+- id: Q-STR-031
+  category: impact_analysis
+  dimensions: [xml, multi_hop]
+  question: "Through which interface does a change to CLX-IF-042 reach the Monthly Claims Bordereaux (CLX-IF-055), according to the interface catalogue's dependsOn links?"
+  expected_answer: "Through CLX-IF-047, the Reserve Cession Feed: CLX-IF-055 depends on CLX-IF-047, which depends on CLX-IF-042 (CLX-IF-042 -> CLX-IF-047 -> CLX-IF-055)."
+  acceptable_variants:
+    - "Via CLX-IF-047 (Reserve Cession Feed)"
+  must_include: [["CLX-IF-047"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST035-F003}
+    - {fact_id: ST035-F001}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["INTERFACE:CLX-IF-055#depends_on", "INTERFACE:CLX-IF-042#dependents"]
+
+- id: Q-STR-032
+  category: multi_hop
+  dimensions: [csv, xlsx, aggregation, multi_hop]
+  question: "What is the most common Brackenfield fee payment amount in the September-October 2026 payments extract, and which item in the 2026 vendor fee schedule does that amount correspond to?"
+  expected_answer: "GBP 420.00 (53 of the 81 Brackenfield fee payments), which matches the fee schedule's 'Site visit and report' fee of GBP 420 per instruction."
+  acceptable_variants:
+    - "420, the site visit and report fee"
+  must_include: [["420"], ["site visit"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST016-F005}
+    - {fact_id: ST009-F001}
+  hops: 2
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["VENDOR:VEN-01#fees", "VENDOR:VEN-01#fees.site_visit_gbp"]
+  trap: "The second most common amount is GBP 185 (desk assessment, 28 payments)."
+
+- id: Q-STR-033
+  category: contradiction
+  dimensions: [csv, contradiction]
+  question: "What is the standard självrisk (excess) on the Hem Sverige home product under the current 2026 product terms?"
+  expected_answer: "SEK 2,000 (2026 product-peril matrix). The SEK 1,500 in the 2016 policy wording is superseded and applies only to policies incepted under that wording."
+  acceptable_variants:
+    - "SEK 2,000"
+  must_include: [["2,000", "2000"]]
+  must_not_include: ["SEK 1,500"]
+  evidence:
+    - {fact_id: ST025-F005}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PRODUCT:PRD-HOM-SE#excess.standard", "CONTRA:C17"]
+  trap: "The 2016 Hem Sverige wording (LD008) states SEK 1,500."
+
+- id: Q-STR-034
+  category: visual_chart
+  dimensions: [xlsx, visual]
+  question: "What was the FNOL channel mix for 2026 year to date in the claims KPI workbook?"
+  expected_answer: "Telephone 50%, digital 41% and broker 9%."
+  acceptable_variants:
+    - "telephone 50%, digital 41%, broker 9%"
+  must_include: [["50"], ["41"], ["9"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST010-F001}
+    - {fact_id: ST010-F002}
+    - {fact_id: ST010-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["TIMELINE:metrics#fnol_channel_mix_pct.2026YTD"]
+  trap: "The values exist only as literals in the native chart (no cell holds them); the FNOL channel overview gives the 2024 mix (58/34/8)."

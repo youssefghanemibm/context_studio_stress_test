@@ -21,6 +21,15 @@ def _speakers(pids, d, overrides=None):
     return out
 
 
+def _squad(label: str, tid: str, d, lead_order: list[str]) -> str:
+    """'<squad> (<services>)' with the services the team owns on d (services.yaml owner_history): e.g. T29 still
+    owns recovery-svc and T27 document-svc until 2026-10-31. lead_order fixes the order of the usual ones."""
+    owned = [W.service_name(s["name"], d) for _, s in sorted(W.services_by_id.items())
+             if (W.service_owner(s["name"], d) or {}).get("team") == tid]
+    ordered = [x for x in lead_order if x in owned] + [x for x in owned if x not in lead_order]
+    return f"{label} ({', '.join(ordered)})"
+
+
 def _header(m: Meeting, *, title_: str, d, start: str, minutes: int, squad: str, author: str, sp: dict,
             ref: str) -> None:
     L = [
@@ -61,7 +70,7 @@ def build_tx025(facts, wps):
                 duration_min=15, meta_budget=1, digress_budget=1, crosstalk_budget=1)
     m.spacing.update(meta=120.0, dig=300.0, cross=200.0)
     _header(m, title_="Stand-up transcript - Hub Squad: Reserve & Finance", d=d, start="09:15", minutes=15,
-            squad="Hub Squad - Reserve & Finance (reserve-engine, gl-posting-svc, reporting-feed-svc)",
+            squad=_squad("Hub Squad - Reserve & Finance", "T28", d, ["reserve-engine", "gl-posting-svc", "reporting-feed-svc"]),
             author=DA, sp=sp, ref="SQD-RF-SU-2026-08-12")
     t = Topic("su", ["the reconciliation breaks", "the parallel run report", "the rehearsal fixes", "the GL posting tests",
                      "the reporting feed", "the code review queue", "the test data refresh", "the sprint board",
@@ -102,7 +111,8 @@ def build_tx026(facts, wps):
                 duration_min=15, meta_budget=1, digress_budget=1, crosstalk_budget=1)
     m.spacing.update(meta=120.0, dig=300.0, cross=200.0)
     _header(m, title_="Stand-up transcript - Hub Squad: Fraud & Settlement", d=d, start="09:30", minutes=15,
-            squad="Hub Squad - Fraud & Settlement (fraud-referral-svc, settlement-svc, payment-orchestrator)",
+            squad=_squad("Hub Squad - Fraud & Settlement", "T29", d,
+                         ["fraud-referral-svc", "settlement-svc", "payment-orchestrator"]),
             author=HL, sp=sp, ref="SQD-FS-SU-2026-10-06")
     t = Topic("su", ["the referral notice tests", "the payment retry tests", "the settlement screen fixes",
                      "the code review queue", "the hypercare defects", "the sprint goal", "the regression pack",
@@ -141,7 +151,8 @@ def build_tx061(facts, wps):
                 duration_min=14, meta_budget=1, digress_budget=0, crosstalk_budget=1)
     m.spacing.update(meta=120.0, cross=200.0)
     _header(m, title_="Stand-up transcript - Hub Squad: Intake & Triage", d=d, start="09:00", minutes=14,
-            squad="Hub Squad - Intake & Triage (fnol-intake-svc, triage-svc, assessment-svc, claim-core-svc, notification-svc)",
+            squad=_squad("Hub Squad - Intake & Triage", "T27", d,
+                         ["fnol-intake-svc", "triage-svc", "assessment-svc", "claim-core-svc", "notification-svc"]),
             author=SB, sp=sp, ref="SQD-IT-SU-2026-10-05")
     t = Topic("su", ["the threshold cache", "the config reload", "the triage tests", "the FNOL intake fixes",
                      "the assessment API backlog", "the hypercare defects", "the incident record", "the test evidence"],

@@ -258,6 +258,24 @@ def st43_examples(r, fid: str, spec: dict, on: str, rsv3: dict, llnt: dict, cfg_
     spec["x-guidelines"] = r.sample(phrases.BANKS["design"], 4) + r.sample(phrases.BANKS["api"], 3)
 
 
+def revaluation_op(a: dict) -> dict:
+    """POST /revaluation-runs (services.yaml: 'Trigger a currency revaluation run (replaces CLRGL090)')."""
+    op = {"summary": a["summary"], "operationId": "TriggerRevaluationRun", "tags": ["revaluation"],
+          "parameters": [{"$ref": "#/components/parameters/CorrelationId"}, {"$ref": "#/components/parameters/IdempotencyKey"}],
+          "security": [{"cis": ["reserve.write"]}],
+          "requestBody": {"required": True, "content": {"application/json": {
+              "schema": {"$ref": "#/components/schemas/RevaluationRunRequest"},
+              "example": {"rateDate": "2024-12-31", "currencies": ["NOK", "SEK", "DKK"]}}}},
+          "responses": std_responses({"202": {"description": "Revaluation run accepted.",
+                                              "headers": {"Location": {"$ref": "#/components/headers/Location"},
+                                                          "X-Correlation-Id": {"$ref": "#/components/headers/X-Correlation-Id"}},
+                                              "content": {"application/json": {"schema": {"$ref": "#/components/schemas/RevaluationRun"}}}}})}
+    op["responses"]["429"] = {"$ref": "#/components/responses/TooManyRequests"}
+    op["responses"]["503"] = {"$ref": "#/components/responses/ServiceUnavailable"}
+    op["responses"] = dict(sorted(op["responses"].items()))
+    return op
+
+
 def build_ST043(out_dir: pathlib.Path) -> Built:
     fid = "ST043"
     on = fdate(fid)
@@ -271,7 +289,7 @@ def build_ST043(out_dir: pathlib.Path) -> Built:
     rsv3 = rule_params_ok(fid, "BR-RSV-003", 3)
     rsv7 = W.rule_version("BR-RSV-007", on)
     llnt = rule_params_ok(fid, "BR-RSV-011", 2)
-    apis = [a for a in s["apis"] if a["path"] != "/revaluation-runs"]  # revaluation run decided 2026-03 (ADR-028)
+    apis = list(s["apis"])   # services.yaml: includes POST /revaluation-runs (replaces CLRGL090)
     move_types = {"IN": "initial", "AD": "adjustment", "IX": "indexation", "RV": "review", "ST": "settlement close",
                   "RC": "recovery"}
     spec = {
@@ -290,7 +308,8 @@ def build_ST043(out_dir: pathlib.Path) -> Built:
                     {"url": f"https://{name}.apps.ocp-pre-lon1.corvane.internal/v1", "description": "Pre-production"}],
         "security": [{"cis": ["reserve.read"]}],
         "tags": [{"name": "reserves", "description": "Current reserves per claim"},
-                 {"name": "movements", "description": "Reserve movements and history"}],
+                 {"name": "movements", "description": "Reserve movements and history"},
+                 {"name": "revaluation", "description": "Currency revaluation runs"}],
         "paths": {},
         "components": {
             "parameters": {
@@ -339,6 +358,16 @@ def build_ST043(out_dir: pathlib.Path) -> Built:
                                                           "description": f"True when the GBP movement exceeds £{llnt['threshold_gbp']:,} (BR-RSV-011 v2); Reinsurance is notified within {llnt['notify_hours']} hours."}}},
                 "MovementPage": {"type": "object", "properties": {"items": {"type": "array", "items": {"$ref": "#/components/schemas/Movement"}},
                                                                   "nextCursor": {"type": "string"}}},
+                "RevaluationRunRequest": {"type": "object", "required": ["rateDate"],
+                                          "properties": {"rateDate": {"type": "string", "format": "date",
+                                                                      "description": "Date of the currency rates to apply."},
+                                                         "currencies": {"type": "array", "items": {"type": "string", "enum": ["NOK", "SEK", "DKK"]},
+                                                                        "description": "Reserve currencies to revalue to GBP (default: all three)."}}},
+                "RevaluationRun": {"type": "object",
+                                   "properties": {"runId": {"type": "string", "format": "uuid"},
+                                                  "rateDate": {"type": "string", "format": "date"},
+                                                  "status": {"type": "string", "enum": ["ACCEPTED", "RUNNING", "COMPLETED", "FAILED"]},
+                                                  "requestedAt": {"type": "string", "format": "date-time"}}},
                 "Problem": problem_schema(),
             },
             "securitySchemes": {"cis": {"type": "oauth2", "flows": {"clientCredentials": {
@@ -347,7 +376,7 @@ def build_ST043(out_dir: pathlib.Path) -> Built:
         },
         "x-events": {"produces": ["reserve.changed.v1"], "consumes": ["triage.completed.v1"],
                      "note": "Events are published after commit (outbox)."},
-        "x-replaces-programs": [p for p in s["replaces_programs"] if p != "CLRGL090"],
+        "x-replaces-programs": list(s["replaces_programs"]),
         "x-error-codes": [{"code": c, "meaning": m} for c, m in RSV_ERROR_CODES],
         "x-changelog": [{"version": v, "date": d_, "change": c} for v, d_, c in [
             ("1.0", "2025-07-14", "First contract for the reserve and movement API (CHUB-193)"),
@@ -358,6 +387,9 @@ def build_ST043(out_dir: pathlib.Path) -> Built:
     }
     st43_examples(r, fid, spec, on, rsv3, llnt, cfg_t3)
     for a in apis:
+        if a["path"] == "/revaluation-runs":
+            spec["paths"].setdefault(a["path"], {})[a["method"].lower()] = revaluation_op(a)
+            continue
         op = {"summary": a["summary"], "operationId": a["summary"].split(" (")[0].title().replace(" ", "").replace("-", ""),
               "tags": ["movements" if "movement" in a["path"] or "history" in a["path"] else "reserves"],
               "parameters": [{"$ref": "#/components/parameters/ClaimId"}, {"$ref": "#/components/parameters/CorrelationId"}]}
@@ -409,6 +441,11 @@ def build_ST043(out_dir: pathlib.Path) -> Built:
     F.add("general", "reserve-svc keeps Tier-3 review dates in PostgreSQL table reserve.review_schedule (database chub_reserve).",
           yloc("x-data-model.tables[2]"), "table: reserve.review_schedule database: chub_reserve",
           world_ref="TABLE:reserve.review_schedule")
+    F.add("general", f"reserve-svc replaces {len(s['replaces_programs'])} CLARA programs, including CLRGL090 (year-end currency revaluation).",
+          yloc("x-replaces-programs"), "CLRGL090", world_ref="SERVICE:reserve-engine#replaces_programs")
+    F.add("general", "reserve-svc POST /revaluation-runs triggers a currency revaluation run that replaces CLRGL090.",
+          yloc('paths."/revaluation-runs".post.summary'), "Trigger a currency revaluation run (replaces CLRGL090)",
+          world_ref="SERVICE:reserve-engine#apis")
     return Built(fid, text.encode("utf-8"), F.items, f"{len(spec['paths'])} rows")
 
 

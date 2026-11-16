@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Corvane Mutual - CLARA program inventory - generated from the CLR-2025-02 source baseline and reviewed -->
+<!-- Corvane Mutual - CLARA program inventory - generated from the CLARA source baseline and reviewed -->
 <programInventory xmlns="urn:corvane:skerry:clara-inventory:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" system="CLARA" asOf="2026-08-20">
   <documentControl>
     <documentId>SKR-DSC-PGM-036</documentId>

@@ -281,7 +281,7 @@
   file: corpus/rejected/RJ010_legacy_archive_2019.zip
   locator:
     kind: zip_member
-    member: legacy_archive_2019/capacity/DB2P_capacity_report_20191231.txt
+    member: legacy_archive_2019/capacity/clara_db2_capacity_report_20191231.txt
     inner:
       kind: text_lines
       start: 14
@@ -294,7 +294,7 @@
 - fact_id: RJ010-F002
   world_ref: EPISODE:EP-010
   kind: rejected_format_fact
-  statement: The RJ010 archive's CSV gives CLR.T_RESERVE_MOVEMENT 412906118 rows as at 2019-12-31 (DB2P).
+  statement: The RJ010 archive's CSV gives CLR.T_RESERVE_MOVEMENT 412906118 rows as at 2019-12-31 (CLARA production).
   file: corpus/rejected/RJ010_legacy_archive_2019.zip
   locator:
     kind: zip_member

@@ -12,7 +12,7 @@ import dataclasses
 from generators.common import util
 
 from . import phrases as PH
-from .core import W, Doc, person, pick, picks, short_date, long_date, md_table, kv_table, D
+from .core import W, Doc, person, pick, picks, short_date, long_date, day_month, md_table, kv_table, D
 from .minutes import h, bullet, para
 
 
@@ -37,7 +37,7 @@ MILESTONES = [
     ("2026-08-28", "Reserve parallel run ends", "2026-02-16", "EVENT:EV-031"),
     ("2026-09-14", "Wave 1 – UK motor cut-over", "2026-03-01", "EVENT:EV-032"),
     ("2026-12-31", "SUBTRAK retirement target", "2025-09-03", "EVENT:EV-037"),
-    ("2027-02-15", "Wave 2 cut-over", "2026-10-08", "EVENT:EV-038"),
+    (str(W.waves["MW-2"]["date"]), "Wave 2 cut-over", str(W.decisions["DEC-011"]["date"]), "EVENT:EV-038"),
     ("2027-09-30", "CLARA decommission target", "2025-02-10", "EVENT:EV-039"),
 ]
 
@@ -211,9 +211,13 @@ def tx039():
         C("The Wave 2 cut-over date is confirmed as 15 February 2027, with the freeze from 18:00 on 12 February to "
           "06:00 on 15 February.", "Wave 2 cut-over date is confirmed as 15 February 2027",
           "Wave 2 cut-over is confirmed for 2027-02-15 (freeze 2027-02-12 18:00 to 2027-02-15 06:00).", "WAVE:MW-2#freeze"),
-        C("The £1.8m contingency drawdown for Wave 2 was approved by the CFO on 9 October.",
+        # DEC-010: approved by the CFO at the 8 October Steering Committee (MTG-008); TX013 holds her written
+        # confirmation, sent the next morning.
+        C(f"The £1.8m contingency drawdown for Wave 2 was approved by the CFO at the Steering Committee on "
+          f"{day_month(W.decisions['DEC-010']['date'])}, and she confirmed it in writing the next morning.",
           "£1.8m contingency drawdown for Wave 2 was approved by the CFO",
-          "The £1.8m Wave 2 contingency drawdown was approved by the CFO (Priya Raman).", "DECISION:DEC-010"),
+          f"The £1.8m Wave 2 contingency drawdown was approved by the CFO (Priya Raman) at the Steering Committee on "
+          f"{W.decisions['DEC-010']['date']}.", "DECISION:DEC-010"),
         C("CHUB-298 (CLRFR040 batch sweep fix) moved into progress on 19 October; the daily Compliance query "
           "remains in place until it is released.", "CHUB-298 (CLRFR040 batch sweep fix) moved into progress on 19 October",
           "CHUB-298 moved to In Progress on 2026-10-19.", "TICKET:CHUB-298#status_history", "temporal"),

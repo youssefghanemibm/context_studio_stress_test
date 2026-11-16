@@ -1613,7 +1613,8 @@
 - fact_id: VS006-F007
   world_ref: DECISION:DEC-010
   kind: speaker_notes
-  statement: 'Speaker notes: ''PR asked for a £1.8m contingency drawdown for Wave 2.'''
+  statement: 'Speaker notes: ''PR asked for a £1.8m contingency drawdown for Wave 2 to come to this meeting as a formal paper'';
+    the programme requests the drawdown and PR (the CFO) decides it (DEC-010).'
   file: corpus/upload/visuals/VS006_steering_committee_2026_10.pptx
   locator:
     kind: pptx_slide
@@ -1624,7 +1625,7 @@
   also_in: []
   placement: PL-091
   placement_key: vs6_notes_pr
-  notes: '''PR'' = Priya Raman, CFO since 2025-07-01 (alias trap).'
+  notes: '''PR'' = Priya Raman, CFO since 2025-07-01 (alias trap). PR is the approver, not the requester.'
 - fact_id: VS006-F008
   world_ref: PERSON:P001#responsibilities
   kind: speaker_notes
@@ -2761,7 +2762,8 @@
 - fact_id: VS011-F003
   world_ref: WAVE:MW-2#status
   kind: general
-  statement: Wave 2 (UK home, commercial, liability; Norway; Sweden) is planned for 2027-02-15.
+  statement: On 2026-09-21 Wave 2 (UK home, commercial, liability; Norway; Sweden) is planned for early 2027, date to be confirmed
+    by the Steering Committee.
   file: corpus/upload/visuals/VS011_data_migration_waves.pptx
   locator:
     kind: pptx_slide
@@ -2783,16 +2785,17 @@
   exclusive: false
   also_in: []
 - fact_id: VS011-F005
-  world_ref: WAVE:MW-2#freeze
+  world_ref: DECISION:DEC-011
   kind: image_text
-  statement: 'Timeline image: Wave 2 freeze planned 12 Feb 2027 18:00 to 15 Feb 2027 06:00.'
+  statement: 'Timeline image (as at 2026-09-21): Wave 2 is planned for early 2027; its date and freeze window are still to
+    be confirmed (fixed later by DEC-011).'
   file: corpus/upload/visuals/VS011_data_migration_waves.pptx
   locator:
     kind: pptx_slide
     slide: 5
     where: image
     ocr: true
-  needle: freeze 12 Feb 18:00 to 15 Feb 06:00
+  needle: date and freeze to be confirmed
   exclusive: false
   also_in: []
 - fact_id: VS011-F006

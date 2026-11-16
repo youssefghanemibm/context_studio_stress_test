@@ -12,7 +12,7 @@ import datetime as dt
 import math
 from functools import lru_cache
 
-from .common import D, W, add_bd, first_bd_of_month, iso, next_weekday, rng
+from .common import D, W, add_bd, batch_window, first_bd_of_month, iso, next_weekday, rng
 
 P = W.claims_profile
 LOSS_FROM = D(P["date_range"]["loss_date_from"])
@@ -117,9 +117,11 @@ def refer(score: int, tier: int, d: dt.date) -> tuple[bool, str | None]:
 
 
 def threshold_for(rule: str, tier: int, score: int) -> int:
+    """The referral threshold that applied to the claim: a rule's Tier-3 threshold applies to every Tier-3 claim
+    (whatever its score), the general threshold to every other claim."""
     rid, ver = rule.split("@v")
     prm = W.rules[rid]["versions"][int(ver) - 1]["parameters"]
-    if "tier3_threshold" in prm and tier == 3 and score < prm["threshold"]:
+    if "tier3_threshold" in prm and tier == 3:
         return prm["tier3_threshold"]
     return prm["threshold"]
 
@@ -520,7 +522,13 @@ def movements(rows: list[dict], start: dt.date, end: dt.date, key: str) -> list[
                 mm = cr.randint(0, 59)
                 if typ in ("RV", "IX") and not hub:
                     hh, mm = 1, cr.randint(30, 59)
-                ts = dt.datetime(d.year, d.month, d.day, hh, mm, cr.randint(0, 59))
+                ss = cr.randint(0, 59)
+                win = None if hub else batch_window(pgm)
+                if win:
+                    # batch-only program: inside its JCL job's run window (same draws, so amounts are unchanged)
+                    start_min, elapsed = win
+                    hh, mm = divmod(start_min + (hh * 60 + mm) % elapsed, 60)
+                ts = dt.datetime(d.year, d.month, d.day, hh, mm, ss)
                 rate = fx_latest(x["currency"]) if d >= D("2026-07-01") else fx_rate(x["currency"], d)
                 out.append({
                     "movement_id": f"{base_rsv * 100 + seq}",

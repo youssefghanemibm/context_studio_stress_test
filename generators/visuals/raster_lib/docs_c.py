@@ -6,7 +6,7 @@ from generators.common import util
 from . import charts, core
 from .core import (AMBER, BLUE_L, GREEN, GREY_L, GRID, INK, INK2, LINE, MUTED, NAVY, NAVY2, PURPLE, RED, TEAL, WHITE,
                    Canvas, fmt_date_long, fmt_date_short)
-from .ctx import (W, adate, asof_names, guard, minus_days, name, out_path, placement, program_exists, rel, sysname,
+from .ctx import (W, adate, asof_names, guard, minus_days, name, out_path, placement, program_exists, program_id, rel, sysname,
                   table_exists, team_name, title)
 from .diagrams import Diagram, ERD, SchematicMap, table_image
 from .facts import Facts, arrow_spec, chart_spec, placement_spec, spec
@@ -48,7 +48,7 @@ MESSAGES = {
 def _map_screen(mapid: str, d: str, user: str = "PASHW01") -> bytes:
     m = W.bms_maps[mapid]
     cells = [(1, 2, m["map"], G_CYAN), (1, 26, f"CLARA - {m['title'].upper()}", G_WHITE), (1, 74, m["transaction"], G_CYAN),
-             (2, 2, m["program"], G_CYAN), (2, 26, f"{d}  10:42:17", G_CYAN), (2, 66, f"USER {user}", G_CYAN),
+             (2, 2, program_id(m["program"], d), G_CYAN), (2, 26, f"{d}  10:42:17", G_CYAN), (2, 66, f"USER {user}", G_CYAN),
              (3, 2, "-" * 78, G_GREEN)]
     und = []
     for f in m["fields"]:
@@ -112,7 +112,8 @@ def build_vs036() -> tuple[list[dict], str, int]:
                        "CLRRS020", "BMS:CLRM320#program"),
                   spec("screenshot", "On map CLRM320, PF8 is Forward.", "PF8=Forward", "BMS:CLRM320#pf_keys")]
         elif mp == "CLRM410":
-            fx = [spec("screenshot", "CLARA fraud referral map CLRM410 (transaction FR03, program CLRFR030) shows SCORE "
+            fx = [spec("screenshot", f"CLARA fraud referral map CLRM410 (transaction FR03, program "
+                                     f"{program_id(m['program'], d)}) shows SCORE "
                                      "and THRESHOLD fields; the 2023 training example shows threshold 070.",
                        "THRESHOLD", "BMS:CLRM410#fields", notes="threshold 70 was BR-FRD-012 v2, in force on 2023-09-11"),
                   spec("screenshot", "The 2023 referral message names the FRAUDNET score (renamed Sentinel 2025-03-01).",
@@ -141,7 +142,7 @@ def build_vs036() -> tuple[list[dict], str, int]:
         m = W.bms_maps[mp]
         if not program_exists(m["program"], d):
             continue
-        rows.append([m["transaction"], m["map"], m["mapset"], m["program"], m["title"]])
+        rows.append([m["transaction"], m["map"], m["mapset"], program_id(m["program"], d), m["title"]])
     tim = table_image(["Transaction", "Map", "Mapset", "Program", "Function"], rows, [230, 220, 230, 250, 620],
                       title="CLARA online transactions", size=23,
                       note="PF keys on every map: PF3 Exit · PF7 Back · PF8 Forward · PF12 Cancel")

@@ -106,8 +106,7 @@ incidents:
   interfaces: []
   root_cause: Disk full on the transfer server
   impact: Service degraded for 245 minutes; no regulatory impact.
-  fix_tickets:
-  - CHUB-188
+  fix_tickets: []
   fix_commit_summary: null
   owner: P016
 - id: INC-2025-0815
@@ -159,8 +158,7 @@ incidents:
   interfaces: []
   root_cause: Statistics not refreshed after large backfill
   impact: Service degraded for 252 minutes; no regulatory impact.
-  fix_tickets:
-  - CHUB-164
+  fix_tickets: []
   fix_commit_summary: null
   owner: P036
 - id: INC-2025-0324
@@ -175,8 +173,7 @@ incidents:
   interfaces: []
   root_cause: Vendor-side release defect
   impact: Service degraded for 254 minutes; no regulatory impact.
-  fix_tickets:
-  - CHUB-151
+  fix_tickets: []
   fix_commit_summary: null
   owner: P029
 - id: INC-2025-0677
@@ -192,7 +189,7 @@ incidents:
   root_cause: Missing commit frequency in a batch program
   impact: Service degraded for 133 minutes; no regulatory impact.
   fix_tickets:
-  - CHUB-208
+  - CHUB-222
   fix_commit_summary: null
   owner: P016
 - id: INC-2026-0104
@@ -225,8 +222,7 @@ incidents:
   interfaces: []
   root_cause: Template field length exceeded
   impact: Service degraded for 278 minutes; no regulatory impact.
-  fix_tickets:
-  - CHUB-157
+  fix_tickets: []
   fix_commit_summary: null
   owner: P040
 - id: INC-2026-0311
@@ -278,8 +274,7 @@ incidents:
   interfaces: []
   root_cause: Unknown treaty code after renewal
   impact: Service degraded for 37 minutes; no regulatory impact.
-  fix_tickets:
-  - CHUB-212
+  fix_tickets: []
   fix_commit_summary: null
   owner: P038
 - id: INC-2026-0210
@@ -294,8 +289,7 @@ incidents:
   interfaces: []
   root_cause: Partner SFTP key not rotated before expiry
   impact: Service degraded for 223 minutes; no regulatory impact.
-  fix_tickets:
-  - CHUB-115
+  fix_tickets: []
   fix_commit_summary: null
   owner: P033
 - id: INC-2026-0702
@@ -328,8 +322,7 @@ incidents:
   interfaces: []
   root_cause: Calendar not updated for the Nordic holiday
   impact: Service degraded for 194 minutes; no regulatory impact.
-  fix_tickets:
-  - CHUB-230
+  fix_tickets: []
   fix_commit_summary: null
   owner: P026
 - id: INC-2026-0675
@@ -344,8 +337,7 @@ incidents:
   interfaces: []
   root_cause: Clients cached the old JWKS
   impact: Service degraded for 275 minutes; no regulatory impact.
-  fix_tickets:
-  - CHUB-205
+  fix_tickets: []
   fix_commit_summary: null
   owner: P032
 - id: INC-2026-0471
@@ -360,8 +352,7 @@ incidents:
   interfaces: []
   root_cause: Retention misconfigured on a high-volume topic
   impact: Service degraded for 152 minutes; no regulatory impact.
-  fix_tickets:
-  - CHUB-138
+  fix_tickets: []
   fix_commit_summary: null
   owner: P031
 - id: INC-2026-0914
@@ -394,8 +385,7 @@ incidents:
   interfaces: []
   root_cause: Autoscaling limit reached after storm event
   impact: Service degraded for 250 minutes; no regulatory impact.
-  fix_tickets:
-  - CHUB-195
+  fix_tickets: []
   fix_commit_summary: null
   owner: P040
 - id: INC-2026-1007
@@ -417,7 +407,7 @@ incidents:
   owner: P040
 - id: INC-2026-0340
   date: '2026-10-22'
-  start: 2026-10-22T13:50
+  start: 2026-10-22T07:30
   end: null
   severity: Sev4
   title: Payment confirmation file arrived late from CPG
@@ -425,10 +415,10 @@ incidents:
   - SYS09
   - SYS01
   programs: []
-  interfaces: []
+  interfaces:
+  - CLX-IF-020
   root_cause: Bank-side processing delay
   impact: Service degraded for 286 minutes; no regulatory impact.
-  fix_tickets:
-  - CHUB-126
+  fix_tickets: []
   fix_commit_summary: null
   owner: P035

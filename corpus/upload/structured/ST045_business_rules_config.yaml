@@ -308,7 +308,7 @@ spec:
             tier2_min_gbp: 5000
           text: 'Tier-3: estimated incurred ≥ £40,000 (NOK 500,000 / SEK 500,000 / DKK 340,000) or any bodily injury.
             Tier-2: £5,000–£39,999 or any third-party involvement. Tier-1: otherwise.'
-          approvedOn: '2021-11-16'
+          approvedOn: '2021-09-14'
         - version: 1
           status: superseded
           effectiveFrom: '2016-01-01'

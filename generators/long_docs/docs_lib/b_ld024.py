@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from . import common as C
+from . import hub as H
 from .core import Ctx, Doc, F, PF, Style, W, long_date, short_date, util
 from .prose import Prose
 
@@ -103,7 +104,7 @@ def build() -> Doc:
     rows = []
     for sid in ("PS-RSV-01", "PS-RSV-02", "PS-RSV-03", "PS-RSV-04"):
         st = W.steps[sid]
-        rows.append([sid, st["name"], st["description"], ", ".join(p for p in st["programs"] if p in W.programs),
+        rows.append([sid, st["name"], H.step_desc(ctx, sid), ", ".join(p for p in st["programs"] if p in W.programs),
                      ctx.person(st["raci"]["A"])])
     doc.table(["Step", "Name", "Description", "Programs", "Accountable"], rows, widths=[2.0, 2.8, 5.6, 2.8, 3.4],
               caption="Reserving process steps", font_size=8.2)

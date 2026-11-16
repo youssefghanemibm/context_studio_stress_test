@@ -9,7 +9,7 @@ from generators.common import util
 from .core import (W, Built, Facts, DOC_PREFIX, add_business_days, fauthor, fdate, fstatus, ftitle, may, need,
                    minus_days, plus_days, person, pemail, pname, ptitle, rule_params_ok, rule_text_ok, rule_ver, svcname, sysname, team_name,
                    version_history)
-from . import phrases
+from . import fr1_data, phrases
 
 KNOWN_CLAIM_REFS = {"CLM-UK-2025-118204", "CLM-UK-2026-207731", "CLM-SE-2026-004417"}
 
@@ -867,81 +867,26 @@ def split_total(r, total: int, weights: list[float]) -> list[int]:
     return out
 
 
-def fr1_breakdowns(r, total: int) -> dict:
-    regions = ["UK", "NO", "SE", "DK"]
-    rv = split_total(r, total, [0.74 + r.uniform(-0.02, 0.02), 0.1, 0.09, 0.07])
-    lines = ["Motor", "Home", "Commercial Property", "SME Liability"]
-    lv = split_total(r, total, [0.55 + r.uniform(-0.03, 0.03), 0.33, 0.07, 0.05])
-    tiers = ["Tier-1", "Tier-2", "Tier-3"]
-    tv = split_total(r, total, [0.18, 0.64, 0.18 + r.uniform(-0.02, 0.02)])
-    src = ["score-based", "handler referral", "indicator review"]
-    sv = split_total(r, total, [0.81, 0.12, 0.07])
-    return {"byRegion": dict(zip(regions, rv)), "byLine": dict(zip(lines, lv)), "byTier": dict(zip(tiers, tv)),
-            "bySource": dict(zip(src, sv))}
-
-
-FR1_PRODUCTS = ["PRD-MOT-UK", "PRD-HOM-UK", "PRD-COM-UK", "PRD-LIA-UK", "PRD-MOT-NO", "PRD-HOM-NO",
-                "PRD-MOT-SE", "PRD-HOM-SE", "PRD-MOT-DK", "PRD-HOM-DK"]
-FR1_CHANNELS = ["telephone", "portal", "app", "broker", "telematics", "post"]
-
-
-def fr1_detail(r, total: int, months: list[str]) -> dict:
-    """Extra FR1 breakdowns (synthetic, each sums to the world total)."""
-    pv = split_total(r, total, [0.40, 0.25, 0.06, 0.04, 0.06, 0.04, 0.05, 0.04, 0.03, 0.03])
-    cts = ["CT-COL", "CT-THF", "CT-WSC", "CT-FIR", "CT-EOW", "CT-STM", "CT-ACD", "CT-VAN", "CT-BIJ", "CT-TPD", "CT-FLD"]
-    cv = split_total(r, total, [0.22, 0.16, 0.03, 0.06, 0.13, 0.04, 0.09, 0.05, 0.14, 0.05, 0.03])
-    chv = split_total(r, total, [0.47, 0.22, 0.17, 0.09, 0.03, 0.02])
-    mv = split_total(r, total, [1 / len(months) + r.uniform(-0.02, 0.02) for _ in months])
-    nt = split_total(r, total, [0.62, 0.30, 0.06, 0.02])
+def fr1_detail(fq: dict) -> dict:
+    """FR1 detail breakdowns from the ST015 data model (fr1_data.quarter); each sums to the referral total."""
     return {
-        "byProduct": [{"product": p, "name": W.products[p]["name"], "referrals": v} for p, v in zip(FR1_PRODUCTS, pv)],
-        "byClaimType": [{"claimType": c, "name": W.claim_types[c]["name"], "referrals": v} for c, v in zip(cts, cv)],
-        "byChannel": dict(zip(FR1_CHANNELS, chv)),
-        "byMonth": dict(zip(months, mv)),
-        "noticeTiming": dict(zip(["within 5 business days", "6-10 business days", "deferred (BR-FRD-036)",
-                                  "pending at period end"], nt)),
+        "byProduct": fq["byProduct"],
+        "byClaimType": fq["byClaimType"],
+        "byChannel": fq["byChannel"],
+        "byMonth": fq["byMonth"],
+        "noticeTiming": fq["noticeTiming"],
     }
 
 
-FR1_COUNTRY = {"UK": "UK", "NO": "NO", "SE": "SE", "DK": "DK"}
+def fr1_annex_records(fq: dict) -> list[dict]:
+    """Record-level annex of deferred customer notices: the ST015 referrals flagged notice_deferred = Y."""
+    keys = ("claimRef", "product", "tier", "referralDate", "noticeDueDate", "deferralDays", "deferredUntil", "reason")
+    return [{k: x[k] for k in keys} for x in fq["deferrals"]]
 
 
-def fr1_weekly(r, total: int, start: str, end: str) -> list[dict]:
-    """Weekly referral counts (Monday-based weeks clipped to the period); sums to the world total."""
-    import datetime as _dt
-    s0, e0 = _dt.date.fromisoformat(start), _dt.date.fromisoformat(end)
-    weeks = []
-    cur = s0
-    while cur <= e0:
-        we = min(cur + _dt.timedelta(days=6 - cur.weekday()), e0)
-        weeks.append((cur, we))
-        cur = we + _dt.timedelta(days=1)
-    vals = split_total(r, total, [((b - a).days + 1) * (1 + r.uniform(-0.12, 0.12)) for a, b in weeks])
-    return [{"weekStart": a.isoformat(), "weekEnd": b.isoformat(), "referrals": v} for (a, b), v in zip(weeks, vals)]
-
-
-def fr1_deferral_annex(r, n: int, start: str, end: str) -> list[dict]:
-    """Record-level annex of deferred customer notices (synthetic claim refs, rule-consistent dates)."""
-    import datetime as _dt
-    s0, e0 = _dt.date.fromisoformat(start), _dt.date.fromisoformat(end)
-    span = (e0 - s0).days
-    used: set = set()
-    out = []
-    for _ in range(n):
-        prod = r.choice(FR1_PRODUCTS)
-        country = prod.split("-")[-1]
-        ref_date = s0 + _dt.timedelta(days=r.randint(0, span - 5))
-        while ref_date.weekday() >= 5:
-            ref_date += _dt.timedelta(days=1)
-        due = add_business_days(ref_date, 10)
-        days = r.randint(12, 58)
-        out.append({"claimRef": claim_ref(r, FR1_COUNTRY[country], ref_date.year, used), "product": prod,
-                    "tier": r.choice(["Tier-1", "Tier-2", "Tier-2", "Tier-3"]), "referralDate": ref_date.isoformat(),
-                    "noticeDueDate": due.isoformat(), "deferralDays": days,
-                    "deferredUntil": (due + _dt.timedelta(days=days)).isoformat(),
-                    "reason": "SIU certified tipping-off risk"})
-    out.sort(key=lambda x: (x["referralDate"], x["claimRef"]))
-    return out
+def fr1_hub_note(fq: dict) -> str:
+    hub = fq["hubProducts"]
+    return f"migrated products {', '.join(hub)}" if hub else "no migrated products in the period"
 
 
 def crosstab(rows: dict, cols: dict) -> dict:
@@ -979,9 +924,10 @@ def build_ST034(out_dir: pathlib.Path) -> Built:
     total = sub["referrals"]
     need(fid, "TIMELINE:metrics", "fraud_referrals_count")
     need(fid, "REPORT:NISA-FR1", "submissions")
-    bd = fr1_breakdowns(r, total)
-    notices = total - r.randint(20, 40)
-    deferred = total - notices
+    fq = fr1_data.quarter("2026-07-01", "2026-09-30")
+    assert fq["total"] == total, (fq["total"], total)
+    bd = {k: fq[k] for k in ("byRegion", "byLine", "byTier", "bySource", "bySystem")}
+    cn = fq["customerNotices"]
     doc = {
         "documentControl": doc_control(fid, approvers=["P037"], reviewers=["P008", "P021"]),
         "return": {
@@ -999,24 +945,27 @@ def build_ST034(out_dir: pathlib.Path) -> Built:
             "referralThreshold": {"value": 65, "rule": "BR-FRD-031 v1", "appliesTo": "all tiers",
                                   "note": "The Tier-3 threshold of 60 (BR-FRD-031 v2) applies from 2026-10-01 and is outside this period."},
             "breakdowns": bd,
-            "customerNotices": {"issuedWithin10BusinessDays": notices, "deferred": deferred, "rule": "BR-FRD-032 v2 / BR-FRD-036 v1"},
+            "customerNotices": {"issuedWithin10BusinessDays": cn["issuedWithin10BusinessDays"], "deferred": cn["deferred"],
+                                "pendingAtPeriodEnd": cn["pendingAtPeriodEnd"], "rule": "BR-FRD-032 v2 / BR-FRD-036 v1"},
             "adverseDecisionsOnScoreAlone": 0,
             "siuTriageRule": "BR-FRD-035 v2 (3 business days)",
         },
-        "detail": fr1_detail(r, total, ["2026-07", "2026-08", "2026-09"]),
-        "weekly": fr1_weekly(r, total, "2026-07-01", "2026-09-30"),
+        "detail": fr1_detail(fq),
+        "weekly": fq["weekly"],
         "deferralAnnex": {"rule": "BR-FRD-036 v1", "maxDeferralDays": rule_ver("BR-FRD-036", 1)["parameters"]["max_deferral_days"],
-                          "records": fr1_deferral_annex(r, deferred, "2026-07-01", "2026-09-30")},
+                          "records": fr1_annex_records(fq)},
         "definitions": fr1_definitions(fid, "2026-09-30"),
         "lineage": [
-            {"step": 1, "what": "Referral records in CLR.T_FRAUD_REFERRAL and fraud.referral (Claims Hub, migrated UK motor)"},
+            {"step": 1, "what": f"Referral records in CLR.T_FRAUD_REFERRAL and fraud.referral (Claims Hub, {fr1_hub_note(fq)})"},
             {"step": 2, "what": "Quarterly extract by CLRFR090 (job CLRQFR01)"},
             {"step": 3, "what": "Delivery to the NISA Reporting Hub over CLX-IF-033"},
             {"step": 4, "what": "Validation and submission by Regulatory Reporting"},
         ],
         "controls": [{"id": f"C{k:02d}", "check": c, "result": "PASS"} for k, c in enumerate([
             "breakdown totals equal referralsTotal", "every referral has a referral date inside the period",
-            "no referral without a Sentinel score or handler reason", "notice records exist for every non-deferred referral",
+            "no referral without a Sentinel score or handler reason",
+            "every non-deferred referral has a notice issued, or pending inside its 10-business-day window",
+            "notice timing, deferred and pending counts sum to referralsTotal",
             "deferrals carry an approval record", "CLARA and Claims Hub counts reconciled for migrated claims",
             "schema validation against FR1 v1.0"], 1)],
         "contacts": [{"role": "Preparer", "name": pname(rep["preparer"], on), "email": pemail(rep["preparer"], on)},
@@ -1025,7 +974,7 @@ def build_ST034(out_dir: pathlib.Path) -> Built:
         "comparatives": {"2026Q2": {"referralsTotal": W.reports["NISA-FR1"]["submissions"]["2026Q2"]["referrals"],
                                     "submitted": W.reports["NISA-FR1"]["submissions"]["2026Q2"]["submitted"]}},
         "declarations": [
-            "The figures were extracted from CLARA (CLRFR090) and reconciled to Claims Hub fraud-referral-svc for migrated UK motor claims.",
+            f"The figures were extracted from CLARA (CLRFR090) and reconciled to Claims Hub fraud-referral-svc for {fr1_hub_note(fq)}.",
             "No claim was declined, reduced or repudiated on the basis of an automated score alone (BR-FRD-033).",
             phrases.sentence(r, "governance"),
         ],
@@ -1049,6 +998,11 @@ def build_ST034(out_dir: pathlib.Path) -> Built:
           jloc("comparatives", "2026Q2", "referralsTotal"), "1488", world_ref="TIMELINE:metrics#fraud_referrals_count")
     F.add("general", "FR1 Q3 deferral annex: notices may be deferred up to 60 days under BR-FRD-036 v1.",
           jloc("deferralAnnex", "maxDeferralDays"), "60", world_ref="RULE:BR-FRD-036@v1#parameters.max_deferral_days")
+    F.add("general", f"NISA-FR1 2026Q3: {cn['deferred']} customer notices were deferred under BR-FRD-036 v1 (the deferral annex lists "
+                     f"{cn['deferred']} records); {cn['issuedWithin10BusinessDays']:,} were issued within 10 business days and "
+                     f"{cn['pendingAtPeriodEnd']} were pending at period end.",
+          jloc("figures", "customerNotices"), f"deferred: {cn['deferred']}", world_ref="RULE:BR-FRD-036@v1",
+          notes="Computed from the ST015 referral data model (notice_deferred = Y for Q3 2026 referrals).")
     return Built(fid, dump(doc), F.items, f"{sum(len(v) for v in bd.values())} rows")
 
 

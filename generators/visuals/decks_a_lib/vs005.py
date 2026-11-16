@@ -4,6 +4,8 @@ Reflects the 2025-09-01 re-organisation: Freya Lindahl heads Recoveries & Subrog
 Claims Director, Counter-Fraud & SIU reports to the CRO, Reserving reports to the CFO."""
 from __future__ import annotations
 
+from generators.visuals import org_chart_control as OC
+
 from . import common as CM
 from . import phrases as P
 from .core import Deck
@@ -11,7 +13,8 @@ from .orgchart import box_text, link, org_slide, team_cards
 
 
 def build(W, out_dir):
-    D = Deck(W, "VS005", version="2.0", doc_ref="CLM-ORG-2025-10", out_dir=out_dir)
+    oc = OC.control(W, "VS005")   # shared with VS044 (the pdf rendition of the same chart)
+    D = Deck(W, "VS005", version=oc["version"], doc_ref=oc["doc_ref"], out_dir=out_dir)
     d = D.date
     rng = D.rng
     loc = lambda pid: W.locations[W.location_of(pid, d)]["city"]  # noqa: E731
@@ -177,7 +180,7 @@ def build(W, out_dir):
         c = W.committees[cid]
         ch = [x for x in c["chair_history"] if (x["from"] or "") <= d <= (x["to"] or "9999")][0]["person"]
         cad = c["cadence"] if D.ok(f"COMMITTEE:{cid}", "cadence") else "Per terms of reference"
-        rows.append((c["name"], W.name_of(ch, d), cad, c["remit"]))
+        rows.append((c["name"], W.name_of(ch, d), cad, CM.asof_systems(W, c["remit"], d)))
     s.table(0.5, 1.45, 12.3, ["Forum", "Chair", "Cadence", "Remit"], rows, col_w=[2.6, 2.0, 2.6, 5.1], row_h=0.7, size=11)
     s.notes(P.notes(rng, "the forums and their chairs"))
     D.fact(s, "table", "Programme Skerry Steering Committee",
@@ -193,9 +196,8 @@ def build(W, out_dir):
            kind="alias_use", world_ref="PERSON:P005#email_history")
 
     # 14 document control
-    hist = CM.history_rows(D, [("1.0", "March 2024 chart"), ("1.9", "Draft for the September 2025 re-organisation"), ("2.0", "")],
-                           spacing=(25, 40))
-    hist[0] = ("1.0", "2024-03-01", "March 2024 chart", W.name_of("P005", "2024-03-01"))
+    hist = list(oc["history"])
+    hist[0] = (*hist[0], W.name_of("P005", hist[0][1]))
     CM.doc_control(D, hist, [("P004", "Approved"), ("P007", "Approved"), ("P001", "Approved")], status="Approved",
                    owner_pid="P005", distribution="Claims, Risk & Compliance and Finance staff; HR Business Partners",
                    purpose="Structure of Claims, Risk & Compliance and Finance after the September 2025 re-organisation.")

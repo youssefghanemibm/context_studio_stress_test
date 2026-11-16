@@ -86,16 +86,11 @@ NO_TARGET_RULE = {
     "CLR.T_SALVAGE": "Not migrated – salvage disposals closed in CLARA before the wave",
 }
 TECH_COLS = {"LAST_UPD_TS", "LAST_UPD_PGM", "LAST_UPD_USER"}
-POST_CIRCULAR_COLS = ("CUSTOMER_NOTICE", "DEFER_")
 
 
 def _cols(ctx, t):
-    out = []
-    for c in W.tables[t]["columns"]:
-        if ctx.date < "2026-03-27" and any(k in c["name"] for k in POST_CIRCULAR_COLS):
-            continue
-        out.append(c["name"])
-    return out
+    # The world has no column history: every document lists the columns in tables.yaml (fix pass, N22).
+    return [c["name"] for c in W.tables[t]["columns"]]
 
 
 def _rows_for(ctx, t):
@@ -164,9 +159,9 @@ def build() -> Doc:
     doc.title_page(rows, extra_lines=[f"Prepared by {ctx.name(author)} (IBM Consulting, Data Migration Lead)"],
                    facts=[PF(ctx, "ld14_author", author_cell, where=(5, 1),
                              notes="IBM's Callum Fairbairn (P051), not the Corvane Motor Claims Team Leader of the same name (P022).")])
-    C.version_history(ctx, doc, [("0.1", 49, "Initial outline"), ("0.3", 33, "Wave approach aligned with ADR-015"),
+    C.version_history(ctx, doc, [("0.1", 49, "Initial outline"), ("0.3", 33, "Wave approach drafted for Design Authority review"),
                                  ("0.6", 19, "Reconciliation approach and tolerances"),
-                                 ("0.9", 7, "Appendix B mapping table completed"), ("1.0", 0, "Approved")])
+                                 ("0.9", 7, "Appendix B mapping table completed; wave approach aligned with ADR-015"), ("1.0", 0, "Approved")])
     C.reviewers(ctx, doc, ["P052", "P025", "P016", "P036", "P009", "P021", "P019", "P049"])
     C.approvals(ctx, doc, [("P017", "Business owner (Claims Hub)"), ("P018", "Design Authority"),
                            ("P016", "Source system owner"), ("P048", "IBM delivery lead")])
@@ -437,7 +432,7 @@ def build() -> Doc:
         cols = [c for c in t["columns"] if c["name"] in _cols(ctx, tn)]
         doc.table(["Column", "Type", "Null", "Description"],
                   [[c["name"], c["type"] + (f"({c['length']}{',' + str(c['scale']) if c.get('scale') else ''})" if c.get("length") else ""),
-                    "Y" if c.get("nullable") else "N", ctx.a(c["description"])] for c in cols],
+                    "Y" if c.get("nullable") else "N", H.col_desc(ctx, c["description"])] for c in cols],
                   widths=[4.2, 2.8, 1.0, 8.6], font_size=7.8)
         doc.ps(pr.paras(["migration", "data"], 2, n=(3, 5)))
 

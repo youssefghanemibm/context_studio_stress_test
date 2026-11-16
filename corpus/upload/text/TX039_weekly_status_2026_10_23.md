@@ -12,7 +12,7 @@
 
 The Wave 2 cut-over date is confirmed as 15 February 2027, with the freeze from 18:00 on 12 February to 06:00 on 15 February.
 
-The £1.8m contingency drawdown for Wave 2 was approved by the CFO on 9 October.
+The £1.8m contingency drawdown for Wave 2 was approved by the CFO at the Steering Committee on 8 October, and she confirmed it in writing the next morning.
 
 CHUB-298 (CLRFR040 batch sweep fix) moved into progress on 19 October; the daily Compliance query remains in place until it is released.
 

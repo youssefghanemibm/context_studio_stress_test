@@ -53,6 +53,86 @@ def add_bd(d: dt.date, n: int) -> dt.date:
     return d
 
 
+# Public holidays by jurisdiction (claim region). UK = England and Wales bank holidays, the same list as the
+# specs generator's UK calendar; SE also treats Midsummer Eve, Christmas Eve and New Year's Eve as non-business
+# days. Checked against LD022 Table 2 (referral Wed 29 April 2026: UK due Thu 14 May, NO due Fri 15 May).
+PUBLIC_HOLIDAYS = {
+    "UK": {"2025-01-01", "2025-04-18", "2025-04-21", "2025-05-05", "2025-05-26", "2025-08-25", "2025-12-25",
+           "2025-12-26", "2026-01-01", "2026-04-03", "2026-04-06", "2026-05-04", "2026-05-25", "2026-08-31",
+           "2026-12-25", "2026-12-28"},
+    "NO": {"2025-01-01", "2025-04-17", "2025-04-18", "2025-04-21", "2025-05-01", "2025-05-29", "2025-06-09",
+           "2025-12-25", "2025-12-26", "2026-01-01", "2026-04-02", "2026-04-03", "2026-04-06", "2026-05-01",
+           "2026-05-14", "2026-05-25", "2026-12-25", "2026-12-26"},
+    "SE": {"2025-01-01", "2025-01-06", "2025-04-18", "2025-04-21", "2025-05-01", "2025-05-29", "2025-06-06",
+           "2025-06-20", "2025-12-24", "2025-12-25", "2025-12-26", "2025-12-31", "2026-01-01", "2026-01-06",
+           "2026-04-03", "2026-04-06", "2026-05-01", "2026-05-14", "2026-06-19", "2026-12-24", "2026-12-25",
+           "2026-12-31"},
+    "DK": {"2025-01-01", "2025-04-17", "2025-04-18", "2025-04-21", "2025-05-29", "2025-06-09", "2025-12-25",
+           "2025-12-26", "2026-01-01", "2026-04-02", "2026-04-03", "2026-04-06", "2026-05-14", "2026-05-25",
+           "2026-12-25", "2026-12-26"},
+}
+
+
+def business_day(d: dt.date, region: str) -> bool:
+    return d.weekday() < 5 and d.isoformat() not in PUBLIC_HOLIDAYS[region]
+
+
+def add_bd_region(d: dt.date, n: int, region: str) -> dt.date:
+    """Add n business days in the jurisdiction `region` (weekends and its public holidays excluded)."""
+    k = 0
+    while k < n:
+        d = d + dt.timedelta(days=1)
+        if business_day(d, region):
+            k += 1
+    assert d.year <= 2026, f"no {region} holiday calendar for {d.year}"
+    return d
+
+
+# CLARA batch run windows: a job starts at its schedule time and runs for its typical elapsed time, the figure
+# the 2026-04-06 capacity plan (ST011, 'Batch Window' sheet) records. Movements written by batch-only programs
+# are timestamped inside their job's window.
+ST011_MONTHS = [(2026, k) for k in range(4, 13)] + [(2027, k) for k in range(1, 10)]
+ST011_WORKLOADS = {"CICS online": 610, "Batch": 840, "DB2": 520, "MQ": 95}
+
+
+def st011_jobs() -> list[str]:
+    """The jobs on ST011's Batch Window sheet, in sheet order."""
+    ds = iso(D(W.anchor("ST011")["date"]))
+    out = []
+    for jn in sorted(W.jcl_jobs):
+        j = W.jcl_jobs[jn]
+        if not W.may_state("ST011", f"JCL:{jn}", "schedule"):
+            continue
+        if any(W.programs[s_["program"]]["since"] > ds for s_ in j["steps"]):
+            continue
+        out.append(jn)
+    return out
+
+
+_ELAPSED: dict[str, int] = {}
+
+
+def batch_elapsed() -> dict[str, int]:
+    """Typical elapsed minutes per job, exactly as ST011 draws them (rng 'ST011:cap', after the MIPS draws)."""
+    if not _ELAPSED:
+        r = rng("ST011:cap")
+        for _ in range(len(ST011_MONTHS) * len(ST011_WORKLOADS)):
+            r.uniform(0.97, 1.03)
+        _ELAPSED.update({jn: r.randint(4, 55) for jn in st011_jobs()})
+    return _ELAPSED
+
+
+def batch_window(program: str) -> tuple[int, int] | None:
+    """(start minute of day, typical elapsed minutes) of the JCL job that runs a batch-only program, else None."""
+    p = W.programs[program]
+    if p.get("type") != "batch" or not p.get("jcl_job"):
+        return None
+    m = re.search(r"(\d{2}):(\d{2})\s*$", W.jcl_jobs[p["jcl_job"]]["schedule"])
+    if not m:
+        return None
+    return int(m.group(1)) * 60 + int(m.group(2)), batch_elapsed()[p["jcl_job"]]
+
+
 def next_weekday(d: dt.date) -> dt.date:
     while d.weekday() >= 5:
         d += dt.timedelta(days=1)

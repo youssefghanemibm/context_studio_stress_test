@@ -316,7 +316,7 @@ def s_rs010(g):
         g.call("CLRCM020")
 
     g.facts.append(Fact("PL-240", ("CALL:CLRCM040", "CALL:CLRCM020"), "CALL 'CLRRS015'",
-                        "CLRRS010 inserts into CLR.T_RESERVE and calls CLRRS015, CLRCM030, CLRCM040 and CLRCM020.",
+                        "CLRRS010 inserts into CLR.T_RESERVE and calls CLRRS015, CLRCM030, CLRCM040, CLRCM020, CLRCM050 and CLRCM070.",
                         world_ref="PROGRAM:CLRRS010#calls_programs", placement="PL-240", extra={"span": "calls"}))
     g.facts.append(Fact("rs010-ins", ("RS010-INS", "RS010-INS"), "INSERT INTO CLR.T_RESERVE",
                         "CLRRS010 (transaction RS01) writes the initial reserve with INSERT INTO CLR.T_RESERVE.",

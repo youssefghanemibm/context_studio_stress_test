@@ -778,11 +778,16 @@ def build_rj007() -> Facts:
     now_window = W.systems["SYS01"]["batch_window"].split(" ")[0].replace("–", "-")
     guard(fid, "WAVE:MW-2", "date")
     mw2 = _dt.date.fromisoformat(str(W.waves["MW-2"]["date"]))
+    # the Wave 2 date was confirmed only at the 2026-10-08 Steering Committee (DEC-011)
+    if d >= _dt.date.fromisoformat(str(W.decisions["DEC-011"]["date"])):
+        w2 = f"{mw2.day} {mw2.strftime('%b')} {mw2.year}"
+    else:
+        w2 = f"early {mw2.year} (TBC)"
     lines = [
         dict(text=f"{clara} batch window", x=110, y=90, size=74, colour="black", underline=True),
         dict(text=f"now: {now_window}", x=140, y=260, size=64, colour="blue"),
         dict(text="post-Wave 2 target: 23:30-03:30", x=140, y=420, size=64, colour="red", box=True),
-        dict(text=f"Wave 2 = {mw2.day} {mw2.strftime('%b')} {mw2.year}", x=140, y=600, size=58, colour="blue"),
+        dict(text=f"Wave 2 = {w2}", x=140, y=600, size=58, colour="blue"),
         dict(text=f"{author.initials} {d.strftime('%d/%m')}", x=1150, y=800, size=52, colour="black"),
     ]
     img = whiteboard.render(lines, (1600, 1000), f"{fid}:board")
@@ -901,13 +906,14 @@ def build_rj010() -> Facts:
     pl = placement(fid)
     dba = Person(fid, a["author"], d)
     clara = system_name(fid, "SYS01", d)
-    guard(fid, "SYS01", "db2_subsystem")
-    db2 = W.systems["SYS01"]["db2_subsystem"]
+    # The DB2 subsystem/plan pair is LD017's exclusive fact (PL-055), so the archive never names the subsystem:
+    # it uses a neutral label instead.
+    db2 = "PRODUCTION"
     guard(fid, "TABLE:CLR.T_RESERVE_MOVEMENT", "name")
     tbl = "CLR.T_RESERVE_MOVEMENT"
     rows = 412_906_118
     base = "legacy_archive_2019/"
-    report_name = f"{base}capacity/{db2}_capacity_report_20191231.txt"
+    report_name = f"{base}capacity/clara_db2_capacity_report_20191231.txt"
     csv_name = f"{base}capacity/reserve_movement_rowcount_20191231.csv"
     readme = "\n".join([
         "LEGACY ARCHIVE 2019 - CLARA DB2 capacity material",
@@ -926,7 +932,7 @@ def build_rj010() -> Facts:
         f"{COMPANY.upper()}",
         f"{clara} DB2 CAPACITY REPORT - YEAR END",
         "=" * 60,
-        f"Subsystem   : {db2}",
+        f"Subsystem   : {clara} {db2.lower()}",
         f"As at       : {d.isoformat()}",
         f"Prepared by : {dba.name}, {dba.title}",
         "Source      : catalogue statistics collected after the year-end statistics run",
@@ -951,7 +957,7 @@ def build_rj010() -> Facts:
           "2019-12-31.", {"kind": "zip_member", "member": report_name,
                           "inner": {"kind": "text_lines", "start": i, "end": i}},
           f"{tbl} {rows:,} rows", pl=pl)
-    F.add(pl["kind"], f"The RJ010 archive's CSV gives {tbl} {rows} rows as at {d.isoformat()} ({db2}).",
+    F.add(pl["kind"], f"The RJ010 archive's CSV gives {tbl} {rows} rows as at {d.isoformat()} ({clara} production).",
           {"kind": "zip_member", "member": csv_name, "inner": {"kind": "csv_row", "row": 1}},
           f"{tbl} | row_count: {rows}", world_ref=pl["world_ref"], exclusive=True,
           notes="Same episode (EP-010) as RJ010-F001, machine-readable copy inside the same archive.")

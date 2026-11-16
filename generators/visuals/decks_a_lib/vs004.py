@@ -5,6 +5,8 @@ Rob Tennant, SIU reports to the Claims Director, the fraud engine is still FRAUD
 Gareth Whitcombe."""
 from __future__ import annotations
 
+from generators.visuals import org_chart_control as OC
+
 from . import common as CM
 from . import phrases as P
 from .core import Deck
@@ -12,7 +14,8 @@ from .orgchart import box_text, org_slide, team_cards
 
 
 def build(W, out_dir):
-    D = Deck(W, "VS004", version="1.0", doc_ref="CLM-ORG-2024-03", out_dir=out_dir)
+    oc = OC.control(W, "VS004")   # shared with VS032 (the docx rendition of the same chart)
+    D = Deck(W, "VS004", version=oc["version"], doc_ref=oc["doc_ref"], out_dir=out_dir)
     d = D.date
     rng = D.rng
     loc = lambda pid: W.locations[W.location_of(pid, d)]["city"]  # noqa: E731
@@ -165,8 +168,9 @@ def build(W, out_dir):
     com1, com2 = W.committees["COM-01"], W.committees["COM-02"]
     ch1 = [c for c in com1["chair_history"] if (c["from"] or "") <= d <= (c["to"] or "9999")][0]["person"]
     ch2 = [c for c in com2["chair_history"] if (c["from"] or "") <= d <= (c["to"] or "9999")][0]["person"]
-    rows = [(com1["name"], W.name_of(ch1, d), "Per terms of reference", com1["remit"]),
-            (com2["name"], W.name_of(ch2, d), com2["cadence"], com2["remit"])]
+    # remits are undated world text in today's names (e.g. "Sentinel thresholds"): use the names in force on d
+    rows = [(com1["name"], W.name_of(ch1, d), "Per terms of reference", CM.asof_systems(W, com1["remit"], d)),
+            (com2["name"], W.name_of(ch2, d), com2["cadence"], CM.asof_systems(W, com2["remit"], d))]
     D.need("COMMITTEE:COM-02", "cadence")
     s.table(0.5, 1.45, 12.3, ["Forum", "Chair", "Cadence", "Remit"], rows, col_w=[2.3, 2.2, 2.6, 5.2], row_h=0.7, size=11)
     s.notes(P.notes(rng, "the forums Claims attends"))
@@ -185,7 +189,7 @@ def build(W, out_dir):
            kind="alias_use", world_ref="PERSON:P005#email_history")
 
     # 14 document control
-    hist = CM.history_rows(D, [("0.1", ""), ("0.2", ""), ("1.0", "")], spacing=(7, 20), kind="stale")
+    hist = oc["history"]
     CM.doc_control(D, hist, [("P004", "Approved")], status="Approved", owner_pid="P005",
                    distribution="All Claims Directorate staff; HR Business Partner",
                    purpose="Structure of the Claims Directorate as at 1 March 2024.")

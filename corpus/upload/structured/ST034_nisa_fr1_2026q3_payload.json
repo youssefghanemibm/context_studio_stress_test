@@ -97,31 +97,36 @@
     },
     "breakdowns": {
       "byRegion": {
-        "UK": 1134,
-        "NO": 152,
-        "SE": 137,
-        "DK": 107
+        "UK": 1027,
+        "NO": 241,
+        "SE": 158,
+        "DK": 104
       },
       "byLine": {
-        "Motor": 841,
-        "Home": 505,
-        "Commercial Property": 107,
-        "SME Liability": 77
+        "Motor": 799,
+        "Home": 590,
+        "Commercial Property": 71,
+        "SME Liability": 70
       },
       "byTier": {
-        "Tier-1": 272,
-        "Tier-2": 966,
-        "Tier-3": 292
+        "Tier-1": 687,
+        "Tier-2": 604,
+        "Tier-3": 239
       },
       "bySource": {
-        "score-based": 1239,
-        "handler referral": 184,
-        "indicator review": 107
+        "online referral (ON)": 1147,
+        "batch sweep (BS)": 205,
+        "manual referral (MN)": 178
+      },
+      "bySystem": {
+        "CLARA": 1324,
+        "Claims Hub": 206
       }
     },
     "customerNotices": {
-      "issuedWithin10BusinessDays": 1505,
-      "deferred": 25,
+      "issuedWithin10BusinessDays": 1354,
+      "deferred": 66,
+      "pendingAtPeriodEnd": 110,
       "rule": "BR-FRD-032 v2 / BR-FRD-036 v1"
     },
     "adverseDecisionsOnScoreAlone": 0,
@@ -132,176 +137,210 @@
       {
         "product": "PRD-MOT-UK",
         "name": "Motor Private UK",
-        "referrals": 612
+        "region": "UK",
+        "referrals": 522
       },
       {
         "product": "PRD-HOM-UK",
         "name": "Home Buildings & Contents UK",
-        "referrals": 383
+        "region": "UK",
+        "referrals": 364
       },
       {
         "product": "PRD-COM-UK",
         "name": "Commercial Property UK",
-        "referrals": 92
+        "region": "UK",
+        "referrals": 71
       },
       {
         "product": "PRD-LIA-UK",
         "name": "SME Liability UK",
-        "referrals": 61
+        "region": "UK",
+        "referrals": 70
       },
       {
         "product": "PRD-MOT-NO",
         "name": "Motor Privat Norge",
-        "referrals": 92
-      },
-      {
-        "product": "PRD-HOM-NO",
-        "name": "Hjem Norge",
-        "referrals": 61
+        "region": "NO",
+        "referrals": 151
       },
       {
         "product": "PRD-MOT-SE",
         "name": "Motor Privat Sverige",
-        "referrals": 76
-      },
-      {
-        "product": "PRD-HOM-SE",
-        "name": "Hem Sverige",
-        "referrals": 61
+        "region": "SE",
+        "referrals": 81
       },
       {
         "product": "PRD-MOT-DK",
         "name": "Motor Privat Danmark",
-        "referrals": 46
+        "region": "DK",
+        "referrals": 45
+      },
+      {
+        "product": "PRD-HOM-NO",
+        "name": "Hjem Norge",
+        "region": "NO",
+        "referrals": 90
+      },
+      {
+        "product": "PRD-HOM-SE",
+        "name": "Hem Sverige",
+        "region": "SE",
+        "referrals": 77
       },
       {
         "product": "PRD-HOM-DK",
         "name": "Hjem Danmark",
-        "referrals": 46
+        "region": "DK",
+        "referrals": 59
       }
     ],
     "byClaimType": [
       {
         "claimType": "CT-COL",
         "name": "Collision",
-        "referrals": 337
+        "referrals": 421
       },
       {
         "claimType": "CT-THF",
         "name": "Theft",
-        "referrals": 245
+        "referrals": 146
       },
       {
         "claimType": "CT-WSC",
         "name": "Windscreen",
-        "referrals": 46
+        "referrals": 157
       },
       {
         "claimType": "CT-FIR",
         "name": "Fire",
-        "referrals": 92
+        "referrals": 60
       },
       {
         "claimType": "CT-EOW",
         "name": "Escape of Water",
-        "referrals": 199
+        "referrals": 217
       },
       {
         "claimType": "CT-STM",
         "name": "Storm",
-        "referrals": 61
-      },
-      {
-        "claimType": "CT-ACD",
-        "name": "Accidental Damage",
-        "referrals": 138
-      },
-      {
-        "claimType": "CT-VAN",
-        "name": "Vandalism / Malicious Damage",
-        "referrals": 76
-      },
-      {
-        "claimType": "CT-BIJ",
-        "name": "Bodily Injury",
-        "referrals": 214
-      },
-      {
-        "claimType": "CT-TPD",
-        "name": "Third-Party Property Damage",
-        "referrals": 76
+        "referrals": 118
       },
       {
         "claimType": "CT-FLD",
         "name": "Flood",
-        "referrals": 46
+        "referrals": 33
+      },
+      {
+        "claimType": "CT-SUB",
+        "name": "Subsidence",
+        "referrals": 11
+      },
+      {
+        "claimType": "CT-ACD",
+        "name": "Accidental Damage",
+        "referrals": 112
+      },
+      {
+        "claimType": "CT-VAN",
+        "name": "Vandalism / Malicious Damage",
+        "referrals": 63
+      },
+      {
+        "claimType": "CT-BIJ",
+        "name": "Bodily Injury",
+        "referrals": 44
+      },
+      {
+        "claimType": "CT-TPD",
+        "name": "Third-Party Property Damage",
+        "referrals": 75
+      },
+      {
+        "claimType": "CT-BIN",
+        "name": "Business Interruption",
+        "referrals": 12
+      },
+      {
+        "claimType": "CT-PLB",
+        "name": "Public Liability",
+        "referrals": 41
+      },
+      {
+        "claimType": "CT-FRO",
+        "name": "Frost Damage",
+        "referrals": 7
+      },
+      {
+        "claimType": "CT-SNO",
+        "name": "Snow Load",
+        "referrals": 13
       }
     ],
     "byChannel": {
-      "telephone": 719,
-      "portal": 337,
-      "app": 260,
-      "broker": 138,
-      "telematics": 46,
-      "post": 30
+      "telephone": 787,
+      "portal": 484,
+      "app": 108,
+      "broker": 127,
+      "telematics": 24
     },
     "byMonth": {
-      "2026-07": 505,
-      "2026-08": 510,
-      "2026-09": 515
+      "2026-07": 526,
+      "2026-08": 492,
+      "2026-09": 512
     },
     "noticeTiming": {
-      "within 5 business days": 949,
-      "6-10 business days": 459,
-      "deferred (BR-FRD-036)": 92,
-      "pending at period end": 30
+      "within 5 business days": 853,
+      "6-10 business days": 501,
+      "deferred (BR-FRD-036)": 66,
+      "pending at period end": 110
     }
   },
   "weekly": [
     {
       "weekStart": "2026-07-01",
       "weekEnd": "2026-07-05",
-      "referrals": 77
+      "referrals": 87
     },
     {
       "weekStart": "2026-07-06",
       "weekEnd": "2026-07-12",
-      "referrals": 108
+      "referrals": 118
     },
     {
       "weekStart": "2026-07-13",
       "weekEnd": "2026-07-19",
-      "referrals": 108
+      "referrals": 119
     },
     {
       "weekStart": "2026-07-20",
       "weekEnd": "2026-07-26",
-      "referrals": 117
+      "referrals": 107
     },
     {
       "weekStart": "2026-07-27",
       "weekEnd": "2026-08-02",
-      "referrals": 114
+      "referrals": 123
     },
     {
       "weekStart": "2026-08-03",
       "weekEnd": "2026-08-09",
-      "referrals": 107
+      "referrals": 101
     },
     {
       "weekStart": "2026-08-10",
       "weekEnd": "2026-08-16",
-      "referrals": 129
+      "referrals": 122
     },
     {
       "weekStart": "2026-08-17",
       "weekEnd": "2026-08-23",
-      "referrals": 124
+      "referrals": 105
     },
     {
       "weekStart": "2026-08-24",
       "weekEnd": "2026-08-30",
-      "referrals": 119
+      "referrals": 121
     },
     {
       "weekStart": "2026-08-31",
@@ -311,22 +350,22 @@
     {
       "weekStart": "2026-09-07",
       "weekEnd": "2026-09-13",
-      "referrals": 119
+      "referrals": 106
     },
     {
       "weekStart": "2026-09-14",
       "weekEnd": "2026-09-20",
-      "referrals": 111
+      "referrals": 144
     },
     {
       "weekStart": "2026-09-21",
       "weekEnd": "2026-09-27",
-      "referrals": 130
+      "referrals": 112
     },
     {
       "weekStart": "2026-09-28",
       "weekEnd": "2026-09-30",
-      "referrals": 46
+      "referrals": 44
     }
   ],
   "deferralAnnex": {
@@ -334,253 +373,663 @@
     "maxDeferralDays": 60,
     "records": [
       {
-        "claimRef": "CLM-NO-2026-294156",
-        "product": "PRD-MOT-NO",
-        "tier": "Tier-2",
-        "referralDate": "2026-07-03",
-        "noticeDueDate": "2026-07-17",
-        "deferralDays": 25,
-        "deferredUntil": "2026-08-11",
+        "claimRef": "CLM-UK-2026-172869",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-07-02",
+        "noticeDueDate": "2026-07-16",
+        "deferralDays": 36,
+        "deferredUntil": "2026-08-21",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-UK-2026-342715",
+        "claimRef": "CLM-UK-2026-175820",
         "product": "PRD-MOT-UK",
-        "tier": "Tier-2",
+        "tier": "Tier-1",
         "referralDate": "2026-07-06",
         "noticeDueDate": "2026-07-20",
-        "deferralDays": 19,
-        "deferredUntil": "2026-08-08",
+        "deferralDays": 18,
+        "deferredUntil": "2026-08-07",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-NO-2026-478386",
-        "product": "PRD-MOT-NO",
-        "tier": "Tier-3",
-        "referralDate": "2026-07-20",
-        "noticeDueDate": "2026-08-03",
-        "deferralDays": 13,
-        "deferredUntil": "2026-08-16",
-        "reason": "SIU certified tipping-off risk"
-      },
-      {
-        "claimRef": "CLM-SE-2026-479688",
-        "product": "PRD-MOT-SE",
+        "claimRef": "CLM-UK-2026-175465",
+        "product": "PRD-LIA-UK",
         "tier": "Tier-2",
+        "referralDate": "2026-07-07",
+        "noticeDueDate": "2026-07-21",
+        "deferralDays": 47,
+        "deferredUntil": "2026-09-06",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-177042",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-07-10",
+        "noticeDueDate": "2026-07-24",
+        "deferralDays": 14,
+        "deferredUntil": "2026-08-07",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-177881",
+        "product": "PRD-LIA-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-07-11",
+        "noticeDueDate": "2026-07-24",
+        "deferralDays": 41,
+        "deferredUntil": "2026-09-03",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-177799",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-07-12",
+        "noticeDueDate": "2026-07-24",
+        "deferralDays": 49,
+        "deferredUntil": "2026-09-11",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-177711",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-07-13",
+        "noticeDueDate": "2026-07-27",
+        "deferralDays": 28,
+        "deferredUntil": "2026-08-24",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-178526",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-07-13",
+        "noticeDueDate": "2026-07-27",
+        "deferralDays": 16,
+        "deferredUntil": "2026-08-12",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-SE-2026-110878",
+        "product": "PRD-HOM-SE",
+        "tier": "Tier-1",
+        "referralDate": "2026-07-14",
+        "noticeDueDate": "2026-07-28",
+        "deferralDays": 48,
+        "deferredUntil": "2026-09-14",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-176338",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-07-14",
+        "noticeDueDate": "2026-07-28",
+        "deferralDays": 41,
+        "deferredUntil": "2026-09-07",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-NO-2026-113148",
+        "product": "PRD-MOT-NO",
+        "tier": "Tier-1",
+        "referralDate": "2026-07-15",
+        "noticeDueDate": "2026-07-29",
+        "deferralDays": 32,
+        "deferredUntil": "2026-08-30",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-NO-2026-113284",
+        "product": "PRD-HOM-NO",
+        "tier": "Tier-3",
+        "referralDate": "2026-07-15",
+        "noticeDueDate": "2026-07-29",
+        "deferralDays": 22,
+        "deferredUntil": "2026-08-20",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-181730",
+        "product": "PRD-LIA-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-07-18",
+        "noticeDueDate": "2026-07-31",
+        "deferralDays": 37,
+        "deferredUntil": "2026-09-06",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-178670",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-07-19",
+        "noticeDueDate": "2026-07-31",
+        "deferralDays": 15,
+        "deferredUntil": "2026-08-15",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-181623",
+        "product": "PRD-LIA-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-07-19",
+        "noticeDueDate": "2026-07-31",
+        "deferralDays": 24,
+        "deferredUntil": "2026-08-24",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-182158",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-07-19",
+        "noticeDueDate": "2026-07-31",
+        "deferralDays": 43,
+        "deferredUntil": "2026-09-12",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-182949",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-07-23",
+        "noticeDueDate": "2026-08-06",
+        "deferralDays": 19,
+        "deferredUntil": "2026-08-25",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-184378",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-3",
         "referralDate": "2026-07-24",
         "noticeDueDate": "2026-08-07",
-        "deferralDays": 43,
-        "deferredUntil": "2026-09-19",
+        "deferralDays": 25,
+        "deferredUntil": "2026-09-01",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-NO-2026-348006",
-        "product": "PRD-MOT-NO",
+        "claimRef": "CLM-UK-2026-183956",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-07-25",
+        "noticeDueDate": "2026-08-07",
+        "deferralDays": 49,
+        "deferredUntil": "2026-09-25",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-184405",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-07-25",
+        "noticeDueDate": "2026-08-07",
+        "deferralDays": 49,
+        "deferredUntil": "2026-09-25",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-183713",
+        "product": "PRD-HOM-UK",
         "tier": "Tier-2",
         "referralDate": "2026-07-27",
         "noticeDueDate": "2026-08-10",
-        "deferralDays": 48,
-        "deferredUntil": "2026-09-27",
+        "deferralDays": 20,
+        "deferredUntil": "2026-08-30",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-UK-2026-203859",
-        "product": "PRD-COM-UK",
-        "tier": "Tier-3",
-        "referralDate": "2026-08-07",
-        "noticeDueDate": "2026-08-21",
-        "deferralDays": 32,
-        "deferredUntil": "2026-09-22",
+        "claimRef": "CLM-UK-2026-186048",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-07-29",
+        "noticeDueDate": "2026-08-12",
+        "deferralDays": 28,
+        "deferredUntil": "2026-09-09",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-DK-2026-242911",
-        "product": "PRD-MOT-DK",
+        "claimRef": "CLM-UK-2026-185946",
+        "product": "PRD-HOM-UK",
         "tier": "Tier-3",
-        "referralDate": "2026-08-14",
-        "noticeDueDate": "2026-08-28",
-        "deferralDays": 43,
-        "deferredUntil": "2026-10-10",
+        "referralDate": "2026-07-30",
+        "noticeDueDate": "2026-08-13",
+        "deferralDays": 17,
+        "deferredUntil": "2026-08-30",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-SE-2026-392223",
-        "product": "PRD-MOT-SE",
-        "tier": "Tier-3",
-        "referralDate": "2026-08-17",
-        "noticeDueDate": "2026-09-01",
-        "deferralDays": 33,
+        "claimRef": "CLM-UK-2026-186791",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-07-30",
+        "noticeDueDate": "2026-08-13",
+        "deferralDays": 52,
         "deferredUntil": "2026-10-04",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-DK-2026-358831",
-        "product": "PRD-MOT-DK",
+        "claimRef": "CLM-NO-2026-114670",
+        "product": "PRD-HOM-NO",
+        "tier": "Tier-2",
+        "referralDate": "2026-08-01",
+        "noticeDueDate": "2026-08-14",
+        "deferralDays": 28,
+        "deferredUntil": "2026-09-11",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-187369",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-08-06",
+        "noticeDueDate": "2026-08-20",
+        "deferralDays": 47,
+        "deferredUntil": "2026-10-06",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-189620",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-08-07",
+        "noticeDueDate": "2026-08-21",
+        "deferralDays": 26,
+        "deferredUntil": "2026-09-16",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-191131",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-08-11",
+        "noticeDueDate": "2026-08-25",
+        "deferralDays": 16,
+        "deferredUntil": "2026-09-10",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-190158",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-08-12",
+        "noticeDueDate": "2026-08-26",
+        "deferralDays": 24,
+        "deferredUntil": "2026-09-19",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-190893",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-08-12",
+        "noticeDueDate": "2026-08-26",
+        "deferralDays": 28,
+        "deferredUntil": "2026-09-23",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-192303",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-08-14",
+        "noticeDueDate": "2026-08-28",
+        "deferralDays": 39,
+        "deferredUntil": "2026-10-06",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-192391",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-08-14",
+        "noticeDueDate": "2026-08-28",
+        "deferralDays": 57,
+        "deferredUntil": "2026-10-24",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-189228",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-08-15",
+        "noticeDueDate": "2026-08-28",
+        "deferralDays": 53,
+        "deferredUntil": "2026-10-20",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-193874",
+        "product": "PRD-COM-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-08-15",
+        "noticeDueDate": "2026-08-28",
+        "deferralDays": 24,
+        "deferredUntil": "2026-09-21",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-193760",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-08-16",
+        "noticeDueDate": "2026-08-28",
+        "deferralDays": 14,
+        "deferredUntil": "2026-09-11",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-193267",
+        "product": "PRD-MOT-UK",
         "tier": "Tier-2",
         "referralDate": "2026-08-18",
         "noticeDueDate": "2026-09-02",
-        "deferralDays": 42,
-        "deferredUntil": "2026-10-14",
+        "deferralDays": 40,
+        "deferredUntil": "2026-10-12",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-UK-2026-284303",
-        "product": "PRD-MOT-UK",
-        "tier": "Tier-3",
-        "referralDate": "2026-08-24",
-        "noticeDueDate": "2026-09-08",
-        "deferralDays": 48,
-        "deferredUntil": "2026-10-26",
-        "reason": "SIU certified tipping-off risk"
-      },
-      {
-        "claimRef": "CLM-DK-2026-481732",
-        "product": "PRD-HOM-DK",
+        "claimRef": "CLM-SE-2026-113111",
+        "product": "PRD-HOM-SE",
         "tier": "Tier-1",
-        "referralDate": "2026-08-26",
-        "noticeDueDate": "2026-09-10",
-        "deferralDays": 58,
-        "deferredUntil": "2026-11-07",
-        "reason": "SIU certified tipping-off risk"
-      },
-      {
-        "claimRef": "CLM-DK-2026-324640",
-        "product": "PRD-MOT-DK",
-        "tier": "Tier-2",
-        "referralDate": "2026-08-31",
-        "noticeDueDate": "2026-09-14",
-        "deferralDays": 13,
-        "deferredUntil": "2026-09-27",
-        "reason": "SIU certified tipping-off risk"
-      },
-      {
-        "claimRef": "CLM-UK-2026-223076",
-        "product": "PRD-LIA-UK",
-        "tier": "Tier-2",
-        "referralDate": "2026-09-02",
-        "noticeDueDate": "2026-09-16",
-        "deferralDays": 25,
-        "deferredUntil": "2026-10-11",
-        "reason": "SIU certified tipping-off risk"
-      },
-      {
-        "claimRef": "CLM-NO-2026-469198",
-        "product": "PRD-MOT-NO",
-        "tier": "Tier-2",
-        "referralDate": "2026-09-04",
-        "noticeDueDate": "2026-09-18",
-        "deferralDays": 37,
-        "deferredUntil": "2026-10-25",
-        "reason": "SIU certified tipping-off risk"
-      },
-      {
-        "claimRef": "CLM-UK-2026-173962",
-        "product": "PRD-HOM-UK",
-        "tier": "Tier-3",
-        "referralDate": "2026-09-09",
-        "noticeDueDate": "2026-09-23",
-        "deferralDays": 21,
-        "deferredUntil": "2026-10-14",
-        "reason": "SIU certified tipping-off risk"
-      },
-      {
-        "claimRef": "CLM-UK-2026-184695",
-        "product": "PRD-HOM-UK",
-        "tier": "Tier-3",
-        "referralDate": "2026-09-11",
-        "noticeDueDate": "2026-09-25",
-        "deferralDays": 45,
-        "deferredUntil": "2026-11-09",
-        "reason": "SIU certified tipping-off risk"
-      },
-      {
-        "claimRef": "CLM-DK-2026-323101",
-        "product": "PRD-HOM-DK",
-        "tier": "Tier-2",
-        "referralDate": "2026-09-14",
-        "noticeDueDate": "2026-09-28",
-        "deferralDays": 21,
-        "deferredUntil": "2026-10-19",
-        "reason": "SIU certified tipping-off risk"
-      },
-      {
-        "claimRef": "CLM-UK-2026-153875",
-        "product": "PRD-MOT-UK",
-        "tier": "Tier-3",
-        "referralDate": "2026-09-16",
-        "noticeDueDate": "2026-09-30",
-        "deferralDays": 23,
+        "referralDate": "2026-08-19",
+        "noticeDueDate": "2026-09-02",
+        "deferralDays": 51,
         "deferredUntil": "2026-10-23",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-UK-2026-299710",
+        "claimRef": "CLM-UK-2026-196850",
         "product": "PRD-MOT-UK",
-        "tier": "Tier-2",
-        "referralDate": "2026-09-17",
-        "noticeDueDate": "2026-10-01",
-        "deferralDays": 27,
-        "deferredUntil": "2026-10-28",
+        "tier": "Tier-1",
+        "referralDate": "2026-08-20",
+        "noticeDueDate": "2026-09-04",
+        "deferralDays": 31,
+        "deferredUntil": "2026-10-05",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-UK-2026-278075",
+        "claimRef": "CLM-NO-2026-116391",
+        "product": "PRD-HOM-NO",
+        "tier": "Tier-1",
+        "referralDate": "2026-08-22",
+        "noticeDueDate": "2026-09-04",
+        "deferralDays": 17,
+        "deferredUntil": "2026-09-21",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-NO-2026-116514",
+        "product": "PRD-HOM-NO",
+        "tier": "Tier-3",
+        "referralDate": "2026-08-22",
+        "noticeDueDate": "2026-09-04",
+        "deferralDays": 34,
+        "deferredUntil": "2026-10-08",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-197809",
         "product": "PRD-MOT-UK",
         "tier": "Tier-3",
-        "referralDate": "2026-09-21",
-        "noticeDueDate": "2026-10-05",
-        "deferralDays": 27,
-        "deferredUntil": "2026-11-01",
+        "referralDate": "2026-08-25",
+        "noticeDueDate": "2026-09-09",
+        "deferralDays": 44,
+        "deferredUntil": "2026-10-23",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-UK-2026-375086",
-        "product": "PRD-LIA-UK",
-        "tier": "Tier-1",
-        "referralDate": "2026-09-21",
-        "noticeDueDate": "2026-10-05",
-        "deferralDays": 57,
-        "deferredUntil": "2026-12-01",
-        "reason": "SIU certified tipping-off risk"
-      },
-      {
-        "claimRef": "CLM-UK-2026-434311",
+        "claimRef": "CLM-UK-2026-198624",
         "product": "PRD-HOM-UK",
-        "tier": "Tier-2",
-        "referralDate": "2026-09-21",
-        "noticeDueDate": "2026-10-05",
-        "deferralDays": 21,
-        "deferredUntil": "2026-10-26",
+        "tier": "Tier-3",
+        "referralDate": "2026-08-27",
+        "noticeDueDate": "2026-09-11",
+        "deferralDays": 16,
+        "deferredUntil": "2026-09-27",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-SE-2026-241009",
+        "claimRef": "CLM-SE-2026-113084",
         "product": "PRD-HOM-SE",
         "tier": "Tier-2",
-        "referralDate": "2026-09-22",
-        "noticeDueDate": "2026-10-06",
-        "deferralDays": 36,
-        "deferredUntil": "2026-11-11",
+        "referralDate": "2026-08-29",
+        "noticeDueDate": "2026-09-11",
+        "deferralDays": 29,
+        "deferredUntil": "2026-10-10",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-SE-2026-305638",
-        "product": "PRD-HOM-SE",
+        "claimRef": "CLM-DK-2026-110585",
+        "product": "PRD-HOM-DK",
         "tier": "Tier-1",
-        "referralDate": "2026-09-22",
-        "noticeDueDate": "2026-10-06",
-        "deferralDays": 55,
-        "deferredUntil": "2026-11-30",
+        "referralDate": "2026-08-31",
+        "noticeDueDate": "2026-09-14",
+        "deferralDays": 50,
+        "deferredUntil": "2026-11-03",
         "reason": "SIU certified tipping-off risk"
       },
       {
-        "claimRef": "CLM-NO-2026-120922",
+        "claimRef": "CLM-UK-2026-200494",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-09-02",
+        "noticeDueDate": "2026-09-16",
+        "deferralDays": 31,
+        "deferredUntil": "2026-10-17",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-NO-2026-117196",
         "product": "PRD-HOM-NO",
         "tier": "Tier-2",
-        "referralDate": "2026-09-25",
+        "referralDate": "2026-09-03",
+        "noticeDueDate": "2026-09-17",
+        "deferralDays": 12,
+        "deferredUntil": "2026-09-29",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-197774",
+        "product": "PRD-COM-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-09-03",
+        "noticeDueDate": "2026-09-17",
+        "deferralDays": 22,
+        "deferredUntil": "2026-10-09",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-200653",
+        "product": "PRD-LIA-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-09-03",
+        "noticeDueDate": "2026-09-17",
+        "deferralDays": 48,
+        "deferredUntil": "2026-11-04",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-203383",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-09-07",
+        "noticeDueDate": "2026-09-21",
+        "deferralDays": 43,
+        "deferredUntil": "2026-11-03",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-201571",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-09-08",
+        "noticeDueDate": "2026-09-22",
+        "deferralDays": 20,
+        "deferredUntil": "2026-10-12",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-203856",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-09-10",
+        "noticeDueDate": "2026-09-24",
+        "deferralDays": 20,
+        "deferredUntil": "2026-10-14",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-SE-2026-114688",
+        "product": "PRD-MOT-SE",
+        "tier": "Tier-2",
+        "referralDate": "2026-09-11",
+        "noticeDueDate": "2026-09-25",
+        "deferralDays": 56,
+        "deferredUntil": "2026-11-20",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-203046",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-09-11",
+        "noticeDueDate": "2026-09-25",
+        "deferralDays": 14,
+        "deferredUntil": "2026-10-09",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-204590",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-09-12",
+        "noticeDueDate": "2026-09-25",
+        "deferralDays": 57,
+        "deferredUntil": "2026-11-21",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-205015",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-09-12",
+        "noticeDueDate": "2026-09-25",
+        "deferralDays": 32,
+        "deferredUntil": "2026-10-27",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-NO-2026-117919",
+        "product": "PRD-HOM-NO",
+        "tier": "Tier-1",
+        "referralDate": "2026-09-13",
+        "noticeDueDate": "2026-09-25",
+        "deferralDays": 26,
+        "deferredUntil": "2026-10-21",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-203296",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-09-13",
+        "noticeDueDate": "2026-09-25",
+        "deferralDays": 15,
+        "deferredUntil": "2026-10-10",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-205718",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-2",
+        "referralDate": "2026-09-15",
+        "noticeDueDate": "2026-09-29",
+        "deferralDays": 22,
+        "deferredUntil": "2026-10-21",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-205803",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-09-16",
+        "noticeDueDate": "2026-09-30",
+        "deferralDays": 25,
+        "deferredUntil": "2026-10-25",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-206996",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-09-17",
+        "noticeDueDate": "2026-10-01",
+        "deferralDays": 46,
+        "deferredUntil": "2026-11-16",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-SE-2026-114591",
+        "product": "PRD-HOM-SE",
+        "tier": "Tier-3",
+        "referralDate": "2026-09-18",
+        "noticeDueDate": "2026-10-02",
+        "deferralDays": 33,
+        "deferredUntil": "2026-11-04",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-206332",
+        "product": "PRD-LIA-UK",
+        "tier": "Tier-3",
+        "referralDate": "2026-09-18",
+        "noticeDueDate": "2026-10-02",
+        "deferralDays": 29,
+        "deferredUntil": "2026-10-31",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-207342",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-09-18",
+        "noticeDueDate": "2026-10-02",
+        "deferralDays": 18,
+        "deferredUntil": "2026-10-20",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-205411",
+        "product": "PRD-MOT-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-09-21",
+        "noticeDueDate": "2026-10-05",
+        "deferralDays": 53,
+        "deferredUntil": "2026-11-27",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-UK-2026-210272",
+        "product": "PRD-HOM-UK",
+        "tier": "Tier-1",
+        "referralDate": "2026-09-27",
         "noticeDueDate": "2026-10-09",
-        "deferralDays": 31,
-        "deferredUntil": "2026-11-09",
+        "deferralDays": 30,
+        "deferredUntil": "2026-11-08",
+        "reason": "SIU certified tipping-off risk"
+      },
+      {
+        "claimRef": "CLM-SE-2026-115704",
+        "product": "PRD-HOM-SE",
+        "tier": "Tier-3",
+        "referralDate": "2026-09-29",
+        "noticeDueDate": "2026-10-13",
+        "deferralDays": 42,
+        "deferredUntil": "2026-11-24",
         "reason": "SIU certified tipping-off risk"
       }
     ]
@@ -640,7 +1089,7 @@
   "lineage": [
     {
       "step": 1,
-      "what": "Referral records in CLR.T_FRAUD_REFERRAL and fraud.referral (Claims Hub, migrated UK motor)"
+      "what": "Referral records in CLR.T_FRAUD_REFERRAL and fraud.referral (Claims Hub, migrated products PRD-HOM-DK, PRD-MOT-DK, PRD-MOT-UK)"
     },
     {
       "step": 2,
@@ -673,21 +1122,26 @@
     },
     {
       "id": "C04",
-      "check": "notice records exist for every non-deferred referral",
+      "check": "every non-deferred referral has a notice issued, or pending inside its 10-business-day window",
       "result": "PASS"
     },
     {
       "id": "C05",
-      "check": "deferrals carry an approval record",
+      "check": "notice timing, deferred and pending counts sum to referralsTotal",
       "result": "PASS"
     },
     {
       "id": "C06",
-      "check": "CLARA and Claims Hub counts reconciled for migrated claims",
+      "check": "deferrals carry an approval record",
       "result": "PASS"
     },
     {
       "id": "C07",
+      "check": "CLARA and Claims Hub counts reconciled for migrated claims",
+      "result": "PASS"
+    },
+    {
+      "id": "C08",
       "check": "schema validation against FR1 v1.0",
       "result": "PASS"
     }
@@ -716,8 +1170,8 @@
     }
   },
   "declarations": [
-    "The figures were extracted from CLARA (CLRFR090) and reconciled to Claims Hub fraud-referral-svc for migrated UK motor claims.",
+    "The figures were extracted from CLARA (CLRFR090) and reconciled to Claims Hub fraud-referral-svc for migrated products PRD-HOM-DK, PRD-MOT-DK, PRD-MOT-UK.",
     "No claim was declined, reduced or repudiated on the basis of an automated score alone (BR-FRD-033).",
-    "Approval is recorded in the change history; reviewers are listed for traceability."
+    "Where possible, where this document and the system of record disagree, the system of record prevails and the owner is informed."
   ]
 }

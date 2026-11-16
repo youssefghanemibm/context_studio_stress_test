@@ -2,7 +2,7 @@ CORVANE MUTUAL - PROGRAMME SKERRY
 Stand-up transcript - Hub Squad: Intake & Triage
 --------------------------------------------------------------------------------
 Ref: SQD-IT-SU-2026-10-05    Date: Monday 5 October 2026    Start: 09:00 UK time    Length: about 14 minutes
-Team: Hub Squad - Intake & Triage (fnol-intake-svc, triage-svc, assessment-svc, claim-core-svc, notification-svc)
+Team: Hub Squad - Intake & Triage (fnol-intake-svc, triage-svc, assessment-svc, claim-core-svc, notification-svc, document-svc)
 Transcribed by: automatic transcription; tidied by Sofie Bak (Engineering Lead – Intake & Triage Squad)
 Classification: Internal
 

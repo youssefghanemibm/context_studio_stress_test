@@ -32,7 +32,7 @@
     <contact title="Batch Operations Lead">Sunita Vaghela</contact>
     <calendar>UK business-day calendar with Nordic holidays applied to Nordic jobs</calendar>
   </scheduleHeader>
-  <jobs count="32">
+  <jobs count="31">
     <job name="CLRNFN01" status="active" ownerTeam="T25" scheduler="SYS18">
       <description>Nightly FNOL imports</description>
       <schedule>daily 22:30</schedule>
@@ -342,7 +342,7 @@
 //STEP010  EXEC PGM=CLRRS170
 //STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
 //RSVOUT   DD DSN=CLR.PROD.RSVMOVE.DAILY(+1),DISP=(NEW,CATLG,DELETE),
-//            SPACE=(CYL,(50,20),RLSE),DCB=(RECFM=FB,LRECL=100)
+//            SPACE=(CYL,(20,10),RLSE),DCB=(RECFM=FB,LRECL=116,BLKSIZE=0)
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
@@ -578,35 +578,6 @@
         <action order="3">After a successful rerun, check the downstream trigger datasets were created.</action>
       </abendActions>
     </job>
-    <job name="CLRQFR01" status="active" ownerTeam="T25" scheduler="SYS18">
-      <description>Quarterly NISA-FR1 extract</description>
-      <schedule>quarterly, 5th business day after quarter end</schedule>
-      <steps>
-        <step name="STEP010" program="CLRFR090" area="FRAUD">
-          <description>NISA-FR1 quarterly fraud referral return extract (CLX-IF-033)</description>
-          <reads>CLR.T_CLAIM_LINK</reads>
-          <writes>CLR.T_NISA_RETURN</writes>
-          <copybooks>FRDLNK01 NISARET1 CLRERR01</copybooks>
-          <developer email="pauline.ashworth@corvane-mutual.example">Pauline Ashworth</developer>
-        </step>
-      </steps>
-      <interfaces>
-        <interface ref="CLX-IF-033">Fraud referral return (NISA-FR1)</interface>
-      </interfaces>
-      <restart>Standard restart: rerun from the failed step after the cause is fixed.</restart>
-      <jcl><![CDATA[
-//CLRQFR01 JOB (CLR,BATCH),'QUARTERLY NISA-FR1 E',CLASS=B,MSGCLASS=X,
-//         NOTIFY=&SYSUID
-//STEP010  EXEC PGM=CLRFR090
-//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR
-//SYSOUT   DD SYSOUT=*
-]]></jcl>
-      <abendActions>
-        <action order="1">Abends caused by data are handed to the development team with the failing key.</action>
-        <action order="2">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
-        <action order="3">After a successful rerun, check the downstream trigger datasets were created.</action>
-      </abendActions>
-    </job>
     <job name="CLRNFR99" status="disabled" ownerTeam="T25" scheduler="SYS18">
       <description>Auto-decline sweep (disabled 2026-04-01)</description>
       <schedule>removed from schedule 2026-04-01 (was daily 00:45)</schedule>
@@ -628,9 +599,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">Check the job log for the first abend message rather than the last one.</action>
-        <action order="2">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
-        <action order="3">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
+        <action order="1">Abends caused by data are handed to the development team with the failing key.</action>
+        <action order="2">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
+        <action order="3">After a successful rerun, check the downstream trigger datasets were created.</action>
       </abendActions>
     </job>
     <job name="CLRNSTL1" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -674,9 +645,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
-        <action order="2">Check the job log for the first abend message rather than the last one.</action>
-        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="1">Check the job log for the first abend message rather than the last one.</action>
+        <action order="2">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+        <action order="3">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
       </abendActions>
     </job>
     <job name="CLRNPAY1" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -726,9 +697,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">Record every manual action in the shift log with the time and the operator ID.</action>
-        <action order="2">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
-        <action order="3">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+        <action order="1">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+        <action order="2">Check the job log for the first abend message rather than the last one.</action>
+        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
       </abendActions>
     </job>
     <job name="CLRNPAY2" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -755,9 +726,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
-        <action order="2">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
-        <action order="3">Check the job log for the first abend message rather than the last one.</action>
+        <action order="1">Record every manual action in the shift log with the time and the operator ID.</action>
+        <action order="2">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="3">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
       </abendActions>
     </job>
     <job name="CLRWPAY1" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -781,7 +752,7 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+        <action order="1">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
         <action order="2">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
         <action order="3">Check the job log for the first abend message rather than the last one.</action>
       </abendActions>
@@ -842,9 +813,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="1">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
         <action order="2">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
-        <action order="3">Data fixes are never applied directly in production tables; raise a change.</action>
+        <action order="3">Check the job log for the first abend message rather than the last one.</action>
       </abendActions>
     </job>
     <job name="CLRWRC01" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -870,9 +841,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">Record every manual action in the shift log with the time and the operator ID.</action>
-        <action order="2">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
-        <action order="3">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+        <action order="1">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="2">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+        <action order="3">Data fixes are never applied directly in production tables; raise a change.</action>
       </abendActions>
     </job>
     <job name="CLRNGL01" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -921,9 +892,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">Abends caused by data are handed to the development team with the failing key.</action>
-        <action order="2">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
-        <action order="3">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
+        <action order="1">Record every manual action in the shift log with the time and the operator ID.</action>
+        <action order="2">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="3">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
       </abendActions>
     </job>
     <job name="CLRMGL01" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -976,9 +947,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">Check the job log for the first abend message rather than the last one.</action>
-        <action order="2">Abends caused by data are handed to the development team with the failing key.</action>
-        <action order="3">Record every manual action in the shift log with the time and the operator ID.</action>
+        <action order="1">Abends caused by data are handed to the development team with the failing key.</action>
+        <action order="2">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+        <action order="3">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
       </abendActions>
     </job>
     <job name="CLRYGL90" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -1002,9 +973,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
-        <action order="2">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
-        <action order="3">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+        <action order="1">Check the job log for the first abend message rather than the last one.</action>
+        <action order="2">Abends caused by data are handed to the development team with the failing key.</action>
+        <action order="3">Record every manual action in the shift log with the time and the operator ID.</action>
       </abendActions>
     </job>
     <job name="CLRNRP01" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -1051,9 +1022,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">After a successful rerun, check the downstream trigger datasets were created.</action>
-        <action order="2">Data fixes are never applied directly in production tables; raise a change.</action>
-        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="1">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="2">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+        <action order="3">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
       </abendActions>
     </job>
     <job name="CLRMRP01" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -1107,9 +1078,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
-        <action order="2">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
-        <action order="3">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+        <action order="1">After a successful rerun, check the downstream trigger datasets were created.</action>
+        <action order="2">Data fixes are never applied directly in production tables; raise a change.</action>
+        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
       </abendActions>
     </job>
     <job name="CLRQRP01" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -1156,9 +1127,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
-        <action order="2">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
-        <action order="3">Check the job log for the first abend message rather than the last one.</action>
+        <action order="1">Do not cancel a job that is waiting on a dataset enqueue without consulting the on-call developer.</action>
+        <action order="2">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
+        <action order="3">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
       </abendActions>
     </job>
     <job name="CLRWCM01" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -1192,9 +1163,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">Record every manual action in the shift log with the time and the operator ID.</action>
-        <action order="2">Check the job log for the first abend message rather than the last one.</action>
-        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="1">Keep the incident bridge informed at regular intervals while a critical job is down.</action>
+        <action order="2">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+        <action order="3">Check the job log for the first abend message rather than the last one.</action>
       </abendActions>
     </job>
     <job name="CLRNMI01" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -1244,9 +1215,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
-        <action order="2">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
-        <action order="3">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
+        <action order="1">Record every manual action in the shift log with the time and the operator ID.</action>
+        <action order="2">Check the job log for the first abend message rather than the last one.</action>
+        <action order="3">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
       </abendActions>
     </job>
     <job name="CLRWMI01" status="active" ownerTeam="T25" scheduler="SYS18">
@@ -1287,9 +1258,9 @@
 //SYSOUT   DD SYSOUT=*
 ]]></jcl>
       <abendActions>
-        <action order="1">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
-        <action order="2">Check the job log for the first abend message rather than the last one.</action>
-        <action order="3">After a successful rerun, check the downstream trigger datasets were created.</action>
+        <action order="1">Restarts outside the batch window need the agreement of the CLARA platform on-call lead.</action>
+        <action order="2">If the same step fails twice, stop and escalate; repeated reruns make diagnosis harder.</action>
+        <action order="3">Before restarting, confirm with the Batch Scheduler that no dependent job has started.</action>
       </abendActions>
     </job>
   </jobs>

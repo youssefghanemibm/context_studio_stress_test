@@ -50,6 +50,11 @@ def gbp(v: float, dp: int = 0) -> str:
 
 _RENAMES = [
     # (cutover date, new text, old text)
+    # BR-RSV-012 v1 text names the reserve-engine revaluation run decided in ADR-028 (2026-03-09)
+    ("2026-03-09", "; reserve-engine revaluation runs from Wave 2", ""),
+    # the NISA-FR1 return exists only from NISA Circular 2026/04 (published 2025-11-20)
+    ("2025-11-20", "TP2, FR1, CT1", "TP2, CT1"),
+    ("2025-11-20", " (NISA-FR1 support)", ""),
     ("2025-11-03", "DOCSTOR / Evidence Vault", "DOCSTOR"),
     ("2025-11-03", "Evidence Vault (formerly DOCSTOR)", "DOCSTOR"),
     ("2025-11-03", "Evidence Vault", "DOCSTOR"),

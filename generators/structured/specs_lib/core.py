@@ -129,6 +129,29 @@ def team_exists(tid: str, on: str) -> bool:
     return str(t.get("formed") or "0000") <= on
 
 
+def program_exists(pid: str, on: str) -> bool:
+    """A CLARA program exists from its `since` date (programs.yaml)."""
+    return str(W.programs[pid]["since"]) <= on
+
+
+def jcl_jobs_as_of(on: str) -> list[tuple[str, dict, list[dict]]]:
+    """(name, job, steps) for the JCL jobs that exist on `on`.
+
+    jcl_jobs.yaml has no dates of its own: a job exists once one of its step programs exists, and only the
+    steps whose program exists are listed (CLRQFR01/CLRFR090 appear from 2026-06-26, not before).
+    """
+    out = []
+    for name, j in W.jcl_jobs.items():
+        steps = [st for st in j["steps"] if program_exists(st["program"], on)]
+        if steps:
+            out.append((name, j, steps))
+    return out
+
+
+def interface_exists(iid: str, on: str) -> bool:
+    return str(W.interfaces[iid]["since"]) <= on
+
+
 # ---------------------------------------------------------------------------------------------
 # Exclusivity
 # ---------------------------------------------------------------------------------------------
@@ -177,6 +200,7 @@ FORBIDDEN = [
     r"611\.9", r"2,318\.4", r"LEGACY_SKADE_REF", r"FR-REQ-014", r"SMS counts", r"Brynholt", r"Calderbank",
     r"SEK 4,900", r"\bPL-\d{3}\b", r"\bneedle\b", r"\bcanary\b", r"Context Studio", r"knowledge graph",
     r"\bLLM\b", r"\bRAG\b", r"23:30\s?[-–]\s?03:30", r"(?<![\d.])0\.87\b",
+    r"CLR-2025-02",   # the import baseline name belongs to the CM-01 commit message only (PL-266)
     r"clara-platform", r"kbarraclough", r"Testy McTestface", r"changeme-not-a-secret", r"@example\.com", r"\b555[-. ]\d{4}\b",
 ]
 FORBIDDEN_EXCEPT = {

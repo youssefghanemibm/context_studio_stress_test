@@ -547,7 +547,7 @@ def build_placements():
       hint="requirement FR-REQ-011", headline="Q2")
     P("ld16_frreq014", "LD016", "needle", "Requirement FR-REQ-014: the auto-decline sweep CLRFR140 is disabled from 2026-04-01.", "ANCHOR:LD016#requirements.FR-REQ-014", excl=True,
       hint="requirements table")
-    P("ld17_t3_40k", "LD017", "contradiction_old", "CLARA spec v3.4 (2021): a claim is Tier-3 at an estimated incurred of £40,000 or more.",
+    P("ld17_t3_40k", "LD017", "contradiction_old", "CLARA spec v3.4 (2021): from 2022-01-01 (BR-TRI-003 v2) a claim is Tier-3 at an estimated incurred of £40,000 or more.",
       "RULE:BR-TRI-003@v2#parameters.tier3_min_gbp", hint="§3.2 tiering")
     P("ld17_cics", "LD017", "needle", "CLARA runs in CICS regions CICSPRD1 (online claims) and CICSPRD2 (fraud, settlement and recoveries).", "SYSTEM:SYS01#cics_regions",
       excl=True, hint="§2.1 runtime")
@@ -838,7 +838,7 @@ def build_placements():
       "PROGRAM:CLRST040#writes_tables:CLR.T_RESERVE", hint="paragraph 5000-CLOSE-RESERVE", headline="Q1")
     P("c_rc050", "CODE:a:legacy/clara/cobol/CLRRC050.cbl", "code_fact", "CLRRC050 updates RSV_RECOVERY_EST_AMT and RSV_OUTSTANDING_AMT on CLR.T_RESERVE when a recovery receipt is posted.",
       "PROGRAM:CLRRC050#writes_tables:CLR.T_RESERVE", hint="paragraph 3000-POST-RECEIPT", headline="Q1")
-    P("c_rs010", "CODE:a:legacy/clara/cobol/CLRRS010.cbl", "code_fact", "CLRRS010 inserts into CLR.T_RESERVE and calls CLRRS015, CLRCM030, CLRCM040 and CLRCM020.",
+    P("c_rs010", "CODE:a:legacy/clara/cobol/CLRRS010.cbl", "code_fact", "CLRRS010 inserts into CLR.T_RESERVE and calls CLRRS015, CLRCM030, CLRCM040, CLRCM020, CLRCM050 and CLRCM070.",
       "PROGRAM:CLRRS010#calls_programs", hint="CALL statements", headline="Q1")
     P("c_rs020", "CODE:a:legacy/clara/cobol/CLRRS020.cbl", "code_fact", "CLRRS020 updates CLR.T_RESERVE (reserve adjustment) after CALL 'CLRRS015'.", "PROGRAM:CLRRS020#writes_tables:CLR.T_RESERVE",
       hint="paragraph 3000-ADJUST", headline="Q1")

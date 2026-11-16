@@ -42,6 +42,8 @@ tags:
   description: Current reserves per claim
 - name: movements
   description: Reserve movements and history
+- name: revaluation
+  description: Currency revaluation runs
 paths:
   /reserves/{claimId}:
     get:
@@ -191,6 +193,68 @@ paths:
               examples:
                 MovementHistoryPage:
                   $ref: '#/components/examples/MovementHistoryPage'
+        '400':
+          description: Request failed validation.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: Missing or invalid CIS token.
+        '403':
+          description: Caller lacks the required scope or authority.
+        '404':
+          description: Resource not found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          description: Unexpected error.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /revaluation-runs:
+    post:
+      summary: Trigger a currency revaluation run (replaces CLRGL090)
+      operationId: TriggerRevaluationRun
+      tags:
+      - revaluation
+      parameters:
+      - $ref: '#/components/parameters/CorrelationId'
+      - $ref: '#/components/parameters/IdempotencyKey'
+      security:
+      - cis:
+        - reserve.write
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevaluationRunRequest'
+            example:
+              rateDate: '2024-12-31'
+              currencies:
+              - NOK
+              - SEK
+              - DKK
+      responses:
+        '202':
+          description: Revaluation run accepted.
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+            X-Correlation-Id:
+              $ref: '#/components/headers/X-Correlation-Id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RevaluationRun'
         '400':
           description: Request failed validation.
           content:
@@ -376,6 +440,43 @@ components:
             $ref: '#/components/schemas/Movement'
         nextCursor:
           type: string
+    RevaluationRunRequest:
+      type: object
+      required:
+      - rateDate
+      properties:
+        rateDate:
+          type: string
+          format: date
+          description: Date of the currency rates to apply.
+        currencies:
+          type: array
+          items:
+            type: string
+            enum:
+            - NOK
+            - SEK
+            - DKK
+          description: 'Reserve currencies to revalue to GBP (default: all three).'
+    RevaluationRun:
+      type: object
+      properties:
+        runId:
+          type: string
+          format: uuid
+        rateDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+          - ACCEPTED
+          - RUNNING
+          - COMPLETED
+          - FAILED
+        requestedAt:
+          type: string
+          format: date-time
     Problem:
       type: object
       description: RFC 7807 problem details with a stable error code.
@@ -646,6 +747,7 @@ x-events:
   note: Events are published after commit (outbox).
 x-replaces-programs:
 - CLRFN030
+- CLRGL090
 - CLRRS010
 - CLRRS015
 - CLRRS020

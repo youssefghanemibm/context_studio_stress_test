@@ -180,13 +180,18 @@ def build() -> Doc:
                 "Settlement and payments": "S6", "Recovery": "S7"}
     for k, (cap, scope) in enumerate(CAPABILITIES, 1):
         doc.h(3, f"5.1.{k} {cap}")
-        ps_ = [p_ for p_ in progs if p_["area"] in areas[cap]]
+        ps_all = [p_ for p_ in progs if p_["area"] in areas[cap]]
+        ps_ = [p_ for p_ in ps_all if p_.get("replaced_by")]          # programs.yaml replaced_by (fix pass, m29)
+        ret = [p_["id"] for p_ in ps_all if not p_.get("replaced_by")]
         ifs = []
-        for p_ in ps_:
+        for p_ in ps_all:
             for i in H.interfaces_for_program(ctx, p_["id"]):
                 if i["id"] not in ifs:
                     ifs.append(i["id"])
-        pairs = [["Scope", scope], ["CLARA programs replaced", f"{len(ps_)} ({', '.join(p_['id'] for p_ in ps_[:8])}{', …' if len(ps_) > 8 else ''})"],
+        repl = f"{len(ps_)} ({', '.join(p_['id'] for p_ in ps_[:8])}{', …' if len(ps_) > 8 else ''})" if ps_ else "none"
+        if ret:
+            repl += f"; {len(ret)} retired with CLARA ({', '.join(ret[:4])}{', …' if len(ret) > 4 else ''})"
+        pairs = [["Scope", scope], ["CLARA programs replaced", repl],
                  ["Interfaces affected", ", ".join(ifs) or "—"]]
         if cap in stage_of:
             own = W.owner_of_process(stage_of[cap], date)
@@ -387,6 +392,7 @@ def build() -> Doc:
               + [["MVP", "Minimum viable product: the first release of Claims Hub."],
                  ["Stage gate", "A formal review at which funding for the next phase is released."]],
               widths=[3.6, 13.0], font_size=8.8)
+    H.apply_program_renames(doc)   # FNETCAL1 / FNETREF1 until the 2025-03-01 rename
     return doc
 
 

@@ -8,7 +8,7 @@ from generators.common import util
 
 from .core import (W, Built, Facts, add_business_days, fauthor, fdate, fname, ftitle, human_date, may, minus_days,
                    need, pemail, pname, ptitle, pcity, rule_params_ok, rule_text_ok, rule_ver, svcname, sysname,
-                   team_exists, team_name)
+                   team_exists, team_name, jcl_jobs_as_of, interface_exists)
 from . import phrases
 from .xml_specs import layout as cobol_layout, system_owner
 from .yaml_specs import MOVEMENT_FIELDS, RSV_ERROR_CODES
@@ -694,7 +694,8 @@ def build_ST056(out_dir: pathlib.Path) -> Built:
         for k, x in enumerate(["P026", "P023", "P025", "P016", "P031"], 1)], tid="escalation-table"))
     body.append(h(2, "Job catalogue", "jobs"))
     jrows, jids = [], []
-    for name, j in W.jcl_jobs.items():
+    job_list = jcl_jobs_as_of(on)   # only jobs/programs that exist on the page date
+    for name, j, steps in job_list:
         ref = f"JCL:{name}"
         desc = j["description"]
         stt = j["status"]
@@ -702,7 +703,7 @@ def build_ST056(out_dir: pathlib.Path) -> Built:
             desc, stt = "Reserve parallel-run reconciliation", "active"
         sched = e(j["schedule"]) if may(fid, ref, "schedule") else "set in the scheduler calendar"
         steps = table(["Step", "Program", "What it does"],
-                      [[e(s["step"]), f"<code>{e(s['program'])}</code>", e(s["description"])] for s in j["steps"]],
+                      [[e(s["step"]), f"<code>{e(s['program'])}</code>", e(s["description"])] for s in steps],
                       tid=f"steps-{name}", cls="confluenceTable nested")
         if j["restart"] and may(fid, ref, "restart"):
             rst = e(j["restart"])
@@ -719,10 +720,10 @@ def build_ST056(out_dir: pathlib.Path) -> Built:
                                        "from 2026-03-02 to 2026-08-28 (CHUB-241)."), title="Parallel run"))
     body.append(h(2, "Interfaces produced by batch", "batch-interfaces"))
     birows = []
-    for name, j in W.jcl_jobs.items():
-        for st in j["steps"]:
+    for name, j, steps in job_list:
+        for st in steps:
             for i in W.interfaces.values():
-                if st["program"] in i["programs"]:
+                if st["program"] in i["programs"] and interface_exists(i["id"], on):
                     birows.append([e(name), e(st["program"]), e(i["id"]), e(i["name"]), e(sysname(i["target_system"], on))])
     body.append(table(["Job", "Program", "Interface", "Name", "Target"], birows, tid="batch-interfaces-table"))
     body.append(h(2, "Common abends", "abends"))

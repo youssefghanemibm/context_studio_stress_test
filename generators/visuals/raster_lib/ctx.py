@@ -102,6 +102,12 @@ def program_exists(pgm: str, d: str) -> bool:
     return bool(p) and str(p.get("since", "1900-01-01")) <= d
 
 
+def program_id(pgm: str, d: str) -> str:
+    """Program id in use on date d (programs.yaml renamed_from: e.g. CLRFR030 was FNETREF1 before 2025-03-01)."""
+    rf = (W.programs.get(pgm) or {}).get("renamed_from")
+    return rf["old_id"] if rf and str(d) < str(rf["date"]) else pgm
+
+
 def table_exists(tname: str, d: str) -> bool:
     t = W.tables.get(tname)
     return bool(t) and str(t.get("created") or "1900-01-01") <= d

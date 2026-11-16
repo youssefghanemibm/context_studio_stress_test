@@ -1,0 +1,623 @@
+# Question part: CODE (GitHub-connector code corpus, build/code_repo/variant_a|b|c).
+# variant a = first ingestion (429 files, head 2026-11-06); b = oversize superset (683 files,
+# canaries CN-01..CN-06 only here); c = a + follow-up commit CM-09 (2026-11-12), asked after the push.
+
+# ---------------------------------------------------------------------------------------------
+# code_fact (variant a)
+# ---------------------------------------------------------------------------------------------
+- id: Q-CODE-001
+  category: code_fact
+  variant: a
+  dimensions: [code, connector, aggregation, multi_hop]
+  question: "Going by the EXEC SQL statements in the CLARA COBOL sources, which programs INSERT rows into CLR.T_RESERVE and which ones UPDATE it?"
+  expected_answer: "Eight programs: CLRFN030 and CLRRS010 (INSERT), and CLRRS020, CLRRS110, CLRRS130, CLRST040, CLRRC050 and CLRGL090 (UPDATE). CLRRS150 is not one of them; it only inserts correction rows into CLR.T_RESERVE_MOVEMENT."
+  acceptable_variants:
+    - "CLRFN030, CLRRS010, CLRRS020, CLRRS110, CLRRS130, CLRST040, CLRRC050, CLRGL090"
+  must_include: [["CLRFN030"], ["CLRRS010"], ["CLRRS020"], ["CLRRS110"], ["CLRRS130"], ["CLRST040"], ["CLRRC050"], ["CLRGL090"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CL-CLRFN030-F001}
+    - {fact_id: CL-CLRRS010-F002}
+    - {fact_id: CL-CLRRS020-F001}
+    - {fact_id: CL-CLRRS110-F001}
+    - {fact_id: CL-CLRRS130-F001}
+    - {fact_id: CL-CLRST040-F001}
+    - {fact_id: CL-CLRRC050-F001}
+    - {fact_id: CL-CLRGL090-F001}
+  hops: 8
+  ask_mode: chat
+  difficulty: hard
+  world_refs: [TABLE:CLR.T_RESERVE#writers]
+  trap: "The 2025-02-14 data dictionary ST001 lists only seven writers and omits CLRGL090 (C08); TX003 first says 'only the CLRRS programs' (C07). CLRRS150 touches only CLR.T_RESERVE_MOVEMENT. Several writers use SELECT ... FROM FINAL/OLD TABLE (UPDATE ...), which a naive parser may count as reads only."
+
+- id: Q-CODE-002
+  category: multi_hop
+  variant: a
+  dimensions: [code, connector, multi_hop]
+  question: "How does the CLARA program CLRRS110 get its Tier-3 reserve review cadence: which subprogram does it call, which DB2 table and parameter key are read, and what cadence applies today?"
+  expected_answer: "CLRRS110 (paragraph 2000-SCHEDULE) moves RSV_T3_REVIEW_DAYS into PARM-PARAM-KEY and calls CLRCM040, the parameter reader, which selects the CLR.T_PARAM row valid on the current date. The row valid from 2026-07-01 (CHUB-318) holds 14, so Tier-3 reviews are scheduled every 14 days; CLRRS110 then updates RSV_NEXT_REVIEW_DT on CLR.T_RESERVE."
+  acceptable_variants:
+    - "Via CALL 'CLRCM040', which reads RSV_T3_REVIEW_DAYS from CLR.T_PARAM; currently 14 days."
+  must_include: [["CLRCM040"], ["CLR.T_PARAM", "T_PARAM"], ["RSV_T3_REVIEW_DAYS"], ["14 day", "14 days", "fortnight", "two weeks", "is 14", "of 14", "value 14"]]
+  must_not_include: ["21 days", "30 days"]
+  evidence:
+    - {fact_id: CL-CLRRS110-F001}
+    - {fact_id: CL-CLRCM040-F001}
+    - {fact_id: CL-T_PARAM_seed-F004}
+  hops: 3
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [PROGRAM:CLRRS110, PROGRAM:CLRCM040, TABLE:CLR.T_PARAM, RULE:BR-RSV-007@v3]
+  trap: "The T_PARAM seed still carries the end-dated rows (30 days to 2023-12-31, 21 days 2024-01-01..2026-06-30); the superseded manual v6.1 says 30 days (C04)."
+
+- id: Q-CODE-003
+  category: code_fact
+  variant: a
+  dimensions: [code, connector, needle]
+  question: "In the RSVMOVE copybook (the CLX-IF-042 record layout), what are the PIC clauses of RM-AMOUNT and RM-REC-VERSION?"
+  expected_answer: "RM-AMOUNT is PIC S9(9)V99 COMP-3 and RM-REC-VERSION is PIC 9(2); both lines carry the CHUB142 change tag."
+  acceptable_variants:
+    - "RM-AMOUNT S9(9)V99 COMP-3; RM-REC-VERSION 9(2)"
+  must_include: [["S9(9)V99"], ["COMP-3", "packed decimal"], ["9(2)"]]
+  must_not_include: ["S9(11)V99"]
+  evidence:
+    - {fact_id: CL-RSVMOVE-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [COPYBOOK:RSVMOVE#fields]
+  trap: "RM-AMOUNT was widened to S9(11)V99 COMP-3 under CHUB-138 on 2025-04-25 and reverted under CHUB-142 on 2025-04-30; many upload files (TX004, VS019, ST041, ST054) describe the widening during INC-2025-0412."
+
+- id: Q-CODE-004
+  category: code_fact
+  variant: a
+  dimensions: [code, connector, multi_hop]
+  question: "In CLARA job CLRNRSV3, which program does STEP010 run, which dataset does its RSVOUT DD write, and to which MQ queue does that program put the reserve movement records?"
+  expected_answer: "STEP010 runs CLRRS170 (IKJEFT01 with RUN PROGRAM(CLRRS170)); DD RSVOUT writes a new generation CLR.PROD.RSVMOVE.DAILY(+1); CLRRS170 MQPUTs each RSVMOVE record to queue CLR.RSVMOVE.OUT through CLRCM110."
+  acceptable_variants:
+    - "CLRRS170; CLR.PROD.RSVMOVE.DAILY(+1); CLR.RSVMOVE.OUT"
+  must_include: [["CLRRS170"], ["CLR.PROD.RSVMOVE.DAILY"], ["CLR.RSVMOVE.OUT"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CL-CLRNRSV3-F002}
+    - {fact_id: CL-CLRNRSV3-F001}
+    - {fact_id: CL-CLRRS170-F004}
+  hops: 3
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [JCL:CLRNRSV3#datasets, PROGRAM:CLRRS170, INTERFACE:CLX-IF-042]
+  trap: "The CLX-IF-042 run time is deliberately absent from the JCL (exclusive to VS033); an answer that adds a schedule from the code is invented."
+
+- id: Q-CODE-005
+  category: code_fact
+  variant: a
+  dimensions: [code, connector]
+  question: "Which CICS transaction and program use the BMS map CLRM420, and which mapset source defines it?"
+  expected_answer: "CLRM420 (Customer-notice deferral) is defined in mapset CLRMS05 (legacy/clara/bms/CLRMS05.bms) and is used by transaction FR12, program CLRFR120."
+  acceptable_variants:
+    - "Transaction FR12, program CLRFR120, mapset CLRMS05"
+  must_include: [["FR12"], ["CLRFR120"], ["CLRMS05"]]
+  must_not_include: []
+  evidence:
+    - file: build/code_repo/variant_a/legacy/clara/bms/CLRMS05.bms
+      locator: {kind: code_lines, variant: a, path: legacy/clara/bms/CLRMS05.bms, start: 52, end: 53}
+      needle: "TRANSACTION FR12, PROGRAM CLRFR120"
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [BMS:CLRM420]
+
+- id: Q-CODE-006
+  category: code_fact
+  variant: a
+  dimensions: [code, connector, yaml]
+  question: "What referral thresholds and customer-notice period are configured in fraud-referral-svc's application.yaml, and from when does the Tier-3 threshold apply?"
+  expected_answer: "referral.threshold.default is 65 and referral.threshold.tier3 is 60 with threshold.tier3.effective-from 2026-10-01; notice.business-days is 10 business days (max-deferral-days 60)."
+  acceptable_variants:
+    - "Default 65, Tier-3 60 from 2026-10-01, notice within 10 business days"
+  must_include: [["65"], ["60"], ["2026-10-01"], ["10 business day", "10 business days", "business-days: 10", "business days: 10", "10 working day", "10 working days"]]
+  must_not_include: ["70"]
+  evidence:
+    - {fact_id: CODEMOD-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [SERVICE:fraud-referral-svc#config, RULE:BR-FRD-031@v2, RULE:BR-FRD-032@v2]
+  trap: "LD001 (approved 2026-06-30) still says 65 for all claims (C01, superseded by the 2026-09-17 workshop decision); CLARA's CLRFR040 hard-codes 070 in variant a (C05)."
+
+- id: Q-CODE-007
+  category: code_fact
+  variant: a
+  dimensions: [code, connector, yaml, temporal]
+  question: "In the reserve-engine service's application.yaml, what are tier3-review-days and large-loss-threshold-gbp set to?"
+  expected_answer: "tier3-review-days: 14 (BR-RSV-007 v3, CHUB-322) and large-loss-threshold-gbp: 250000."
+  acceptable_variants:
+    - "14 and 250,000"
+  must_include: [["14"], ["250,000", "250000", "250k"]]
+  must_not_include: ["21 days", "review-days: 21"]
+  evidence:
+    - {fact_id: CODEMOD-F004}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [SERVICE:reserve-engine#config]
+  trap: "ST043 (2025-12-01, pre-rename OpenAPI), VS016 and ST058 show tier3-review-days = 21, correct before CHUB-322 changed it on 2026-07-03."
+
+- id: Q-CODE-008
+  category: code_fact
+  variant: a
+  dimensions: [code, connector, needle]
+  question: "How much PostgreSQL storage does the Terraform module for reserve-engine provision?"
+  expected_answer: "200Gi (storage = \"200Gi\" in infra/terraform/modules/reserve-engine/main.tf)."
+  acceptable_variants:
+    - "200 GiB"
+  must_include: [["200Gi", "200 Gi", "200 GiB", "200 GB", "200 gigabytes", "200 gibibytes"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F009}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [SERVICE:reserve-engine#infra.postgres_storage_gi]
+  trap: "Exclusive to the Terraform module; no upload file states the storage size."
+
+- id: Q-CODE-009
+  category: code_fact
+  variant: a
+  dimensions: [code, connector, yaml]
+  question: "How is reserve-engine deployed on OpenShift according to the Kubernetes manifests: namespace, replica count, CPU request and memory limit?"
+  expected_answer: "Namespace chub-reserve with replicas: 4, a CPU request of 500m and a memory limit of 2Gi (deploy/k8s/chub-reserve/deployment.yaml)."
+  acceptable_variants:
+    - "chub-reserve, 4 replicas, 500m CPU request, 2Gi memory limit"
+  must_include: [["chub-reserve"], ["replicas: 4", "4 replicas", "four replicas", "replica count of 4", "replica count 4", "replicas of 4"], ["500m", "500 millicores", "0.5 CPU", "half a CPU", "0.5 core", "half a core"], ["2Gi", "2 Gi", "2 GiB"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F010}
+    - {fact_id: CODEMOD-F109}
+  hops: 2
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [SERVICE:reserve-engine#replicas, SERVICE:reserve-engine#k8s_namespace, SERVICE:reserve-engine#infra]
+  trap: "ST047's Helm values add autoscaling (min 4, max 8); the deployment manifest itself says replicas: 4."
+
+- id: Q-CODE-010
+  category: code_fact
+  variant: a
+  dimensions: [code, connector, needle]
+  question: "Who are the code owners for the CLARA mainframe sources under /legacy/clara/ in the monorepo?"
+  expected_answer: "/legacy/clara/ is owned by the GitHub team @corvane/clara-platform together with the individual owner @kbarraclough."
+  acceptable_variants:
+    - "@corvane/clara-platform and @kbarraclough"
+  must_include: [["clara-platform"], ["kbarraclough"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F002}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [TEAM:T20#github_team]
+  trap: "Exclusive to .github/CODEOWNERS; the line is identical in variants a, b and c. Upload files name team T20 (Legacy Claims Platforms) and Keith Barraclough but never these handles."
+
+- id: Q-CODE-011
+  category: code_fact
+  variant: a
+  dimensions: [code, connector, negation]
+  question: "In recovery-svc's WriteOffPolicy, does a recovery write-off of exactly £10,000 need approval, and which role must approve larger write-offs?"
+  expected_answer: "It needs no approval: requiresApproval() is true only when the amount is strictly above APPROVAL_THRESHOLD_GBP = 10000 (compareTo > 0). Write-offs above that must be approved by the role HEAD_RECOVERIES_SUBROGATION (Head of Recoveries & Subrogation, BR-REC-011 v2)."
+  acceptable_variants:
+    - "No approval at exactly 10,000; only amounts strictly above 10,000 need HEAD_RECOVERIES_SUBROGATION approval."
+  must_include: [["no approval", "does not need approval", "doesn't need approval", "not need approval", "does not require approval", "doesn't require approval", "not require approval", "need no approval", "needs no approval", "not required", "isn't required", "not needed", "isn't needed", "no sign-off", "no sign off", "only above", "only amounts above", "only needed above", "only required above", "does not exceed", "doesn't exceed", "not above"], ["strictly above", "strictly greater", "above 10,000", "more than 10,000", "over 10,000", "greater than 10,000", "exceeds 10,000", "exceeding 10,000"], ["HEAD_RECOVERIES_SUBROGATION", "Head of Recoveries"]]
+  must_not_include: ["Recoveries Manager"]
+  evidence:
+    - {fact_id: CODEMOD-F007}
+    - {fact_id: CODEMOD-F093}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [RULE:BR-REC-011@v2]
+  trap: "BR-REC-011 v1 (before 2025-09-01) set £5,000 with the Recoveries Manager approving. The boundary case tests whether the answer reads the strict '>' comparison."
+
+# ---------------------------------------------------------------------------------------------
+# multi_hop / impact_analysis / contradiction inside the code (variant a)
+# ---------------------------------------------------------------------------------------------
+- id: Q-CODE-012
+  category: multi_hop
+  variant: a
+  dimensions: [code, connector, md, multi_hop]
+  question: "Why was ADR-005 (change data capture on DB2 for reserve synchronisation) superseded, by which ADR, and what in the CLARA code causes the problem?"
+  expected_answer: "ADR-005 proposed CDC on CLR.T_RESERVE_MOVEMENT and is superseded by ADR-017 (replace CDC with the batch-to-event bridge). The reason is CLRGL090: its paragraph 3000-REVALUE runs UPDATE CLR.T_RESERVE SET RSV_GBP_EQUIV_AMT and RSV_LAST_REVAL_DT directly and inserts no row into CLR.T_RESERVE_MOVEMENT, so CDC on the movement table would miss the revaluations."
+  acceptable_variants:
+    - "Superseded by ADR-017 because CLRGL090 updates RSV_GBP_EQUIV_AMT on CLR.T_RESERVE without writing a movement row, bypassing the movement table that CDC would watch."
+  must_include: [["ADR-017"], ["CLRGL090"], ["RSV_GBP_EQUIV_AMT", "GBP equivalent", "GBP-equivalent"], ["CLR.T_RESERVE_MOVEMENT", "movement table", "movement row", "movements"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F125}
+    - {fact_id: CODEMOD-F127}
+    - {fact_id: CL-CLRGL090-F001}
+  hops: 3
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [ADR:ADR-005, ADR:ADR-017, PROGRAM:CLRGL090]
+  trap: "CLRGL090 has a comment that mentions CLR.T_RESERVE_MOVEMENT only to say nothing is inserted there; a parser that links on mentions will draw a false write edge."
+
+- id: Q-CODE-013
+  category: impact_analysis
+  variant: a
+  dimensions: [code, connector, yaml, multi_hop]
+  question: "Which Kafka topic does reserve-engine publish, and which Claims Hub services consume it according to their application.yaml files?"
+  expected_answer: "reserve-engine produces reserve.changed.v2; it is consumed by gl-posting-svc and reporting-feed-svc."
+  acceptable_variants:
+    - "reserve.changed.v2 -> gl-posting-svc and reporting-feed-svc"
+  must_include: [["reserve.changed.v2"], ["gl-posting-svc"], ["reporting-feed-svc"]]
+  must_not_include: ["reserve.changed.v1"]
+  evidence:
+    - {fact_id: CODEMOD-F057}
+    - {fact_id: CODEMOD-F071}
+    - {fact_id: CODEMOD-F073}
+  hops: 3
+  ask_mode: graph
+  difficulty: medium
+  world_refs: [TOPIC:reserve.changed.v2, SERVICE:reserve-engine, SERVICE:gl-posting-svc, SERVICE:reporting-feed-svc]
+  trap: "reserve.changed.v1 was retired with the reserve-svc rename (CM-04, 2026-02-10); pre-rename files such as ST043 still show it."
+
+- id: Q-CODE-014
+  category: contradiction
+  variant: a
+  dimensions: [code, connector, contradiction, multi_hop]
+  question: "In the CLARA sources, how do the online fraud referral program CLRFR030 and the nightly batch sweep CLRFR040 obtain their referral threshold, and does either disagree with the CLR.T_PARAM values?"
+  expected_answer: "CLRFR030 reads FRD_REFER_THRESH and FRD_REFER_T3_THRESH from CLR.T_PARAM through CALL 'CLRCM040' in paragraph 2000-GET-THRESHOLDS, so it uses 65, and 60 for Tier-3 claims from 2026-10-01. CLRFR040 ignores T_PARAM and hard-codes 05 WS-REFER-THRESHOLD PIC 9(3) VALUE 070, so it refers only at a Sentinel score of 70 or more. CLRFR040 is the one that disagrees: the authoritative threshold is 65 (60 for Tier-3), and the constant is the code-drift defect CHUB-298."
+  acceptable_variants:
+    - "CLRFR030 uses CLRCM040 to read the T_PARAM thresholds (65; 60 for Tier-3); CLRFR040 hard-codes 070 instead of the 65 in T_PARAM."
+  must_include: [["CLRCM040"], ["70"], ["65"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CL-CLRFR030-F001}
+    - {fact_id: CL-CLRFR040-F001}
+    - {fact_id: CL-T_PARAM_seed-F002}
+    - {fact_id: CL-T_PARAM_seed-F001}
+  hops: 4
+  ask_mode: chat
+  difficulty: hard
+  world_refs: [CONTRA:C05, PROGRAM:CLRFR040#hardcoded_constants, PROGRAM:CLRFR030, TABLE:CLR.T_PARAM, RULE:BR-FRD-031@v2]
+  trap: "C05 code drift, variant a only: CM-09 (variant c) removes the constant. Authoritative value is 65 per LD001 and T_PARAM (60 for Tier-3 from 2026-10-01). The T_PARAM seed also holds the end-dated 70 row (2023-04-01..2026-03-31), which matches the constant only by history."
+
+# ---------------------------------------------------------------------------------------------
+# code_history (variant a)
+# ---------------------------------------------------------------------------------------------
+- id: Q-CODE-015
+  category: code_history
+  variant: a
+  dimensions: [code, connector, rename]
+  question: "When and by whom was reserve-svc renamed to reserve-engine in the monorepo's git history, under which ticket and ADR, and which directories were moved?"
+  expected_answer: "Commit 'CHUB-233 rename reserve-svc to reserve-engine (ADR-019)' by Daniel Achebe on 2026-02-10 moved services/reserve-svc to services/reserve-engine and the Terraform module infra/terraform/modules/reserve-svc to infra/terraform/modules/reserve-engine."
+  acceptable_variants:
+    - "Daniel Achebe, 2026-02-10, CHUB-233 / ADR-019: services/reserve-svc and the reserve-svc Terraform module were renamed to reserve-engine."
+  must_include: [["2026-02-10"], ["Daniel Achebe"], ["CHUB-233"], ["ADR-019"], ["Terraform", "infra/terraform/modules/reserve-engine", "modules/reserve-svc"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F011}
+    - {fact_id: CODEMOD-F111}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [COMMIT:CM-04, SERVICE:reserve-engine#renames, ADR:ADR-019]
+  trap: "The rename is visible as a git mv (R0xx) in history; a snapshot-only ingestion sees only reserve-engine and cannot date the rename from code alone."
+
+- id: Q-CODE-016
+  category: code_history
+  variant: a
+  dimensions: [code, connector, needle]
+  question: "Who made the first commit in the Claims Hub / CLARA monorepo, on what date, and which mainframe source baseline did it import?"
+  expected_answer: "Gordon Sproat, on 2025-02-21: 'Import CLARA sources from mainframe source baseline CLR-2025-02'."
+  acceptable_variants:
+    - "Gordon Sproat imported baseline CLR-2025-02 on 21 February 2025."
+  must_include: [["Gordon Sproat"], ["2025-02-21"], ["CLR-2025-02"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F016}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [COMMIT:CM-01]
+  trap: "The baseline name CLR-2025-02 appears only in the CM-01 commit message (code history, variants a/b/c); no upload file names it, so only a product that ingests commit history can answer."
+
+- id: Q-CODE-017
+  category: code_history
+  variant: a
+  dimensions: [code, connector, temporal]
+  question: "What happened to the RM-AMOUNT field of the RSVMOVE copybook in April 2025 according to the git history (tickets, dates, authors)?"
+  expected_answer: "On 2025-04-25 Keith Barraclough committed CHUB-138, widening RM-AMOUNT to S9(11)V99 for Nordic large losses. On 2025-04-30 he committed CHUB-142, reverting RM-AMOUNT to PIC S9(9)V99 COMP-3 and adding RM-REC-VERSION."
+  acceptable_variants:
+    - "CHUB-138 (Keith Barraclough, 2025-04-25) widened it to S9(11)V99; CHUB-142 (Keith Barraclough, 2025-04-30) reverted it to S9(9)V99 COMP-3 and added RM-REC-VERSION."
+  must_include: [["CHUB-138"], ["CHUB-142"], ["2025-04-30"], ["S9(9)V99"], ["RM-REC-VERSION"], ["Keith Barraclough"]]
+  must_not_include: []
+  evidence:
+    - file: build/code_repo/variant_a
+      locator: {kind: git_commit, variant: a, message_contains: "CHUB-138 RSVMOVE: widen"}
+      needle: "CHUB-138 RSVMOVE: widen RM-AMOUNT to S9(11)V99 for Nordic large losses"
+    - {fact_id: CODEMOD-F013}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [COMMIT:CM-03, COPYBOOK:RSVMOVE#field_history, INCIDENT:INC-2025-0412]
+
+- id: Q-CODE-018
+  category: code_history
+  variant: a
+  dimensions: [code, connector]
+  question: "Which commit introduced the Tier-3 fraud referral threshold of 60 in fraud-referral-svc: who authored it, when, and under which ticket?"
+  expected_answer: "'CHUB-388 fraud-referral-svc: Tier-3 referral threshold 60 from 2026-10-01 (workshop 2026-09-17)', authored by Linnea Sjöberg on 2026-09-29."
+  acceptable_variants:
+    - "CHUB-388 by Linnea Sjoberg on 29 September 2026"
+  must_include: [["CHUB-388"], ["Linnea Sjöberg", "Linnea Sjoberg"], ["2026-09-29"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F012}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [COMMIT:CM-08, TICKET:CHUB-388]
+  trap: "Linnea also authored 'Move thresholds into effective-dated configuration' (2026-03-16), which added the referral block without the Tier-3 lines; the CLARA counterpart is CHUB-395 by Pauline Ashworth (2026-09-30)."
+
+- id: Q-CODE-019
+  category: code_history
+  variant: a
+  dimensions: [code, connector, temporal, multi_hop]
+  question: "The Tier-3 reserve review cadence moved from 21 to 14 days in both CLARA and Claims Hub. Which commits made the change on each side, who authored them, on what dates, and which came first?"
+  expected_answer: "CLARA came first: 'CHUB-318 T_PARAM: RSV_T3_REVIEW_DAYS 21 -> 14 valid from 2026-07-01' by Pauline Ashworth on 2026-06-30. Claims Hub followed three days later: 'CHUB-322 reserve-engine: tier3-review-days 21 -> 14' by Daniel Achebe on 2026-07-03."
+  acceptable_variants:
+    - "CHUB-318 (Pauline Ashworth, 2026-06-30) in CLARA, then CHUB-322 (Daniel Achebe, 2026-07-03) in reserve-engine."
+  must_include: [["CHUB-318"], ["Pauline Ashworth"], ["2026-06-30"], ["CHUB-322"], ["Daniel Achebe"], ["2026-07-03"]]
+  must_not_include: []
+  evidence:
+    - file: build/code_repo/variant_a
+      locator: {kind: git_commit, variant: a, message_contains: "CHUB-318 T_PARAM"}
+      needle: "CHUB-318 T_PARAM: RSV_T3_REVIEW_DAYS 21 -> 14 valid from 2026-07-01"
+    - {fact_id: CODEMOD-F015}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [COMMIT:CM-06, TICKET:CHUB-318, TICKET:CHUB-322, INCIDENT:INC-2026-0702]
+  trap: "The gap between 2026-07-01 and the CHUB-322 commit is INC-2026-0702 (reserve-engine still scheduling at 21 days)."
+
+- id: Q-CODE-020
+  category: code_history
+  variant: a
+  dimensions: [code, connector, temporal]
+  question: "When was the CLARA fraud referral threshold in CLR.T_PARAM lowered from 70 to 65: which commit and ticket, who authored it, and from what date is the new value valid?"
+  expected_answer: "Commit 'CHUB-205 T_PARAM: FRD_REFER_THRESH 70 -> 65 valid from 2026-04-01' by Pauline Ashworth on 2026-03-30. The seed's 65 row is valid from 2026-04-01 and the 70 row is end-dated 2026-03-31."
+  acceptable_variants:
+    - "CHUB-205, Pauline Ashworth, committed 2026-03-30; 65 valid from 2026-04-01."
+  must_include: [["CHUB-205"], ["Pauline Ashworth"], ["2026-03-30"], ["2026-04-01"]]
+  must_not_include: []
+  evidence:
+    - file: build/code_repo/variant_a
+      locator: {kind: git_commit, variant: a, message_contains: "CHUB-205 T_PARAM"}
+      needle: "CHUB-205 T_PARAM: FRD_REFER_THRESH 70 -> 65 valid from 2026-04-01"
+    - {fact_id: CL-T_PARAM_seed-F002}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [TICKET:CHUB-205, TABLE:CLR.T_PARAM, RULE:BR-FRD-031@v1]
+  trap: "CLRFR040 was not changed with it and kept the hard-coded 070 until CM-09 (C05)."
+
+# ---------------------------------------------------------------------------------------------
+# truncation_canary (variant b only)
+# ---------------------------------------------------------------------------------------------
+- id: Q-CODE-021
+  category: truncation_canary
+  variant: b
+  dimensions: [code, connector, scale]
+  question: "How often does the legacy-bridge service poll for completed CLARA extract runs, and which table does it poll?"
+  expected_answer: "Every 45 seconds; it polls CLR.T_INTERFACE_LOG for completed CLARA extract runs."
+  acceptable_variants:
+    - "45 seconds, CLR.T_INTERFACE_LOG"
+  must_include: [["45 second", "45 sec", "45 s"], ["T_INTERFACE_LOG"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F027}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [CANARY:CN-01]
+  trap: "Truncation canary CN-01: stated only in services/legacy-bridge/README.md, a file that exists only in the oversize variant b (position 622 of 683 in git ls-files order). Answerable only if the oversize repo was ingested in full; if ingestion truncated, a correct system says it cannot find it. Sibling legacy-bridge files read the interval from configuration and never state it."
+
+- id: Q-CODE-022
+  category: truncation_canary
+  variant: b
+  dimensions: [code, connector, scale]
+  question: "When does the Wave 2 reconciliation tool (zz-reconcile) run, and where does it write its differences?"
+  expected_answer: "Nightly at 05:40; it writes its differences to the table recon.daily_diff."
+  acceptable_variants:
+    - "05:40 every night, into recon.daily_diff"
+  must_include: [["05:40", "5:40"], ["recon.daily_diff"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F028}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [CANARY:CN-02]
+  trap: "Truncation canary CN-02: only in tools/zz-reconcile/README.md (variant b only, position 672 of 683 in git ls-files order). Answerable only if the oversize repo was fully ingested."
+
+- id: Q-CODE-023
+  category: truncation_canary
+  variant: b
+  dimensions: [code, connector, scale]
+  question: "Which fixture claim is the canonical Tier-3 frost-damage test case?"
+  expected_answer: "CLM-SE-2026-004417."
+  acceptable_variants:
+    - "Fixture claim CLM-SE-2026-004417"
+  must_include: [["CLM-SE-2026-004417"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F029}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [CANARY:CN-03]
+  trap: "Truncation canary CN-03: only in fixtures/claims/zz_fixture_index.md, which sorts after the 100 fixture JSON files in the variant-b-only fixtures folder (position 196 of 683). Answerable only if the oversize repo was fully ingested."
+
+- id: Q-CODE-024
+  category: truncation_canary
+  variant: b
+  dimensions: [code, connector, scale]
+  question: "What did the archived CLARA program CLRFR990 compute, and when was it retired?"
+  expected_answer: "A 'velocity score' from a claimant's claims in the previous 90 days; it was retired in 2018."
+  acceptable_variants:
+    - "Velocity score over the claimant's last 90 days of claims; retired 2018"
+  must_include: [["velocity score"], ["90 day", "90 days"], ["2018"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CL-CLRFR990-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [CANARY:CN-04]
+  trap: "Truncation canary CN-04: only in legacy/clara/cobol-archive/CLRFR990.cbl (variant b only, position 248 of 683). CLRFR990 is in no world program list or upload file. Answerable only if the oversize repo was fully ingested."
+
+- id: Q-CODE-025
+  category: truncation_canary
+  variant: b
+  dimensions: [code, connector, scale, temporal]
+  question: "When is Wave 2 dress rehearsal 2 booked?"
+  expected_answer: "2027-01-23."
+  acceptable_variants:
+    - "23 January 2027"
+  must_include: [["2027-01-23"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F030}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [CANARY:CN-05]
+  trap: "Truncation canary CN-05: only in docs/runbooks/wave2-dress-rehearsal.md (variant b only, position 94 of 683). Upload decks (VS011) say Wave 2 rehearsal dates are still to be baselined. Answerable only if the oversize repo was fully ingested."
+
+- id: Q-CODE-026
+  category: truncation_canary
+  variant: b
+  dimensions: [code, connector, scale]
+  question: "Which CDW database host do the analytics notebooks read from?"
+  expected_answer: "The CDW read replica cdw-ro-02."
+  acceptable_variants:
+    - "cdw-ro-02"
+  must_include: [["cdw-ro-02"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F031}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [CANARY:CN-06]
+  trap: "Truncation canary CN-06: only in analytics/notebooks/README.md (variant b only, position 13 of 683, so it survives most truncation). Notebook .py cells read the DSN from configuration. Answerable only if the oversize repo was fully ingested."
+
+# ---------------------------------------------------------------------------------------------
+# resync (variant c: ask after pushing the follow-up commit CM-09)
+# ---------------------------------------------------------------------------------------------
+- id: Q-CODE-027
+  category: resync
+  variant: c
+  dimensions: [code, connector, contradiction]
+  question: "After the latest commit, how does the CLARA batch sweep CLRFR040 determine its fraud referral threshold?"
+  expected_answer: "The hard-coded 070 was removed. WS-REFER-THRESHOLD now has VALUE ZERO and the new paragraph 2000-GET-THRESHOLDS calls CLRCM040 to read FRD_REFER_THRESH (65 from 2026-04-01) and FRD_REFER_T3_THRESH (60 for Tier-3 claims from 2026-10-01) from CLR.T_PARAM. 3000-APPLY-THRESHOLD uses the Tier-3 value when CLM-TIER-CD = '3' and the default otherwise (CHUB-298)."
+  acceptable_variants:
+    - "It now reads the thresholds from CLR.T_PARAM via CLRCM040: FRD_REFER_THRESH 65 and FRD_REFER_T3_THRESH 60 for Tier-3 claims; the hard-coded 070 was removed."
+  must_include: [["CLRCM040"], ["FRD_REFER_THRESH", "CLR.T_PARAM", "T_PARAM"], ["65"], ["60"], ["no longer", "removed", "now reads", "now calls", "now loads", "now gets", "now obtains", "now takes", "VALUE ZERO", "2000-GET-THRESHOLDS", "CLM-TIER-CD", "WS-REFER-T3-THRESHOLD"]]
+  must_not_include: ["070"]
+  evidence:
+    - {fact_id: CL-CLRFR040-F002}
+    - {fact_id: CL-CLRFR040-F003}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [PROGRAM:CLRFR040#hardcoded_constants, COMMIT:CM-09, CONTRA:C05]
+  trap: "Ask after pushing CM-09 (variant c). Before it (variant a) CLRFR040 hard-codes VALUE 070 (C05). Upload files dated up to 2026-11-12 (LD029, ST024, ST036, ST059, TX033) still describe CHUB-298 as open or in review and never say how the fix works, so only a re-synced repo answers this."
+
+- id: Q-CODE-028
+  category: resync
+  variant: c
+  dimensions: [code, connector]
+  question: "Which subprograms does CLRFR040 CALL in the current code?"
+  expected_answer: "CLRCM010, CLRCM020 and CLRCM040. CLRCM040 (the parameter reader) was added on 2026-11-12 by the follow-up commit, together with copybook PARMREC1."
+  acceptable_variants:
+    - "CLRCM010, CLRCM020, CLRCM040"
+  must_include: [["CLRCM010"], ["CLRCM020"], ["CLRCM040"]]
+  must_not_include: []
+  evidence:
+    - file: build/code_repo/variant_c/legacy/clara/cobol/CLRFR040.cbl
+      locator: {kind: code_lines, variant: c, path: legacy/clara/cobol/CLRFR040.cbl, start: 191, end: 191}
+      needle: "CALL 'CLRCM010' USING CLR-DATE-WORK"
+    - file: build/code_repo/variant_c/legacy/clara/cobol/CLRFR040.cbl
+      locator: {kind: code_lines, variant: c, path: legacy/clara/cobol/CLRFR040.cbl, start: 423, end: 423}
+      needle: "CALL 'CLRCM020' USING WS-AUDIT-PARMS"
+    - file: build/code_repo/variant_c/legacy/clara/cobol/CLRFR040.cbl
+      locator: {kind: code_lines, variant: c, path: legacy/clara/cobol/CLRFR040.cbl, start: 209, end: 209}
+      needle: "CALL 'CLRCM040' USING PARMREC1-REC"
+  hops: 3
+  ask_mode: graph
+  difficulty: medium
+  world_refs: [PROGRAM:CLRFR040#calls_programs, COMMIT:CM-09]
+  trap: "Graph re-sync check: before CM-09 the CALL edges were only CLRCM020 and CLRCM010; an un-synced graph lacks CLRFR040 -> CLRCM040 (answer then scores partial). World programs.yaml still lists the pre-CM-09 calls; the post-commit edge is from corpus_plan CM-09 changes."
+
+- id: Q-CODE-029
+  category: resync
+  variant: c
+  dimensions: [code, connector, yaml]
+  question: "After the follow-up commit, which new class in notification-svc publishes the fraud-notice-sent event, which configuration key supplies its topic name, and what fields does the event carry?"
+  expected_answer: "FraudNoticeSentPublisher (package com.corvane.chub.notification) sends a FraudNoticeSent record with referralId, claimId, channel, notifyMessageId and sentAt, keyed by claimId, through a KafkaTemplate to the topic named in notice.sent-event-topic, which application.yaml sets to notification.fraud-notice.sent.v1. It fires once a fraud-referral customer notice has actually been sent, so fraud-referral-svc can close the notice deadline (CHUB-421)."
+  acceptable_variants:
+    - "FraudNoticeSentPublisher; config key notice.sent-event-topic; fields referralId, claimId, channel, notifyMessageId, sentAt"
+  must_include: [["FraudNoticeSentPublisher"], ["sent-event-topic"], ["referralId", "referral id"], ["notifyMessageId", "notify message id"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F036}
+    - file: build/code_repo/variant_c/services/notification-svc/src/main/java/com/corvane/chub/notification/FraudNoticeSentPublisher.java
+      locator: {kind: code_lines, variant: c, path: services/notification-svc/src/main/java/com/corvane/chub/notification/FraudNoticeSentPublisher.java, start: 29, end: 30}
+      needle: "public record FraudNoticeSent(String referralId, String claimId, String channel, String notifyMessageId,"
+    - file: build/code_repo/variant_c/services/notification-svc/src/main/resources/application.yaml
+      locator: {kind: code_lines, variant: c, path: services/notification-svc/src/main/resources/application.yaml, start: 51, end: 52}
+      needle: "sent-event-topic: notification.fraud-notice.sent.v1"
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [TOPIC:notification.fraud-notice.sent.v1, SERVICE:notification-svc, TICKET:CHUB-421, COMMIT:CM-09]
+  trap: "Variant c only (CM-09). ST024/TX033 give CHUB-421's purpose and VS040 (poster dated 2026-03-16) anachronistically lists notification.fraud-notice.sent.v1 among notification-svc's topics, but no upload file names the class, the config key or the event fields. The topic name is therefore not a must_include key."
+
+- id: Q-CODE-030
+  category: resync
+  variant: c
+  dimensions: [code, connector, temporal]
+  question: "What is the most recent commit in the monorepo's history: who authored it, when, and which tickets does it reference?"
+  expected_answer: "'CHUB-298 CHUB-415 CHUB-421: CLRFR040 reads referral thresholds from CLR.T_PARAM; CODEOWNERS for Recoveries & Documents squad; notification-svc emits notification.fraud-notice.sent.v1', authored by Tariq Hussain on 2026-11-12."
+  acceptable_variants:
+    - "Tariq Hussain, 2026-11-12, tickets CHUB-298, CHUB-415 and CHUB-421"
+  must_include: [["Tariq Hussain"], ["2026-11-12"], ["CHUB-298"], ["CHUB-415"], ["CHUB-421"]]
+  must_not_include: ["Clarify local build instructions"]
+  evidence:
+    - {fact_id: CODEMOD-F032}
+    - {fact_id: CODEMOD-F037}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [COMMIT:CM-09]
+  trap: "Before the push the head is Nadia Petrovic's 2026-11-06 'Clarify local build instructions in the README' (variant a). TX033 (CAB, 2026-11-11) names the three tickets and the 12 November release but not the commit or its author. The CLRFR040 change itself is tagged KBARR01 in the program's maintenance history; the git author is Tariq Hussain."
+
+- id: Q-CODE-031
+  category: resync
+  variant: c
+  dimensions: [code, connector, temporal]
+  question: "Which GitHub team is now the code owner of /services/recovery-svc/, and which other service directory moved to the same team in that change?"
+  expected_answer: "@corvane/hub-squad-recoveries-docs (Hub Squad – Recoveries & Documents) owns /services/recovery-svc/, and /services/document-svc/ moved to it in the same commit (CM-09, CHUB-415); before that, recovery-svc was owned by @corvane/hub-squad-fraud-settlement and document-svc by @corvane/hub-squad-intake-triage."
+  acceptable_variants:
+    - "@corvane/hub-squad-recoveries-docs; document-svc"
+  must_include: [["hub-squad-recoveries-docs"], ["document-svc"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F033}
+    - {fact_id: CODEMOD-F035}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [SERVICE:recovery-svc#owner_history, SERVICE:document-svc#owner_history, TEAM:T30, COMMIT:CM-09]
+  trap: "Variant a CODEOWNERS (stale since the 2026-11-01 squad change) still shows @corvane/hub-squad-fraud-settlement for recovery-svc. Upload-side hint: the ST053 wiki lists squad T30 and its handle @corvane/hub-squad-recoveries-docs (formed 2026-11-01) but not which services it owns; the CHUB-415 summary (ST024, TX070) says recovery-svc and document-svc go to 'the new recoveries and documents squad' without the handle. An upload-only answer needs that two-file inference."

@@ -8,6 +8,8 @@ from .core import (AMBER, BLUE_L, GREEN, GREY_L, GRID, INK, INK2, LINE, MUTED, N
                    Canvas, fmt_date_long, fmt_date_short)
 from .ctx import (W, adate, anchor, guard, minus_days, name, out_path, placement, rel, sysname, svcname, team_name,
                   title, who)
+from generators.visuals import org_chart_control as OC
+
 from .diagrams import Diagram, ERD, Swimlane, Timeline, org_chart, table_image
 from .facts import Facts, arrow_spec, placement_spec, spec
 from .skeleton import approval, glossary, section, start_doc, versions_for
@@ -884,6 +886,11 @@ def _raci(d) -> bytes:
     return tim.png_bytes()
 
 
+def days_between(earlier: str, later: str) -> int:
+    import datetime as _dt
+    return (_dt.date.fromisoformat(str(later)) - _dt.date.fromisoformat(str(earlier))).days
+
+
 # ==========================================================================================
 # VS032 Claims Organisation Chart 2024 (document) (2024-03-01, P005) — stale chart (C02)
 # ==========================================================================================
@@ -914,11 +921,12 @@ def build_vs032() -> tuple[list[dict], str, int]:
         guard(fid, f"PERSON:{p}", "titles")
     contents = ["1 Introduction", "2 Claims organisation chart", "3 Claims Operations UK", "4 Claims Operations Nordics",
                 "5 Teams and team leaders", "6 Claims sites", "7 Reporting lines", "8 Glossary"]
+    oc = OC.control(W, fid)   # same document reference, version and history as VS004 (the pptx rendition)
     b = start_doc(
-        fid, facts, "Claims directorate structure, reporting lines and sites", "CM-CLM-ORG-2024", "2024.1", "org",
+        fid, facts, "Claims directorate structure, reporting lines and sites", oc["doc_ref"], oc["version"], "org",
         "the structure of the Claims directorate",
-        versions_for(fid, "P005", [(60, "2023.2", "Second-half 2023 refresh"), (12, "2024.0d", "Draft for HR review"),
-                                   (0, "2024.1", "Approved for publication")], "2024.1"),
+        versions_for(fid, "P005", [(days_between(when, d), ver, change) for ver, when, change in oc["history"]],
+                     oc["version"]),
         [approval("Owner", "P005", d), approval("Reviewer", "P011", d, minus_days(d, 3)),
          approval("Approver", "P004", d)],
         ["All Claims staff", "HR business partners", "Executive Committee"], contents,
@@ -1007,7 +1015,8 @@ def build_vs032() -> tuple[list[dict], str, int]:
     section(b, fid, "6", "Claims sites", "where Claims teams are based")
     b.figure(_sites_map(d), "Claims sites",
              "Schematic map of the UK and Nordic offices with the Claims functions at each site.",
-             facts=[spec("image_text", "Bristol Recoveries Centre hosts Recoveries & Subrogation (UK) and Payments Operations.",
+             facts=[spec("image_text", "Bristol Recoveries Centre hosts "
+                         + " and ".join(_asof_function(f, d) for f in W.locations["LOC-BRS"]["functions"][:3]) + ".",
                          "Bristol Recoveries Centre", "LOC:LOC-BRS#functions"),
                     spec("image_text", "Glasgow Contact Centre handles FNOL calls.", "Glasgow Contact Centre", "LOC:LOC-GLA")])
 
@@ -1035,6 +1044,24 @@ def build_vs032() -> tuple[list[dict], str, int]:
     return facts.items, str(path), b.fig_no
 
 
+# locations.functions are undated strings in today's team names; map the team-named ones back to the
+# team name in force on the document date (T02/T08/T11 were renamed in the 2025-09-01 re-org).
+_FUNCTION_TEAM = {"Claims Operations UK": ("T02", ""), "Counter-Fraud & SIU": ("T11", ""),
+                  "Recoveries & Subrogation (UK)": ("T08", " (UK)"),
+                  "Group Recoveries & Subrogation": ("T08", " (Nordics)")}
+
+
+def _asof_function(fn: str, d) -> str:
+    if fn not in _FUNCTION_TEAM:
+        return fn
+    tid, region = _FUNCTION_TEAM[fn]
+    asof = team_name(tid, d)
+    if tid == "T08":
+        current = W.teams[tid]["name_history"][-1]["name"]
+        return fn if asof == current else f"{asof}{region}"
+    return asof
+
+
 def _sites_map(d) -> bytes:
     from .diagrams import SchematicMap
     M = SchematicMap(2300, 1900, -8.5, 20.5, 49.6, 63.2, top=130)
@@ -1044,6 +1071,6 @@ def _sites_map(d) -> bytes:
              ("LOC-STO", 18.07, 59.33, 1840, 760), ("LOC-CPH", 12.57, 55.68, 1700, 1300)]
     for lid, lon, lat, lx, ly in sites:
         loc = W.locations[lid]
-        fn = ", ".join(loc["functions"][:3])
+        fn = ", ".join(_asof_function(f, d) for f in loc["functions"][:3])
         M.callout(lon, lat, lx, ly, f"{loc['name']}\n{fn}", color=NAVY2, size=22, max_w=600)
     return M.png_bytes()

@@ -576,6 +576,19 @@
   needle: '60'
   exclusive: false
   also_in: []
+- fact_id: ST034-F009
+  world_ref: RULE:BR-FRD-036@v1
+  kind: general
+  statement: 'NISA-FR1 2026Q3: 66 customer notices were deferred under BR-FRD-036 v1 (the deferral annex lists 66 records);
+    1,354 were issued within 10 business days and 110 were pending at period end.'
+  file: corpus/upload/structured/ST034_nisa_fr1_2026q3_payload.json
+  locator:
+    kind: json_pointer
+    pointer: /figures/customerNotices
+  needle: 'deferred: 66'
+  exclusive: false
+  also_in: []
+  notes: Computed from the ST015 referral data model (notice_deferred = Y for Q3 2026 referrals).
 - fact_id: ST035-F001
   world_ref: INTERFACE:CLX-IF-042#dependents
   kind: needle
@@ -1032,6 +1045,19 @@
   needle: '60'
   exclusive: false
   also_in: []
+- fact_id: ST038-F007
+  world_ref: RULE:BR-FRD-036@v1
+  kind: general
+  statement: 'NISA-FR1 2026Q2: 55 customer notices were deferred under BR-FRD-036 v1 (the deferral annex lists 55 records);
+    1,336 were issued within 10 business days and 97 were pending at period end.'
+  file: corpus/upload/structured/ST038_nisa_fr1_return_2026q2.xml
+  locator:
+    kind: xml_xpath
+    xpath: //figures/customerNotices/deferred
+  needle: '55'
+  exclusive: false
+  also_in: []
+  notes: Computed from the ST015 referral data model (notice_deferred = Y for Q2 2026 referrals).
 - fact_id: ST039-F001
   world_ref: REPORT:NISA-TP2#source_interfaces
   kind: needle
@@ -1395,6 +1421,28 @@
     kind: yaml_path
     path: x-data-model.tables[2]
   needle: 'table: reserve.review_schedule database: chub_reserve'
+  exclusive: false
+  also_in: []
+- fact_id: ST043-F008
+  world_ref: SERVICE:reserve-engine#replaces_programs
+  kind: general
+  statement: reserve-svc replaces 16 CLARA programs, including CLRGL090 (year-end currency revaluation).
+  file: corpus/upload/structured/ST043_openapi_reserve_svc.yaml
+  locator:
+    kind: yaml_path
+    path: x-replaces-programs
+  needle: CLRGL090
+  exclusive: false
+  also_in: []
+- fact_id: ST043-F009
+  world_ref: SERVICE:reserve-engine#apis
+  kind: general
+  statement: reserve-svc POST /revaluation-runs triggers a currency revaluation run that replaces CLRGL090.
+  file: corpus/upload/structured/ST043_openapi_reserve_svc.yaml
+  locator:
+    kind: yaml_path
+    path: paths."/revaluation-runs".post.summary
+  needle: Trigger a currency revaluation run (replaces CLRGL090)
   exclusive: false
   also_in: []
 - fact_id: ST044-F001

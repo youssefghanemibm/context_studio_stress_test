@@ -1,0 +1,714 @@
+# Question group LONG: long documents (LD001–LD030).
+# Long-range definitions, split facts, multi-page tables, headers/footers/footnotes, Word comments and
+# tracked changes, the image-only scan (LD002), the two-column NISA filing (LD003), the legacy .doc
+# wordings (LD004–LD011), authority/RACI tables and the raster-only facts in the field guide (LD021).
+
+# ------------------------------------------------------------------ needle_long_range
+- id: Q-LONG-001
+  category: needle_long_range
+  dimensions: [long_doc, docx, needle, multi_hop]
+  question: "A UK home claim is notified with an estimated incurred of £45,000. There is no injury, no solicitor involvement and it is not a total loss. Under the current Claims Handling Manual, is it subject to the 14-day Tier-3 reserve review?"
+  expected_answer: "No. The claim is not Tier-3: under BR-TRI-003 v3 a claim is Tier-3 only at an estimated incurred of £50,000 or more (or with bodily injury, solicitor or litigation involvement at notification, or a property total loss). At £45,000 it is Tier-2 (£5,000 to £49,999), so the 14-day Tier-3 review (BR-RSV-007 v3) does not apply."
+  acceptable_variants:
+    - "No, it is a Tier-2 claim because the Tier-3 threshold is £50,000, so the 14-day review does not apply."
+  must_include:
+    - ["Tier-2", "Tier 2", "not Tier-3", "not a Tier-3", "isn't Tier-3", "isn't a Tier-3", "below the Tier-3", "does not meet the Tier-3", "doesn't meet the Tier-3", "does not qualify", "below the 50,000", "under the 50,000", "below 50,000", "under 50,000", "below the threshold", "under the threshold", "not subject", "does not apply", "doesn't apply"]
+    - ["50,000", "49,999"]
+  must_not_include: ["40,000"]
+  evidence:
+    - {fact_id: LD001-F016}
+    - {fact_id: LD001-F018}
+    - {fact_id: LD001-F153}
+  hops: 2
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-TRI-003@v3#parameters", "RULE:BR-RSV-007@v3#parameters.review_days"]
+  trap: "The Tier-3 definition (§2.4, p.15) is about 256 pages away from the review rule (§19.4, p.271), which does not restate it. The 2021 CLARA spec (LD017) puts Tier-3 at £40,000, which would wrongly make this claim Tier-3 (C10)."
+
+- id: Q-LONG-002
+  category: needle_long_range
+  dimensions: [long_doc, docx, needle, multi_hop]
+  question: "In Claims Handling Manual v7.2, what is the Large Loss Notification Threshold (LLNT), and how quickly must Reinsurance be notified when a reserve movement exceeds it?"
+  expected_answer: "The LLNT is a reserve movement of £250,000 on a single claim (BR-RSV-011 v2). Reinsurance must be notified within 24 hours of any reserve movement exceeding it, through ReCede, copied to the Reinsurance Manager."
+  acceptable_variants:
+    - "£250,000; notify Reinsurance within 24 hours."
+  must_include:
+    - ["250,000"]
+    - ["24 hours"]
+  must_not_include: ["200,000", "48 hours"]
+  evidence:
+    - {fact_id: LD001-F024}
+    - {fact_id: LD001-F159}
+  hops: 2
+  ask_mode: vector
+  difficulty: medium
+  world_refs: ["RULE:BR-RSV-011@v2#parameters"]
+  trap: "In the manual the LLNT amount is defined only in §2.6 (p.18); §22.3 (p.300) gives the 24-hour rule without restating the amount. Score retrieval on LD001 §2.6 and §22.3: other files state the full rule in one passage (LD003 p.67, LD024 p.17, LD026 p.8, ST005 Versions!F139, ST040, ST045, TX032, TX042/ST055 glossary, TX048), so retrieving one of them does not test the long-range join. The superseded v6.1 manual (LD012) says 48 hours and £200,000 (BR-RSV-011 v1)."
+
+- id: Q-LONG-003
+  category: needle_long_range
+  dimensions: [long_doc, docx, needle, multi_hop]
+  question: "A Hem Sverige home claim has an estimated incurred of SEK 700,000 and no other Tier-3 trigger. Under the current Claims Handling Manual, how often must its case reserve be reviewed?"
+  expected_answer: "At least every 14 days. SEK 700,000 is above the Swedish Tier-3 threshold of SEK 680,000 (BR-TRI-003 v3), so the claim is Tier-3, and Tier-3 reserves must be reviewed at least every 14 days (BR-RSV-007 v3, from 1 July 2026)."
+  acceptable_variants:
+    - "Every 14 days, because it is a Tier-3 claim (Swedish threshold SEK 680,000)."
+  must_include:
+    - ["14 days", "14-day", "fortnight", "two weeks"]
+    - ["Tier-3"]
+  must_not_include: ["21 days", "30 days"]
+  evidence:
+    - {fact_id: LD001-F016}
+    - {fact_id: LD001-F153}
+  hops: 2
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-TRI-003@v3#parameters.tier3_min_sek", "RULE:BR-RSV-007@v3#parameters.review_days"]
+  trap: "The SEK threshold is in §2.4 (p.15; restated in §12.2, p.168), far from the review cadence in §19.4 (p.271). Stale cadences: 21 days (BR-RSV-007 v2, to 30 June 2026) and 30 days in the v6.1 manual (C04)."
+
+- id: Q-LONG-004
+  category: needle_long_range
+  dimensions: [long_doc, docx, needle, multi_hop]
+  question: "A UK motor claim has an estimated incurred of only £12,000, but it involves a bodily injury. How often must its reserve be reviewed under the current manual?"
+  expected_answer: "At least every 14 days. Any bodily injury makes a claim Tier-3 under BR-TRI-003 v3, whatever the amount, and Tier-3 reserves must be reviewed at least every 14 days (BR-RSV-007 v3)."
+  acceptable_variants:
+    - "Every 14 days, because any bodily injury makes it a Tier-3 claim."
+  must_include:
+    - ["14 days", "14-day", "fortnight", "two weeks"]
+    - ["Tier-3"]
+  must_not_include: ["21 days", "30 days"]
+  evidence:
+    - {fact_id: LD001-F016}
+    - {fact_id: LD001-F153}
+  hops: 2
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-TRI-003@v3#parameters.tier3_triggers", "RULE:BR-RSV-007@v3#parameters.review_days"]
+  trap: "The amount is below £50,000, so a system that only knows the monetary threshold will call it Tier-2. The bodily-injury trigger is in the §2.4 definition, about 256 pages before the review rule."
+
+# ------------------------------------------------------------------ chunk_boundary
+- id: Q-LONG-005
+  category: chunk_boundary
+  dimensions: [long_doc, docx, chunk_boundary]
+  question: "According to §18.1 of Claims Handling Manual v7.2, what reserve authority does each role hold, from Claims Handler to Claims Director?"
+  expected_answer: "Claims Handler £25,000; Team Leader £100,000; Claims Manager £500,000; Claims Director £2,000,000. Above the Claims Director limit the case reserve must be approved by the Reserving Committee (BR-RSV-003 v3, effective 1 September 2025)."
+  acceptable_variants: []
+  must_include:
+    - ["25,000"]
+    - ["100,000"]
+    - ["500,000"]
+    - ["2,000,000"]
+  must_not_include: ["400,000"]
+  evidence:
+    - {fact_id: LD001-F148}
+    - {fact_id: LD001-F149}
+  hops: 1
+  ask_mode: vector
+  difficulty: medium
+  world_refs: ["RULE:BR-RSV-003@v3#parameters"]
+  trap: "In the manual the sentence is broken by a page break right after 'Team Leader £100,000;' (p.260/261), so a chunk holding only the first half loses the Claims Manager and Claims Director limits. The unsplit sentence exists in the rule catalogues and decks (LD003 p.67, LD024 p.17, LD026 p.18, ST005 F126, ST040, ST043, ST045, TX032, VS008 alt text, VS016), so score retrieval on LD001 §18.1. The v2 limits (Claims Manager £400,000) are in the v6.1 manual and VS022."
+
+- id: Q-LONG-006
+  category: chunk_boundary
+  dimensions: [long_doc, docx, chunk_boundary]
+  question: "Under §18.1 of Claims Handling Manual v7.2, how much reserve authority does a Claims Manager hold, and who has to approve a case reserve above the Claims Director's limit?"
+  expected_answer: "A Claims Manager can approve case reserves up to £500,000 (BR-RSV-003 v3). Above the Claims Director limit of £2,000,000 the case reserve must be approved by the Reserving Committee."
+  acceptable_variants:
+    - "£500,000; above the Claims Director's £2m limit, the Reserving Committee approves."
+  must_include:
+    - ["500,000"]
+    - ["Reserving Committee"]
+  must_not_include: ["400,000"]
+  evidence:
+    - {fact_id: LD001-F149}
+    - {file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx, locator: {kind: docx_para, para_index: 3157, section: "18.1 Reserve authority limits", page_hint: 261}, needle: "the case reserve must be approved by the Reserving Committee"}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-RSV-003@v3#parameters.claims_manager"]
+  trap: "In the manual both answers sit in the half of the sentence after the page break (p.261); the same facts appear unsplit in about ten other files (LD003 p.67, LD024, LD026, ST040, ST043, ST045, TX032, VS008, VS016), so score retrieval on LD001 §18.1. Payment authority for a Claims Manager is a different figure (£350,000, BR-STL-002 v3); the stale reserve limit is £400,000 (v2)."
+
+- id: Q-LONG-007
+  category: chunk_boundary
+  dimensions: [long_doc, docx, chunk_boundary]
+  question: "According to Claims Handling Manual v7.2 (§31), how long does a settlement offer remain open for acceptance?"
+  expected_answer: "30 days from the offer date (BR-STL-004). An expired offer may be reissued only after the case reserve and the cover position have been re-checked."
+  acceptable_variants:
+    - "30 days from the date of the offer."
+  must_include:
+    - ["30 days"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD001-F197}
+    - {fact_id: LD001-F198}
+  hops: 1
+  ask_mode: vector
+  difficulty: medium
+  world_refs: ["RULE:BR-STL-004@v1#parameters.validity_days"]
+  trap: "In the manual the sentence ends '... which under BR-STL-004 is' at the end of §31.2, and the value '30 days from the offer date' starts §31.3 after the heading, so the two halves usually land in different chunks. Unsplit copies ('valid for 30 days from the offer date') exist in LD003 p.29, LD012 §21.1, LD017 table 5, ST005 Versions!F158 and ST040 rule[30], so score retrieval on LD001 §31.2/31.3."
+
+- id: Q-LONG-008
+  category: chunk_boundary
+  dimensions: [long_doc, docx, chunk_boundary]
+  question: "According to the Data Migration Strategy's dependency narrative (§5.3), which interface does the CDW Reserve Fact Load (CLX-IF-044) feed downstream of the warehouse, and what does that interface deliver?"
+  expected_answer: "CLX-IF-044 feeds CLX-IF-058, the Reserve Triangles Extract, which delivers the monthly reserve triangles to the Actuarial Reserving Workbench used by Reserving for the IBNR run."
+  acceptable_variants:
+    - "CLX-IF-058 (Reserve Triangles Extract), which sends the monthly reserve triangles to the Actuarial Reserving Workbench."
+  must_include:
+    - ["CLX-IF-058"]
+    - ["Actuarial Reserving Workbench", "reserve triangles"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD014-F007}
+  hops: 1
+  ask_mode: vector
+  difficulty: medium
+  world_refs: ["INTERFACE:CLX-IF-058#depends_on", "INTERFACE:CLX-IF-044#dependents"]
+  trap: "In the data migration strategy (§5.3) the sentence has an explicit page break right after 'feeds', so 'CLX-IF-044 ... feeds' and 'CLX-IF-058 (Reserve Triangles Extract) ...' are on different pages. The dependency is also stated without a break in ST054 table 2, the VS019 slide 8 connector, ST003 Dependencies, LD013 table 108 and VS013 slide 11, so score retrieval on LD014 §5.3."
+
+# ------------------------------------------------------------------ multipage_table
+- id: Q-LONG-009
+  category: multipage_table
+  dimensions: [long_doc, docx]
+  question: "What default reserve is created at FNOL for a Home Buildings & Contents UK escape-of-water claim?"
+  expected_answer: "£4,200 (default reserve table 7-1, BR-FNOL-005 v2)."
+  acceptable_variants:
+    - "4,200 pounds"
+  must_include:
+    - ["4,200"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD001-F070}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-FNOL-005@v2#parameters.default_reserve.HOMUK/EOW"]
+  trap: "Table 7-1 runs from p.88 to about p.93 with its header row only on the first page; the Escape of Water row is on the third page, where the 'Default reserve' column is unlabelled. Not to be confused with the Home UK escape-of-water excess (£400 current, £350 in the 2014 wording)."
+
+- id: Q-LONG-010
+  category: multipage_table
+  dimensions: [long_doc, docx]
+  question: "Default FNOL reserve for a Hem Sverige escape of water (vattenskada) claim"
+  expected_answer: "SEK 45,000 (default reserve table 7-1, BR-FNOL-005 v2)."
+  acceptable_variants:
+    - "45,000 Swedish kronor"
+  must_include:
+    - ["45,000"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD001-F073}
+  hops: 1
+  ask_mode: vector
+  difficulty: medium
+  world_refs: ["RULE:BR-FNOL-005@v2#parameters.default_reserve.HOMSE/EOW"]
+  trap: "The Hem Sverige row is on the fourth page of table 7-1 (p.91), far from the header row on p.88; a retrieved row fragment without the header gives no clue that the figure is a default reserve."
+
+- id: Q-LONG-011
+  category: multipage_table
+  dimensions: [long_doc, docx, multi_hop]
+  question: "In the column mapping table of the Data Migration Strategy, which Claims Hub columns do CLR.T_RESERVE.RSV_OUTSTANDING_AMT and CLR.T_FRAUD_REFERRAL.REF_SCORE map to?"
+  expected_answer: "RSV_OUTSTANDING_AMT maps to reserve.reserve.outstanding_amount, and REF_SCORE maps to fraud.referral.sentinel_score (direct, 0–100)."
+  acceptable_variants: []
+  must_include:
+    - ["reserve.reserve.outstanding_amount", "outstanding_amount"]
+    - ["fraud.referral.sentinel_score", "sentinel_score"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD014-F010}
+    - {fact_id: LD014-F011}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["TABLE:reserve.reserve#columns.outstanding_amount", "TABLE:fraud.referral#columns.sentinel_score"]
+  trap: "The mapping table in LD014 runs over seven pages; the reserve row is on table page 4 and the REF_SCORE row on table page 5, each far from the header row. ST007 (sheet 'Column Mapping', MAP-0042 and MAP-0070) gives each mapping in one spreadsheet row, so score retrieval on LD014; its transformation notes differ (ST007 'reconciled per product after load' vs LD014 'reconciled per claim')."
+
+- id: Q-LONG-012
+  category: multicolumn
+  dimensions: [long_doc, pdf, multicolumn]
+  question: "According to Corvane's 2025 NISA annual claims and reserving filing, what were the claims outstanding technical provisions at 31 December 2025, and how much of that was IBNR?"
+  expected_answer: "£2,318.4m in total, of which IBNR was £611.9m (case reserves £1,706.5m), per Table 4.2."
+  acceptable_variants:
+    - "Technical provisions £2,318.4 million, including IBNR of £611.9 million."
+  must_include:
+    - ["2,318.4m", "2,318.4 million", "2,318.4"]
+    - ["611.9m", "611.9 million", "611.9"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD003-F029}
+    - {fact_id: LD003-F030}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["ORG:company#financials.fy2025.ibnr_gbp_m", "ORG:company#financials.fy2025.claims_outstanding_technical_provisions_gbp_m"]
+  trap: "IBNR (611.9) appears only in Table 4.2 (right-hand column of two-column p.87); the 2,318.4 total also appears in ST010 FY2025!B6. Table 4.2 repeats its header on each page, so the difficulty is the two-column reading order, not a header-on-page-1-only table."
+
+- id: Q-LONG-013
+  category: multipage_table
+  dimensions: [long_doc, docx]
+  question: "Under the post re-organisation claims operating model, who is accountable for approving a recovery write-off of £15,000?"
+  expected_answer: "The Head of Recoveries & Subrogation, Freya Lindahl (RACI row PS-REC-06.1, write-offs above £10,000). Write-offs up to £10,000 are approved by the Recoveries Team Leader – UK, Siobhan Quill."
+  acceptable_variants:
+    - "Freya Lindahl, Head of Recoveries & Subrogation."
+  must_include:
+    - ["Freya Lindahl", "Head of Recoveries & Subrogation", "Head of Recoveries and Subrogation"]
+  must_not_include: ["Calloway"]
+  evidence:
+    - {fact_id: LD018-F013}
+    - {fact_id: LD018-F014}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PROCESS:PS-REC-06#raci", "RULE:BR-REC-011@v2"]
+  trap: "The RACI table spans four pages and this row is on its third page, without the column headers. Under the superseded BR-REC-011 v1, write-offs above £5,000 went to the Recoveries Manager (Martin Calloway, who left on 2024-12-31)."
+
+# ------------------------------------------------------------------ header_footer_footnote
+- id: Q-LONG-014
+  category: header_footer_footnote
+  dimensions: [long_doc, docx]
+  question: "What is the document control reference (ID and revision) of the current Claims Handling Manual?"
+  expected_answer: "CS-MAN-007 rev 7.2 (Classification: Internal)."
+  acceptable_variants:
+    - "CS-MAN-007, revision 7.2"
+  must_include:
+    - ["CS-MAN-007"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD001-F002}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["ANCHOR:LD001#doc_id"]
+  trap: "The document ID appears only in the page footer of LD001 (and in the scanned copy LD002), never in the body text."
+
+- id: Q-LONG-015
+  category: header_footer_footnote
+  dimensions: [long_doc, docx]
+  question: "Under the June 2026 Claims Handling Manual, for how long can the customer notice after a fraud referral be deferred where SIU certifies a tipping-off risk, and who must approve the deferral?"
+  expected_answer: "Up to 60 days (BR-FRD-036 v1). The deferral must be approved by the SIU Investigations Manager (UK) or the Head of Counter-Fraud & SIU."
+  acceptable_variants:
+    - "Up to 60 days, approved by the SIU Investigations Manager (UK) or the Head of Counter-Fraud and SIU."
+  must_include:
+    - ["SIU Investigations Manager"]
+    - ["Head of Counter-Fraud & SIU", "Head of Counter-Fraud and SIU"]
+    - ["60 days"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD001-F191}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-FRD-036@v1#parameters.approvers", "RULE:BR-FRD-036@v1#parameters.max_deferral_days"]
+  trap: "The approvers are stated only in a footnote to §29.3 (and in its scan, LD002). From 1 October 2026 BR-FRD-036 v2 requires the Head of Counter-Fraud & SIU for deferrals beyond 30 days; the question is scoped to the June 2026 manual."
+
+- id: Q-LONG-016
+  category: header_footer_footnote
+  dimensions: [long_doc, pdf, multicolumn]
+  question: "What share of first notices of loss did Corvane acknowledge within 2 business days in 2025?"
+  expected_answer: "97.3% within 2 business days, measured from receipt of the notification in any channel to the issue of the acknowledgement."
+  acceptable_variants:
+    - "97.3 percent"
+  must_include:
+    - ["97.3%"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD003-F016}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["ORG:company#financials.fy2025.fnol_ack_within_2bd_pct"]
+  trap: "The figure exists only in footnote 3 of the NISA annual filing, at the bottom of the left-hand column on p.33; the body carries only the superscript marker."
+
+# ------------------------------------------------------------------ docx_comment_tracked
+- id: Q-LONG-017
+  category: docx_comment_tracked
+  dimensions: [long_doc, docx]
+  question: "What annual indexation rate applies to open bodily-injury reserves in 2026?"
+  expected_answer: "3.1% per annum (BR-RSV-009 v3), confirmed with Actuarial. This is stated in Lena Kristiansen's reviewer comment on §20.2 of the Claims Handling Manual v7.2."
+  acceptable_variants:
+    - "3.1 percent a year"
+  must_include:
+    - ["3.1%"]
+  must_not_include: ["4.0%", "2.5%"]
+  evidence:
+    - {fact_id: LD001-F154}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-RSV-009@v3#parameters.index_pct_pa"]
+  trap: "The 2026 rate is only in a Word comment, never in the manual body or the scan. Older rates in the corpus: 4.0% (v2, 2024–2025, e.g. LD024 and ST005) and 2.5% (v1, LD012 and LD017)."
+
+- id: Q-LONG-018
+  category: docx_comment_tracked
+  dimensions: [long_doc, docx, contradiction]
+  question: "In the payment authority limits of Claims Handling Manual v7.2 (§25.2), the Team Leader figure carries a tracked change. What value was deleted and what value was inserted?"
+  expected_answer: "£50,000 was deleted (BR-STL-002 v2) and £75,000 was inserted (BR-STL-002 v3, effective 1 September 2025)."
+  acceptable_variants:
+    - "Deleted £50,000, inserted £75,000."
+  must_include:
+    - ["50,000"]
+    - ["75,000"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD001-F164}
+    - {fact_id: LD001-F165}
+  hops: 2
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-STL-002@v2#parameters.team_leader", "RULE:BR-STL-002@v3#parameters.team_leader", "CONTRA:C16"]
+  trap: "The old value survives only as a w:del run; extractors that drop deletions lose £50,000, and those that flatten both runs produce 'Team Leader £50,000£75,000'. The stale £50,000 also appears in the 2025 authority matrix VS022 (C16)."
+
+- id: Q-LONG-019
+  category: docx_comment_tracked
+  dimensions: [long_doc, docx, rename]
+  question: "In the v7.2 manual's description of the Claims Fraud Forum's members, one team name was replaced with tracked changes. What was struck out and what was inserted?"
+  expected_answer: "'Special Investigations Unit' was deleted and 'Counter-Fraud & SIU' was inserted (the team was renamed on 1 September 2025)."
+  acceptable_variants:
+    - "Special Investigations Unit was replaced by Counter-Fraud and SIU."
+  must_include:
+    - ["Special Investigations Unit"]
+    - ["Counter-Fraud & SIU", "Counter-Fraud and SIU"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD001-F035}
+    - {fact_id: LD001-F036}
+  hops: 2
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["TEAM:T11#name_history"]
+  trap: "The deleted text exists only in a w:del run; the accepted text reads only 'Counter-Fraud & SIU leadership'."
+
+- id: Q-LONG-020
+  category: docx_comment_tracked
+  dimensions: [long_doc, docx]
+  question: "Which decision approved the payment authority limits shown in §25.2 of Claims Handling Manual v7.2, and when was it taken?"
+  expected_answer: "DEC-020, on 12 August 2025; the limits are effective from 1 September 2025."
+  acceptable_variants:
+    - "DEC-020 (12 August 2025)"
+  must_include:
+    - ["DEC-020"]
+    - ["12 August 2025", "2025-08-12", "12/08/2025"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD001-F166}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["DECISION:DEC-020"]
+  trap: "Within LD001 the link between §25.2 and DEC-020 exists only in a reviewer comment (Rob Tennant), not in the body. The decision log (TX038, LD029 p.56, ST053) records DEC-020 (12 August 2025) approving the BR-STL-002 v3 limits that §25.2 shows, so a 2-hop answer outside the comment is also possible."
+
+# ------------------------------------------------------------------ scanned_ocr
+- id: Q-LONG-021
+  category: scanned_ocr
+  dimensions: [long_doc, pdf, scanned]
+  question: "When was the signed scanned copy of Claims Handling Manual v7.2 received, and by which office?"
+  expected_answer: "It was stamped RECEIVED by the Claims Standards Office on 3 July 2026 (03 JUL 2026)."
+  acceptable_variants:
+    - "Claims Standards Office, 03 JUL 2026"
+  must_include:
+    - ["Claims Standards Office"]
+    - ["3 July 2026", "03 JUL 2026", "2026-07-03", "3 July", "03/07/2026", "3/7/2026"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD002-F001}
+    - {fact_id: LD002-F002}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["ANCHOR:LD002#received_stamp"]
+  trap: "The stamp is drawn only into the page-1 image of the image-only scan (LD002); no text layer and no other file contains it."
+
+- id: Q-LONG-022
+  category: scanned_ocr
+  dimensions: [long_doc, pdf, scanned]
+  question: "In the scanned signed copy of the Claims Handling Manual, a handwritten note sits below the Tier-3 reserve review section. What does it record, and which meeting agreed the change?"
+  expected_answer: "The note reads 'T3 review 14d from 01/07 — agreed RC 09/06 — LK': the Tier-3 review every 14 days from 1 July, agreed at the Reserving Committee (RC) on 9 June 2026, initialled LK."
+  acceptable_variants:
+    - "T3 review 14d from 01/07, agreed RC 09/06, LK"
+  must_include:
+    - ["14d", "14 days", "14-day", "fortnight"]
+    - ["Reserving Committee", "RC"]
+    - ["09/06", "9 June", "2026-06-09"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD002-F003}
+    - {fact_id: LD002-F004}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["DECISION:DEC-008", "RULE:BR-RSV-007@v3"]
+  trap: "The handwriting-style note exists only as pixels on p.271 of the scan; the DOCX original (LD001) has no such note."
+
+- id: Q-LONG-023
+  category: scanned_ocr
+  dimensions: [long_doc, pdf, scanned, multi_hop]
+  question: "How many days after Claims Handling Manual v7.2 was approved was its signed scanned copy stamped as received?"
+  expected_answer: "3 days: the manual was approved on 30 June 2026 and the scanned copy was stamped received by the Claims Standards Office on 3 July 2026."
+  acceptable_variants:
+    - "Three days (30 June to 3 July 2026)."
+  must_include:
+    - ["3 days"]
+  must_not_include: []
+  evidence:
+    - {file: corpus/upload/long_docs/LD002_claims_handling_manual_v7_2_scanned.pdf, locator: {kind: pdf_page, page: 1, ocr: true}, needle: "Approved 30 June 2026"}
+    - {fact_id: LD002-F002}
+  hops: 2
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["ANCHOR:LD001#date", "ANCHOR:LD002#received_stamp"]
+  trap: "Both dates are on page 1 of the scan, but the received date is only in the rubber-stamp image."
+
+# ------------------------------------------------------------------ multicolumn
+- id: Q-LONG-024
+  category: multicolumn
+  dimensions: [long_doc, pdf, multicolumn, chunk_boundary]
+  question: "According to Corvane's 2025 NISA annual filing, how many fraud referrals were made in 2025, how many were confirmed as fraud, and what saving resulted?"
+  expected_answer: "4,812 fraud referrals, of which 1,109 were confirmed fraud, saving £38.7m in claim payments that would otherwise have been made."
+  acceptable_variants:
+    - "4,812 referrals; 1,109 confirmed; £38.7 million saved."
+  must_include:
+    - ["4,812"]
+    - ["1,109"]
+    - ["38.7m", "38.7 million"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD003-F020}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["ORG:company#financials.fy2025.fraud_referrals", "ORG:company#financials.fy2025.confirmed_fraud_cases", "ORG:company#financials.fy2025.fraud_savings_gbp_m"]
+  trap: "On p.54 the sentence starts on the last lines of column 1 and ends at the top of column 2; reading straight across the page splices it with the other column."
+
+- id: Q-LONG-025
+  category: multicolumn
+  dimensions: [long_doc, pdf, multicolumn]
+  question: "According to Corvane's 2025 NISA annual filing (§6.2), when was the Q1 2025 NISA-TP2 return due, when was it submitted, and why was it late?"
+  expected_answer: "It was due on 5 May 2025 and submitted on 7 May 2025, two days late, under an extension granted by Imogen Thackray of NISA. The delay followed incident INC-2025-0412 (28 April 2025): GL reserve journals were rejected after the CLX-IF-042 layout change."
+  acceptable_variants: []
+  must_include:
+    - ["5 May 2025", "2025-05-05", "05/05/2025"]
+    - ["7 May 2025", "2025-05-07", "07/05/2025"]
+    - ["INC-2025-0412", "CLX-IF-042 layout"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD003-F034}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["REPORT:NISA-TP2#late_events", "INCIDENT:INC-2025-0412"]
+  trap: "§6.2 sits in the two-column body of p.107; a reading order that interleaves the columns breaks the due/submitted sentence. The same facts appear in LD029 p.53 Table 21, ST023 row 5, ST039 submissionHistory and VS019 slide 7, so score the answer as drawn from LD003 §6.2."
+
+# ------------------------------------------------------------------ legacy_doc
+- id: Q-LONG-026
+  category: legacy_doc
+  dimensions: [legacy_doc, doc]
+  question: "Under the 2012 Motor Private (UK) policy wording, what were the compulsory excess and the windscreen excess?"
+  expected_answer: "Compulsory excess £150 for each claim; windscreen excess £75 for each replacement of broken glass (wording MOT-UK-2012)."
+  acceptable_variants:
+    - "£150 compulsory and £75 windscreen."
+  must_include:
+    - ["150"]
+    - ["75"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD004-F002}
+    - {fact_id: LD004-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PRODUCT:PRD-MOT-UK#wordings.MOT-UK-2012.excess"]
+  trap: "Only in the legacy .doc schedule of excesses. Current Motor Private UK terms are different (£250 standard, £95 windscreen, in LD001), so a system that ignores the wording year gives the wrong pair."
+
+- id: Q-LONG-027
+  category: legacy_doc
+  dimensions: [legacy_doc, doc, terminology, contradiction]
+  question: "What standard excess per claim did the 2016 Swedish home insurance wording (Hem Sverige) set?"
+  expected_answer: "SEK 1,500 per claim ('Självrisken är 1 500 kronor'), unless the policy schedule says otherwise (wording HOM-SE-2016)."
+  acceptable_variants:
+    - "1,500 Swedish kronor"
+  must_include:
+    - ["1,500", "1 500 kronor", "SEK 1 500."]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD008-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PRODUCT:PRD-HOM-SE#wordings.HOM-SE-2016.excess", "CONTRA:C17"]
+  trap: "The wording is in Swedish ('självrisk', space as thousands separator). The current Hem Sverige excess is SEK 2,000 (ST025, LD001); the 2016 figure applies only to policies incepted under that wording (C17)."
+
+- id: Q-LONG-028
+  category: legacy_doc
+  dimensions: [legacy_doc, doc, terminology]
+  question: "Under the 2015 Norwegian motor wording, what excess applies to glass damage when the window is replaced, and what applies when it is repaired?"
+  expected_answer: "NOK 1,500 when the glass is replaced; no excess is deducted when the window is repaired (wording MOT-NO-2015, section 13 Egenandel)."
+  acceptable_variants:
+    - "NOK 1,500 for a replacement and no excess for a repair."
+  must_include:
+    - ["1,500", "NOK 1 500."]
+    - ["no excess", "nil", "not deducted", "no deductible", "no egenandel", "free of excess", "waived", "nothing is deducted", "zero excess", "no excess applies", "excess does not apply"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD009-F002}
+  hops: 1
+  ask_mode: vector
+  difficulty: hard
+  world_refs: ["PRODUCT:PRD-MOT-NO#wordings.MOT-NO-2015.excess.windscreen"]
+  trap: "The answer is in Norwegian ('Egenandel ved glasskade er NOK 1 500 når ruten skiftes. Ved reparasjon av rute trekkes ingen egenandel.'). The current Motor Privat Norge windscreen excess is NOK 2,000."
+
+- id: Q-LONG-029
+  category: legacy_doc
+  dimensions: [legacy_doc, doc, terminology]
+  question: "What standard excess per claim does the 2016 Danish home insurance wording (Hjem Danmark) set?"
+  expected_answer: "DKK 1,200 per claim ('Selvrisikoen er 1.200 kr. pr. skade'), unless the policy says otherwise (wording HOM-DK-2016)."
+  acceptable_variants:
+    - "1,200 Danish kroner"
+  must_include:
+    - ["1,200", "1.200 kr"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD010-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PRODUCT:PRD-HOM-DK#wordings.HOM-DK-2016.excess"]
+  trap: "Danish uses a full stop as thousands separator ('1.200 kr.'), which a naive parser reads as 1.2. The current Hjem Danmark excess is DKK 1,500."
+
+- id: Q-LONG-030
+  category: legacy_doc
+  dimensions: [legacy_doc, doc, terminology, multi_hop]
+  question: "Does the 2017 Norwegian home insurance wording (Hjem Norge) cover frost damage, and what ordinary excess applies to a building or contents claim under it?"
+  expected_answer: "Yes. Frost damage (frostskade) to building and contents is covered, including damage to pipes and installations from frozen water and water damage when it thaws. The ordinary excess (egenandel) is NOK 4,000 per claim (wording HOM-NO-2017)."
+  acceptable_variants:
+    - "Frost damage is covered; the excess is NOK 4,000."
+  must_include:
+    - ["frost", "frostskade"]
+    - ["is covered", "are covered", "it's covered", "covers frost", "dekker frostskade", "is included", "is insured"]
+    - ["4,000", "NOK 4 000."]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD011-F002}
+    - {fact_id: LD011-F001}
+  hops: 2
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["PRODUCT:PRD-HOM-NO#wordings.HOM-NO-2017.frost_damage_covered", "PRODUCT:PRD-HOM-NO#wordings.HOM-NO-2017"]
+  trap: "The two facts sit in different sections of the Norwegian .doc (Dekning/Frostskade and 12 Egenandel); the coverage summary table omits frost. The 2015 motor wording (LD009) also has an NOK 4,000 excess, so the product must be kept apart."
+
+- id: Q-LONG-031
+  category: legacy_doc
+  dimensions: [legacy_doc, doc, long_doc, temporal, multi_hop]
+  question: "How does the ordinary excess in the 2015 Norwegian motor wording compare with the standard Motor Privat Norge excess in the current Claims Handling Manual?"
+  expected_answer: "The 2015 wording set an ordinary excess (egenandel) of NOK 4,000; the current manual gives a standard excess of NOK 6,000, so it is NOK 2,000 higher today."
+  acceptable_variants:
+    - "NOK 4,000 in 2015 versus NOK 6,000 now."
+  must_include:
+    - ["4,000", "NOK 4 000."]
+    - ["6,000"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD009-F001}
+    - {file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx, locator: {kind: docx_table, table_index: 43, row: 2, col: 1}, needle: "NOK 6,000"}
+  hops: 2
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["PRODUCT:PRD-MOT-NO#wordings.MOT-NO-2015.excess", "PRODUCT:PRD-MOT-NO#excess"]
+  trap: "Joins a Norwegian legacy .doc with a table in the 496-page manual. The Hjem Norge 2017 wording also says NOK 4,000, and the current Motor Privat Norge windscreen excess is NOK 2,000."
+
+# ------------------------------------------------------------------ table_row
+- id: Q-LONG-032
+  category: table_row
+  dimensions: [long_doc, docx]
+  question: "In the claims operating model RACI, who is Accountable for step PS-FRD-04, SIU investigation and outcome?"
+  expected_answer: "The SIU Investigations Manager (UK), Rachel Dunmore. Counter-Fraud & SIU is Responsible, Compliance is Consulted and Claims Operations (Group) is Informed."
+  acceptable_variants:
+    - "Rachel Dunmore, SIU Investigations Manager (UK)."
+  must_include:
+    - ["Rachel Dunmore", "SIU Investigations Manager"]
+  must_not_include: []
+  evidence:
+    - {file: corpus/upload/long_docs/LD018_claims_operating_model_raci.docx, locator: {kind: docx_table, table_index: 41, row: 40, col: 3}, needle: "SIU Investigations Manager (UK) (Rachel Dunmore)"}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PROCESS:PS-FRD-04#raci"]
+  trap: "The other fraud steps in the same RACI (PS-FRD-01, PS-FRD-02) are accountable to the Head of Counter-Fraud & SIU, Niall Brannigan; reading the wrong row gives the wrong person."
+
+- id: Q-LONG-033
+  category: table_row
+  dimensions: [long_doc, pdf]
+  question: "What are the retention and the limit of Corvane's 2026 excess-of-loss reinsurance programme, and which reinsurer leads it with what share?"
+  expected_answer: "Retention £5m each and every loss; limit £150m. The lead reinsurer is Brynholt Re with 40% (Calderbank Re takes 35%; other market participants 25%)."
+  acceptable_variants:
+    - "£5 million retention, £150 million limit, led by Brynholt Re at 40%."
+  must_include:
+    - ["5m", "5 million", "5,000,000"]
+    - ["150m", "150 million", "150,000,000"]
+    - ["Brynholt"]
+    - ["40%"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD026-F001}
+    - {fact_id: LD026-F002}
+    - {fact_id: LD026-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["ORG:company#reinsurance_treaty_2026"]
+  trap: "The terms appear only in the page-3 summary table of LD026; label and value cells must be kept together."
+
+# ------------------------------------------------------------------ visual (LD021 raster-only)
+- id: Q-LONG-034
+  category: visual_raster
+  dimensions: [long_doc, pdf, visual]
+  question: "According to the Claims Assessor Field Guide, what moisture-meter reading indicates a gradual leak rather than a sudden escape of water?"
+  expected_answer: "A moisture reading of 25% WME (wood moisture equivalent) or more indicates a gradual leak, not a sudden escape of water; the assessor must photograph the meter display."
+  acceptable_variants:
+    - "25% WME or more"
+  must_include:
+    - ["25%"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD021-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-ASM-011@v1#parameters.moisture_wme_pct"]
+  trap: "The threshold is burned into the Plate 4.4 photograph (p.26); the page's text layer has only the plate title. The meter in the photo itself shows 31.8 %WME, which is a reading, not the threshold."
+
+- id: Q-LONG-035
+  category: visual_raster
+  dimensions: [long_doc, pdf, visual]
+  question: "Above what crack width must subsidence cracks be referred to a structural engineer before cover is confirmed?"
+  expected_answer: "Cracks wider than 5 mm must be referred to a structural engineer before cover is confirmed (Plate 7.3)."
+  acceptable_variants:
+    - "wider than 5 millimetres"
+  must_include:
+    - ["5 mm", "5 millimetres", "5 millimeters"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD021-F002}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-ASM-012@v1#parameters.crack_width_mm"]
+  trap: "Stated only in the caption burned into the Plate 7.3 photograph (p.54) of the 31 MB image-heavy field guide."
+
+- id: Q-LONG-036
+  category: visual_image_table
+  dimensions: [long_doc, pdf, visual]
+  question: "According to the Claims Assessor Field Guide (2025 edition), what does Norrvik Skadetaxering charge per instruction for a desk assessment in Sweden, a site visit in Sweden and a site visit in Norway?"
+  expected_answer: "Desk assessment (Sweden) SEK 2,150; site visit (Sweden) SEK 4,900; site visit (Norway) NOK 5,200 per instruction (Table B.1)."
+  acceptable_variants: []
+  must_include:
+    - ["2,150"]
+    - ["4,900"]
+    - ["5,200"]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD021-F003}
+    - {fact_id: LD021-F004}
+    - {fact_id: LD021-F005}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["VENDOR:VEN-02#fees"]
+  trap: "Table B.1 (p.134) is an image; the fees are not in the text layer or in any other accepted file. RJ004 (a rejected .eml) announces the Swedish site-visit fee rising to SEK 5,150 from 2027-01-01; that is a future change, not the field-guide figure. OCR reads the service column and the fee column as separate blocks, so rows must be re-paired."

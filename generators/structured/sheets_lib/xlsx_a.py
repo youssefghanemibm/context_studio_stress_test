@@ -59,13 +59,23 @@ def st001_tables(d):
     return out
 
 
+_PAREN = re.compile(r"\s*\([^()]*\)")
+
+
+def column_desc_asof(text: str, d) -> str:
+    """Column description as written on date d: parentheticals that cite a rule (or rule version) introduced
+    after d are dropped, e.g. 'Customer notice due date (referral date + 10 business days, BR-FRD-032)' ->
+    'Customer notice due date' in a 2025 document."""
+    if text_rules_known(text, d):
+        return text
+    out = _PAREN.sub(lambda m: "" if not text_rules_known(m.group(0), d) else m.group(0), text).strip()
+    assert text_rules_known(out, d), f"rule reference outside a parenthetical: {text!r}"
+    return out
+
+
 def st001_columns(tname, d):
-    cols = []
-    for c in W.tables[tname]["columns"]:
-        if not text_rules_known(c["description"], d):
-            continue
-        cols.append(c)
-    return cols
+    """Every column of the table (the world has no column history), with descriptions as of date d."""
+    return [dict(c, description=column_desc_asof(c["description"], d)) for c in W.tables[tname]["columns"]]
 
 
 def build_st001(ctx):

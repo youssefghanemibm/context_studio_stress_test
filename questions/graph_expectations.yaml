@@ -1,0 +1,3704 @@
+# Graph expectations for the Corvane corpus (curated from questions/graph_expectations.draft.yaml).
+# Format: questions/GRAPH_EXPECTATIONS_FORMAT.md. Types and relationships: schemas/corvane_claims.jsonld.
+# Audit:  .venv/bin/python -I harness/graph_audit.py audit <export.json> --expect questions/graph_expectations.yaml
+# Consistency proof: harness/make_perfect_export.py builds a graph from the world model alone; auditing it
+# against this file must give 0 missing nodes, 0 missing edges, 0 unmerged aliases and 0 wrong merges.
+#   .venv/bin/python -I harness/make_perfect_export.py && .venv/bin/python -I harness/graph_audit.py audit \
+#       build/perfect_export.json --expect questions/graph_expectations.yaml --label perfect
+#   Result (2026-11-16): 132/132 nodes present, 141/141 edges present, 130/130 merge groups merged, 8/8
+#   must-not-merge groups kept apart, 0 must-not-exist hits. Each node, merge group and must-not-merge entry
+#   also resolves to exactly the world entity its world_ref names (the two Callum Fairbairn nodes to P022/P051).
+#
+# Scope (132 nodes, 141 edges, 130 merge groups, 8 must-not-merge, 49 must-not-exist):
+# - nodes: every person with manifest evidence in 2+ corpus files, the systems with evidence in 2+ files, the
+#   CLX-IF-042 impact chain (root + hops 1-2) and NISA-TP2, the eight reserve-table writers plus CLRRS150 and
+#   CLRRS170, CLR.T_RESERVE / CLR.T_RESERVE_MOVEMENT, the versioned rules the headline questions and planted
+#   contradictions use, the seven process stages, the 13 Claims Hub services and two NISA circulars (2026/04, 2024/07).
+# - edges: REPORTS_TO and OWNS_PROCESS as of 2026-11-15 (current lines only; stale chart lines are NOT expected),
+#   WRITES_TO_TABLE for the reserve writers, CALLS_PROGRAM chains stated in the corpus, the CLX-IF-042
+#   DEPENDS_ON_INTERFACE / SOURCE_SYSTEM / TARGET_SYSTEM / FEEDS_REPORT chain, SUPERSEDES, HAS_VERSION,
+#   GOVERNED_BY, RENAMED_TO, REPLACES_PROGRAM, NEXT_STEP, OWNS_INTERFACE and CONSUMES_INTERFACE on the CLX-IF-042
+#   chain, IMPLEMENTS_RULE, OWNS_RULE and CONSUMES_TOPIC.
+# - Rename policy: system, service, person and team renames are merge_expected groups (one node per entity);
+#   COBOL program-id renames (FNETCAL1 -> CLRFR020 ...) are RENAMED_TO edges between two Program nodes.
+# - Every node and edge cites manifest fact ids (manifests/*.facts.yaml; rejected-format facts excluded).
+#   Items without corpus evidence were dropped (e.g. OWNS_PROCESS for S2/S3/S5/S6, Vehicle Data Service).
+version: 1
+as_of: '2026-11-15'
+nodes:
+- id: GN001
+  type: Person
+  name: Priya Raman
+  world_ref: P001
+  match_any: [Priya Raman, P. Raman]
+  evidence: [LD029-F001, TX013-F002, TX074-F010, TX001-F015, TX072-F006]
+  importance: high
+  note: Chief Financial Officer; Corvane
+- id: GN002
+  type: Person
+  name: Gareth Whitcombe
+  world_ref: P002
+  match_any: [Gareth Whitcombe, G. Whitcombe]
+  evidence: [LD013-F028, LD028-F004, TX007-F002, TX004-F007, VS004-F001]
+  importance: high
+  note: Chief Financial Officer (left 2025-06-30); Corvane
+- id: GN003
+  type: Person
+  name: Helena Strandberg
+  world_ref: P003
+  match_any: [Helena Strandberg, H. Strandberg]
+  evidence: [GP006-F002, VS004-F001, VS005-F004]
+  importance: medium
+  note: Chief Executive Officer; Corvane
+- id: GN004
+  type: Person
+  name: Duncan Ferrier
+  world_ref: P004
+  match_any: [Duncan Ferrier, D. Ferrier]
+  evidence: [TX034-F002, TX038-F018, VS005-F023, VS028-F006, VS028-F009]
+  importance: medium
+  note: Chief Operating Officer; Corvane
+- id: GN005
+  type: Person
+  name: Ingrid Ashby
+  world_ref: P005
+  match_any: [Ingrid Ashby, Ingrid Sørensen, Ingrid Sorensen, I. Sørensen, I. Sorensen, I. Ashby]
+  evidence: [LD013-F027, LD012-F001, LD008-F005, LD009-F005, LD011-F005]
+  importance: high
+  note: Claims Director; Corvane
+- id: GN006
+  type: Person
+  name: Karin Holmberg
+  world_ref: P007
+  match_any: [Karin Holmberg, K. Holmberg]
+  evidence: [LD018-F001, LD020-F005, ST012-F003, ST057-F006, TX074-F004]
+  importance: high
+  note: Chief Risk Officer; Corvane
+- id: GN007
+  type: Person
+  name: Niall Brannigan
+  world_ref: P008
+  match_any: [Niall Brannigan, N. Brannigan]
+  evidence: [LD016-F003, ST012-F003, ST057-F006, TX074-F004, VS004-F006]
+  importance: high
+  note: Head of Counter-Fraud & SIU; Corvane
+- id: GN008
+  type: Person
+  name: Lena Kristiansen
+  world_ref: P009
+  match_any: [Lena Kristiansen, L. Kristiansen]
+  evidence: [LD018-F004, TX074-F006, VS005-F018, VS044-F001, CODEMOD-F159]
+  importance: high
+  note: Head of Reserving; Corvane
+- id: GN009
+  type: Person
+  name: Sebastian Moreau-Clarke
+  world_ref: P010
+  match_any: [Sebastian Moreau-Clarke, S. Moreau-Clarke]
+  evidence: [VS044-F003, TX032-F002, VS004-F018, VS022-F022, VS034-F005]
+  importance: medium
+  note: Chief Actuary; Corvane
+- id: GN010
+  type: Person
+  name: Rob Tennant
+  world_ref: P011
+  match_any: [Rob Tennant, R. Tennant, Robert Tennant]
+  evidence: [LD030-F018, LD004-F005, LD005-F005, LD006-F004, LD007-F005]
+  importance: high
+  note: Head of Claims Operations (Group); Corvane
+- id: GN011
+  type: Person
+  name: Mette Dahl
+  world_ref: P012
+  match_any: [Mette Dahl, M. Dahl]
+  evidence: [LD018-F005, LD010-F004, VS004-F005, VS005-F010, VS023-F010]
+  importance: high
+  note: Claims Operations Lead – Nordics; Corvane
+- id: GN012
+  type: Person
+  name: Freya Lindahl
+  world_ref: P013
+  match_any: [Freya Lindahl, F. Lindahl]
+  evidence: [LD018-F006, LD001-F007, ST012-F002, ST057-F005, TX058-F004]
+  importance: high
+  note: Head of Recoveries & Subrogation; Corvane
+- id: GN013
+  type: Person
+  name: Siobhan Quill
+  world_ref: P014
+  match_any: [Siobhan Quill, S. Quill]
+  evidence: [TX009-F003, TX074-F005, VS004-F009, VS005-F002, VS024-F024]
+  importance: high
+  note: Recoveries Team Leader – UK; Corvane
+- id: GN014
+  type: Person
+  name: Martin Calloway
+  world_ref: P015
+  match_any: [Martin Calloway, M. Calloway]
+  evidence: [LD012-F004, VS004-F007, VS032-F003, TX005-F003, VS009-F006]
+  importance: high
+  note: Recoveries Manager (left 2024-12-31); Corvane
+- id: GN015
+  type: Person
+  name: Graham Pocock
+  world_ref: P016
+  match_any: [Graham Pocock, G. Pocock]
+  evidence: [LD018-F007, TX074-F007, VS044-F008, CODEMOD-F191, TX033-F002]
+  importance: high
+  note: Head of Legacy Claims Platforms; Corvane
+- id: GN016
+  type: Person
+  name: Aisha Siddiqui
+  world_ref: P017
+  match_any: [Aisha Siddiqui, A. Siddiqui]
+  evidence: [TX045-F002, VS005-F009, VS028-F013, VS044-F006, CODEMOD-F141]
+  importance: high
+  note: Head of Claims Hub Product; Corvane
+- id: GN017
+  type: Person
+  name: Tomasz Wójcik
+  world_ref: P018
+  match_any: [Tomasz Wójcik, Tomasz Wojcik, T. Wójcik, T. Wojcik]
+  evidence: [LD013-F002, CODEMOD-F113, CODEMOD-F116, CODEMOD-F135, CODEMOD-F147]
+  importance: medium
+  note: Enterprise Architect; Corvane
+- id: GN018
+  type: Person
+  name: Morag Duthie
+  world_ref: P019
+  match_any: [Morag Duthie, M. Duthie]
+  evidence: [GP003-F009, VS026-F012, CODEMOD-F188, VS029-F007]
+  importance: medium
+  note: Data Protection Officer; Corvane
+- id: GN019
+  type: Person
+  name: Bjørn Aasheim
+  world_ref: P020
+  match_any: [Bjørn Aasheim, Bjorn Aasheim, B. Aasheim]
+  evidence: [LD003-F047, TX020-F004, VS005-F019, CODEMOD-F194, TX012-F003]
+  importance: high
+  note: Regulatory Reporting Manager; Corvane
+- id: GN020
+  type: Person
+  name: Hamish Gilchrist
+  world_ref: P021
+  match_any: [Hamish Gilchrist, H. Gilchrist]
+  evidence: [TX032-F002, TX072-F006, VS003-F013, VS005-F019, VS019-F024]
+  importance: high
+  note: Financial Controller; Corvane
+- id: GN021
+  type: Person
+  name: Callum Fairbairn
+  world_ref: P022
+  match_any: [Callum Fairbairn, C. Fairbairn]
+  evidence: [LD030-F017, ST012-F004, TX010-F001, VS004-F010, VS032-F016]
+  importance: high
+  note: Motor Claims Team Leader; Corvane
+- id: GN022
+  type: Person
+  name: Keith Barraclough
+  world_ref: P023
+  match_any: [Keith Barraclough, K. Barraclough]
+  evidence: [CODEMOD-F013, ST024-F003, TX033-F004, TX044-F005, TX003-F004]
+  importance: high
+  note: Senior Mainframe Developer; Corvane
+- id: GN023
+  type: Person
+  name: Pauline Ashworth
+  world_ref: P024
+  match_any: [Pauline Ashworth, P. Ashworth]
+  evidence: [CODEMOD-F014, TX070-F035, CODEMOD-F020, TX070-F076, TX070-F094]
+  importance: medium
+  note: Mainframe Developer; Corvane
+- id: GN024
+  type: Person
+  name: Derek Ollerton
+  world_ref: P025
+  match_any: [Derek Ollerton, D. Ollerton]
+  evidence: [CODEMOD-F126, TX037-F002, TX070-F104, TX070-F112]
+  importance: medium
+  note: DB2 Database Administrator; Corvane
+- id: GN025
+  type: Person
+  name: Sunita Vaghela
+  world_ref: P026
+  match_any: [Sunita Vaghela, S. Vaghela]
+  evidence: [ST056-F005, TX033-F002, TX070-F098]
+  importance: medium
+  note: Batch Operations Lead; Corvane
+- id: GN026
+  type: Person
+  name: Oskar Lindgren
+  world_ref: P027
+  match_any: [Oskar Lindgren, O. Lindgren]
+  evidence: [TX075-F001, TX002-F002, VS015-F018, CODEMOD-F150, TX031-F002]
+  importance: medium
+  note: Senior Fraud Analyst; Corvane
+- id: GN027
+  type: Person
+  name: Rachel Dunmore
+  world_ref: P028
+  match_any: [Rachel Dunmore, R. Dunmore]
+  evidence: [VS005-F017, ST002-F004, TX031-F002, TX035-F002, TX070-F070]
+  importance: medium
+  note: SIU Investigations Manager (UK); Corvane
+- id: GN028
+  type: Person
+  name: Ewan Strachan
+  world_ref: P029
+  match_any: [Ewan Strachan, E. Strachan]
+  evidence: [VS032-F008, LD018-F012, VS003-F023, VS004-F017, VS022-F004]
+  importance: medium
+  note: Contact Centre Manager; Corvane
+- id: GN029
+  type: Person
+  name: Kirsty Mowbray
+  world_ref: P030
+  match_any: [Kirsty Mowbray, K. Mowbray]
+  evidence: [TX032-F002, VS004-F015]
+  importance: medium
+  note: Major & Complex Loss Manager; Corvane
+- id: GN030
+  type: Person
+  name: Henrik Vestergaard
+  world_ref: P031
+  match_any: [Henrik Vestergaard, H. Vestergaard]
+  evidence: [TX047-F002, CODEMOD-F116, CODEMOD-F122, CODEMOD-F147, ST003-F001]
+  importance: high
+  note: Integration Platform Lead; Corvane
+- id: GN031
+  type: Person
+  name: Neil Haworth
+  world_ref: P032
+  match_any: [Neil Haworth, N. Haworth]
+  evidence: [CODEMOD-F129, CODEMOD-F135, CODEMOD-F185, LD018-F007, TX033-F002]
+  importance: medium
+  note: Head of Technology Delivery; Corvane
+- id: GN032
+  type: Person
+  name: Imran Talwar
+  world_ref: P033
+  match_any: [Imran Talwar, I. Talwar]
+  evidence: [LD021-F027, TX070-F062]
+  importance: medium
+  note: Head of Claims Assessment (UK); Corvane
+- id: GN033
+  type: Person
+  name: Astrid Nygaard
+  world_ref: P034
+  match_any: [Astrid Nygaard, A. Nygaard]
+  evidence: [VS023-F009, VS032-F011, VS023-F008]
+  importance: medium
+  note: Claims Assessment Lead – Nordics; Corvane
+- id: GN034
+  type: Person
+  name: Ruth Okafor
+  world_ref: P037
+  match_any: [Ruth Okafor, R. Okafor]
+  evidence: [CODEMOD-F153, ST034-F003, ST059-F007, TX015-F001, TX031-F002]
+  importance: medium
+  note: Compliance Manager – Conduct & Counter-Fraud; Corvane
+- id: GN035
+  type: Person
+  name: Per Øverland
+  world_ref: P038
+  match_any: [Per Øverland, Per Overland, P. Øverland, P. Overland]
+  evidence: [LD001-F160, TX019-F001, VS008-F022]
+  importance: high
+  note: Reinsurance Manager; Corvane
+- id: GN036
+  type: Person
+  name: Sofie Bak
+  world_ref: P040
+  match_any: [Sofie Bak, S. Bak]
+  evidence: [CODEMOD-F153, CODEMOD-F204, TX059-F003, TX070-F027, TX070-F041]
+  importance: medium
+  note: Engineering Lead – Intake & Triage Squad; Corvane
+- id: GN037
+  type: Person
+  name: Daniel Achebe
+  world_ref: P041
+  match_any: [Daniel Achebe, D. Achebe]
+  evidence: [CODEMOD-F011, CODEMOD-F144, CODEMOD-F170, CODEMOD-F194, CODEMOD-F197]
+  importance: high
+  note: Engineering Lead – Reserve & Finance Squad; Corvane
+- id: GN038
+  type: Person
+  name: Linnea Sjöberg
+  world_ref: P042
+  match_any: [Linnea Sjöberg, Linnea Sjoberg, L. Sjöberg, L. Sjoberg]
+  evidence: [CODEMOD-F012, CODEMOD-F173, CODEMOD-F176, LD013-F017, ST031-F006]
+  importance: medium
+  note: Engineering Lead – Fraud & Settlement Squad; Corvane
+- id: GN039
+  type: Person
+  name: Tariq Hussain
+  world_ref: P043
+  match_any: [Tariq Hussain, T. Hussain]
+  evidence: [ST057-F004, CODEMOD-F032, CODEMOD-F138, ST012-F005, ST053-F001]
+  importance: medium
+  note: Engineering Lead – Recoveries & Documents Squad; Corvane
+- id: GN040
+  type: Person
+  name: Arjun Kesavan
+  world_ref: P048
+  match_any: [Arjun Kesavan, A. Kesavan]
+  evidence: [TX034-F002, TX001-F007, TX070-F019, VS044-F009, TX070-F168]
+  importance: medium
+  note: Programme Delivery Lead; IBM Consulting
+- id: GN041
+  type: Person
+  name: Elin Fosse
+  world_ref: P049
+  match_any: [Elin Fosse, E. Fosse]
+  evidence: [CODEMOD-F113, CODEMOD-F116, CODEMOD-F119, CODEMOD-F129, CODEMOD-F132]
+  importance: medium
+  note: Lead Solution Architect; IBM Consulting
+- id: GN042
+  type: Person
+  name: Marcus Oduya
+  world_ref: P050
+  match_any: [Marcus Oduya, M. Oduya]
+  evidence: [CODEMOD-F122, CODEMOD-F126, CODEMOD-F147, CODEMOD-F163, CODEMOD-F200]
+  importance: medium
+  note: Integration Architect; IBM Consulting
+- id: GN043
+  type: Person
+  name: Callum Fairbairn
+  world_ref: P051
+  match_any: [Callum Fairbairn, C. Fairbairn]
+  evidence: [LD014-F001, ST033-F003, ST057-F002, TX011-F003, VS011-F013]
+  importance: high
+  note: Data Migration Lead; IBM Consulting
+- id: GN044
+  type: Person
+  name: Gordon Sproat
+  world_ref: P052
+  match_any: [Gordon Sproat, G. Sproat]
+  evidence: [VS028-F012, CODEMOD-F016, TX070-F021, CODEMOD-F022]
+  importance: medium
+  note: Mainframe Modernisation SME; IBM Consulting
+- id: GN045
+  type: Person
+  name: Nadia Petrovic
+  world_ref: P053
+  match_any: [Nadia Petrovic, N. Petrovic]
+  evidence: [CODEMOD-F119, CODEMOD-F132, CODEMOD-F141, CODEMOD-F144, CODEMOD-F159]
+  importance: medium
+  note: Java Technical Lead; IBM Consulting
+- id: GN046
+  type: Person
+  name: Hannah Lyle
+  world_ref: P054
+  match_any: [Hannah Lyle, H. Lyle]
+  evidence: [TX031-F002, TX035-F002, TX070-F106, VS030-F011]
+  importance: medium
+  note: Business Analyst – Claims; IBM Consulting
+- id: GN047
+  type: Person
+  name: Imogen Thackray
+  world_ref: P055
+  match_any: [Imogen Thackray, I. Thackray]
+  evidence: [LD023-F005, TX073-F008, LD003-F034, VS019-F016, TX073-F003]
+  importance: medium
+  note: Senior Supervisor – Insurance Conduct; REG-NISA
+- id: GN048
+  type: Person
+  name: Petter Ulvestad
+  world_ref: P056
+  match_any: [Petter Ulvestad, P. Ulvestad]
+  evidence: [LD022-F009, TX043-F002, VS014-F008]
+  importance: medium
+  note: Policy Lead – Counter-Fraud; REG-NISA
+- id: GN049
+  type: Person
+  name: Colin Rudd
+  world_ref: P057
+  match_any: [Colin Rudd, C. Rudd]
+  evidence: [GP002-F003, LD030-F016, VS018-F019]
+  importance: medium
+  note: Client Director; VEN-01
+- id: GN050
+  type: Person
+  name: Sigrid Nyhus
+  world_ref: P058
+  match_any: [Sigrid Nyhus, S. Nyhus]
+  evidence: [VS038-F015, LD021-F030]
+  importance: medium
+  note: Regional Manager – Norway & Sweden; VEN-02
+- id: GN051
+  type: System
+  name: CLARA
+  world_ref: SYS01
+  match_any: [CLARA, CLR, Claims Ledger, Claims Ledger And Reserve Application, CLARA mainframe]
+  evidence: [LD013-F007, LD017-F002, LD025-F001, LD028-F003, LD003-F042]
+  importance: high
+- id: GN052
+  type: System
+  name: Claims Hub
+  world_ref: SYS02
+  match_any: [Claims Hub, CHUB, Claims Hub platform]
+  evidence: [ST051-F003, VS026-F014, VS040-F001, CODEMOD-F112, CODEMOD-F115]
+  importance: high
+- id: GN053
+  type: System
+  name: Sentinel
+  world_ref: SYS03
+  match_any: [Sentinel, FRAUDNET, FraudNet, SNT]
+  evidence: [LD020-F001, LD025-F002, LD027-F001, LD001-F175, LD002-F022]
+  importance: high
+- id: GN054
+  type: System
+  name: MyCorvane Claims
+  world_ref: SYS04
+  match_any: [MyCorvane Claims, ClaimLine Web, ClaimLine, claims portal]
+  evidence: [LD012-F023, LD003-F044, VS039-F006]
+  importance: high
+- id: GN055
+  type: System
+  name: Evidence Vault
+  world_ref: SYS05
+  match_any: [Evidence Vault, DOCSTOR, DocStor, EV]
+  evidence: [LD001-F030, TX018-F001, TX059-F002, VS021-F015, CODEMOD-F137]
+  importance: high
+- id: GN056
+  type: System
+  name: Group Ledger
+  world_ref: SYS06
+  match_any: [Group Ledger, GL, GLD]
+  evidence: [CODEMOD-F006, VS002-F014, CODEMOD-F084, LD013-F009, LD001-F118]
+  importance: high
+- id: GN057
+  type: System
+  name: ReCede
+  world_ref: SYS07
+  match_any: [ReCede, RI system, reinsurance system, ReCede RI]
+  evidence: [LD026-F005, LD001-F161, LD003-F027, ST037-F005, TX019-F001]
+  importance: high
+- id: GN058
+  type: System
+  name: Corvane Payments Gateway
+  world_ref: SYS09
+  match_any: [Corvane Payments Gateway, CPG, payments gateway]
+  evidence: [CODEMOD-F217, VS033-F016]
+  importance: medium
+- id: GN059
+  type: System
+  name: NISA Reporting Hub
+  world_ref: SYS10
+  match_any: [NISA Reporting Hub, NRH, regulatory reporting hub]
+  evidence: [CODEMOD-F085, ST039-F003, TX012-F003, TX020-F003, VS003-F003]
+  importance: high
+- id: GN060
+  type: System
+  name: Claims Data Warehouse
+  world_ref: SYS11
+  match_any: [Claims Data Warehouse, CDW, claims DW]
+  evidence: [VS047-F004, VS003-F006, VS013-F012, VS003-F007]
+  importance: high
+- id: GN061
+  type: System
+  name: Harbour CRM
+  world_ref: SYS12
+  match_any: [Harbour CRM, Harbour, contact centre CRM]
+  evidence: [VS026-F008, VS039-F005]
+  importance: medium
+- id: GN062
+  type: System
+  name: Evidence Intake Gateway
+  world_ref: SYS13
+  match_any: [Evidence Intake Gateway, EIG, photo intake, telematics intake]
+  evidence: [LD001-F102, LD021-F013, TX064-F001]
+  importance: medium
+- id: GN063
+  type: System
+  name: MQ Backbone
+  world_ref: SYS14
+  match_any: [MQ Backbone, MQ, CLRQM01]
+  evidence: [ST037-F003, VS002-F022, VS033-F025, VS047-F001, CODEMOD-F123]
+  importance: high
+- id: GN064
+  type: System
+  name: Event Streaming Platform
+  world_ref: SYS15
+  match_any: [Event Streaming Platform, ESP, Kafka]
+  evidence: [ST030-F006, ST046-F004, VS002-F021, VS040-F003, CODEMOD-F115]
+  importance: high
+- id: GN065
+  type: System
+  name: Corvane Identity Service
+  world_ref: SYS16
+  match_any: [Corvane Identity Service, CIS, identity service, SSO]
+  evidence: [VS021-F001, VS026-F003, VS030-F003, VS026-F009]
+  importance: medium
+- id: GN066
+  type: System
+  name: Assessor Portal
+  world_ref: SYS17
+  match_any: [Assessor Portal, Adjuster Extranet, assessor portal]
+  evidence: [LD030-F001, LD001-F099, LD002-F013, LD012-F048, LD021-F024]
+  importance: high
+- id: GN067
+  type: System
+  name: WatchScreen
+  world_ref: SYS19
+  match_any: [WatchScreen, sanctions screening, WatchScreen sanctions]
+  evidence: [VS026-F008, LD001-F173, LD012-F098, VS031-F015, VS003-F011]
+  importance: medium
+- id: GN068
+  type: System
+  name: Actuarial Reserving Workbench
+  world_ref: SYS21
+  match_any: [Actuarial Reserving Workbench, ARW, reserving workbench]
+  evidence: [LD014-F007, VS003-F006, VS033-F010, VS043-F006]
+  importance: high
+- id: GN069
+  type: System
+  name: SIU Case Manager
+  world_ref: SYS22
+  match_any: [SIU Case Manager, SCM, SIU case system]
+  evidence: [CL-CLRFR030-F002, CL-T_FRAUD_REFERRAL-F012, ST037-F004, TX070-F069, VS001-F025]
+  importance: medium
+- id: GN070
+  type: System
+  name: SKADE-90
+  world_ref: SYS23
+  match_any: [SKADE-90, SKADE90]
+  evidence: [VS023-F016, ST001-F001]
+  importance: medium
+- id: GN071
+  type: System
+  name: Subrogation Tracker
+  world_ref: SYS24
+  match_any: [Subrogation Tracker, SUBTRAK]
+  evidence: [LD001-F208, TX001-F013, TX005-F007, VS024-F020, CODEMOD-F178]
+  importance: high
+- id: GN072
+  type: System
+  name: Notify
+  world_ref: SYS25
+  match_any: [Notify, Notify gateway]
+  evidence: [CODEMOD-F082, CODEMOD-F152, VS001-F025, VS026-F008, VS029-F019]
+  importance: medium
+- id: GN073
+  type: System
+  name: Bordereaux Exchange
+  world_ref: SYS26
+  match_any: [Bordereaux Exchange, BX]
+  evidence: [VS003-F005, VS043-F003]
+  importance: high
+- id: GN074
+  type: Interface
+  name: CLX-IF-042
+  world_ref: CLX-IF-042
+  match_any: [CLX-IF-042, Reserve Movement Daily Extract, CLX-IF-042 Reserve Movement Daily Extract]
+  evidence: [CL-CLRRS170-F001, LD013-F024, LD024-F008, ST003-F001, ST035-F001]
+  importance: high
+  note: Reserve Movement Daily Extract; impact root
+- id: GN075
+  type: Interface
+  name: CLX-IF-043
+  world_ref: CLX-IF-043
+  match_any: [CLX-IF-043, GL Reserve Journal Feed, CLX-IF-043 GL Reserve Journal Feed]
+  evidence: [LD013-F009, LD017-F018, LD025-F004, ST003-F004, ST020-F003]
+  importance: high
+  note: GL Reserve Journal Feed; hop 1 of the CLX-IF-042 impact
+- id: GN076
+  type: Interface
+  name: CLX-IF-044
+  world_ref: CLX-IF-044
+  match_any: [CLX-IF-044, CDW Reserve Fact Load, CLX-IF-044 CDW Reserve Fact Load]
+  evidence: [LD013-F022, VS003-F007, VS019-F018, VS033-F008, LD014-F007]
+  importance: high
+  note: CDW Reserve Fact Load; hop 1 of the CLX-IF-042 impact
+- id: GN077
+  type: Interface
+  name: CLX-IF-047
+  world_ref: CLX-IF-047
+  match_any: [CLX-IF-047, Reserve Cession Feed, CLX-IF-047 Reserve Cession Feed]
+  evidence: [LD013-F023, VS003-F004, VS019-F019, VS033-F006, ST003-F003]
+  importance: high
+  note: Reserve Cession Feed; hop 1 of the CLX-IF-042 impact
+- id: GN078
+  type: Interface
+  name: CLX-IF-049
+  world_ref: CLX-IF-049
+  match_any: [CLX-IF-049, Reserve Movement Kafka Bridge, CLX-IF-049 Reserve Movement Kafka Bridge]
+  evidence: [CODEMOD-F211, CODEMOD-F216, CODEMOD-F220, ST035-F012, ST048-F004]
+  importance: high
+  note: Reserve Movement Kafka Bridge; hop 1 of the CLX-IF-042 impact
+- id: GN079
+  type: Interface
+  name: CLX-IF-051
+  world_ref: CLX-IF-051
+  match_any: [CLX-IF-051, Technical Provisions Feed, CLX-IF-051 Technical Provisions Feed]
+  evidence: [LD014-F008, ST003-F007, ST035-F002, ST039-F003, TX004-F005]
+  importance: high
+  note: Technical Provisions Feed; hop 2 of the CLX-IF-042 impact
+- id: GN080
+  type: Interface
+  name: CLX-IF-055
+  world_ref: CLX-IF-055
+  match_any: [CLX-IF-055, Monthly Claims Bordereaux, CLX-IF-055 Monthly Claims Bordereaux]
+  evidence: [ST035-F003, VS003-F005, VS019-F022, VS043-F003, ST054-F003]
+  importance: high
+  note: Monthly Claims Bordereaux; hop 2 of the CLX-IF-042 impact
+- id: GN081
+  type: Interface
+  name: CLX-IF-058
+  world_ref: CLX-IF-058
+  match_any: [CLX-IF-058, Reserve Triangles Extract, CLX-IF-058 Reserve Triangles Extract]
+  evidence: [LD014-F007, ST003-F006, ST035-F004, TX068-F003, VS003-F006]
+  importance: high
+  note: Reserve Triangles Extract; hop 2 of the CLX-IF-042 impact
+- id: GN082
+  type: Program
+  name: CLRFN030
+  world_ref: CLRFN030
+  match_any: [CLRFN030]
+  evidence: [CL-CLRFN030-F001, ST019-F002, VS008-F014, VS017-F006, LD017-F012]
+  importance: high
+  note: 'reserve-table writer: Create claim record and default reserve (BR-FNOL-005)'
+- id: GN083
+  type: Program
+  name: CLRRS010
+  world_ref: CLRRS010
+  match_any: [CLRRS010]
+  evidence: [CL-CLRRS010-F002, ST019-F005, VS017-F007, LD017-F004, CL-CLRMS04-F001]
+  importance: high
+  note: 'reserve-table writer: Initial reserve set'
+- id: GN084
+  type: Program
+  name: CLRRS020
+  world_ref: CLRRS020
+  match_any: [CLRRS020]
+  evidence: [CL-CLRRS020-F001, ST019-F006, VS017-F008, CL-CLRMS04-F002, CL-docs-db2-objects-F001]
+  importance: high
+  note: 'reserve-table writer: Reserve adjustment'
+- id: GN085
+  type: Program
+  name: CLRRS110
+  world_ref: CLRRS110
+  match_any: [CLRRS110]
+  evidence: [CL-CLRRS110-F001, ST019-F007, VS017-F009, ST006-F004, CL-CLRNRSV1-F001]
+  importance: high
+  note: 'reserve-table writer: Tier-3 reserve review scheduler and revaluation (BR-RSV-007)'
+- id: GN086
+  type: Program
+  name: CLRRS130
+  world_ref: CLRRS130
+  match_any: [CLRRS130]
+  evidence: [CL-CLRRS130-F001, ST019-F008, VS017-F004, CL-CLRMRSV1-F001, CL-docs-db2-objects-F001]
+  importance: high
+  note: 'reserve-table writer: Monthly reserve indexation for bodily-injury claims (BR-RSV-009)'
+- id: GN087
+  type: Program
+  name: CLRST040
+  world_ref: CLRST040
+  match_any: [CLRST040]
+  evidence: [CL-CLRST040-F001, ST019-F009, VS017-F010, CL-CLRNSTL1-F002, CL-docs-batch-jobs-F001]
+  importance: high
+  note: 'reserve-table writer: Settlement finalisation and reserve close-down (BR-RSV-014)'
+- id: GN088
+  type: Program
+  name: CLRRC050
+  world_ref: CLRRC050
+  match_any: [CLRRC050]
+  evidence: [CL-CLRRC050-F001, ST019-F004, VS017-F011, CL-CLRNRC01-F002, CL-docs-db2-objects-F001]
+  importance: high
+  note: 'reserve-table writer: Recovery receipt posting – nets recoveries from the case reserve'
+- id: GN089
+  type: Program
+  name: CLRGL090
+  world_ref: CLRGL090
+  match_any: [CLRGL090]
+  evidence: [CL-CLRGL090-F001, LD017-F013, LD024-F001, ST019-F003, ST036-F003]
+  importance: high
+  note: 'reserve-table writer: Year-end reserve currency revaluation (Nordic reserves to GBP)'
+- id: GN090
+  type: Program
+  name: CLRRS150
+  world_ref: CLRRS150
+  match_any: [CLRRS150]
+  evidence: [CL-CLRRS150-F007, ST019-F010, VS017-F012, LD017-F014, LD024-F002]
+  importance: high
+  note: writes CLR.T_RESERVE_MOVEMENT only - NOT a reserve-table writer
+- id: GN091
+  type: Program
+  name: CLRRS170
+  world_ref: CLRRS170
+  match_any: [CLRRS170]
+  evidence: [CL-CLRRS170-F017, VS017-F026, LD013-F010, ST036-F005, CL-CLRNRSV3-F001]
+  importance: high
+  note: CLX-IF-042 extract program (job CLRNRSV3)
+- id: GN092
+  type: DatabaseTable
+  name: CLR.T_RESERVE
+  world_ref: CLR.T_RESERVE
+  match_any: [CLR.T_RESERVE, T_RESERVE]
+  evidence: [CL-T_RESERVE-F001, CL-docs-db2-objects-F001, LD017-F008, LD024-F004, ST001-F005]
+  importance: high
+  note: the reserve table
+- id: GN093
+  type: DatabaseTable
+  name: CLR.T_RESERVE_MOVEMENT
+  world_ref: CLR.T_RESERVE_MOVEMENT
+  match_any: [CLR.T_RESERVE_MOVEMENT, T_RESERVE_MOVEMENT]
+  evidence: [CL-CLRRS170-F002, CL-T_RESERVE_MOVEMENT-F001, ST004-F004, ST014-F001, ST019-F012]
+  importance: medium
+  note: reserve movements (CLRRS150 writes only this)
+- id: GN094
+  type: Service
+  name: claim-core-svc
+  world_ref: SVC01
+  match_any: [claim-core-svc, claim core, claim-core]
+  evidence: [CODEMOD-F049, CODEMOD-F091, CODEMOD-F097, VS011-F012, VS040-F007]
+  importance: medium
+  note: owner team Hub Squad – Intake & Triage
+- id: GN095
+  type: Service
+  name: fnol-intake-svc
+  world_ref: SVC02
+  match_any: [fnol-intake-svc, fnol intake, FNOL service]
+  evidence: [CODEMOD-F051, CODEMOD-F092, CODEMOD-F098, CODEMOD-F039, TX070-F040]
+  importance: medium
+  note: owner team Hub Squad – Intake & Triage
+- id: GN096
+  type: Service
+  name: triage-svc
+  world_ref: SVC03
+  match_any: [triage-svc, triage service]
+  evidence: [CODEMOD-F053, CODEMOD-F099, CODEMOD-F168, CODEMOD-F202, CODEMOD-F209]
+  importance: medium
+  note: owner team Hub Squad – Intake & Triage
+- id: GN097
+  type: Service
+  name: assessment-svc
+  world_ref: SVC04
+  match_any: [assessment-svc, assessment service]
+  evidence: [CODEMOD-F055, CODEMOD-F100, ST030-F005, TX070-F026, VS010-F005]
+  importance: medium
+  note: owner team Hub Squad – Intake & Triage
+- id: GN098
+  type: Service
+  name: reserve-engine
+  world_ref: SVC05
+  match_any: [reserve-engine, reserve-svc, reserve service]
+  evidence: [CODEMOD-F004, CODEMOD-F009, CODEMOD-F010, CODEMOD-F111, CODEMOD-F214]
+  importance: high
+  note: owner team Hub Squad – Reserve & Finance
+- id: GN099
+  type: Service
+  name: fraud-referral-svc
+  world_ref: SVC06
+  match_any: [fraud-referral-svc, fraud referral service, fraud-svc]
+  evidence: [CODEMOD-F003, CODEMOD-F090, CODEMOD-F101, LD013-F017, ST029-F001]
+  importance: high
+  note: owner team Hub Squad – Fraud & Settlement
+- id: GN100
+  type: Service
+  name: settlement-svc
+  world_ref: SVC07
+  match_any: [settlement-svc, settlement service]
+  evidence: [CODEMOD-F061, CODEMOD-F102, VS010-F004, CODEMOD-F210, TX041-F001]
+  importance: medium
+  note: owner team Hub Squad – Fraud & Settlement
+- id: GN101
+  type: Service
+  name: payment-orchestrator
+  world_ref: SVC08
+  match_any: [payment-orchestrator, payments orchestrator, payment-svc]
+  evidence: [CODEMOD-F063, CODEMOD-F103, VS012-F002, CODEMOD-F025, CODEMOD-F044]
+  importance: medium
+  note: owner team Hub Squad – Fraud & Settlement
+- id: GN102
+  type: Service
+  name: recovery-svc
+  world_ref: SVC09
+  match_any: [recovery-svc, recovery service, subro service]
+  evidence: [CODEMOD-F001, CODEMOD-F033, CODEMOD-F065, CODEMOD-F104, ST047-F003]
+  importance: high
+  note: owner team Hub Squad – Recoveries & Documents
+- id: GN103
+  type: Service
+  name: document-svc
+  world_ref: SVC10
+  match_any: [document-svc, document service, docs-svc]
+  evidence: [CODEMOD-F035, CODEMOD-F045, CODEMOD-F067, CODEMOD-F105, VS010-F003]
+  importance: medium
+  note: owner team Hub Squad – Recoveries & Documents
+- id: GN104
+  type: Service
+  name: notification-svc
+  world_ref: SVC11
+  match_any: [notification-svc, notification service, notify-svc]
+  evidence: [CODEMOD-F069, CODEMOD-F106, CODEMOD-F032, CODEMOD-F034, CODEMOD-F036]
+  importance: medium
+  note: owner team Hub Squad – Intake & Triage
+- id: GN105
+  type: Service
+  name: gl-posting-svc
+  world_ref: SVC12
+  match_any: [gl-posting-svc, GL posting service]
+  evidence: [CODEMOD-F071, CODEMOD-F107, VS002-F007, CODEMOD-F207, LD013-F011]
+  importance: medium
+  note: owner team Hub Squad – Reserve & Finance
+- id: GN106
+  type: Service
+  name: reporting-feed-svc
+  world_ref: SVC13
+  match_any: [reporting-feed-svc, reporting feed]
+  evidence: [CODEMOD-F073, CODEMOD-F108, CODEMOD-F213, ST031-F008, ST047-F004]
+  importance: medium
+  note: owner team Hub Squad – Reserve & Finance
+- id: GN107
+  type: BusinessRule
+  name: BR-FRD-031
+  world_ref: BR-FRD-031
+  match_any: [BR-FRD-031, Fraud referral threshold (NISA Circular 2026/04), BR-FRD-031 Fraud referral threshold (NISA Circular
+      2026/04)]
+  evidence: [CL-CLRFR040-F004, CODEMOD-F089, CODEMOD-F212, LD015-F008, LD016-F009]
+  importance: high
+  note: Fraud referral threshold (NISA Circular 2026/04); 2 version(s); in force v2
+- id: GN108
+  type: BusinessRule
+  name: BR-FRD-012
+  world_ref: BR-FRD-012
+  match_any: [BR-FRD-012, Fraud referral threshold (pre-2026), BR-FRD-012 Fraud referral threshold (pre-2026)]
+  evidence: [LD015-F005, LD016-F006, LD017-F010, LD020-F006, LD027-F004]
+  importance: high
+  note: Fraud referral threshold (pre-2026); 2 version(s); no version in force
+- id: GN109
+  type: BusinessRule
+  name: BR-FRD-032
+  world_ref: BR-FRD-032
+  match_any: [BR-FRD-032, Customer notification of fraud referral, BR-FRD-032 Customer notification of fraud referral]
+  evidence: [CODEMOD-F005, LD015-F007, LD016-F008, LD001-F189, LD002-F026]
+  importance: high
+  note: Customer notification of fraud referral; 2 version(s); in force v2
+- id: GN110
+  type: BusinessRule
+  name: BR-FRD-033
+  world_ref: BR-FRD-033
+  match_any: [BR-FRD-033, No adverse decision on fraud score alone, BR-FRD-033 No adverse decision on fraud score alone]
+  evidence: [LD001-F187, LD002-F025, ST028-F002, ST052-F004, TX035-F013]
+  importance: high
+  note: No adverse decision on fraud score alone; 1 version(s); in force v1
+- id: GN111
+  type: BusinessRule
+  name: BR-FRD-035
+  world_ref: BR-FRD-035
+  match_any: [BR-FRD-035, SIU triage of new referrals, BR-FRD-035 SIU triage of new referrals]
+  evidence: [CODEMOD-F079, LD015-F006, LD016-F007, LD001-F193, LD012-F101]
+  importance: high
+  note: SIU triage of new referrals; 2 version(s); in force v2
+- id: GN112
+  type: BusinessRule
+  name: BR-FRD-036
+  world_ref: BR-FRD-036
+  match_any: [BR-FRD-036, Deferral of customer notice (tipping-off risk), BR-FRD-036 Deferral of customer notice (tipping-off
+      risk)]
+  evidence: [LD001-F191, LD002-F027, ST029-F004, ST032-F002, ST034-F008]
+  importance: high
+  note: Deferral of customer notice (tipping-off risk); 2 version(s); in force v2
+- id: GN113
+  type: BusinessRule
+  name: BR-FRD-019
+  world_ref: BR-FRD-019
+  match_any: [BR-FRD-019, Automatic decline on very high fraud score, BR-FRD-019 Automatic decline on very high fraud score]
+  evidence: [LD012-F106, LD003-F038, ST005-F010, ST045-F005, ST059-F003]
+  importance: high
+  note: Automatic decline on very high fraud score; 2 version(s); no version in force
+- id: GN114
+  type: BusinessRule
+  name: BR-TRI-003
+  world_ref: BR-TRI-003
+  match_any: [BR-TRI-003, Claim tier classification (Tier-1 / Tier-2 / Tier-3), BR-TRI-003 Claim tier classification (Tier-1
+      / Tier-2 / Tier-3)]
+  evidence: [CODEMOD-F008, CODEMOD-F096, LD017-F007, LD030-F002, LD001-F016]
+  importance: high
+  note: Claim tier classification (Tier-1 / Tier-2 / Tier-3); 3 version(s); in force v3
+- id: GN115
+  type: BusinessRule
+  name: BR-RSV-007
+  world_ref: BR-RSV-007
+  match_any: [BR-RSV-007, Tier-3 reserve review cadence, BR-RSV-007 Tier-3 reserve review cadence]
+  evidence: [CODEMOD-F088, LD017-F009, LD018-F016, LD024-F003, LD029-F007]
+  importance: high
+  note: Tier-3 reserve review cadence; 3 version(s); in force v3
+- id: GN116
+  type: BusinessRule
+  name: BR-RSV-009
+  world_ref: BR-RSV-009
+  match_any: [BR-RSV-009, Reserve indexation for bodily-injury claims, BR-RSV-009 Reserve indexation for bodily-injury claims]
+  evidence: [LD001-F154, LD012-F082, ST005-F009]
+  importance: medium
+  note: Reserve indexation for bodily-injury claims; 3 version(s); in force v3
+- id: GN117
+  type: BusinessRule
+  name: BR-RSV-003
+  world_ref: BR-RSV-003
+  match_any: [BR-RSV-003, Reserve authority limits, BR-RSV-003 Reserve authority limits]
+  evidence: [LD001-F148, LD002-F016, LD012-F084, LD003-F025, ST043-F004]
+  importance: medium
+  note: Reserve authority limits; 3 version(s); in force v3
+- id: GN118
+  type: BusinessRule
+  name: BR-RSV-011
+  world_ref: BR-RSV-011
+  match_any: [BR-RSV-011, Large loss notification to Reinsurance, BR-RSV-011 Large loss notification to Reinsurance]
+  evidence: [LD026-F005, LD001-F024, LD002-F009, LD012-F085, LD003-F027]
+  importance: medium
+  note: Large loss notification to Reinsurance; 2 version(s); in force v2
+- id: GN119
+  type: BusinessRule
+  name: BR-FNOL-001
+  world_ref: BR-FNOL-001
+  match_any: [BR-FNOL-001, FNOL acknowledgement SLA, BR-FNOL-001 FNOL acknowledgement SLA]
+  evidence: [LD001-F052, LD002-F011, LD012-F014, LD003-F014, ST040-F007]
+  importance: medium
+  note: FNOL acknowledgement SLA; 3 version(s); in force v3
+- id: GN120
+  type: BusinessRule
+  name: BR-REC-003
+  world_ref: BR-REC-003
+  match_any: [BR-REC-003, Subrogation pursuit threshold, BR-REC-003 Subrogation pursuit threshold]
+  evidence: [LD001-F209, LD002-F032, LD012-F109, LD003-F024, ST040-F005]
+  importance: medium
+  note: Subrogation pursuit threshold; 3 version(s); in force v3
+- id: GN121
+  type: BusinessRule
+  name: BR-REC-011
+  world_ref: BR-REC-011
+  match_any: [BR-REC-011, Recovery write-off authority, BR-REC-011 Recovery write-off authority]
+  evidence: [CODEMOD-F007, LD018-F014, LD001-F217, LD012-F113, ST040-F008]
+  importance: medium
+  note: Recovery write-off authority; 2 version(s); in force v2
+- id: GN122
+  type: BusinessRule
+  name: BR-STL-002
+  world_ref: BR-STL-002
+  match_any: [BR-STL-002, Payment authority limits, BR-STL-002 Payment authority limits]
+  evidence: [LD017-F011, LD001-F164, LD002-F021, LD012-F094, ST045-F006]
+  importance: medium
+  note: Payment authority limits; 3 version(s); in force v3
+- id: GN123
+  type: ProcessStage
+  name: First Notice of Loss
+  world_ref: S1
+  match_any: [First Notice of Loss, FNOL]
+  evidence: [LD018-F012, VS004-F017, VS005-F011, VS022-F004]
+  importance: high
+  note: owner Rob Tennant as of 2026-11-15
+- id: GN124
+  type: ProcessStage
+  name: Triage
+  world_ref: S2
+  match_any: [Triage]
+  evidence: [VS001-F002, LD001-F079, VS021-F021, VS001-F005, VS001-F001]
+  importance: medium
+  note: owner Rob Tennant as of 2026-11-15; evidenced through its steps only (the label 'S2 · Triage' is in VS001's
+    stage table, which has no manifest fact)
+- id: GN125
+  type: ProcessStage
+  name: Assessment
+  world_ref: S3
+  match_any: [Assessment]
+  evidence: [VS001-F010, VS022-F013, VS001-F021, VS022-F014, VS022-F015]
+  importance: medium
+  note: owner Imran Talwar as of 2026-11-15; evidenced through its steps only (the label 'S3 · Assessment' is in VS001's
+    stage table, which has no manifest fact)
+- id: GN126
+  type: ProcessStage
+  name: Reserving
+  world_ref: S4
+  match_any: [Reserving]
+  evidence: [LD001-F031, ST040-F006, VS001-F020, VS004-F018, VS005-F022]
+  importance: high
+  note: owner Lena Kristiansen as of 2026-11-15
+- id: GN127
+  type: ProcessStage
+  name: Fraud Referral
+  world_ref: S5
+  match_any: [Fraud Referral, FRAUD]
+  evidence: [ST002-F003, VS001-F025]
+  importance: medium
+  note: owner Niall Brannigan as of 2026-11-15
+- id: GN128
+  type: ProcessStage
+  name: Settlement
+  world_ref: S6
+  match_any: [Settlement]
+  evidence: [LD001-F196, VS001-F017, VS031-F014]
+  importance: medium
+  note: owner Rob Tennant as of 2026-11-15; evidenced through its steps only (the label 'S6 · Settlement' is in VS001's
+    stage table, which has no manifest fact)
+- id: GN129
+  type: ProcessStage
+  name: Recovery & Subrogation
+  world_ref: S7
+  match_any: [Recovery & Subrogation, RECOVERY]
+  evidence: [LD013-F006, LD018-F010, LD001-F032, LD002-F031, LD012-F008]
+  importance: high
+  note: owner Freya Lindahl as of 2026-11-15
+- id: GN130
+  type: Regulation
+  name: NISA Circular 2026/04
+  world_ref: CIRC-2026-04
+  match_any: [NISA Circular 2026/04, Circular 2026/04, CIRC-2026-04, NISA Circular 2026/04 Fair Treatment in Fraud Referral]
+  evidence: [LD015-F003, LD016-F004, LD001-F040, LD003-F035, LD022-F001]
+  importance: high
+  note: Fair Treatment in Fraud Referral
+- id: GN131
+  type: Regulation
+  name: NISA Circular 2024/07
+  world_ref: CIRC-2024-07
+  match_any: [NISA Circular 2024/07, Circular 2024/07, CIRC-2024-07, NISA Circular 2024/07 Claims Handling Timeliness]
+  evidence: [LD001-F051, LD002-F010, LD022-F012, LD023-F001, VS039-F009]
+  importance: medium
+  note: Claims Handling Timeliness
+- id: GN132
+  type: RegulatoryReport
+  name: NISA-TP2
+  world_ref: NISA-TP2
+  match_any: [NISA-TP2, Quarterly Technical Provisions Return, NISA-TP2 Quarterly Technical Provisions Return]
+  evidence: [LD013-F029, LD003-F033, ST035-F007, ST039-F001, VS019-F009]
+  importance: high
+  note: hop 3 of the CLX-IF-042 impact
+edges:
+- id: GE001
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Priya Raman, P. Raman]
+  to:
+    type: Person
+    match_any: [Helena Strandberg, H. Strandberg]
+  as_of: '2026-11-15'
+  world_ref: P001.reports_to
+  evidence: [VS005-F004]
+  importance: medium
+  note: Priya Raman -> Helena Strandberg (current line)
+- id: GE002
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Niall Brannigan, N. Brannigan]
+  to:
+    type: Person
+    match_any: [Karin Holmberg, K. Holmberg]
+  as_of: '2026-11-15'
+  world_ref: P008.reports_to
+  evidence: [ST012-F003, ST057-F006, TX074-F004, VS005-F016, VS044-F007]
+  importance: high
+  note: Niall Brannigan -> Karin Holmberg (current line)
+- id: GE003
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Lena Kristiansen, L. Kristiansen]
+  to:
+    type: Person
+    match_any: [Priya Raman, P. Raman]
+  as_of: '2026-11-15'
+  world_ref: P009.reports_to
+  evidence: [LD018-F004, TX074-F006, VS005-F018, VS044-F001]
+  importance: high
+  note: Lena Kristiansen -> Priya Raman (current line)
+- id: GE004
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Sebastian Moreau-Clarke, S. Moreau-Clarke]
+  to:
+    type: Person
+    match_any: [Priya Raman, P. Raman]
+  as_of: '2026-11-15'
+  world_ref: P010.reports_to
+  evidence: [VS044-F003]
+  importance: medium
+  note: Sebastian Moreau-Clarke -> Priya Raman (current line)
+- id: GE005
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Mette Dahl, M. Dahl]
+  to:
+    type: Person
+    match_any: [Rob Tennant, R. Tennant, Robert Tennant]
+  as_of: '2026-11-15'
+  world_ref: P012.reports_to
+  evidence: [VS005-F010, VS023-F010]
+  importance: high
+  note: Mette Dahl -> Rob Tennant (current line)
+- id: GE006
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Freya Lindahl, F. Lindahl]
+  to:
+    type: Person
+    match_any: [Ingrid Ashby, Ingrid Sørensen, Ingrid Sorensen, I. Sørensen, I. Sorensen, I. Ashby]
+  as_of: '2026-11-15'
+  world_ref: P013.reports_to
+  evidence: [VS005-F006, VS044-F004, VS005-F013]
+  importance: high
+  note: Freya Lindahl -> Ingrid Ashby (current line)
+- id: GE007
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Siobhan Quill, S. Quill]
+  to:
+    type: Person
+    match_any: [Freya Lindahl, F. Lindahl]
+  as_of: '2026-11-15'
+  world_ref: P014.reports_to
+  evidence: [VS005-F012]
+  importance: high
+  note: Siobhan Quill -> Freya Lindahl (current line)
+- id: GE008
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Graham Pocock, G. Pocock]
+  to:
+    type: Person
+    match_any: [Neil Haworth, N. Haworth]
+  as_of: '2026-11-15'
+  world_ref: P016.reports_to
+  evidence: [LD018-F007, TX074-F007]
+  importance: high
+  note: Graham Pocock -> Neil Haworth (current line)
+- id: GE009
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Aisha Siddiqui, A. Siddiqui]
+  to:
+    type: Person
+    match_any: [Ingrid Ashby, Ingrid Sørensen, Ingrid Sorensen, I. Sørensen, I. Sorensen, I. Ashby]
+  as_of: '2026-11-15'
+  world_ref: P017.reports_to
+  evidence: [VS005-F009, VS044-F006]
+  importance: high
+  note: Aisha Siddiqui -> Ingrid Ashby (current line)
+- id: GE010
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Bjørn Aasheim, Bjorn Aasheim, B. Aasheim]
+  to:
+    type: Person
+    match_any: [Hamish Gilchrist, H. Gilchrist]
+  as_of: '2026-11-15'
+  world_ref: P020.reports_to
+  evidence: [VS005-F019]
+  importance: medium
+  note: Bjørn Aasheim -> Hamish Gilchrist (current line)
+- id: GE011
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Callum Fairbairn, C. Fairbairn]
+  to:
+    type: Person
+    match_any: [Rob Tennant, R. Tennant, Robert Tennant]
+  as_of: '2026-11-15'
+  world_ref: P022.reports_to
+  evidence: [VS004-F010, VS032-F016]
+  importance: medium
+  note: Callum Fairbairn -> Rob Tennant (current line)
+- id: GE012
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Rachel Dunmore, R. Dunmore]
+  to:
+    type: Person
+    match_any: [Niall Brannigan, N. Brannigan]
+  as_of: '2026-11-15'
+  world_ref: P028.reports_to
+  evidence: [VS005-F017]
+  importance: medium
+  note: Rachel Dunmore -> Niall Brannigan (current line)
+- id: GE013
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Ewan Strachan, E. Strachan]
+  to:
+    type: Person
+    match_any: [Rob Tennant, R. Tennant, Robert Tennant]
+  as_of: '2026-11-15'
+  world_ref: P029.reports_to
+  evidence: [VS032-F008]
+  importance: medium
+  note: Ewan Strachan -> Rob Tennant (current line)
+- id: GE014
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Astrid Nygaard, A. Nygaard]
+  to:
+    type: Person
+    match_any: [Mette Dahl, M. Dahl]
+  as_of: '2026-11-15'
+  world_ref: P034.reports_to
+  evidence: [VS023-F009]
+  importance: medium
+  note: Astrid Nygaard -> Mette Dahl (current line)
+- id: GE015
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Karl Eriksen, K. Eriksen]
+  to:
+    type: Person
+    match_any: [Astrid Nygaard, A. Nygaard]
+  as_of: '2026-11-15'
+  world_ref: P046.reports_to
+  evidence: [VS023-F008]
+  importance: medium
+  note: Karl Eriksen -> Astrid Nygaard (current line)
+- id: GE016
+  type: REPORTS_TO
+  from:
+    type: Person
+    match_any: [Callum Fairbairn, C. Fairbairn]
+  to:
+    type: Person
+    match_any: [Arjun Kesavan, A. Kesavan]
+  as_of: '2026-11-15'
+  world_ref: P051.reports_to
+  evidence: [VS044-F009]
+  importance: medium
+  note: Callum Fairbairn -> Arjun Kesavan (current line)
+- id: GE017
+  type: OWNS_PROCESS
+  from:
+    type: Person
+    match_any: [Rob Tennant, R. Tennant, Robert Tennant]
+  to:
+    type: ProcessStage
+    match_any: [First Notice of Loss, FNOL]
+  as_of: '2026-11-15'
+  world_ref: S1.owner_history
+  evidence: [LD018-F012, VS005-F011, TX060-F003]
+  importance: high
+  note: since 2025-09-01
+- id: GE018
+  type: OWNS_PROCESS
+  from:
+    type: Person
+    match_any: [Lena Kristiansen, L. Kristiansen]
+  to:
+    type: ProcessStage
+    match_any: [Reserving]
+  as_of: '2026-11-15'
+  world_ref: S4.owner_history
+  evidence: [LD001-F031, ST040-F006, VS001-F020, VS005-F022, VS031-F004]
+  importance: high
+  note: since 2025-09-01
+- id: GE019
+  type: OWNS_PROCESS
+  from:
+    type: Person
+    match_any: [Freya Lindahl, F. Lindahl]
+  to:
+    type: ProcessStage
+    match_any: [Recovery & Subrogation, RECOVERY]
+  as_of: '2026-11-15'
+  world_ref: S7.owner_history
+  evidence: [LD018-F010, LD001-F032, LD002-F031, LD003-F023, ST002-F001]
+  importance: high
+  note: since 2025-09-01
+- id: GE020
+  type: WRITES_TO_TABLE
+  from:
+    type: Program
+    match_any: [CLRFN030]
+  to:
+    type: DatabaseTable
+    match_any: [CLR.T_RESERVE, T_RESERVE]
+  world_ref: PROGRAM:CLRFN030#writes_tables:CLR.T_RESERVE
+  evidence: [CL-CLRFN030-F001, ST019-F002, VS008-F014, VS017-F006, CL-docs-db2-objects-F001]
+  importance: high
+  hops_role: 'headline Q1: the eight reserve-table writers'
+- id: GE021
+  type: WRITES_TO_TABLE
+  from:
+    type: Program
+    match_any: [CLRRS010]
+  to:
+    type: DatabaseTable
+    match_any: [CLR.T_RESERVE, T_RESERVE]
+  world_ref: PROGRAM:CLRRS010#writes_tables:CLR.T_RESERVE
+  evidence: [CL-CLRRS010-F002, ST019-F005, VS017-F007, CL-docs-db2-objects-F001, ST036-F002]
+  importance: high
+  hops_role: 'headline Q1: the eight reserve-table writers'
+- id: GE022
+  type: WRITES_TO_TABLE
+  from:
+    type: Program
+    match_any: [CLRRS020]
+  to:
+    type: DatabaseTable
+    match_any: [CLR.T_RESERVE, T_RESERVE]
+  world_ref: PROGRAM:CLRRS020#writes_tables:CLR.T_RESERVE
+  evidence: [CL-CLRRS020-F001, ST019-F006, VS017-F008, CL-docs-db2-objects-F001, ST036-F002]
+  importance: high
+  hops_role: 'headline Q1: the eight reserve-table writers'
+- id: GE023
+  type: WRITES_TO_TABLE
+  from:
+    type: Program
+    match_any: [CLRRS110]
+  to:
+    type: DatabaseTable
+    match_any: [CLR.T_RESERVE, T_RESERVE]
+  world_ref: PROGRAM:CLRRS110#writes_tables:CLR.T_RESERVE
+  evidence: [CL-CLRRS110-F001, ST019-F007, VS017-F009, CL-docs-db2-objects-F001, ST036-F002]
+  importance: high
+  hops_role: 'headline Q1: the eight reserve-table writers'
+- id: GE024
+  type: WRITES_TO_TABLE
+  from:
+    type: Program
+    match_any: [CLRRS130]
+  to:
+    type: DatabaseTable
+    match_any: [CLR.T_RESERVE, T_RESERVE]
+  world_ref: PROGRAM:CLRRS130#writes_tables:CLR.T_RESERVE
+  evidence: [CL-CLRRS130-F001, ST019-F008, VS017-F004, CL-docs-db2-objects-F001, ST036-F002]
+  importance: high
+  hops_role: 'headline Q1: the eight reserve-table writers'
+- id: GE025
+  type: WRITES_TO_TABLE
+  from:
+    type: Program
+    match_any: [CLRST040]
+  to:
+    type: DatabaseTable
+    match_any: [CLR.T_RESERVE, T_RESERVE]
+  world_ref: PROGRAM:CLRST040#writes_tables:CLR.T_RESERVE
+  evidence: [CL-CLRST040-F001, ST019-F009, VS017-F010, CL-docs-db2-objects-F001, ST036-F002]
+  importance: high
+  hops_role: 'headline Q1: the eight reserve-table writers'
+- id: GE026
+  type: WRITES_TO_TABLE
+  from:
+    type: Program
+    match_any: [CLRRC050]
+  to:
+    type: DatabaseTable
+    match_any: [CLR.T_RESERVE, T_RESERVE]
+  world_ref: PROGRAM:CLRRC050#writes_tables:CLR.T_RESERVE
+  evidence: [CL-CLRRC050-F001, ST019-F004, VS017-F011, CL-docs-db2-objects-F001, ST036-F002]
+  importance: high
+  hops_role: 'headline Q1: the eight reserve-table writers'
+- id: GE027
+  type: WRITES_TO_TABLE
+  from:
+    type: Program
+    match_any: [CLRGL090]
+  to:
+    type: DatabaseTable
+    match_any: [CLR.T_RESERVE, T_RESERVE]
+  world_ref: PROGRAM:CLRGL090#writes_tables:CLR.T_RESERVE
+  evidence: [CL-CLRGL090-F001, LD017-F013, LD024-F001, ST019-F003, ST036-F003]
+  importance: high
+  hops_role: 'headline Q1: the eight reserve-table writers'
+- id: GE028
+  type: WRITES_TO_TABLE
+  from:
+    type: Program
+    match_any: [CLRRS150]
+  to:
+    type: DatabaseTable
+    match_any: [CLR.T_RESERVE_MOVEMENT, T_RESERVE_MOVEMENT]
+  world_ref: PROGRAM:CLRRS150#writes_tables:CLR.T_RESERVE_MOVEMENT
+  evidence: [CL-CLRRS150-F007, LD017-F014, LD024-F002, ST014-F015, ST019-F010]
+  importance: medium
+  note: movements only
+- id: GE029
+  type: WRITES_TO_TABLE
+  from:
+    type: Program
+    match_any: [CLRRS170]
+  to:
+    type: DatabaseTable
+    match_any: [CLR.T_RESERVE_MOVEMENT, T_RESERVE_MOVEMENT]
+  world_ref: PROGRAM:CLRRS170#writes_tables:CLR.T_RESERVE_MOVEMENT
+  evidence: [CL-CLRRS170-F017, ST054-F005, CL-CLRRS170-F001, CL-CLRRS170-F002]
+  importance: medium
+- id: GE030
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRFN010]
+  to:
+    type: Program
+    match_any: [CLRFN015]
+  world_ref: PROGRAM:CLRFN010#calls_programs:CLRFN015
+  evidence: [CL-CLRFN010-F009]
+  importance: medium
+  note: FNOL policy lookup against PALM snapshot and Vehicle Data Se
+- id: GE031
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRFN010]
+  to:
+    type: Program
+    match_any: [CLRFN060]
+  world_ref: PROGRAM:CLRFN010#calls_programs:CLRFN060
+  evidence: [CL-CLRFN010-F010]
+  importance: medium
+  note: Duplicate claim check (same policy, date of loss ±3 days)
+- id: GE032
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRFN010]
+  to:
+    type: Program
+    match_any: [CLRFN030]
+  world_ref: PROGRAM:CLRFN010#calls_programs:CLRFN030
+  evidence: [CL-CLRFN010-F011]
+  importance: medium
+  note: Create claim record and default reserve (BR-FNOL-005)
+- id: GE033
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRRS010]
+  to:
+    type: Program
+    match_any: [CLRRS015]
+  world_ref: PROGRAM:CLRRS010#calls_programs:CLRRS015
+  evidence: [CL-CLRRS010-F014, CL-CLRRS010-F001]
+  importance: medium
+  note: Reserve authority check (BR-RSV-003) – called subprogram
+- id: GE034
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRRS020]
+  to:
+    type: Program
+    match_any: [CLRRS015]
+  world_ref: PROGRAM:CLRRS020#calls_programs:CLRRS015
+  evidence: [CL-CLRRS020-F014, CL-CLRRS020-F002, CL-CLRRS020-F001]
+  importance: medium
+  note: Reserve authority check (BR-RSV-003) – called subprogram
+- id: GE035
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRRS020]
+  to:
+    type: Program
+    match_any: [CLRRS040]
+  world_ref: PROGRAM:CLRRS020#calls_programs:CLRRS040
+  evidence: [CL-CLRRS020-F015, CL-CLRRS020-F002]
+  importance: medium
+  note: Reserve approval queue (above authority)
+- id: GE036
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRRS015]
+  to:
+    type: Program
+    match_any: [CLRCM040]
+  world_ref: PROGRAM:CLRRS015#calls_programs:CLRCM040
+  evidence: [CL-CLRRS015-F004, CL-CLRRS010-F001]
+  importance: medium
+  note: Parameter reader (reads CLR.T_PARAM with validity dates)
+- id: GE037
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRFN030]
+  to:
+    type: Program
+    match_any: [CLRCM040]
+  world_ref: PROGRAM:CLRFN030#calls_programs:CLRCM040
+  evidence: [CL-CLRFN030-F013]
+  importance: medium
+  note: Parameter reader (reads CLR.T_PARAM with validity dates)
+- id: GE038
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRRS010]
+  to:
+    type: Program
+    match_any: [CLRCM040]
+  world_ref: PROGRAM:CLRRS010#calls_programs:CLRCM040
+  evidence: [CL-CLRRS010-F010, CL-CLRRS010-F001]
+  importance: medium
+  note: Parameter reader (reads CLR.T_PARAM with validity dates)
+- id: GE039
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRRS110]
+  to:
+    type: Program
+    match_any: [CLRCM040]
+  world_ref: PROGRAM:CLRRS110#calls_programs:CLRCM040
+  evidence: [CL-CLRRS110-F011, CL-CLRRS110-F001]
+  importance: medium
+  note: Parameter reader (reads CLR.T_PARAM with validity dates)
+- id: GE040
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRRS130]
+  to:
+    type: Program
+    match_any: [CLRCM040]
+  world_ref: PROGRAM:CLRRS130#calls_programs:CLRCM040
+  evidence: [CL-CLRRS130-F010]
+  importance: medium
+  note: Parameter reader (reads CLR.T_PARAM with validity dates)
+- id: GE041
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRFR030]
+  to:
+    type: Program
+    match_any: [CLRCM040]
+  world_ref: PROGRAM:CLRFR030#calls_programs:CLRCM040
+  evidence: [CL-CLRFR030-F011, CL-CLRFR030-F001]
+  importance: medium
+  note: Parameter reader (reads CLR.T_PARAM with validity dates)
+- id: GE042
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRRS110]
+  to:
+    type: Program
+    match_any: [CLRCM090]
+  world_ref: PROGRAM:CLRRS110#calls_programs:CLRCM090
+  evidence: [CL-CLRRS110-F016]
+  importance: medium
+  note: Diary writer
+- id: GE043
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRGL090]
+  to:
+    type: Program
+    match_any: [CLRCM030]
+  world_ref: PROGRAM:CLRGL090#calls_programs:CLRCM030
+  evidence: [CL-CLRGL090-F009]
+  importance: medium
+  note: Currency conversion (reads CLR.T_CURRENCY_RATE)
+- id: GE044
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRRS170]
+  to:
+    type: Program
+    match_any: [CLRCM110]
+  world_ref: PROGRAM:CLRRS170#calls_programs:CLRCM110
+  evidence: [CL-CLRRS170-F016]
+  importance: medium
+  note: MQ put wrapper
+- id: GE045
+  type: CALLS_PROGRAM
+  from:
+    type: Program
+    match_any: [CLRFR030]
+  to:
+    type: Program
+    match_any: [CLRCM110]
+  world_ref: PROGRAM:CLRFR030#calls_programs:CLRCM110
+  evidence: [CL-CLRFR030-F017, CL-CLRFR030-F002]
+  importance: medium
+  note: MQ put wrapper
+- id: GE046
+  type: DEPENDS_ON_INTERFACE
+  from:
+    type: Interface
+    match_any: [CLX-IF-043, GL Reserve Journal Feed, CLX-IF-043 GL Reserve Journal Feed]
+  to:
+    type: Interface
+    match_any: [CLX-IF-042, Reserve Movement Daily Extract, CLX-IF-042 Reserve Movement Daily Extract]
+  world_ref: CLX-IF-043.depends_on
+  evidence: [VS019-F017, LD013-F031, LD024-F008, ST003-F003, ST035-F001]
+  importance: high
+  hops_role: headline Q3 hop 1
+- id: GE047
+  type: DEPENDS_ON_INTERFACE
+  from:
+    type: Interface
+    match_any: [CLX-IF-044, CDW Reserve Fact Load, CLX-IF-044 CDW Reserve Fact Load]
+  to:
+    type: Interface
+    match_any: [CLX-IF-042, Reserve Movement Daily Extract, CLX-IF-042 Reserve Movement Daily Extract]
+  world_ref: CLX-IF-044.depends_on
+  evidence: [VS019-F018, LD013-F031, ST003-F003, ST035-F001, ST037-F002]
+  importance: high
+  hops_role: headline Q3 hop 1
+- id: GE048
+  type: DEPENDS_ON_INTERFACE
+  from:
+    type: Interface
+    match_any: [CLX-IF-047, Reserve Cession Feed, CLX-IF-047 Reserve Cession Feed]
+  to:
+    type: Interface
+    match_any: [CLX-IF-042, Reserve Movement Daily Extract, CLX-IF-042 Reserve Movement Daily Extract]
+  world_ref: CLX-IF-047.depends_on
+  evidence: [VS019-F019, LD013-F031, ST003-F003, ST035-F001, ST037-F002]
+  importance: high
+  hops_role: headline Q3 hop 1
+- id: GE049
+  type: DEPENDS_ON_INTERFACE
+  from:
+    type: Interface
+    match_any: [CLX-IF-049, Reserve Movement Kafka Bridge, CLX-IF-049 Reserve Movement Kafka Bridge]
+  to:
+    type: Interface
+    match_any: [CLX-IF-042, Reserve Movement Daily Extract, CLX-IF-042 Reserve Movement Daily Extract]
+  world_ref: CLX-IF-049.depends_on
+  evidence: [ST003-F003, ST035-F001, ST037-F002, ST052-F002, ST054-F001]
+  importance: high
+  hops_role: headline Q3 hop 1
+- id: GE050
+  type: DEPENDS_ON_INTERFACE
+  from:
+    type: Interface
+    match_any: [CLX-IF-051, Technical Provisions Feed, CLX-IF-051 Technical Provisions Feed]
+  to:
+    type: Interface
+    match_any: [CLX-IF-043, GL Reserve Journal Feed, CLX-IF-043 GL Reserve Journal Feed]
+  world_ref: CLX-IF-051.depends_on
+  evidence: [LD014-F008, ST035-F005, ST039-F003, VS019-F020, TX004-F005]
+  importance: high
+  hops_role: headline Q3 hop 2
+- id: GE051
+  type: DEPENDS_ON_INTERFACE
+  from:
+    type: Interface
+    match_any: [CLX-IF-055, Monthly Claims Bordereaux, CLX-IF-055 Monthly Claims Bordereaux]
+  to:
+    type: Interface
+    match_any: [CLX-IF-047, Reserve Cession Feed, CLX-IF-047 Reserve Cession Feed]
+  world_ref: CLX-IF-055.depends_on
+  evidence: [ST035-F003, VS019-F022, ST035-F002]
+  importance: high
+  hops_role: headline Q3 hop 2
+- id: GE052
+  type: DEPENDS_ON_INTERFACE
+  from:
+    type: Interface
+    match_any: [CLX-IF-058, Reserve Triangles Extract, CLX-IF-058 Reserve Triangles Extract]
+  to:
+    type: Interface
+    match_any: [CLX-IF-044, CDW Reserve Fact Load, CLX-IF-044 CDW Reserve Fact Load]
+  world_ref: CLX-IF-058.depends_on
+  evidence: [LD014-F007, ST035-F004, VS019-F021, ST035-F002]
+  importance: high
+  hops_role: headline Q3 hop 2
+- id: GE053
+  type: SOURCE_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-042, Reserve Movement Daily Extract, CLX-IF-042 Reserve Movement Daily Extract]
+  to:
+    type: System
+    match_any: [CLARA, CLR, Claims Ledger, Claims Ledger And Reserve Application, CLARA mainframe]
+  world_ref: CLX-IF-042.source_system
+  evidence: [LD013-F024, VS003-F008, VS016-F006]
+  importance: high
+- id: GE054
+  type: TARGET_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-042, Reserve Movement Daily Extract, CLX-IF-042 Reserve Movement Daily Extract]
+  to:
+    type: System
+    match_any: [MQ Backbone, MQ, CLRQM01]
+  world_ref: CLX-IF-042.target_system
+  evidence: [LD013-F024, VS003-F008, VS016-F006]
+  importance: high
+- id: GE055
+  type: SOURCE_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-043, GL Reserve Journal Feed, CLX-IF-043 GL Reserve Journal Feed]
+  to:
+    type: System
+    match_any: [MQ Backbone, MQ, CLRQM01]
+  world_ref: CLX-IF-043.source_system
+  evidence: [LD013-F009, VS002-F014, VS003-F002, LD013-F021]
+  importance: high
+- id: GE056
+  type: TARGET_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-043, GL Reserve Journal Feed, CLX-IF-043 GL Reserve Journal Feed]
+  to:
+    type: System
+    match_any: [Group Ledger, GL, GLD]
+  world_ref: CLX-IF-043.target_system
+  evidence: [LD013-F009, VS002-F014, VS003-F002, VS019-F005]
+  importance: high
+- id: GE057
+  type: SOURCE_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-044, CDW Reserve Fact Load, CLX-IF-044 CDW Reserve Fact Load]
+  to:
+    type: System
+    match_any: [MQ Backbone, MQ, CLRQM01]
+  world_ref: CLX-IF-044.source_system
+  evidence: [VS003-F007]
+  importance: high
+- id: GE058
+  type: TARGET_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-044, CDW Reserve Fact Load, CLX-IF-044 CDW Reserve Fact Load]
+  to:
+    type: System
+    match_any: [Claims Data Warehouse, CDW, claims DW]
+  world_ref: CLX-IF-044.target_system
+  evidence: [LD013-F022, VS003-F007, VS033-F008]
+  importance: high
+- id: GE059
+  type: SOURCE_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-047, Reserve Cession Feed, CLX-IF-047 Reserve Cession Feed]
+  to:
+    type: System
+    match_any: [MQ Backbone, MQ, CLRQM01]
+  world_ref: CLX-IF-047.source_system
+  evidence: [VS003-F004]
+  importance: high
+- id: GE060
+  type: TARGET_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-047, Reserve Cession Feed, CLX-IF-047 Reserve Cession Feed]
+  to:
+    type: System
+    match_any: [ReCede, RI system, reinsurance system, ReCede RI]
+  world_ref: CLX-IF-047.target_system
+  evidence: [VS003-F004, VS033-F006]
+  importance: high
+- id: GE061
+  type: SOURCE_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-049, Reserve Movement Kafka Bridge, CLX-IF-049 Reserve Movement Kafka Bridge]
+  to:
+    type: System
+    match_any: [MQ Backbone, MQ, CLRQM01]
+  world_ref: CLX-IF-049.source_system
+  evidence: [VS002-F012, VS016-F007, VS029-F013]
+  importance: high
+- id: GE062
+  type: TARGET_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-049, Reserve Movement Kafka Bridge, CLX-IF-049 Reserve Movement Kafka Bridge]
+  to:
+    type: System
+    match_any: [Event Streaming Platform, ESP, Kafka]
+  world_ref: CLX-IF-049.target_system
+  evidence: [ST035-F012, TX047-F001, VS002-F012, VS003-F012]
+  importance: high
+- id: GE063
+  type: SOURCE_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-051, Technical Provisions Feed, CLX-IF-051 Technical Provisions Feed]
+  to:
+    type: System
+    match_any: [Group Ledger, GL, GLD]
+  world_ref: CLX-IF-051.source_system
+  evidence: [VS003-F003, VS019-F006, VS019-F007]
+  importance: high
+- id: GE064
+  type: TARGET_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-051, Technical Provisions Feed, CLX-IF-051 Technical Provisions Feed]
+  to:
+    type: System
+    match_any: [NISA Reporting Hub, NRH, regulatory reporting hub]
+  world_ref: CLX-IF-051.target_system
+  evidence: [VS003-F003]
+  importance: high
+- id: GE065
+  type: SOURCE_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-055, Monthly Claims Bordereaux, CLX-IF-055 Monthly Claims Bordereaux]
+  to:
+    type: System
+    match_any: [ReCede, RI system, reinsurance system, ReCede RI]
+  world_ref: CLX-IF-055.source_system
+  evidence: [VS003-F005, VS043-F003]
+  importance: high
+- id: GE066
+  type: TARGET_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-055, Monthly Claims Bordereaux, CLX-IF-055 Monthly Claims Bordereaux]
+  to:
+    type: System
+    match_any: [Bordereaux Exchange, BX]
+  world_ref: CLX-IF-055.target_system
+  evidence: [VS003-F005, VS043-F003]
+  importance: high
+- id: GE067
+  type: SOURCE_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-058, Reserve Triangles Extract, CLX-IF-058 Reserve Triangles Extract]
+  to:
+    type: System
+    match_any: [Claims Data Warehouse, CDW, claims DW]
+  world_ref: CLX-IF-058.source_system
+  evidence: [VS003-F006, VS033-F010, VS043-F001]
+  importance: high
+- id: GE068
+  type: TARGET_SYSTEM
+  from:
+    type: Interface
+    match_any: [CLX-IF-058, Reserve Triangles Extract, CLX-IF-058 Reserve Triangles Extract]
+  to:
+    type: System
+    match_any: [Actuarial Reserving Workbench, ARW, reserving workbench]
+  world_ref: CLX-IF-058.target_system
+  evidence: [VS003-F006, VS033-F010, VS043-F001]
+  importance: high
+- id: GE069
+  type: FEEDS_REPORT
+  from:
+    type: Interface
+    match_any: [CLX-IF-051, Technical Provisions Feed, CLX-IF-051 Technical Provisions Feed]
+  to:
+    type: RegulatoryReport
+    match_any: [NISA-TP2, Quarterly Technical Provisions Return, NISA-TP2 Quarterly Technical Provisions Return]
+  world_ref: NISA-TP2.source_interfaces
+  evidence: [ST003-F007, ST035-F002, ST039-F001, TX004-F005, VS003-F003]
+  importance: high
+  hops_role: headline Q3 hop 3
+- id: GE070
+  type: SUPERSEDES
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-031, Fraud referral threshold (NISA Circular 2026/04), BR-FRD-031 Fraud referral threshold (NISA Circular
+        2026/04)]
+  to:
+    type: BusinessRule
+    match_any: [BR-FRD-012, Fraud referral threshold (pre-2026), BR-FRD-012 Fraud referral threshold (pre-2026)]
+  world_ref: BR-FRD-031.supersedes
+  evidence: [TX035-F008]
+  importance: high
+- id: GE071
+  type: SUPERSEDES
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-033, No adverse decision on fraud score alone, BR-FRD-033 No adverse decision on fraud score alone]
+  to:
+    type: BusinessRule
+    match_any: [BR-FRD-019, Automatic decline on very high fraud score, BR-FRD-019 Automatic decline on very high fraud score]
+  world_ref: BR-FRD-033.supersedes
+  evidence: [ST045-F005, ST059-F003]
+  importance: high
+- id: GE072
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-031, Fraud referral threshold (NISA Circular 2026/04), BR-FRD-031 Fraud referral threshold (NISA Circular
+        2026/04)]
+  to:
+    type: RuleVersion
+    match_any: [BR-FRD-031 v1, BR-FRD-031 version 1]
+  world_ref: RULE:BR-FRD-031@v1
+  evidence: [LD016-F012, LD020-F007, LD027-F004, LD001-F183]
+  importance: high
+  note: superseded; effective 2026-04-01
+- id: GE073
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-031, Fraud referral threshold (NISA Circular 2026/04), BR-FRD-031 Fraud referral threshold (NISA Circular
+        2026/04)]
+  to:
+    type: RuleVersion
+    match_any: [BR-FRD-031 v2, BR-FRD-031 version 2]
+  world_ref: RULE:BR-FRD-031@v2
+  evidence: [ST005-F001, ST013-F021, ST015-F003, ST028-F001]
+  importance: high
+  note: approved; effective 2026-10-01
+- id: GE074
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-012, Fraud referral threshold (pre-2026), BR-FRD-012 Fraud referral threshold (pre-2026)]
+  to:
+    type: RuleVersion
+    match_any: [BR-FRD-012 v1, BR-FRD-012 version 1]
+  world_ref: RULE:BR-FRD-012@v1
+  evidence: [LD017-F010]
+  importance: medium
+  note: superseded; effective 2019-01-01
+- id: GE075
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-012, Fraud referral threshold (pre-2026), BR-FRD-012 Fraud referral threshold (pre-2026)]
+  to:
+    type: RuleVersion
+    match_any: [BR-FRD-012 v2, BR-FRD-012 version 2]
+  world_ref: RULE:BR-FRD-012@v2
+  evidence: [LD015-F005, LD016-F006, LD020-F006, LD027-F004]
+  importance: medium
+  note: superseded; effective 2023-04-01
+- id: GE076
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-032, Customer notification of fraud referral, BR-FRD-032 Customer notification of fraud referral]
+  to:
+    type: RuleVersion
+    match_any: [BR-FRD-032 v1, BR-FRD-032 version 1]
+  world_ref: RULE:BR-FRD-032@v1
+  evidence: [ST005-F005, LD015-F007, LD015-F009]
+  importance: high
+  note: draft; draft, no effective date
+- id: GE077
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-032, Customer notification of fraud referral, BR-FRD-032 Customer notification of fraud referral]
+  to:
+    type: RuleVersion
+    match_any: [BR-FRD-032 v2, BR-FRD-032 version 2]
+  world_ref: RULE:BR-FRD-032@v2
+  evidence: [LD001-F189, LD002-F026, ST005-F006, ST029-F005]
+  importance: high
+  note: approved; effective 2026-04-01
+- id: GE078
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-033, No adverse decision on fraud score alone, BR-FRD-033 No adverse decision on fraud score alone]
+  to:
+    type: RuleVersion
+    match_any: [BR-FRD-033 v1, BR-FRD-033 version 1]
+  world_ref: RULE:BR-FRD-033@v1
+  evidence: [TX035-F013, LD001-F187, LD002-F025, ST028-F002]
+  importance: high
+  note: approved; effective 2026-04-01
+- id: GE079
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-035, SIU triage of new referrals, BR-FRD-035 SIU triage of new referrals]
+  to:
+    type: RuleVersion
+    match_any: [BR-FRD-035 v1, BR-FRD-035 version 1]
+  world_ref: RULE:BR-FRD-035@v1
+  evidence: [LD012-F101]
+  importance: high
+  note: superseded; effective 2019-06-01
+- id: GE080
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-035, SIU triage of new referrals, BR-FRD-035 SIU triage of new referrals]
+  to:
+    type: RuleVersion
+    match_any: [BR-FRD-035 v2, BR-FRD-035 version 2]
+  world_ref: RULE:BR-FRD-035@v2
+  evidence: [CODEMOD-F079, LD015-F006, LD016-F007, LD001-F193]
+  importance: high
+  note: approved; effective 2026-04-01
+- id: GE081
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-036, Deferral of customer notice (tipping-off risk), BR-FRD-036 Deferral of customer notice (tipping-off
+        risk)]
+  to:
+    type: RuleVersion
+    match_any: [BR-FRD-036 v1, BR-FRD-036 version 1]
+  world_ref: RULE:BR-FRD-036@v1
+  evidence: [LD001-F191, LD002-F027, ST034-F008, ST038-F006]
+  importance: high
+  note: superseded; effective 2026-04-01
+- id: GE082
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-036, Deferral of customer notice (tipping-off risk), BR-FRD-036 Deferral of customer notice (tipping-off
+        risk)]
+  to:
+    type: RuleVersion
+    match_any: [BR-FRD-036 v2, BR-FRD-036 version 2]
+  world_ref: RULE:BR-FRD-036@v2
+  evidence: [ST029-F004, ST032-F002, ST044-F003, ST045-F002]
+  importance: high
+  note: approved; effective 2026-10-01
+- id: GE083
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-019, Automatic decline on very high fraud score, BR-FRD-019 Automatic decline on very high fraud score]
+  to:
+    type: RuleVersion
+    match_any: [BR-FRD-019 v2, BR-FRD-019 version 2]
+  world_ref: RULE:BR-FRD-019@v2
+  evidence: [LD012-F106, ST005-F010, VS014-F005, LD003-F038]
+  importance: medium
+  note: withdrawn; effective 2023-01-01
+- id: GE084
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-TRI-003, Claim tier classification (Tier-1 / Tier-2 / Tier-3), BR-TRI-003 Claim tier classification (Tier-1
+        / Tier-2 / Tier-3)]
+  to:
+    type: RuleVersion
+    match_any: [BR-TRI-003 v2, BR-TRI-003 version 2]
+  world_ref: RULE:BR-TRI-003@v2
+  evidence: [LD012-F007, VS025-F009, VS049-F005, LD017-F007]
+  importance: high
+  note: superseded; effective 2022-01-01
+- id: GE085
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-TRI-003, Claim tier classification (Tier-1 / Tier-2 / Tier-3), BR-TRI-003 Claim tier classification (Tier-1
+        / Tier-2 / Tier-3)]
+  to:
+    type: RuleVersion
+    match_any: [BR-TRI-003 v3, BR-TRI-003 version 3]
+  world_ref: RULE:BR-TRI-003@v3
+  evidence: [LD030-F002, LD001-F016, LD002-F008, LD003-F010]
+  importance: high
+  note: approved; effective 2025-01-01
+- id: GE086
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-RSV-007, Tier-3 reserve review cadence, BR-RSV-007 Tier-3 reserve review cadence]
+  to:
+    type: RuleVersion
+    match_any: [BR-RSV-007 v1, BR-RSV-007 version 1]
+  world_ref: RULE:BR-RSV-007@v1
+  evidence: [LD017-F009, LD012-F088]
+  importance: high
+  note: superseded; effective 2015-01-01
+- id: GE087
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-RSV-007, Tier-3 reserve review cadence, BR-RSV-007 Tier-3 reserve review cadence]
+  to:
+    type: RuleVersion
+    match_any: [BR-RSV-007 v2, BR-RSV-007 version 2]
+  world_ref: RULE:BR-RSV-007@v2
+  evidence: [LD018-F016, LD024-F003, LD003-F026, ST005-F008]
+  importance: high
+  note: superseded; effective 2024-01-01
+- id: GE088
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-RSV-007, Tier-3 reserve review cadence, BR-RSV-007 Tier-3 reserve review cadence]
+  to:
+    type: RuleVersion
+    match_any: [BR-RSV-007 v3, BR-RSV-007 version 3]
+  world_ref: RULE:BR-RSV-007@v3
+  evidence: [LD029-F007, LD001-F153, LD002-F018, ST005-F007]
+  importance: high
+  note: approved; effective 2026-07-01
+- id: GE089
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-RSV-009, Reserve indexation for bodily-injury claims, BR-RSV-009 Reserve indexation for bodily-injury claims]
+  to:
+    type: RuleVersion
+    match_any: [BR-RSV-009 v1, BR-RSV-009 version 1]
+  world_ref: RULE:BR-RSV-009@v1
+  evidence: [LD012-F082]
+  importance: medium
+  note: superseded; effective 2019-01-01
+- id: GE090
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-RSV-009, Reserve indexation for bodily-injury claims, BR-RSV-009 Reserve indexation for bodily-injury claims]
+  to:
+    type: RuleVersion
+    match_any: [BR-RSV-009 v3, BR-RSV-009 version 3]
+  world_ref: RULE:BR-RSV-009@v3
+  evidence: [ST005-F009, LD001-F154]
+  importance: medium
+  note: approved; effective 2026-01-01
+- id: GE091
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-RSV-003, Reserve authority limits, BR-RSV-003 Reserve authority limits]
+  to:
+    type: RuleVersion
+    match_any: [BR-RSV-003 v2, BR-RSV-003 version 2]
+  world_ref: RULE:BR-RSV-003@v2
+  evidence: [LD012-F084, VS022-F002, VS022-F006, VS022-F007]
+  importance: medium
+  note: superseded; effective 2023-01-01
+- id: GE092
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-RSV-003, Reserve authority limits, BR-RSV-003 Reserve authority limits]
+  to:
+    type: RuleVersion
+    match_any: [BR-RSV-003 v3, BR-RSV-003 version 3]
+  world_ref: RULE:BR-RSV-003@v3
+  evidence: [LD003-F025, ST043-F004, ST058-F006, TX032-F013]
+  importance: medium
+  note: approved; effective 2025-09-01
+- id: GE093
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-RSV-011, Large loss notification to Reinsurance, BR-RSV-011 Large loss notification to Reinsurance]
+  to:
+    type: RuleVersion
+    match_any: [BR-RSV-011 v1, BR-RSV-011 version 1]
+  world_ref: RULE:BR-RSV-011@v1
+  evidence: [LD012-F085]
+  importance: medium
+  note: superseded; effective 2018-01-01
+- id: GE094
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-RSV-011, Large loss notification to Reinsurance, BR-RSV-011 Large loss notification to Reinsurance]
+  to:
+    type: RuleVersion
+    match_any: [BR-RSV-011 v2, BR-RSV-011 version 2]
+  world_ref: RULE:BR-RSV-011@v2
+  evidence: [LD026-F005, LD001-F024, LD002-F009, LD003-F027]
+  importance: medium
+  note: approved; effective 2024-01-01
+- id: GE095
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FNOL-001, FNOL acknowledgement SLA, BR-FNOL-001 FNOL acknowledgement SLA]
+  to:
+    type: RuleVersion
+    match_any: [BR-FNOL-001 v1, BR-FNOL-001 version 1]
+  world_ref: RULE:BR-FNOL-001@v1
+  evidence: [LD012-F014, LD012-F025]
+  importance: medium
+  note: superseded; effective 2012-01-01
+- id: GE096
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FNOL-001, FNOL acknowledgement SLA, BR-FNOL-001 FNOL acknowledgement SLA]
+  to:
+    type: RuleVersion
+    match_any: [BR-FNOL-001 v2, BR-FNOL-001 version 2]
+  world_ref: RULE:BR-FNOL-001@v2
+  evidence: [LD001-F051, LD002-F010, LD003-F014, TX060-F001]
+  importance: medium
+  note: superseded; effective 2024-10-01
+- id: GE097
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-FNOL-001, FNOL acknowledgement SLA, BR-FNOL-001 FNOL acknowledgement SLA]
+  to:
+    type: RuleVersion
+    match_any: [BR-FNOL-001 v3, BR-FNOL-001 version 3]
+  world_ref: RULE:BR-FNOL-001@v3
+  evidence: [LD001-F052, LD002-F011, ST040-F007, TX056-F002]
+  importance: medium
+  note: approved; effective 2026-07-01
+- id: GE098
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-REC-003, Subrogation pursuit threshold, BR-REC-003 Subrogation pursuit threshold]
+  to:
+    type: RuleVersion
+    match_any: [BR-REC-003 v1, BR-REC-003 version 1]
+  world_ref: RULE:BR-REC-003@v1
+  evidence: [TX009-F002]
+  importance: medium
+  note: superseded; effective 2016-01-01
+- id: GE099
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-REC-003, Subrogation pursuit threshold, BR-REC-003 Subrogation pursuit threshold]
+  to:
+    type: RuleVersion
+    match_any: [BR-REC-003 v2, BR-REC-003 version 2]
+  world_ref: RULE:BR-REC-003@v2
+  evidence: [LD012-F109, TX009-F001]
+  importance: medium
+  note: superseded; effective 2022-07-01
+- id: GE100
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-REC-003, Subrogation pursuit threshold, BR-REC-003 Subrogation pursuit threshold]
+  to:
+    type: RuleVersion
+    match_any: [BR-REC-003 v3, BR-REC-003 version 3]
+  world_ref: RULE:BR-REC-003@v3
+  evidence: [LD001-F209, LD002-F032, LD003-F024, ST040-F005]
+  importance: medium
+  note: approved; effective 2025-09-01
+- id: GE101
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-REC-011, Recovery write-off authority, BR-REC-011 Recovery write-off authority]
+  to:
+    type: RuleVersion
+    match_any: [BR-REC-011 v1, BR-REC-011 version 1]
+  world_ref: RULE:BR-REC-011@v1
+  evidence: [LD012-F113, VS022-F020]
+  importance: medium
+  note: superseded; effective 2019-01-01
+- id: GE102
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-REC-011, Recovery write-off authority, BR-REC-011 Recovery write-off authority]
+  to:
+    type: RuleVersion
+    match_any: [BR-REC-011 v2, BR-REC-011 version 2]
+  world_ref: RULE:BR-REC-011@v2
+  evidence: [LD001-F217, ST040-F008, TX005-F006, TX070-F169]
+  importance: medium
+  note: approved; effective 2025-09-01
+- id: GE103
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-STL-002, Payment authority limits, BR-STL-002 Payment authority limits]
+  to:
+    type: RuleVersion
+    match_any: [BR-STL-002 v1, BR-STL-002 version 1]
+  world_ref: RULE:BR-STL-002@v1
+  evidence: [LD017-F011]
+  importance: medium
+  note: superseded; effective 2017-01-01
+- id: GE104
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-STL-002, Payment authority limits, BR-STL-002 Payment authority limits]
+  to:
+    type: RuleVersion
+    match_any: [BR-STL-002 v2, BR-STL-002 version 2]
+  world_ref: RULE:BR-STL-002@v2
+  evidence: [LD001-F164, LD012-F094, VS022-F003, VS022-F001]
+  importance: medium
+  note: superseded; effective 2023-01-01
+- id: GE105
+  type: HAS_VERSION
+  from:
+    type: BusinessRule
+    match_any: [BR-STL-002, Payment authority limits, BR-STL-002 Payment authority limits]
+  to:
+    type: RuleVersion
+    match_any: [BR-STL-002 v3, BR-STL-002 version 3]
+  world_ref: RULE:BR-STL-002@v3
+  evidence: [LD001-F165, LD002-F021, ST045-F006, TX038-F004]
+  importance: medium
+  note: approved; effective 2025-09-01
+- id: GE106
+  type: GOVERNED_BY
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-019, Automatic decline on very high fraud score, BR-FRD-019 Automatic decline on very high fraud score]
+  to:
+    type: Regulation
+    match_any: [NISA Circular 2026/04, Circular 2026/04, CIRC-2026-04, NISA Circular 2026/04 Fair Treatment in Fraud Referral]
+  world_ref: CIRC-2026-04.rules_affected
+  evidence: [TX035-F009]
+  importance: high
+- id: GE107
+  type: GOVERNED_BY
+  from:
+    type: BusinessRule
+    match_any: [BR-FRD-031, Fraud referral threshold (NISA Circular 2026/04), BR-FRD-031 Fraud referral threshold (NISA Circular
+        2026/04)]
+  to:
+    type: Regulation
+    match_any: [NISA Circular 2026/04, Circular 2026/04, CIRC-2026-04, NISA Circular 2026/04 Fair Treatment in Fraud Referral]
+  world_ref: CIRC-2026-04.rules_affected
+  evidence: [LD003-F036]
+  importance: high
+- id: GE108
+  type: GOVERNED_BY
+  from:
+    type: BusinessRule
+    match_any: [BR-FNOL-001, FNOL acknowledgement SLA, BR-FNOL-001 FNOL acknowledgement SLA]
+  to:
+    type: Regulation
+    match_any: [NISA Circular 2024/07, Circular 2024/07, CIRC-2024-07, NISA Circular 2024/07 Claims Handling Timeliness]
+  world_ref: CIRC-2024-07.rules_affected
+  evidence: [LD001-F051, LD002-F010, VS039-F009]
+  importance: medium
+- id: GE109
+  type: RENAMED_TO
+  from:
+    type: Program
+    match_any: [FNETCAL1]
+  to:
+    type: Program
+    match_any: [CLRFR020]
+  world_ref: PROGRAM:CLRFR020#renamed_from
+  evidence: [CL-docs-program-inventory-F002, ST006-F002, ST036-F001]
+  importance: medium
+  note: renamed 2025-03-01
+- id: GE110
+  type: RENAMED_TO
+  from:
+    type: Program
+    match_any: [FNETREF1]
+  to:
+    type: Program
+    match_any: [CLRFR030]
+  world_ref: PROGRAM:CLRFR030#renamed_from
+  evidence: [CL-docs-program-inventory-F002, ST001-F008]
+  importance: medium
+  note: renamed 2025-03-01
+- id: GE111
+  type: RENAMED_TO
+  from:
+    type: Program
+    match_any: [YEREVAL1]
+  to:
+    type: Program
+    match_any: [CLRGL090]
+  world_ref: PROGRAM:CLRGL090#renamed_from
+  evidence: [ST006-F005, VS017-F014]
+  importance: medium
+  note: renamed 2021-01-01
+- id: GE112
+  type: REPLACES_PROGRAM
+  from:
+    type: Service
+    match_any: [reserve-engine, reserve-svc, reserve service]
+  to:
+    type: Program
+    match_any: [CLRFN030]
+  world_ref: SERVICE:reserve-engine#replaces_programs:CLRFN030
+  evidence: [CODEMOD-F214, VS016-F026]
+  importance: medium
+- id: GE113
+  type: REPLACES_PROGRAM
+  from:
+    type: Service
+    match_any: [reserve-engine, reserve-svc, reserve service]
+  to:
+    type: Program
+    match_any: [CLRGL090]
+  world_ref: SERVICE:reserve-engine#replaces_programs:CLRGL090
+  evidence: [CODEMOD-F214, LD013-F030, ST031-F007, VS016-F025]
+  importance: medium
+- id: GE114
+  type: REPLACES_PROGRAM
+  from:
+    type: Service
+    match_any: [reserve-engine, reserve-svc, reserve service]
+  to:
+    type: Program
+    match_any: [CLRRS010]
+  world_ref: SERVICE:reserve-engine#replaces_programs:CLRRS010
+  evidence: [CODEMOD-F214]
+  importance: medium
+- id: GE115
+  type: REPLACES_PROGRAM
+  from:
+    type: Service
+    match_any: [reserve-engine, reserve-svc, reserve service]
+  to:
+    type: Program
+    match_any: [CLRRS110]
+  world_ref: SERVICE:reserve-engine#replaces_programs:CLRRS110
+  evidence: [CODEMOD-F214, ST006-F004]
+  importance: medium
+- id: GE116
+  type: REPLACES_PROGRAM
+  from:
+    type: Service
+    match_any: [reserve-engine, reserve-svc, reserve service]
+  to:
+    type: Program
+    match_any: [CLRRS130]
+  world_ref: SERVICE:reserve-engine#replaces_programs:CLRRS130
+  evidence: [CODEMOD-F214]
+  importance: medium
+- id: GE117
+  type: REPLACES_PROGRAM
+  from:
+    type: Service
+    match_any: [reserve-engine, reserve-svc, reserve service]
+  to:
+    type: Program
+    match_any: [CLRRS150]
+  world_ref: SERVICE:reserve-engine#replaces_programs:CLRRS150
+  evidence: [CODEMOD-F214, ST031-F007, VS016-F024]
+  importance: medium
+- id: GE118
+  type: REPLACES_PROGRAM
+  from:
+    type: Service
+    match_any: [reserve-engine, reserve-svc, reserve service]
+  to:
+    type: Program
+    match_any: [CLRRS170]
+  world_ref: SERVICE:reserve-engine#replaces_programs:CLRRS170
+  evidence: [CODEMOD-F214]
+  importance: medium
+- id: GE119
+  type: NEXT_STEP
+  from:
+    type: ProcessStep
+    match_any: [PS-TRI-03, Route claim, PS-TRI-03 Route claim]
+  to:
+    type: ProcessStep
+    match_any: [PS-STL-05, Fast-track straight-through settlement, PS-STL-05 Fast-track straight-through settlement]
+  world_ref: PROCESS:PS-TRI-03#next:PS-STL-05
+  evidence: [VS001-F001]
+  importance: medium
+- id: GE120
+  type: NEXT_STEP
+  from:
+    type: ProcessStep
+    match_any: [PS-TRI-03, Route claim, PS-TRI-03 Route claim]
+  to:
+    type: ProcessStep
+    match_any: [PS-TRI-04, Major loss alert, PS-TRI-04 Major loss alert]
+  world_ref: PROCESS:PS-TRI-03#next:PS-TRI-04
+  evidence: [VS001-F002]
+  importance: medium
+- id: GE121
+  type: NEXT_STEP
+  from:
+    type: ProcessStep
+    match_any: [PS-TRI-03, Route claim, PS-TRI-03 Route claim]
+  to:
+    type: ProcessStep
+    match_any: [PS-FRD-01, Referral decision, PS-FRD-01 Referral decision]
+  world_ref: PROCESS:PS-TRI-03#next:PS-FRD-01
+  evidence: [VS001-F003]
+  importance: medium
+- id: GE122
+  type: NEXT_STEP
+  from:
+    type: ProcessStep
+    match_any: [PS-FRD-01, Referral decision, PS-FRD-01 Referral decision]
+  to:
+    type: ProcessStep
+    match_any: [PS-FRD-02, Refer to SIU, PS-FRD-02 Refer to SIU]
+  world_ref: PROCESS:PS-FRD-01#next:PS-FRD-02
+  evidence: [VS007-F001, VS007-F002]
+  importance: medium
+- id: GE123
+  type: NEXT_STEP
+  from:
+    type: ProcessStep
+    match_any: [PS-REC-02, Open subrogation case and demand, PS-REC-02 Open subrogation case and demand]
+  to:
+    type: ProcessStep
+    match_any: [PS-REC-03, Solicitor referral, PS-REC-03 Solicitor referral]
+  world_ref: PROCESS:PS-REC-02#next:PS-REC-03
+  evidence: [VS024-F009]
+  importance: medium
+- id: GE124
+  type: NEXT_STEP
+  from:
+    type: ProcessStep
+    match_any: [PS-RSV-02, Authority check and approval, PS-RSV-02 Authority check and approval]
+  to:
+    type: ProcessStep
+    match_any: [PS-RSV-03, Periodic reserve review, PS-RSV-03 Periodic reserve review]
+  world_ref: PROCESS:PS-RSV-02#next:PS-RSV-03
+  evidence: [VS008-F003]
+  importance: medium
+- id: GE125
+  type: OWNS_INTERFACE
+  from:
+    type: Person
+    match_any: [Henrik Vestergaard, H. Vestergaard]
+  to:
+    type: Interface
+    match_any: [CLX-IF-042, Reserve Movement Daily Extract, CLX-IF-042 Reserve Movement Daily Extract]
+  world_ref: CLX-IF-042.owner
+  evidence: [ST003-F001, ST035-F008, ST037-F006, VS003-F009]
+  importance: high
+- id: GE126
+  type: OWNS_INTERFACE
+  from:
+    type: Person
+    match_any: [Hamish Gilchrist, H. Gilchrist]
+  to:
+    type: Interface
+    match_any: [CLX-IF-043, GL Reserve Journal Feed, CLX-IF-043 GL Reserve Journal Feed]
+  world_ref: CLX-IF-043.owner
+  evidence: [VS003-F013]
+  importance: medium
+- id: GE127
+  type: OWNS_INTERFACE
+  from:
+    type: Person
+    match_any: [Henrik Vestergaard, H. Vestergaard]
+  to:
+    type: Interface
+    match_any: [CLX-IF-049, Reserve Movement Kafka Bridge, CLX-IF-049 Reserve Movement Kafka Bridge]
+  world_ref: CLX-IF-049.owner
+  evidence: [TX047-F002, VS003-F009, VS003-F012]
+  importance: medium
+- id: GE128
+  type: OWNS_INTERFACE
+  from:
+    type: Person
+    match_any: [Lena Kristiansen, L. Kristiansen]
+  to:
+    type: Interface
+    match_any: [CLX-IF-058, Reserve Triangles Extract, CLX-IF-058 Reserve Triangles Extract]
+  world_ref: CLX-IF-058.owner
+  evidence: [VS008-F023]
+  importance: medium
+- id: GE129
+  type: CONSUMES_INTERFACE
+  from:
+    type: Team
+    match_any: [Financial Control]
+  to:
+    type: Interface
+    match_any: [CLX-IF-043, GL Reserve Journal Feed, CLX-IF-043 GL Reserve Journal Feed]
+  world_ref: CLX-IF-043.consumer_teams:T14
+  evidence: [VS019-F017]
+  importance: high
+  hops_role: headline Q3 consumer teams
+- id: GE130
+  type: CONSUMES_INTERFACE
+  from:
+    type: Team
+    match_any: [Data & Analytics]
+  to:
+    type: Interface
+    match_any: [CLX-IF-044, CDW Reserve Fact Load, CLX-IF-044 CDW Reserve Fact Load]
+  world_ref: CLX-IF-044.consumer_teams:T23
+  evidence: [VS019-F018]
+  importance: high
+  hops_role: headline Q3 consumer teams
+- id: GE131
+  type: CONSUMES_INTERFACE
+  from:
+    type: Team
+    match_any: [Reinsurance]
+  to:
+    type: Interface
+    match_any: [CLX-IF-047, Reserve Cession Feed, CLX-IF-047 Reserve Cession Feed]
+  world_ref: CLX-IF-047.consumer_teams:T17
+  evidence: [VS019-F019, VS019-F022]
+  importance: high
+  hops_role: headline Q3 consumer teams
+- id: GE132
+  type: CONSUMES_INTERFACE
+  from:
+    type: Team
+    match_any: [Regulatory Reporting]
+  to:
+    type: Interface
+    match_any: [CLX-IF-051, Technical Provisions Feed, CLX-IF-051 Technical Provisions Feed]
+  world_ref: CLX-IF-051.consumer_teams:T15
+  evidence: [VS019-F020]
+  importance: high
+  hops_role: headline Q3 consumer teams
+- id: GE133
+  type: CONSUMES_INTERFACE
+  from:
+    type: Team
+    match_any: [Reinsurance]
+  to:
+    type: Interface
+    match_any: [CLX-IF-055, Monthly Claims Bordereaux, CLX-IF-055 Monthly Claims Bordereaux]
+  world_ref: CLX-IF-055.consumer_teams:T17
+  evidence: [VS019-F022]
+  importance: high
+  hops_role: headline Q3 consumer teams
+- id: GE134
+  type: CONSUMES_INTERFACE
+  from:
+    type: Team
+    match_any: [Reserving]
+  to:
+    type: Interface
+    match_any: [CLX-IF-058, Reserve Triangles Extract, CLX-IF-058 Reserve Triangles Extract]
+  world_ref: CLX-IF-058.consumer_teams:T12
+  evidence: [LD014-F007, ST003-F006, ST035-F013]
+  importance: high
+  hops_role: headline Q3 consumer teams
+- id: GE135
+  type: IMPLEMENTS_RULE
+  from:
+    type: Service
+    match_any: [fraud-referral-svc, fraud referral service, fraud-svc]
+  to:
+    type: BusinessRule
+    match_any: [BR-FRD-031, Fraud referral threshold (NISA Circular 2026/04), BR-FRD-031 Fraud referral threshold (NISA Circular
+        2026/04)]
+  world_ref: RULE:BR-FRD-031#implemented_in:fraud-referral-svc
+  evidence: [TX031-F008]
+  importance: medium
+- id: GE136
+  type: IMPLEMENTS_RULE
+  from:
+    type: Service
+    match_any: [triage-svc, triage service]
+  to:
+    type: BusinessRule
+    match_any: [BR-FRD-031, Fraud referral threshold (NISA Circular 2026/04), BR-FRD-031 Fraud referral threshold (NISA Circular
+        2026/04)]
+  world_ref: RULE:BR-FRD-031#implemented_in:triage-svc
+  evidence: [TX031-F008]
+  importance: medium
+- id: GE137
+  type: IMPLEMENTS_RULE
+  from:
+    type: Program
+    match_any: [CLRRS110]
+  to:
+    type: BusinessRule
+    match_any: [BR-RSV-007, Tier-3 reserve review cadence, BR-RSV-007 Tier-3 reserve review cadence]
+  world_ref: RULE:BR-RSV-007#implemented_in:CLRRS110
+  evidence: [TX016-F003]
+  importance: medium
+- id: GE138
+  type: IMPLEMENTS_RULE
+  from:
+    type: Program
+    match_any: [CLRRS120]
+  to:
+    type: BusinessRule
+    match_any: [BR-RSV-007, Tier-3 reserve review cadence, BR-RSV-007 Tier-3 reserve review cadence]
+  world_ref: RULE:BR-RSV-007#implemented_in:CLRRS120
+  evidence: [TX016-F003]
+  importance: medium
+- id: GE139
+  type: IMPLEMENTS_RULE
+  from:
+    type: Service
+    match_any: [reserve-engine, reserve-svc, reserve service]
+  to:
+    type: BusinessRule
+    match_any: [BR-RSV-007, Tier-3 reserve review cadence, BR-RSV-007 Tier-3 reserve review cadence]
+  world_ref: RULE:BR-RSV-007#implemented_in:reserve-engine
+  evidence: [TX016-F003]
+  importance: medium
+- id: GE140
+  type: OWNS_RULE
+  from:
+    type: Person
+    match_any: [Niall Brannigan, N. Brannigan]
+  to:
+    type: BusinessRule
+    match_any: [BR-FRD-031, Fraud referral threshold (NISA Circular 2026/04), BR-FRD-031 Fraud referral threshold (NISA Circular
+        2026/04)]
+  world_ref: RULE:BR-FRD-031#owner
+  evidence: [LD001-F226]
+  importance: medium
+- id: GE141
+  type: CONSUMES_TOPIC
+  from:
+    type: Service
+    match_any: [reserve-engine, reserve-svc, reserve service]
+  to:
+    type: KafkaTopic
+    match_any: [claims.reserve.movement.v1]
+  world_ref: SERVICE:reserve-engine#kafka_topics.consumes:claims.reserve.movement.v1
+  evidence: [CODEMOD-F057, CODEMOD-F087, CODEMOD-F148, ST030-F002]
+  importance: medium
+  hops_role: 'headline Q3: Claims Hub service reached through CLX-IF-049'
+merge_expected:
+- id: GM001
+  type: Person
+  canonical: Priya Raman
+  variants: [P. Raman, PR, Priya, Ms Raman]
+  world_ref: P001
+  evidence: [TX001-F014, TX071-F008]
+- id: GM002
+  type: Person
+  canonical: Gareth Whitcombe
+  variants: [G. Whitcombe, GW, Gareth]
+  world_ref: P002
+  evidence: [TX004-F007]
+- id: GM003
+  type: Person
+  canonical: Helena Strandberg
+  variants: [H. Strandberg, HS, Helena]
+  world_ref: P003
+- id: GM004
+  type: Person
+  canonical: Duncan Ferrier
+  variants: [D. Ferrier, DF, Duncan]
+  world_ref: P004
+- id: GM005
+  type: Person
+  canonical: Ingrid Ashby
+  variants: [Ingrid Sørensen, I. Sørensen, I. Ashby, Mrs Ashby, IS, IA, Ingrid]
+  world_ref: P005
+  evidence: [LD013-F027, LD012-F001, LD008-F005, LD009-F005]
+  note: name change Sørensen -> Ashby on 2025-08-23 (LD012, VS004, TX014, TX074)
+- id: GM006
+  type: Person
+  canonical: Karin Holmberg
+  variants: [K. Holmberg, KH, Karin]
+  world_ref: P007
+- id: GM007
+  type: Person
+  canonical: Niall Brannigan
+  variants: [N. Brannigan, NB, Niall]
+  world_ref: P008
+- id: GM008
+  type: Person
+  canonical: Lena Kristiansen
+  variants: [L. Kristiansen, LK, Lena]
+  world_ref: P009
+- id: GM009
+  type: Person
+  canonical: Sebastian Moreau-Clarke
+  variants: [S. Moreau-Clarke, SMC, Sebastian]
+  world_ref: P010
+- id: GM010
+  type: Person
+  canonical: Rob Tennant
+  variants: [R. Tennant, RT, Rob, Robert Tennant]
+  world_ref: P011
+- id: GM011
+  type: Person
+  canonical: Mette Dahl
+  variants: [M. Dahl, MD, Mette]
+  world_ref: P012
+- id: GM012
+  type: Person
+  canonical: Freya Lindahl
+  variants: [F. Lindahl, FL, Freya]
+  world_ref: P013
+  evidence: [TX058-F004, TX005-F001]
+- id: GM013
+  type: Person
+  canonical: Siobhan Quill
+  variants: [S. Quill, SQ, Siobhan]
+  world_ref: P014
+  evidence: [TX005-F002]
+- id: GM014
+  type: Person
+  canonical: Martin Calloway
+  variants: [M. Calloway, MC, Martin]
+  world_ref: P015
+- id: GM015
+  type: Person
+  canonical: Graham Pocock
+  variants: [G. Pocock, GP, Graham]
+  world_ref: P016
+- id: GM016
+  type: Person
+  canonical: Aisha Siddiqui
+  variants: [A. Siddiqui, AS, Aisha]
+  world_ref: P017
+- id: GM017
+  type: Person
+  canonical: Tomasz Wójcik
+  variants: [T. Wójcik, TW, Tomasz]
+  world_ref: P018
+- id: GM018
+  type: Person
+  canonical: Morag Duthie
+  variants: [M. Duthie, Morag]
+  world_ref: P019
+- id: GM019
+  type: Person
+  canonical: Bjørn Aasheim
+  variants: [B. Aasheim, BA, Bjørn]
+  world_ref: P020
+- id: GM020
+  type: Person
+  canonical: Hamish Gilchrist
+  variants: [H. Gilchrist, HG, Hamish]
+  world_ref: P021
+- id: GM021
+  type: Person
+  canonical: Keith Barraclough
+  variants: [K. Barraclough, KB, Keith]
+  world_ref: P023
+- id: GM022
+  type: Person
+  canonical: Pauline Ashworth
+  variants: [P. Ashworth, Pauline]
+  world_ref: P024
+- id: GM023
+  type: Person
+  canonical: Derek Ollerton
+  variants: [D. Ollerton, DO, Derek]
+  world_ref: P025
+- id: GM024
+  type: Person
+  canonical: Sunita Vaghela
+  variants: [S. Vaghela, SV, Sunita]
+  world_ref: P026
+- id: GM025
+  type: Person
+  canonical: Oskar Lindgren
+  variants: [O. Lindgren, OL, Oskar]
+  world_ref: P027
+- id: GM026
+  type: Person
+  canonical: Rachel Dunmore
+  variants: [R. Dunmore, RD, Rachel]
+  world_ref: P028
+- id: GM027
+  type: Person
+  canonical: Ewan Strachan
+  variants: [E. Strachan, ES, Ewan]
+  world_ref: P029
+- id: GM028
+  type: Person
+  canonical: Kirsty Mowbray
+  variants: [K. Mowbray, Kirsty]
+  world_ref: P030
+- id: GM029
+  type: Person
+  canonical: Henrik Vestergaard
+  variants: [H. Vestergaard, HV, Henrik]
+  world_ref: P031
+- id: GM030
+  type: Person
+  canonical: Neil Haworth
+  variants: [N. Haworth, NH, Neil]
+  world_ref: P032
+- id: GM031
+  type: Person
+  canonical: Imran Talwar
+  variants: [I. Talwar, Imran]
+  world_ref: P033
+- id: GM032
+  type: Person
+  canonical: Astrid Nygaard
+  variants: [A. Nygaard, Astrid]
+  world_ref: P034
+- id: GM033
+  type: Person
+  canonical: Ruth Okafor
+  variants: [R. Okafor, RO, Ruth]
+  world_ref: P037
+- id: GM034
+  type: Person
+  canonical: Per Øverland
+  variants: [P. Øverland, Per]
+  world_ref: P038
+- id: GM035
+  type: Person
+  canonical: Sofie Bak
+  variants: [S. Bak, Sofie]
+  world_ref: P040
+- id: GM036
+  type: Person
+  canonical: Daniel Achebe
+  variants: [D. Achebe, DA, Daniel]
+  world_ref: P041
+- id: GM037
+  type: Person
+  canonical: Linnea Sjöberg
+  variants: [L. Sjöberg, LS, Linnea]
+  world_ref: P042
+- id: GM038
+  type: Person
+  canonical: Tariq Hussain
+  variants: [T. Hussain, TH, Tariq]
+  world_ref: P043
+- id: GM039
+  type: Person
+  canonical: Arjun Kesavan
+  variants: [A. Kesavan, AK, Arjun]
+  world_ref: P048
+- id: GM040
+  type: Person
+  canonical: Elin Fosse
+  variants: [E. Fosse, EF, Elin]
+  world_ref: P049
+- id: GM041
+  type: Person
+  canonical: Marcus Oduya
+  variants: [M. Oduya, MO, Marcus]
+  world_ref: P050
+- id: GM042
+  type: Person
+  canonical: Gordon Sproat
+  variants: [G. Sproat, Gordon]
+  world_ref: P052
+- id: GM043
+  type: Person
+  canonical: Nadia Petrovic
+  variants: [N. Petrovic, NP, Nadia]
+  world_ref: P053
+- id: GM044
+  type: Person
+  canonical: Hannah Lyle
+  variants: [H. Lyle, HL, Hannah]
+  world_ref: P054
+- id: GM045
+  type: Person
+  canonical: Imogen Thackray
+  variants: [I. Thackray, Imogen]
+  world_ref: P055
+- id: GM046
+  type: Person
+  canonical: Petter Ulvestad
+  variants: [P. Ulvestad, Petter]
+  world_ref: P056
+- id: GM047
+  type: Person
+  canonical: Colin Rudd
+  variants: [C. Rudd, Colin]
+  world_ref: P057
+- id: GM048
+  type: Person
+  canonical: Sigrid Nyhus
+  variants: [S. Nyhus, Sigrid]
+  world_ref: P058
+- id: GM049
+  type: System
+  canonical: CLARA
+  variants: [the ledger, CLR, Claims Ledger, Claims Ledger And Reserve Application, CLARA mainframe]
+  world_ref: SYS01
+  evidence: [TX042-F001, TX071-F011]
+- id: GM050
+  type: System
+  canonical: Claims Hub
+  variants: [CHUB, the Hub, Claims Hub platform]
+  world_ref: SYS02
+- id: GM051
+  type: System
+  canonical: Sentinel
+  variants: [FRAUDNET, the fraud engine, SNT]
+  world_ref: SYS03
+  evidence: [LD020-F001, LD025-F002, LD001-F175, LD002-F022, LD003-F022]
+  note: rename FRAUDNET -> Sentinel on 2025-03-01; stated in both LD001 and its scan LD002
+- id: GM052
+  type: System
+  canonical: MyCorvane Claims
+  variants: [ClaimLine Web, ClaimLine, the customer portal, claims portal]
+  world_ref: SYS04
+  evidence: [LD012-F023, LD003-F044]
+  note: rename ClaimLine Web -> MyCorvane Claims on 2024-10-14
+- id: GM053
+  type: System
+  canonical: Evidence Vault
+  variants: [DOCSTOR, the doc store, EV]
+  world_ref: SYS05
+  evidence: [LD001-F030, TX018-F001, TX059-F002, VS021-F015, TX018-F003]
+  note: rename DOCSTOR -> Evidence Vault on 2025-11-03
+- id: GM054
+  type: System
+  canonical: Group Ledger
+  variants: [GL, GLD, the general ledger]
+  world_ref: SYS06
+  evidence: [TX004-F005]
+- id: GM055
+  type: System
+  canonical: ReCede
+  variants: [RI system, reinsurance system, ReCede RI]
+  world_ref: SYS07
+- id: GM056
+  type: System
+  canonical: Corvane Payments Gateway
+  variants: [CPG, payments gateway]
+  world_ref: SYS09
+  evidence: [TX040-F003]
+- id: GM057
+  type: System
+  canonical: NISA Reporting Hub
+  variants: [NRH, regulatory reporting hub, the reporting hub]
+  world_ref: SYS10
+- id: GM058
+  type: System
+  canonical: Claims Data Warehouse
+  variants: [CDW, the warehouse, claims DW]
+  world_ref: SYS11
+  evidence: [VS013-F012]
+- id: GM059
+  type: System
+  canonical: Harbour CRM
+  variants: [Harbour, the CRM, contact centre CRM]
+  world_ref: SYS12
+- id: GM060
+  type: System
+  canonical: Evidence Intake Gateway
+  variants: [EIG, photo intake, telematics intake]
+  world_ref: SYS13
+- id: GM061
+  type: System
+  canonical: MQ Backbone
+  variants: [MQ, CLRQM01]
+  world_ref: SYS14
+  evidence: [LD017-F006, ST037-F003, VS002-F022, VS033-F025]
+- id: GM062
+  type: System
+  canonical: Event Streaming Platform
+  variants: [ESP, Kafka, the Kafka platform]
+  world_ref: SYS15
+  evidence: [LD013-F003, ST030-F001, ST035-F012, ST051-F002]
+- id: GM063
+  type: System
+  canonical: Corvane Identity Service
+  variants: [CIS, identity service, SSO]
+  world_ref: SYS16
+  evidence: [VS030-F003]
+- id: GM064
+  type: System
+  canonical: Assessor Portal
+  variants: [Adjuster Extranet]
+  world_ref: SYS17
+  evidence: [LD030-F001, LD001-F099, LD002-F013, LD012-F048, LD021-F024]
+  note: rename Adjuster Extranet -> Assessor Portal on 2025-09-01; stated in both LD001 and its scan LD002
+- id: GM065
+  type: System
+  canonical: WatchScreen
+  variants: [sanctions screening, WatchScreen sanctions]
+  world_ref: SYS19
+  evidence: [LD001-F173, LD012-F098, VS031-F015, VS003-F011]
+- id: GM066
+  type: System
+  canonical: Actuarial Reserving Workbench
+  variants: [ARW, reserving workbench, the triangles tool]
+  world_ref: SYS21
+- id: GM067
+  type: System
+  canonical: SIU Case Manager
+  variants: [SCM, SIU case system]
+  world_ref: SYS22
+- id: GM068
+  type: System
+  canonical: SKADE-90
+  variants: [the Nordic legacy claims system]
+  world_ref: SYS23
+- id: GM069
+  type: System
+  canonical: Subrogation Tracker
+  variants: [SUBTRAK, the subro tracker]
+  world_ref: SYS24
+  evidence: [LD014-F013, TX038-F005, TX058-F003, TX001-F013]
+- id: GM070
+  type: System
+  canonical: Notify
+  variants: [the notification gateway, Notify gateway]
+  world_ref: SYS25
+- id: GM071
+  type: System
+  canonical: Bordereaux Exchange
+  variants: [the bordereaux SFTP, BX]
+  world_ref: SYS26
+- id: GM072
+  type: Service
+  canonical: claim-core-svc
+  variants: [claim core]
+  world_ref: SVC01
+  evidence: [LD014-F012, VS011-F012, VS040-F007, VS048-F005]
+- id: GM073
+  type: Service
+  canonical: fnol-intake-svc
+  variants: [fnol intake, FNOL service]
+  world_ref: SVC02
+- id: GM074
+  type: Service
+  canonical: triage-svc
+  variants: [triage service]
+  world_ref: SVC03
+- id: GM075
+  type: Service
+  canonical: assessment-svc
+  variants: [assessment service]
+  world_ref: SVC04
+- id: GM076
+  type: Service
+  canonical: reserve-engine
+  variants: [reserve-svc, reserve service]
+  world_ref: SVC05
+  evidence: [LD013-F012, LD014-F005, ST007-F003, ST031-F001, ST043-F001]
+  note: rename reserve-svc -> reserve-engine on 2026-02-10
+- id: GM077
+  type: Service
+  canonical: fraud-referral-svc
+  variants: [fraud referral service, fraud-svc]
+  world_ref: SVC06
+- id: GM078
+  type: Service
+  canonical: settlement-svc
+  variants: [settlement service]
+  world_ref: SVC07
+- id: GM079
+  type: Service
+  canonical: payment-orchestrator
+  variants: [payments orchestrator, payment-svc]
+  world_ref: SVC08
+- id: GM080
+  type: Service
+  canonical: recovery-svc
+  variants: [recovery service, subro service]
+  world_ref: SVC09
+- id: GM081
+  type: Service
+  canonical: document-svc
+  variants: [document service, docs-svc]
+  world_ref: SVC10
+- id: GM082
+  type: Service
+  canonical: notification-svc
+  variants: [notification service, notify-svc]
+  world_ref: SVC11
+- id: GM083
+  type: Service
+  canonical: gl-posting-svc
+  variants: [GL posting service]
+  world_ref: SVC12
+- id: GM084
+  type: Service
+  canonical: reporting-feed-svc
+  variants: [reporting feed]
+  world_ref: SVC13
+- id: GM085
+  type: Interface
+  canonical: CLX-IF-042
+  variants: [Reserve Movement Daily Extract, CLX-IF-042 Reserve Movement Daily Extract]
+  world_ref: CLX-IF-042
+  evidence: [VS003-F008, VS033-F020]
+- id: GM086
+  type: Interface
+  canonical: CLX-IF-043
+  variants: [GL Reserve Journal Feed, CLX-IF-043 GL Reserve Journal Feed]
+  world_ref: CLX-IF-043
+  evidence: [LD013-F020, LD025-F004, ST003-F004]
+- id: GM087
+  type: Interface
+  canonical: CLX-IF-044
+  variants: [CDW Reserve Fact Load, CLX-IF-044 CDW Reserve Fact Load]
+  world_ref: CLX-IF-044
+  evidence: [LD013-F022, VS033-F008, LD014-F007]
+- id: GM088
+  type: Interface
+  canonical: CLX-IF-047
+  variants: [Reserve Cession Feed, CLX-IF-047 Reserve Cession Feed]
+  world_ref: CLX-IF-047
+  evidence: [LD013-F023]
+- id: GM089
+  type: Interface
+  canonical: CLX-IF-049
+  variants: [Reserve Movement Kafka Bridge, CLX-IF-049 Reserve Movement Kafka Bridge]
+  world_ref: CLX-IF-049
+  evidence: [TX047-F001, VS003-F012, VS029-F013]
+- id: GM090
+  type: Interface
+  canonical: CLX-IF-051
+  variants: [Technical Provisions Feed, CLX-IF-051 Technical Provisions Feed]
+  world_ref: CLX-IF-051
+  evidence: [LD014-F008, ST003-F007, ST035-F005]
+- id: GM091
+  type: Interface
+  canonical: CLX-IF-055
+  variants: [Monthly Claims Bordereaux, CLX-IF-055 Monthly Claims Bordereaux]
+  world_ref: CLX-IF-055
+  evidence: [ST035-F003, VS043-F003]
+- id: GM092
+  type: Interface
+  canonical: CLX-IF-058
+  variants: [Reserve Triangles Extract, CLX-IF-058 Reserve Triangles Extract]
+  world_ref: CLX-IF-058
+  evidence: [LD014-F007, ST003-F006, ST035-F004]
+- id: GM093
+  type: BusinessRule
+  canonical: BR-FRD-031
+  variants: [Fraud referral threshold (NISA Circular 2026/04), BR-FRD-031 Fraud referral threshold (NISA Circular 2026/04)]
+  world_ref: BR-FRD-031
+  evidence: [LD001-F183, LD002-F024, CL-CLRFR040-F004, CODEMOD-F089]
+  note: stated in both LD001 and its scan LD002
+- id: GM094
+  type: BusinessRule
+  canonical: BR-FRD-012
+  variants: [Fraud referral threshold (pre-2026), BR-FRD-012 Fraud referral threshold (pre-2026)]
+  world_ref: BR-FRD-012
+  evidence: [LD015-F005, LD016-F006, LD017-F010, LD020-F006]
+- id: GM095
+  type: BusinessRule
+  canonical: BR-FRD-032
+  variants: [Customer notification of fraud referral, BR-FRD-032 Customer notification of fraud referral]
+  world_ref: BR-FRD-032
+  evidence: [LD001-F189, LD002-F026, CODEMOD-F005, LD015-F007]
+  note: stated in both LD001 and its scan LD002
+- id: GM096
+  type: BusinessRule
+  canonical: BR-FRD-033
+  variants: [No adverse decision on fraud score alone, BR-FRD-033 No adverse decision on fraud score alone]
+  world_ref: BR-FRD-033
+  evidence: [LD001-F187, LD002-F025, ST028-F002, ST052-F004]
+  note: stated in both LD001 and its scan LD002
+- id: GM097
+  type: BusinessRule
+  canonical: BR-FRD-035
+  variants: [SIU triage of new referrals, BR-FRD-035 SIU triage of new referrals]
+  world_ref: BR-FRD-035
+  evidence: [LD003-F037, ST029-F006, CODEMOD-F079, LD015-F006]
+- id: GM098
+  type: BusinessRule
+  canonical: BR-FRD-036
+  variants: [Deferral of customer notice (tipping-off risk), BR-FRD-036 Deferral of customer notice (tipping-off risk)]
+  world_ref: BR-FRD-036
+  evidence: [LD001-F191, LD002-F027, ST029-F004, ST032-F002]
+  note: stated in both LD001 and its scan LD002
+- id: GM099
+  type: BusinessRule
+  canonical: BR-FRD-019
+  variants: [Automatic decline on very high fraud score, BR-FRD-019 Automatic decline on very high fraud score]
+  world_ref: BR-FRD-019
+  evidence: [LD012-F106, LD003-F038, ST005-F010, ST045-F005]
+- id: GM100
+  type: BusinessRule
+  canonical: BR-TRI-003
+  variants: [Claim tier classification (Tier-1 / Tier-2 / Tier-3), BR-TRI-003 Claim tier classification (Tier-1 / Tier-2 /
+      Tier-3)]
+  world_ref: BR-TRI-003
+  evidence: [LD001-F016, LD002-F008, CODEMOD-F008, CODEMOD-F096]
+  note: stated in both LD001 and its scan LD002
+- id: GM101
+  type: BusinessRule
+  canonical: BR-RSV-007
+  variants: [Tier-3 reserve review cadence, BR-RSV-007 Tier-3 reserve review cadence]
+  world_ref: BR-RSV-007
+  evidence: [LD001-F153, LD002-F018, VS034-F006, CODEMOD-F088]
+  note: stated in both LD001 and its scan LD002
+- id: GM102
+  type: BusinessRule
+  canonical: BR-RSV-009
+  variants: [Reserve indexation for bodily-injury claims, BR-RSV-009 Reserve indexation for bodily-injury claims]
+  world_ref: BR-RSV-009
+  evidence: [LD001-F154, LD012-F082, ST005-F009]
+- id: GM103
+  type: BusinessRule
+  canonical: BR-RSV-003
+  variants: [Reserve authority limits, BR-RSV-003 Reserve authority limits]
+  world_ref: BR-RSV-003
+  evidence: [LD001-F148, LD002-F016, ST043-F004, LD012-F084]
+  note: stated in both LD001 and its scan LD002
+- id: GM104
+  type: BusinessRule
+  canonical: BR-RSV-011
+  variants: [Large loss notification to Reinsurance, BR-RSV-011 Large loss notification to Reinsurance]
+  world_ref: BR-RSV-011
+  evidence: [LD001-F024, LD002-F009, LD026-F005, LD012-F085]
+  note: stated in both LD001 and its scan LD002
+- id: GM105
+  type: BusinessRule
+  canonical: BR-FNOL-001
+  variants: [FNOL acknowledgement SLA, BR-FNOL-001 FNOL acknowledgement SLA]
+  world_ref: BR-FNOL-001
+  evidence: [LD001-F052, LD002-F011, LD012-F014, LD003-F014]
+  note: stated in both LD001 and its scan LD002
+- id: GM106
+  type: BusinessRule
+  canonical: BR-REC-003
+  variants: [Subrogation pursuit threshold, BR-REC-003 Subrogation pursuit threshold]
+  world_ref: BR-REC-003
+  evidence: [LD001-F209, LD002-F032, VS009-F011, VS024-F013]
+  note: stated in both LD001 and its scan LD002
+- id: GM107
+  type: BusinessRule
+  canonical: BR-REC-011
+  variants: [Recovery write-off authority, BR-REC-011 Recovery write-off authority]
+  world_ref: BR-REC-011
+  evidence: [CODEMOD-F007, LD018-F014, LD001-F217, LD012-F113]
+- id: GM108
+  type: BusinessRule
+  canonical: BR-STL-002
+  variants: [Payment authority limits, BR-STL-002 Payment authority limits]
+  world_ref: BR-STL-002
+  evidence: [LD001-F164, LD002-F021, LD017-F011, LD012-F094]
+  note: stated in both LD001 and its scan LD002
+- id: GM109
+  type: RuleVersion
+  canonical: BR-FRD-031 v1
+  variants: [BR-FRD-031 version 1]
+  world_ref: RULE:BR-FRD-031@v1
+  evidence: [LD001-F183, LD001-F184, LD002-F024]
+  note: stated in both LD001 and its scan LD002
+- id: GM110
+  type: RuleVersion
+  canonical: BR-FRD-032 v2
+  variants: [BR-FRD-032 version 2]
+  world_ref: RULE:BR-FRD-032@v2
+  evidence: [LD001-F189, LD001-F190, LD002-F026]
+  note: stated in both LD001 and its scan LD002
+- id: GM111
+  type: RuleVersion
+  canonical: BR-FRD-033 v1
+  variants: [BR-FRD-033 version 1]
+  world_ref: RULE:BR-FRD-033@v1
+  evidence: [LD001-F187, LD002-F025]
+  note: stated in both LD001 and its scan LD002
+- id: GM112
+  type: RuleVersion
+  canonical: BR-FRD-036 v1
+  variants: [BR-FRD-036 version 1]
+  world_ref: RULE:BR-FRD-036@v1
+  evidence: [LD001-F191, LD002-F027]
+  note: stated in both LD001 and its scan LD002
+- id: GM113
+  type: RuleVersion
+  canonical: BR-TRI-003 v3
+  variants: [BR-TRI-003 version 3]
+  world_ref: RULE:BR-TRI-003@v3
+  evidence: [LD001-F016, LD001-F018, LD002-F008, LD002-F015]
+  note: stated in both LD001 and its scan LD002
+- id: GM114
+  type: RuleVersion
+  canonical: BR-RSV-007 v3
+  variants: [BR-RSV-007 version 3]
+  world_ref: RULE:BR-RSV-007@v3
+  evidence: [LD001-F153, LD001-F227, LD002-F018]
+  note: stated in both LD001 and its scan LD002
+- id: GM115
+  type: RuleVersion
+  canonical: BR-RSV-003 v3
+  variants: [BR-RSV-003 version 3]
+  world_ref: RULE:BR-RSV-003@v3
+  evidence: [LD001-F148, LD001-F149, LD002-F016, LD002-F017]
+  note: stated in both LD001 and its scan LD002
+- id: GM116
+  type: RuleVersion
+  canonical: BR-RSV-011 v2
+  variants: [BR-RSV-011 version 2]
+  world_ref: RULE:BR-RSV-011@v2
+  evidence: [LD001-F024, LD001-F159, LD002-F009, LD002-F020]
+  note: stated in both LD001 and its scan LD002
+- id: GM117
+  type: RuleVersion
+  canonical: BR-FNOL-001 v2
+  variants: [BR-FNOL-001 version 2]
+  world_ref: RULE:BR-FNOL-001@v2
+  evidence: [LD001-F051, LD002-F010]
+  note: stated in both LD001 and its scan LD002
+- id: GM118
+  type: RuleVersion
+  canonical: BR-FNOL-001 v3
+  variants: [BR-FNOL-001 version 3]
+  world_ref: RULE:BR-FNOL-001@v3
+  evidence: [LD001-F052, LD002-F011]
+  note: stated in both LD001 and its scan LD002
+- id: GM119
+  type: RuleVersion
+  canonical: BR-REC-003 v3
+  variants: [BR-REC-003 version 3]
+  world_ref: RULE:BR-REC-003@v3
+  evidence: [LD001-F209, LD001-F210, LD002-F032]
+  note: stated in both LD001 and its scan LD002
+- id: GM120
+  type: RuleVersion
+  canonical: BR-STL-002 v3
+  variants: [BR-STL-002 version 3]
+  world_ref: RULE:BR-STL-002@v3
+  evidence: [LD001-F165, LD001-F167, LD002-F021]
+  note: stated in both LD001 and its scan LD002
+- id: GM121
+  type: ProcessStage
+  canonical: Recovery & Subrogation
+  variants: [Recovery & Subrogation process, Subrogation, subro, regress, recoveries and subrogation]
+  world_ref: S7
+  evidence: [LD001-F205, LD002-F031, VS001-F026, TX058-F001]
+  note: glossary G-004 lands on S7; LD001-F205 and LD002-F031 are the same sentence (manual and scan)
+- id: GM122
+  type: ProcessStage
+  canonical: First Notice of Loss
+  variants: [FNOL, notification of loss, first notification]
+  world_ref: S1
+  evidence: [VS005-F011, VS022-F004, LD017-F003, LD001-F009, LD018-F012]
+  note: glossary G-005 lands on S1
+- id: GM123
+  type: ProcessStage
+  canonical: Settlement
+  variants: [claim payment, indemnity payment]
+  world_ref: S6
+  evidence: [LD001-F117, LD001-F168, LD001-F173]
+  note: glossary G-018 lands on S6
+- id: GM124
+  type: Team
+  canonical: Counter-Fraud & SIU
+  variants: [Special Investigations Unit (SIU), Special Investigations Unit, counter-fraud team]
+  world_ref: T11
+  evidence: [VS032-F013, VS005-F003, LD001-F036, LD018-F008]
+  note: renamed 2025-09-01; moved to Risk & Compliance
+- id: GM125
+  type: Team
+  canonical: Recoveries & Subrogation
+  variants: [Recoveries & Subrogation (Group), Recoveries]
+  world_ref: T08
+  evidence: [LD003-F012, VS032-F012, VS001-F009]
+  note: named 'Recoveries' until 2025-08-31
+- id: GM126
+  type: Team
+  canonical: Claims Operations
+  variants: [Claims Operations UK, Claims Operations (Group)]
+  world_ref: T02
+  evidence: [VS022-F015, VS022-F018]
+- id: GM127
+  type: DatabaseTable
+  canonical: CLR.T_RESERVE
+  variants: [T_RESERVE, reserve table]
+  world_ref: CLR.T_RESERVE
+  evidence: [TX003-F003, TX003-F004, ST019-F001]
+  note: TX calls it 'the reserve table' (glossary G-003)
+- id: GM128
+  type: RegulatoryReport
+  canonical: NISA-TP2
+  variants: [Quarterly Technical Provisions Return, TP2, NISA-TP2 Quarterly Technical Provisions Return]
+  world_ref: NISA-TP2
+  evidence: [LD003-F033, ST039-F001, VS033-F023]
+- id: GM129
+  type: Regulation
+  canonical: NISA Circular 2026/04
+  variants: [Circular 2026/04, CIRC-2026-04, NISA Circular 2026/04 Fair Treatment in Fraud Referral]
+  world_ref: CIRC-2026-04
+  evidence: [LD001-F040, LD015-F003, LD016-F004, LD003-F035]
+- id: GM130
+  type: Regulation
+  canonical: NISA Circular 2024/07
+  variants: [Circular 2024/07, CIRC-2024-07, NISA Circular 2024/07 Claims Handling Timeliness]
+  world_ref: CIRC-2024-07
+  evidence: [LD001-F051, LD002-F010, LD022-F012, LD023-F001]
+  note: stated in both LD001 and its scan LD002
+must_not_merge:
+- id: GX001
+  type: Person
+  name: Callum Fairbairn
+  distinct: [P022, P051]
+  distinguishing: ['Corvane, Motor Claims Team Leader, Leeds, reports to Rob Tennant', 'IBM Consulting, Data Migration Lead,
+      London, reports to Arjun Kesavan']
+  evidence: [TX010-F001, TX011-F003, VS032-F016, VS044-F009]
+- id: GX002
+  type: Person
+  name: Priya Raman
+  match_any: [Priya Raman, Gareth Whitcombe]
+  distinct: [P001, P002]
+  distinguishing: [CFO from 2025-07-01, 'CFO until 2025-06-30, left Corvane']
+  note: both are 'the CFO' at different dates; a role-alias merge collapses them
+  evidence: [TX074-F010, LD029-F002, TX007-F002, LD028-F005]
+- id: GX003
+  type: BusinessRule
+  name: BR-FRD-031
+  match_any: [BR-FRD-031, BR-FRD-012, Fraud referral threshold (NISA Circular 2026/04), Fraud referral threshold (pre-2026)]
+  distinct: [BR-FRD-031, BR-FRD-012]
+  distinguishing: ['Fraud referral threshold (NISA Circular 2026/04), in force', 'pre-2026, superseded']
+  note: same subject (fraud referral threshold); BR-FRD-031 SUPERSEDES BR-FRD-012
+  evidence: [LD027-F004, TX035-F008, TX002-F003]
+- id: GX004
+  type: RuleVersion
+  name: BR-FRD-031 v1
+  match_any: [BR-FRD-031 v1, BR-FRD-031 v2]
+  distinct: ['RULE:BR-FRD-031@v1', 'RULE:BR-FRD-031@v2']
+  distinguishing: ['65 for all tiers, 2026-04-01..2026-09-30', Tier-3 threshold 60 from 2026-10-01]
+  evidence: [LD002-F024, VS007-F002, TX031-F004]
+- id: GX005
+  type: DatabaseTable
+  name: CLR.T_RESERVE
+  match_any: [CLR.T_RESERVE, CLR.T_RESERVE_MOVEMENT]
+  distinct: [CLR.T_RESERVE, CLR.T_RESERVE_MOVEMENT]
+  distinguishing: [reserve balances (8 writers), reserve movements (CLRRS150 writes only this)]
+  evidence: [ST036-F004, CL-CLRGL090-F002, LD024-F005]
+- id: GX006
+  type: Interface
+  name: CLX-IF-042
+  match_any: [CLX-IF-042, Reserve Movement Daily Extract, CLX-IF-049, Reserve Movement Kafka Bridge]
+  distinct: [CLX-IF-042, CLX-IF-049]
+  distinguishing: ['CLARA -> MQ Backbone, DB2 unload', 'MQ Backbone -> Event Streaming Platform, Kafka']
+  evidence: [VS003-F008, VS003-F012]
+- id: GX007
+  type: System
+  name: Claims Hub
+  match_any: [Claims Hub, NISA Reporting Hub]
+  distinct: [SYS02, SYS10]
+  distinguishing: [target claims platform ('the Hub'), regulatory reporting hub]
+  evidence: [CODEMOD-F085, ST039-F003]
+- id: GX008
+  type: Program
+  name: CLRRS150
+  match_any: [CLRRS150, CLRRS015]
+  distinct: [CLRRS150, CLRRS015]
+  distinguishing: [movement correction utility (batch), reserve authority check called by CLRRS010/020]
+  evidence: [ST036-F004, CL-CLRRS020-F014]
+must_not_exist:
+- id: GF001
+  type: Person
+  name: the CFO
+  reason: role alias extracted as a Person node (resolve to the holder at the document date)
+  evidence: [LD029-F002, TX007-F002]
+- id: GF002
+  type: Person
+  name: the Claims Director
+  reason: role alias extracted as a Person node (resolve to the holder at the document date)
+  evidence: [TX001-F001, VS004-F002]
+- id: GF003
+  type: Person
+  name: the CRO
+  reason: role alias extracted as a Person node (resolve to the holder at the document date)
+  evidence: [TX074-F004]
+- {id: GF004, type: Person, name: the COO, reason: role alias extracted as a Person node (resolve to the holder at the document
+    date)}
+- {id: GF005, type: Person, name: the CEO, reason: role alias extracted as a Person node (resolve to the holder at the document
+    date)}
+- {id: GF006, type: Person, name: the CIO, reason: role alias extracted as a Person node (resolve to the holder at the document
+    date)}
+- {id: GF007, type: Person, name: the DPO, reason: role alias extracted as a Person node (resolve to the holder at the document
+    date)}
+- id: GF008
+  type: Person
+  name: Head of SIU
+  reason: role alias extracted as a Person node (resolve to the holder at the document date)
+  evidence: [VS032-F007]
+- id: GF009
+  type: Person
+  name: Chief Financial Officer
+  reason: job title extracted as a Person node
+  evidence: [LD029-F003, TX007-F003]
+- id: GF010
+  type: Person
+  name: Claims Director
+  reason: job title extracted as a Person node
+  evidence: [TX014-F004, VS032-F003]
+- {id: GF011, type: Person, name: Chief Risk Officer, reason: job title extracted as a Person node}
+- id: GF012
+  type: Person
+  name: Chief Executive Officer
+  reason: job title extracted as a Person node
+  evidence: [GP006-F002]
+- {id: GF013, type: Person, name: Chief Operating Officer, reason: job title extracted as a Person node}
+- id: GF014
+  type: Person
+  name: Head of Counter-Fraud & SIU
+  reason: job title extracted as a Person node
+  evidence: [LD016-F003]
+- id: GF015
+  type: Person
+  name: Head of Recoveries & Subrogation
+  reason: job title extracted as a Person node
+  evidence: [LD018-F006, LD001-F007]
+- id: GF016
+  type: Person
+  name: Recoveries Manager
+  reason: job title extracted as a Person node
+  evidence: [LD012-F004, TX009-F003]
+- id: GF017
+  type: Person
+  name: Acting Recoveries Manager
+  reason: job title extracted as a Person node
+  evidence: [TX009-F003, TX074-F005]
+- id: GF018
+  type: Person
+  name: Recoveries Team Leader – UK
+  reason: job title extracted as a Person node
+  evidence: [TX074-F005, VS005-F002]
+- id: GF019
+  type: Person
+  name: Head of Reserving
+  reason: job title extracted as a Person node
+  evidence: [LD018-F004, TX074-F006]
+- {id: GF020, type: Person, name: Chief Actuary, reason: job title extracted as a Person node}
+- id: GF021
+  type: Person
+  name: Head of Legacy Claims Platforms
+  reason: job title extracted as a Person node
+  evidence: [TX074-F007, VS044-F008]
+- {id: GF022, type: Person, name: Head of Claims Hub Product, reason: job title extracted as a Person node}
+- id: GF023
+  type: Person
+  name: Claims Hub Product Owner
+  reason: job title extracted as a Person node
+  evidence: [TX045-F002, VS028-F013]
+- id: GF024
+  type: Person
+  name: Data Protection Officer
+  reason: job title extracted as a Person node
+  evidence: [GP003-F009, VS026-F012]
+- {id: GF025, type: Person, name: Regulatory Reporting Manager, reason: job title extracted as a Person node}
+- {id: GF026, type: Person, name: Financial Controller, reason: job title extracted as a Person node}
+- id: GF027
+  type: Person
+  name: Motor Claims Team Leader
+  reason: job title extracted as a Person node
+  evidence: [TX010-F001, VS032-F016]
+- id: GF028
+  type: Person
+  name: Data Migration Lead
+  reason: job title extracted as a Person node
+  evidence: [TX011-F003, VS011-F013]
+- {id: GF029, type: Person, name: Integration Platform Lead, reason: job title extracted as a Person node}
+- {id: GF030, type: Person, name: Enterprise Architect, reason: job title extracted as a Person node}
+- id: GF031
+  type: Person
+  name: Senior Fraud Analyst
+  reason: job title extracted as a Person node
+  evidence: [VS015-F018]
+- {id: GF032, type: Person, name: SIU Investigations Manager (UK), reason: job title extracted as a Person node}
+- id: GF033
+  type: Person
+  name: Claims Operations Lead – Nordics
+  reason: job title extracted as a Person node
+  evidence: [LD018-F005]
+- {id: GF034, type: Person, name: Head of Claims Operations (Group), reason: job title extracted as a Person node}
+- id: GF035
+  type: Person
+  name: Senior Recoveries Manager – Nordics
+  reason: job title extracted as a Person node
+  evidence: [VS004-F013, VS005-F001]
+- {id: GF036, type: Person, name: Head of Claims Assessment (UK), reason: job title extracted as a Person node}
+- {id: GF037, type: Person, name: Claims Assessor, reason: job title extracted as a Person node}
+- {id: GF038, type: Person, name: Claims Handler, reason: job title extracted as a Person node}
+- id: GF039
+  type: Person
+  name: Senior Supervisor – Insurance Conduct
+  reason: job title extracted as a Person node
+  evidence: [TX073-F008]
+- id: GF040
+  type: Person
+  name: Client Director
+  reason: job title extracted as a Person node
+  evidence: [GP002-F003, VS018-F019]
+- {id: GF041, type: Person, name: Executive Office, reason: department extracted as a Person node}
+- {id: GF042, type: Person, name: Claims, reason: department extracted as a Person node}
+- {id: GF043, type: Person, name: Finance, reason: department extracted as a Person node}
+- {id: GF044, type: Person, name: Risk & Compliance, reason: department extracted as a Person node}
+- {id: GF045, type: Person, name: Technology, reason: department extracted as a Person node}
+- {id: GF046, type: Person, name: Counter-Fraud & SIU, reason: team extracted as a Person node}
+- {id: GF047, type: Person, name: Recoveries & Subrogation, reason: team extracted as a Person node}
+- {id: GF048, type: Person, name: Reserving, reason: team extracted as a Person node}
+- {id: GF049, type: Person, name: Financial Control, reason: team extracted as a Person node}

@@ -7,6 +7,8 @@ from . import charts, core
 from .core import (AMBER, BLUE_L, GREEN, GREY_L, GRID, INK, INK2, LINE, MUTED, NAVY, NAVY2, PURPLE, RED, TEAL, WHITE,
                    Canvas, fmt_date_long, fmt_date_short)
 from .ctx import W, adate, guard, name, placement, sysname, svcname, team_name, title
+from generators.visuals import wave_dates as WD
+
 from .diagrams import Diagram, ERD, Timeline, table_image
 from .facts import placement_spec, spec
 from .pdf_kit import A3_LAND, A4_LAND
@@ -464,7 +466,9 @@ def build_vs050():
     T.milestone(pg["mvp"], 560, "Claims Hub MVP live\n2025-11-03", NAVY2, size=26)
     T.milestone(pg["wave0"], 880, "Wave 0 Denmark\n2026-06-01", TEAL, size=26, align="r", dx=14)
     T.milestone(pg["wave1"], 880, "Wave 1 UK motor\n2026-09-14", TEAL, size=26, align="l", dx=-14)
-    T.milestone(pg["wave2"], 880, "Wave 2 (planned)\n2027-02-15", AMBER, size=26)
+    w2_known = WD.date_known(W, "MW-2", d)   # date fixed only by DEC-011 (2026-10-08)
+    T.milestone(pg["wave2"], 880, f"Wave 2 (planned)\n{pg['wave2'] if w2_known else WD.tbc_label(W, 'MW-2', short=True)}",
+                AMBER, size=26)
     T.bar(pg["parallel_run"]["from"], pg["parallel_run"]["to"], 1070, "Reserve parallel run", "service", h=70, size=26)
     T.text(T.x(pg["parallel_run"]["from"]), 1125, f"{pg['parallel_run']['from']} to {pg['parallel_run']['to']}", 24,
            fill=INK2)
@@ -481,8 +485,10 @@ def build_vs050():
                 facts=[placement_spec(pl, "CLARA decommission 2027-09-30"),
                        spec("image_text", "Roadmap label: SUBTRAK retired 2026-12-31 (ADR-022 target).",
                             "SUBTRAK retired 2026-12-31", "ADR:ADR-022#consequences"),
-                       spec("image_text", "The roadmap shows Wave 2 planned for 2027-02-15.", "Wave 2 (planned)",
-                            "TIMELINE:programme#wave2"),
+                       spec("image_text", f"The roadmap shows Wave 2 planned for {pg['wave2']}." if w2_known else
+                            f"The roadmap (issued {d}) shows Wave 2 planned for early 2027, date to be confirmed "
+                            f"(confirmed later by DEC-011).", "Wave 2 (planned)",
+                            "TIMELINE:programme#wave2" if w2_known else "DECISION:DEC-011"),
                        spec("image_text", "CLX-IF-049 Kafka bridge went live on 2025-12-12.", "CLX-IF-049 Kafka bridge live",
                             "INTERFACE:CLX-IF-049#since")])
     # page 2: waves table
@@ -491,7 +497,11 @@ def build_vs050():
     for wid in ("MW-0", "MW-1", "MW-2"):
         w = W.waves[wid]
         status = w["status"] if str(w["date"]) <= d else "planned"
-        rows.append([w["name"], w["date"], w["scope"], w.get("freeze", "–"), str(w.get("rehearsals", "–")), status])
+        if WD.date_known(W, wid, d):
+            rows.append([w["name"], w["date"], w["scope"], w.get("freeze", "–"), str(w.get("rehearsals", "–")), status])
+        else:
+            rows.append([w["name"], WD.tbc_label(W, wid, short=True), w["scope"], "TBC", str(w.get("rehearsals", "–")),
+                         status])
     tim = table_image(["Wave", "Cut-over", "Scope", "Freeze", "Rehearsals", "Status"], rows,
                       [520, 260, 1060, 640, 220, 220], size=28, title="", line_gap=0.3)
     P.fit(c, tim.img, top=200)

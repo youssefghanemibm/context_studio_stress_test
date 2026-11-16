@@ -337,6 +337,15 @@ def tx027(facts: Facts):
 
 
 # =============================================================================================
+def _k8s_namespace(svc: str, d) -> str:
+    """Kubernetes namespace of a service as of ``d`` (services.yaml path_history, else k8s_namespace)."""
+    s = W.services[svc]
+    for h in s.get("path_history") or []:
+        if h.get("k8s_namespace") and D(str(h["to"])) >= d:
+            return h["k8s_namespace"]
+    return s["k8s_namespace"]
+
+
 def tx028(facts: Facts):
     fid, d = "TX028", D("2026-08-27")
     for ref, f in [("TOPIC:claims.reserve.movement.v1", "name"), ("TICKET:CHUB-241", None), ("TOPIC:reserve.changed.v2", "name")]:
@@ -378,8 +387,9 @@ def tx028(facts: Facts):
     log("INFO", "main", "c.c.r.ReconciliationJob", "Reconciliation finished for businessDate=2026-08-26: all products within tolerance")
     log("INFO", "main", "c.c.r.ReconciliationJob", "Note: parallel run final business day is 2026-08-28 (CHUB-241)")
     pages = [body[i:i + lines_per_page] for i in range(0, len(body), lines_per_page)]
+    svc_name, ns = W.service_name("reserve-engine", d), _k8s_namespace("reserve-engine", d)
     for pi, page in enumerate(pages, 1):
-        doc.add(f"REPRINT  reserve-engine application log (namespace claims-hub-prd)        Page {pi} of {len(pages)}")
+        doc.add(f"REPRINT  {svc_name} application log (namespace {ns})        Page {pi} of {len(pages)}")
         doc.add("Printed 2026-08-27 for the parallel-run review pack - extract only - Internal")
         doc.add("-" * 110)
         for ln in page:

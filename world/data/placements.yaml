@@ -648,7 +648,7 @@ placements:
 - placement_id: PL-053
   key: ld17_t3_40k
   family: LD
-  fact: 'CLARA spec v3.4 (2021): a claim is Tier-3 at an estimated incurred of £40,000 or more.'
+  fact: 'CLARA spec v3.4 (2021): from 2022-01-01 (BR-TRI-003 v2) a claim is Tier-3 at an estimated incurred of £40,000 or more.'
   world_ref: RULE:BR-TRI-003@v2#parameters.tier3_min_gbp
   target_file: LD017
   kind: contradiction_old
@@ -2636,7 +2636,7 @@ placements:
 - placement_id: PL-240
   key: c_rs010
   family: CODE
-  fact: CLRRS010 inserts into CLR.T_RESERVE and calls CLRRS015, CLRCM030, CLRCM040 and CLRCM020.
+  fact: CLRRS010 inserts into CLR.T_RESERVE and calls CLRRS015, CLRCM030, CLRCM040, CLRCM020, CLRCM050 and CLRCM070.
   world_ref: PROGRAM:CLRRS010#calls_programs
   target_file: CODE:a:legacy/clara/cobol/CLRRS010.cbl
   kind: code_fact

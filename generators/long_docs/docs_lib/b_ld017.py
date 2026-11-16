@@ -156,12 +156,20 @@ def build() -> Doc:
           f"{st['description'].split('(')[1].rstrip(')')}.")
     doc.ps(pr.paras(["data", "opmodel"], 2))
     doc.h(2, "3.2 Tiering")
-    v2 = W.rules["BR-TRI-003"]["versions"][1]["parameters"]
-    doc.p(f"CLRTR020 classifies every claim when it is created and again whenever the estimate changes. A claim is "
+    # BR-TRI-003 v1 (£25,000) is in force on 2021-09-30; v2 (£40,000, C10) was approved before this version of the
+    # specification and takes effect on 2022-01-01, so the rewritten tiering section states v2 with its date.
+    t_in = ctx.rule("BR-TRI-003")
+    t_v2 = W.rules["BR-TRI-003"]["versions"][1]
+    assert t_in["version"] == 1 and str(t_v2["approved_on"]) <= date < str(t_v2["effective_from"])
+    v2, v1p = t_v2["parameters"], t_in["parameters"]
+    doc.p(f"CLRTR020 classifies every claim when it is created and again whenever the estimate changes. From "
+          f"{long_date(t_v2['effective_from'])} (BR-TRI-003 v2, approved {long_date(t_v2['approved_on'])}) a claim is "
           f"Tier-3 at an estimated incurred of £{v2['tier3_min_gbp']:,} or more (NOK {v2['tier3_min_nok']:,} / "
           f"SEK {v2['tier3_min_sek']:,} / DKK {v2['tier3_min_dkk']:,}), or where any bodily injury is notified. Tier-2 "
-          f"covers £{v2['tier2_min_gbp']:,}–£39,999 or any third-party involvement; all other claims are Tier-1. Tier "
-          f"overrides are entered through CLRTR030 with a reason code.",
+          f"covers £{v2['tier2_min_gbp']:,}–£{v2['tier3_min_gbp'] - 1:,} or any third-party involvement; all other claims "
+          f"are Tier-1. Until then BR-TRI-003 v1 applies: Tier-3 at £{v1p['tier3_min_gbp']:,} or more or any bodily "
+          f"injury, Tier-2 £{v1p['tier2_min_gbp']:,}–£{v1p['tier3_min_gbp'] - 1:,}. Tier overrides are entered through "
+          f"CLRTR030 with a reason code.",
           facts=[PF(ctx, "ld17_t3_40k", f"Tier-3 at an estimated incurred of £{v2['tier3_min_gbp']:,} or more")])
     doc.p("Tier-3 claims are routed to Major & Complex Loss and raise a major loss alert through CLRTR090.")
     doc.ps(pr.paras(["opmodel", "data"], 1))
@@ -184,8 +192,8 @@ def build() -> Doc:
     r012 = ctx.rule("BR-FRD-012")
     r019 = ctx.rule("BR-FRD-019")
     doc.p(f"Every claim is scored by FRAUDNET online (CLRFR020) and in the nightly batch (CLRFR110). {r012['text']} "
-          f"(BR-FRD-012 v{r012['version']}). Referrals are created online by CLRFR030 and by the nightly sweep CLRFR040; "
-          f"the threshold is read from CLR.T_PARAM key FRD_REFER_THRESH.",
+          f"(BR-FRD-012 v{r012['version']}). Referrals are created online by CLRFR030, which reads the threshold from "
+          f"CLR.T_PARAM key FRD_REFER_THRESH, and by the nightly sweep CLRFR040.",
           facts=[F("temporal", "In 2021 claims were referred to SIU at a FRAUDNET score of 75 or more (BR-FRD-012 v1).",
                    "FRAUDNET score is 75 or more", "RULE:BR-FRD-012@v1#parameters.threshold")])
     doc.p(f"{r019['text']} (BR-FRD-019 v{r019['version']}); the decline sweep is CLRFR140 in job CLRNFR99.")
@@ -238,7 +246,7 @@ def build() -> Doc:
                   ["Tables read", ", ".join(t for t in p["reads_tables"] if t != "CLR.T_FRAUD_NOTIFICATION") or "—"],
                   ["Tables written", ", ".join(t for t in p["writes_tables"] if t != "CLR.T_FRAUD_NOTIFICATION") or "—"],
                   ["Calls", ", ".join(c for c in p["calls_programs"] if c in W.programs and str(W.programs[c]["since"]) <= date) or "—"],
-                  ["Copybooks", ", ".join(c for c in p["copybooks"] if c != "FRDNOT01") or "—"],
+                  ["Copybooks", ", ".join(H.copybooks_asof(ctx, p)) or "—"],
                   ["Lines of code", f"{p['loc']:,}"], ["In production since", long_date(p["since"])]]
             if p["id"] == "CLRGL090":
                 facts.append(F("general", "CLRGL090 writes CLR.T_RESERVE (year-end revaluation).", "CLR.T_RESERVE",
@@ -276,10 +284,10 @@ def build() -> Doc:
         doc.h(2, f"5.{sorted(x for x in W.tables if W.tables[x]['db'] == 'DB2' and not (W.tables[x].get('created') and W.tables[x]['created'] > date)).index(tn) + 1} {tn}")
         doc.p(f"{clean_old(ctx, t['description'])}. Primary key: {', '.join(t.get('primary_key', []))}."
               + (f" Record layout: copybook {t['copybook']}." if t.get("copybook") else ""))
-        cols = [c for c in t["columns"] if not any(k in c["name"] for k in ("CUSTOMER_NOTICE", "DEFER_"))]
+        cols = t["columns"]   # no column history in the world: every document lists tables.yaml (fix pass, N22)
         doc.table(["Column", "Type", "Null", "Description"],
                   [[c["name"], c["type"] + (f"({c['length']}{',' + str(c['scale']) if c.get('scale') else ''})" if c.get("length") else ""),
-                    "Y" if c.get("nullable") else "N", clean_old(ctx, c["description"])] for c in cols],
+                    "Y" if c.get("nullable") else "N", clean_old(ctx, H.col_desc(ctx, c["description"]))] for c in cols],
                   widths=[4.4, 2.8, 1.0, 8.4], font_size=7.8)
         writers_t = [w for w in t.get("writers", []) if str(W.programs[w]["since"]) <= date]
         readers_t = [w for w in t.get("readers", []) if str(W.programs[w]["since"]) <= date]
@@ -389,4 +397,5 @@ def build() -> Doc:
           "CICS transient data queue for operations. Changes to claims, reserves and payments are written to CLR.T_AUDIT "
           "by CLRCM020.")
     doc.ps(pr.paras(["ops", "security"], 2))
+    H.apply_program_renames(doc)   # FNETCAL1 / FNETREF1 until the 2025-03-01 rename
     return doc

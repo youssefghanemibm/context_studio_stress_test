@@ -1774,7 +1774,7 @@
 - fact_id: TX039-F002
   world_ref: DECISION:DEC-010
   kind: general
-  statement: The £1.8m Wave 2 contingency drawdown was approved by the CFO (Priya Raman).
+  statement: The £1.8m Wave 2 contingency drawdown was approved by the CFO (Priya Raman) at the Steering Committee on 2026-10-08.
   file: corpus/upload/text/TX039_weekly_status_2026_10_23.md
   locator:
     kind: text_lines
@@ -1846,15 +1846,15 @@
   exclusive: false
   also_in: []
 - fact_id: TX040-F005
-  world_ref: WAVE:MW-2#date
-  kind: general
-  statement: Wave 2 is planned for 2027-02-15.
+  world_ref: DECISION:DEC-011
+  kind: temporal
+  statement: On 2026-09-25 Wave 2 was planned for early 2027; its date was confirmed only later (DEC-011, 2026-10-08).
   file: corpus/upload/text/TX040_retro_wave1.md
   locator:
     kind: text_lines
     start: 72
     end: 73
-  needle: Wave 2 is planned for 15 February 2027
+  needle: Wave 2 is planned for early 2027, with the date to be confirmed by the Steering Committee
   exclusive: false
   also_in: []
 - fact_id: TX041-F001

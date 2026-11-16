@@ -169,7 +169,7 @@ def key_rules():
         V(2, "superseded", "2022-01-01", "2024-12-31", "Tier-3: estimated incurred ≥ £40,000 (NOK 500,000 / SEK 500,000 / DKK 340,000) or any bodily "
           "injury. Tier-2: £5,000–£39,999 or any third-party involvement. Tier-1: otherwise.",
           {"tier3_min_gbp": 40000, "tier3_min_nok": 500000, "tier3_min_sek": 500000, "tier3_min_dkk": 340000, "tier2_min_gbp": 5000},
-          ["P011"], "2021-11-16", f"{M61} §2.4"),
+          ["P011"], "2021-09-14", f"{M61} §2.4"),   # approved before the CLARA spec v3.4 (2021-09-30) that states it (C10)
         V(3, "approved", "2025-01-01", None, "A claim is Tier-3 if any of: estimated incurred ≥ £50,000 (NOK 650,000 / SEK 680,000 / DKK 430,000); "
           "any bodily injury; solicitor or litigation involvement at notification; property total loss. Tier-2: £5,000–£49,999 or any "
           "third-party involvement. Tier-1: below £5,000, no injury, no third party.",

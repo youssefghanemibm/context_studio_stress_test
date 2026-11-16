@@ -8,7 +8,7 @@ from generators.common import util
 
 from . import phrases as PH
 from .core import (W, Doc, person, pick, picks, short_date, long_date, add_minutes, md_table, kv_table,
-                   md_row, team_name, anchor_path)
+                   md_row, team_name, anchor_path, D)
 
 ORG_LABEL = {"ORG-CORVANE": "Corvane Mutual", "ORG-IBM": "IBM Consulting", "REG-NISA": "NISA"}
 
@@ -1164,10 +1164,18 @@ def tx040():
     doc.blank()
 
     h(doc, 2, "What we will change for Wave 2")
-    s = para(doc, "Wave 2 is planned for 15 February 2027 and covers UK home, commercial and liability plus Norway and "
-                  "Sweden. Changes agreed:")
-    doc.fact(s, "Wave 2 is planned for 15 February 2027",
-             "Wave 2 is planned for 2027-02-15.", "general", "WAVE:MW-2#date")
+    # the Wave 2 date was only confirmed by the Steering Committee on DEC-011's date (2026-10-08)
+    if D(d) < D(W.decisions["DEC-011"]["date"]):
+        s = para(doc, "Wave 2 is planned for early 2027, with the date to be confirmed by the Steering Committee, and "
+                      "covers UK home, commercial and liability plus Norway and Sweden. Changes agreed:")
+        doc.fact(s, "Wave 2 is planned for early 2027, with the date to be confirmed by the Steering Committee",
+                 f"On {d} Wave 2 was planned for early 2027; its date was confirmed only later (DEC-011, "
+                 f"{W.decisions['DEC-011']['date']}).", "temporal", "DECISION:DEC-011")
+    else:
+        s = para(doc, f"Wave 2 is planned for {short_date(W.waves['MW-2']['date'])} and covers UK home, commercial and "
+                      "liability plus Norway and Sweden. Changes agreed:")
+        doc.fact(s, f"Wave 2 is planned for {short_date(W.waves['MW-2']['date'])}",
+                 f"Wave 2 is planned for {W.waves['MW-2']['date']}.", "general", "WAVE:MW-2#date")
     for t in [
         "Idempotency to be confirmed for every payment path as an explicit go/no-go criterion.",
         "A smaller decision bridge with workstream leads only, and a separate information call for everyone else.",

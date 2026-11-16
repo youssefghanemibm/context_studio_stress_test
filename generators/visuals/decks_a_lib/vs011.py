@@ -4,6 +4,8 @@ Claims migrated per wave (41,250 Denmark; 186,400 UK motor) appear only in the n
 on slide 2 (exclusive; TX011 may repeat the Wave 1 count)."""
 from __future__ import annotations
 
+from generators.visuals import wave_dates as WD
+
 from . import common as CM
 from . import phrases as P
 from . import raster as R
@@ -50,13 +52,19 @@ def build(W, out_dir):
     rows = []
     for w in waves:
         prods = ", ".join(W.products[p]["name"] for p in w["scope"].replace("All Danish products (", "").replace(")", "").split(", "))
-        rows.append((w["name"], D.date_long(w["date"]), prods, w.get("rehearsals") or "to be baselined", w["status"].capitalize()))
+        # a wave's cut-over date shows only once a decision has fixed it (MW-2: DEC-011, 2026-10-08)
+        cut = D.date_long(w["date"]) if WD.date_known(W, w["id"], d) else "E" + WD.tbc_label(W, w["id"], short=True)[1:]
+        rows.append((w["name"], cut, prods, w.get("rehearsals") or "to be baselined", w["status"].capitalize()))
     s.table(0.5, 1.45, 12.3, ["Wave", "Cut-over", "Products", "Rehearsals", "Status"], rows,
             col_w=[2.6, 1.8, 5.2, 1.3, 1.4], row_h=0.85, size=11, first_col_bold=True)
-    s.notes(P.notes(rng, "the three migration waves",
-                    ["Wave 2 is planned for 15 February 2027, subject to Steering Committee confirmation."]))
+    w2_known = WD.date_known(W, "MW-2", d)
+    w2_note = (f"Wave 2 is planned for {D.date_long(waves[2]['date'])}." if w2_known else
+               "Wave 2 is planned for early 2027; the date is to be confirmed by the Steering Committee.")
+    s.notes(P.notes(rng, "the three migration waves", [w2_note]))
     D.fact(s, "table", "Planned",
-           "Wave 2 (UK home, commercial, liability; Norway; Sweden) is planned for 2027-02-15.", world_ref="WAVE:MW-2#status")
+           f"Wave 2 (UK home, commercial, liability; Norway; Sweden) is planned for {waves[2]['date']}." if w2_known else
+           f"On {d} Wave 2 (UK home, commercial, liability; Norway; Sweden) is planned for early 2027, date to be "
+           f"confirmed by the Steering Committee.", world_ref="WAVE:MW-2#status")
     D.fact(s, "table", "Motor Private UK",
            "Wave 1 – UK motor (cut-over 2026-09-14) migrated product PRD-MOT-UK, Motor Private UK, after 3 rehearsals.",
            world_ref="WAVE:MW-1#scope")
@@ -67,16 +75,24 @@ def build(W, out_dir):
         ("3 Nov 2025", "Claims Hub MVP live (new FNOL only)", False),
         ("1 Jun 2026", "Wave 0 – Denmark cut-over", True),
         ("14 Sep 2026", "Wave 1 – UK motor; freeze 11 Sep 18:00 to 14 Sep 06:00", True),
-        ("15 Feb 2027", "Wave 2 (planned); freeze 12 Feb 18:00 to 15 Feb 06:00", True),
+        ("15 Feb 2027", "Wave 2 (planned); freeze 12 Feb 18:00 to 15 Feb 06:00", True) if w2_known else
+        ("Early 2027", "Wave 2 (planned); date and freeze to be confirmed", True),
         ("30 Sep 2027", "CLARA decommissioning target", False)], height=950,
         sub="Freeze windows stop CLARA updates for the products in scope")
+    w2_alt = ("Wave 2 planned 15 Feb 2027 with freeze 2027-02-12 18:00 to 2027-02-15 06:00" if w2_known else
+              "Wave 2 planned for early 2027, date and freeze to be confirmed")
     s.picture_fit(png, 0.5, 1.35, 12.3, 5.55,
-                  alt="Migration timeline: MVP 3 Nov 2025; Wave 0 Denmark 1 Jun 2026; Wave 1 UK motor 14 Sep 2026 with freeze 2026-09-11 18:00 to 2026-09-14 06:00; Wave 2 planned 15 Feb 2027 with freeze 2027-02-12 18:00 to 2027-02-15 06:00; CLARA decommissioning target 30 Sep 2027.",
+                  alt=f"Migration timeline: MVP 3 Nov 2025; Wave 0 Denmark 1 Jun 2026; Wave 1 UK motor 14 Sep 2026 with freeze 2026-09-11 18:00 to 2026-09-14 06:00; {w2_alt}; CLARA decommissioning target 30 Sep 2027.",
                   title="Migration timeline")
     s.notes(P.notes(rng, "the timeline and freeze windows", n_filler=1))
-    D.fact(s, "image", "freeze 12 Feb 18:00 to 15 Feb 06:00",
-           "Timeline image: Wave 2 freeze planned 12 Feb 2027 18:00 to 15 Feb 2027 06:00.", kind="image_text",
-           world_ref="WAVE:MW-2#freeze")
+    if w2_known:
+        D.fact(s, "image", "freeze 12 Feb 18:00 to 15 Feb 06:00",
+               "Timeline image: Wave 2 freeze planned 12 Feb 2027 18:00 to 15 Feb 2027 06:00.", kind="image_text",
+               world_ref="WAVE:MW-2#freeze")
+    else:
+        D.fact(s, "image", "date and freeze to be confirmed",
+               f"Timeline image (as at {d}): Wave 2 is planned for early 2027; its date and freeze window are still to be "
+               f"confirmed (fixed later by DEC-011).", kind="image_text", world_ref="DECISION:DEC-011")
     D.fact(s, "alt_text", "freeze 2026-09-11 18:00 to 2026-09-14 06:00",
            "Alt text: Wave 1 freeze 2026-09-11 18:00 to 2026-09-14 06:00.", kind="alt_text", world_ref="WAVE:MW-1#freeze")
 

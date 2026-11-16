@@ -1,0 +1,639 @@
+# HOP group: multi-hop chains (2-6 hops) across file types and the code repo, plus impact analysis.
+# Written against the world model (as of 2026-11-15) and code variant a unless a question says otherwise.
+
+# ---------------------------------------------------------------------------------------------
+# Headline questions
+# ---------------------------------------------------------------------------------------------
+
+- id: Q-HOP-001
+  category: multi_hop
+  dimensions: [multi_hop, csv, pdf, code, txt, pptx, contradiction]
+  question: "Which CLARA programs write to the reserve table CLR.T_RESERVE? Give the complete list."
+  expected_answer: "Eight programs write CLR.T_RESERVE: CLRFN030, CLRRS010, CLRRS020, CLRRS110, CLRRS130, CLRST040, CLRRC050 and CLRGL090. CLRRS150 only writes CLR.T_RESERVE_MOVEMENT (it just reads the reserve table). The 2025 data dictionary lists only seven writers because it omits CLRGL090, whose year-end revaluation updates CLR.T_RESERVE without writing a movement (audit finding IA-25-07)."
+  acceptable_variants:
+    - "CLRFN030, CLRRS010, CLRRS020, CLRRS110, CLRRS130, CLRST040, CLRRC050, CLRGL090 (eight writers; the data dictionary misses CLRGL090)."
+  must_include: [["CLRFN030"], ["CLRRS010"], ["CLRRS020"], ["CLRRS110"], ["CLRRS130"], ["CLRST040"], ["CLRRC050"], ["CLRGL090"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST019-F001}          # CRUD matrix: 8 writers incl. CLRGL090 (csv)
+    - {fact_id: CL-CLRGL090-F010}    # CLRGL090 EXEC SQL UPDATE CLR.T_RESERVE (code)
+    - {fact_id: LD024-F004}          # audit: data dictionary lists seven writers, CLRGL090 missing (pdf)
+    - {fact_id: CL-CLRRS150-F001}    # CLRRS150 writes movements only (code)
+    - {fact_id: TX003-F004}          # in-meeting correction: CLRFN030, CLRST040, CLRRC050, CLRGL090 also write (txt)
+    - {fact_id: VS017-F003}          # connector CLRGL090 -> CLR.T_RESERVE 'UPDATE (year-end)' (pptx)
+  hops: 4
+  ask_mode: graph
+  difficulty: hard
+  world_refs: ["TABLE:CLR.T_RESERVE#writers", "PROGRAM:CLRGL090#writes_tables:CLR.T_RESERVE", "PROGRAM:CLRRS150#writes_tables", "CONTRA:C07", "CONTRA:C08"]
+  trap: "The 2025 data dictionary (ST001) lists seven writers without CLRGL090; TX003 first claims only the CLRRS programs write it; CLRRS150 writes only the movement table."
+
+- id: Q-HOP-002
+  category: multi_hop
+  dimensions: [multi_hop, pdf, html, docx, pptx, code, yaml, temporal]
+  question: "Which business rules govern fraud referral since NISA Circular 2026/04 took effect, and what does each require?"
+  expected_answer: "From 1 April 2026 (NISA Circular 2026/04): BR-FRD-031 (refer at a Sentinel score of 65 or more; v2 from 2026-10-01 refers Tier-3 claims at 60 or more, Tier-3 as defined by BR-TRI-003 v3); BR-FRD-032 v2 (tell the customer in writing within 10 business days of the referral); BR-FRD-033 (no decline, reduction or repudiation on the automated score alone; documented human review); BR-FRD-034 (quarterly NISA-FR1 return within 30 days of quarter end); BR-FRD-035 v2 (SIU triage within 3 business days); BR-FRD-036 (notice may be deferred up to 60 days for tipping-off risk; from 2026-10-01 deferrals beyond 30 days need the Head of Counter-Fraud & SIU). BR-FRD-012 (the old 70 threshold) was superseded and BR-FRD-019 (auto-decline) withdrawn."
+  acceptable_variants: []
+  must_include: [["BR-FRD-031"], ["BR-FRD-032"], ["BR-FRD-033"], ["BR-FRD-034"], ["BR-FRD-035"], ["BR-FRD-036"], ["Tier-3"]]
+  must_not_include: ["5 business days"]
+  evidence:
+    - {fact_id: LD022-F007}          # circular effective 2026-04-01 (pdf)
+    - {fact_id: ST059-F001}          # wiki: BR-FRD-031 v2, 032 v2, 033, 034, 036 v2 (html)
+    - {fact_id: LD001-F193}          # BR-FRD-035 v2 triage 3 business days (docx)
+    - {fact_id: VS007-F010}          # BR-FRD-019 withdrawn, BR-FRD-012 superseded (pptx)
+    - {fact_id: VS007-F005}          # Tier-3 = BR-TRI-003 v3 (pptx notes)
+    - {fact_id: CODEMOD-F003}        # fraud-referral-svc thresholds 65 / tier3 60 from 2026-10-01 (code)
+  hops: 4
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-FRD-031", "RULE:BR-FRD-032", "RULE:BR-FRD-033", "RULE:BR-FRD-034", "RULE:BR-FRD-035", "RULE:BR-FRD-036", "CIRCULAR:CIRC-2026-04", "RULE:BR-TRI-003@v3", "CONTRA:C01"]
+  trap: "The draft BRD v0.3 says the notice is due in 5 business days (C03); BR-FRD-012 and BR-FRD-019 are no longer in force."
+
+- id: Q-HOP-003
+  category: impact_analysis
+  dimensions: [multi_hop, xml, docx, visual, txt, code, md]
+  question: "What breaks downstream if interface CLX-IF-042 changes? List the affected interfaces by hop and what they finally feed."
+  expected_answer: "Hop 1: CLX-IF-043 (GL Reserve Journal Feed), CLX-IF-044 (CDW Reserve Fact Load), CLX-IF-047 (Reserve Cession Feed) and CLX-IF-049 (Reserve Movement Kafka Bridge to reserve-engine). Hop 2: CLX-IF-051 (Technical Provisions Feed to the NISA Reporting Hub), CLX-IF-055 (Monthly Claims Bordereaux) and CLX-IF-058 (Reserve Triangles Extract to the Actuarial Reserving Workbench). Hop 3: the NISA-TP2 quarterly return and the Reserving team's monthly IBNR run. Teams affected: Financial Control, Data & Analytics, Reinsurance, Hub Squad – Reserve & Finance, Regulatory Reporting and Reserving."
+  acceptable_variants: []
+  must_include: [["CLX-IF-043"], ["CLX-IF-044"], ["CLX-IF-047"], ["CLX-IF-049"], ["CLX-IF-051"], ["CLX-IF-055"], ["CLX-IF-058"], ["NISA-TP2", "TP2"], ["IBNR"]]
+  must_not_include: ["CLX-IF-027", "CLX-IF-028"]
+  evidence:
+    - {fact_id: ST035-F001}          # 043/044/047/049 dependsOn 042 (xml)
+    - {fact_id: TX004-F002}          # incident bridge: consumers 043, 044, 047 (txt)
+    - {fact_id: CODEMOD-F148}        # ADR-012: 042 records republished to claims.reserve.movement.v1 for reserve-engine (code md)
+    - {fact_id: VS033-F022}          # hop 2: 051, 055, 058 (raster docx)
+    - {fact_id: LD014-F007}          # 044 feeds 058 to the Actuarial Reserving Workbench (docx split)
+    - {fact_id: VS033-F023}          # hop 3: NISA-TP2 and the Reserving team's IBNR run (raster docx)
+  hops: 4
+  ask_mode: graph
+  difficulty: hard
+  world_refs: ["INTERFACE:CLX-IF-042#dependents", "REPORT:NISA-TP2", "INTERFACE:CLX-IF-058#note"]
+  trap: "CLX-IF-027 and CLX-IF-028 are upstream/sibling of CLX-IF-042, not downstream; the incident transcript names only three first-hop consumers (no CLX-IF-049, which went live later)."
+
+- id: Q-HOP-004
+  category: multi_hop
+  dimensions: [multi_hop, docx, pptx, txt, xlsx, contradiction, temporal, stale_chart]
+  question: "Who owns the subrogation process today, since when, and who owned it before?"
+  expected_answer: "Freya Lindahl, Head of Recoveries & Subrogation, has owned the recovery and subrogation process (stage S7) since 2025-09-01. Siobhan Quill was acting owner from 2025-01-01 to 2025-08-31; before that Martin Calloway (Recoveries Manager) owned it until he left on 2024-12-31. The March 2024 org chart that still shows him is stale."
+  acceptable_variants:
+    - "Freya Lindahl (Head of Recoveries & Subrogation) since 1 September 2025; previously Siobhan Quill (acting, 2025) and, until 2024-12-31, Martin Calloway."
+  must_include: [["Freya Lindahl"], ["2025-09-01"], ["Siobhan Quill", "Quill"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD001-F205}          # owner Freya Lindahl since 2025-09-01 (docx)
+    - {fact_id: ST002-F002}          # RACI accountable Freya Lindahl (xlsx)
+    - {fact_id: TX005-F003}          # Quill acting from 2025-01-01 after Calloway left 2024-12-31 (txt)
+    - {fact_id: VS004-F016}          # stale March 2024 chart: Calloway owns S7 (pptx)
+  hops: 3
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PROCESS:S7#owner_history", "CONTRA:C02"]
+  trap: "The March 2024 org chart (VS004/VS032) still names Martin Calloway; stating him as current owner is wrong."
+
+# ---------------------------------------------------------------------------------------------
+# Impact analysis: other interfaces, tables and topics
+# ---------------------------------------------------------------------------------------------
+
+- id: Q-HOP-005
+  category: impact_analysis
+  dimensions: [multi_hop, pptx, xlsx, xml, visual]
+  question: "Which consumer teams are affected, directly or one hop further downstream, if the CLX-IF-042 record layout changes, and through which interface is each of them affected?"
+  expected_answer: "Six teams: Financial Control (CLX-IF-043 GL Reserve Journal Feed), Data & Analytics (CLX-IF-044 CDW Reserve Fact Load), Reinsurance (CLX-IF-047 Reserve Cession Feed and then CLX-IF-055 bordereaux), Hub Squad – Reserve & Finance (CLX-IF-049 Kafka bridge to reserve-engine), Regulatory Reporting (CLX-IF-051 Technical Provisions Feed, NISA-TP2) and Reserving (CLX-IF-058 Reserve Triangles Extract, monthly IBNR run)."
+  acceptable_variants: []
+  must_include: [["Financial Control"], ["Data & Analytics", "Data and Analytics"], ["Reinsurance"], ["Reserve & Finance", "Reserve and Finance"], ["Regulatory Reporting"], ["Reserving"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS019-F017}          # 042 -> 043 consumer team Financial Control (pptx connector)
+    - {fact_id: VS019-F018}          # 042 -> 044 Data & Analytics
+    - {fact_id: VS019-F019}          # 042 -> 047 Reinsurance
+    - {file: corpus/upload/structured/ST003_interface_register.xlsx, locator: {kind: xlsx_cell, sheet: Register, cell: S53}, needle: "Hub Squad – Reserve & Finance"}   # CLX-IF-049 consumer team (xlsx)
+    - {fact_id: VS019-F020}          # 043 -> 051 Regulatory Reporting
+    - {fact_id: VS019-F021}          # 044 -> 058 Reserving
+    - {file: corpus/upload/structured/ST035_interface_catalogue.xml, locator: {kind: xml_xpath, xpath: "//interface[@id='CLX-IF-042']/impactAnalysis/consumerTeams"}, needle: "Reserving, Financial Control, Regulatory Reporting, Reinsurance"}   # catalogue summary (xml)
+  hops: 3
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["INTERFACE:CLX-IF-042#dependents", "TEAM:T14", "TEAM:T23", "TEAM:T17", "TEAM:T28", "TEAM:T15", "TEAM:T12"]
+  trap: "The interface owner (Henrik Vestergaard, Integration Platform) is not a consumer team; Hub Squad – Reserve & Finance is easy to miss because CLX-IF-049 only went live in December 2025."
+
+- id: Q-HOP-006
+  category: impact_analysis
+  dimensions: [multi_hop, xml, docx, xlsx, pptx]
+  question: "If the CDW Reserve Fact Load (CLX-IF-044) is late or changes format, what is affected downstream, and which team and person own the affected feed?"
+  expected_answer: "Only CLX-IF-058, the Reserve Triangles Extract from the Claims Data Warehouse to the Actuarial Reserving Workbench (monthly, 3rd business day), which depends on CLX-IF-044. It feeds the Reserving team's monthly IBNR run; CLX-IF-058 is owned by Lena Kristiansen, Head of Reserving."
+  acceptable_variants: []
+  must_include: [["CLX-IF-058"], ["IBNR"], ["Reserving"], ["Kristiansen"]]
+  must_not_include: ["CLX-IF-051", "CLX-IF-055"]
+  evidence:
+    - {fact_id: ST035-F004}          # 058 dependsOn 044 (xml)
+    - {fact_id: LD014-F007}          # 044 feeds 058 to the Actuarial Reserving Workbench (docx)
+    - {fact_id: ST003-F006}          # 058 feeds the monthly IBNR run of the Reserving team (xlsx)
+    - {fact_id: VS008-F023}          # 058 monthly 3rd business day, owner Lena Kristiansen (pptx)
+  hops: 3
+  ask_mode: graph
+  difficulty: medium
+  world_refs: ["INTERFACE:CLX-IF-044#dependents", "INTERFACE:CLX-IF-058", "PERSON:P009"]
+  trap: "Answering with CLX-IF-042's full second hop (051, 055, 058) over-reports the impact; only 058 hangs off CLX-IF-044."
+
+- id: Q-HOP-007
+  category: impact_analysis
+  dimensions: [multi_hop, xml, pptx, docx, txt]
+  question: "Trace the data lineage of the NISA-TP2 quarterly return upstream: which interfaces does it depend on, back to the first feed into CLARA?"
+  expected_answer: "NISA-TP2 is sourced from CLX-IF-051 (Technical Provisions Feed, Group Ledger to NISA Reporting Hub), which depends on CLX-IF-043 (GL Reserve Journal Feed, MQ Backbone to Group Ledger), which consumes CLX-IF-042 (Reserve Movement Daily Extract from CLARA), which in turn depends on CLX-IF-027 (Currency rates to CLARA, from the Group Ledger)."
+  acceptable_variants:
+    - "NISA-TP2 <- CLX-IF-051 <- CLX-IF-043 <- CLX-IF-042 <- CLX-IF-027"
+  must_include: [["CLX-IF-051"], ["CLX-IF-043"], ["CLX-IF-042"], ["CLX-IF-027"]]
+  must_not_include: ["CLX-IF-044", "CLX-IF-047"]
+  evidence:
+    - {fact_id: ST039-F001}          # TP2 2026Q2 return names source interface CLX-IF-051 (xml)
+    - {fact_id: VS003-F003}          # connector Group Ledger -> NISA Reporting Hub 'CLX-IF-051 (TP2)' (pptx)
+    - {fact_id: LD014-F008}          # CLX-IF-043 feeds CLX-IF-051 (docx)
+    - {fact_id: ST035-F001}          # CLX-IF-043 (with 044, 047, 049) dependsOn CLX-IF-042 (xml)
+    - {fact_id: ST035-F010}          # CLX-IF-042 depends on CLX-IF-027 (xml)
+  hops: 4
+  ask_mode: graph
+  difficulty: hard
+  world_refs: ["REPORT:NISA-TP2#source_interfaces", "INTERFACE:CLX-IF-051#depends_on", "INTERFACE:CLX-IF-043#depends_on", "INTERFACE:CLX-IF-042#depends_on"]
+  trap: "CLX-IF-044 and CLX-IF-047 are siblings of CLX-IF-043 under CLX-IF-042 but do not feed TP2."
+
+- id: Q-HOP-008
+  category: impact_analysis
+  dimensions: [multi_hop, pptx, xml, pdf, visual]
+  question: "Which downstream feed, target system and team would be hit if the Reserve Cession Feed CLX-IF-047 stopped?"
+  expected_answer: "CLX-IF-047 carries reserve movements from the MQ Backbone to ReCede. Its only dependant is CLX-IF-055, the Monthly Claims Bordereaux from ReCede to the Bordereaux Exchange (monthly, 5th business day). The consumer team on both is Reinsurance."
+  acceptable_variants: []
+  must_include: [["CLX-IF-055"], ["Bordereaux Exchange"], ["Reinsurance"]]
+  must_not_include: ["CLX-IF-051", "CLX-IF-058"]
+  evidence:
+    - {fact_id: VS003-F004}          # connector MQ Backbone -> ReCede 'CLX-IF-047' (pptx)
+    - {fact_id: ST035-F003}          # 055 depends on 047 (xml)
+    - {fact_id: VS003-F005}          # connector ReCede -> Bordereaux Exchange 'CLX-IF-055 monthly' (pptx)
+    - {fact_id: VS043-F003}          # 055 ReCede -> BDX, monthly 5th business day (pdf image)
+    - {fact_id: VS019-F022}          # 047 -> 055 consumer team Reinsurance (pptx connector)
+  hops: 3
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["INTERFACE:CLX-IF-047#dependents", "INTERFACE:CLX-IF-055", "TEAM:T17"]
+  trap: "Only the bordereaux hang off the cession feed; TP2 and the triangles are on other branches."
+
+- id: Q-HOP-009
+  category: impact_analysis
+  dimensions: [multi_hop, code, html, xml, connector]
+  question: "Starting from the DB2 table CLR.T_RESERVE_MOVEMENT: which CLARA program extracts it, to which outbound interface and MQ queue, and which interfaces consume that queue?"
+  expected_answer: "CLRRS170 (batch job CLRNRSV3) reads CLR.T_RESERVE_MOVEMENT, puts fixed-width RSVMOVE records to queue CLR.RSVMOVE.OUT and flags the rows as extracted; this is interface CLX-IF-042. The queue is consumed by CLX-IF-043, CLX-IF-044, CLX-IF-047 and CLX-IF-049."
+  acceptable_variants: []
+  must_include: [["CLRRS170"], ["CLX-IF-042"], ["CLR.RSVMOVE.OUT", "RSVMOVE.OUT"], ["CLX-IF-043"], ["CLX-IF-044"], ["CLX-IF-047"], ["CLX-IF-049"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CL-CLRRS170-F001}    # CLRRS170 MQPUTs RSVMOVE to CLR.RSVMOVE.OUT, marks EXTRACTED_FLAG (code)
+    - {fact_id: ST054-F005}          # CLX-IF-042 written by CLRRS170 in CLRNRSV3 from CLR.T_RESERVE_MOVEMENT (html)
+    - {fact_id: ST037-F002}          # queue consumed by 043, 044, 047, 049 (xml)
+  hops: 3
+  ask_mode: graph
+  difficulty: medium
+  world_refs: ["INTERFACE:CLX-IF-042#programs", "INTERFACE:CLX-IF-042#mq_queue", "TABLE:CLR.T_RESERVE_MOVEMENT"]
+
+- id: Q-HOP-010
+  category: impact_analysis
+  dimensions: [multi_hop, json, pptx, code, yaml]
+  question: "If reserve-engine changes the payload of the event it publishes on every reserve change, which Claims Hub services are affected and what does each of them feed?"
+  expected_answer: "The topic is reserve.changed.v2. It is consumed by gl-posting-svc, which posts journals to the Group Ledger hourly over CLX-IF-050, and by reporting-feed-svc, which builds the TP2, FR1 and CT1 return extracts for the NISA Reporting Hub (still in development, go-live planned 2027-01-11)."
+  acceptable_variants: []
+  must_include: [["reserve.changed.v2"], ["gl-posting-svc"], ["reporting-feed-svc"], ["CLX-IF-050", "Group Ledger"], ["NISA Reporting Hub", "TP2", "FR1"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST030-F003}          # reserve.changed.v2 consumed by gl-posting-svc and reporting-feed-svc (json)
+    - {fact_id: VS016-F011}          # connector reserve-engine -> reporting-feed-svc 'reserve.changed.v2' (pptx)
+    - {fact_id: CODEMOD-F084}        # gl-posting-svc posts to Group Ledger hourly (CLX-IF-050) (code)
+    - {fact_id: CODEMOD-F085}        # reporting-feed-svc builds TP2, FR1, CT1 extracts (code)
+    - {fact_id: ST031-F008}          # reporting-feed-svc in development, go-live 2027-01-11 (json)
+  hops: 4
+  ask_mode: graph
+  difficulty: medium
+  world_refs: ["TOPIC:reserve.changed.v2#consumers", "INTERFACE:CLX-IF-050", "SERVICE:reporting-feed-svc#go_live"]
+  trap: "The pre-rename architecture (LD013) shows reserve-svc publishing reserve.changed.v1, which was retired at the 2026-02-10 rename."
+
+- id: Q-HOP-011
+  category: impact_analysis
+  dimensions: [multi_hop, xml, pptx, json]
+  question: "If the online Sentinel scoring interface CLX-IF-008 fails, which downstream interfaces and which regulatory return are affected?"
+  expected_answer: "CLX-IF-011 (fraud referrals from CLARA to the SIU Case Manager) depends on CLX-IF-008; CLX-IF-012 (SIU outcomes back to CLARA) depends on CLX-IF-011; CLX-IF-033 (the quarterly fraud referral return to the NISA Reporting Hub) depends on CLX-IF-012 and feeds the NISA-FR1 return."
+  acceptable_variants:
+    - "CLX-IF-008 -> CLX-IF-011 -> CLX-IF-012 -> CLX-IF-033 -> NISA-FR1"
+  must_include: [["CLX-IF-011"], ["CLX-IF-012"], ["CLX-IF-033"], ["NISA-FR1", "FR1"]]
+  must_not_include: ["NISA-TP2"]
+  evidence:
+    - {file: corpus/upload/structured/ST035_interface_catalogue.xml, locator: {kind: xml_xpath, xpath: "//interface[@id='CLX-IF-011']/dependsOn"}, needle: "CLX-IF-008"}
+    - {file: corpus/upload/structured/ST035_interface_catalogue.xml, locator: {kind: xml_xpath, xpath: "//interface[@id='CLX-IF-012']/dependsOn"}, needle: "CLX-IF-011"}
+    - {file: corpus/upload/structured/ST035_interface_catalogue.xml, locator: {kind: xml_xpath, xpath: "//interface[@id='CLX-IF-033']/dependsOn"}, needle: "CLX-IF-012"}
+    - {fact_id: ST034-F005}          # NISA-FR1 source interface CLX-IF-033 (json)
+    - {fact_id: VS015-F010}          # connector CLRFR030 -> SIU Case Manager 'CLX-IF-011 SIU referrals' (pptx)
+  hops: 4
+  ask_mode: graph
+  difficulty: hard
+  world_refs: ["INTERFACE:CLX-IF-008#dependents", "INTERFACE:CLX-IF-011", "INTERFACE:CLX-IF-012", "INTERFACE:CLX-IF-033", "REPORT:NISA-FR1"]
+  trap: "The fraud chain ends in NISA-FR1, not NISA-TP2."
+
+- id: Q-HOP-012
+  category: impact_analysis
+  dimensions: [multi_hop, xml, yaml, code, connector]
+  question: "If the RM-AMOUNT field of the RSVMOVE copybook is changed again, which Kafka topic field, schema version and Claims Hub consumer class are affected?"
+  expected_answer: "RSVMOVE is the CLX-IF-042 record written by CLRRS170. The CLX-IF-049 bridge maps RM-AMOUNT to amount_minor (minor units) on topic claims.reserve.movement.v1, schema version 3 (keyed by claim_id), and that topic is consumed in reserve-engine by ReserveMovementListener."
+  acceptable_variants: []
+  must_include: [["amount_minor"], ["claims.reserve.movement.v1"], ["ReserveMovementListener"], ["version 3", "v3"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST041-F004}          # RSVMOVE is the CLX-IF-042 record, used by CLRRS170 (xml)
+    - {fact_id: ST048-F003}          # CLX-IF-049 maps RM-AMOUNT to amount_minor (yaml)
+    - {fact_id: ST048-F001}          # data contract schema version 3, key claim_id (yaml)
+    - {fact_id: ST035-F012}          # CLX-IF-049 Kafka topic claims.reserve.movement.v1 (xml)
+    - {fact_id: CODEMOD-F087}        # ReserveMovementListener consumes claims.reserve.movement.v1 (code)
+  hops: 4
+  ask_mode: graph
+  difficulty: hard
+  world_refs: ["COPYBOOK:RSVMOVE#fields", "TOPIC:claims.reserve.movement.v1#schema_version", "INTERFACE:CLX-IF-049"]
+  trap: "Widening RM-AMOUNT without a consumer impact assessment caused INC-2025-0412."
+
+# ---------------------------------------------------------------------------------------------
+# Incident -> ticket -> commit -> program
+# ---------------------------------------------------------------------------------------------
+
+- id: Q-HOP-013
+  category: multi_hop
+  dimensions: [multi_hop, txt, csv, json, code, connector]
+  question: "The Sev1 incident that made the Q1 2025 NISA-TP2 return two days late: what change caused it, which code commit fixed it (ticket, author, date), and which program and copybook did that commit change?"
+  expected_answer: "INC-2025-0412 was caused by CHUB-138, which widened the RSVMOVE field RM-AMOUNT from S9(9)V99 to S9(11)V99 COMP-3 so the GL adapter (CLX-IF-043) rejected every record. The code fix was commit CM-03, 'CHUB-142 CLRRS170/RSVMOVE: revert RM-AMOUNT to PIC S9(9)V99 COMP-3; add RM-REC-VERSION', authored by Keith Barraclough on 2025-04-30. It changed program CLRRS170 and copybook RSVMOVE (CHUB-143 and CHUB-144 were the other fix tickets)."
+  acceptable_variants: []
+  must_include: [["CHUB-138"], ["CHUB-142"], ["Keith Barraclough"], ["2025-04-30"], ["CLRRS170"], ["RSVMOVE"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD003-F034}          # Q1 2025 NISA-TP2 submitted 2025-05-07 instead of 2025-05-05 after INC-2025-0412 (pdf)
+    - {fact_id: ST023-F002}          # INC-2025-0412 was Sev1 (csv)
+    - {fact_id: TX004-F003}          # root cause CHUB-138 widened RM-AMOUNT (txt)
+    - {fact_id: ST023-F003}          # INC-2025-0412 fixed under CHUB-142, 143, 144 (csv)
+    - {fact_id: TX070-F048}          # CHUB-142 revert RSVMOVE RM-AMOUNT, add RM-REC-VERSION (json)
+    - {fact_id: CODEMOD-F019}        # commit CM-03 by Keith Barraclough 2025-04-30 (git)
+    - {fact_id: CL-RSVMOVE-F002}     # RSVMOVE.cpy RM-REC-VERSION added under CHUB-142 (code)
+  hops: 5
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["INCIDENT:INC-2025-0412", "TICKET:CHUB-142", "COMMIT:CM-03", "COPYBOOK:RSVMOVE#field_history"]
+  trap: "CHUB-138 is the cause, not the fix; CHUB-143 and CHUB-144 are fix tickets without a world code commit."
+
+- id: Q-HOP-014
+  category: multi_hop
+  dimensions: [multi_hop, csv, txt, code, pptx, rename]
+  question: "Which ticket fixed the Sentinel scoring failures right after the FRAUDNET rename, who committed the fix and when, and what did it change in which CLARA program and interface?"
+  expected_answer: "INC-2025-0233 (3 March 2025) was fixed under CHUB-119. The commit 'CHUB-119 CLRFR020: switch endpoint to sentinel.corvane.internal' was made by Pauline Ashworth on 2025-03-03. It changed CLRFR020, which still called fraudnet.corvane.internal (the TLS certificate had been reissued only for sentinel.corvane.internal on 2025-03-01); CLRFR020 is the caller of CLX-IF-008, the online Sentinel scoring interface."
+  acceptable_variants: []
+  must_include: [["CHUB-119"], ["Pauline Ashworth"], ["2025-03-03"], ["CLRFR020"], ["sentinel.corvane.internal"]]
+  must_not_include: ["Keith Barraclough"]
+  evidence:
+    - {fact_id: ST023-F001}          # INC-2025-0233 fixed under CHUB-119 (csv)
+    - {fact_id: TX006-F001}          # root cause: CLRFR020 still called fraudnet endpoint (txt)
+    - {fact_id: CODEMOD-F020}        # commit CM-02 by Pauline Ashworth 2025-03-03 (git)
+    - {fact_id: CL-CLRFR020-F001}    # CLRFR020 calls sentinel.corvane.internal, switched under CHUB-119 (code)
+    - {fact_id: VS015-F007}          # connector CLRFR020 -> Sentinel 'CLX-IF-008 online scoring (REST)' (pptx)
+  hops: 4
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["INCIDENT:INC-2025-0233", "TICKET:CHUB-119", "COMMIT:CM-02", "PROGRAM:CLRFR020", "INTERFACE:CLX-IF-008", "SYSTEM:SYS03#renames"]
+
+- id: Q-HOP-015
+  category: multi_hop
+  dimensions: [multi_hop, docx, visual, code, connector]
+  question: "After the Tier-3 reserve review cadence moved to 14 days, Claims Hub and CLARA disagreed. Which incident was that, which commit fixed it (author, date, ticket), and which ticket had already changed the CLARA parameter?"
+  expected_answer: "INC-2026-0702: CLARA picked up RSV_T3_REVIEW_DAYS = 14 on 2026-07-01 (CLR.T_PARAM row added under CHUB-318) while reserve-engine's tier3-review-days was still 21. It was fixed by commit 'CHUB-322 reserve-engine: tier3-review-days 21 -> 14', authored by Daniel Achebe on 2026-07-03; reserve-engine config now has tier3-review-days 14."
+  acceptable_variants: []
+  must_include: [["INC-2026-0702"], ["CHUB-322"], ["Daniel Achebe"], ["2026-07-03"], ["CHUB-318"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS034-F010}          # INC-2026-0702 root cause (docx image)
+    - {fact_id: VS034-F011}          # fix CHUB-322 changed reserve-engine 21 -> 14 (docx image)
+    - {fact_id: CODEMOD-F021}        # commit CM-06 by Daniel Achebe 2026-07-03 (git)
+    - {fact_id: CODEMOD-F004}        # reserve-engine config tier3-review-days 14 (code)
+    - {fact_id: CL-T_PARAM_seed-F004}  # RSV_T3_REVIEW_DAYS = 14 from 2026-07-01 (CHUB-318) (code)
+  hops: 4
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["INCIDENT:INC-2026-0702", "TICKET:CHUB-322", "COMMIT:CM-06", "TABLE:CLR.T_PARAM#param_rows:RSV_T3_REVIEW_DAYS"]
+  trap: "CHUB-318 (CLARA parameter, Pauline Ashworth) and CHUB-322 (reserve-engine config, Daniel Achebe) are easily swapped."
+
+- id: Q-HOP-016
+  category: multi_hop
+  dimensions: [multi_hop, md, json, code, connector]
+  question: "What caused the duplicate payments on the Wave 1 cut-over day, which commit fixed it (ticket, author, date), and what does the fixed code now do?"
+  expected_answer: "INC-2026-0914: payment-orchestrator retried instructions to the Corvane Payments Gateway after a timeout without an idempotency key, so 18 claims were paid twice. The fix was CHUB-371, committed as 'CHUB-371 payment-orchestrator: idempotency key on CPG instructions' by Linnea Sjöberg on 2026-09-16. PaymentInstructionService now derives an idempotency key as 'PAY-' plus the payment id and sends it with every CPG instruction (ADR-021)."
+  acceptable_variants: []
+  must_include: [["CHUB-371"], ["Linnea"], ["2026-09-16"], ["idempotency key", "Idempotency-Key"], ["PaymentInstructionService", "payment-orchestrator"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX040-F003}          # root cause: retry without idempotency key (md)
+    - {fact_id: TX070-F009}          # CHUB-371 duplicate payment instructions (INC-2026-0914) (json)
+    - {fact_id: CODEMOD-F025}        # commit CM-07 by Linnea Sjöberg 2026-09-16 (git)
+    - {fact_id: CODEMOD-F086}        # PaymentInstructionService key 'PAY-' + payment id (code)
+  hops: 4
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["INCIDENT:INC-2026-0914", "TICKET:CHUB-371", "COMMIT:CM-07", "ADR:ADR-021"]
+
+- id: Q-HOP-017
+  category: multi_hop
+  dimensions: [multi_hop, txt, csv, code]
+  question: "Some Tier-3 claims were not auto-referred by Claims Hub in early October 2026. Which service was at fault, which ticket fixed it, how many claims were affected, and which commit (ticket, author, date) had introduced the threshold that was not picked up?"
+  expected_answer: "INC-2026-1007: triage-svc cached the referral thresholds and did not reload the Tier-3 value until 2026-10-05; the fix is CHUB-392. Nine Tier-3 claims scoring 60–64 between 2026-10-01 and 2026-10-05 were not referred automatically and were referred manually. The threshold had been introduced by commit 'CHUB-388 fraud-referral-svc: Tier-3 referral threshold 60 from 2026-10-01', authored by Linnea Sjöberg on 2026-09-29."
+  acceptable_variants: []
+  must_include: [["triage-svc"], ["CHUB-392"], ["9", "nine"], ["CHUB-388"], ["Linnea"], ["2026-09-29"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX061-F001}          # root cause triage-svc cache, fix CHUB-392 (txt)
+    - {fact_id: ST023-F006}          # 9 Tier-3 claims scored 60-64 not referred (csv)
+    - {fact_id: TX026-F001}          # triage-svc did not pick up the CHUB-388 threshold (txt)
+    - {fact_id: CODEMOD-F012}        # commit CHUB-388 by Linnea Sjöberg 2026-09-29 (git)
+  hops: 4
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["INCIDENT:INC-2026-1007", "TICKET:CHUB-392", "TICKET:CHUB-388", "COMMIT:CM-08"]
+  trap: "The threshold was deployed in fraud-referral-svc (CHUB-388) but the defect sat in triage-svc."
+
+# ---------------------------------------------------------------------------------------------
+# Rule -> version -> effective date -> program -> table
+# ---------------------------------------------------------------------------------------------
+
+- id: Q-HOP-018
+  category: multi_hop
+  dimensions: [multi_hop, md, code, docx, visual, temporal]
+  question: "What is the current Tier-3 reserve review cadence and since when, how does CLARA get that value, and which program writes the resulting next-review date to which table column?"
+  expected_answer: "BR-RSV-007 v3: Tier-3 reserves are reviewed at least every 14 days, effective 2026-07-01 (approved by the Reserving Committee on 2026-06-09, DEC-008). In CLARA the value is the CLR.T_PARAM row RSV_T3_REVIEW_DAYS = 14 (valid from 2026-07-01, CHUB-318). Batch program CLRRS110 reads it via CLRCM040 and writes the next review date to CLR.T_RESERVE.RSV_NEXT_REVIEW_DT."
+  acceptable_variants: []
+  must_include: [["14 days", "14-day", "fortnight"], ["2026-07-01"], ["RSV_T3_REVIEW_DAYS"], ["CLRRS110"], ["RSV_NEXT_REVIEW_DT"]]
+  must_not_include: ["30 days", "21 days"]
+  evidence:
+    - {fact_id: TX032-F007}          # DEC-008 approves BR-RSV-007 v3 effective 2026-07-01 (md)
+    - {fact_id: CL-T_PARAM_seed-F004}  # RSV_T3_REVIEW_DAYS = 14 from 2026-07-01 (code)
+    - {fact_id: CL-CLRRS110-F001}    # CLRRS110 reads RSV_T3_REVIEW_DAYS via CLRCM040, updates RSV_NEXT_REVIEW_DT (code)
+    - {fact_id: VS037-F004}          # ERD: CLR.T_RESERVE has RSV_NEXT_REVIEW_DT (docx image)
+  hops: 3
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-RSV-007@v3", "TABLE:CLR.T_PARAM#param_rows:RSV_T3_REVIEW_DAYS", "PROGRAM:CLRRS110#writes_tables:CLR.T_RESERVE", "CONTRA:C04"]
+  trap: "Manual v6.1 says 30 days (C04); 21 days applied 2024-01-01 to 2026-06-30."
+
+- id: Q-HOP-019
+  category: multi_hop
+  dimensions: [multi_hop, docx, code, connector, temporal, draft_vs_approved]
+  question: "For the customer notice after a fraud referral: what is the deadline and from when, which CLARA program schedules the notices and where does it get the period from, which table does it write, and who committed that program?"
+  expected_answer: "BR-FRD-032 v2: the customer must be told in writing within 10 business days of the referral, from 2026-04-01 (CLR.T_PARAM row FRD_NOTICE_BUS_DAYS = 10, CHUB-206). The batch program CLRFR060 reads FRD_NOTICE_BUS_DAYS from CLR.T_PARAM via CLRCM040 and inserts the notices into CLR.T_FRAUD_NOTIFICATION. It was committed by Keith Barraclough on 2026-03-27 as 'CHUB-206 CLRFR060 customer referral notice scheduler'."
+  acceptable_variants: []
+  must_include: [["10 business days"], ["2026-04-01"], ["CLRFR060"], ["FRD_NOTICE_BUS_DAYS"], ["T_FRAUD_NOTIFICATION"], ["Keith Barraclough"]]
+  must_not_include: ["5 business days"]
+  evidence:
+    - {fact_id: LD016-F008}          # approved BRD: notice within 10 business days (docx)
+    - {fact_id: CL-T_PARAM_seed-F005}  # FRD_NOTICE_BUS_DAYS = 10 from 2026-04-01 (code)
+    - {fact_id: CL-CLRFR060-F001}    # CLRFR060 reads FRD_NOTICE_BUS_DAYS via CLRCM040 (code)
+    - {fact_id: CL-CLRFR060-F002}    # CLRFR060 inserts into CLR.T_FRAUD_NOTIFICATION (code)
+    - {fact_id: CODEMOD-F023}        # commit CM-05 by Keith Barraclough 2026-03-27 (git)
+  hops: 5
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-FRD-032@v2", "TABLE:CLR.T_PARAM#param_rows:FRD_NOTICE_BUS_DAYS", "PROGRAM:CLRFR060#writes_tables:CLR.T_FRAUD_NOTIFICATION", "COMMIT:CM-05", "CONTRA:C03"]
+  trap: "The draft BRD v0.3 (LD015) says 5 business days."
+
+- id: Q-HOP-020
+  category: multi_hop
+  dimensions: [multi_hop, code, docx, md, xml, connector]
+  question: "Which CLARA programs apply the fraud referral threshold rule BR-FRD-031, how does each of them get the threshold, and which table do they write referrals to?"
+  expected_answer: "Two programs. CLRFR030 (online) calls CLRCM040 to read FRD_REFER_THRESH and FRD_REFER_T3_THRESH from CLR.T_PARAM before deciding a referral. CLRFR040 (the batch referral sweep) does not read the parameter table: it compares the score with a hard-coded WS-REFER-THRESHOLD of 070 (the defect behind INC-2026-0518). Both insert referrals into CLR.T_FRAUD_REFERRAL."
+  acceptable_variants: []
+  must_include: [["CLRFR030"], ["CLRFR040"], ["T_PARAM"], ["070", "hard-coded", "hardcoded"], ["T_FRAUD_REFERRAL"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CL-CLRFR030-F001}    # CLRFR030 calls CLRCM040 for FRD_REFER_THRESH and FRD_REFER_T3_THRESH (code)
+    - {fact_id: LD001-F186}          # CLRFR030 creates referrals online, reads threshold from CLR.T_PARAM (docx)
+    - {fact_id: CL-CLRFR040-F001}    # CLRFR040 WS-REFER-THRESHOLD VALUE 070 (code)
+    - {fact_id: TX044-F003}          # CLRFR040 hard-coded instead of CLR.T_PARAM; CLRFR030 correct (md)
+    - {fact_id: CL-CLRFR030-F015}    # CLRFR030 INSERT INTO CLR.T_FRAUD_REFERRAL (code)
+    - {fact_id: CL-CLRFR040-F005}    # CLRFR040 inserts into CLR.T_FRAUD_REFERRAL (code)
+  hops: 4
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-FRD-031#implemented_in", "PROGRAM:CLRFR030", "PROGRAM:CLRFR040#hardcoded_constants", "TABLE:CLR.T_FRAUD_REFERRAL", "CONTRA:C05"]
+  trap: "Variant a CLRFR040 hard-codes 070 (code drift, C05); the fix (variant c) is a later commit."
+
+# ---------------------------------------------------------------------------------------------
+# Tier-3 definition -> referral threshold -> fraud-referral-svc config
+# ---------------------------------------------------------------------------------------------
+
+- id: Q-HOP-021
+  category: multi_hop
+  dimensions: [multi_hop, docx, xlsx, yaml, code, temporal]
+  question: "A Norwegian motor claim has an estimated incurred of NOK 700,000 and no injury. Sentinel scores it 62 on 15 October 2026. Under Claims Hub's fraud-referral-svc configuration, is it referred to SIU, and which config key and value decide it?"
+  expected_answer: "Yes, it is referred. NOK 700,000 is above the NOK 650,000 Tier-3 floor (BR-TRI-003 v3), so it is a Tier-3 claim. Since 2026-10-01 BR-FRD-031 v2 refers Tier-3 claims at a score of 60 or more, configured in fraud-referral-svc as referral.threshold.tier3 = 60 (effective-from 2026-10-01). 62 is at least 60, so it is referred, even though it is below the default threshold of 65."
+  acceptable_variants: []
+  must_include: [["is referred", "will be referred", "would be referred", "gets referred"], ["Tier-3"], ["referral.threshold.tier3", "threshold.tier3", "Tier-3 threshold", "Tier-3 referral threshold"], ["60"], ["650,000", "650000", "650k"]]
+  must_not_include: ["not referred", "not be referred"]
+  evidence:
+    - {fact_id: LD001-F114}          # Tier-3 floor NOK 650,000 (docx)
+    - {fact_id: ST005-F004}          # BR-FRD-031 v2 effective 2026-10-01 (xlsx)
+    - {fact_id: CODEMOD-F003}        # referral.threshold.default 65, tier3 60, effective-from 2026-10-01 (code yaml)
+  hops: 3
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-TRI-003@v3#parameters.tier3_min_nok", "RULE:BR-FRD-031@v2#parameters.tier3_threshold", "SERVICE:fraud-referral-svc#config"]
+  trap: "The approved manual v7.2 still says 65 for all tiers (C01)."
+
+- id: Q-HOP-022
+  category: multi_hop
+  dimensions: [multi_hop, pptx, code, yaml, temporal]
+  question: "A Danish claim with an estimated incurred of DKK 450,000 is scored 63 by Sentinel on 28 September 2026. Does Claims Hub refer it to SIU? Explain which threshold applies and why."
+  expected_answer: "No, it is not referred. DKK 450,000 is above the DKK 430,000 Tier-3 floor, so it is a Tier-3 claim, but the Tier-3 threshold of 60 only applies to claims scored on or after 2026-10-01 (ReferralThresholdPolicy checks the score date against referral.threshold.tier3.effective-from). On 28 September the default threshold of 65 applies, and 63 is below 65. Scored on or after 1 October 2026 it would be referred."
+  acceptable_variants: []
+  must_include: [["not referred", "not be referred", "no referral"], ["430,000", "430000", "430k"], ["65"], ["2026-10-01"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS025-F010}          # Tier-3 floor DKK 430,000 (pptx)
+    - {fact_id: CODEMOD-F089}        # ReferralThresholdPolicy: tier3 threshold only on/after effective date (code)
+    - {fact_id: CODEMOD-F080}        # Tier-3 referral threshold effective from 2026-10-01 (code yaml)
+    - {fact_id: ST045-F001}          # BR-FRD-031 v2: threshold 65, tier3 60 from 2026-10-01 (yaml)
+  hops: 3
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-TRI-003@v3#parameters.tier3_min_dkk", "RULE:BR-FRD-031@v2", "SERVICE:fraud-referral-svc#config"]
+  trap: "Applying the 60 threshold without its 2026-10-01 effective date gives the wrong answer."
+
+# ---------------------------------------------------------------------------------------------
+# Person -> team -> process/service -> system -> interface
+# ---------------------------------------------------------------------------------------------
+
+- id: Q-HOP-023
+  category: multi_hop
+  dimensions: [multi_hop, html, pptx, code, json, xml]
+  question: "Trace the legacy feed into the Claims Hub service owned by Daniel Achebe's squad: which service is it, which Kafka topic does it consume from CLARA, which bridge interface publishes that topic, and which CLARA interface does the bridge take its records from?"
+  expected_answer: "Daniel Achebe leads Hub Squad – Reserve & Finance, which owns reserve-engine. reserve-engine consumes claims.reserve.movement.v1, which is published by the MQ-to-Kafka bridge CLX-IF-049; the bridge republishes the RSVMOVE records of CLX-IF-042, the Reserve Movement Daily Extract from CLARA."
+  acceptable_variants: []
+  must_include: [["reserve-engine"], ["claims.reserve.movement.v1"], ["CLX-IF-049"], ["CLX-IF-042"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST053-F002}          # Hub Squad – Reserve & Finance led by Daniel Achebe (html)
+    - {file: corpus/upload/visuals/VS010_claims_hub_service_map.pptx, locator: {kind: pptx_slide, slide: 5, where: table}, needle: "reserve-engine chub-reserve 4 14 September 2026 Hub Squad – Reserve & Finance Daniel Achebe"}   # service owner (pptx)
+    - {fact_id: CODEMOD-F057}        # reserve-engine consumes claims.reserve.movement.v1 (code)
+    - {file: corpus/upload/structured/ST030_kafka_topic_catalogue.json, locator: {kind: json_pointer, pointer: /topics/3/producer}, needle: "MQ-to-Kafka bridge (CLX-IF-049)"}   # topic producer (json)
+    - {fact_id: ST035-F001}          # CLX-IF-049 dependsOn CLX-IF-042 (xml)
+  hops: 5
+  ask_mode: graph
+  difficulty: hard
+  world_refs: ["TEAM:T28", "SERVICE:reserve-engine#owner_history", "TOPIC:claims.reserve.movement.v1#producer", "INTERFACE:CLX-IF-049#depends_on"]
+
+- id: Q-HOP-024
+  category: multi_hop
+  dimensions: [multi_hop, pptx, docx, code, txt, visual]
+  question: "The subrogation stage still relies on a legacy tracker fed from CLARA. Which interface feeds it, which CLARA program and job run it and when, who owns the interface, and by when is the tracker due to be retired?"
+  expected_answer: "Stage S7 Recovery & Subrogation is supported by the Subrogation Tracker (SUBTRAK). It is fed by CLX-IF-022 SUBTRAK synchronisation (CLARA to Subrogation Tracker, DB2 unload), run by program CLRRC040 as STEP010 of job CLRNRC01, daily at 22:00. The interface is owned by Freya Lindahl. SUBTRAK's retirement target is 2026-12-31 (ADR-022, 'Retire SUBTRAK after Wave 1')."
+  acceptable_variants: []
+  must_include: [["CLX-IF-022"], ["CLRRC040"], ["CLRNRC01"], ["22:00", "22.00", "10 pm", "10pm"], ["Freya Lindahl"], ["2026-12-31"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS001-F026}          # S7 supported by CLARA, Subrogation Tracker, Claims Hub (pptx)
+    - {fact_id: VS009-F016}          # CLX-IF-022 CLARA -> Subrogation Tracker daily 22:00 (pptx)
+    - {fact_id: VS017-F036}          # CLRNRC01 step CLRRC040 drives CLX-IF-022 (pptx image table)
+    - {fact_id: VS033-F018}          # CLX-IF-022 owned by Freya Lindahl (docx image table)
+    - {fact_id: TX005-F007}          # SUBTRAK retirement target 2026-12-31 (txt)
+    - {fact_id: CODEMOD-F178}        # ADR-022 'Retire SUBTRAK after Wave 1' (code md)
+  hops: 4
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["PROCESS:S7#systems", "INTERFACE:CLX-IF-022", "PROGRAM:CLRRC040", "SYSTEM:SYS24#decommission_target", "ADR:ADR-022"]
+
+- id: Q-HOP-025
+  category: multi_hop
+  dimensions: [multi_hop, pptx, code, xlsx, docx]
+  question: "In the Claims Hub service that Linnea Sjöberg's squad builds for fraud referrals, which database and table hold the referrals, and which CLARA table and column is the referral's Sentinel score migrated from?"
+  expected_answer: "Linnea Sjöberg leads Hub Squad – Fraud & Settlement, which owns fraud-referral-svc. Its Referral entity maps table fraud.referral in PostgreSQL database chub_fraud. The migration maps CLR.T_FRAUD_REFERRAL.REF_SCORE directly to fraud.referral.sentinel_score."
+  acceptable_variants: []
+  must_include: [["fraud-referral-svc"], ["chub_fraud"], ["fraud.referral"], ["REF_SCORE"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS010-F014}          # T29 lead Linnea Sjöberg owns fraud-referral-svc (pptx)
+    - {fact_id: CODEMOD-F094}        # Referral entity maps fraud.referral in chub_fraud (code)
+    - {fact_id: ST007-F002}          # REF_SCORE -> fraud.referral.sentinel_score (xlsx)
+  hops: 3
+  ask_mode: graph
+  difficulty: medium
+  world_refs: ["TEAM:T29", "SERVICE:fraud-referral-svc", "TABLE:fraud.referral#columns.sentinel_score"]
+
+- id: Q-HOP-026
+  category: multi_hop
+  dimensions: [multi_hop, yaml, docx, pptx, temporal]
+  question: "From October 2026, a customer-notice deferral of more than 30 days needs whose approval (name and title), and to whom does that person report?"
+  expected_answer: "Under BR-FRD-036 v2 (from 2026-10-01) deferrals beyond 30 days need the Head of Counter-Fraud & SIU, Niall Brannigan. Since the 2025-09-01 re-organisation he reports to Karin Holmberg, the Chief Risk Officer."
+  acceptable_variants: []
+  must_include: [["Niall Brannigan"], ["Karin Holmberg"]]
+  must_not_include: ["Ingrid Ashby", "Ingrid Sorensen", "Rachel Dunmore"]
+  evidence:
+    - {fact_id: ST044-F003}          # beyond 30 days needs Head of Counter-Fraud & SIU from 2026-10-01 (yaml)
+    - {fact_id: LD016-F003}          # Niall Brannigan is Head of Counter-Fraud & SIU (docx)
+    - {fact_id: VS005-F016}          # Niall Brannigan reports to Karin Holmberg (CRO) (pptx)
+    - {fact_id: LD018-F001}          # from 2025-09-01 Counter-Fraud & SIU reports to the CRO Karin Holmberg (docx)
+  hops: 3
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-FRD-036@v2#parameters.head_approval_after_days", "PERSON:P008#reports_to", "PERSON:P007"]
+  trap: "Before the re-org he reported to the Claims Director; under v1 the SIU Investigations Manager (Rachel Dunmore) could also approve deferrals."
+
+- id: Q-HOP-027
+  category: multi_hop
+  dimensions: [multi_hop, docx, pptx, txt, alias, entity_resolution, stale_chart]
+  question: "To whom does the current owner of the subrogation process report, and under what name does that manager appear on the 2024 claims org chart?"
+  expected_answer: "The owner, Freya Lindahl (Head of Recoveries & Subrogation), reports to the Claims Director, Ingrid Ashby. On the 2024 org chart the same person appears as Ingrid Sørensen; her name changed to Ingrid Ashby on 2025-08-23."
+  acceptable_variants: []
+  must_include: [["Ingrid Ashby"], ["Sorensen", "Sørensen"], ["Claims Director"]]
+  must_not_include: ["Mette Dahl"]
+  evidence:
+    - {fact_id: LD018-F010}          # Freya Lindahl owns S7 from 2025-09-01 (docx)
+    - {fact_id: VS005-F006}          # Freya Lindahl reports to Ingrid Ashby (Claims Director) (pptx)
+    - {fact_id: TX014-F002}          # Ingrid Sørensen became Ingrid Ashby on 2025-08-23 (txt)
+    - {fact_id: VS032-F004}          # 2024 chart image: Ingrid Sørensen — Claims Director (docx image)
+  hops: 4
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["PROCESS:S7#owner_history", "PERSON:P013#reports_to", "PERSON:P005#name_history"]
+  trap: "On the March 2024 chart Freya Lindahl reported to Mette Dahl as Senior Recoveries Manager – Nordics."
+
+- id: Q-HOP-028
+  category: multi_hop
+  dimensions: [multi_hop, xml, docx, html, alias, temporal]
+  question: "Which regulatory return does the Technical Provisions Feed CLX-IF-051 feed, when is that return due, and who signs it today?"
+  expected_answer: "CLX-IF-051 feeds the NISA-TP2 Quarterly Technical Provisions Return, due 35 calendar days after quarter end and signed by the CFO, which today is Priya Raman (CFO since 2025-07-01; Gareth Whitcombe was CFO until 2025-06-30)."
+  acceptable_variants: []
+  must_include: [["NISA-TP2", "TP2"], ["35"], ["Priya Raman"]]
+  must_not_include: ["Gareth Whitcombe"]
+  evidence:
+    - {fact_id: ST035-F002}          # CLX-IF-051 feeds NISA-TP2 (xml)
+    - {fact_id: LD013-F029}          # TP2 due 35 days after quarter end, signed by the CFO (docx)
+    - {fact_id: TX074-F010}          # Priya Raman CFO from 2025-07-01, succeeding Gareth Whitcombe (html)
+  hops: 3
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["INTERFACE:CLX-IF-051#feeds_reports", "REPORT:NISA-TP2#due", "REPORT:NISA-TP2#signed_by_role", "PERSON:P001"]
+  trap: "Gareth Whitcombe was CFO until 2025-06-30 (two-CFO trap)."
+
+# ---------------------------------------------------------------------------------------------
+# Decisions and ADR chains
+# ---------------------------------------------------------------------------------------------
+
+- id: Q-HOP-029
+  category: multi_hop
+  dimensions: [multi_hop, pdf, code, txt, md]
+  question: "Internal audit finding IA-25-07: which program does it concern, is it being fixed in CLARA, and how and from when will the target platform close it?"
+  expected_answer: "IA-25-07 concerns CLRGL090, whose year-end revaluation updates CLR.T_RESERVE without writing CLR.T_RESERVE_MOVEMENT, leaving no audit trail. It is not fixed in CLARA: CHUB-284 was closed as Won't Do and CLRGL090 stays unchanged. Instead, per DEC-005 and ADR-028, the reserve-engine revaluation run replaces CLRGL090 from Wave 2 (cut-over 2027-02-15) and posts every revaluation as an RV movement using Group Ledger month-end rates."
+  acceptable_variants: []
+  must_include: [["CLRGL090"], ["Won't Do", "Wont Do", "not fixed", "not be fixed", "won't be fixed", "unchanged", "no fix"], ["ADR-028", "DEC-005"], ["RV"], ["Wave 2", "2027-02-15"]]
+  must_not_include: ["2027-01-18"]
+  evidence:
+    - {fact_id: LD024-F005}          # IA-25-07: CLRGL090 updates without movement (pdf)
+    - {fact_id: TX003-F011}          # CHUB-284 closed Won't Do in CLARA; addressed in reserve-engine (txt)
+    - {fact_id: CODEMOD-F196}        # ADR-028 reserve-engine revaluation instead of CLRGL090 from Wave 2 (code md)
+    - {fact_id: CODEMOD-F077}        # reserve-engine revaluation config movement-type RV (code yaml)
+    - {fact_id: TX038-F019}          # DEC-011 Wave 2 cut-over 2027-02-15 (md)
+  hops: 5
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["PROGRAM:CLRGL090#writes_tables:CLR.T_RESERVE", "DECISION:DEC-005", "ADR:ADR-028", "DECISION:DEC-011", "CONTRA:C15"]
+  trap: "The Wave 2 date was misstated as 2027-01-18 in the steering meeting before being corrected (C15)."
+
+- id: Q-HOP-030
+  category: multi_hop
+  dimensions: [multi_hop, code, md, yaml]
+  question: "Why was change data capture dropped for synchronising CLARA reserves to Claims Hub, what replaced it (decision and date), and when did the replacement go live under which ticket?"
+  expected_answer: "ADR-005 proposed CDC on CLR.T_RESERVE_MOVEMENT, but it was superseded by ADR-017 because CLRGL090's updates bypass the movement table. The Design Authority decision DEC-017 of 2025-10-21 replaced CDC with the CLX-IF-049 batch-to-event bridge (ADR-012, ADR-017). CLX-IF-049 went live on 2025-12-12, delivered under CHUB-188."
+  acceptable_variants: []
+  must_include: [["CLRGL090"], ["CLX-IF-049"], ["2025-10-21"], ["2025-12-12"], ["CHUB-188"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CODEMOD-F127}        # ADR-005 superseded by ADR-017 because CLRGL090 bypasses movement table (code md)
+    - {fact_id: TX038-F006}          # DEC-017 (2025-10-21) replace CDC with CLX-IF-049 bridge (md)
+    - {fact_id: TX047-F001}          # CLX-IF-049 live 2025-12-12 (md)
+    - {fact_id: ST048-F005}          # CLX-IF-049 delivered under CHUB-188 (yaml)
+  hops: 4
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["ADR:ADR-005#superseded_by", "ADR:ADR-017", "DECISION:DEC-017", "INTERFACE:CLX-IF-049#since", "TICKET:CHUB-188"]
+
+- id: Q-HOP-031
+  category: multi_hop
+  dimensions: [multi_hop, xlsx, md, code, temporal]
+  question: "Trace the Tier-3 fraud referral threshold from approval to code: who approved the rule version and when, which commit (author, date, ticket) put it into Claims Hub and under which config key, and which ticket added the matching CLARA parameter row?"
+  expected_answer: "BR-FRD-031 v2 was approved on 2026-09-17 by Niall Brannigan and Ingrid Ashby (fraud rules workshop). Linnea Sjöberg committed 'CHUB-388 fraud-referral-svc: Tier-3 referral threshold 60 from 2026-10-01' on 2026-09-29, setting referral.threshold.tier3 = 60 with effective-from 2026-10-01 (the default stays 65). In CLARA the CLR.T_PARAM row FRD_REFER_T3_THRESH = 60, valid from 2026-10-01, was added under CHUB-395."
+  acceptable_variants: []
+  must_include: [["2026-09-17"], ["Niall Brannigan"], ["CHUB-388"], ["Linnea"], ["2026-09-29"], ["threshold.tier3", "tier3 threshold", "Tier-3 threshold"], ["FRD_REFER_T3_THRESH"], ["CHUB-395"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: ST005-F001}          # approved 2026-09-17 by Niall Brannigan and Ingrid Ashby (xlsx)
+    - {fact_id: TX031-F012}          # same approval recorded in workshop minutes (md)
+    - {fact_id: CODEMOD-F018}        # commit CM-08 by Linnea Sjöberg 2026-09-29 (git)
+    - {fact_id: CODEMOD-F003}        # referral.threshold.tier3 60, effective-from 2026-10-01 (code yaml)
+    - {fact_id: CL-T_PARAM_seed-F001}  # FRD_REFER_T3_THRESH = 60 from 2026-10-01 (CHUB-395) (code)
+  hops: 4
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["RULE:BR-FRD-031@v2#approved_by", "COMMIT:CM-08", "SERVICE:fraud-referral-svc#config", "TABLE:CLR.T_PARAM#param_rows:FRD_REFER_T3_THRESH"]
+  trap: "CHUB-388 (Claims Hub) and CHUB-395 (CLARA T_PARAM row) are different tickets."

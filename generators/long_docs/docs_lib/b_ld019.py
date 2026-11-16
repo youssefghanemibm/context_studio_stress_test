@@ -90,7 +90,7 @@ def build() -> Doc:
     doc.table(["Document", "Reference"],
               [["Claims Hub Target Architecture", "v1.0"], ["Data Migration Strategy", "approved"],
                ["Fraud referral BRD (NISA Circular 2026/04)", "in preparation"],
-               ["Architecture decision records", "ADR-001 to ADR-030"],
+               ["Architecture decision records", H.adr_ranges(ctx)],
                ["Release and environment plan", "maintained by the Technology Delivery Office"]],
               widths=[9.0, 7.6], caption="Reference documents")
     doc.ps(pr.paras(["governance"], 1))

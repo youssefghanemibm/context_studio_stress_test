@@ -203,8 +203,9 @@ def build_brd(fid: str, draft: bool) -> Doc:
     doc.h(1, "3 Current state", page_break=True)
     r012 = W.rules["BR-FRD-012"]["versions"][1]
     r019 = W.rules["BR-FRD-019"]["versions"][1]
-    doc.p(f"Today a claim is referred to SIU under BR-FRD-012 v2: {r012['text']} The threshold is read from CLR.T_PARAM "
-          f"by the online referral program CLRFR030 and the nightly sweep CLRFR040 (job CLRNFR01).",
+    doc.p(f"Today a claim is referred to SIU under BR-FRD-012 v2: {r012['text']} The threshold is held in CLR.T_PARAM "
+          f"(key FRD_REFER_THRESH) and read by the online referral program CLRFR030; the nightly sweep CLRFR040 "
+          f"(job CLRNFR01) also creates referrals.",
           facts=[F("general", "Before 2026-04-01 the referral threshold was 70 (BR-FRD-012 v2).", "score is 70 or more",
                    "RULE:BR-FRD-012@v2#parameters.threshold")])
     doc.p(f"Automated declines are made under BR-FRD-019 v2: {r019['text'].split(' Withdrawn')[0]} The sweep runs in job CLRNFR99.")
@@ -427,9 +428,9 @@ def build_brd(fid: str, draft: bool) -> Doc:
     doc.table(["#", "Measure", "Frequency"], [[str(i), m, "Daily" if i < 8 else "Monthly"] for i, m in enumerate(mi, 1)],
               widths=[1.2, 11.4, 4.0], caption="MI measures")
     doc.h(1, "Appendix F – Current referral table" if draft else "Appendix E – Current referral table")
-    cols = [c for c in W.tables["CLR.T_FRAUD_REFERRAL"]["columns"] if "CUSTOMER_NOTICE" not in c["name"] and "DEFER" not in c["name"]]
+    cols = W.tables["CLR.T_FRAUD_REFERRAL"]["columns"]   # no column history in the world: list tables.yaml (N22)
     doc.table(["Column", "Type", "Description"],
-              [[c["name"], c["type"] + (f"({c['length']})" if c.get("length") else ""), ctx.a(c["description"])] for c in cols],
+              [[c["name"], c["type"] + (f"({c['length']})" if c.get("length") else ""), H.col_desc(ctx, c["description"])] for c in cols],
               widths=[4.6, 2.6, 9.4], font_size=8.2, caption="CLR.T_FRAUD_REFERRAL (current columns)")
     doc.h(1, "Appendix G – Glossary" if draft else "Appendix F – Glossary")
     terms = [(t, ctx.a(m)) for t, m in C.glossary_terms(["G-002", "G-009", "G-012", "G-021", "G-008"])]

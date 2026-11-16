@@ -2,7 +2,7 @@ CORVANE MUTUAL - PROGRAMME SKERRY
 Stand-up transcript - Hub Squad: Fraud & Settlement
 --------------------------------------------------------------------------------
 Ref: SQD-FS-SU-2026-10-06    Date: Tuesday 6 October 2026    Start: 09:30 UK time    Length: about 15 minutes
-Team: Hub Squad - Fraud & Settlement (fraud-referral-svc, settlement-svc, payment-orchestrator)
+Team: Hub Squad - Fraud & Settlement (fraud-referral-svc, settlement-svc, payment-orchestrator, recovery-svc)
 Transcribed by: automatic transcription; tidied by Hannah Lyle (Business Analyst – Claims)
 Classification: Internal
 

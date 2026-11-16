@@ -194,6 +194,6 @@ def build(W, out_dir):
     hist = CM.history_rows(D, [("1.0", "Plan baseline after rehearsal 2"), ("1.1", ""), ("1.2", "")], spacing=(6, 15))
     CM.doc_control(D, hist, [("P004", "Approved"), ("P017", "Approved"), ("P032", "Approved")], status="Approved",
                    reviewers=[W.name_of(x, d) for x in ("P051", "P016", "P011")],
-                   distribution="Cut-over team, Claims Hub squads, CLARA platform team, Claims Operations UK",
+                   distribution=f"Cut-over team, Claims Hub squads, CLARA platform team, {W.team_name('T02', d)}",
                    purpose="Plan for the Wave 1 (UK motor) cut-over weekend.")
     return D

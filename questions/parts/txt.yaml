@@ -1,0 +1,513 @@
+# Question part: TXT group (text family TX001-TX075: transcripts, emails, minutes, decision log,
+# Jira export TX070, chat export TX071, email thread TX072, NISA letter TX073, newsletter TX074).
+# Every expected answer was checked against the text at each evidence locator (harness/extract.py)
+# and against the world model (world.worldlib as-of helpers).
+# Jira questions are anchored to the TX070 export date (2026-11-11): in the world, CHUB-298, CHUB-415
+# and CHUB-421 became Done on 2026-11-12 (code variant c, commit CM-09).
+# TX070 and ST024 are two snapshots of the same Jira project on the same date and agree ticket by ticket.
+
+- id: Q-TXT-001
+  category: contradiction
+  dimensions: [txt, contradiction, temporal, long_doc]
+  question: "At the Programme Skerry steering committee on 8 October 2026, what Wave 2 cut-over date was confirmed?"
+  expected_answer: "15 February 2027 (2027-02-15), recorded as DEC-011. The 18 January 2027 date shown earlier in the meeting came from an old draft plan and was declared void."
+  acceptable_variants: ["2027-02-15", "Monday 15 February 2027"]
+  must_include: [["2027-02-15", "15 February 2027"]]
+  must_not_include: ["2027-01-18", "18 January"]
+  evidence:
+    - {fact_id: TX001-F008}
+    - {fact_id: TX001-F009}
+    - {fact_id: TX001-F007}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["DECISION:DEC-011", "CONTRA:C15", "WAVE:MW-2"]
+  trap: "At 00:41 Arjun Kesavan reads 18 January 2027 off an old draft slide; Aisha Siddiqui corrects it at 00:44. Retrieval of the 00:41 chunk alone gives the void date."
+
+- id: Q-TXT-002
+  category: contradiction
+  dimensions: [txt, contradiction, long_doc]
+  question: "In the transcript of the 8 October 2026 steering committee, who stated the wrong Wave 2 cut-over date, and who corrected it?"
+  expected_answer: "Arjun Kesavan (IBM Programme Delivery Lead) read out 18 January 2027 from an old draft slide at about 00:41; Aisha Siddiqui (Head of Claims Hub Product) corrected him at about 00:44, saying Wave 2 is 15 February 2027 and the January date is void."
+  acceptable_variants: []
+  must_include: [["Arjun Kesavan", "Kesavan"], ["Aisha Siddiqui", "Siddiqui"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX001-F007}
+    - {fact_id: TX001-F008}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["DECISION:DEC-011", "CONTRA:C15"]
+  trap: "Priya Raman queries the date at 00:41 and Duncan Ferrier restates the confirmed date for the record at 00:44; neither made the correction."
+
+- id: Q-TXT-003
+  category: contradiction
+  dimensions: [txt, contradiction, long_doc]
+  question: "According to the reserving design review held on 5 March 2026, which CLARA programs write the reserve table CLR.T_RESERVE, and who supplied the complete list?"
+  expected_answer: "Eight programs: CLRRS010, CLRRS020, CLRRS110, CLRRS130, CLRFN030, CLRST040, CLRRC050 and CLRGL090. Daniel Achebe first said only the four CLRRS programs write it; Keith Barraclough corrected him by adding CLRFN030, CLRST040, CLRRC050 and CLRGL090, and Gordon Sproat confirmed the eight against the CRUD matrix."
+  acceptable_variants: []
+  must_include: [["CLRRS010"], ["CLRRS020"], ["CLRRS110"], ["CLRRS130"], ["CLRFN030"], ["CLRST040"], ["CLRRC050"], ["CLRGL090"], ["Keith Barraclough", "Barraclough"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX003-F003}
+    - {fact_id: TX003-F004}
+    - {fact_id: TX003-F005}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["TABLE:CLR.T_RESERVE#writers", "CONTRA:C07"]
+  trap: "At 00:38 Daniel Achebe says only the CLRRS programs (CLRRS010/020/110/130) write the table; the correction at 00:46 adds four more. CLRRS150 writes only CLR.T_RESERVE_MOVEMENT."
+
+- id: Q-TXT-004
+  category: contradiction
+  dimensions: [txt, md, contradiction, temporal]
+  question: "As of November 2026, at what Sentinel score is a Tier-3 claim referred to SIU?"
+  expected_answer: "At a Sentinel score of 60 or more. From 1 October 2026 BR-FRD-031 v2 (decision DEC-014 at the Fraud Rules Workshop on 17 September 2026) refers Tier-3 claims at 60 or more, while the general threshold for other claims stays at 65. The Claims Handling Manual v7.2 (approved 30 June 2026) still says 65 for all claims, but that predates the decision and is superseded for Tier-3."
+  acceptable_variants: []
+  must_include: [["60"]]
+  must_not_include: ["65 for all claims", "65 for all tiers"]
+  evidence:
+    - {fact_id: TX002-F014}
+    - {fact_id: TX031-F013}
+    - {fact_id: TX038-F014}
+    - {fact_id: LD001-F183}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-FRD-031@v2#parameters.tier3_threshold", "DECISION:DEC-014", "CONTRA:C01"]
+  trap: "LD001 (manual v7.2, approved 2026-06-30) §28.3 says 65 for all tiers; the newer workshop decision wins."
+
+- id: Q-TXT-005
+  category: temporal
+  dimensions: [txt, md, temporal]
+  question: "A Tier-3 claim was scored by Sentinel on 15 September 2026. What referral threshold applied to it?"
+  expected_answer: "65 or more. On 15 September 2026 BR-FRD-031 v1 was in force (1 April to 30 September 2026), referring every claim, Tier-3 included, at a Sentinel score of 65 or more. The separate Tier-3 threshold of 60 only took effect on 1 October 2026."
+  acceptable_variants: []
+  must_include: [["65"]]
+  must_not_include: ["60 or more"]
+  evidence:
+    - {fact_id: TX031-F004}
+    - {fact_id: TX002-F014}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-FRD-031@v1#parameters.threshold", "RULE:BR-FRD-031@v2"]
+  trap: "The Tier-3 threshold of 60 was decided on 2026-09-17 but only applies from 2026-10-01."
+
+- id: Q-TXT-006
+  category: needle_long_range
+  dimensions: [txt, long_doc, needle]
+  question: "At the September 2026 Fraud Rules Workshop, what increase in referrals did Oskar Lindgren estimate if the 60 threshold were applied to all claims, and what happened to that option?"
+  expected_answer: "About 41% more referrals on the current run-rate. The option of lowering the general threshold to 60 for all claims was rejected (DEC-016), because SIU could not absorb the volume within the 3-business-day triage standard and too many genuine customers would get additional-checks letters."
+  acceptable_variants: []
+  must_include: [["41%"], ["reject", "turned down", "off the table", "ruled out", "not adopted", "dropped"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX002-F009}
+    - {fact_id: TX002-F010}
+    - {fact_id: TX031-F015}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["DECISION:DEC-016#impact_estimate"]
+  trap: "The 41% estimate exists only in the TX002 transcript at 00:55:02; the minutes (TX031) and decision log (TX038) record DEC-016 without the number. In TX002 the estimate (00:55:02) and the rejection (00:55:30) sit about 28 seconds apart."
+
+- id: Q-TXT-007
+  category: multi_hop
+  dimensions: [txt, md, html, multi_hop]
+  question: "Since 1 October 2026, who has to approve deferring the customer notice on a fraud referral by 45 days, and who must be told about it?"
+  expected_answer: "The Head of Counter-Fraud & SIU, Niall Brannigan, must approve it, because customer-notice deferrals beyond 30 days need that role's approval (DEC-015, BR-FRD-036 v2, from 1 October 2026). Compliance must be notified the same day. Deferrals can run to at most 60 days, so 45 days is allowed."
+  acceptable_variants: []
+  must_include: [["Niall Brannigan", "Brannigan"], ["Compliance"], ["same day"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX002-F015}
+    - {file: corpus/upload/text/TX002_fraud_rules_workshop_2026_09_17_transcript.txt, locator: {kind: text_lines, start: 685, end: 685}, needle: "the 60-day maximum stays, and anything over 30 days goes to Niall"}
+    - {fact_id: TX031-F014}
+    - {fact_id: TX074-F004}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["DECISION:DEC-015", "RULE:BR-FRD-036@v2", "PERSON:P008#titles"]
+  trap: "The minutes (TX031) and decision log name only the role; the transcript names Niall directly, and TX074 confirms he holds the role from 2025-09-01."
+
+- id: Q-TXT-008
+  category: structured_lookup
+  dimensions: [json, scale]
+  question: "In the Jira export of 11 November 2026, what status does CHUB-298 have and who is it assigned to?"
+  expected_answer: "In Review, assigned to Keith Barraclough (CHUB-298: CLRFR040 batch sweep hard-codes referral threshold 070; fix version R2026.11)."
+  acceptable_variants: []
+  must_include: [["In Review"], ["Keith Barraclough", "Barraclough"]]
+  must_not_include: ["status done", "status is done"]
+  evidence:
+    - {fact_id: TX070-F001}
+    - {fact_id: TX070-F002}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: ["TICKET:CHUB-298#status_history"]
+  trap: "The ticket became Done on 2026-11-12 (follow-up commit CM-09 in code variant c), after the export; the reporter is Ruth Okafor, not the assignee."
+
+- id: Q-TXT-009
+  category: temporal
+  dimensions: [json, md, temporal]
+  question: "What status did Jira ticket CHUB-298 have on 25 October 2026, and on what date did it move to In Review?"
+  expected_answer: "In Progress: Keith Barraclough moved it from Open to In Progress on 19 October 2026. It moved to In Review on 4 November 2026."
+  acceptable_variants: []
+  must_include: [["In Progress"], ["2026-11-04", "4 November 2026"]]
+  must_not_include: []
+  evidence:
+    - {file: corpus/upload/text/TX070_jira_export_chub_2000.json, locator: {kind: json_pointer, pointer: /issues/197/changelog/histories/0/created}, needle: "2026-10-19"}
+    - {file: corpus/upload/text/TX070_jira_export_chub_2000.json, locator: {kind: json_pointer, pointer: /issues/197/changelog/histories/0/items/0/toString}, needle: "In Progress"}
+    - {file: corpus/upload/text/TX070_jira_export_chub_2000.json, locator: {kind: json_pointer, pointer: /issues/197/changelog/histories/1/created}, needle: "2026-11-04"}
+    - {fact_id: TX071-F013}
+    - {fact_id: TX039-F003}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["TICKET:CHUB-298#status_history"]
+  trap: "The export's current status (In Review) is not the answer for 25 October; the history is in the changelog, the chat and the 23 October weekly status."
+
+- id: Q-TXT-010
+  category: multi_hop
+  dimensions: [md, json, multi_hop]
+  question: "Which three changes did the CAB approve for release R2026.11 on 11 November 2026, and what status did each ticket have in the Jira export taken the same day?"
+  expected_answer: "CHUB-298 (CLRFR040 batch sweep referral threshold fix) was In Review; CHUB-415 (CODEOWNERS hand-over of recovery-svc and document-svc to the new recoveries and documents squad) was Open; CHUB-421 (notification-svc event when a fraud-referral notice is sent) was In Progress."
+  acceptable_variants: []
+  must_include: [["CHUB-298"], ["CHUB-415"], ["CHUB-421"], ["In Review"], ["Open"], ["In Progress"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX033-F007}
+    - {fact_id: TX070-F001}
+    - {fact_id: TX070-F010}
+    - {fact_id: TX070-F011}
+    - {file: corpus/upload/text/TX033_cab_minutes_2026_11_11.md, locator: {kind: text_lines, start: 72, end: 74}, needle: "status at CAB: In Review"}
+  hops: 4
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["DECISION:DEC-012", "TICKET:CHUB-298", "TICKET:CHUB-415", "TICKET:CHUB-421"]
+  trap: "The R2026.11 fix version holds many more tickets in the export; only these three are in the CAB change list. All three became Done on 2026-11-12, after the export. The CAB minutes' change-record list carries the same statuses (status at CAB), so the export is a confirmation rather than the only source."
+
+- id: Q-TXT-011
+  category: aggregation_count
+  dimensions: [json, aggregation, scale]
+  question: "How many tickets in the 2,000-ticket Claims Hub Jira export of 11 November 2026 have the status 'Open', and which are they?"
+  expected_answer: "Only one: CHUB-415 (CODEOWNERS: hand recovery-svc and document-svc to the new recoveries and documents squad), assigned to Tariq Hussain."
+  acceptable_variants: []
+  must_include: [["CHUB-415"], ["only one", "one ticket", "1 ticket", "single", "only 1", "exactly one", "exactly 1", "just one", "one open", "1 open"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX070-F017}
+    - {fact_id: TX070-F010}
+  hops: 2
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["TICKET:CHUB-415#status_history"]
+  trap: "'Open' is distinct from 'To Do' (90 tickets) and 'In Progress' (100) in this export; a semantic match on open-ish statuses overcounts. ST024 also has exactly one Open ticket (CHUB-415)."
+
+- id: Q-TXT-012
+  category: contradiction
+  dimensions: [json, md, contradiction]
+  question: "What time does the CLX-IF-043 GL reserve journal feed run, and which decision and Jira ticket set that time?"
+  expected_answer: "Daily at 03:45. It was moved from 03:00 under decision DEC-003 (INC-2025-0412 bridge, 28 April 2025) and implemented by CHUB-143, resolved on 9 May 2025. The 03:00 time in the March 2025 target architecture is out of date."
+  acceptable_variants: []
+  must_include: [["03:45", "3:45"], ["CHUB-143"], ["DEC-003"]]
+  must_not_include: ["daily 03:00", "daily at 03:00", "runs at 03:00"]
+  evidence:
+    - {fact_id: TX070-F004}
+    - {fact_id: TX070-F005}
+    - {fact_id: TX038-F003}
+    - {fact_id: LD013-F020}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["INTERFACE:CLX-IF-043#schedule_history", "CONTRA:C12", "DECISION:DEC-003", "TICKET:CHUB-143"]
+  trap: "LD013 (target architecture, 2025-03-03) says daily 03:00."
+
+- id: Q-TXT-013
+  category: multi_hop
+  dimensions: [json, txt, multi_hop]
+  question: "In the Jira export, which ticket is linked as the cause of CHUB-142, and what had that ticket changed?"
+  expected_answer: "CHUB-138 (link type Problem/Incident: CHUB-142 'is caused by' CHUB-138). CHUB-138 widened the RSVMOVE field RM-AMOUNT to S9(11)V99 for Nordic large losses; deployed on 25 April 2025 without a consumer impact assessment, it broke the GL journal feed (INC-2025-0412), so CHUB-142 reverted the width and added RM-REC-VERSION."
+  acceptable_variants: []
+  must_include: [["CHUB-138"], ["RM-AMOUNT"], ["S9(11)V99", "widen"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX070-F013}
+    - {fact_id: TX070-F044}
+    - {fact_id: TX004-F003}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["TICKET:CHUB-142#links", "TICKET:CHUB-138", "INCIDENT:INC-2025-0412"]
+  trap: "CHUB-143 also links to CHUB-142, but with 'relates to', not as the cause."
+
+- id: Q-TXT-014
+  category: multi_hop
+  dimensions: [json, txt, md, multi_hop]
+  question: "Why was Jira ticket CHUB-284 closed as Won't Do, and where is the underlying audit finding being fixed instead?"
+  expected_answer: "CHUB-284 tracked internal audit finding IA-25-07: CLRGL090's year-end currency revaluation updates CLR.T_RESERVE without writing a reserve movement. At the reserving design review on 5 March 2026 (DEC-005) it was decided to leave CLRGL090 unchanged in CLARA and close the finding in the target instead: reserve-engine records currency revaluations as RV movements. Keith Barraclough then closed CHUB-284 as Won't Do."
+  acceptable_variants: []
+  must_include: [["IA-25-07"], ["reserve-engine"], ["RV", "movement", "DEC-005"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX070-F140}
+    - {fact_id: TX070-F141}
+    - {fact_id: TX003-F010}
+    - {fact_id: TX003-F011}
+    - {fact_id: TX038-F009}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["TICKET:CHUB-284", "DECISION:DEC-005"]
+
+- id: Q-TXT-015
+  category: terminology
+  dimensions: [json, terminology]
+  question: "In the #skerry-programme chat, people write 'sub-ro' and 'the ledger'. What do these terms mean?"
+  expected_answer: "'sub-ro' is subrogation (recovering claim costs from a responsible third party, e.g. the open sub-ro cases in SUBTRAK), and 'the ledger' is CLARA, the legacy Claims Ledger And Reserve Application mainframe system."
+  acceptable_variants: []
+  must_include: [["subrogation"], ["CLARA"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX071-F010}
+    - {fact_id: TX071-F011}
+    - {fact_id: TX042-F001}
+  hops: 2
+  ask_mode: chat
+  difficulty: easy
+  world_refs: ["GLOSSARY:G-004", "GLOSSARY:G-020"]
+  trap: "'the ledger' could be mistaken for the Group general ledger (GL feeds such as CLX-IF-043)."
+
+- id: Q-TXT-016
+  category: structured_lookup
+  dimensions: [json, temporal]
+  question: "According to the programme chat channel, on what date was the Q3 2026 NISA-FR1 return submitted, and how many referrals did it report?"
+  expected_answer: "It was submitted on 28 October 2026, two days ahead of the 30 October 2026 deadline, and reported 1,530 referrals for the quarter."
+  acceptable_variants: []
+  must_include: [["2026-10-28", "28 October 2026"], ["1,530", "1530"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX071-F012}
+    - {file: corpus/upload/text/TX071_chat_export_programme_channel.json, locator: {kind: json_pointer, pointer: /messages/2831/datetime}, needle: "2026-10-28"}
+    - {fact_id: TX020-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["REPORT:NISA-FR1#submissions.2026Q3"]
+  trap: "The message says 'submitted today'; the date is only in the message's datetime field. 30 October is the deadline, not the submission date."
+
+- id: Q-TXT-017
+  category: entity_resolution
+  dimensions: [txt, alias, rename, temporal]
+  question: "What is the Claims Director's current email address, and what address did she use before August 2025?"
+  expected_answer: "Current: ingrid.ashby@corvane-mutual.example, in use from 23 August 2025, when Ingrid Sørensen married and became Ingrid Ashby. Before that: ingrid.sorensen@corvane-mutual.example."
+  acceptable_variants: []
+  must_include: [["ingrid.ashby@corvane-mutual.example"], ["ingrid.sorensen@corvane-mutual.example"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX014-F001}
+    - {fact_id: TX014-F003}
+    - {fact_id: TX014-F004}
+  hops: 2
+  ask_mode: chat
+  difficulty: easy
+  world_refs: ["PERSON:P005#email_history", "PERSON:P005#name_history"]
+  trap: "Older files (TX007, VS004) still show the Sørensen address as her live address."
+
+- id: Q-TXT-018
+  category: multi_hop
+  dimensions: [md, html, multi_hop, contradiction, alias]
+  question: "According to the programme decision log, who took decision DEC-020 approving the v3 authority limits effective 1 September 2025, and what payment authority does a Team Leader have under BR-STL-002 v3?"
+  expected_answer: "DEC-020 (12 August 2025) was taken by Ingrid Sørensen, Claims Director (now Ingrid Ashby), and Priya Raman, Chief Financial Officer. Under BR-STL-002 v3 a Team Leader can authorise payments up to £75,000 (a Claims Handler up to £15,000)."
+  acceptable_variants: []
+  must_include: [["Sørensen", "Sorensen", "Ashby"], ["Priya Raman", "Raman"], ["75,000", "75000", "75k"]]
+  must_not_include: ["50,000"]
+  evidence:
+    - {file: corpus/upload/text/TX038_programme_decision_log.md, locator: {kind: text_lines, start: 88, end: 88}, needle: "Ingrid Sørensen (Claims Director); Priya Raman (Chief Financial Officer)"}
+    - {fact_id: TX038-F004}
+    - {fact_id: TX074-F012}
+    - {fact_id: VS022-F001}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["DECISION:DEC-020", "RULE:BR-STL-002@v3#parameters.team_leader", "CONTRA:C16"]
+  trap: "VS022 (June 2025 RACI) shows Team Leader payment authority £50,000; the decision log names the Claims Director by her name on the decision date (Sørensen). TX032/ST005 record BR-RSV-003 v3 (reserve limits) as approved by Sebastian Moreau-Clarke and Ingrid Sørensen."
+
+- id: Q-TXT-019
+  category: entity_resolution
+  dimensions: [txt, json, html, alias, temporal]
+  question: "Hamish Gilchrist said he would brief 'the CFO' on the INC-2025-0412 bridge call in April 2025 and again in the Wave 1 duplicate-payments email thread in September 2026. Who was the CFO on each occasion?"
+  expected_answer: "April 2025: Gareth Whitcombe (CFO until 30 June 2025). September 2026: Priya Raman, who became CFO on 1 July 2025."
+  acceptable_variants: []
+  must_include: [["Gareth Whitcombe", "Whitcombe"], ["Priya Raman", "Raman"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX004-F007}
+    - {fact_id: TX072-F006}
+    - {fact_id: TX074-F010}
+  hops: 3
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["PERSON:P002#role_aliases", "PERSON:P001#role_aliases"]
+  trap: "The September 2026 email never names the CFO; the holder must be resolved by date."
+
+- id: Q-TXT-020
+  category: entity_resolution
+  dimensions: [txt, alias]
+  question: "An email approving the £1.8m Wave 2 contingency drawdown is signed only 'PR'. Who is PR, and why did the drawdown need her approval?"
+  expected_answer: "PR is Priya Raman, the Chief Financial Officer. Programme budget drawdowns above £500,000 need the CFO's approval; she approved the £1.8m drawdown at the 8 October 2026 steering committee (DEC-010), where the chair addressed her as 'PR, as the CFO', and confirmed it by email."
+  acceptable_variants: []
+  must_include: [["Priya Raman"], ["500,000", "500000", "500k", "half a million"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX013-F001}
+    - {fact_id: TX013-F002}
+    - {fact_id: TX001-F014}
+  hops: 2
+  ask_mode: chat
+  difficulty: easy
+  world_refs: ["DECISION:DEC-010", "PERSON:P001#aliases"]
+  trap: "'the CFO' meant Gareth Whitcombe before 2025-07-01."
+
+- id: Q-TXT-021
+  category: temporal
+  dimensions: [html, temporal]
+  question: "After the 1 September 2025 re-organisation, who does Niall Brannigan report to, and what happened to his unit?"
+  expected_answer: "He became Head of Counter-Fraud & SIU, reporting to Karin Holmberg, the Chief Risk Officer: the Special Investigations Unit was renamed Counter-Fraud & SIU and moved from Claims into Risk & Compliance."
+  acceptable_variants: []
+  must_include: [["Karin Holmberg", "Holmberg"], ["Risk & Compliance", "Risk and Compliance"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX074-F004}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: ["PERSON:P008#reports_to", "PERSON:P008#titles"]
+  trap: "Before 2025-09-01 SIU sat in Claims under the Claims Director; the stale 2024 org chart still shows that."
+
+- id: Q-TXT-022
+  category: rename
+  dimensions: [html, json, rename]
+  question: "What is the system formerly called Adjuster Extranet called now, since when, and under which ticket was it renamed?"
+  expected_answer: "Assessor Portal, from 1 September 2025; the rename was delivered under CHUB-157 (status Done)."
+  acceptable_variants: []
+  must_include: [["Assessor Portal"], ["2025-09-01", "1 September 2025"], ["CHUB-157"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX074-F009}
+    - {fact_id: TX070-F061}
+  hops: 2
+  ask_mode: chat
+  difficulty: easy
+  world_refs: ["SYSTEM:SYS17#renames"]
+
+- id: Q-TXT-023
+  category: rename
+  dimensions: [txt, json, rename]
+  question: "When was DOCSTOR renamed Evidence Vault, and which Claims Hub service was found still pointing at the old DOCSTOR address?"
+  expected_answer: "On 3 November 2025 (tracked under CHUB-276), the same day as the Claims Hub MVP go-live. document-svc still had the DOCSTOR base URL in its configuration, raised as bug CHUB-219."
+  acceptable_variants: []
+  must_include: [["2025-11-03", "3 November 2025"], ["document-svc"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX018-F001}
+    - {fact_id: TX018-F003}
+    - {fact_id: TX070-F109}
+    - {fact_id: TX070-F134}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["SYSTEM:SYS05#renames", "TICKET:CHUB-219", "TICKET:CHUB-276"]
+
+- id: Q-TXT-024
+  category: multi_hop
+  dimensions: [html, txt, multi_hop]
+  question: "In NISA's letter on NISA-FR1 submission dates, when was Corvane's first return due and who signed the letter? How did the actual submission compare with that deadline?"
+  expected_answer: "The first return (2026Q2) was due by 30 July 2026, 30 calendar days after the quarter end; the letter (8 April 2026) was signed by Imogen Thackray, Senior Supervisor – Insurance Conduct at NISA. Corvane submitted the return on 29 July 2026, one day early."
+  acceptable_variants: []
+  must_include: [["2026-07-30", "30 July 2026"], ["Imogen Thackray", "Thackray"], ["2026-07-29", "29 July 2026"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX073-F003}
+    - {fact_id: TX073-F008}
+    - {fact_id: TX012-F001}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["REPORT:NISA-FR1#first_due", "REPORT:NISA-FR1#submissions.2026Q2.submitted"]
+  trap: "The letter is addressed to Ruth Okafor (the signatory of the return), not signed by her."
+
+- id: Q-TXT-025
+  category: temporal
+  dimensions: [txt, html, temporal, contradiction]
+  question: "What is the minimum recoverable amount for pursuing subrogation today, and what was it in June 2025?"
+  expected_answer: "Today £1,000 or more (BR-REC-003 v3, from 1 September 2025). In June 2025 it was £750 (BR-REC-003 v2, which applied until 31 August 2025)."
+  acceptable_variants: []
+  must_include: [["1,000", "1000"], ["750"]]
+  must_not_include: ["500"]
+  evidence:
+    - {fact_id: TX005-F004}
+    - {fact_id: TX009-F001}
+    - {fact_id: TX074-F013}
+  hops: 2
+  ask_mode: chat
+  difficulty: easy
+  world_refs: ["RULE:BR-REC-003@v3#parameters.min_gbp", "RULE:BR-REC-003@v2#parameters.min_gbp", "CONTRA:C13"]
+  trap: "The June 2025 email (TX009) says £750 as 'current' and mentions the £500 rule replaced in 2022."
+
+- id: Q-TXT-026
+  category: temporal
+  dimensions: [md, html, temporal]
+  question: "What was Graham Pocock's job title when he took decision DEC-002 in March 2025, and what is his title now?"
+  expected_answer: "In March 2025 he was CLARA Platform Manager; since the 1 September 2025 re-organisation he has been Head of Legacy Claims Platforms, reporting to Neil Haworth."
+  acceptable_variants: []
+  must_include: [["CLARA Platform Manager"], ["Head of Legacy Claims Platforms"]]
+  must_not_include: []
+  evidence:
+    - {file: corpus/upload/text/TX038_programme_decision_log.md, locator: {kind: text_lines, start: 66, end: 66}, needle: "Graham Pocock (CLARA Platform Manager)"}
+    - {fact_id: TX038-F002}
+    - {fact_id: TX074-F007}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PERSON:P016#titles", "DECISION:DEC-002"]
+  trap: "The decision log gives each decider's title as of the decision date, not the current one."
+
+- id: Q-TXT-027
+  category: negation
+  dimensions: [md, negation, temporal]
+  question: "Does the Programme Skerry decision log record the CAB's approval of release R2026.11? Explain."
+  expected_answer: "No, it does not. The decision log was last updated on 10 November 2026 and says decisions taken after that date are not yet included; the CAB approved release R2026.11 (CHUB-298, CHUB-415, CHUB-421) on 11 November 2026, so the approval appears only in the CAB minutes."
+  acceptable_variants: []
+  must_include: [["does not", "doesn't", "not recorded", "not included", "is not", "isn't"], ["2026-11-10", "10 November 2026"], ["2026-11-11", "11 November 2026"]]
+  must_not_include: []
+  evidence:
+    - {file: corpus/upload/text/TX038_programme_decision_log.md, locator: {kind: text_lines, start: 7, end: 7}, needle: "10 November 2026"}
+    - {file: corpus/upload/text/TX038_programme_decision_log.md, locator: {kind: text_lines, start: 23, end: 23}, needle: "Decisions taken after the last update date are not yet included"}
+    - {fact_id: TX033-F007}
+  hops: 2
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["DECISION:DEC-012"]
+  trap: "The log's summary table lists 18 decisions; DEC-012 is missing because it post-dates the log, and DEC-013 is held in the Compliance log."
+
+- id: Q-TXT-028
+  category: entity_resolution
+  dimensions: [txt, same_name, alias]
+  question: "Two emails signed 'Callum Fairbairn' report figures: one says there are 1,140 open UK motor claims in the Leeds queue, the other says the final Wave 1 rehearsal reconciled 186,400 claims with 3 exceptions. Which Callum Fairbairn wrote each?"
+  expected_answer: "The 1,140 open UK motor claims (19 October 2026) came from Corvane's Callum Fairbairn, Motor Claims Team Leader in Leeds (callum.fairbairn@corvane-mutual.example). The 186,400-claim reconciliation with 3 exceptions (25 August 2026) came from IBM Consulting's Callum Fairbairn, Data Migration Lead (callum.fairbairn@ibm-consulting.example)."
+  acceptable_variants: []
+  must_include: [["Motor Claims Team Leader", "Team Leader"], ["Data Migration Lead"], ["IBM"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: TX010-F001}
+    - {fact_id: TX010-F002}
+    - {fact_id: TX011-F003}
+    - {fact_id: TX011-F004}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PERSON:P022", "PERSON:P051", "EPISODE:EP-019", "EPISODE:EP-020"]
+  trap: "Two different people share the name; a merged entity would attribute both figures to one person."

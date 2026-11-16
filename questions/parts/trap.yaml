@@ -1,0 +1,647 @@
+# TRAP group: entity resolution, terminology, the 17 planned contradictions, as-of (temporal) questions,
+# renames and LD001/LD002 duplicate merges. Ground truth checked against the evidence locators
+# (harness/extract.py) and against world.worldlib as-of helpers.
+
+# ---------------------------------------------------------------------------------------------
+# contradiction: C01..C17 (C06 and C09 are asked under rename, Q-TRAP-016 / Q-TRAP-017)
+# ---------------------------------------------------------------------------------------------
+
+- id: Q-TRAP-001
+  category: contradiction
+  dimensions: [contradiction, temporal, txt, md, long_doc]
+  question: "Since the fraud rules changed in autumn 2026, at what Sentinel score is a Tier-3 claim raised as a Fraud Referral?"
+  expected_answer: "At a Sentinel score of 60 or more, from 1 October 2026. This was decided as DEC-014 at the Fraud Rules Workshop on 17 September 2026 and is BR-FRD-031 v2. The general threshold for all other claims stays at 65. The older v7.2 manual wording of 65 for all tiers is superseded for Tier-3 claims."
+  acceptable_variants:
+    - "60 or more for Tier-3 claims from 2026-10-01"
+    - "A Sentinel score of 60 or above"
+  must_include: [["60"]]
+  must_not_include: ["for all tiers", "65 for all claims"]
+  evidence:
+    - {fact_id: TX002-F014}
+    - {fact_id: TX031-F013}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [RULE:BR-FRD-031@v2#parameters.tier3_threshold, DECISION:DEC-014, CONTRA:C01]
+  trap: "LD001 manual v7.2 (approved 2026-06-30) says 'Sentinel score is 65 or more, for all tiers'; the newer workshop decision DEC-014 lowers Tier-3 to 60 from 2026-10-01."
+
+- id: Q-TRAP-002
+  category: contradiction
+  dimensions: [contradiction, stale_chart, pptx, visual, docx]
+  question: "Who is the accountable owner of the Recovery & Subrogation process (stage S7)?"
+  expected_answer: "Freya Lindahl, Head of Recoveries & Subrogation, who has owned stage S7 since 1 September 2025. Martin Calloway, shown on the stale 2024 org chart, left Corvane on 2024-12-31, and Siobhan Quill was only the acting owner until 2025-08-31."
+  acceptable_variants:
+    - "Freya Lindahl (Head of Recoveries & Subrogation)"
+  must_include: [["Freya Lindahl", "Lindahl"]]
+  must_not_include: ["Martin Calloway"]
+  evidence:
+    - {fact_id: VS005-F021}
+    - {fact_id: VS005-F007}
+    - {fact_id: LD001-F205}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [PROCESS:S7#owner_history, PERSON:P013, CONTRA:C02]
+  trap: "The March 2024 org chart (VS004, also VS032) still shows Martin Calloway, Recoveries Manager, as the S7 owner."
+
+- id: Q-TRAP-003
+  category: contradiction
+  dimensions: [contradiction, draft_vs_approved, docx, long_doc]
+  question: "After a Fraud Referral, within how many business days must the customer be told in writing that the claim is subject to additional checks?"
+  expected_answer: "Within 10 business days of the referral (BR-FRD-032 v2, in the approved BRD v1.0 and the v7.2 manual), unless the notice is deferred under BR-FRD-036. The 5 business days in draft BRD v0.3 was never approved."
+  acceptable_variants:
+    - "10 business days"
+    - "ten business days after the referral"
+  must_include: [["10 business days", "ten business days"]]
+  must_not_include: ["5 business days", "five business days"]
+  evidence:
+    - {fact_id: LD016-F008}
+    - {fact_id: LD001-F189}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [RULE:BR-FRD-032@v2#parameters.notice_business_days, CONTRA:C03]
+  trap: "LD015 DRAFT BRD v0.3 (2026-02-10) says 5 business days; the APPROVED BRD v1.0 (LD016, 2026-03-12) says 10."
+
+- id: Q-TRAP-004
+  category: contradiction
+  dimensions: [contradiction, long_doc, docx, needle]
+  question: "How often must the Reserve on a Tier-3 claim be reviewed?"
+  expected_answer: "At least every 14 days (BR-RSV-007 v3, effective 1 July 2026). The older cadences are superseded: the 30-day review in the v6.1 manual, and the 21-day review that applied until 2026-06-30."
+  acceptable_variants:
+    - "Every 14 days"
+    - "At least fortnightly"
+  must_include: [["14 days", "fortnight", "two weeks", "14-day"]]
+  must_not_include: ["30 days", "21 days", "every 30", "every 21"]
+  evidence:
+    - {fact_id: LD001-F153}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [RULE:BR-RSV-007@v3#parameters.review_days, CONTRA:C04]
+  trap: "The superseded manual v6.1 (LD012, 2023) says every 30 days; v2 (2024-01-01..2026-06-30) was 21 days."
+
+- id: Q-TRAP-005
+  category: contradiction
+  dimensions: [contradiction, code, connector, multi_hop]
+  question: "In the CLARA source code as first ingested, the nightly fraud sweep CLRFR040 compares each claim's Sentinel score with a referral threshold. What threshold should it be applying today, and is the constant it uses correct?"
+  expected_answer: "It should apply 65 for all claims and 60 for Tier-3 claims from 2026-10-01, read from CLR.T_PARAM (FRD_REFER_THRESH is 65 from 2026-04-01; FRD_REFER_T3_THRESH is 60). The hard-coded WS-REFER-THRESHOLD VALUE 070 in CLRFR040 is the old pre-2026 value and is a defect tracked as CHUB-298 (INC-2026-0518), so the constant is not correct."
+  acceptable_variants:
+    - "65, and 60 for Tier-3 claims; the hard-coded 070 is the old pre-2026 value and a defect (CHUB-298)"
+  must_include: [["65"], ["60"], ["not correct", "incorrect", "wrong", "defect", "bug", "CHUB-298", "drift", "outdated", "out of date", "stale", "old value", "pre-2026"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: CL-CLRFR040-F001}
+    - {fact_id: CL-T_PARAM_seed-F002}
+    - {fact_id: TX031-F013}
+  hops: 3
+  ask_mode: chat
+  difficulty: hard
+  world_refs: [PROGRAM:CLRFR040#hardcoded_constants, TABLE:CLR.T_PARAM#param_rows:FRD_REFER_THRESH, RULE:BR-FRD-031@v2, CONTRA:C05]
+  trap: "Code variant a hard-codes WS-REFER-THRESHOLD PIC 9(3) VALUE 070; a code-only reading answers 70. Ask before the CM-09 resync push; in variant c the constant is removed and the thresholds are read from CLR.T_PARAM."
+  # MERGE NOTE: overlaps the code.yaml question on how CLRFR030/CLRFR040 obtain their threshold.
+
+- id: Q-TRAP-006
+  category: contradiction
+  dimensions: [contradiction, txt]
+  question: "Is it right that only the CLRRS reserve programs write to the reserve table CLR.T_RESERVE?"
+  expected_answer: "No. Besides CLRRS010, CLRRS020, CLRRS110 and CLRRS130, four other programs also write CLR.T_RESERVE: CLRFN030 (default reserve at claim set-up), CLRST040 (closes the reserve at settlement), CLRRC050 (nets recoveries off the case reserve) and CLRGL090 (year-end revaluation). That makes eight writers; CLRRS150 writes only the movement table."
+  acceptable_variants:
+    - "No: CLRFN030, CLRST040, CLRRC050 and CLRGL090 also write CLR.T_RESERVE, eight writers in total"
+  must_include: [["CLRFN030"], ["CLRST040"], ["CLRRC050"], ["CLRGL090"]]
+  must_not_include: ["everything else just reads"]
+  evidence:
+    - {fact_id: TX003-F004}
+    - {fact_id: TX003-F005}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [TABLE:CLR.T_RESERVE#writers, CONTRA:C07]
+  trap: "At 00:38 in the 2026-03-05 design review Daniel Achebe says only the CLRRS programs write the table; Keith Barraclough corrects this at 00:46."
+
+- id: Q-TRAP-007
+  category: contradiction
+  dimensions: [contradiction, csv, xlsx, pdf, aggregation]
+  question: "How many CLARA programs insert into or update CLR.T_RESERVE? List them."
+  expected_answer: "Eight: CLRFN030, CLRRS010, CLRRS020, CLRRS110, CLRRS130, CLRST040, CLRRC050 and CLRGL090. The older 2025 data dictionary lists only seven because it omits CLRGL090, which updates CLR.T_RESERVE during the year-end revaluation (audit finding IA-25-07). CLRRS150 writes only CLR.T_RESERVE_MOVEMENT."
+  acceptable_variants: []
+  must_include: [["8", "eight"], ["CLRGL090"], ["CLRFN030"], ["CLRRC050"], ["CLRST040"]]
+  must_not_include: ["seven programs", "7 programs", "seven writers", "7 writers"]
+  evidence:
+    - {fact_id: ST019-F001}
+    - {fact_id: ST019-F003}
+    - {fact_id: LD024-F005}
+  hops: 2
+  ask_mode: chat
+  difficulty: hard
+  world_refs: [TABLE:CLR.T_RESERVE#writers, PROGRAM:CLRGL090#writes_tables:CLR.T_RESERVE, CONTRA:C08]
+  trap: "The ST001 data dictionary (2025-02-14) 'Written by' cell lists seven programs and omits CLRGL090."
+
+- id: Q-TRAP-008
+  category: contradiction
+  dimensions: [contradiction, long_doc, docx, needle]
+  question: "What estimated-incurred amount makes a UK claim Tier-3?"
+  expected_answer: "£50,000 or more estimated incurred (BR-TRI-003 v3, in force since 1 January 2025). A claim is also Tier-3 for any bodily injury, solicitor or litigation involvement at notification, or a property total loss. The £40,000 figure in the 2021 CLARA specification is the old v2 threshold."
+  acceptable_variants:
+    - "£50,000 or more"
+  must_include: [["50,000", "50k"]]
+  must_not_include: ["40,000", "40k"]
+  evidence:
+    - {fact_id: LD001-F016}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [RULE:BR-TRI-003@v3#parameters.tier3_min_gbp, CONTRA:C10]
+  trap: "LD017 CLARA specification v3.4 (2021) says Tier-3 at £40,000 or more (BR-TRI-003 v2)."
+
+- id: Q-TRAP-009
+  category: contradiction
+  dimensions: [contradiction, long_doc, docx, legacy_doc]
+  question: "What is the current deadline for acknowledging a First Notice of Loss, by channel?"
+  expected_answer: "Digital FNOLs from the portal, app or telematics must be acknowledged within 1 business day, and all other channels (telephone, broker, post) within 2 business days (BR-FNOL-001 v3, effective 1 July 2026). The 5 working days promised in the 2012 Motor UK wording was superseded."
+  acceptable_variants:
+    - "1 business day for digital channels and 2 business days for other channels"
+  must_include: [["1 business day"], ["2 business days"]]
+  must_not_include: ["5 working days", "5 business days"]
+  evidence:
+    - {fact_id: LD001-F052}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [RULE:BR-FNOL-001@v3#parameters, CONTRA:C11]
+  trap: "The 2012 Motor UK wording (LD004, legacy .doc) promises acknowledgement within 5 working days."
+
+- id: Q-TRAP-010
+  category: contradiction
+  dimensions: [contradiction, temporal, json, xlsx]
+  question: "At what time does the CLX-IF-043 GL Reserve Journal Feed run each day?"
+  expected_answer: "Daily at 03:45. It was moved from 03:00 to 03:45 from 9 May 2025 under CHUB-143, after incident INC-2025-0412."
+  acceptable_variants:
+    - "03:45 daily"
+  must_include: [["03:45", "3:45", "0345", "3.45"]]
+  must_not_include: ["03:00"]
+  evidence:
+    - {fact_id: TX070-F004}
+    - {fact_id: ST003-F004}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [INTERFACE:CLX-IF-043#schedule_history, TICKET:CHUB-143, CONTRA:C12]
+  trap: "The target architecture v1.0 (LD013, 2025-03-03) says daily 03:00, as do the 2021 spec and the 2024 runbook."
+
+- id: Q-TRAP-011
+  category: contradiction
+  dimensions: [contradiction, long_doc, docx, txt]
+  question: "What is the minimum recoverable amount for Corvane to pursue Subrogation on a UK claim?"
+  expected_answer: "£1,000 or more (BR-REC-003 v3, effective 1 September 2025; the Nordic equivalents are NOK 13,000 / SEK 13,500 / DKK 8,600). The £750 threshold quoted in June 2025 applied only until 31 August 2025."
+  acceptable_variants:
+    - "£1,000"
+  must_include: [["1,000", "1000", "1k"]]
+  must_not_include: ["750"]
+  evidence:
+    - {fact_id: LD001-F209}
+    - {fact_id: TX005-F004}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [RULE:BR-REC-003@v3#parameters.min_gbp, CONTRA:C13]
+  trap: "The June 2025 email (TX009) says 'The current threshold is £750', correct only until 2025-08-31."
+
+- id: Q-TRAP-012
+  category: contradiction
+  dimensions: [contradiction, stale_chart, txt, terminology]
+  question: "Is Fellgate Adjusting Partners currently on Corvane's Claims Assessor panel?"
+  expected_answer: "No longer. Fellgate Adjusting Partners LLP left the assessor panel with effect from 31 January 2026 (decision DEC-019 of 20 January 2026), and all open Fellgate instructions transferred to Brackenfield Loss Adjusting. The January 2025 panel slide that still lists Fellgate is stale."
+  acceptable_variants:
+    - "No, Fellgate was removed from the panel on 31 January 2026"
+  must_include: [["31 January 2026", "2026-01-31", "January 2026"], ["left", "removed", "leaves", "no longer"]]
+  must_not_include: ["still on the panel", "remains on the panel", "is on the panel"]
+  evidence:
+    - {fact_id: TX008-F001}
+    - {fact_id: TX027-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [VENDOR:VEN-03#panel_to, DECISION:DEC-019, CONTRA:C14]
+  trap: "The January 2025 assessor panel deck (VS018) lists Fellgate as a major-loss loss adjuster."
+
+- id: Q-TRAP-013
+  category: contradiction
+  dimensions: [contradiction, txt, md, long_doc]
+  question: "What is the Wave 2 cut-over date?"
+  expected_answer: "15 February 2027 (DEC-011, confirmed at the 8 October 2026 Steering Committee). The 18 January 2027 date that was mentioned earlier in that meeting came from a draft plan and is void."
+  acceptable_variants:
+    - "2027-02-15"
+  must_include: [["15 February 2027", "2027-02-15"]]
+  must_not_include: ["18 January 2027", "2027-01-18"]
+  evidence:
+    - {fact_id: TX001-F008}
+    - {fact_id: TX038-F019}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [DECISION:DEC-011, WAVE:MW-2#date, CONTRA:C15]
+  trap: "At 00:41 in the 2026-10-08 steering transcript Arjun Kesavan reads the void draft date 18 January 2027; it is corrected at 00:44."
+
+- id: Q-TRAP-014
+  category: contradiction
+  dimensions: [contradiction, docx, html, stale_chart]
+  question: "Up to what amount can a Claims Team Leader authorise a claim payment?"
+  expected_answer: "£75,000 (BR-STL-002 v3, effective 1 September 2025). The £50,000 limit on the June 2025 RACI slide was the old v2 limit."
+  acceptable_variants:
+    - "£75,000"
+  must_include: [["75,000", "75k"]]
+  must_not_include: ["50,000", "50k"]
+  evidence:
+    - {file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx, locator: {kind: docx_para, para_index: 4026}, needle: "Team Leader £75,000"}
+    - {fact_id: TX074-F012}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [RULE:BR-STL-002@v3#parameters.team_leader, CONTRA:C16]
+  trap: "The June 2025 RACI deck (VS022) shows Team Leader £50,000 (v2); the LD001 tracked change deletes £50,000. Do not confuse with the Team Leader reserve authority (£100,000)."
+
+- id: Q-TRAP-015
+  category: contradiction
+  dimensions: [contradiction, csv, docx, legacy_doc, terminology]
+  question: "What is the standard excess on a Hem Sverige home policy?"
+  expected_answer: "SEK 2,000, the självrisk under the 2026 product terms and rule BR-STL-020. The SEK 1,500 in the older 2016 policy wording applies only to policies incepted under that wording."
+  acceptable_variants:
+    - "SEK 2,000"
+  must_include: [["2,000", "2000", "2 000"]]
+  must_not_include: ["1,500", "1 500"]
+  evidence:
+    - {fact_id: ST025-F005}
+    - {file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx, locator: {kind: docx_table, table_index: 41, row: 5, col: 2}, needle: "Deduct the Hem Sverige självrisk of SEK 2,000"}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [PRODUCT:PRD-HOM-SE#excess, CONTRA:C17]
+  trap: "The 2016 Hem Sverige wording (LD008, legacy .doc) says 'Självrisken är 1 500 kronor'."
+
+# ---------------------------------------------------------------------------------------------
+# rename (C06 and C09 included)
+# ---------------------------------------------------------------------------------------------
+
+- id: Q-TRAP-016
+  category: rename
+  dimensions: [rename, contradiction, pdf, pptx, html]
+  question: "The 2024 CLARA operations runbook says online fraud scores come from FRAUDNET. What is that system called today, and since when?"
+  expected_answer: "Sentinel. FRAUDNET was renamed Sentinel on 1 March 2025 under change ticket CHUB-117; it is the same fraud scoring system (SYS03)."
+  acceptable_variants:
+    - "Sentinel, since 1 March 2025"
+  must_include: [["Sentinel"], ["1 March 2025", "2025-03-01", "March 2025"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD025-F002}
+    - {fact_id: VS015-F001}
+    - {fact_id: ST054-F002}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [SYSTEM:SYS03#renames, CONTRA:C06]
+  trap: "LD025 (2024-11-04) is correct for its date; answering 'FRAUDNET' as the current name is stale."
+
+- id: Q-TRAP-017
+  category: rename
+  dimensions: [rename, contradiction, yaml, txt]
+  question: "In the knowledge graph, should 'reserve-svc' (the OpenAPI spec titled 'reserve-svc API') and 'reserve-engine' (the Kubernetes deployment in namespace chub-reserve) be separate Service nodes?"
+  expected_answer: "No: they should be one Service node, reserve-engine (SVC05), with reserve-svc kept as its former name. The service was renamed from reserve-svc to reserve-engine on 10 February 2026 under ADR-019."
+  acceptable_variants:
+    - "One Service node, reserve-engine, formerly reserve-svc"
+  must_include: [["reserve-engine"], ["one Service node", "one node", "single node", "single Service node", "same service", "merged"]]
+  must_not_include: ["two separate services"]
+  evidence:
+    - {fact_id: ST043-F001}
+    - {fact_id: ST049-F001}
+    - {fact_id: TX003-F002}
+  hops: 3
+  ask_mode: graph
+  difficulty: medium
+  world_refs: [SERVICE:reserve-engine#renames, CONTRA:C09]
+  trap: "ST043 (2025-12-01, pre-rename) and LD013/LD019 say reserve-svc; ST049 (2026-09-10) says reserve-engine."
+
+- id: Q-TRAP-018
+  category: rename
+  dimensions: [rename, docx, pdf]
+  question: "The v6.1 claims manual says online claim notifications arrive through ClaimLine Web. What is that customer portal called now?"
+  expected_answer: "MyCorvane Claims. ClaimLine Web was renamed MyCorvane Claims on 14 October 2024; it is the same customer self-service claims portal (SYS04)."
+  acceptable_variants:
+    - "MyCorvane Claims"
+  must_include: [["MyCorvane Claims"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD012-F023}
+    - {fact_id: LD003-F044}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [SYSTEM:SYS04#renames]
+  trap: "LD012 (2023) uses only the old name ClaimLine Web."
+
+- id: Q-TRAP-019
+  category: rename
+  dimensions: [rename, docx, txt, visual]
+  question: "Which System node should hold the claim documents and photos that Claims Hub stores, and how should 'DOCSTOR' appear in the graph?"
+  expected_answer: "One System node, Evidence Vault (SYS05), where document-svc stores claim documents. DOCSTOR is its former name: it was renamed Evidence Vault on 3 November 2025 under CHUB-276, so DOCSTOR should be an alias of the Evidence Vault node rather than a separate system."
+  acceptable_variants:
+    - "Evidence Vault, with DOCSTOR as its former name"
+  must_include: [["Evidence Vault"], ["alias", "former name", "formerly", "renamed", "same system", "same node"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS030-F014}
+    - {fact_id: TX018-F004}
+    - {fact_id: LD001-F030}
+  hops: 1
+  ask_mode: graph
+  difficulty: medium
+  world_refs: [SYSTEM:SYS05#renames, ADR:ADR-009]
+  trap: "LD013, LD014, LD025 and VS047 (before November 2025) say DOCSTOR; a graph may create two System nodes."
+
+- id: Q-TRAP-020
+  category: rename
+  dimensions: [rename, terminology, pdf, docx, footnote]
+  question: "Through which system does Corvane send assessment instructions to Brackenfield today?"
+  expected_answer: "The Assessor Portal (SYS17). Brackenfield's 2025 service level schedule calls it the Adjuster Extranet, which was its name until it was renamed Assessor Portal on 1 September 2025."
+  acceptable_variants:
+    - "The Assessor Portal"
+  must_include: [["Assessor Portal"]]
+  must_not_include: ["Adjuster Extranet"]
+  evidence:
+    - {fact_id: LD030-F001}
+    - {fact_id: LD001-F099}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [SYSTEM:SYS17#renames, INTERFACE:CLX-IF-013]
+  trap: "The Brackenfield SLA schedule (LD030, 2025-04-01) says instructions are issued through the Adjuster Extranet; the rename is only in an LD001 footnote."
+
+# ---------------------------------------------------------------------------------------------
+# entity_resolution
+# ---------------------------------------------------------------------------------------------
+
+- id: Q-TRAP-021
+  category: entity_resolution
+  dimensions: [alias, txt, md]
+  question: "The email approving the £1.8m Wave 2 contingency drawdown is signed only 'PR'. Who is PR, and in what role did they approve it?"
+  expected_answer: "Priya Raman, Corvane's Chief Financial Officer (CFO since 1 July 2025). Drawdowns above £500,000 need the CFO's approval; the approval is decision DEC-010 of 8 October 2026."
+  acceptable_variants:
+    - "Priya Raman, the CFO"
+  must_include: [["Priya Raman"], ["Chief Financial Officer", "CFO"]]
+  must_not_include: ["Gareth Whitcombe", "Whitcombe"]
+  evidence:
+    - {fact_id: TX013-F001}
+    - {fact_id: TX038-F018}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [PERSON:P001#aliases, PERSON:P001#role_aliases, DECISION:DEC-010]
+  trap: "'the CFO' meant Gareth Whitcombe until 2025-06-30; he signed the 2024 business case, not this drawdown."
+
+- id: Q-TRAP-022
+  category: entity_resolution
+  dimensions: [same_name, txt]
+  question: "Who reported 1,140 open UK motor claims in the Leeds queue in October 2026, and what is that person's job?"
+  expected_answer: "Callum Fairbairn, Corvane's Motor Claims Team Leader in Leeds. This is the Corvane employee rather than IBM's Data Migration Lead of the same name."
+  acceptable_variants:
+    - "Callum Fairbairn, Motor Claims Team Leader (Corvane, Leeds)"
+  must_include: [["Callum Fairbairn"], ["Motor Claims Team Leader"]]
+  must_not_include: ["Data Migration Lead"]
+  evidence:
+    - {fact_id: TX010-F002}
+    - {fact_id: TX010-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [PERSON:P022, EPISODE:EP-019]
+  trap: "IBM's Callum Fairbairn (P051, Data Migration Lead, London) also emails about migration figures (TX011)."
+
+- id: Q-TRAP-023
+  category: entity_resolution
+  dimensions: [same_name, html]
+  question: "How many distinct Person nodes named Callum Fairbairn should the graph contain, and what distinguishes them?"
+  expected_answer: "Two separate Person nodes that must not be merged: Callum Fairbairn of Corvane Mutual, Motor Claims Team Leader in Leeds (callum.fairbairn@corvane-mutual.example), and Callum Fairbairn of IBM Consulting, Data Migration Lead in London (callum.fairbairn@ibm-consulting.example)."
+  acceptable_variants:
+    - "Two: the Corvane Motor Claims Team Leader in Leeds and the IBM Data Migration Lead in London"
+  must_include: [["two", "2"], ["Motor Claims Team Leader"], ["Data Migration Lead"]]
+  must_not_include: ["one person", "same person"]
+  evidence:
+    - {fact_id: ST057-F001}
+    - {fact_id: ST057-F002}
+  hops: 2
+  ask_mode: graph
+  difficulty: medium
+  world_refs: [PERSON:P022, PERSON:P051]
+  trap: "Same full name; only employer, title, location and email domain differ."
+
+- id: Q-TRAP-024
+  category: entity_resolution
+  dimensions: [alias, temporal, docx, txt]
+  question: "Who owns Claims Handling Manual v7.2, and is that the same person who owned v6.1?"
+  expected_answer: "Yes, the same person. Both versions are owned by the Claims Director, Ingrid Ashby; the 2023 v6.1 manual names her Ingrid Sørensen, her name before she married on 23 August 2025."
+  acceptable_variants:
+    - "Ingrid Ashby (formerly Ingrid Sørensen), the Claims Director; same person"
+  must_include: [["Ingrid Ashby"], ["Sørensen", "Sorensen"], ["same person", "same individual", "one person", "the same", "married", "née", "formerly", "previously", "changed her name", "name change"]]
+  must_not_include: ["different person", "different people", "two people", "different owners"]
+  evidence:
+    - {file: corpus/upload/long_docs/LD001_claims_handling_manual_v7_2.docx, locator: {kind: docx_para, para_index: 4}, needle: "Owner: Ingrid Ashby, Claims Director"}
+    - {fact_id: LD012-F001}
+    - {fact_id: TX014-F002}
+  hops: 3
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [PERSON:P005#name_history, PERSON:P005#role_aliases, ANCHOR:LD001#status, ANCHOR:LD012]
+  trap: "v7.2 names Ingrid Ashby, v6.1 names Ingrid Sørensen; the two names look like two people."
+
+- id: Q-TRAP-025
+  category: entity_resolution
+  dimensions: [alias, txt, pdf]
+  question: "Is the 'Bjorn Aasheim' who prepared the Q3 2026 NISA-FR1 return the same person as the Bjørn Aasheim named in the 2025 annual NISA filing, and what is his role?"
+  expected_answer: "Yes, the same person: Bjørn Aasheim (Bjorn is the ASCII spelling), Corvane's Regulatory Reporting Manager, based in Oslo."
+  acceptable_variants:
+    - "Same person; Bjørn Aasheim, Regulatory Reporting Manager"
+  must_include: [["same person", "same individual", "one person", "the same", "ASCII spelling", "spelling variant", "alternative spelling"], ["Regulatory Reporting Manager"]]
+  must_not_include: ["different person", "two people"]
+  evidence:
+    - {fact_id: TX020-F004}
+    - {fact_id: LD003-F047}
+  hops: 2
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [PERSON:P020#aliases]
+  trap: "Bjorn vs Bjørn spelling."
+
+# ---------------------------------------------------------------------------------------------
+# temporal (as-of)
+# ---------------------------------------------------------------------------------------------
+
+- id: Q-TRAP-026
+  category: temporal
+  dimensions: [temporal, docx, txt]
+  question: "Who owned the Recovery & Subrogation process in March 2025?"
+  expected_answer: "Siobhan Quill, as Acting Recoveries Manager (acting owner from 1 January 2025). Martin Calloway had left on 2024-12-31, and Freya Lindahl did not take over until 1 September 2025."
+  acceptable_variants:
+    - "Siobhan Quill (acting)"
+  must_include: [["Siobhan Quill", "Quill"]]
+  must_not_include: ["Martin Calloway", "Freya Lindahl"]
+  evidence:
+    - {fact_id: LD013-F006}
+    - {fact_id: TX005-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [PROCESS:S7#owner_history, PERSON:P014#titles]
+  trap: "Today's owner is Freya Lindahl; the stale 2024 chart shows Martin Calloway."
+
+- id: Q-TRAP-027
+  category: temporal
+  dimensions: [temporal, json, pdf]
+  question: "What Sentinel score triggered a Fraud Referral on 15 March 2026?"
+  expected_answer: "70 or more (BR-FRD-012 v2, in force from 2023-04-01 to 2026-03-31). The 65 threshold did not apply until 1 April 2026, and the Tier-3 threshold of 60 not until 1 October 2026."
+  acceptable_variants:
+    - "A score of 70 or more"
+  must_include: [["70"]]
+  must_not_include: ["65 or more", "60 or more", "score of 65", "score of 60"]
+  evidence:
+    - {fact_id: ST029-F003}
+    - {fact_id: LD027-F004}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [RULE:BR-FRD-012@v2#parameters.threshold, RULE:BR-FRD-031@v1]
+  trap: "Most 2026 documents state the current 65 (and 60 for Tier-3)."
+
+- id: Q-TRAP-028
+  category: temporal
+  dimensions: [temporal, alias, html, txt]
+  question: "Who was Corvane's CFO in May 2025?"
+  expected_answer: "Gareth Whitcombe, who was CFO until 30 June 2025. Priya Raman did not become CFO until 1 July 2025."
+  acceptable_variants:
+    - "Gareth Whitcombe"
+  must_include: [["Gareth Whitcombe", "Whitcombe"]]
+  must_not_include: ["Priya Raman"]
+  evidence:
+    - {fact_id: TX074-F010}
+    - {fact_id: TX004-F007}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [PERSON:P002#role_aliases, PERSON:P001#role_aliases]
+  trap: "Priya Raman is 'the CFO' in every document dated from July 2025."
+
+# ---------------------------------------------------------------------------------------------
+# terminology (asked in schema terms; evidence written in variant terms)
+# ---------------------------------------------------------------------------------------------
+
+- id: Q-TRAP-029
+  category: terminology
+  dimensions: [terminology, pptx, visual]
+  question: "How many Fraud Referrals were made in Q3 2026?"
+  expected_answer: "1,530 (the dashboards call them SIU referrals)."
+  acceptable_variants:
+    - "1530"
+  must_include: [["1,530", "1530"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS013-F010}
+    - {fact_id: VS007-F018}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [TIMELINE:metrics#fraud_referrals_count.2026Q3, GLOSSARY:G-002]
+  trap: "The decks label the series 'SIU referrals', not 'Fraud Referral'."
+
+- id: Q-TRAP-030
+  category: rename
+  dimensions: [rename, docx, txt]
+  question: "Which Claims Hub service is the only component that writes Reserves, and what is it called today?"
+  expected_answer: "reserve-engine. It was called reserve-svc until it was renamed reserve-engine on 10 February 2026 (ADR-019); the architecture document describes it as owning the case reserve aggregate."
+  acceptable_variants:
+    - "reserve-engine"
+  must_include: [["reserve-engine"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD013-F014}
+    - {fact_id: TX003-F002}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [SERVICE:reserve-engine#renames, GLOSSARY:G-003]
+  trap: "LD013 (2025, pre-rename) names the reserve writer reserve-svc; answering 'reserve-svc' as today's name is stale."
+
+- id: Q-TRAP-031
+  category: terminology
+  dimensions: [terminology, legacy_doc, pdf]
+  question: "What do Corvane's Norwegian, Swedish and Danish policy wordings call a Claims Assessor?"
+  expected_answer: "Norway: skadetakstmann; Sweden: besiktningsman; Denmark: taksator. The wordings' word lists map these to 'Claims Assessor (loss adjuster)'."
+  acceptable_variants: []
+  must_include: [["skadetakstmann"], ["besiktningsman"], ["taksator"]]
+  must_not_include: []
+  evidence:
+    - {file: corpus/upload/long_docs/LD021_claims_assessor_field_guide_photo_atlas.pdf, locator: {kind: pdf_page, page: 83}, needle: "the assessor is a 'skadetakstmann' (Norway), 'besiktningsman' (Sweden) or 'taksator' (Denmark)"}
+    - {fact_id: LD009-F004}
+    - {fact_id: LD008-F003}
+    - {fact_id: LD010-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: [GLOSSARY:G-001]
+  trap: "The terms appear in the Nordic wordings and in LD021's English field guide; the system must map them to the schema term Claims Assessor."
+
+- id: Q-TRAP-032
+  category: terminology
+  dimensions: [terminology, txt, docx]
+  question: "Who must approve writing off a Subrogation recovery, and above what amount?"
+  expected_answer: "The Head of Recoveries & Subrogation (Freya Lindahl) must approve recovery write-offs above £10,000 (BR-REC-011 v2, since 1 September 2025). Before that the limit was £5,000 with the Recoveries Manager."
+  acceptable_variants:
+    - "Head of Recoveries & Subrogation, above £10,000"
+  must_include: [["10,000", "10k"], ["Head of Recoveries", "Freya Lindahl"]]
+  must_not_include: ["5,000"]
+  evidence:
+    - {fact_id: TX005-F006}
+    - {fact_id: LD018-F013}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: [RULE:BR-REC-011@v2, PROCESS:PS-REC-06#raci, GLOSSARY:G-004]
+  trap: "Documents say 'recovery write-off' and 'sub-ro', not Subrogation; v1 was £5,000 with the Recoveries Manager."
+
+# ---------------------------------------------------------------------------------------------
+# duplicate_merge (LD001 Word manual vs LD002 scanned copy)
+# ---------------------------------------------------------------------------------------------
+
+- id: Q-TRAP-033
+  category: duplicate_merge
+  dimensions: [long_doc, scanned, docx, pdf]
+  question: "The Word claims manual v7.2 and its scanned PDF copy both define a Tier-3 claim. How many Rule nodes should the graph hold for that definition, and with what monetary threshold?"
+  expected_answer: "One Rule node, BR-TRI-003 (v3, in force from 1 January 2025), sourced from both the Word manual and its scan and merged into a single entity. Tier-3 means estimated incurred of £50,000 or more (NOK 650,000 / SEK 680,000 / DKK 430,000), any bodily injury, solicitor or litigation involvement at notification, or a property total loss."
+  acceptable_variants:
+    - "A single BR-TRI-003 Rule node with a £50,000 threshold"
+  must_include: [["BR-TRI-003"], ["one Rule node", "one node", "single node", "single Rule node", "single entity", "single BR-TRI-003", "one BR-TRI-003", "one entity", "merged"], ["50,000", "50k"]]
+  must_not_include: ["40,000"]
+  evidence:
+    - {fact_id: LD001-F016}
+    - {fact_id: LD002-F008}
+  hops: 2
+  ask_mode: graph
+  difficulty: medium
+  world_refs: [RULE:BR-TRI-003@v3#parameters]
+  trap: "The OCR copy (LD002) restates the same definition; an ingestion that does not merge creates two rule nodes."
+
+- id: Q-TRAP-034
+  category: duplicate_merge
+  dimensions: [long_doc, scanned, docx, pdf]
+  question: "Both the Word claims manual v7.2 and its scanned PDF copy state when the Reserving Committee meets. How should that appear in the graph?"
+  expected_answer: "As one Committee node, the Reserving Committee (COM-01), with a single cadence: the second Tuesday of each month at 10:00. The Word manual and the scanned copy state the same fact and should collapse into that one node."
+  acceptable_variants:
+    - "One Reserving Committee node meeting on the second Tuesday of each month at 10:00"
+  must_include: [["second Tuesday"], ["10:00", "10am", "10 am", "10.00"], ["one Committee node", "one node", "single node", "single Committee node", "one Reserving Committee node", "single Reserving Committee node", "one entity", "single entity", "merged", "collapse"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: LD001-F157}
+    - {fact_id: LD002-F019}
+  hops: 2
+  ask_mode: graph
+  difficulty: medium
+  world_refs: [COMMITTEE:COM-01#cadence]
+  trap: "The cadence is exclusive to LD001 and its scan LD002; two Committee nodes would mean the duplicate was not merged."

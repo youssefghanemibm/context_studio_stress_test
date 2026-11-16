@@ -1,8 +1,11 @@
 """TX070: Jira-style export of exactly 2,000 CHUB tickets (CHUB-101..CHUB-2100) as at 2026-11-11.
 
 Every key ticket from key_tickets.yaml is included verbatim (summary, status as of the export date,
-assignee, links). The rest are procedurally generated engineering tickets that carry no new rules,
-thresholds, owners or schedules.
+assignee, links). The rest are filler engineering tickets that carry no new rules, thresholds, owners or
+schedules. Their core (type, summary, status, assignee, reporter, created/resolved dates, component, fix
+version, labels, status transitions) comes from generators/common/jira_filler.py, shared with ST024, which
+is a snapshot of the same project on the same date. This module adds the richer export fields on top
+(description, priority, story points, epic link, comments, links, changelog times, sprint).
 """
 from __future__ import annotations
 
@@ -10,6 +13,7 @@ import datetime as dt
 import json
 
 from generators.common import util
+from generators.common import jira_filler as JF
 
 from .common import W, D, Facts, out_path, name, email, assert_may
 
@@ -85,72 +89,9 @@ def fixver(nm):
     return [VERSIONS[nm]]
 
 
-def next_version(d: dt.date, r) -> str:
-    rel = sorted(VERSIONS.values(), key=lambda v: v["releaseDate"])
-    cands = [v for v in rel if D(v["releaseDate"]) >= d + dt.timedelta(days=10)]
-    if not cands:
-        return rel[-1]["name"]
-    i = 0 if r.random() < 0.75 or len(cands) == 1 else 1
-    return cands[i]["name"]
-
-
 # ---------------------------------------------------------------------------------------------
-# Filler content banks (generic engineering work only)
+# Rich-field banks (TX070 only; the summary banks live in generators/common/jira_filler.py)
 # ---------------------------------------------------------------------------------------------
-SVC_STORY = [
-    "add structured logging and correlation ids", "upgrade Spring Boot base image", "health and readiness probes for OpenShift",
-    "dashboard and alerts for error rate", "improve validation error messages", "OpenAPI spec lint warnings",
-    "remove deprecated endpoints", "pagination on list endpoint", "add audit fields to responses",
-    "timezone handling for Nordic dates", "unit test coverage for mapper classes", "update runbook",
-    "performance test against agreed volumes", "refactor configuration properties", "consumer lag metric and alert",
-    "dependency updates (quarterly)", "graceful shutdown on pod eviction", "trace propagation to downstream calls",
-    "clean up feature flags after release", "API documentation examples",
-]
-SVC_BUG = [
-    "500 error when optional field is empty", "wrong date format in one response field", "log noise at INFO level",
-    "memory usage grows slowly under load", "SIT2 deployment fails intermittently at image push", "flaky integration test in CI",
-    "null handling for optional peril code", "health check reports UP before database connection is ready",
-    "sorting ignored on list endpoint", "character encoding issue with Nordic letters in names",
-    "stale cache entry after restart in SIT", "timeout too short on test environment calls",
-]
-CLARA_TASK = [
-    "add DISPLAY diagnostics for abend analysis", "document paragraph structure for the CRUD matrix review",
-    "zUnit test harness", "static analysis findings", "review SQL access paths with the DBA", "copybook usage review",
-    "walkthrough with the squad for knowledge transfer", "dead code report", "compile listing archived for audit",
-]
-INTEG = [
-    "update interface catalogue entry", "monitoring for late files", "interface specification review",
-    "alert routing to the integration on-call", "test harness for replaying sample messages", "document error codes",
-]
-PLATFORM = [
-    "OpenShift: namespace quota review", "Terraform: pin provider versions", "CI pipeline: cache Maven dependencies",
-    "Platform: base image CVE patching", "Platform: backup and restore test for PostgreSQL",
-    "Platform: certificate expiry monitoring", "Platform: SIT environment refresh", "Platform: cost report by namespace",
-    "CI pipeline: parallelise test stages", "Platform: secrets moved to the vault integration",
-    "Platform: node pool patching window", "Platform: on-call alert tuning", "Terraform: module documentation",
-    "Platform: Kafka client library upgrade", "Platform: PostgreSQL minor version upgrade in SIT",
-]
-DMIG = [
-    "Mapping review: {prod} claims", "Mapping review: {prod} reserves", "Rehearsal tooling: progress logging",
-    "Reconciliation script: currency checks for {cur}", "Data quality: duplicate claimant records report",
-    "Data quality: orphan document references report", "Migration runbook: review comments",
-    "Extract performance: parallel unload test", "Load scripts: restartability", "Data quality: invalid postcode formats",
-]
-PROG = [
-    "Steering pack: {month}", "RAID log review: {month}", "Programme plan: update after steering ({month})",
-    "Resource plan review: {month}", "Dependency tracker clean-up", "Benefits tracking: data sources",
-    "Communications plan: {month} update", "Change network: champions session ({month})",
-]
-FRAUD = [
-    "Sentinel: score band report for the Fraud Forum", "Referral reason codes: align CLARA and Claims Hub",
-    "SIU Case Manager: export field mapping review", "Fraud rules: rule catalogue entries review",
-    "Fraud MI: weekly report layout", "Referral queue: report for SIU team leaders",
-]
-ASSESS = ["{portal}: help text review", "{portal}: access review for vendor users", "Assessment: report template review"]
-EPICS = [
-    "Observability uplift", "Platform hardening", "Test automation", "Security remediation", "Developer experience",
-    "Performance and resilience", "Documentation and runbooks", "Knowledge transfer", "Data quality", "Accessibility review",
-]
 COMMENTS = [
     "Picked this up.", "Code review done; two minor comments addressed.", "Deployed to SIT.", "Tested in SIT, looks good.",
     "Moving to the next sprint, waiting on environment availability.", "Reproduced in SIT. Logs attached.",
@@ -169,109 +110,6 @@ DESC = [
 PRIORITIES = ["Medium", "Medium", "Medium", "Low", "High"]
 
 
-def svc_assignees(svc, d):
-    team = {"T27": ["P040", "P049", "P053"], "T28": ["P041", "P053"], "T29": ["P042", "P043"]}
-    o = W.service_owner(svc, d)
-    t = o["team"] if o else "T27"
-    pool = list(team.get(t, ["P053"]))
-    if "P043" in pool and d > D("2026-10-31"):
-        pool.remove("P043")
-    return pool
-
-
-COMP_POOL = {
-    "CLARA": ["P023", "P024", "P025", "P052", "P016"], "Integration": ["P031", "P050"],
-    "Platform": ["P049", "P053", "P031", "P032"], "Data Migration": ["P051", "P052", "P025"],
-    "Programme": ["P048", "P047", "P017"], "Fraud": ["P027", "P042", "P054", "P037"], "Assessment": ["P033", "P040"],
-}
-SERVICES = ["claim-core-svc", "fnol-intake-svc", "triage-svc", "assessment-svc", "reserve-engine", "fraud-referral-svc",
-            "settlement-svc", "payment-orchestrator", "recovery-svc", "document-svc", "notification-svc",
-            "gl-posting-svc", "reporting-feed-svc"]
-
-
-def employed(pid, d):
-    return W.employed(pid, d)
-
-
-def pick_component(d, r):
-    comps = [("CLARA", 12), ("Integration", 7), ("Platform", 9), ("Programme", 5), ("Fraud", 3), ("Assessment", 1)]
-    if d >= D("2025-02-17"):
-        comps.append(("Data Migration", 7))
-    if d >= D("2025-02-03"):
-        for s in SERVICES:
-            if s in ("recovery-svc", "document-svc") and d > D("2026-10-31"):
-                continue
-            comps.append((s, 4))
-    names, weights = zip(*comps)
-    return r.choices(names, weights=weights)[0]
-
-
-def topics_for(svc, d):
-    s = W.services[svc]
-    out = []
-    for t in (s.get("kafka_topics") or {}).get("consumes", []) + (s.get("kafka_topics") or {}).get("produces", []):
-        tp = W.topics.get(t, {})
-        if t == "notification.fraud-notice.sent.v1":
-            continue
-        if tp.get("introduced") and D(tp["introduced"]) > d:
-            continue
-        out.append(t)
-    return out
-
-
-def filler_summary(comp, d, r):
-    month = d.strftime("%B %Y")
-    if comp in SERVICES:
-        nm = W.service_name(comp, d)
-        x = r.random()
-        tps = topics_for(comp, d)
-        if x < 0.12 and tps:
-            return "Story", f"{nm}: contract test for {r.choice(tps)}"
-        if x < 0.42:
-            return "Bug", f"{nm}: {r.choice(SVC_BUG)}"
-        return r.choice(["Story", "Story", "Task"]), f"{nm}: {r.choice(SVC_STORY)}"
-    if comp == "CLARA":
-        progs = [p for p, v in W.programs.items() if v.get("since") and D(v["since"]) <= d]
-        return "Task", f"{r.choice(progs)}: {r.choice(CLARA_TASK)}"
-    if comp == "Integration":
-        ifs = [i for i, v in W.interfaces.items() if v.get("since") and D(v["since"]) <= d and v.get("status") == "live"]
-        x = r.random()
-        if x < 0.75:
-            return "Task", f"{r.choice(ifs)}: {r.choice(INTEG)}"
-        return "Task", r.choice(["MQ channel alerting review", "Integration: on-call handbook update",
-                                 "Integration: message replay tool improvements"])
-    if comp == "Platform":
-        return r.choice(["Task", "Task", "Story"]), r.choice(PLATFORM)
-    if comp == "Data Migration":
-        prods = ["Motor Privat Danmark", "Hjem Danmark", "Motor Private UK", "Home Buildings & Contents UK",
-                 "Commercial Property UK", "SME Liability UK", "Motor Privat Norge", "Hjem Norge", "Motor Privat Sverige",
-                 "Hem Sverige"]
-        t = r.choice(DMIG).replace("{prod}", r.choice(prods)).replace("{cur}", r.choice(["NOK", "SEK", "DKK"]))
-        if d >= D("2025-12-15") and r.random() < 0.08:
-            t = "Masked data refresh for rehearsal environment (ADR-025)"
-        return r.choice(["Story", "Task"]), t
-    if comp == "Programme":
-        return "Task", r.choice(PROG).replace("{month}", month)
-    if comp == "Fraud":
-        t = r.choice(FRAUD)
-        if d >= D("2026-04-01") and r.random() < 0.25:
-            t = "FR1 return: data checks before submission"
-        return "Task", t
-    if comp == "Assessment":
-        portal = W.system_name("SYS17", d)
-        return "Task", r.choice(ASSESS).replace("{portal}", portal)
-    return "Task", "General task"
-
-
-def status_for(fv, r):
-    rel = D(VERSIONS[fv]["releaseDate"])
-    if rel <= EXPORT:
-        return r.choices(["Done", "Won't Do", "To Do", "In Progress"], weights=[92, 4, 2, 2])[0]
-    if fv == "R2026.11":
-        return r.choices(["Done", "In Review", "In Progress", "To Do"], weights=[50, 15, 20, 15])[0]
-    return r.choices(["To Do", "In Progress", "In Review", "Done"], weights=[52, 30, 5, 13])[0]
-
-
 def sprint(d: dt.date):
     n = (d - START).days // 14 + 1
     s_start = START + dt.timedelta(days=(n - 1) * 14)
@@ -281,16 +119,8 @@ def sprint(d: dt.date):
             "endDate": ts(s_end, 1020)}
 
 
-def workday(d: dt.date) -> dt.date:
-    while d.weekday() >= 5:
-        d += dt.timedelta(days=1)
-    return d
-
-
-def between(a: dt.date, b: dt.date, r) -> dt.date:
-    if b <= a:
-        return a
-    return workday(a + dt.timedelta(days=r.randint(0, (b - a).days)))
+workday = JF.workday
+between = JF.between
 
 
 # ---------------------------------------------------------------------------------------------
@@ -310,48 +140,17 @@ def build(facts: Facts) -> tuple[dict, int]:
     VERSIONS = versions()
     r = util.rng(f"{FID}:tickets")
     keys = W.tickets
-    issues = []
-    created_of: dict[int, dt.date] = {}
-    epic_keys: dict[str, list[str]] = {}
-    filler_ids = [k for k in range(101, 2101) if f"CHUB-{k}" not in keys]
-    span = (LAST - START).days
-    # filler epics first (spread over the early part of the programme)
-    epic_slots = sorted(r.sample(filler_ids[:400], len(EPICS)))
-    epic_name = dict(zip(epic_slots, EPICS))
-
+    core = JF.by_key()
+    epic_keys = [t["n"] for t in JF.filler_tickets() if t["type"] == "Epic"]
+    out = []
     for k in range(101, 2101):
         key = f"CHUB-{k}"
         if key in keys:
-            issues.append(("key", k, keys[key]))
+            out.append(key_issue(k, keys[key], r))
+        elif core[key]["type"] == "Epic":
+            out.append(filler_epic(core[key], r))
         else:
-            issues.append(("fill", k, None))
-
-    out = []
-    stories_by_comp: dict[str, list[tuple[int, dt.date]]] = {}
-    for kind, k, t in issues:
-        key = f"CHUB-{k}"
-        if kind == "key":
-            out.append(key_issue(k, t, r))
-            created_of[k] = D(t["created"])
-            continue
-        base = START + dt.timedelta(days=int((k - 101) / 2000 * span))
-        cd = workday(min(LAST, max(START, base + dt.timedelta(days=r.randint(-10, 10)))))
-        if cd > LAST:
-            cd = D("2026-11-10")
-        created_of[k] = cd
-        if k in epic_name:
-            out.append(filler_epic(k, cd, epic_name[k], r))
-            continue
-        comp = pick_component(cd, r)
-        itype, summary = filler_summary(comp, cd, r)
-        parent = None
-        if itype == "Story" and r.random() < 0.04 and stories_by_comp.get(comp):
-            parent = r.choice(stories_by_comp[comp][-20:])
-            itype = "Sub-task"
-        rec = filler_issue(k, cd, comp, itype, summary, parent, epic_name, r)
-        if itype == "Story":
-            stories_by_comp.setdefault(comp, []).append((k, cd))
-        out.append(rec)
+            out.append(filler_issue(core[key], epic_keys, r))
     # filler links (symmetric) between filler tickets of the same component
     by_key = {o["key"]: o for o in out}
     fillers = [o for o in out if o["_filler"] and o["fields"]["issuetype"]["name"] not in ("Epic", "Sub-task")]
@@ -428,7 +227,7 @@ def base_fields(k, itype, summary, comp, created, status, assignee, reporter, fv
 def key_issue(k, t, r):
     status, hist = key_status(t)
     created_d = D(t["created"])
-    reporter = t.get("reporter") or t["assignee"]
+    reporter = JF.reporter_of(t)
     desc = t.get("description")
     if t["id"] == "CHUB-298" and desc:
         desc = desc.split(" Fixed by the follow-up commit")[0]
@@ -481,84 +280,76 @@ def key_issue(k, t, r):
     return rec
 
 
-def filler_epic(k, cd, nm, r):
-    reporter = r.choice(["P048", "P017", "P032"])
-    f = base_fields(k, "Epic", nm, None, ts(cd, 560 + (k * 37) % 400), "In Progress", reporter, reporter,
-                    None, [], "Medium", f"Umbrella epic for {nm.lower()} work across the Claims Hub squads.")
+def filler_epic(c, r):
+    k, cd, nm, owner = c["n"], D(c["created"]), c["summary"], c["assignee"]
+    f = base_fields(k, "Epic", nm, None, ts(cd, 560 + (k * 37) % 400), c["status"], owner, c["reporter"],
+                    None, list(c["labels"]), "Medium", f"Umbrella epic for {nm.lower()} work across the Claims Hub squads.")
     f["customfield_10011"] = nm
     return {"expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields", "id": str(10000 + k),
-            "self": f"{SITE}/rest/api/2/issue/{10000 + k}", "key": f"CHUB-{k}", "fields": f,
+            "self": f"{SITE}/rest/api/2/issue/{10000 + k}", "key": c["key"], "fields": f,
             "changelog": {"startAt": 0, "maxResults": 0, "total": 0, "histories": []}, "_filler": True, "_k": k}
 
 
-def filler_issue(k, cd, comp, itype, summary, parent, epic_name, r):
-    fv = next_version(cd, r)
-    status = status_for(fv, r)
-    if comp in SERVICES:
-        pool = svc_assignees(comp, cd)
-    else:
-        pool = COMP_POOL.get(comp, ["P053"])
-    pool = [p for p in pool if employed(p, cd)] or ["P048"]
-    assignee = None if (status == "To Do" and r.random() < 0.45) else r.choice(pool)
-    rep_pool = [p for p in ["P017", "P048", "P054"] + pool if employed(p, cd)]
-    reporter = r.choice(rep_pool)
-    labels = []
-    if r.random() < 0.3:
-        labels.append(r.choice(["tech-debt", "sit-defect", "observability", "security", "performance", "documentation",
-                                "hypercare" if cd >= D("2026-09-14") else "refinement"]))
+def filler_issue(c, epic_keys, r):
+    """Render one filler ticket: the shared core (jira_filler) plus TX070's rich fields."""
+    k, cd, itype, summary, comp = c["n"], D(c["created"]), c["type"], c["summary"], c["component"]
+    status, fv, assignee, reporter, pool = c["status"], c["fix_version"], c["assignee"], c["reporter"], c["pool"]
     prio = r.choice(PRIORITIES) if itype != "Bug" else r.choice(["Medium", "High", "High", "Low"])
     desc = r.choice(DESC).replace("{s}", summary.split(": ", 1)[-1][:1].upper() + summary.split(": ", 1)[-1][1:])
-    f = base_fields(k, itype, summary, comp, ts(cd, 540 + (k * 37) % 480), status, assignee, reporter, fv, labels,
+    created_min = 540 + (k * 37) % 480
+    f = base_fields(k, itype, summary, comp, ts(cd, created_min), status, assignee, reporter, fv, list(c["labels"]),
                     prio, desc or None)
     if itype == "Story":
         f["customfield_10016"] = r.choice([1, 2, 3, 3, 5, 5, 8, 13])
-    if parent:
-        pk, _ = parent
-        f["parent"] = {"id": str(10000 + pk), "key": f"CHUB-{pk}"}
-    elif epic_name and itype in ("Story", "Task", "Bug") and r.random() < 0.18:
-        ek = r.choice([e for e in epic_name if e < k] or [None])
+    if c["parent"]:
+        pk = int(c["parent"].split("-")[1])
+        f["parent"] = {"id": str(10000 + pk), "key": c["parent"]}
+    elif itype in ("Story", "Task", "Bug") and r.random() < 0.18:
+        ek = r.choice([e for e in epic_keys if e < k] or [None])
         if ek:
             f["customfield_10014"] = f"CHUB-{ek}"
     hist = []
     hid = 100000 + k * 10
     who = assignee or reporter
-    end = min(D(VERSIONS[fv]["releaseDate"]), EXPORT)
-    t_cur = cd
-    seq = {"Done": ["In Progress", "In Review", "Done"], "Won't Do": ["Won't Do"], "In Review": ["In Progress", "In Review"],
-           "In Progress": ["In Progress"], "To Do": []}[status]
-    prev = "To Do"
-    for s in seq:
-        t_cur = between(t_cur, end if status in ("Done", "Won't Do") else EXPORT, r)
-        hist.append({"id": str(hid), "author": user(who), "created": ts(t_cur, 600 + r.randint(0, 420)),
-                     "items": [{"field": "status", "fieldtype": "jira", "fromString": prev, "toString": s}]})
+    last_day, last_min = cd, created_min
+    for tr in c["transitions"]:
+        day = D(tr["date"])
+        lo = last_min + 5 if day == last_day else 600
+        minute = min(1439, lo + r.randint(0, max(0, min(420, 1435 - lo))))
+        hist.append({"id": str(hid), "author": user(who), "created": ts(day, minute),
+                     "items": [{"field": "status", "fieldtype": "jira", "fromString": tr["from"], "toString": tr["to"]}]})
         hid += 1
-        prev = s
+        last_day, last_min = day, minute
     if status in ("Done", "Won't Do"):
         f["resolution"] = {"name": status}
         f["resolutiondate"] = hist[-1]["created"]
+        assert f["resolutiondate"][:10] == c["resolved"]
     if assignee and r.random() < 0.25:
-        hist.insert(0, {"id": str(hid), "author": user(reporter), "created": ts(cd, 560 + (k * 37) % 400 + 5),
+        hist.insert(0, {"id": str(hid), "author": user(reporter), "created": ts(cd, created_min + 5),
                         "items": [{"field": "assignee", "fieldtype": "jira", "fromString": None,
                                    "toString": name(assignee, EXPORT)}]})
     ncom = r.choices([0, 1, 2, 3], weights=[40, 30, 20, 10])[0]
     comments = []
-    c_end = D(f["resolutiondate"][:10]) if f["resolutiondate"] else EXPORT
+    c_end = D(c["resolved"]) if c["resolved"] else EXPORT
     for i in range(ncom):
         cdte = between(cd, c_end, r)
         body = r.choice(COMMENTS) if status != "Won't Do" or i else r.choice(
             ["Superseded by another ticket; closing.", "No longer needed after refinement.", "Duplicate; closing."])
         author = r.choice([who] + pool)
-        cts = ts(cdte, 620 + r.randint(0, 400))
+        cmin = 620 + r.randint(0, 400)
+        if cdte == cd:
+            cmin = max(cmin, created_min + 10)
+        cts = ts(cdte, min(1439, cmin))
         comments.append({"id": str(200000 + k * 5 + i), "author": user(author), "body": body,
                          "created": cts, "updated": cts})
-    comments.sort(key=lambda c: c["created"])
+    comments.sort(key=lambda x: x["created"])
     f["comment"] = {"comments": comments, "maxResults": len(comments), "total": len(comments), "startAt": 0}
-    stamps = [f["created"]] + [h["created"] for h in hist] + [c["created"] for c in comments]
+    stamps = [f["created"]] + [h["created"] for h in hist] + [x["created"] for x in comments]
     f["updated"] = max(stamps)
     last = f["resolutiondate"] or f["updated"]
     f["customfield_10020"] = [sprint(D(last[:10]))] if status != "To Do" or r.random() < 0.3 else []
     return {"expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields", "id": str(10000 + k),
-            "self": f"{SITE}/rest/api/2/issue/{10000 + k}", "key": f"CHUB-{k}", "fields": f,
+            "self": f"{SITE}/rest/api/2/issue/{10000 + k}", "key": c["key"], "fields": f,
             "changelog": {"startAt": 0, "maxResults": len(hist), "total": len(hist), "histories": hist},
             "_filler": True, "_k": k}
 

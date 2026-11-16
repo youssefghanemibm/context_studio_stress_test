@@ -4,6 +4,7 @@ from __future__ import annotations
 import re
 
 from . import common as C
+from . import hub as H
 from . import figures as FG
 from .core import CACHE, Ctx, Doc, F, PF, Style, W, gbp, long_date, util
 from .prose import Prose
@@ -244,7 +245,7 @@ def build() -> Doc:
             st = W.steps[x]
             r = st["raci"]
             doc.h(3, f"{x} {st['name']}")
-            doc.kv([["Purpose", st["description"]],
+            doc.kv([["Purpose", H.step_desc(ctx, x)],
                     ["Responsible", ", ".join(ctx.team(t) for t in r["R"]) or "—"],
                     ["Accountable", ctx.person(r["A"])],
                     ["Systems", step_systems(ctx, st)],

@@ -5,8 +5,10 @@ import datetime as dt
 import math
 import re
 
+from generators.common import jira_filler as JF
+
 from . import claims as C
-from .common import (D, W, add_bd, adate, csv_text, iso, may, money, next_weekday, pname, program_id_asof,
+from .common import (D, W, add_bd, add_bd_region, adate, csv_text, iso, may, money, next_weekday, pname, program_id_asof,
                      placement, require, rng, svcname, sysname, team_name, temporalize)
 
 NON_MOTOR = [p for p, x in W.products.items() if x["line"] != "Motor"]
@@ -187,11 +189,21 @@ def _tail_score(r, th: int, hi: int = 100) -> int:
     return th
 
 
-def build_st015(ctx):
-    fid = "ST015"
-    rows = ctx.data["claims"]
+def st015_targets() -> dict[str, int]:
     met = W.timeline["metrics"]["fraud_referrals_count"]
-    targets = {"Q1": 1402, "Q2": int(met["2026Q2"]), "Q3": int(met["2026Q3"]), "OCT": 548}
+    return {"Q1": 1402, "Q2": int(met["2026Q2"]), "Q3": int(met["2026Q3"]), "OCT": 548}
+
+
+def st015_referrals(rows: list[dict] | None = None) -> list[list]:
+    """The ST015 referral model: every 2026 fraud referral row (REF_HEADER order) as written to the CSV.
+
+    Importable without a Ctx (the FR1 returns reconcile against it): pass the ST013 claims
+    (claims.generate_claims()) or leave rows None to generate them. Deterministic (rng 'ST015:referrals').
+    Customer notice due dates count 10 business days in the claim's jurisdiction, excluding its public
+    holidays (BR-FRD-032 v2, NISA Circular 2026/04 para 3.2)."""
+    if rows is None:
+        rows = C.generate_claims()
+    targets = st015_targets()
     r = rng("ST015:referrals")
     pool = C.IdPool("ST015:ids")
     products = list(C.P["products"])
@@ -307,11 +319,20 @@ def build_st015(ctx):
             od = x["rd"] + dt.timedelta(days=r.randint(18, min(140, max(19, age))))
             if od >= cut:
                 status, outcome, od = "IN", "", None
-        notice = iso(add_bd(x["rd"], 10)) if x["rd"] >= D("2026-04-01") else ""
+        notice = iso(add_bd_region(x["rd"], 10, x["region"])) if x["rd"] >= D("2026-04-01") else ""
         deferred = "Y" if (notice and r.random() < 0.04) else ("N" if notice else "")
         out.append([f"REF-2026-{k:06d}", x["claim_id"], x["product"], x["region"], x["tier"], x["score"], iso(x["sd"]),
                     iso(x["rd"]), x["ts"].strftime("%Y-%m-%d %H:%M:%S"), C.rule_label(x["rule"]), th, x["src"],
                     "Claims Hub" if x["hub"] else "CLARA", siu, status, notice, deferred, outcome, iso(od) if od else ""])
+    return out
+
+
+def build_st015(ctx):
+    fid = "ST015"
+    targets = st015_targets()
+    out = st015_referrals(ctx.data["claims"])
+    n518 = int(re.match(r"(\d+)", W.incidents["INC-2026-0518"]["impact"]).group(1))
+    n1007 = int(re.match(r"(\d+)", W.incidents["INC-2026-1007"]["impact"]).group(1))
     ctx.write_csv(fid, REF_HEADER, out)
     pl = placement(fid, "st15_agg")
     first = True
@@ -928,28 +949,9 @@ def build_st023(ctx):
 # ST024 Jira ticket summary
 # =============================================================================================
 
-# recovery-svc and document-svc are left out of the filler on purpose (their 2026-11 ownership move is
-# documented elsewhere); notification-svc filler goes to its owning squad lead only.
-COMPONENTS = ["fnol-intake-svc", "triage-svc", "assessment-svc", "claim-core-svc", "notification-svc", "reserve-engine",
-              "gl-posting-svc", "fraud-referral-svc", "settlement-svc", "payment-orchestrator", "CLARA", "Integration",
-              "Data Migration", "Platform"]
-COMP_ASSIGNEES = {"fnol-intake-svc": ["P040"], "triage-svc": ["P040"], "assessment-svc": ["P040"], "claim-core-svc": ["P040"],
-                  "notification-svc": ["P040"], "reserve-engine": ["P041", "P053"], "gl-posting-svc": ["P041"],
-                  "fraud-referral-svc": ["P042"], "settlement-svc": ["P042"], "payment-orchestrator": ["P042"],
-                  "recovery-svc": ["P043", "P042"], "document-svc": ["P043"], "CLARA": ["P023", "P024", "P025"],
-                  "Integration": ["P031", "P050"], "Data Migration": ["P051"], "Platform": ["P053", "P049"]}
-FILLER_TPL = [
-    ("Story", "{c}: add structured logging fields"), ("Story", "{c}: contract test coverage for error responses"),
-    ("Bug", "{c}: validation message wording on optional field"), ("Task", "{c}: dependency patch upgrades"),
-    ("Story", "{c}: improve pagination on list endpoint"), ("Bug", "{c}: flaky integration test in pipeline"),
-    ("Task", "{c}: dashboard panel tidy-up"), ("Story", "{c}: accessibility review fixes"),
-    ("Bug", "{c}: incorrect sort order in admin view"), ("Task", "{c}: housekeeping of feature flags"),
-    ("Task", "{c}: refresh developer onboarding notes"), ("Story", "{c}: health endpoint detail for operations"),
-    ("Bug", "{c}: log noise on graceful shutdown"), ("Task", "{c}: container base image refresh"),
-    ("Story", "{c}: audit trail field for last editor"), ("Task", "{c}: test data clean-up script"),
-]
-CLARA_TPL = ["{c}: tidy JCL comments", "{c}: copybook documentation refresh", "{c}: DB2 runstats review",
-             "{c}: retire unused test datasets", "{c}: compile listing archive tidy-up"]
+# ST024 and TX070 are two snapshots of the same Jira project on the same date (2026-11-11). Filler tickets
+# (every CHUB key not in key_tickets.yaml) come from the shared core in generators/common/jira_filler.py, so
+# both files carry the same type, summary, status, assignee, reporter, dates, component, fix version and labels.
 
 
 def ticket_status_asof(t: dict, d: str) -> tuple[str, str]:
@@ -973,10 +975,10 @@ def build_st024(ctx):
     fid = "ST024"
     d = adate(fid)
     ds = iso(d)
-    r = rng("ST024:filler")
-    fixv = [(f["name"], f["release_date"]) for f in W.raw["key_tickets"]["fix_versions"]]
+    assert d == JF.EXPORT, "ST024 and TX070 must be snapshots of the same date"
     header = ["key", "issue_type", "summary", "status", "assignee", "reporter", "created", "resolved", "component",
               "fix_version", "labels"]
+    filler = JF.by_key()
     out = []
     for n in range(101, 2101):
         key = f"CHUB-{n}"
@@ -986,32 +988,15 @@ def build_st024(ctx):
                 continue
             status, resolved = ticket_status_asof(t, ds)
             labels = " ".join(l for l in t.get("labels") or [] if l != "generated-filler")
-            out.append([key, t["type"], csv_text(temporalize(t["summary"], d)), status, pname(t["assignee"], d),
-                        pname(t.get("reporter"), d), t["created"], resolved, t["component"], t.get("fix_version") or "",
+            # summaries verbatim (a ';' inside a quoted or single field does not disturb comma sniffing)
+            out.append([key, t["type"], temporalize(t["summary"], d), status, pname(t["assignee"], d),
+                        pname(JF.reporter_of(t), d), t["created"], resolved, t["component"], t.get("fix_version") or "",
                         labels])
             continue
-        comp = r.choice(COMPONENTS)
-        typ, tpl = r.choice(FILLER_TPL)
-        if comp == "CLARA":
-            tpl = r.choice(CLARA_TPL)
-        created = D("2025-01-20") + dt.timedelta(days=int((n - 101) / 2000 * 650) + r.randint(-12, 12))
-        created = min(max(created, D("2025-01-20")), d - dt.timedelta(days=1))
-        done = r.random() < (0.80 if created < D("2026-06-01") else 0.45)
-        resolved = created + dt.timedelta(days=r.randint(2, 40)) if done else None
-        if resolved and resolved > d:
-            resolved, done = None, False
-        status = "Done" if done else r.choice(["To Do", "In Progress", "In Progress", "In Review"])
-        fv = ""
-        ref = resolved or created
-        for name, rel in fixv:
-            if iso(ref) <= rel:
-                fv = name
-                break
-        assignee = r.choice(COMP_ASSIGNEES[comp])
-        if not W.employed(assignee, iso(created)):
-            assignee = COMP_ASSIGNEES[comp][0]
-        out.append([key, typ, tpl.format(c=comp), status, pname(assignee, d), "", iso(created),
-                    iso(resolved) if resolved else "", comp, fv, ""])
+        c = filler[key]
+        out.append([key, c["type"], c["summary"], c["status"], pname(c["assignee"], d), pname(c["reporter"], d),
+                    c["created"], c["resolved"] or "", c["component"] or "", c["fix_version"] or "",
+                    " ".join(c["labels"])])
     R = ctx.write_csv(fid, header, out)
     for i, rr in enumerate(R, 1):
         if rr["key"] == "CHUB-298":

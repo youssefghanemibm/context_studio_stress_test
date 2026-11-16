@@ -302,7 +302,7 @@ def mapset(W, ms: str) -> tuple[Src, list[Fact]]:
             used = set()
             s.emit("*")
             s.emit(f"* MAP {m['map']} - {ascii_text(m['title']).upper()}", mark=f"MAP:{m['map']}")
-            s.emit(f"* TRANSACTION {m['transaction']}, PROGRAM {m['program']}")
+            s.emit(f"* TRANSACTION {m['transaction']}, PROGRAM {m['program']}", mark=f"TXN:{m['map']}")
             s.emit("*")
             for ln in _bms_stmt(m["map"], "DFHMDI", ["SIZE=(24,80)", "LINE=1", "COLUMN=1"]):
                 s.emit(ln)

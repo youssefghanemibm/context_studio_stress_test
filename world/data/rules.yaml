@@ -4361,7 +4361,7 @@ rules:
       tier2_min_gbp: 5000
     approved_by:
     - P011
-    approved_on: '2021-11-16'
+    approved_on: '2021-09-14'
     source: Claims Handling Manual v6.1 §2.4
   - version: 3
     status: approved

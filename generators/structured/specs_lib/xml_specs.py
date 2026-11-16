@@ -10,10 +10,10 @@ from generators.common import util
 
 from .core import (W, Built, Facts, DOC_PREFIX, add_business_days, fauthor, fdate, fstatus, ftitle, may, need,
                    pname, ptitle, pemail, rule_params_ok, rule_text_ok, rule_ver, svcname, sysname, team_name,
-                   version_history, team_exists)
+                   version_history, team_exists, jcl_jobs_as_of, interface_exists)
 from . import phrases
-from .json_specs import (fr1_breakdowns, claim_ref, split_total, fr1_detail, fr1_definitions, fr1_weekly,
-                         fr1_deferral_annex, crosstab)
+from . import fr1_data
+from .json_specs import fr1_annex_records, fr1_definitions, fr1_detail
 
 
 class XB:
@@ -558,7 +558,7 @@ def build_ST036(out_dir: pathlib.Path) -> Built:
             xb.sub(te, "writtenBy", " ".join(wr), count=len(wr))
         if rd:
             xb.sub(te, "readBy", " ".join(rd), count=len(rd))
-    content = xb.bytes("Corvane Mutual - CLARA program inventory - generated from the CLR-2025-02 source baseline and reviewed")
+    content = xb.bytes("Corvane Mutual - CLARA program inventory - generated from the CLARA source baseline and reviewed")
     F.add("needle", "Program inventory XML: CLRFR020 renamedFrom FNETCAL1 on 2025-03-01.",
           xloc("//program[@id='CLRFR020']/renamedFrom"), "FNETCAL1 date=2025-03-01",
           world_ref="PROGRAM:CLRFR020#renamed_from", placement="PL-174")
@@ -738,7 +738,6 @@ def build_ST038(out_dir: pathlib.Path) -> Built:
     fid = "ST038"
     on = fdate(fid)
     F = Facts(fid, out_dir)
-    r = util.rng(f"{fid}:fr1")
     rep = W.reports["NISA-FR1"]
     sub = rep["submissions"]["2026Q2"]
     total = sub["referrals"]
@@ -762,25 +761,28 @@ def build_ST038(out_dir: pathlib.Path) -> Built:
     fig = xb.sub(xb.root, "figures", currency="n/a")
     xb.sub(fig, "referralsTotal", total)
     xb.sub(fig, "referralThreshold", 65, rule="BR-FRD-031 v1", appliesTo="all tiers", effectiveFrom="2026-04-01")
-    bd = fr1_breakdowns(r, total)
+    fq = fr1_data.quarter("2026-04-01", "2026-06-30")
+    assert fq["total"] == total, (fq["total"], total)
+    bd = {k: fq[k] for k in ("byRegion", "byLine", "byTier", "bySource", "bySystem")}
     for name, vals in bd.items():
         g = xb.sub(fig, name)
         for k, v in vals.items():
             xb.sub(g, "item", v, key=k)
-    months = dict(zip(["2026-04", "2026-05", "2026-06"], split_total(r, total, [0.32, 0.33, 0.35])))
+    months = fq["byMonth"]
     mg = xb.sub(fig, "byMonth")
     for k, v in months.items():
         xb.sub(mg, "item", v, key=k)
-    notices = total - r.randint(15, 35)
+    cnf = fq["customerNotices"]
     cn = xb.sub(fig, "customerNotices", rule="BR-FRD-032 v2")
-    xb.sub(cn, "issuedWithin10BusinessDays", notices)
-    xb.sub(cn, "deferred", total - notices, rule="BR-FRD-036 v1")
+    xb.sub(cn, "issuedWithin10BusinessDays", cnf["issuedWithin10BusinessDays"])
+    xb.sub(cn, "deferred", cnf["deferred"], rule="BR-FRD-036 v1")
+    xb.sub(cn, "pendingAtPeriodEnd", cnf["pendingAtPeriodEnd"])
     xb.sub(fig, "adverseDecisionsOnScoreAlone", 0, rule="BR-FRD-033")
-    det = fr1_detail(r, total, ["2026-04", "2026-05", "2026-06"])
+    det = fr1_detail(fq)
     dx = xb.sub(fig, "detail")
     g = xb.sub(dx, "byProduct")
     for x in det["byProduct"]:
-        xb.sub(g, "item", x["referrals"], product=x["product"], name=x["name"])
+        xb.sub(g, "item", x["referrals"], product=x["product"], name=x["name"], region=x["region"])
     g = xb.sub(dx, "byClaimType")
     for x in det["byClaimType"]:
         xb.sub(g, "item", x["referrals"], claimType=x["claimType"], name=x["name"])
@@ -788,18 +790,19 @@ def build_ST038(out_dir: pathlib.Path) -> Built:
         g = xb.sub(dx, key)
         for k, v in det[key].items():
             xb.sub(g, "item", v, key=k)
-    for name, rows, cols in (("byRegionAndMonth", bd["byRegion"], months), ("byLineAndTier", bd["byLine"], bd["byTier"])):
+    for name, rows in (("byRegionAndMonth", bd["byRegion"]), ("byLineAndTier", bd["byLine"])):
         ct = xb.sub(dx, name)
-        for rk, cells in crosstab(rows, cols).items():
+        for rk, cells in fq[name].items():
             row = xb.sub(ct, "row", key=rk, total=rows[rk])
             for ck, v in cells.items():
                 xb.sub(row, "cell", v, key=ck)
     wk = xb.sub(dx, "byWeek")
-    for x in fr1_weekly(r, total, "2026-04-01", "2026-06-30"):
+    for x in fq["weekly"]:
         xb.sub(wk, "item", x["referrals"], weekStart=x["weekStart"], weekEnd=x["weekEnd"])
-    ann = xb.sub(xb.root, "deferralAnnex", rule="BR-FRD-036 v1", records=total - notices,
+    annex = fr1_annex_records(fq)
+    ann = xb.sub(xb.root, "deferralAnnex", rule="BR-FRD-036 v1", records=len(annex),
                  maxDeferralDays=rule_ver("BR-FRD-036", 1)["parameters"]["max_deferral_days"])
-    for x in fr1_deferral_annex(r, total - notices, "2026-04-01", "2026-06-30"):
+    for x in annex:
         rec = xb.sub(ann, "record", claimRef=x["claimRef"], product=x["product"], tier=x["tier"])
         xb.sub(rec, "referralDate", x["referralDate"])
         xb.sub(rec, "noticeDueDate", x["noticeDueDate"], rule="BR-FRD-032 v2")
@@ -822,6 +825,7 @@ def build_ST038(out_dir: pathlib.Path) -> Built:
                               "no negative values", "region by month cells reconcile to both breakdowns",
                               "line by tier cells reconcile to both breakdowns", "weekly counts sum to referralsTotal",
                               "deferral annex record count equals deferred notices",
+                              "notice timing, deferred and pending counts sum to referralsTotal",
                               "every deferral is within the maximum deferral period",
                               "schema validation against FR1 v1.0"], 1):
         xb.sub(val, "check", "PASS", id=f"V{k:02d}", description=name)
@@ -845,6 +849,11 @@ def build_ST038(out_dir: pathlib.Path) -> Built:
           "CLX-IF-033", world_ref="REPORT:NISA-FR1#source_interfaces")
     F.add("general", "FR1 Q2 deferral annex: notices may be deferred up to 60 days under BR-FRD-036 v1.",
           xloc("//deferralAnnex/@maxDeferralDays"), "60", world_ref="RULE:BR-FRD-036@v1#parameters.max_deferral_days")
+    F.add("general", f"NISA-FR1 2026Q2: {cnf['deferred']} customer notices were deferred under BR-FRD-036 v1 (the deferral annex "
+                     f"lists {len(annex)} records); {cnf['issuedWithin10BusinessDays']:,} were issued within 10 business days and "
+                     f"{cnf['pendingAtPeriodEnd']} were pending at period end.",
+          xloc("//figures/customerNotices/deferred"), str(cnf["deferred"]), world_ref="RULE:BR-FRD-036@v1",
+          notes="Computed from the ST015 referral data model (notice_deferred = Y for Q2 2026 referrals).")
     return Built(fid, content, F.items, f"{sum(len(v) for v in bd.values()) + 3} rows")
 
 
@@ -1225,14 +1234,37 @@ def build_ST041(out_dir: pathlib.Path) -> Built:
 # ST042 JCL schedule
 # ---------------------------------------------------------------------------------------------
 
-def jcl_text(job: dict, desc: str) -> str:
+def copybook_fields_as_of(name: str, on: str) -> list[dict]:
+    """Copybook fields as they stood on `on` (field_history changes after `on` are undone)."""
+    fields = [dict(f) for f in W.copybooks[name]["fields"]]
+    for h in sorted(W.copybooks[name].get("field_history") or [], key=lambda x: str(x["date"]), reverse=True):
+        if str(h["date"]) <= on:
+            continue
+        for f in fields:
+            if f["name"] == h["field"]:
+                f["pic"] = h["from_pic"]
+        fields = [f for f in fields if not (f["name"] == h["field"] and f["pic"] is None)]
+    return fields
+
+
+def dataset_lrecl(ds: dict, steps: list[dict], on: str) -> int:
+    """Record length of a job dataset: the layout of the step copybook named in the DSN (RSVOUT -> RSVMOVE)."""
+    quals = re.split(r"[.(]", ds["dsn"])
+    for st in steps:
+        for c in W.programs[st["program"]]["copybooks"]:
+            if c in quals:
+                return sum(x["length"] for x in layout(copybook_fields_as_of(c, on)) if not x["group"])
+    raise ValueError(f"no record layout for dataset {ds['dsn']}")
+
+
+def jcl_text(job: dict, steps: list[dict], desc: str, on: str) -> str:
     out = [f"//{job['name']:<8} JOB (CLR,BATCH),'{desc[:20].upper()}',CLASS=B,MSGCLASS=X,", "//         NOTIFY=&SYSUID"]
-    for st in job["steps"]:
+    for st in steps:
         out.append(f"//{st['step']:<8} EXEC PGM={st['program']}")
         out.append("//STEPLIB  DD DSN=CLR.PROD.LOADLIB,DISP=SHR")
         for ds in job["datasets"]:
             out.append(f"//{ds['dd']:<8} DD DSN={ds['dsn']},DISP=(NEW,CATLG,DELETE),")
-            out.append("//            SPACE=(CYL,(50,20),RLSE),DCB=(RECFM=FB,LRECL=100)")
+            out.append(f"//            SPACE=(CYL,(20,10),RLSE),DCB=(RECFM=FB,LRECL={dataset_lrecl(ds, steps, on)},BLKSIZE=0)")
         out.append("//SYSOUT   DD SYSOUT=*")
     return "\n".join(out)
 
@@ -1250,8 +1282,9 @@ def build_ST042(out_dir: pathlib.Path) -> Built:
     xb.sub(hdr, "ownerTeam", team_name("T25", on), teamId="T25")
     xb.sub(hdr, "contact", pname("P026", on), title=ptitle("P026", on))
     xb.sub(hdr, "calendar", "UK business-day calendar with Nordic holidays applied to Nordic jobs")
-    jobs = xb.sub(xb.root, "jobs", count=len(W.jcl_jobs))
-    for name, j in W.jcl_jobs.items():
+    job_list = jcl_jobs_as_of(on)   # only jobs/programs that exist on the schedule date
+    jobs = xb.sub(xb.root, "jobs", count=len(job_list))
+    for name, j, steps in job_list:
         ref = f"JCL:{name}"
         desc = j["description"]
         status = j["status"]
@@ -1266,7 +1299,7 @@ def build_ST042(out_dir: pathlib.Path) -> Built:
         else:
             xb.sub(je, "schedule", "held in the Batch Scheduler calendar (not reproduced here)", published="false")
         se = xb.sub(je, "steps")
-        for st in j["steps"]:
+        for st in steps:
             p = W.programs[st["program"]]
             ste = xb.sub(se, "step", name=st["step"], program=st["program"], area=p["area"])
             xb.sub(ste, "description", st["description"])
@@ -1280,7 +1313,8 @@ def build_ST042(out_dir: pathlib.Path) -> Built:
             de = xb.sub(je, "datasets")
             for ds in j["datasets"]:
                 xb.sub(de, "dataset", ds["dsn"], dd=ds["dd"])
-        ifs = sorted({i["id"] for i in W.interfaces.values() for st in j["steps"] if st["program"] in i["programs"]})
+        ifs = sorted({i["id"] for i in W.interfaces.values() for st in steps
+                      if st["program"] in i["programs"] and interface_exists(i["id"], on)})
         if ifs:
             ie = xb.sub(je, "interfaces")
             for x in ifs:
@@ -1292,7 +1326,7 @@ def build_ST042(out_dir: pathlib.Path) -> Built:
         else:
             xb.sub(je, "restart", "Standard restart: rerun from the failed step after the cause is fixed.")
         jt = xb.sub(je, "jcl")
-        jt.text = etree.CDATA("\n" + jcl_text(j, desc) + "\n")
+        jt.text = etree.CDATA("\n" + jcl_text(j, steps, desc, on) + "\n")
         aa = xb.sub(je, "abendActions")
         for k, s_ in enumerate(r.sample(phrases.BANKS["runbook"], 3), 1):
             xb.sub(aa, "action", s_, order=k)
@@ -1313,7 +1347,7 @@ def build_ST042(out_dir: pathlib.Path) -> Built:
           xloc("//job[@name='CLRNFR01']/steps"), "CLRFR040", world_ref="JCL:CLRNFR01#steps")
     F.add("general", "The CLARA batch window is 23:30–05:30 UK time.", xloc("//scheduleHeader/batchWindow"),
           "23:30–05:30 UK time", world_ref="SYSTEM:SYS01#batch_window")
-    return Built(fid, content, F.items, f"{len(W.jcl_jobs)} rows")
+    return Built(fid, content, F.items, f"{len(job_list)} rows")
 
 
 BUILDERS = {

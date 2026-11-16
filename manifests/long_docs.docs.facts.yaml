@@ -259,7 +259,7 @@
   locator:
     kind: docx_table
     table_index: 87
-    row: 43
+    row: 42
     col: 4
     page_hint: 49
   needle: daily 03:00
@@ -275,7 +275,7 @@
   locator:
     kind: docx_table
     table_index: 87
-    row: 43
+    row: 42
     col: 1
     page_hint: 49
   needle: GL Reserve Journal Feed
@@ -289,7 +289,7 @@
   locator:
     kind: docx_table
     table_index: 87
-    row: 44
+    row: 43
     col: 4
     page_hint: 49
   needle: daily 04:00
@@ -303,7 +303,7 @@
   locator:
     kind: docx_table
     table_index: 87
-    row: 47
+    row: 46
     col: 4
     page_hint: 49
   needle: daily 04:15
@@ -330,7 +330,7 @@
     kind: docx_para
     para_index: 665
     section: 7 Deployment and infrastructure
-    page_hint: 55
+    page_hint: 54
   needle: ocp-prd-lon1 in London is primary and ocp-dr-lds1 in Leeds provides disaster recovery
   exclusive: false
   also_in: []
@@ -344,7 +344,7 @@
     table_index: 99
     row: 3
     col: 1
-    page_hint: 60
+    page_hint: 59
   needle: Republication of CLX-IF-042 reserve movements onto the event backbone
   exclusive: false
   also_in: []
@@ -358,7 +358,7 @@
     table_index: 104
     row: 4
     col: 0
-    page_hint: 65
+    page_hint: 64
   needle: Ingrid Sørensen
   exclusive: false
   also_in: []
@@ -386,7 +386,7 @@
     table_index: 106
     row: 1
     col: 3
-    page_hint: 67
+    page_hint: 66
   needle: 35 calendar days after quarter end
   exclusive: false
   also_in: []
@@ -414,7 +414,7 @@
     table_index: 108
     row: 22
     col: 3
-    page_hint: 70
+    page_hint: 69
   needle: CLX-IF-043, CLX-IF-044, CLX-IF-047
   exclusive: false
   also_in: []
@@ -602,9 +602,9 @@
   locator:
     kind: docx_table
     table_index: 104
-    row: 236
+    row: 239
     col: 3
-    page_hint: 60
+    page_hint: 61
   needle: recovery.recovery_case.subtrak_ref
   exclusive: false
   also_in: []
@@ -994,7 +994,8 @@
 - fact_id: LD017-F007
   world_ref: RULE:BR-TRI-003@v2#parameters.tier3_min_gbp
   kind: contradiction_old
-  statement: 'CLARA spec v3.4 (2021): a claim is Tier-3 at an estimated incurred of £40,000 or more.'
+  statement: 'CLARA spec v3.4 (2021): from 2022-01-01 (BR-TRI-003 v2) a claim is Tier-3 at an estimated incurred of £40,000
+    or more.'
   file: corpus/upload/long_docs/LD017_clara_system_specification_v3_4.docx
   locator:
     kind: docx_para

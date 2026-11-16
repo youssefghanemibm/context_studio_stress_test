@@ -7,6 +7,8 @@ from . import charts, core
 from .core import (AMBER, BLUE_L, GREEN, GREY_L, GRID, INK, INK2, LINE, MUTED, NAVY, NAVY2, PURPLE, RED, TEAL, WHITE,
                    Canvas, fmt_date_long, fmt_date_short)
 from .ctx import W, adate, anchor, guard, name, out_path, placement, rel, sysname, svcname, team_name, title
+from generators.visuals import org_chart_control as OC
+
 from .diagrams import Diagram, Swimlane, Timeline, org_chart, table_image
 from .facts import Facts, chart_spec, placement_spec, spec
 from .pdf_kit import A3_LAND, A4_LAND, build_raster_pdf, page_pixels
@@ -145,7 +147,9 @@ def build_vs040():
     for s in svcs:
         nm = svcname(s["name"], d)
         o = W.service_owner(s["name"], d)
-        rows.append([s["id"], nm, team_name(o["team"], d), s["k8s_namespace"], ", ".join(s["kafka_topics"].get("produces", [])) or "–",
+        live = [t for t in s["kafka_topics"].get("produces", [])
+                if str(W.topics.get(t, {}).get("introduced", "0000-00-00")) <= str(d)]  # no topics from after the poster date
+        rows.append([s["id"], nm, team_name(o["team"], d), s["k8s_namespace"], ", ".join(live) or "–",
                      ", ".join(s["postgres_tables"])])
     tim = table_image(["ID", "Service", "Owning squad", "Namespace", "Produces", "Tables"], rows,
                       [110, 330, 560, 260, 700, 1100], size=22, title="")
@@ -419,7 +423,8 @@ def _node(pid, d, depth, style):
 
 def build_vs044():
     fid = "VS044"
-    P = PdfFile(fid, A3_LAND, "CM-ORG-2025-10", "2025.2")
+    oc = OC.control(W, fid)   # same document reference and version as VS005 (the pptx rendition)
+    P = PdfFile(fid, A3_LAND, oc["doc_ref"], oc["version"])
     d = P.d
     guard(fid, "PERSON:P009", "reports_to")
     pl = placement(fid, "vs44_lena")

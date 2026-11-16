@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from generators.common import util
 
-from .common import D, out_path, placement, assert_may
+from .common import D, W, out_path, placement, assert_may
 from .dialogue import Meeting, Topic
 from .meetings_common import speakers_for, transcript_header, footer
 
@@ -162,7 +162,11 @@ def build(facts, wps: float) -> Meeting:
     n = m.say(KB, "It's an easy mistake. The data dictionary only lists seven writers anyway. It's missing CLRGL090, because that one only runs at year-end and nobody thinks of it.")
     m.doc.fact(n, needle="The data dictionary only lists seven writers", kind="general", world_ref="TABLE:CLR.T_RESERVE#writers",
                statement="The CLARA data dictionary lists only seven writers of CLR.T_RESERVE; it omits CLRGL090.")
-    m.say(GS, "Which is exactly why we did the CRUD matrix from the code, under CHUB-104. All 122 programs.")
+    # CHUB-104's matrix covered the programs that existed when it was resolved (2025-04-11); the 122-program
+    # reissue (key_tickets description) is dated 2026-08-20, after this meeting.
+    chub104 = W.tickets["CHUB-104"]
+    n_progs = sum(1 for p in W.programs.values() if str(p.get("since", "1900-01-01")) <= str(chub104["resolved"]))
+    m.say(GS, f"Which is exactly why we did the CRUD matrix from the code, under CHUB-104. All {n_progs} programs.")
     m.script(m.at(52, 30), t_wr, [
         (TW, "Okay. So the design has to cover eight writers. Let's go through the mapping."),
     ])

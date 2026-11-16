@@ -339,7 +339,7 @@ NOTES ON THIS TRANSCRIPT
 [00:46:20] Gordon Sproat: Keith's right, that matches the matrix. Eight writers in total: the four CLRRS ones plus those four. And CLRRS150 is a red herring, it only writes the movement table, never the reserve table itself.
 [00:46:33] Daniel Achebe: Okay, thank you. I was going off the CLRRS naming, which is clearly not enough. Good catch.
 [00:46:40] Keith Barraclough: It's an easy mistake. The data dictionary only lists seven writers anyway. It's missing CLRGL090, because that one only runs at year-end and nobody thinks of it.
-[00:46:51] Gordon Sproat: Which is exactly why we did the CRUD matrix from the code, under CHUB-104. All 122 programs.
+[00:46:51] Gordon Sproat: Which is exactly why we did the CRUD matrix from the code, under CHUB-104. All 118 programs.
 [00:46:58] Daniel Achebe: I think the writer programs need a bit of tidying up rather than a rethink. The writer programs are exactly where the parallel run [inaudible] its keep. My instinct on the static analysis is to wait a little and see how things settle.
 [00:47:14] Tomasz Wojcik: I think we've covered that. Moving on.
 [00:47:18] Nadia Petrovic: Keith, is there anything on the writer programs you need from this group?

@@ -69,8 +69,8 @@ run between CLARA and reserve-engine had ended on 28 August 2026.
 
 ## What we will change for Wave 2
 
-Wave 2 is planned for 15 February 2027 and covers UK home, commercial and liability plus Norway and
-Sweden. Changes agreed:
+Wave 2 is planned for early 2027, with the date to be confirmed by the Steering Committee, and
+covers UK home, commercial and liability plus Norway and Sweden. Changes agreed:
 
 - Idempotency to be confirmed for every payment path as an explicit go/no-go criterion.
 - A smaller decision bridge with workstream leads only, and a separate information call for everyone

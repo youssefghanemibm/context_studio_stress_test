@@ -1,7 +1,9 @@
 """incidents.yaml, adrs.yaml, timeline.yaml, key_tickets.yaml."""
 from __future__ import annotations
 
-from .common import PROGRAMME, add_days, rng
+from .common import PROGRAMME, add_days, d, rng
+from .integration import IFS as _IFS
+from .integration import SERVICES as _SERVICES
 
 # ------------------------------------------------------------------ tickets
 FIX_VERSIONS = {
@@ -131,6 +133,18 @@ SUMMARY_TPL = [
 ]
 
 
+# Jira component names are renamed in place, but a summary keeps the name in force when it was written.
+SERVICE_RENAMES = {s["name"]: [(x["date"], x["from_name"]) for x in s.get("renames") or []] for s in _SERVICES}
+
+
+def name_asof(comp, d):
+    """Service name in force on date d (e.g. reserve-svc before the 2026-02-10 rename)."""
+    for date, old in sorted(SERVICE_RENAMES.get(comp, [])):
+        if d < date:
+            return old
+    return comp
+
+
 def generated_tickets(existing):
     used = {int(t["id"].split("-")[1]) for t in existing}
     r = rng("world:tickets")
@@ -157,7 +171,7 @@ def generated_tickets(existing):
             if (resolved or created) <= date:
                 fv = name
                 break
-        out.append(T(f"CHUB-{n}", typ, tpl.format(c=comp), "Done" if done else r.choice(["To Do", "In Progress"]), r.choice(COMP_ASSIGNEES[comp]),
+        out.append(T(f"CHUB-{n}", typ, tpl.format(c=name_asof(comp, created)), "Done" if done else r.choice(["To Do", "In Progress"]), r.choice(COMP_ASSIGNEES[comp]),
                      created, resolved, comp, fv, labels=["generated-filler"]))
         used.add(n)
     return out
@@ -258,13 +272,36 @@ INC_TEMPLATES = [
 ]
 
 
+# Background incidents about a late scheduled feed start when that feed's scheduled run finds no file, and
+# name the interface (the interface run log records the failed run at the same time).
+FEED_INCIDENTS = {"Payment confirmation file arrived late from CPG": 20}
+
+FOLLOW_UP_DAYS = 60
+# Jira components that could carry the follow-up work for an incident on each system.
+FOLLOW_UP_COMPONENTS = {
+    "SYS01": ("CLARA",), "SYS14": ("Integration", "gl-posting-svc"), "SYS06": ("Integration", "gl-posting-svc"),
+    "SYS17": ("assessment-svc", "Integration"), "SYS09": ("payment-orchestrator", "Integration"), "SYS15": ("Platform",),
+    "SYS12": ("Integration",), "SYS25": ("notification-svc",), "SYS11": ("Integration",), "SYS19": ("Integration",),
+    "SYS08": ("Integration", "CLARA"), "SYS13": ("document-svc", "Platform"), "SYS16": ("Platform",), "SYS07": ("Integration",),
+    "SYS18": ("CLARA", "Platform"),
+}
+
+
 def build_incidents(ticket_ids):
     K = key_incidents()
     r = rng("world:incidents")
     used_dates = {i["date"] for i in K}
     G = []
     seq = {2024: 100, 2025: 100, 2026: 100}
-    gen_tickets = sorted(t for t in ticket_ids if t not in {x for i in K for x in i["fix_tickets"]})
+    # Background incidents only cite generated filler tickets, never a key ticket that means something else.
+    # A follow-up ticket must be raised on or after the incident (within FOLLOW_UP_DAYS) in a component that
+    # owns the affected system; when no generated ticket qualifies the incident has no follow-up ticket.
+    key = key_tickets()
+    key_ids = {t["id"] for t in key}
+    cited = {x for i in K for x in i["fix_tickets"]}
+    gen_tickets = sorted((t for t in generated_tickets(key) if t["id"] in set(ticket_ids) and t["id"] not in key_ids
+                          and t["id"] not in cited), key=lambda t: (t["created"], int(t["id"].split("-")[1])))
+    taken: set[str] = set()
     owners = {"SYS01": "P016", "SYS14": "P031", "SYS06": "P021", "SYS17": "P033", "SYS09": "P035", "SYS15": "P031", "SYS12": "P029", "SYS25": "P040",
               "SYS11": "P036", "SYS19": "P037", "SYS08": "P016", "SYS13": "P040", "SYS16": "P032", "SYS07": "P038", "SYS18": "P026"}
     for i, (title, systems, cause, sev) in enumerate(INC_TEMPLATES):
@@ -276,9 +313,21 @@ def build_incidents(ticket_ids):
         y = int(date[:4])
         seq[y] += r.randint(37, 160)
         iid = f"INC-{y}-{seq[y]:04d}"
-        tk = [gen_tickets[(i * 3) % len(gen_tickets)]] if date >= "2025-01-20" and gen_tickets else []
-        G.append({"id": iid, "date": date, "start": f"{date}T{r.randint(0, 22):02d}:{r.choice(['05', '20', '35', '50'])}",
-                  "end": None, "severity": sev, "title": title, "systems": systems, "programs": [], "interfaces": [],
+        comps = set().union(*(FOLLOW_UP_COMPONENTS.get(s, ()) for s in systems))
+        hits = [t["id"] for t in gen_tickets if t["component"] in comps and t["id"] not in taken
+                and date <= t["created"] <= add_days(date, FOLLOW_UP_DAYS)]
+        tk = hits[:1]
+        taken.update(tk)
+        start = f"{date}T{r.randint(0, 22):02d}:{r.choice(['05', '20', '35', '50'])}"
+        interfaces = []
+        if title in FEED_INCIDENTS:
+            num = FEED_INCIDENTS[title]
+            sched = next(x[6] for x in _IFS if x[0] == num)
+            days, hhmm = sched.split()
+            assert days == "Mon-Fri" and d(date).weekday() < 5, (title, date, sched)
+            start, interfaces = f"{date}T{hhmm}", [f"CLX-IF-{num:03d}"]
+        G.append({"id": iid, "date": date, "start": start,
+                  "end": None, "severity": sev, "title": title, "systems": systems, "programs": [], "interfaces": interfaces,
                   "root_cause": cause, "impact": f"Service degraded for {r.randint(20, 300)} minutes; no regulatory impact.",
                   "fix_tickets": tk, "fix_commit_summary": None, "owner": owners[systems[0]]})
     allinc = sorted(K + G, key=lambda x: (x["date"], x["id"]))

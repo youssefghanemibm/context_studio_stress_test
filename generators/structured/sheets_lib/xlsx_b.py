@@ -7,7 +7,8 @@ import re
 from openpyxl.worksheet.datavalidation import DataValidation
 
 from . import claims as C
-from .common import (D, W, adate, approvers_for, colleagues_of, doc_control_sheet, iso, may, new_workbook, pick,
+from .common import (ST011_MONTHS, ST011_WORKLOADS, D, W, adate, approvers_for, batch_elapsed, colleagues_of,
+                     doc_control_sheet, iso, may, new_workbook, pick, st011_jobs,
                      placement, pname, print_setup, ptitle, require, rng, set_props, set_widths, svcname, sysname,
                      team_name, temporalize, text_rules_known, write_header, write_title, xl_styles)
 from .xlsx_a import dtype, save, st001_columns
@@ -847,10 +848,10 @@ def build_st011(ctx):
     wm = wb.create_sheet("MIPS Forecast")
     write_title(wm, "MIPS forecast by workload", "Monthly average of the peak hour, in MIPS.")
     write_header(wm, 4, ["Month", "Workload", "Forecast MIPS", "Basis"])
-    base = {"CICS online": 610, "Batch": 840, "DB2": 520, "MQ": 95}
+    base = ST011_WORKLOADS
     rr = 5
     mrows = 0
-    for y, m in [(2026, k) for k in range(4, 13)] + [(2027, k) for k in range(1, 10)]:
+    for y, m in ST011_MONTHS:
         month = dt.date(y, m, 1)
         f = 1.0
         if month >= D("2026-06-01"):
@@ -875,13 +876,10 @@ def build_st011(ctx):
     write_header(wbw, 4, ["Job", "Description", "Schedule", "Programs", "Status", "Typical elapsed (min)", "Owner team"])
     rr = 5
     jrows = {}
-    for jn in sorted(W.jcl_jobs):
+    elapsed = batch_elapsed()   # the same draws as before; shared with the batch movement timestamps
+    for jn in st011_jobs():
         j = W.jcl_jobs[jn]
-        if not may(fid, f"JCL:{jn}", "schedule"):
-            continue
         progs = [s["program"] for s in j["steps"]]
-        if any(W.programs[p]["since"] > ds for p in progs):
-            continue
         status = j["status"]
         sched = j["schedule"]
         if jn == "CLRDRSV9":
@@ -889,7 +887,7 @@ def build_st011(ctx):
         if jn == "CLRNFR99":
             status, sched = "disabled", "removed from schedule 2026-04-01 (was daily 00:45)"
         vals = [jn, j["description"].replace(" (retired 2026-08-28)", ""), sched, ", ".join(progs), status,
-                r.randint(4, 55), team_name(j["owner_team"], d)]
+                elapsed[jn], team_name(j["owner_team"], d)]
         for k, x in enumerate(vals, 1):
             wbw.cell(row=rr, column=k, value=x)
         jrows[jn] = rr

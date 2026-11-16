@@ -2719,12 +2719,12 @@
 - fact_id: TX070-F136
   world_ref: TICKET:CHUB-279
   kind: general
-  statement: 'CHUB-279 (Bug, reserve-engine) in the Jira export: reserve-engine: null pointer on missing optional field.'
+  statement: 'CHUB-279 (Bug, reserve-engine) in the Jira export: reserve-svc: null pointer on missing optional field.'
   file: corpus/upload/text/TX070_jira_export_chub_2000.json
   locator:
     kind: json_pointer
     pointer: /issues/178/fields/summary
-  needle: 'reserve-engine: null pointer on missing optional field'
+  needle: 'reserve-svc: null pointer on missing optional field'
   exclusive: false
   also_in: []
 - fact_id: TX070-F137

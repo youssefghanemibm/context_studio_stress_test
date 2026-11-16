@@ -248,7 +248,7 @@ def build() -> Doc:
         doc.h(3, f"2.4.{stg['order']} {stg['name']}")
         doc.p(f"The {stg['name'].lower()} stage comprises the following steps. Systems that support the stage today: "
               + ", ".join(ctx.sys(x) for x in stg["systems"]) + ".")
-        doc.table(["Step", "Name", "Description"], [[x, W.steps[x]["name"], ctx.a(W.steps[x]["description"])] for x in stg["steps"]],
+        doc.table(["Step", "Name", "Description"], [[x, W.steps[x]["name"], H.step_desc(ctx, x)] for x in stg["steps"]],
                   widths=[2.4, 4.6, 9.6], font_size=8.6)
         doc.p(pr.para(["opmodel", "arch"], n=(2, 3), svc=list(W.services.keys())))
 
@@ -469,6 +469,8 @@ def build() -> Doc:
         iid = i["id"]
         if iid == "CLX-IF-049":
             continue
+        if date < "2025-11-20" and "NISA-FR1" in (i.get("feeds_reports") or []):
+            continue   # the NISA-FR1 return exists only from Circular 2026/04 (published 2025-11-20)
         live = str(i["since"]) <= date
         sch = H.iface_schedule(ctx, iid) or "per CLARA batch schedule"
         rows.append([iid, ctx.a(i["name"]), ctx.sys(i["source_system"]), ctx.sys(i["target_system"]), sch,
@@ -626,7 +628,7 @@ def build() -> Doc:
             for c in W.claim_types.values()]
     doc.table(["Peril code", "Claim type", "Lines of business", "Local names"], rows, widths=[2.0, 4.2, 4.6, 5.8],
               caption="Claim types (perils)", font_size=8.2)
-    rows = [[l_["name"], l_["city"], l_["type"], ", ".join(l_["functions"]) or "—"] for l_ in W.locations.values()
+    rows = [[l_["name"], l_["city"], l_["type"], H.org_asof(ctx, ", ".join(l_["functions"])) or "—"] for l_ in W.locations.values()
             if l_["type"] in ("office", "data_centre")]
     doc.table(["Location", "City", "Type", "Functions"], rows, widths=[4.6, 2.4, 2.2, 7.4], caption="Locations",
               font_size=8.2)
@@ -732,6 +734,6 @@ def build() -> Doc:
         doc.p(pr.para(["integration"], n=(2, 3)))
     doc.h(1, "Appendix F – Glossary")
     terms = C.glossary_terms([g for g in W.glossary if g not in ("G-012", "G-021")])
-    terms = [(t, ctx.a(m)) for t, m in terms]
+    terms = [(t, H.org_asof(ctx, ctx.a(m))) for t, m in terms]
     doc.table(["Term", "Meaning"], [list(t) for t in terms], widths=[4.6, 12.0], font_size=8.8)
     return doc

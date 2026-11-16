@@ -10,6 +10,18 @@ def iso_minus(iso: str, days: int) -> str:
     return (_dt.date.fromisoformat(iso) - _dt.timedelta(days=days)).isoformat()
 
 
+def asof_systems(W, text: str, d: str) -> str:
+    """Rewrite current system names in undated world free text (committee remits etc.) to the names in
+    force on date d, e.g. 'Sentinel thresholds' -> 'FRAUDNET thresholds' before 2025-03-01."""
+    for sid, sysd in W.systems.items():
+        if not sysd.get("renames"):
+            continue
+        cur, then = sysd["name"], W.system_name(sid, d)
+        if cur != then and cur in text:
+            text = text.replace(cur, then)
+    return text
+
+
 def agenda(deck, items: list[str], title: str = "Agenda", kicker: str | None = None, notes_topic="the agenda"):
     s = deck.content(title, kicker)
     n = len(items)

@@ -226,7 +226,8 @@ def build(W, out_dir):
     D.need("TIMELINE:programme", "clara_decommission_target")
     s.notes(P.notes(rng, "the migration roadmap",
                     ["Dates for the last two milestones: Wave 2 cut-over is planned for 2027-02-15 and CLARA decommissioning for 2027-09-30.",
-                     "Both dates are kept off the slide until the Steering Committee re-confirms them."]))
+                     "The Wave 2 date is a provisional planning date; both dates are kept off the slide until the "
+                     "Steering Committee confirms them."]))
     D.place("vs2_notes_wave2", s, "notes", "Wave 2 cut-over is planned for 2027-02-15 and CLARA decommissioning for 2027-09-30")
 
     # 10 section

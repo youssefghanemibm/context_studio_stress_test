@@ -1,0 +1,671 @@
+# Question group VIS: visuals (connectors, swimlanes, raster labels, native charts, image tables,
+# screenshots, grouped/rotated shapes, speaker notes, alt text, stale vs current org charts).
+# Every expected answer was checked against the text at each evidence locator (harness/extract.py,
+# OCR cache included) and against world/worldlib as-of helpers on 2026-11-15.
+
+# ---------------------------------------------------------------------------------------------
+# visual_arrow
+# ---------------------------------------------------------------------------------------------
+- id: Q-VIS-001
+  category: visual_arrow
+  dimensions: [visual, pptx, multi_hop]
+  question: "Under the fraud referral flow that applies from 1 October 2026, what happens to a Tier-3 claim with a Sentinel score of 62?"
+  expected_answer: "It is referred to SIU. It fails the 'Sentinel score ≥ 65?' check (No branch), goes on to the 'Tier-3 and score ≥ 60?' check, and the Yes branch of that check leads to 'Refer to SIU'."
+  acceptable_variants:
+    - "Referred to SIU via the Tier-3 and score ≥ 60 branch"
+  must_include: [["Refer to SIU", "referred to SIU", "referred to the SIU", "SIU referral"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS007-F003}
+    - {fact_id: VS007-F002}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-FRD-031@v2#parameters.tier3_threshold", "PROCESS:PS-FRD-01#decision"]
+  trap: "The Yes/No meaning lives only on the connectors; a reader using only the 65 threshold (LD001 manual, BR-FRD-031 v1) would say the claim is not referred."
+
+- id: Q-VIS-002
+  category: visual_arrow
+  dimensions: [visual, pptx, multi_hop]
+  question: "A claim is notified with an estimated incurred of £30,000 and the claimant has a bodily injury. Using the tier classification decision tree, which tier is the claim, where is it routed, and how quickly?"
+  expected_answer: "Tier-3: the £50,000 question is No, but 'Bodily injury?' is Yes, which leads to Tier-3. Tier-3 claims are routed to Major & Complex Loss within 4 hours (BR-TRI-004)."
+  acceptable_variants: []
+  must_include: [["Tier-3"], ["Major & Complex Loss", "Major and Complex Loss"], ["4 hours", "four hours"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS025-F008}
+    - {fact_id: VS025-F003}
+    - {fact_id: VS025-F012}
+  hops: 3
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-TRI-003@v3#parameters.tier3_triggers", "RULE:BR-TRI-004@v1"]
+  trap: "On amount alone £30,000 is Tier-2; the injury branch is carried only by the Yes/No connectors."
+
+- id: Q-VIS-003
+  category: visual_arrow
+  dimensions: [visual, pptx, multi_hop, temporal]
+  question: "In the claims lifecycle triage flow, which condition sends a claim from 'Route claim' to fast-track settlement, and what fast-track payment cap applies today?"
+  expected_answer: "The connector is labelled 'Tier-1 & score < 30 & no injury' (Tier-1, Sentinel score below 30, no injury). Since 1 July 2026 the fast-track payment cap is £2,000 (NOK 26,000 / SEK 27,000 / DKK 17,000) under BR-TRI-006 v3."
+  acceptable_variants: []
+  must_include: [["Tier-1"], ["30"], ["injury", "injuries", "injured"], ["2,000"]]
+  must_not_include: ["£1,500"]
+  evidence:
+    - {fact_id: VS001-F001}
+    - {fact_id: VS001-F004}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PROCESS:PS-TRI-03#decision", "RULE:BR-TRI-006@v3#parameters.cap_gbp"]
+  trap: "The January 2025 tier poster (VS049) shows the old BR-TRI-006 v2 cap of £1,500."
+
+- id: Q-VIS-004
+  category: visual_arrow
+  dimensions: [visual, pptx]
+  question: "On the downstream reserve-movement interface map, which interface labels the connector from the Group Ledger to the NISA Reporting Hub?"
+  expected_answer: "CLX-IF-051, the Technical Provisions Feed (labelled 'CLX-IF-051 (TP2)')."
+  acceptable_variants: []
+  must_include: [["CLX-IF-051"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS003-F003}
+  hops: 1
+  ask_mode: graph
+  difficulty: medium
+  world_refs: ["INTERFACE:CLX-IF-051#depends_on"]
+  trap: "The interface IDs exist only as connector labels on this slide; the boxes carry system names only."
+
+- id: Q-VIS-005
+  category: visual_arrow
+  dimensions: [visual, pptx, multi_hop]
+  question: "According to the CLARA batch landscape diagram, what does program CLRGL090 do to CLR.T_RESERVE, and which batch job and schedule run it?"
+  expected_answer: "CLRGL090 performs an UPDATE on CLR.T_RESERVE at year end (connector label 'UPDATE (year-end)'). It runs in job CLRYGL90, annually on 31 Dec at 23:30."
+  acceptable_variants: []
+  must_include: [["UPDATE"], ["CLRYGL90"], ["31 Dec", "31 December", "December 31"], ["23:30"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS017-F003}
+    - {fact_id: VS017-F005}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PROGRAM:CLRGL090#writes_tables:CLR.T_RESERVE", "JCL:CLRYGL90#schedule"]
+  trap: "The 2025 data dictionary (ST001) omits CLRGL090 from the CLR.T_RESERVE writers (C08)."
+
+- id: Q-VIS-006
+  category: visual_arrow
+  dimensions: [visual, pptx, multi_hop]
+  question: "In the INC-2025-0412 incident review, trace the impact chain from CLX-IF-042 to the regulatory return. Which interfaces and system are in the chain, and what was the final impact?"
+  expected_answer: "CLX-IF-042 → CLX-IF-043 (widened RM-AMOUNT) → Group Ledger (every record rejected) → CLX-IF-051 (journals missing 25–29 Apr) → NISA-TP2: the Q1 2025 TP2 return was 2 days late."
+  acceptable_variants: []
+  must_include: [["CLX-IF-043"], ["Group Ledger"], ["CLX-IF-051"], ["TP2"], ["2 days", "two days"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS019-F004}
+    - {fact_id: VS019-F005}
+    - {fact_id: VS019-F006}
+    - {fact_id: VS019-F007}
+  hops: 4
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["INCIDENT:INC-2025-0412#interfaces", "INCIDENT:INC-2025-0412#impact"]
+  trap: "Each hop's effect is only in the connector label of that hop."
+
+- id: Q-VIS-012
+  category: visual_arrow
+  dimensions: [visual, pptx, multi_hop]
+  question: "On the interface landscape map, which interface carries reserve movements from the MQ Backbone to ReCede, and what schedule does that interface run on?"
+  expected_answer: "CLX-IF-047, the Reserve Cession Feed (MQ), which runs daily at 04:15."
+  acceptable_variants: []
+  must_include: [["CLX-IF-047"], ["04:15", "4:15"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS003-F004}
+    - {file: corpus/upload/visuals/VS003_interface_landscape.pptx, locator: {kind: pptx_slide, slide: 10, where: table}, needle: "CLX-IF-047 Reserve Cession Feed MQ daily 04:15"}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["INTERFACE:CLX-IF-047#depends_on", "INTERFACE:CLX-IF-047#schedule"]
+  trap: "On the slide-4 map the interface ID exists only as the MQ Backbone → ReCede connector label (the boxes carry system names only). The map shows no schedules; the 04:15 schedule comes from the catalogue (slide 10 table, also LD013, ST003)."
+
+# ---------------------------------------------------------------------------------------------
+# visual_lane
+# ---------------------------------------------------------------------------------------------
+- id: Q-VIS-007
+  category: visual_lane
+  dimensions: [visual, pptx]
+  question: "In the claims lifecycle swimlane deck, which team's lane holds the step 'Open subrogation case and demand'?"
+  expected_answer: "The Recoveries & Subrogation (Group) lane."
+  acceptable_variants: []
+  must_include: [["Recoveries & Subrogation", "Recoveries and Subrogation"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS001-F009}
+  hops: 1
+  ask_mode: graph
+  difficulty: medium
+  world_refs: ["PROCESS:PS-REC-02#raci.R", "TEAM:T08"]
+  trap: "Ownership is carried only by lane position (expected edge: step PS-REC-02 → team T08)."
+
+- id: Q-VIS-008
+  category: visual_lane
+  dimensions: [visual, pptx]
+  question: "On the claims lifecycle deck's fraud referral swimlane, which lane does the step 'Notify customer of referral' sit in?"
+  expected_answer: "The Claims Operations lane."
+  acceptable_variants: []
+  must_include: [["Claims Operations"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS001-F012}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PROCESS:PS-FRD-03#raci.R"]
+  trap: "The step sits just below the Counter-Fraud & SIU lane; text RACI tables list both Claims Operations and Counter-Fraud & SIU as R."
+
+- id: Q-VIS-009
+  category: visual_lane
+  dimensions: [visual, pptx]
+  question: "In the fraud referral swimlane that applies from 1 October 2026, which lane carries out 'Human review before any decline', and which lane handles 'Same-day notification of long deferrals'?"
+  expected_answer: "'Human review before any decline' is in the Counter-Fraud & SIU lane; 'Same-day notification of long deferrals' is in the Compliance lane."
+  acceptable_variants: []
+  must_include: [["SIU"], ["Compliance"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS007-F006}
+    - {fact_id: VS007-F008}
+  hops: 2
+  ask_mode: graph
+  difficulty: medium
+  world_refs: ["RULE:BR-FRD-033@v1", "RULE:BR-FRD-036@v2#parameters.notify"]
+
+- id: Q-VIS-010
+  category: visual_lane
+  dimensions: [visual, pptx, temporal]
+  question: "According to the recovery and subrogation process map, who approves a recovery write-off of £12,000, and who approves one of £6,000?"
+  expected_answer: "£12,000 is above £10,000, so the Head of Recoveries & Subrogation approves it; £6,000 is £10,000 or less, so the Recoveries Team Leader approves it."
+  acceptable_variants: []
+  must_include: [["Head of Recoveries"], ["Team Leader"]]
+  must_not_include: ["Recoveries Manager"]
+  evidence:
+    - {fact_id: VS009-F001}
+    - {fact_id: VS009-F003}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PROCESS:PS-REC-06#raci.A", "RULE:BR-REC-011@v2"]
+  trap: "The June 2025 authority matrix (VS022, BR-REC-011 v1) says write-offs above £5,000 need the Recoveries Manager."
+
+# ---------------------------------------------------------------------------------------------
+# visual_raster
+# ---------------------------------------------------------------------------------------------
+- id: Q-VIS-011
+  category: visual_raster
+  dimensions: [visual, docx]
+  question: "When does interface CLX-IF-042 (the Reserve Movement Daily Extract) run?"
+  expected_answer: "Daily at 02:15 (DB2 unload from CLARA to MQ queue CLR.RSVMOVE.OUT)."
+  acceptable_variants: []
+  must_include: [["02:15", "2:15"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS033-F005}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["INTERFACE:CLX-IF-042#schedule"]
+  trap: "Exclusive to a raster arrow label in VS033 Figure 2. The catalogue, register, runbooks and JCL schedule only say 'per CLARA batch schedule' or 'see the interface catalogue entry'. The neighbouring labels are CLX-IF-049 at 02:45 and CLX-IF-043 at 03:45."
+
+- id: Q-VIS-013
+  category: visual_raster
+  dimensions: [visual, docx]
+  question: "In the architecture decisions diagram pack (Figure 3, superseded and deprecated decisions), which decision superseded ADR-005, and what reason is recorded on ADR-005?"
+  expected_answer: "ADR-017 (Replace CDC with the batch bridge for reserve synchronisation, accepted 21 Oct 2025) superseded ADR-005. The reason recorded on ADR-005 is that CLRGL090 updates bypass the movement table, so CDC was rejected in favour of the batch bridge."
+  acceptable_variants: []
+  must_include: [["ADR-017"], ["CLRGL090"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS029-F008}
+    - {fact_id: VS029-F010}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["ADR:ADR-017#supersedes", "ADR:ADR-005#consequences"]
+  trap: "Scoped to Figure 3: the supersession arrow and the recorded reason exist in the pack only as raster text in that figure (section 4 only says to refer to the figure). Both facts also appear in plain text elsewhere (docs/adr, TX037, LD029), so the scope is what makes this a raster test."
+
+- id: Q-VIS-014
+  category: visual_raster
+  dimensions: [visual, docx]
+  question: "During incident INC-2026-0702, how many Tier-3 reserve reviews were overdue on 2 July 2026, and on what date did the overdue count reach zero?"
+  expected_answer: "412 Tier-3 reviews were overdue on 2026-07-02; the count reached 0 on 2026-07-10."
+  acceptable_variants: []
+  must_include: [["412"], ["2026-07-10", "10 July"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS034-F003}
+    - {fact_id: VS034-F004}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["INCIDENT:INC-2026-0702#recovery_metric"]
+  trap: "Exclusive: only the start and end points of a matplotlib raster chart are labelled."
+
+# ---------------------------------------------------------------------------------------------
+# visual_chart
+# ---------------------------------------------------------------------------------------------
+- id: Q-VIS-015
+  category: visual_chart
+  dimensions: [visual, pptx]
+  question: "How much had Programme Skerry spent cumulatively by the end of Q3 2026, and against what approved budget?"
+  expected_answer: "£31.2m cumulative spend at 2026 Q3, against the approved budget of £48.6m."
+  acceptable_variants: []
+  must_include: [["31.2m", "31.2"], ["48.6m", "48.6"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS006-F003}
+    - {fact_id: VS006-F004}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["TIMELINE:metrics#programme_spend_cumulative_gbp_m.2026Q3", "TIMELINE:metrics#programme_budget_gbp_m"]
+  trap: "The cumulative spend exists only in the native chart's cached series (exclusive PL-090)."
+
+- id: Q-VIS-016
+  category: visual_chart
+  dimensions: [visual, pptx]
+  question: "How did the fraud referral rate, as a percentage of scored claims, change between Q1 2026 and Q3 2026?"
+  expected_answer: "It rose from 2.3% of scored claims in Q1 2026 to 2.8% in Q3 2026 (Q2 2026 was also 2.8%, the first quarter at the 65 threshold)."
+  acceptable_variants: []
+  must_include: [["2.3"], ["2.8"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS013-F004}
+    - {fact_id: VS013-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["TIMELINE:metrics#fraud_referral_rate_pct_of_scored"]
+  trap: "Chart-only values (PL-103)."
+
+- id: Q-VIS-017
+  category: visual_chart
+  dimensions: [visual, pptx]
+  question: "What was Corvane's combined ratio for Q3 2026?"
+  expected_answer: "97.8%."
+  acceptable_variants: []
+  must_include: [["97.8"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS020-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["ORG:company#financials.q3_2026.combined_ratio_pct"]
+  trap: "Chart only (exclusive PL-117). The same chart shows the FY2025 comparator of 98.4%."
+
+- id: Q-VIS-018
+  category: visual_chart
+  dimensions: [visual, pptx]
+  question: "What were the 2025 recovery rates for UK motor, UK home and Nordic motor?"
+  expected_answer: "UK motor 41.2%, UK home 18.7% and Nordic motor 36.5%."
+  acceptable_variants: []
+  must_include: [["41.2"], ["18.7"], ["36.5"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS024-F001}
+    - {fact_id: VS024-F002}
+    - {fact_id: VS024-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["TIMELINE:metrics#recovery_rate_pct"]
+  trap: "Native chart only (exclusive PL-123)."
+
+- id: Q-VIS-019
+  category: visual_chart
+  dimensions: [visual, pptx, aggregation]
+  question: "How many claims were migrated to Claims Hub in Wave 1 (UK motor), and how many in Waves 0 and 1 combined?"
+  expected_answer: "186,400 claims in Wave 1 (UK motor); 227,650 in total across Wave 0 (Denmark, 41,250) and Wave 1."
+  acceptable_variants: []
+  must_include: [["186,400"], ["227,650"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS011-F001}
+    - {fact_id: VS011-F002}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["WAVE:MW-1#claims_migrated", "WAVE:MW-0#claims_migrated"]
+  trap: "Chart only (exclusive PL-101); the total has to be summed from the two bars."
+
+# ---------------------------------------------------------------------------------------------
+# visual_image_table
+# ---------------------------------------------------------------------------------------------
+- id: Q-VIS-020
+  category: visual_image_table
+  dimensions: [visual, pptx]
+  question: "In the worked examples table of the tier classification decision tree deck (BR-TRI-003 v3), which example is classified Tier-1, and what tier does the theft-from-car example get?"
+  expected_answer: "The windscreen example (estimate £420, no third party) is the only Tier-1 example: no question is answered Yes ('none (all No)'). The theft-from-car example (estimate £1,100, third party involved) is Tier-2, decided by third-party involvement."
+  acceptable_variants: []
+  must_include: [["Windscreen"], ["Tier-2"]]
+  must_not_include: []
+  evidence:
+    - {file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx, locator: {kind: pptx_slide, slide: 8, where: image, ocr: true}, needle: "Windscreen, estimate £420, no third party"}
+    - {file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx, locator: {kind: pptx_slide, slide: 8, where: image, ocr: true}, needle: "none (all No)"}
+    - {file: corpus/upload/visuals/VS025_tier_classification_decision_tree.pptx, locator: {kind: pptx_slide, slide: 8, where: image, ocr: true}, needle: "Third-party involvement"}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-TRI-003@v3"]
+  trap: "The worked examples exist only as pixels in the slide-8 table image: the alt text says only 'Worked tiering examples under BR-TRI-003 v3' and no other file lists them. OCR reads the three columns separately, so the tier has to be matched to the example by row."
+
+- id: Q-VIS-021
+  category: visual_image_table
+  dimensions: [visual, pptx]
+  question: "What commercial terms apply to Quarryhill Solicitors and to Salvanta Salvage, according to the 2025 recovery KPI deck?"
+  expected_answer: "Quarryhill Solicitors: £95 fixed fee per demand plus a 12% success fee. Salvanta Salvage: £60 collection fee, collection within 2 business days."
+  acceptable_variants: []
+  must_include: [["95"], ["12%"], ["60"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS024-F015}
+    - {fact_id: VS024-F016}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["VENDOR:VEN-07#fees", "VENDOR:VEN-09#fees"]
+  trap: "The fees are only in a table rendered as an image."
+
+- id: Q-VIS-022
+  category: visual_image_table
+  dimensions: [visual, pptx]
+  question: "According to the recovery rules table in the Recovery & Subrogation process deck (October 2025), at what intervals must the limitation diary be set for bodily-injury recoveries and for property recoveries?"
+  expected_answer: "30 months for bodily-injury recoveries and 66 months for property recoveries (BR-REC-009)."
+  acceptable_variants: []
+  must_include: [["30 months"], ["66 months"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS009-F010}
+  hops: 1
+  ask_mode: chat
+  difficulty: easy
+  world_refs: ["RULE:BR-REC-009@v1#parameters"]
+  trap: "Scoped to the slide-6 table image: within the deck the bodily-injury/property split is only in the image (the alt text says just 'limitation diary 30/66 months'). BR-REC-009 is also in plain text in many other files, so the scope is what makes this an image-table test."
+
+# ---------------------------------------------------------------------------------------------
+# visual_screenshot
+# ---------------------------------------------------------------------------------------------
+- id: Q-VIS-023
+  category: visual_screenshot
+  dimensions: [visual, pdf]
+  question: "In the Claims Hub screenshot pack, which CLARA legacy reference is shown next to claim CLM-UK-2025-118204?"
+  expected_answer: "UK2025118204."
+  acceptable_variants: []
+  must_include: [["UK2025118204"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS045-F003}
+    - {fact_id: VS045-F004}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["TABLE:claim_core.claim#columns.claim_id", "TABLE:claim_core.claim#columns.legacy_claim_id"]
+
+- id: Q-VIS-024
+  category: visual_screenshot
+  dimensions: [visual, pdf]
+  question: "In the Sentinel dashboard screenshots, which model version is running and which referral thresholds are configured?"
+  expected_answer: "Model SNT-4.2; thresholds 65 for all claims and 60 for Tier-3 claims (referral.threshold.default = 65, referral.threshold.tier3 = 60 from 2026-10-01)."
+  acceptable_variants: []
+  must_include: [["SNT-4.2"], ["65"], ["60"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS046-F003}
+    - {fact_id: VS046-F004}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-FRD-031@v2", "SYSTEM:SYS03#model_version"]
+
+- id: Q-VIS-025
+  category: visual_screenshot
+  dimensions: [visual, docx]
+  question: "In the Claims Hub user guide's Tier-3 reserve review screenshot, what review cadence is shown, and when is the next review due after the review of 24 August 2026?"
+  expected_answer: "A 14-day cadence (Tier-3, BR-RSV-007); the next review is due on 2026-09-07."
+  acceptable_variants: []
+  must_include: [["14-day", "14 days", "fortnight"], ["2026-09-07"]]
+  must_not_include: ["21 days"]
+  evidence:
+    - {fact_id: VS030-F012}
+    - {fact_id: VS030-F013}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-RSV-007@v3#parameters.review_days"]
+  trap: "The cadence was 21 days before 1 July 2026 and 30 days in the superseded v6.1 manual (C04)."
+
+- id: Q-VIS-026
+  category: visual_screenshot
+  dimensions: [visual, pptx]
+  question: "In the claims handler training deck, which options are visible in the Claim Type drop-down of the Claims Hub FNOL screen for the Hjem Danmark policy?"
+  expected_answer: "Escape of Water, Storm, Frost Damage and Snow Load."
+  acceptable_variants: []
+  must_include: [["Escape of Water"], ["Storm"], ["Frost"], ["Snow"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS021-F002}
+    - {fact_id: VS021-F003}
+    - {fact_id: VS021-F004}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["GLOSSARY:G-006", "PRODUCT:PRD-HOM-DK#claim_types"]
+
+# ---------------------------------------------------------------------------------------------
+# visual_grouped_rotated
+# ---------------------------------------------------------------------------------------------
+- id: Q-VIS-027
+  category: visual_grouped_rotated
+  dimensions: [visual, pptx, temporal]
+  question: "On the Claims Hub service map dated 15 October 2026, which namespace group contains recovery-svc, and which squad is it labelled with?"
+  expected_answer: "The chub-recovery group, labelled 'Squad Fraud & Settlement' (Hub Squad – Fraud & Settlement)."
+  acceptable_variants: []
+  must_include: [["chub-recovery"], ["Fraud & Settlement", "Fraud and Settlement"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS010-F001}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["SERVICE:recovery-svc#owner_history:T29", "SERVICE:recovery-svc#k8s_namespace"]
+  trap: "Scoped to the October 2026 map on purpose: in the world model recovery-svc moved to Hub Squad – Recoveries & Documents (T30) on 2026-11-01."
+
+- id: Q-VIS-028
+  category: visual_grouped_rotated
+  dimensions: [visual, pptx]
+  question: "In the Claims Hub target architecture deck, which OpenShift namespace group holds fraud-referral-svc, and what else is grouped with it?"
+  expected_answer: "The chub-fraud namespace group, which also contains the Sentinel adapter."
+  acceptable_variants: []
+  must_include: [["chub-fraud"], ["Sentinel adapter"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS002-F005}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["SERVICE:fraud-referral-svc#k8s_namespace"]
+
+- id: Q-VIS-029
+  category: visual_grouped_rotated
+  dimensions: [visual, pptx, multi_hop]
+  question: "Which CLARA batch job runs CLRRS130, on what schedule, and what does CLRRS130 do to CLR.T_RESERVE according to the batch landscape diagram?"
+  expected_answer: "Job CLRMRSV1, on the 1st business day of the month at 03:00; CLRRS130 performs an UPDATE on CLR.T_RESERVE for the monthly reserve indexation (connector label 'UPDATE (monthly index)')."
+  acceptable_variants: []
+  must_include: [["CLRMRSV1"], ["1st business day", "first business day"], ["03:00", "3:00", "3am", "3 am"], ["indexation", "index"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS017-F013}
+    - {fact_id: VS017-F004}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["JCL:CLRMRSV1#schedule", "PROGRAM:CLRRS130#writes_tables:CLR.T_RESERVE"]
+
+# ---------------------------------------------------------------------------------------------
+# speaker_notes
+# ---------------------------------------------------------------------------------------------
+- id: Q-VIS-030
+  category: speaker_notes
+  dimensions: [pptx, temporal, stale_chart]
+  question: "Who chairs the Reserving Committee now, and since when?"
+  expected_answer: "Lena Kristiansen (Head of Reserving), since 1 September 2025."
+  acceptable_variants: []
+  must_include: [["Kristiansen"], ["September 2025"]]
+  must_not_include: ["Sebastian Moreau-Clarke"]
+  evidence:
+    - {fact_id: VS008-F007}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["COMMITTEE:COM-01#chair_history"]
+  trap: "The stale March 2024 org chart (VS004) shows the Chief Actuary, Sebastian Moreau-Clarke, as chair."
+
+- id: Q-VIS-031
+  category: speaker_notes
+  dimensions: [pptx]
+  question: "What did NISA confirm about using an SMS for the fraud-referral customer notice, and on what date?"
+  expected_answer: "On 14 January 2026 NISA (Petter Ulvestad) confirmed that an SMS counts as written notice if it is followed by a letter within 2 business days."
+  acceptable_variants: []
+  must_include: [["SMS"], ["letter"], ["2 business days", "two business days"], ["2026-01-14", "14 January 2026"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS014-F008}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["DECISION:DEC-013"]
+  trap: "Exclusive to the slide-6 speaker notes (PL-105; also in TX043)."
+
+- id: Q-VIS-032
+  category: speaker_notes
+  dimensions: [pptx, alias, multi_hop]
+  question: "Who is 'PR' in the speaker notes of the Q3 2026 board update?"
+  expected_answer: "Priya Raman, Corvane's Chief Financial Officer (CFO since 1 July 2025)."
+  acceptable_variants: []
+  must_include: [["Priya Raman"]]
+  must_not_include: ["Gareth Whitcombe"]
+  evidence:
+    - {fact_id: VS020-F003}
+    - {fact_id: VS005-F005}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PERSON:P001#aliases", "PERSON:P001#titles"]
+  trap: "Two CFOs: Gareth Whitcombe was CFO until 2025-06-30."
+
+# ---------------------------------------------------------------------------------------------
+# alt_text
+# ---------------------------------------------------------------------------------------------
+- id: Q-VIS-033
+  category: alt_text
+  dimensions: [visual, docx, temporal]
+  question: "What was Corvane's FNOL channel mix in 2024?"
+  expected_answer: "Telephone 58%, digital 34%, broker 8%."
+  acceptable_variants: []
+  must_include: [["58"], ["34"], ["8%", "8 percent", "8 per cent", "broker 8"]]
+  must_not_include: ["50%", "41%"]
+  evidence:
+    - {fact_id: VS039-F003}
+  hops: 1
+  ask_mode: chat
+  difficulty: hard
+  world_refs: ["TIMELINE:metrics#fnol_channel_mix_pct.2024"]
+  trap: "Exclusive to the figure alt text (the donut has no value labels). The 2026 YTD mix in ST010 is telephone 50%, digital 41%, broker 9%."
+
+# ---------------------------------------------------------------------------------------------
+# contradiction / temporal: stale March 2024 org chart vs current charts
+# ---------------------------------------------------------------------------------------------
+- id: Q-VIS-035
+  category: temporal
+  dimensions: [stale_chart, visual, pptx, temporal]
+  question: "On the March 2024 claims organisation chart, who is shown as the Recoveries Manager, and who does that person report to?"
+  expected_answer: "Martin Calloway, Recoveries Manager, reporting to Rob Tennant (Head of Claims Operations UK)."
+  acceptable_variants: []
+  must_include: [["Calloway"], ["Tennant"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS004-F008}
+    - {fact_id: VS004-F007}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PERSON:P015#titles", "PERSON:P015#reports_to", "CONTRA:C02"]
+  trap: "Deliberately asks for the chart's as-of state (2024-03-01), which is the stale side of C02: Calloway left on 2024-12-31 (Q-VIS-036 asks for the current owner). The reporting line is carried only by the connector."
+
+- id: Q-VIS-036
+  category: contradiction
+  dimensions: [stale_chart, visual, pptx, pdf]
+  question: "Who owns the recovery and subrogation process today, and since when?"
+  expected_answer: "Freya Lindahl, Head of Recoveries & Subrogation, since 1 September 2025."
+  acceptable_variants: []
+  must_include: [["Lindahl"], ["September 2025"]]
+  must_not_include: ["Martin Calloway"]
+  evidence:
+    - {fact_id: VS005-F006}
+    - {fact_id: VS005-F014}
+    - {fact_id: VS044-F004}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PROCESS:S7#owner_history", "CONTRA:C02"]
+  trap: "The stale March 2024 chart (VS004/VS032) still shows Martin Calloway; Siobhan Quill was acting owner from 2025-01-01 to 2025-08-31."
+
+- id: Q-VIS-037
+  category: temporal
+  dimensions: [stale_chart, visual, pptx, temporal]
+  question: "Who did Niall Brannigan report to on the March 2024 org chart, and who does he report to on the October 2025 chart?"
+  expected_answer: "March 2024: Ingrid Sørensen, the Claims Director (he was Head of SIU). October 2025: Karin Holmberg, the Chief Risk Officer (as Head of Counter-Fraud & SIU, after the 1 September 2025 re-organisation)."
+  acceptable_variants: []
+  must_include: [["Sørensen", "Sorensen", "Ingrid Ashby", "Claims Director"], ["Holmberg", "Chief Risk Officer", "CRO"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS004-F003}
+    - {fact_id: VS005-F016}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PERSON:P008#reports_to", "TEAM:T11#department_history"]
+  trap: "Both reporting lines exist only as connectors; the 2025 re-org moved SIU under the CRO."
+
+- id: Q-VIS-038
+  category: temporal
+  dimensions: [visual, pptx, temporal]
+  question: "According to the June 2025 RACI and authority matrix deck, who was the stage owner for Recovery & Subrogation at that time?"
+  expected_answer: "Siobhan Quill, as Acting Recoveries Manager."
+  acceptable_variants: []
+  must_include: [["Quill"]]
+  must_not_include: []
+  evidence:
+    - {fact_id: VS022-F021}
+  hops: 1
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["PROCESS:S7#owner_history"]
+  trap: "Between the stale chart (Martin Calloway, until 2024-12-31) and the current owner (Freya Lindahl, from 2025-09-01)."
+
+- id: Q-VIS-034
+  category: temporal
+  dimensions: [visual, pptx, temporal]
+  question: "Under the reserve authority limits in force today, what per-claim reserve authority does a Team Leader have, what does the Claims Director hold, and who approves reserves above the Claims Director's limit?"
+  expected_answer: "Team Leader £100,000 and Claims Director £2,000,000; reserves above £2,000,000 go to the Reserving Committee. These are the BR-RSV-003 v3 limits, in force since 1 September 2025 (DEC-020), as shown in the reserving process deck's authority table."
+  acceptable_variants: []
+  must_include: [["100,000"], ["2,000,000"], ["Reserving Committee"]]
+  must_not_include: ["75,000", "1,500,000"]
+  evidence:
+    - {fact_id: VS008-F009}
+    - {fact_id: VS008-F010}
+    - {fact_id: TX038-F004}
+  hops: 2
+  ask_mode: chat
+  difficulty: medium
+  world_refs: ["RULE:BR-RSV-003@v3#parameters.team_leader", "RULE:BR-RSV-003@v3#parameters.claims_director"]
+  trap: "The June 2025 escalation ladder (VS022, BR-RSV-003 v2, until 2025-08-31) escalates above £75,000 from the Team Leader and above £1,500,000 from the Claims Director to the Reserving Committee; the current payment authorities (BR-STL-002 v3) are also £75,000 and £1,500,000."
