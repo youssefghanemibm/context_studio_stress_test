@@ -1,0 +1,714 @@
+# GENERATED from world/data/glossary.yaml by `python -I schemas/validate_schema.py --emit-variants`.
+# Do not edit by hand. Canonical schema term -> the variants documents use instead.
+# Read by the scorer and the graph audit. NOT imported into the product: the schema itself
+# (corvane_claims.jsonld) carries canonical terms only, so the test can measure how extraction
+# copes with the mismatch. schema_targets says where each canonical term lands in the schema:
+# a class, a property, or a world entity (instance) of a class.
+version: 1
+source: world/data/glossary.yaml
+schema: schemas/corvane_claims.jsonld
+terms:
+- canonical: Claims Assessor
+  glossary_id: G-001
+  schema_targets:
+  - kind: class
+    iri: cc:ClaimsAssessor
+  definition: Person (internal employee or panel vendor) who inspects or desk-assesses a loss and reports an estimate
+    and cover view.
+  variants:
+  - term: loss adjuster
+    families:
+    - LD
+    - TX
+    note: LD001 uses it for external (vendor) Claims Assessors; emails use it loosely for anyone assessing
+  - term: adjuster
+    families:
+    - TX
+    note: transcripts and chat
+  - term: assessor
+    families:
+    - VS
+    - TX
+    note: slides and screenshots
+  - term: claims adjuster
+    families:
+    - TX
+    note: occasional email usage
+  - term: skadetakstmann
+    families:
+    - LD
+    - TX
+    note: Norwegian documents (LD011, Nordic emails)
+  - term: besiktningsman
+    families:
+    - LD
+    note: Swedish wording LD008
+  - term: Adjuster Extranet
+    families:
+    - LD
+    - VS
+    note: old name of the Assessor Portal (renamed 2025-09-01)
+  refs:
+  - SYS17
+  - T06
+  - T07
+  - VEN-01
+  - VEN-02
+- canonical: Fraud Referral
+  glossary_id: G-002
+  schema_targets:
+  - kind: datatype_property
+    iri: cc:fraudReferral
+  definition: Referral of a claim to the Counter-Fraud & SIU team for investigation.
+  variants:
+  - term: SIU referral
+    families:
+    - VS
+    - TX
+  - term: referral to SIU
+    families:
+    - LD
+    note: LD001 §28
+  - term: fraud referral
+    families:
+    - ST
+    - CODE
+    note: table CLR.T_FRAUD_REFERRAL
+  - term: referral
+    families:
+    - TX
+  refs:
+  - BR-FRD-031
+  - CLR.T_FRAUD_REFERRAL
+- canonical: Reserve
+  glossary_id: G-003
+  schema_targets:
+  - kind: datatype_property
+    iri: cc:reserveAmount
+  - kind: instance
+    class: cc:DatabaseTable
+    world_ref: CLR.T_RESERVE
+  - kind: instance
+    class: cc:DatabaseTable
+    world_ref: reserve.reserve
+  definition: 'Case reserve: the estimated outstanding cost of a claim, per reserve type.'
+  variants:
+  - term: case reserve
+    families:
+    - LD
+  - term: case estimate
+    families:
+    - TX
+  - term: outstanding
+    families:
+    - ST
+    note: CSV column reserve_outstanding
+  - term: RSV
+    families:
+    - CODE
+    note: COBOL/DB2 prefix (CLR.T_RESERVE, RSVREC)
+  - term: reserve table
+    families:
+    - TX
+    - VS
+    note: means CLR.T_RESERVE
+  refs:
+  - CLR.T_RESERVE
+  - reserve.reserve
+- canonical: Subrogation
+  glossary_id: G-004
+  schema_targets:
+  - kind: instance
+    class: cc:ProcessStage
+    world_ref: S7
+  - kind: datatype_property
+    iri: cc:subrogationFlag
+  definition: Recovery of claim outlay from a responsible third party or its insurer.
+  variants:
+  - term: sub-ro
+    families:
+    - TX
+  - term: subro
+    families:
+    - TX
+    - CODE
+    note: CODE paths and chat
+  - term: recovery
+    families:
+    - VS
+    - LD
+    note: process diagrams use 'Recovery & Subrogation'
+  - term: recoveries
+    families:
+    - LD
+    - TX
+  - term: regress
+    families:
+    - LD
+    - TX
+    note: Nordic term (regressfordring)
+  refs:
+  - S7
+  - SYS24
+  - recovery-svc
+- canonical: First Notice of Loss
+  glossary_id: G-005
+  schema_targets:
+  - kind: instance
+    class: cc:ProcessStage
+    world_ref: S1
+  - kind: datatype_property
+    iri: cc:notificationDate
+  definition: The first notification of a claim by any channel.
+  variants:
+  - term: FNOL
+    families:
+    - LD
+    - VS
+    - ST
+    - TX
+    - CODE
+    note: universal abbreviation
+  - term: notification of loss
+    families:
+    - LD
+    note: policy wordings
+  - term: first notification
+    families:
+    - LD
+  - term: skademelding
+    families:
+    - LD
+    note: Norwegian wordings
+  refs:
+  - S1
+- canonical: Claim Type
+  glossary_id: G-006
+  schema_targets:
+  - kind: class
+    iri: cc:ClaimType
+  definition: The peril or cause of loss classifying a claim (e.g. Escape of Water).
+  variants:
+  - term: peril
+    families:
+    - LD
+    - CODE
+    note: CLARA column PERIL_CD; manual
+  - term: cause of loss
+    families:
+    - LD
+    note: policy wordings
+  - term: loss type
+    families:
+    - VS
+    note: dashboards
+  refs:
+  - claim_types.yaml
+- canonical: Claims Handler
+  glossary_id: G-007
+  schema_targets:
+  - kind: concept
+    note: role, not modelled as a class; handlers are Person nodes with a jobTitle
+  definition: Employee who manages a claim day to day.
+  variants:
+  - term: claim handler
+    families:
+    - TX
+    - VS
+  - term: case handler
+    families:
+    - LD
+    note: older manual v6.1
+  - term: handler
+    families:
+    - ST
+    - TX
+    note: handler_ref column
+  refs: []
+- canonical: Tier-3 Claim
+  glossary_id: G-008
+  schema_targets:
+  - kind: datatype_property
+    iri: cc:tier
+  - kind: datatype_property
+    iri: cc:tier3Threshold
+  - kind: instance
+    class: cc:BusinessRule
+    world_ref: BR-TRI-003
+  definition: A claim meeting the Tier-3 definition in BR-TRI-003 (v3 from 2025-01-01).
+  variants:
+  - term: T3
+    families:
+    - TX
+    - CODE
+  - term: complex claim
+    families:
+    - TX
+  - term: major & complex loss
+    families:
+    - VS
+    note: routing destination, not the definition
+  refs:
+  - BR-TRI-003
+- canonical: Fraud Score
+  glossary_id: G-009
+  schema_targets:
+  - kind: datatype_property
+    iri: cc:fraudScore
+  definition: Sentinel score from 0 to 100.
+  variants:
+  - term: Sentinel score
+    families:
+    - LD
+    - VS
+    - ST
+  - term: FRAUDNET score
+    families:
+    - LD
+    - TX
+    note: before 2025-03-01
+  - term: risk score
+    families:
+    - TX
+  - term: SNT score
+    families:
+    - CODE
+  refs:
+  - SYS03
+- canonical: Excess
+  glossary_id: G-010
+  schema_targets:
+  - kind: datatype_property
+    iri: cc:excessAmount
+  definition: The amount the policyholder bears on each claim.
+  variants:
+  - term: deductible
+    families:
+    - TX
+  - term: egenandel
+    families:
+    - LD
+    - ST
+    note: Norway
+  - term: självrisk
+    families:
+    - LD
+    - ST
+    note: Sweden
+  - term: selvrisiko
+    families:
+    - LD
+    - ST
+    note: Denmark
+  refs: []
+- canonical: Policyholder
+  glossary_id: G-011
+  schema_targets:
+  - kind: concept
+    note: not modelled
+  definition: Holder of the policy (a member of the mutual).
+  variants:
+  - term: insured
+    families:
+    - LD
+  - term: member
+    families:
+    - LD
+    - TX
+    note: mutual terminology
+  - term: customer
+    families:
+    - VS
+    - TX
+  refs: []
+- canonical: Counter-Fraud & SIU
+  glossary_id: G-012
+  schema_targets:
+  - kind: instance
+    class: cc:Team
+    world_ref: T11
+  definition: The Special Investigations Unit (renamed Counter-Fraud & SIU on 2025-09-01).
+  variants:
+  - term: SIU
+    families:
+    - LD
+    - VS
+    - ST
+    - TX
+    - CODE
+  - term: Special Investigations Unit
+    families:
+    - LD
+    note: name until 2025-08-31
+  - term: counter-fraud team
+    families:
+    - TX
+  refs:
+  - T11
+- canonical: Reserve Movement
+  glossary_id: G-013
+  schema_targets:
+  - kind: instance
+    class: cc:DatabaseTable
+    world_ref: CLR.T_RESERVE_MOVEMENT
+  - kind: instance
+    class: cc:DatabaseTable
+    world_ref: reserve.reserve_movement
+  definition: A change to a reserve, recorded in CLR.T_RESERVE_MOVEMENT / reserve.reserve_movement.
+  variants:
+  - term: reserve change
+    families:
+    - TX
+  - term: reserve adjustment
+    families:
+    - LD
+  - term: movement
+    families:
+    - ST
+    - CODE
+  refs:
+  - CLR.T_RESERVE_MOVEMENT
+- canonical: Incurred
+  glossary_id: G-014
+  schema_targets:
+  - kind: datatype_property
+    iri: cc:incurredAmount
+  definition: Paid to date plus outstanding reserve.
+  variants:
+  - term: incurred cost
+    families:
+    - LD
+  - term: total incurred
+    families:
+    - ST
+  refs: []
+- canonical: Large Loss Notification Threshold
+  glossary_id: G-015
+  schema_targets:
+  - kind: datatype_property
+    iri: cc:threshold
+    note: parameter of BR-RSV-011 v2
+  - kind: instance
+    class: cc:BusinessRule
+    world_ref: BR-RSV-011
+  definition: £250,000 reserve movement threshold for notifying Reinsurance (BR-RSV-011 v2).
+  variants:
+  - term: LLNT
+    families:
+    - LD
+    - TX
+    note: defined in LD001 §2.6
+  - term: large loss limit
+    families:
+    - TX
+  refs:
+  - BR-RSV-011
+- canonical: Technical Provisions
+  glossary_id: G-016
+  schema_targets:
+  - kind: instance
+    class: cc:RegulatoryReport
+    world_ref: NISA-TP2
+  definition: Claims outstanding provisions reported to NISA in the TP2 return.
+  variants:
+  - term: TPs
+    families:
+    - TX
+  - term: claims outstanding provisions
+    families:
+    - LD
+  refs:
+  - NISA-TP2
+- canonical: Bordereau
+  glossary_id: G-017
+  schema_targets:
+  - kind: instance
+    class: cc:Interface
+    world_ref: CLX-IF-055
+  definition: Periodic listing of claims ceded to reinsurers.
+  variants:
+  - term: bordereaux
+    families:
+    - LD
+    - TX
+    note: plural
+  - term: bdx
+    families:
+    - TX
+  refs:
+  - CLX-IF-055
+- canonical: Settlement
+  glossary_id: G-018
+  schema_targets:
+  - kind: instance
+    class: cc:ProcessStage
+    world_ref: S6
+  definition: Agreement and payment of the claim.
+  variants:
+  - term: claim payment
+    families:
+    - TX
+  - term: indemnity payment
+    families:
+    - LD
+  refs:
+  - S6
+- canonical: Claims Hub
+  glossary_id: G-019
+  schema_targets:
+  - kind: instance
+    class: cc:System
+    world_ref: SYS02
+  definition: The target claims platform.
+  variants:
+  - term: CHUB
+    families:
+    - TX
+    - CODE
+    note: Jira key
+  - term: the Hub
+    families:
+    - TX
+  refs:
+  - SYS02
+- canonical: CLARA
+  glossary_id: G-020
+  schema_targets:
+  - kind: instance
+    class: cc:System
+    world_ref: SYS01
+  definition: Claims Ledger And Reserve Application (legacy mainframe).
+  variants:
+  - term: the ledger
+    families:
+    - TX
+  - term: CLR
+    families:
+    - CODE
+    - ST
+    note: schema and program prefix
+  - term: Claims Ledger
+    families:
+    - LD
+  - term: the mainframe
+    families:
+    - TX
+  refs:
+  - SYS01
+- canonical: Customer Referral Notice
+  glossary_id: G-021
+  schema_targets:
+  - kind: instance
+    class: cc:BusinessRule
+    world_ref: BR-FRD-032
+  - kind: instance
+    class: cc:DatabaseTable
+    world_ref: CLR.T_FRAUD_NOTIFICATION
+  definition: Written notice to the customer that a claim is subject to additional checks (BR-FRD-032).
+  variants:
+  - term: fraud notice
+    families:
+    - TX
+    - CODE
+  - term: referral notice
+    families:
+    - LD
+    - VS
+  - term: notice of additional checks
+    families:
+    - LD
+    note: Circular wording
+  refs:
+  - BR-FRD-032
+  - CLR.T_FRAUD_NOTIFICATION
+- canonical: Salvage
+  glossary_id: G-022
+  schema_targets:
+  - kind: instance
+    class: cc:Organisation
+    world_ref: VEN-09
+  definition: Disposal of damaged property (mainly total-loss vehicles) to recover value.
+  variants:
+  - term: salvage disposal
+    families:
+    - LD
+  - term: write-off category
+    families:
+    - TX
+    note: salvage categories A/B/S/N
+  refs:
+  - VEN-09
+- canonical: Recovery & Subrogation Process Owner
+  glossary_id: G-023
+  schema_targets:
+  - kind: object_property
+    iri: cc:ownsProcess
+    note: owner of process stage S7
+  - kind: instance
+    class: cc:Person
+    world_ref: P013
+  definition: Accountable owner of process stage S7.
+  variants:
+  - term: Recoveries Manager
+    families:
+    - VS
+    - LD
+    note: title of the owner until 2024-12-31 (stale on the 2024 org chart)
+  - term: Head of Recoveries & Subrogation
+    families:
+    - LD
+    - VS
+    - ST
+    note: title of the owner from 2025-09-01
+  refs:
+  - S7
+  - P013
+variant_index:
+  adjuster:
+  - Claims Assessor
+  adjuster extranet:
+  - Claims Assessor
+  assessor:
+  - Claims Assessor
+  bdx:
+  - Bordereau
+  besiktningsman:
+  - Claims Assessor
+  bordereaux:
+  - Bordereau
+  case estimate:
+  - Reserve
+  case handler:
+  - Claims Handler
+  case reserve:
+  - Reserve
+  cause of loss:
+  - Claim Type
+  chub:
+  - Claims Hub
+  claim handler:
+  - Claims Handler
+  claim payment:
+  - Settlement
+  claims adjuster:
+  - Claims Assessor
+  claims ledger:
+  - CLARA
+  claims outstanding provisions:
+  - Technical Provisions
+  clr:
+  - CLARA
+  complex claim:
+  - Tier-3 Claim
+  counter-fraud team:
+  - Counter-Fraud & SIU
+  customer:
+  - Policyholder
+  deductible:
+  - Excess
+  egenandel:
+  - Excess
+  first notification:
+  - First Notice of Loss
+  fnol:
+  - First Notice of Loss
+  fraud notice:
+  - Customer Referral Notice
+  fraud referral:
+  - Fraud Referral
+  fraudnet score:
+  - Fraud Score
+  handler:
+  - Claims Handler
+  head of recoveries & subrogation:
+  - Recovery & Subrogation Process Owner
+  incurred cost:
+  - Incurred
+  indemnity payment:
+  - Settlement
+  insured:
+  - Policyholder
+  large loss limit:
+  - Large Loss Notification Threshold
+  llnt:
+  - Large Loss Notification Threshold
+  loss adjuster:
+  - Claims Assessor
+  loss type:
+  - Claim Type
+  major & complex loss:
+  - Tier-3 Claim
+  member:
+  - Policyholder
+  movement:
+  - Reserve Movement
+  notice of additional checks:
+  - Customer Referral Notice
+  notification of loss:
+  - First Notice of Loss
+  outstanding:
+  - Reserve
+  peril:
+  - Claim Type
+  recoveries:
+  - Subrogation
+  recoveries manager:
+  - Recovery & Subrogation Process Owner
+  recovery:
+  - Subrogation
+  referral:
+  - Fraud Referral
+  referral notice:
+  - Customer Referral Notice
+  referral to siu:
+  - Fraud Referral
+  regress:
+  - Subrogation
+  reserve adjustment:
+  - Reserve Movement
+  reserve change:
+  - Reserve Movement
+  reserve table:
+  - Reserve
+  risk score:
+  - Fraud Score
+  rsv:
+  - Reserve
+  salvage disposal:
+  - Salvage
+  selvrisiko:
+  - Excess
+  sentinel score:
+  - Fraud Score
+  siu:
+  - Counter-Fraud & SIU
+  siu referral:
+  - Fraud Referral
+  självrisk:
+  - Excess
+  skademelding:
+  - First Notice of Loss
+  skadetakstmann:
+  - Claims Assessor
+  snt score:
+  - Fraud Score
+  special investigations unit:
+  - Counter-Fraud & SIU
+  sub-ro:
+  - Subrogation
+  subro:
+  - Subrogation
+  t3:
+  - Tier-3 Claim
+  the hub:
+  - Claims Hub
+  the ledger:
+  - CLARA
+  the mainframe:
+  - CLARA
+  total incurred:
+  - Incurred
+  tps:
+  - Technical Provisions
+  write-off category:
+  - Salvage

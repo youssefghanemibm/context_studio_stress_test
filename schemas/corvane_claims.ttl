@@ -1,0 +1,914 @@
+# GENERATED from corvane_claims.jsonld by `python -I schemas/validate_schema.py --emit-ttl`.
+# Do not edit by hand; edit the JSON-LD and re-run.
+@prefix cc: <https://example.org/corvane/claims#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/corvane/claims> a owl:Ontology ;
+    rdfs:label "Corvane Mutual claims modernisation schema" ;
+    rdfs:comment "Hand-written knowledge-graph schema for the Corvane Mutual claims-platform modernisation (from the legacy CLARA platform to the Claims Hub microservices). It uses canonical terms only. Relationship labels are UPPER_SNAKE and their IRIs are camelCase; class labels are the canonical names; datatype property labels equal their IRI local names. Properties with more than one possible subject or object class use owl:unionOf." ;
+    owl:versionInfo "1.0.0" .
+
+cc:accountableFor a owl:ObjectProperty ;
+    rdfs:label "ACCOUNTABLE_FOR" ;
+    rdfs:comment "RACI 'Accountable': the person answers for the outcome of the process step." ;
+    rdfs:domain cc:Person ;
+    rdfs:range cc:ProcessStep .
+
+cc:affectedInterface a owl:ObjectProperty ;
+    rdfs:label "AFFECTED_INTERFACE" ;
+    rdfs:comment "The incident affected the interface." ;
+    rdfs:domain cc:Incident ;
+    rdfs:range cc:Interface .
+
+cc:affectedProgram a owl:ObjectProperty ;
+    rdfs:label "AFFECTED_PROGRAM" ;
+    rdfs:comment "The incident involved the program." ;
+    rdfs:domain cc:Incident ;
+    rdfs:range cc:Program .
+
+cc:affectedSystem a owl:ObjectProperty ;
+    rdfs:label "AFFECTED_SYSTEM" ;
+    rdfs:comment "The incident affected the system." ;
+    rdfs:domain cc:Incident ;
+    rdfs:range cc:System .
+
+cc:alias a owl:DatatypeProperty ;
+    rdfs:label "alias" ;
+    rdfs:comment "Another name the entity is known by: an abbreviation, short name, spelling variant or former name. Multi-valued: one value per alias." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:Person cc:Team cc:Department cc:Organisation cc:Location cc:System cc:Service cc:Program cc:Product cc:ClaimType ) ] ;
+    rdfs:range xsd:string .
+
+cc:amount a owl:DatatypeProperty ;
+    rdfs:label "amount" ;
+    rdfs:comment "A monetary amount set by the rule version, such as an authority limit or a minimum value. Pair it with currency." ;
+    rdfs:domain cc:RuleVersion ;
+    rdfs:range xsd:decimal .
+
+cc:appliesToClaimType a owl:ObjectProperty ;
+    rdfs:label "APPLIES_TO_CLAIM_TYPE" ;
+    rdfs:comment "The rule applies to claims of this Claim Type." ;
+    rdfs:domain cc:BusinessRule ;
+    rdfs:range cc:ClaimType .
+
+cc:appliesToProduct a owl:ObjectProperty ;
+    rdfs:label "APPLIES_TO_PRODUCT" ;
+    rdfs:comment "The rule applies to claims on this product." ;
+    rdfs:domain cc:BusinessRule ;
+    rdfs:range cc:Product .
+
+cc:appliesToStep a owl:ObjectProperty ;
+    rdfs:label "APPLIES_TO_STEP" ;
+    rdfs:comment "The rule is applied in this process step." ;
+    rdfs:domain cc:BusinessRule ;
+    rdfs:range cc:ProcessStep .
+
+cc:appointedAssessor a owl:ObjectProperty ;
+    rdfs:label "APPOINTED_ASSESSOR" ;
+    rdfs:comment "The Claims Assessor appointed to inspect or desk-assess the claim." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range cc:ClaimsAssessor .
+
+cc:approvedBy a owl:ObjectProperty ;
+    rdfs:label "APPROVED_BY" ;
+    rdfs:comment "A person who approved this version of the rule." ;
+    rdfs:domain cc:RuleVersion ;
+    rdfs:range cc:Person .
+
+cc:approvedOn a owl:DatatypeProperty ;
+    rdfs:label "approvedOn" ;
+    rdfs:comment "The date the rule version was approved." ;
+    rdfs:domain cc:RuleVersion ;
+    rdfs:range xsd:date .
+
+cc:assignedTo a owl:ObjectProperty ;
+    rdfs:label "ASSIGNED_TO" ;
+    rdfs:comment "The person the ticket is assigned to." ;
+    rdfs:domain cc:Ticket ;
+    rdfs:range cc:Person .
+
+cc:callsProgram a owl:ObjectProperty ;
+    rdfs:label "CALLS_PROGRAM" ;
+    rdfs:comment "The subject program calls the object program (a COBOL CALL or a CICS LINK)." ;
+    rdfs:domain cc:Program ;
+    rdfs:range cc:Program .
+
+cc:channel a owl:DatatypeProperty ;
+    rdfs:label "channel" ;
+    rdfs:comment "The channel through which the claim was notified, for example phone, web, broker or app." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range xsd:string .
+
+cc:city a owl:DatatypeProperty ;
+    rdfs:label "city" ;
+    rdfs:comment "City of the location." ;
+    rdfs:domain cc:Location ;
+    rdfs:range xsd:string .
+
+cc:claimTypeCode a owl:DatatypeProperty ;
+    rdfs:label "claimTypeCode" ;
+    rdfs:comment "The short code of the Claim Type." ;
+    rdfs:domain cc:ClaimType ;
+    rdfs:range xsd:string .
+
+cc:claimedUnderProduct a owl:ObjectProperty ;
+    rdfs:label "CLAIMED_UNDER_PRODUCT" ;
+    rdfs:comment "The product under which the claim is made." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range cc:Product .
+
+cc:claimsMigrated a owl:DatatypeProperty ;
+    rdfs:label "claimsMigrated" ;
+    rdfs:comment "Number of claims moved to the target platform by the migration wave." ;
+    rdfs:domain cc:Milestone ;
+    rdfs:range xsd:integer .
+
+cc:classifiedAsClaimType a owl:ObjectProperty ;
+    rdfs:label "CLASSIFIED_AS_CLAIM_TYPE" ;
+    rdfs:comment "The Claim Type of the claim." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range cc:ClaimType .
+
+cc:closedDate a owl:DatatypeProperty ;
+    rdfs:label "closedDate" ;
+    rdfs:comment "The date the claim was closed." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range xsd:date .
+
+cc:consumesInterface a owl:ObjectProperty ;
+    rdfs:label "CONSUMES_INTERFACE" ;
+    rdfs:comment "The team uses the data the interface delivers." ;
+    rdfs:domain cc:Team ;
+    rdfs:range cc:Interface .
+
+cc:consumesTopic a owl:ObjectProperty ;
+    rdfs:label "CONSUMES_TOPIC" ;
+    rdfs:comment "The service consumes events from the topic." ;
+    rdfs:domain cc:Service ;
+    rdfs:range cc:KafkaTopic .
+
+cc:country a owl:DatatypeProperty ;
+    rdfs:label "country" ;
+    rdfs:comment "Country of the location or organisation." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:Location cc:Organisation ) ] ;
+    rdfs:range xsd:string .
+
+cc:coversClaimType a owl:ObjectProperty ;
+    rdfs:label "COVERS_CLAIM_TYPE" ;
+    rdfs:comment "The product provides cover for claims of this Claim Type." ;
+    rdfs:domain cc:Product ;
+    rdfs:range cc:ClaimType .
+
+cc:createdOn a owl:DatatypeProperty ;
+    rdfs:label "createdOn" ;
+    rdfs:comment "The date the table or ticket was created." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:DatabaseTable cc:Ticket ) ] ;
+    rdfs:range xsd:date .
+
+cc:criticality a owl:DatatypeProperty ;
+    rdfs:label "criticality" ;
+    rdfs:comment "Business criticality rating of the interface." ;
+    rdfs:domain cc:Interface ;
+    rdfs:range xsd:string .
+
+cc:currency a owl:DatatypeProperty ;
+    rdfs:label "currency" ;
+    rdfs:comment "ISO 4217 currency code of the amounts on the entity, for example GBP, NOK, SEK or DKK." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:RuleVersion cc:Product cc:Claim ) ] ;
+    rdfs:range xsd:string .
+
+cc:dataFormat a owl:DatatypeProperty ;
+    rdfs:label "dataFormat" ;
+    rdfs:comment "Data format or record layout carried by the interface." ;
+    rdfs:domain cc:Interface ;
+    rdfs:range xsd:string .
+
+cc:databasePlatform a owl:DatatypeProperty ;
+    rdfs:label "databasePlatform" ;
+    rdfs:comment "The database platform of the table: DB2 or PostgreSQL." ;
+    rdfs:domain cc:DatabaseTable ;
+    rdfs:range xsd:string .
+
+cc:decidedBy a owl:ObjectProperty ;
+    rdfs:label "DECIDED_BY" ;
+    rdfs:comment "A person who made the architecture decision." ;
+    rdfs:domain cc:ArchitectureDecision ;
+    rdfs:range cc:Person .
+
+cc:decisionDate a owl:DatatypeProperty ;
+    rdfs:label "decisionDate" ;
+    rdfs:comment "The date the architecture decision was made." ;
+    rdfs:domain cc:ArchitectureDecision ;
+    rdfs:range xsd:date .
+
+cc:decommissionTargetDate a owl:DatatypeProperty ;
+    rdfs:label "decommissionTargetDate" ;
+    rdfs:comment "The planned decommission date of the system." ;
+    rdfs:domain cc:System ;
+    rdfs:range xsd:date .
+
+cc:dependsOnInterface a owl:ObjectProperty ;
+    rdfs:label "DEPENDS_ON_INTERFACE" ;
+    rdfs:comment "The subject interface needs the output of the object (upstream) interface; a change to the object interface can break the subject." ;
+    rdfs:domain cc:Interface ;
+    rdfs:range cc:Interface .
+
+cc:displaysMap a owl:ObjectProperty ;
+    rdfs:label "DISPLAYS_MAP" ;
+    rdfs:comment "The online program sends and receives the screen map." ;
+    rdfs:domain cc:Program ;
+    rdfs:range cc:ScreenMap .
+
+cc:dueDeadline a owl:DatatypeProperty ;
+    rdfs:label "dueDeadline" ;
+    rdfs:comment "When the report is due, as stated (for example a number of days after period end)." ;
+    rdfs:domain cc:RegulatoryReport ;
+    rdfs:range xsd:string .
+
+cc:effectiveFrom a owl:DatatypeProperty ;
+    rdfs:label "effectiveFrom" ;
+    rdfs:comment "First day the rule version or regulation applies. Absent for drafts." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:RuleVersion cc:Regulation ) ] ;
+    rdfs:range xsd:date .
+
+cc:effectiveTo a owl:DatatypeProperty ;
+    rdfs:label "effectiveTo" ;
+    rdfs:comment "Last day the rule version applies. Absent while it is still in force." ;
+    rdfs:domain cc:RuleVersion ;
+    rdfs:range xsd:date .
+
+cc:email a owl:DatatypeProperty ;
+    rdfs:label "email" ;
+    rdfs:comment "The person's work email address." ;
+    rdfs:domain cc:Person ;
+    rdfs:range xsd:string .
+
+cc:employedBy a owl:ObjectProperty ;
+    rdfs:label "EMPLOYED_BY" ;
+    rdfs:comment "The organisation that employs the person: the insurer, a consultancy, a supplier or the regulator." ;
+    rdfs:domain cc:Person ;
+    rdfs:range cc:Organisation .
+
+cc:excessAmount a owl:DatatypeProperty ;
+    rdfs:label "excessAmount" ;
+    rdfs:comment "The standard Excess on the product: the amount the Policyholder bears on each claim, in the product currency. Older policy wordings may state older amounts." ;
+    rdfs:domain cc:Product ;
+    rdfs:range xsd:decimal .
+
+cc:feedsReport a owl:ObjectProperty ;
+    rdfs:label "FEEDS_REPORT" ;
+    rdfs:comment "The interface supplies data used to produce the regulatory report." ;
+    rdfs:domain cc:Interface ;
+    rdfs:range cc:RegulatoryReport .
+
+cc:fraudReferral a owl:DatatypeProperty ;
+    rdfs:label "fraudReferral" ;
+    rdfs:comment "True when the claim was the subject of a Fraud Referral." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range xsd:boolean .
+
+cc:fraudScore a owl:DatatypeProperty ;
+    rdfs:label "fraudScore" ;
+    rdfs:comment "The Fraud Score (0 to 100) recorded for the claim." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range xsd:integer .
+
+cc:frequency a owl:DatatypeProperty ;
+    rdfs:label "frequency" ;
+    rdfs:comment "How often the report is submitted, for example quarterly or annually." ;
+    rdfs:domain cc:RegulatoryReport ;
+    rdfs:range xsd:string .
+
+cc:goLiveDate a owl:DatatypeProperty ;
+    rdfs:label "goLiveDate" ;
+    rdfs:comment "The date the system or service went live (or is planned to)." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:System cc:Service ) ] ;
+    rdfs:range xsd:date .
+
+cc:governedBy a owl:ObjectProperty ;
+    rdfs:label "GOVERNED_BY" ;
+    rdfs:comment "The rule exists to meet, or is constrained by, the regulation." ;
+    rdfs:domain cc:BusinessRule ;
+    rdfs:range cc:Regulation .
+
+cc:hasVersion a owl:ObjectProperty ;
+    rdfs:label "HAS_VERSION" ;
+    rdfs:comment "The rule has this numbered version. Each version carries its own text, parameters, status and effective dates." ;
+    rdfs:domain cc:BusinessRule ;
+    rdfs:range cc:RuleVersion .
+
+cc:headcount a owl:DatatypeProperty ;
+    rdfs:label "headcount" ;
+    rdfs:comment "Number of staff based at the location." ;
+    rdfs:domain cc:Location ;
+    rdfs:range xsd:integer .
+
+cc:headsDepartment a owl:ObjectProperty ;
+    rdfs:label "HEADS_DEPARTMENT" ;
+    rdfs:comment "The person is the head of the department (time-dependent)." ;
+    rdfs:domain cc:Person ;
+    rdfs:range cc:Department .
+
+cc:identifier a owl:DatatypeProperty ;
+    rdfs:label "identifier" ;
+    rdfs:comment "The business identifier or code that sources use for the entity, for example an interface id, rule id, ticket key, incident number or claim reference." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:System cc:Service cc:Team cc:Department cc:Location cc:Organisation cc:Interface cc:BusinessRule cc:Regulation cc:RegulatoryReport cc:Product cc:ClaimType cc:ProcessStage cc:ProcessStep cc:Incident cc:ArchitectureDecision cc:Ticket cc:Milestone cc:Claim ) ] ;
+    rdfs:range xsd:string .
+
+cc:implementsRule a owl:ObjectProperty ;
+    rdfs:label "IMPLEMENTS_RULE" ;
+    rdfs:comment "The program or service contains the logic that applies the business rule." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:Program cc:Service ) ] ;
+    rdfs:range cc:BusinessRule .
+
+cc:inServiceSince a owl:DatatypeProperty ;
+    rdfs:label "inServiceSince" ;
+    rdfs:comment "The date the program or interface first existed in production." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:Program cc:Interface ) ] ;
+    rdfs:range xsd:date .
+
+cc:incurredAmount a owl:DatatypeProperty ;
+    rdfs:label "incurredAmount" ;
+    rdfs:comment "Incurred: the amount paid to date plus the current Reserve, in the claim currency." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range xsd:decimal .
+
+cc:issuedBy a owl:ObjectProperty ;
+    rdfs:label "ISSUED_BY" ;
+    rdfs:comment "The regulator that issued the regulation." ;
+    rdfs:domain cc:Regulation ;
+    rdfs:range cc:Organisation .
+
+cc:jobTitle a owl:DatatypeProperty ;
+    rdfs:label "jobTitle" ;
+    rdfs:comment "The person's job title. Titles change over time; a title is a property of a person, never a separate Person node." ;
+    rdfs:domain cc:Person ;
+    rdfs:range xsd:string .
+
+cc:leads a owl:ObjectProperty ;
+    rdfs:label "LEADS" ;
+    rdfs:comment "The person is the lead of the team (time-dependent)." ;
+    rdfs:domain cc:Person ;
+    rdfs:range cc:Team .
+
+cc:lineOfBusiness a owl:DatatypeProperty ;
+    rdfs:label "lineOfBusiness" ;
+    rdfs:comment "Line of business of the product, for example motor, home, commercial property or liability." ;
+    rdfs:domain cc:Product ;
+    rdfs:range xsd:string .
+
+cc:linesOfCode a owl:DatatypeProperty ;
+    rdfs:label "linesOfCode" ;
+    rdfs:comment "Size of the program in lines of code." ;
+    rdfs:domain cc:Program ;
+    rdfs:range xsd:integer .
+
+cc:locatedIn a owl:ObjectProperty ;
+    rdfs:label "LOCATED_IN" ;
+    rdfs:comment "The person's work location (office or external site)." ;
+    rdfs:domain cc:Person ;
+    rdfs:range cc:Location .
+
+cc:locationType a owl:DatatypeProperty ;
+    rdfs:label "locationType" ;
+    rdfs:comment "Kind of site: office, data centre or external office." ;
+    rdfs:domain cc:Location ;
+    rdfs:range xsd:string .
+
+cc:lossDate a owl:DatatypeProperty ;
+    rdfs:label "lossDate" ;
+    rdfs:comment "The date the loss happened." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range xsd:date .
+
+cc:mapset a owl:DatatypeProperty ;
+    rdfs:label "mapset" ;
+    rdfs:comment "The BMS mapset that contains the screen map." ;
+    rdfs:domain cc:ScreenMap ;
+    rdfs:range xsd:string .
+
+cc:memberOf a owl:ObjectProperty ;
+    rdfs:label "MEMBER_OF" ;
+    rdfs:comment "The person works in the team." ;
+    rdfs:domain cc:Person ;
+    rdfs:range cc:Team .
+
+cc:migratesProduct a owl:ObjectProperty ;
+    rdfs:label "MIGRATES_PRODUCT" ;
+    rdfs:comment "The migration wave moves the claims of this product from the legacy platform to the target platform." ;
+    rdfs:domain cc:Milestone ;
+    rdfs:range cc:Product .
+
+cc:milestoneDate a owl:DatatypeProperty ;
+    rdfs:label "milestoneDate" ;
+    rdfs:comment "The date of the milestone." ;
+    rdfs:domain cc:Milestone ;
+    rdfs:range xsd:date .
+
+cc:nextStep a owl:ObjectProperty ;
+    rdfs:label "NEXT_STEP" ;
+    rdfs:comment "The object step can follow the subject step in the process flow (one edge per branch)." ;
+    rdfs:domain cc:ProcessStep ;
+    rdfs:range cc:ProcessStep .
+
+cc:notificationDate a owl:DatatypeProperty ;
+    rdfs:label "notificationDate" ;
+    rdfs:comment "The date of First Notice of Loss for the claim." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range xsd:date .
+
+cc:occurredOn a owl:DatatypeProperty ;
+    rdfs:label "occurredOn" ;
+    rdfs:comment "The date the incident started." ;
+    rdfs:domain cc:Incident ;
+    rdfs:range xsd:date .
+
+cc:organisationType a owl:DatatypeProperty ;
+    rdfs:label "organisationType" ;
+    rdfs:comment "The kind of organisation, for example insurer, panel vendor, software supplier, consultancy, reinsurer, bank or regulator." ;
+    rdfs:domain cc:Organisation ;
+    rdfs:range xsd:string .
+
+cc:ownsInterface a owl:ObjectProperty ;
+    rdfs:label "OWNS_INTERFACE" ;
+    rdfs:comment "The person is the accountable owner of the interface." ;
+    rdfs:domain cc:Person ;
+    rdfs:range cc:Interface .
+
+cc:ownsProcess a owl:ObjectProperty ;
+    rdfs:label "OWNS_PROCESS" ;
+    rdfs:comment "The person is the accountable owner of the process stage. Owners change over time; take the one the source states for its own date." ;
+    rdfs:domain cc:Person ;
+    rdfs:range cc:ProcessStage .
+
+cc:ownsRule a owl:ObjectProperty ;
+    rdfs:label "OWNS_RULE" ;
+    rdfs:comment "The person is the business owner of the rule." ;
+    rdfs:domain cc:Person ;
+    rdfs:range cc:BusinessRule .
+
+cc:ownsService a owl:ObjectProperty ;
+    rdfs:label "OWNS_SERVICE" ;
+    rdfs:comment "The team owns, builds and runs the service (time-dependent)." ;
+    rdfs:domain cc:Team ;
+    rdfs:range cc:Service .
+
+cc:ownsSystem a owl:ObjectProperty ;
+    rdfs:label "OWNS_SYSTEM" ;
+    rdfs:comment "The person is the accountable owner of the system." ;
+    rdfs:domain cc:Person ;
+    rdfs:range cc:System .
+
+cc:ownsTable a owl:ObjectProperty ;
+    rdfs:label "OWNS_TABLE" ;
+    rdfs:comment "The service owns the table in its own database (one database per service)." ;
+    rdfs:domain cc:Service ;
+    rdfs:range cc:DatabaseTable .
+
+cc:paidToDate a owl:DatatypeProperty ;
+    rdfs:label "paidToDate" ;
+    rdfs:comment "The amount paid on the claim so far, in the claim currency." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range xsd:decimal .
+
+cc:partOfDepartment a owl:ObjectProperty ;
+    rdfs:label "PART_OF_DEPARTMENT" ;
+    rdfs:comment "The team sits inside the department." ;
+    rdfs:domain cc:Team ;
+    rdfs:range cc:Department .
+
+cc:partOfStage a owl:ObjectProperty ;
+    rdfs:label "PART_OF_STAGE" ;
+    rdfs:comment "The step belongs to the process stage." ;
+    rdfs:domain cc:ProcessStep ;
+    rdfs:range cc:ProcessStage .
+
+cc:partOfSystem a owl:ObjectProperty ;
+    rdfs:label "PART_OF_SYSTEM" ;
+    rdfs:comment "The component (program, service, table, batch job, screen map, copybook or Kafka topic) is part of the system." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:Program cc:Service cc:DatabaseTable cc:BatchJob cc:ScreenMap cc:Copybook cc:KafkaTopic ) ] ;
+    rdfs:range cc:System .
+
+cc:partitions a owl:DatatypeProperty ;
+    rdfs:label "partitions" ;
+    rdfs:comment "Number of partitions of the topic." ;
+    rdfs:domain cc:KafkaTopic ;
+    rdfs:range xsd:integer .
+
+cc:performedInSystem a owl:ObjectProperty ;
+    rdfs:label "PERFORMED_IN_SYSTEM" ;
+    rdfs:comment "The step is carried out in the system." ;
+    rdfs:domain cc:ProcessStep ;
+    rdfs:range cc:System .
+
+cc:preparedBy a owl:ObjectProperty ;
+    rdfs:label "PREPARED_BY" ;
+    rdfs:comment "The person who prepares the regulatory report." ;
+    rdfs:domain cc:RegulatoryReport ;
+    rdfs:range cc:Person .
+
+cc:programType a owl:DatatypeProperty ;
+    rdfs:label "programType" ;
+    rdfs:comment "Whether the program is online or batch." ;
+    rdfs:domain cc:Program ;
+    rdfs:range xsd:string .
+
+cc:protocol a owl:DatatypeProperty ;
+    rdfs:label "protocol" ;
+    rdfs:comment "Transport protocol of the interface, for example SFTP, REST, MQ, Kafka or a DB2 unload." ;
+    rdfs:domain cc:Interface ;
+    rdfs:range xsd:string .
+
+cc:providedByFirm a owl:ObjectProperty ;
+    rdfs:label "PROVIDED_BY_FIRM" ;
+    rdfs:comment "The organisation that provides the Claims Assessor: a panel vendor firm for external Claims Assessors, the insurer for internal ones." ;
+    rdfs:domain cc:ClaimsAssessor ;
+    rdfs:range cc:Organisation .
+
+cc:publishedOn a owl:DatatypeProperty ;
+    rdfs:label "publishedOn" ;
+    rdfs:comment "The date the regulator published the regulation." ;
+    rdfs:domain cc:Regulation ;
+    rdfs:range xsd:date .
+
+cc:publishesTopic a owl:ObjectProperty ;
+    rdfs:label "PUBLISHES_TOPIC" ;
+    rdfs:comment "The service produces events to the topic." ;
+    rdfs:domain cc:Service ;
+    rdfs:range cc:KafkaTopic .
+
+cc:readsFromTable a owl:ObjectProperty ;
+    rdfs:label "READS_FROM_TABLE" ;
+    rdfs:comment "The program reads rows from the table." ;
+    rdfs:domain cc:Program ;
+    rdfs:range cc:DatabaseTable .
+
+cc:region a owl:DatatypeProperty ;
+    rdfs:label "region" ;
+    rdfs:comment "Country or region of the product or claim." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:Product cc:Claim ) ] ;
+    rdfs:range xsd:string .
+
+cc:releaseVersion a owl:DatatypeProperty ;
+    rdfs:label "releaseVersion" ;
+    rdfs:comment "The fix version (release) the ticket is planned for or was delivered in." ;
+    rdfs:domain cc:Ticket ;
+    rdfs:range xsd:string .
+
+cc:renamedTo a owl:ObjectProperty ;
+    rdfs:label "RENAMED_TO" ;
+    rdfs:comment "Links an entity under its former name to the same entity under its new name. Both ends are the same kind of entity (a system, service, program, team or person)." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:Person cc:Team cc:System cc:Program cc:Service ) ] ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( cc:Person cc:Team cc:System cc:Program cc:Service ) ] .
+
+cc:replacesProgram a owl:ObjectProperty ;
+    rdfs:label "REPLACES_PROGRAM" ;
+    rdfs:comment "The service takes over the function of the legacy program." ;
+    rdfs:domain cc:Service ;
+    rdfs:range cc:Program .
+
+cc:replacesSystem a owl:ObjectProperty ;
+    rdfs:label "REPLACES_SYSTEM" ;
+    rdfs:comment "The subject system takes over the function of the object system." ;
+    rdfs:domain cc:System ;
+    rdfs:range cc:System .
+
+cc:reportsTo a owl:ObjectProperty ;
+    rdfs:label "REPORTS_TO" ;
+    rdfs:comment "The subject person's line manager is the object person. Reporting lines change over time; take the one the source states for its own date." ;
+    rdfs:domain cc:Person ;
+    rdfs:range cc:Person .
+
+cc:reserveAmount a owl:DatatypeProperty ;
+    rdfs:label "reserveAmount" ;
+    rdfs:comment "The current Reserve on the claim, in the claim currency." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range xsd:decimal .
+
+cc:resolvedByTicket a owl:ObjectProperty ;
+    rdfs:label "RESOLVED_BY_TICKET" ;
+    rdfs:comment "The ticket carries the fix for the incident." ;
+    rdfs:domain cc:Incident ;
+    rdfs:range cc:Ticket .
+
+cc:resolvedOn a owl:DatatypeProperty ;
+    rdfs:label "resolvedOn" ;
+    rdfs:comment "The date the ticket was resolved." ;
+    rdfs:domain cc:Ticket ;
+    rdfs:range xsd:date .
+
+cc:responsibleFor a owl:ObjectProperty ;
+    rdfs:label "RESPONSIBLE_FOR" ;
+    rdfs:comment "RACI 'Responsible': the team does the work of the process step." ;
+    rdfs:domain cc:Team ;
+    rdfs:range cc:ProcessStep .
+
+cc:retentionDays a owl:DatatypeProperty ;
+    rdfs:label "retentionDays" ;
+    rdfs:comment "Retention period of the topic in days." ;
+    rdfs:domain cc:KafkaTopic ;
+    rdfs:range xsd:integer .
+
+cc:rootCause a owl:DatatypeProperty ;
+    rdfs:label "rootCause" ;
+    rdfs:comment "The root cause of the incident." ;
+    rdfs:domain cc:Incident ;
+    rdfs:range xsd:string .
+
+cc:ruleArea a owl:DatatypeProperty ;
+    rdfs:label "ruleArea" ;
+    rdfs:comment "The functional area of the rule, for example fraud, reserving, triage or settlement." ;
+    rdfs:domain cc:BusinessRule ;
+    rdfs:range xsd:string .
+
+cc:ruleText a owl:DatatypeProperty ;
+    rdfs:label "ruleText" ;
+    rdfs:comment "The wording of the rule in this version." ;
+    rdfs:domain cc:RuleVersion ;
+    rdfs:range xsd:string .
+
+cc:runsProgram a owl:ObjectProperty ;
+    rdfs:label "RUNS_PROGRAM" ;
+    rdfs:comment "A step of the batch job runs the program." ;
+    rdfs:domain cc:BatchJob ;
+    rdfs:range cc:Program .
+
+cc:schedule a owl:DatatypeProperty ;
+    rdfs:label "schedule" ;
+    rdfs:comment "When the interface or batch job runs, as stated (for example a daily time). Schedules change over time." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:Interface cc:BatchJob ) ] ;
+    rdfs:range xsd:string .
+
+cc:schemaName a owl:DatatypeProperty ;
+    rdfs:label "schemaName" ;
+    rdfs:comment "The database schema that qualifies the table name." ;
+    rdfs:domain cc:DatabaseTable ;
+    rdfs:range xsd:string .
+
+cc:sequenceNumber a owl:DatatypeProperty ;
+    rdfs:label "sequenceNumber" ;
+    rdfs:comment "Position of the stage or step in the process order." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:ProcessStage cc:ProcessStep ) ] ;
+    rdfs:range xsd:integer .
+
+cc:serviceLevel a owl:DatatypeProperty ;
+    rdfs:label "serviceLevel" ;
+    rdfs:comment "The service-level target of the step, for example a number of business days." ;
+    rdfs:domain cc:ProcessStep ;
+    rdfs:range xsd:string .
+
+cc:severity a owl:DatatypeProperty ;
+    rdfs:label "severity" ;
+    rdfs:comment "Severity rating of the incident." ;
+    rdfs:domain cc:Incident ;
+    rdfs:range xsd:string .
+
+cc:sourceSystem a owl:ObjectProperty ;
+    rdfs:label "SOURCE_SYSTEM" ;
+    rdfs:comment "The system the interface takes its data from." ;
+    rdfs:domain cc:Interface ;
+    rdfs:range cc:System .
+
+cc:status a owl:DatatypeProperty ;
+    rdfs:label "status" ;
+    rdfs:comment "Lifecycle or workflow status as the source states it, for example legacy, target or retired for a system; draft, approved, superseded or withdrawn for a rule version; open, in review or done for a ticket. Time-dependent." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:System cc:Program cc:Service cc:Interface cc:BatchJob cc:RuleVersion cc:ArchitectureDecision cc:Incident cc:Ticket cc:Milestone cc:Claim ) ] ;
+    rdfs:range xsd:string .
+
+cc:subrogationFlag a owl:DatatypeProperty ;
+    rdfs:label "subrogationFlag" ;
+    rdfs:comment "True when Subrogation is being pursued for the claim." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range xsd:boolean .
+
+cc:supersedes a owl:ObjectProperty ;
+    rdfs:label "SUPERSEDES" ;
+    rdfs:comment "The subject rule replaces the object rule, a different rule id, which stops applying. For a newer version of the same rule replacing an older one, use SUPERSEDES_VERSION." ;
+    rdfs:domain cc:BusinessRule ;
+    rdfs:range cc:BusinessRule .
+
+cc:supersedesDecision a owl:ObjectProperty ;
+    rdfs:label "SUPERSEDES_DECISION" ;
+    rdfs:comment "The subject decision replaces the object (earlier) decision." ;
+    rdfs:domain cc:ArchitectureDecision ;
+    rdfs:range cc:ArchitectureDecision .
+
+cc:supersedesVersion a owl:ObjectProperty ;
+    rdfs:label "SUPERSEDES_VERSION" ;
+    rdfs:comment "The subject version of a rule replaces the object (earlier) version of the same rule." ;
+    rdfs:domain cc:RuleVersion ;
+    rdfs:range cc:RuleVersion .
+
+cc:suppliedBy a owl:ObjectProperty ;
+    rdfs:label "SUPPLIED_BY" ;
+    rdfs:comment "The organisation that supplies or licenses the system." ;
+    rdfs:domain cc:System ;
+    rdfs:range cc:Organisation .
+
+cc:targetSystem a owl:ObjectProperty ;
+    rdfs:label "TARGET_SYSTEM" ;
+    rdfs:comment "The system the interface delivers its data to." ;
+    rdfs:domain cc:Interface ;
+    rdfs:range cc:System .
+
+cc:technology a owl:DatatypeProperty ;
+    rdfs:label "technology" ;
+    rdfs:comment "The technology stack of the system." ;
+    rdfs:domain cc:System ;
+    rdfs:range xsd:string .
+
+cc:threshold a owl:DatatypeProperty ;
+    rdfs:label "threshold" ;
+    rdfs:comment "The main numeric trigger value set by the rule version, for example a score or a monetary limit. Pair a monetary threshold with currency." ;
+    rdfs:domain cc:RuleVersion ;
+    rdfs:range xsd:decimal .
+
+cc:ticketType a owl:DatatypeProperty ;
+    rdfs:label "ticketType" ;
+    rdfs:comment "Type of the ticket, for example bug, story or task." ;
+    rdfs:domain cc:Ticket ;
+    rdfs:range xsd:string .
+
+cc:tier a owl:DatatypeProperty ;
+    rdfs:label "tier" ;
+    rdfs:comment "The complexity tier of the claim (1 to 3); tier 3 marks a Tier-3 Claim." ;
+    rdfs:domain cc:Claim ;
+    rdfs:range xsd:integer .
+
+cc:tier3Threshold a owl:DatatypeProperty ;
+    rdfs:label "tier3Threshold" ;
+    rdfs:comment "A threshold that applies only to Tier-3 Claims, where the rule version sets one that differs from the main threshold." ;
+    rdfs:domain cc:RuleVersion ;
+    rdfs:range xsd:decimal .
+
+cc:title a owl:DatatypeProperty ;
+    rdfs:label "title" ;
+    rdfs:comment "The title or summary line of a rule, regulation, decision record, incident, ticket or screen." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:BusinessRule cc:Regulation cc:ArchitectureDecision cc:Incident cc:Ticket cc:ScreenMap ) ] ;
+    rdfs:range xsd:string .
+
+cc:transactionCode a owl:DatatypeProperty ;
+    rdfs:label "transactionCode" ;
+    rdfs:comment "The CICS transaction id that starts the program or shows the screen map." ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( cc:Program cc:ScreenMap ) ] ;
+    rdfs:range xsd:string .
+
+cc:usesCopybook a owl:ObjectProperty ;
+    rdfs:label "USES_COPYBOOK" ;
+    rdfs:comment "The program includes the copybook." ;
+    rdfs:domain cc:Program ;
+    rdfs:range cc:Copybook .
+
+cc:version a owl:DatatypeProperty ;
+    rdfs:label "version" ;
+    rdfs:comment "The version number of the rule version." ;
+    rdfs:domain cc:RuleVersion ;
+    rdfs:range xsd:string .
+
+cc:writesToTable a owl:ObjectProperty ;
+    rdfs:label "WRITES_TO_TABLE" ;
+    rdfs:comment "The program inserts, updates or deletes rows in the table." ;
+    rdfs:domain cc:Program ;
+    rdfs:range cc:DatabaseTable .
+
+cc:ClaimsAssessor a owl:Class ;
+    rdfs:label "Claims Assessor" ;
+    rdfs:comment "A person or panel firm that inspects or desk-assesses a loss and reports an estimate and a view on cover. Internal Claims Assessors are employees of the insurer; external Claims Assessors come from panel vendor firms." .
+
+cc:Copybook a owl:Class ;
+    rdfs:label "Copybook" ;
+    rdfs:comment "A COBOL copybook: a shared record layout included by programs, usually the layout of one database table or one interface record." .
+
+cc:BatchJob a owl:Class ;
+    rdfs:label "Batch Job" ;
+    rdfs:comment "A scheduled JCL batch job made of steps, each of which runs a program." ;
+    skos:altLabel "JCL Job" .
+
+cc:Department a owl:Class ;
+    rdfs:label "Department" ;
+    rdfs:comment "A top-level division of the insurer that groups teams and has a head." .
+
+cc:ProcessStage a owl:Class ;
+    rdfs:label "Process Stage" ;
+    rdfs:comment "One of the ordered top-level stages of the end-to-end claims process, with an accountable owner who can change over time." .
+
+cc:KafkaTopic a owl:Class ;
+    rdfs:label "Kafka Topic" ;
+    rdfs:comment "A topic on the event streaming platform, with partitions and a retention period, published and consumed by services." .
+
+cc:Milestone a owl:Class ;
+    rdfs:label "Milestone" ;
+    rdfs:comment "A dated programme milestone: a go-live, a migration wave, a parallel run or a decommission target." .
+
+cc:RegulatoryReport a owl:Class ;
+    rdfs:label "Regulatory Report" ;
+    rdfs:comment "A periodic return submitted to the regulator, prepared by a named person and fed by interfaces." ;
+    skos:altLabel "Regulatory Return" .
+
+cc:ScreenMap a owl:Class ;
+    rdfs:label "Screen Map" ;
+    rdfs:comment "A BMS screen map (with its mapset) that an online program displays under a CICS transaction." ;
+    skos:altLabel "BMS Map" .
+
+cc:ClaimType a owl:Class ;
+    rdfs:label "Claim Type" ;
+    rdfs:comment "The classification of a claim by the kind of event that caused the damage, with a short code and local-language names." .
+
+cc:Regulation a owl:Class ;
+    rdfs:label "Regulation" ;
+    rdfs:comment "A circular or other requirement issued by the regulator, with publication and effective dates. Business rules are governed by it." ;
+    skos:altLabel "Regulatory Circular" .
+
+cc:ArchitectureDecision a owl:Class ;
+    rdfs:label "Architecture Decision" ;
+    rdfs:comment "An architecture decision record with an id, title, date, status and deciders. A later decision can supersede an earlier one." ;
+    skos:altLabel "Architecture Decision Record" .
+
+cc:DatabaseTable a owl:Class ;
+    rdfs:label "Database Table" ;
+    rdfs:comment "A relational table in the legacy DB2 database or in a target PostgreSQL database, identified by its schema-qualified name." .
+
+cc:Location a owl:Class ;
+    rdfs:label "Location" ;
+    rdfs:comment "A physical site: an office, a data centre, or an office of an external organisation." .
+
+cc:Organisation a owl:Class ;
+    rdfs:label "Organisation" ;
+    rdfs:comment "A legal entity: the insurer itself, a supplier or panel firm, a consultancy, a reinsurer, a bank or the regulator." ;
+    skos:altLabel "Organization" .
+
+cc:Ticket a owl:Class ;
+    rdfs:label "Ticket" ;
+    rdfs:comment "A work item in the programme's issue tracker (bug, story or task) with a key, summary, status, assignee and fix version." .
+
+cc:Incident a owl:Class ;
+    rdfs:label "Incident" ;
+    rdfs:comment "A production incident with a number, severity, date, root cause and status. It affects systems, programs or interfaces and is fixed through tickets." .
+
+cc:ProcessStep a owl:Class ;
+    rdfs:label "Process Step" ;
+    rdfs:comment "An ordered activity within a process stage, with a service level, RACI assignments, the systems it is performed in and decision branches to the next steps." .
+
+cc:Product a owl:Class ;
+    rdfs:label "Product" ;
+    rdfs:comment "An insurance product sold in one region, with a line of business, currency, Excess and policy wordings. A product covers a set of Claim Types." .
+
+cc:Team a owl:Class ;
+    rdfs:label "Team" ;
+    rdfs:comment "A named working group with a lead and staff, inside a department. Team names and leads change over time." .
+
+cc:BusinessRule a owl:Class ;
+    rdfs:label "Business Rule" ;
+    rdfs:comment "A claims business rule identified by a rule id within a functional area (fraud, reserving, triage, settlement and so on). Its wording, parameters, status and effective dates belong to its Rule Versions." .
+
+cc:Service a owl:Class ;
+    rdfs:label "Service" ;
+    rdfs:comment "A microservice of the target claims platform (Java/Spring on OpenShift) that owns its own database tables, exposes APIs and publishes or consumes Kafka topics." ;
+    skos:altLabel "Microservice" .
+
+cc:RuleVersion a owl:Class ;
+    rdfs:label "Rule Version" ;
+    rdfs:comment "One numbered version of a Business Rule, with its own status (draft, approved, superseded or withdrawn), effective dates, rule text and parameters. A draft version has no effective dates." .
+
+cc:Interface a owl:Class ;
+    rdfs:label "Interface" ;
+    rdfs:comment "A data feed or integration from a source system to a target system, with a protocol, format, schedule and owner. An interface can depend on upstream interfaces." .
+
+cc:System a owl:Class ;
+    rdfs:label "System" ;
+    rdfs:comment "An application or platform, legacy or target: the core claims platforms, a fraud-scoring engine, a portal, a data warehouse, a scheduler. Programs, services, tables, batch jobs and topics are parts of a system." .
+
+cc:Claim a owl:Class ;
+    rdfs:label "Claim" ;
+    rdfs:comment "An individual insurance claim with a claim reference, Claim Type, product, dates, Reserve, payments, Fraud Score and appointed Claims Assessor." .
+
+cc:Program a owl:Class ;
+    rdfs:label "Program" ;
+    rdfs:comment "A COBOL program of the legacy claims platform, identified by its eight-character program name. Online programs run under a CICS transaction; batch programs run as steps of batch jobs." ;
+    skos:altLabel "COBOL Program" .
+
+cc:Person a owl:Class ;
+    rdfs:label "Person" ;
+    rdfs:comment "An individual: an employee of the insurer, a consultant, a contact at a supplier, or someone who works for the regulator. Job titles and role names are values of jobTitle, never separate Person nodes." .
+

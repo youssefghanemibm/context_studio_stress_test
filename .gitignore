@@ -1,0 +1,14 @@
+# local-only notes (internal product facts never go in the public repo)
+NOTES.local.md
+*.local.md
+local/
+# python / env
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+# scratch + derived artefacts (regenerable)
+build/
+batches/materialized/
+results/runs/*.json
+!results/runs/.gitkeep

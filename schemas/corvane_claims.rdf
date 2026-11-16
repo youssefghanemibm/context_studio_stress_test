@@ -1,0 +1,1072 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERATED from corvane_claims.jsonld by schemas/validate_schema.py (emit-ttl option). Do not edit by hand; edit the JSON-LD and re-run. -->
+<rdf:RDF
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+>
+  <owl:Ontology rdf:about="https://example.org/corvane/claims">
+    <rdfs:comment>Hand-written knowledge-graph schema for the Corvane Mutual claims-platform modernisation (from the legacy CLARA platform to the Claims Hub microservices). It uses canonical terms only. Relationship labels are UPPER_SNAKE and their IRIs are camelCase; class labels are the canonical names; datatype property labels equal their IRI local names. Properties with more than one possible subject or object class use owl:unionOf.</rdfs:comment>
+    <rdfs:label>Corvane Mutual claims modernisation schema</rdfs:label>
+    <owl:versionInfo>1.0.0</owl:versionInfo>
+  </owl:Ontology>
+  <owl:Class rdf:about="https://example.org/corvane/claims#ArchitectureDecision">
+    <rdfs:comment>An architecture decision record with an id, title, date, status and deciders. A later decision can supersede an earlier one.</rdfs:comment>
+    <rdfs:label>Architecture Decision</rdfs:label>
+    <skos:altLabel>Architecture Decision Record</skos:altLabel>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#BatchJob">
+    <rdfs:comment>A scheduled JCL batch job made of steps, each of which runs a program.</rdfs:comment>
+    <rdfs:label>Batch Job</rdfs:label>
+    <skos:altLabel>JCL Job</skos:altLabel>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#BusinessRule">
+    <rdfs:comment>A claims business rule identified by a rule id within a functional area (fraud, reserving, triage, settlement and so on). Its wording, parameters, status and effective dates belong to its Rule Versions.</rdfs:comment>
+    <rdfs:label>Business Rule</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Claim">
+    <rdfs:comment>An individual insurance claim with a claim reference, Claim Type, product, dates, Reserve, payments, Fraud Score and appointed Claims Assessor.</rdfs:comment>
+    <rdfs:label>Claim</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#ClaimType">
+    <rdfs:comment>The classification of a claim by the kind of event that caused the damage, with a short code and local-language names.</rdfs:comment>
+    <rdfs:label>Claim Type</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#ClaimsAssessor">
+    <rdfs:comment>A person or panel firm that inspects or desk-assesses a loss and reports an estimate and a view on cover. Internal Claims Assessors are employees of the insurer; external Claims Assessors come from panel vendor firms.</rdfs:comment>
+    <rdfs:label>Claims Assessor</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Copybook">
+    <rdfs:comment>A COBOL copybook: a shared record layout included by programs, usually the layout of one database table or one interface record.</rdfs:comment>
+    <rdfs:label>Copybook</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#DatabaseTable">
+    <rdfs:comment>A relational table in the legacy DB2 database or in a target PostgreSQL database, identified by its schema-qualified name.</rdfs:comment>
+    <rdfs:label>Database Table</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Department">
+    <rdfs:comment>A top-level division of the insurer that groups teams and has a head.</rdfs:comment>
+    <rdfs:label>Department</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Incident">
+    <rdfs:comment>A production incident with a number, severity, date, root cause and status. It affects systems, programs or interfaces and is fixed through tickets.</rdfs:comment>
+    <rdfs:label>Incident</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Interface">
+    <rdfs:comment>A data feed or integration from a source system to a target system, with a protocol, format, schedule and owner. An interface can depend on upstream interfaces.</rdfs:comment>
+    <rdfs:label>Interface</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#KafkaTopic">
+    <rdfs:comment>A topic on the event streaming platform, with partitions and a retention period, published and consumed by services.</rdfs:comment>
+    <rdfs:label>Kafka Topic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Location">
+    <rdfs:comment>A physical site: an office, a data centre, or an office of an external organisation.</rdfs:comment>
+    <rdfs:label>Location</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Milestone">
+    <rdfs:comment>A dated programme milestone: a go-live, a migration wave, a parallel run or a decommission target.</rdfs:comment>
+    <rdfs:label>Milestone</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Organisation">
+    <rdfs:comment>A legal entity: the insurer itself, a supplier or panel firm, a consultancy, a reinsurer, a bank or the regulator.</rdfs:comment>
+    <rdfs:label>Organisation</rdfs:label>
+    <skos:altLabel>Organization</skos:altLabel>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Person">
+    <rdfs:comment>An individual: an employee of the insurer, a consultant, a contact at a supplier, or someone who works for the regulator. Job titles and role names are values of jobTitle, never separate Person nodes.</rdfs:comment>
+    <rdfs:label>Person</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#ProcessStage">
+    <rdfs:comment>One of the ordered top-level stages of the end-to-end claims process, with an accountable owner who can change over time.</rdfs:comment>
+    <rdfs:label>Process Stage</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#ProcessStep">
+    <rdfs:comment>An ordered activity within a process stage, with a service level, RACI assignments, the systems it is performed in and decision branches to the next steps.</rdfs:comment>
+    <rdfs:label>Process Step</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Product">
+    <rdfs:comment>An insurance product sold in one region, with a line of business, currency, Excess and policy wordings. A product covers a set of Claim Types.</rdfs:comment>
+    <rdfs:label>Product</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Program">
+    <rdfs:comment>A COBOL program of the legacy claims platform, identified by its eight-character program name. Online programs run under a CICS transaction; batch programs run as steps of batch jobs.</rdfs:comment>
+    <rdfs:label>Program</rdfs:label>
+    <skos:altLabel>COBOL Program</skos:altLabel>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Regulation">
+    <rdfs:comment>A circular or other requirement issued by the regulator, with publication and effective dates. Business rules are governed by it.</rdfs:comment>
+    <rdfs:label>Regulation</rdfs:label>
+    <skos:altLabel>Regulatory Circular</skos:altLabel>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#RegulatoryReport">
+    <rdfs:comment>A periodic return submitted to the regulator, prepared by a named person and fed by interfaces.</rdfs:comment>
+    <rdfs:label>Regulatory Report</rdfs:label>
+    <skos:altLabel>Regulatory Return</skos:altLabel>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#RuleVersion">
+    <rdfs:comment>One numbered version of a Business Rule, with its own status (draft, approved, superseded or withdrawn), effective dates, rule text and parameters. A draft version has no effective dates.</rdfs:comment>
+    <rdfs:label>Rule Version</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#ScreenMap">
+    <rdfs:comment>A BMS screen map (with its mapset) that an online program displays under a CICS transaction.</rdfs:comment>
+    <rdfs:label>Screen Map</rdfs:label>
+    <skos:altLabel>BMS Map</skos:altLabel>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Service">
+    <rdfs:comment>A microservice of the target claims platform (Java/Spring on OpenShift) that owns its own database tables, exposes APIs and publishes or consumes Kafka topics.</rdfs:comment>
+    <rdfs:label>Service</rdfs:label>
+    <skos:altLabel>Microservice</skos:altLabel>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#System">
+    <rdfs:comment>An application or platform, legacy or target: the core claims platforms, a fraud-scoring engine, a portal, a data warehouse, a scheduler. Programs, services, tables, batch jobs and topics are parts of a system.</rdfs:comment>
+    <rdfs:label>System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Team">
+    <rdfs:comment>A named working group with a lead and staff, inside a department. Team names and leads change over time.</rdfs:comment>
+    <rdfs:label>Team</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://example.org/corvane/claims#Ticket">
+    <rdfs:comment>A work item in the programme's issue tracker (bug, story or task) with a key, summary, status, assignee and fix version.</rdfs:comment>
+    <rdfs:label>Ticket</rdfs:label>
+  </owl:Class>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#accountableFor">
+    <rdfs:comment>RACI 'Accountable': the person answers for the outcome of the process step.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Person"/>
+    <rdfs:label>ACCOUNTABLE_FOR</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#ProcessStep"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#affectedInterface">
+    <rdfs:comment>The incident affected the interface.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Incident"/>
+    <rdfs:label>AFFECTED_INTERFACE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Interface"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#affectedProgram">
+    <rdfs:comment>The incident involved the program.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Incident"/>
+    <rdfs:label>AFFECTED_PROGRAM</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Program"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#affectedSystem">
+    <rdfs:comment>The incident affected the system.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Incident"/>
+    <rdfs:label>AFFECTED_SYSTEM</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#System"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#appliesToClaimType">
+    <rdfs:comment>The rule applies to claims of this Claim Type.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#BusinessRule"/>
+    <rdfs:label>APPLIES_TO_CLAIM_TYPE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#ClaimType"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#appliesToProduct">
+    <rdfs:comment>The rule applies to claims on this product.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#BusinessRule"/>
+    <rdfs:label>APPLIES_TO_PRODUCT</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Product"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#appliesToStep">
+    <rdfs:comment>The rule is applied in this process step.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#BusinessRule"/>
+    <rdfs:label>APPLIES_TO_STEP</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#ProcessStep"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#appointedAssessor">
+    <rdfs:comment>The Claims Assessor appointed to inspect or desk-assess the claim.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>APPOINTED_ASSESSOR</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#ClaimsAssessor"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#approvedBy">
+    <rdfs:comment>A person who approved this version of the rule.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#RuleVersion"/>
+    <rdfs:label>APPROVED_BY</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Person"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#assignedTo">
+    <rdfs:comment>The person the ticket is assigned to.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Ticket"/>
+    <rdfs:label>ASSIGNED_TO</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Person"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#callsProgram">
+    <rdfs:comment>The subject program calls the object program (a COBOL CALL or a CICS LINK).</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Program"/>
+    <rdfs:label>CALLS_PROGRAM</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Program"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#claimedUnderProduct">
+    <rdfs:comment>The product under which the claim is made.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>CLAIMED_UNDER_PRODUCT</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Product"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#classifiedAsClaimType">
+    <rdfs:comment>The Claim Type of the claim.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>CLASSIFIED_AS_CLAIM_TYPE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#ClaimType"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#consumesInterface">
+    <rdfs:comment>The team uses the data the interface delivers.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Team"/>
+    <rdfs:label>CONSUMES_INTERFACE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Interface"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#consumesTopic">
+    <rdfs:comment>The service consumes events from the topic.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Service"/>
+    <rdfs:label>CONSUMES_TOPIC</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#KafkaTopic"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#coversClaimType">
+    <rdfs:comment>The product provides cover for claims of this Claim Type.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Product"/>
+    <rdfs:label>COVERS_CLAIM_TYPE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#ClaimType"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#decidedBy">
+    <rdfs:comment>A person who made the architecture decision.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#ArchitectureDecision"/>
+    <rdfs:label>DECIDED_BY</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Person"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#dependsOnInterface">
+    <rdfs:comment>The subject interface needs the output of the object (upstream) interface; a change to the object interface can break the subject.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Interface"/>
+    <rdfs:label>DEPENDS_ON_INTERFACE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Interface"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#displaysMap">
+    <rdfs:comment>The online program sends and receives the screen map.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Program"/>
+    <rdfs:label>DISPLAYS_MAP</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#ScreenMap"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#employedBy">
+    <rdfs:comment>The organisation that employs the person: the insurer, a consultancy, a supplier or the regulator.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Person"/>
+    <rdfs:label>EMPLOYED_BY</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Organisation"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#feedsReport">
+    <rdfs:comment>The interface supplies data used to produce the regulatory report.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Interface"/>
+    <rdfs:label>FEEDS_REPORT</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#RegulatoryReport"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#governedBy">
+    <rdfs:comment>The rule exists to meet, or is constrained by, the regulation.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#BusinessRule"/>
+    <rdfs:label>GOVERNED_BY</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Regulation"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#hasVersion">
+    <rdfs:comment>The rule has this numbered version. Each version carries its own text, parameters, status and effective dates.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#BusinessRule"/>
+    <rdfs:label>HAS_VERSION</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#RuleVersion"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#headsDepartment">
+    <rdfs:comment>The person is the head of the department (time-dependent).</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Person"/>
+    <rdfs:label>HEADS_DEPARTMENT</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Department"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#implementsRule">
+    <rdfs:comment>The program or service contains the logic that applies the business rule.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Program"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Service"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>IMPLEMENTS_RULE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#BusinessRule"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#issuedBy">
+    <rdfs:comment>The regulator that issued the regulation.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Regulation"/>
+    <rdfs:label>ISSUED_BY</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Organisation"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#leads">
+    <rdfs:comment>The person is the lead of the team (time-dependent).</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Person"/>
+    <rdfs:label>LEADS</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Team"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#locatedIn">
+    <rdfs:comment>The person's work location (office or external site).</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Person"/>
+    <rdfs:label>LOCATED_IN</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Location"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#memberOf">
+    <rdfs:comment>The person works in the team.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Person"/>
+    <rdfs:label>MEMBER_OF</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Team"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#migratesProduct">
+    <rdfs:comment>The migration wave moves the claims of this product from the legacy platform to the target platform.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Milestone"/>
+    <rdfs:label>MIGRATES_PRODUCT</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Product"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#nextStep">
+    <rdfs:comment>The object step can follow the subject step in the process flow (one edge per branch).</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#ProcessStep"/>
+    <rdfs:label>NEXT_STEP</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#ProcessStep"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#ownsInterface">
+    <rdfs:comment>The person is the accountable owner of the interface.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Person"/>
+    <rdfs:label>OWNS_INTERFACE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Interface"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#ownsProcess">
+    <rdfs:comment>The person is the accountable owner of the process stage. Owners change over time; take the one the source states for its own date.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Person"/>
+    <rdfs:label>OWNS_PROCESS</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#ProcessStage"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#ownsRule">
+    <rdfs:comment>The person is the business owner of the rule.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Person"/>
+    <rdfs:label>OWNS_RULE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#BusinessRule"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#ownsService">
+    <rdfs:comment>The team owns, builds and runs the service (time-dependent).</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Team"/>
+    <rdfs:label>OWNS_SERVICE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Service"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#ownsSystem">
+    <rdfs:comment>The person is the accountable owner of the system.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Person"/>
+    <rdfs:label>OWNS_SYSTEM</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#System"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#ownsTable">
+    <rdfs:comment>The service owns the table in its own database (one database per service).</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Service"/>
+    <rdfs:label>OWNS_TABLE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#DatabaseTable"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#partOfDepartment">
+    <rdfs:comment>The team sits inside the department.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Team"/>
+    <rdfs:label>PART_OF_DEPARTMENT</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Department"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#partOfStage">
+    <rdfs:comment>The step belongs to the process stage.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#ProcessStep"/>
+    <rdfs:label>PART_OF_STAGE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#ProcessStage"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#partOfSystem">
+    <rdfs:comment>The component (program, service, table, batch job, screen map, copybook or Kafka topic) is part of the system.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Program"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Service"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#DatabaseTable"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#BatchJob"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#ScreenMap"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Copybook"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#KafkaTopic"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>PART_OF_SYSTEM</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#System"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#performedInSystem">
+    <rdfs:comment>The step is carried out in the system.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#ProcessStep"/>
+    <rdfs:label>PERFORMED_IN_SYSTEM</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#System"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#preparedBy">
+    <rdfs:comment>The person who prepares the regulatory report.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#RegulatoryReport"/>
+    <rdfs:label>PREPARED_BY</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Person"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#providedByFirm">
+    <rdfs:comment>The organisation that provides the Claims Assessor: a panel vendor firm for external Claims Assessors, the insurer for internal ones.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#ClaimsAssessor"/>
+    <rdfs:label>PROVIDED_BY_FIRM</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Organisation"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#publishesTopic">
+    <rdfs:comment>The service produces events to the topic.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Service"/>
+    <rdfs:label>PUBLISHES_TOPIC</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#KafkaTopic"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#readsFromTable">
+    <rdfs:comment>The program reads rows from the table.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Program"/>
+    <rdfs:label>READS_FROM_TABLE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#DatabaseTable"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#renamedTo">
+    <rdfs:comment>Links an entity under its former name to the same entity under its new name. Both ends are the same kind of entity (a system, service, program, team or person).</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Person"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Team"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#System"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Program"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Service"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>RENAMED_TO</rdfs:label>
+    <rdfs:range>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Person"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Team"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#System"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Program"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Service"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:range>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#replacesProgram">
+    <rdfs:comment>The service takes over the function of the legacy program.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Service"/>
+    <rdfs:label>REPLACES_PROGRAM</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Program"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#replacesSystem">
+    <rdfs:comment>The subject system takes over the function of the object system.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#System"/>
+    <rdfs:label>REPLACES_SYSTEM</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#System"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#reportsTo">
+    <rdfs:comment>The subject person's line manager is the object person. Reporting lines change over time; take the one the source states for its own date.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Person"/>
+    <rdfs:label>REPORTS_TO</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Person"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#resolvedByTicket">
+    <rdfs:comment>The ticket carries the fix for the incident.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Incident"/>
+    <rdfs:label>RESOLVED_BY_TICKET</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Ticket"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#responsibleFor">
+    <rdfs:comment>RACI 'Responsible': the team does the work of the process step.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Team"/>
+    <rdfs:label>RESPONSIBLE_FOR</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#ProcessStep"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#runsProgram">
+    <rdfs:comment>A step of the batch job runs the program.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#BatchJob"/>
+    <rdfs:label>RUNS_PROGRAM</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Program"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#sourceSystem">
+    <rdfs:comment>The system the interface takes its data from.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Interface"/>
+    <rdfs:label>SOURCE_SYSTEM</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#System"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#supersedes">
+    <rdfs:comment>The subject rule replaces the object rule, a different rule id, which stops applying. For a newer version of the same rule replacing an older one, use SUPERSEDES_VERSION.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#BusinessRule"/>
+    <rdfs:label>SUPERSEDES</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#BusinessRule"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#supersedesDecision">
+    <rdfs:comment>The subject decision replaces the object (earlier) decision.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#ArchitectureDecision"/>
+    <rdfs:label>SUPERSEDES_DECISION</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#ArchitectureDecision"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#supersedesVersion">
+    <rdfs:comment>The subject version of a rule replaces the object (earlier) version of the same rule.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#RuleVersion"/>
+    <rdfs:label>SUPERSEDES_VERSION</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#RuleVersion"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#suppliedBy">
+    <rdfs:comment>The organisation that supplies or licenses the system.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#System"/>
+    <rdfs:label>SUPPLIED_BY</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Organisation"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#targetSystem">
+    <rdfs:comment>The system the interface delivers its data to.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Interface"/>
+    <rdfs:label>TARGET_SYSTEM</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#System"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#usesCopybook">
+    <rdfs:comment>The program includes the copybook.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Program"/>
+    <rdfs:label>USES_COPYBOOK</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#Copybook"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://example.org/corvane/claims#writesToTable">
+    <rdfs:comment>The program inserts, updates or deletes rows in the table.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Program"/>
+    <rdfs:label>WRITES_TO_TABLE</rdfs:label>
+    <rdfs:range rdf:resource="https://example.org/corvane/claims#DatabaseTable"/>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#alias">
+    <rdfs:comment>Another name the entity is known by: an abbreviation, short name, spelling variant or former name. Multi-valued: one value per alias.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Person"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Team"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Department"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Organisation"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Location"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#System"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Service"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Program"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Product"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#ClaimType"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>alias</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#amount">
+    <rdfs:comment>A monetary amount set by the rule version, such as an authority limit or a minimum value. Pair it with currency.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#RuleVersion"/>
+    <rdfs:label>amount</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#approvedOn">
+    <rdfs:comment>The date the rule version was approved.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#RuleVersion"/>
+    <rdfs:label>approvedOn</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#channel">
+    <rdfs:comment>The channel through which the claim was notified, for example phone, web, broker or app.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>channel</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#city">
+    <rdfs:comment>City of the location.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Location"/>
+    <rdfs:label>city</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#claimTypeCode">
+    <rdfs:comment>The short code of the Claim Type.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#ClaimType"/>
+    <rdfs:label>claimTypeCode</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#claimsMigrated">
+    <rdfs:comment>Number of claims moved to the target platform by the migration wave.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Milestone"/>
+    <rdfs:label>claimsMigrated</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#closedDate">
+    <rdfs:comment>The date the claim was closed.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>closedDate</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#country">
+    <rdfs:comment>Country of the location or organisation.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Location"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Organisation"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>country</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#createdOn">
+    <rdfs:comment>The date the table or ticket was created.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#DatabaseTable"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Ticket"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>createdOn</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#criticality">
+    <rdfs:comment>Business criticality rating of the interface.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Interface"/>
+    <rdfs:label>criticality</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#currency">
+    <rdfs:comment>ISO 4217 currency code of the amounts on the entity, for example GBP, NOK, SEK or DKK.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#RuleVersion"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Product"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Claim"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>currency</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#dataFormat">
+    <rdfs:comment>Data format or record layout carried by the interface.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Interface"/>
+    <rdfs:label>dataFormat</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#databasePlatform">
+    <rdfs:comment>The database platform of the table: DB2 or PostgreSQL.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#DatabaseTable"/>
+    <rdfs:label>databasePlatform</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#decisionDate">
+    <rdfs:comment>The date the architecture decision was made.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#ArchitectureDecision"/>
+    <rdfs:label>decisionDate</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#decommissionTargetDate">
+    <rdfs:comment>The planned decommission date of the system.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#System"/>
+    <rdfs:label>decommissionTargetDate</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#dueDeadline">
+    <rdfs:comment>When the report is due, as stated (for example a number of days after period end).</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#RegulatoryReport"/>
+    <rdfs:label>dueDeadline</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#effectiveFrom">
+    <rdfs:comment>First day the rule version or regulation applies. Absent for drafts.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#RuleVersion"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Regulation"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>effectiveFrom</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#effectiveTo">
+    <rdfs:comment>Last day the rule version applies. Absent while it is still in force.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#RuleVersion"/>
+    <rdfs:label>effectiveTo</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#email">
+    <rdfs:comment>The person's work email address.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Person"/>
+    <rdfs:label>email</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#excessAmount">
+    <rdfs:comment>The standard Excess on the product: the amount the Policyholder bears on each claim, in the product currency. Older policy wordings may state older amounts.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Product"/>
+    <rdfs:label>excessAmount</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#fraudReferral">
+    <rdfs:comment>True when the claim was the subject of a Fraud Referral.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>fraudReferral</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#fraudScore">
+    <rdfs:comment>The Fraud Score (0 to 100) recorded for the claim.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>fraudScore</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#frequency">
+    <rdfs:comment>How often the report is submitted, for example quarterly or annually.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#RegulatoryReport"/>
+    <rdfs:label>frequency</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#goLiveDate">
+    <rdfs:comment>The date the system or service went live (or is planned to).</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#System"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Service"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>goLiveDate</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#headcount">
+    <rdfs:comment>Number of staff based at the location.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Location"/>
+    <rdfs:label>headcount</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#identifier">
+    <rdfs:comment>The business identifier or code that sources use for the entity, for example an interface id, rule id, ticket key, incident number or claim reference.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#System"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Service"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Team"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Department"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Location"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Organisation"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Interface"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#BusinessRule"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Regulation"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#RegulatoryReport"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Product"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#ClaimType"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#ProcessStage"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#ProcessStep"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Incident"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#ArchitectureDecision"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Ticket"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Milestone"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Claim"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>identifier</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#inServiceSince">
+    <rdfs:comment>The date the program or interface first existed in production.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Program"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Interface"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>inServiceSince</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#incurredAmount">
+    <rdfs:comment>Incurred: the amount paid to date plus the current Reserve, in the claim currency.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>incurredAmount</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#jobTitle">
+    <rdfs:comment>The person's job title. Titles change over time; a title is a property of a person, never a separate Person node.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Person"/>
+    <rdfs:label>jobTitle</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#lineOfBusiness">
+    <rdfs:comment>Line of business of the product, for example motor, home, commercial property or liability.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Product"/>
+    <rdfs:label>lineOfBusiness</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#linesOfCode">
+    <rdfs:comment>Size of the program in lines of code.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Program"/>
+    <rdfs:label>linesOfCode</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#locationType">
+    <rdfs:comment>Kind of site: office, data centre or external office.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Location"/>
+    <rdfs:label>locationType</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#lossDate">
+    <rdfs:comment>The date the loss happened.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>lossDate</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#mapset">
+    <rdfs:comment>The BMS mapset that contains the screen map.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#ScreenMap"/>
+    <rdfs:label>mapset</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#milestoneDate">
+    <rdfs:comment>The date of the milestone.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Milestone"/>
+    <rdfs:label>milestoneDate</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#notificationDate">
+    <rdfs:comment>The date of First Notice of Loss for the claim.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>notificationDate</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#occurredOn">
+    <rdfs:comment>The date the incident started.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Incident"/>
+    <rdfs:label>occurredOn</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#organisationType">
+    <rdfs:comment>The kind of organisation, for example insurer, panel vendor, software supplier, consultancy, reinsurer, bank or regulator.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Organisation"/>
+    <rdfs:label>organisationType</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#paidToDate">
+    <rdfs:comment>The amount paid on the claim so far, in the claim currency.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>paidToDate</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#partitions">
+    <rdfs:comment>Number of partitions of the topic.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#KafkaTopic"/>
+    <rdfs:label>partitions</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#programType">
+    <rdfs:comment>Whether the program is online or batch.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Program"/>
+    <rdfs:label>programType</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#protocol">
+    <rdfs:comment>Transport protocol of the interface, for example SFTP, REST, MQ, Kafka or a DB2 unload.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Interface"/>
+    <rdfs:label>protocol</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#publishedOn">
+    <rdfs:comment>The date the regulator published the regulation.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Regulation"/>
+    <rdfs:label>publishedOn</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#region">
+    <rdfs:comment>Country or region of the product or claim.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Product"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Claim"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>region</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#releaseVersion">
+    <rdfs:comment>The fix version (release) the ticket is planned for or was delivered in.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Ticket"/>
+    <rdfs:label>releaseVersion</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#reserveAmount">
+    <rdfs:comment>The current Reserve on the claim, in the claim currency.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>reserveAmount</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#resolvedOn">
+    <rdfs:comment>The date the ticket was resolved.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Ticket"/>
+    <rdfs:label>resolvedOn</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#retentionDays">
+    <rdfs:comment>Retention period of the topic in days.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#KafkaTopic"/>
+    <rdfs:label>retentionDays</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#rootCause">
+    <rdfs:comment>The root cause of the incident.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Incident"/>
+    <rdfs:label>rootCause</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#ruleArea">
+    <rdfs:comment>The functional area of the rule, for example fraud, reserving, triage or settlement.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#BusinessRule"/>
+    <rdfs:label>ruleArea</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#ruleText">
+    <rdfs:comment>The wording of the rule in this version.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#RuleVersion"/>
+    <rdfs:label>ruleText</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#schedule">
+    <rdfs:comment>When the interface or batch job runs, as stated (for example a daily time). Schedules change over time.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Interface"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#BatchJob"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>schedule</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#schemaName">
+    <rdfs:comment>The database schema that qualifies the table name.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#DatabaseTable"/>
+    <rdfs:label>schemaName</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#sequenceNumber">
+    <rdfs:comment>Position of the stage or step in the process order.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#ProcessStage"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#ProcessStep"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>sequenceNumber</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#serviceLevel">
+    <rdfs:comment>The service-level target of the step, for example a number of business days.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#ProcessStep"/>
+    <rdfs:label>serviceLevel</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#severity">
+    <rdfs:comment>Severity rating of the incident.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Incident"/>
+    <rdfs:label>severity</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#status">
+    <rdfs:comment>Lifecycle or workflow status as the source states it, for example legacy, target or retired for a system; draft, approved, superseded or withdrawn for a rule version; open, in review or done for a ticket. Time-dependent.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#System"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Program"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Service"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Interface"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#BatchJob"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#RuleVersion"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#ArchitectureDecision"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Incident"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Ticket"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Milestone"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Claim"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>status</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#subrogationFlag">
+    <rdfs:comment>True when Subrogation is being pursued for the claim.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>subrogationFlag</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#technology">
+    <rdfs:comment>The technology stack of the system.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#System"/>
+    <rdfs:label>technology</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#threshold">
+    <rdfs:comment>The main numeric trigger value set by the rule version, for example a score or a monetary limit. Pair a monetary threshold with currency.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#RuleVersion"/>
+    <rdfs:label>threshold</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#ticketType">
+    <rdfs:comment>Type of the ticket, for example bug, story or task.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Ticket"/>
+    <rdfs:label>ticketType</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#tier">
+    <rdfs:comment>The complexity tier of the claim (1 to 3); tier 3 marks a Tier-3 Claim.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#Claim"/>
+    <rdfs:label>tier</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#tier3Threshold">
+    <rdfs:comment>A threshold that applies only to Tier-3 Claims, where the rule version sets one that differs from the main threshold.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#RuleVersion"/>
+    <rdfs:label>tier3Threshold</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#title">
+    <rdfs:comment>The title or summary line of a rule, regulation, decision record, incident, ticket or screen.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#BusinessRule"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Regulation"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#ArchitectureDecision"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Incident"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Ticket"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#ScreenMap"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>title</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#transactionCode">
+    <rdfs:comment>The CICS transaction id that starts the program or shows the screen map.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://example.org/corvane/claims#Program"/>
+          <rdf:Description rdf:about="https://example.org/corvane/claims#ScreenMap"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:label>transactionCode</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://example.org/corvane/claims#version">
+    <rdfs:comment>The version number of the rule version.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://example.org/corvane/claims#RuleVersion"/>
+    <rdfs:label>version</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+</rdf:RDF>
